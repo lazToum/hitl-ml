@@ -1,0 +1,515 @@
+% ============================================================================
+% CHAPTER 2 TEACHER'S MANUAL
+% Complete instructional guide for teaching AI uncertainty concepts
+% ============================================================================
+% Source: /markdown/ch2/Ch2T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 2}
+\label{ch:teacher-ch02}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching AI uncertainty concepts using \emph{When Smart Systems Get Confused}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Define aleatoric and epistemic uncertainty and give examples of each
+    \item Explain what ``calibration'' means in the context of AI confidence scores
+    \item Describe why a system can be wrong without being confused, and confused without being wrong
+    \item Identify three ways systems can signal (or fail to signal) their uncertainty
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Classify real-world AI errors as aleatoric vs.\ epistemic in origin
+    \item Evaluate whether a system's uncertainty signals are actionable or merely noisy
+    \item Apply the ``confusion-is-useful'' framing to analyze HITL design choices
+    \item Assess how training data gaps manifest as predictable confusion patterns
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design uncertainty signaling strategies for different HITL applications
+    \item Critique AI systems for calibration failures and propose improvements
+    \item Argue for or against adding human review based on the type of uncertainty present
+    \item Evaluate the HITL value of human review given aleatoric vs.\ epistemic uncertainty sources
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapter~1 concepts:} The Five Dimensions framework, the three failure modes, alert fatigue
+    \item \textbf{Basic probability:} Concept of probability distributions
+    \item \textbf{Not required:} Machine learning background (main chapter); Appendix~2A requires basic statistics
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Early course (Week 2--3)] Best used immediately after Chapter~1 --- builds the conceptual vocabulary for the rest of the book
+    \item[Standalone] Can be taught as ``Types of AI Failure'' in a broader AI literacy course
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Reframe}
+
+The chapter's central argument is a reframe: AI ``confusion'' is not a failure to avoid but a \emph{signal to exploit}. The pedagogical goal is to shift students from ``a good AI never gets confused'' to ``a good AI knows when it's confused.''
+
+\begin{technote}[Teaching Tip]
+Open with Dr.~Anand's story before introducing any vocabulary. Ask students what the AI did right \emph{before} telling them. Most students will initially say the AI failed (it didn't diagnose correctly). The reveal --- that the 51\% score was the valuable information --- creates a memorable cognitive shift.
+\end{technote}
+
+\subsection{Aleatoric vs.\ Epistemic Uncertainty}
+
+\begin{table}[htbp]
+\caption{Aleatoric vs.\ epistemic uncertainty: core comparison}
+\label{tab:uncertainty-types}
+\centering
+\begin{tabular}{@{}p{3cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{Property} & \textbf{Aleatoric} & \textbf{Epistemic} \\
+\midrule
+Source & Noise in the world & Model's ignorance \\
+Reducible? & No & Yes (more data) \\
+Human review helps? & Not reliably & Usually yes \\
+Example & Blurry photograph & Unknown species \\
+HITL response & Acknowledge ambiguity & Route to expert \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[Critical Distinction]
+Students often conflate ``the model is uncertain'' with ``a human would also be uncertain.'' The key distinction is: aleatoric uncertainty = \emph{anyone} would be uncertain; epistemic uncertainty = \emph{this model} is uncertain, but an expert might not be. Only epistemic uncertainty reliably benefits from human review.
+\end{keyconcept}
+
+\subsection{The Calibration Concept}
+
+Calibration is the chapter's most technical concept and requires care in presentation. Recommended approach:
+
+\begin{enumerate}
+    \item Start with the intuitive version: ``If your friend says `I'm 90\% sure' about things, they should be right 9 times out of 10. If they're right only 6 times out of 10, their confidence is miscalibrated.''
+    \item Apply to AI: the same principle, but measurable quantitatively.
+    \item Connect to HITL: poor calibration means the routing signal is unreliable.
+\end{enumerate}
+
+\begin{cautionbox}[Key Misconception to Preempt]
+Students often assume a well-calibrated model is a highly accurate model. Clarify: a model can be 60\% accurate and perfectly calibrated (it always says ``I'm 60\% sure''), or 90\% accurate and poorly calibrated (it always says ``I'm 99\% sure''). Calibration is about the \emph{relationship} between confidence and accuracy, not accuracy alone.
+\end{cautionbox}
+
+\subsection{The 2×2 Wrong/Confused Matrix}
+
+Use this framework to organize the four possible system states:
+
+\begin{table}[htbp]
+\caption{The wrong/confused matrix: four system states}
+\label{tab:wrong-confused}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & \textbf{High Confidence} & \textbf{Low Confidence} \\
+\midrule
+\textbf{Correct} & Best case (trust it) & Useful signal (review) \\
+\textbf{Wrong} & Most dangerous (silent error) & Good signal (routes review) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The most dangerous quadrant is confident + wrong: there is no signal to catch the error. The most \emph{valuable} quadrant for HITL purposes is uncertain (low confidence), whether right or wrong, because it triggers appropriate review.
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening Story: The Radiologist (8 minutes)}
+
+Tell Dr.\ Anand's story without revealing the punchline (the 51\% score) until you've asked the class what happened.
+
+\begin{trythis}
+\textbf{Poll:} ``Did the AI succeed or fail at its job?''\\[0.5em]
+\textbf{Reveal:} The AI succeeded at its \emph{actual} job --- expressing calibrated uncertainty --- even though it didn't produce a diagnosis.\\[0.5em]
+\textbf{Transition:} ``This chapter is about understanding what AI confusion actually looks like and why it's valuable.''
+\end{trythis}
+
+\subsubsection{Part 1: Two Kinds of Uncertainty (12 minutes)}
+
+\begin{itemize}
+    \item Introduce aleatoric vs.\ epistemic with the frosted-glass-photo/Patagonian-mara contrast
+    \item \textbf{Class activity (3 min):} Give three examples; have students vote aleatoric vs.\ epistemic:
+    \begin{enumerate}
+        \item A speech recognizer failing on a noisy recording (mostly aleatoric)
+        \item A spam filter struggling with a new type of phishing email (mostly epistemic)
+        \item A face recognizer failing on dark-skinned faces (epistemic --- training data gap)
+    \end{enumerate}
+    \item \textbf{Key insight:} Only epistemic uncertainty reliably benefits from human review
+\end{itemize}
+
+\subsubsection{Part 2: The Calibration Problem (10 minutes)}
+
+\begin{itemize}
+    \item Introduce calibration with the ``trusted friend'' analogy
+    \item Show reliability diagram concept: plot confidence vs.\ accuracy; perfect calibration is the diagonal
+    \item \textbf{Example:} A medical AI that says ``90\% confident'' but is only right 70\% of the time
+    \item \textbf{HITL connection:} If confidence scores are miscalibrated, routing cases to human review happens on the wrong cases
+\end{itemize}
+
+\subsubsection{Part 3: How Confusion Surfaces (or Doesn't) (10 minutes)}
+
+Three modes: explicit signals, behavioral signals, silent failures.
+
+\begin{table}[htbp]
+\caption{Comparison of uncertainty surfacing modes}
+\label{tab:surfacing-modes}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{System} & \textbf{Mode} & \textbf{Outcome} \\
+\midrule
+Medical AI (Ch.\ 2) & Explicit confidence score & Caught rare infection \\
+Air Canada chatbot (Ch.\ 1) & Silent failure & Wrong answer with full confidence \\
+Voice recognition & Silent failure & Errors without uncertainty flags \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[Core Principle]
+A system that fails silently breaks the HITL loop before it can begin. The value of an uncertainty flag equals its precision: too many flags creates alert fatigue; too few creates overconfidence.
+\end{keyconcept}
+
+\subsubsection{Part 4: Wrong vs.\ Confused (5 minutes)}
+
+\begin{itemize}
+    \item Present the $2\times2$ matrix (Table~\ref{tab:wrong-confused})
+    \item Most dangerous: confident + wrong (no signal to catch)
+    \item Most valuable signal: uncertain (routes to review appropriately in all cases)
+\end{itemize}
+
+\subsubsection{Wrap-Up and Preview (5 minutes)}
+
+\begin{itemize}
+    \item Confusion is a feature, not a bug --- if it's surfaced
+    \item \textbf{Assign ``Try This''} exercise: monitor confidence signals in daily technology use
+    \item \textbf{Preview:} ``Next chapter: where does this confusion come from? Understanding how AI systems learn explains why they get confused in predictable patterns.''
+\end{itemize}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Group Activity --- Uncertainty Type Audit (15 min).}
+Small groups analyze one AI application (spam filter, medical imaging, voice assistant, fraud detection, content moderation). Task: identify likely sources of uncertainty (aleatoric vs.\ epistemic), assess how the system signals confusion, propose one calibration improvement.
+
+\paragraph{Add: Technical Interlude (10 min).}
+Walk through reliability diagram construction with a simple numeric example. Show what overconfidence looks like in a diagram. Connect ECE (from Appendix~2A) to practical implications.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Recognition:} ``Dr.~Anand's story shows an AI that didn't give the right diagnosis but still saved the patient. How? What exactly did the AI do correctly?''\\
+    \textit{Target insight: It expressed calibrated uncertainty, which triggered human review.}
+
+    \item \textbf{Concept Check:} ``Explain the difference between aleatoric and epistemic uncertainty in your own words. Give one example of each from your own experience with technology.''\\
+    \textit{Target insight: Aleatoric = noise in the world; epistemic = model's knowledge gap.}
+
+    \item \textbf{Comparison:} ``Compare how the medical imaging AI in Chapter~2 and the Air Canada chatbot in Chapter~1 handled their respective uncertainties. Which worked better? Why?''\\
+    \textit{Target insight: Medical AI surfaced uncertainty explicitly; chatbot buried it → silent failure.}
+
+    \item \textbf{Application:} ``A voice recognition system has 40\% word error rate on Scottish accents but only 5\% on Midwestern American accents. What type of uncertainty is this? Should the system flag its output differently for Scottish speakers? How?''\\
+    \textit{Target insight: Epistemic (training data gap). Yes --- selective flagging for underrepresented speech patterns.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Framework Application:} ``Apply the Five Dimensions framework to the radiology AI scenario. Which dimensions are well-implemented? Which might be weak?''\\
+    \textit{Guide: Uncertainty Detection (excellent --- expressed 51\%); Stakes Calibration (presumably good --- medical setting); Feedback Integration (unclear --- does the radiologist's correction improve the model?).}
+
+    \item \textbf{Design Thinking:} ``Design an uncertainty signaling strategy for a legal document review AI. The AI reads contracts and flags potential issues. When should it express uncertainty? How?''\\
+    \textit{Target: Distinguish routine clauses (high confidence, silent) from unusual language (low confidence, flagged with specific reason).}
+
+    \item \textbf{Calibration Analysis:} ``A fraud detection system reports 95\% confidence on 10,000 transactions. It's wrong on 800 of them. Is this system well-calibrated? What does this mean for HITL routing?''\\
+    \textit{Answer: Expected accuracy at 95\% confidence = 95\%, actual = 92\%. ECE \approx 0.03 for this bin. Reasonably calibrated, but systematic --- worth temperature scaling.}
+
+    \item \textbf{Trade-off Analysis:} ``An image classifier for content moderation is 99\% accurate on 85\% of images, but drops to 65\% accurate on the remaining 15\%. Should the HITL system route all 15\% to human review, or try to distinguish within that group?''\\
+    \textit{Target: Within the 15\%, further stratification by confidence would route the most uncertain subset. Blanket routing wastes human capacity.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Technical Design:} ``Using the uncertainty decomposition from Appendix~2A, how would you determine whether a medical imaging AI's errors are primarily aleatoric or epistemic? What would each finding imply for HITL design?''
+
+    \item \textbf{Calibration Strategy:} ``A model trained on one hospital's patient population is deployed at a different hospital. How would you expect its calibration to change? What calibration correction methods would you apply, and on what data?''
+
+    \item \textbf{System Design:} ``Design a complete uncertainty pipeline for a spam filter, from confidence estimation through HITL routing. Specify: uncertainty estimation method, calibration check, routing threshold, interface for human reviewer, and feedback integration.''
+
+    \item \textbf{Research Extension:} ``The chapter argues that `confusion reveals training data gaps.' Design a methodology for using uncertainty patterns to prioritize which data to collect next for model improvement.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Uncertainty Type Sorting (10 minutes)}
+
+\textbf{Setup:} Cards or slides with AI failure scenarios.
+
+\textbf{Task:} Students sort into aleatoric, epistemic, or mixed.
+
+\paragraph{Scenarios.}
+\begin{description}
+    \item[Storm recording] Speech recognizer failing on a recording in a storm (aleatoric)
+    \item[New product category] Image classifier failing on a product category never trained on (epistemic)
+    \item[Sarcasm] Sentiment analyzer failing on sarcasm (epistemic --- pattern not learned)
+    \item[Two conditions] Medical AI failing on a patient with two simultaneous rare conditions (mixed)
+    \item[Untranslatable] Translation system failing on a word with no direct equivalent (epistemic)
+    \item[Legitimate-unusual] Fraud detector uncertain on a transaction that is simultaneously legitimate and unusual (aleatoric)
+\end{description}
+
+\textbf{Debrief:} For each case, ``Would a human expert be uncertain here too?'' If yes → aleatoric component. If no → epistemic.
+
+\subsection{Activity 2: Calibration Intuition (15 minutes)}
+
+\textbf{Setup:} Historical examples with real accuracy rates and stated confidence levels.
+
+\begin{table}[htbp]
+\caption{Calibration comparison across systems}
+\label{tab:calibration-comparison}
+\centering
+\begin{tabular}{@{}p{4cm}p{3cm}p{3cm}p{3cm}@{}}
+\toprule
+\textbf{System} & \textbf{Stated Confidence} & \textbf{Actual Accuracy} & \textbf{Assessment} \\
+\midrule
+Weather app ``90\% chance of rain'' & 90\% & 85\% & Slightly overconfident \\
+Spam filter ``high confidence'' & 95\% & 95\% & Well calibrated \\
+Medical chatbot ``I'm sure this is\ldots'' & 99\% & 72\% & Severely overconfident \\
+Navigation ``arrives in 15 min'' & $\sim$95\% & 70\% & Overconfident \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Task:} Students calculate the calibration gap and rank from best to worst calibrated. Discuss which system creates the most dangerous HITL failure.
+
+\subsection{Activity 3: Design Challenge --- Surfacing Confusion (20 minutes)}
+
+\textbf{Setup:} Small groups.
+
+\textbf{Scenario:} A college uses an AI system to read admissions essays and give each a score from 1--10. The AI is 85\% accurate when confident, but accuracy drops to 62\% when the essay is non-standard (highly creative, non-native English, unusual background).
+
+\paragraph{Tasks.}
+\begin{enumerate}
+    \item What type of uncertainty applies to the 15\% ``hard'' cases?
+    \item Design an uncertainty signaling system for this AI
+    \item Specify: what threshold triggers human review? What information does the reviewer see?
+    \item How do you prevent alert fatigue (assuming reviewers can handle $\sim$20\% of essays)?
+\end{enumerate}
+
+\textbf{Deliverable:} One-page design spec + justification.
+
+\subsection{Activity 4: Five-Dimension Framework Audit (20 minutes)}
+
+\textbf{Task:} Apply the Five Dimensions framework to the radiology AI scenario from Chapter~2's opening.
+
+\begin{table}[htbp]
+\caption{Five-dimension framework worksheet (radiology AI)}
+\label{tab:radiology-audit}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{2cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating (1--5)} & \textbf{Evidence} & \textbf{Improvement} \\
+\midrule
+Uncertainty Detection & & & \\[8pt]
+Intervention Design & & & \\[8pt]
+Timing & & & \\[8pt]
+Stakes Calibration & & & \\[8pt]
+Feedback Integration & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Discussion:} Which dimension is most commonly ignored in real deployed systems?
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``Better AI Means No Uncertainty''}
+
+\paragraph{Student thinking:} ``If AI is good enough, it won't be confused.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Aleatoric uncertainty is irreducible --- no AI can be certain about a blurry photograph
+    \item For HITL design, some uncertainty is \emph{desired} --- it's the routing mechanism
+    \item The goal is calibrated uncertainty, not zero uncertainty
+\end{itemize}
+
+\subsection{Misconception 2: ``Low Confidence = Wrong Answer''}
+
+\paragraph{Student thinking:} ``If the AI isn't sure, I should ignore it.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item A 51\% confidence score means ``I'm slightly more likely right than wrong'' --- not ``I'm wrong''
+    \item The value is in routing: low-confidence outputs go to human review, improving overall accuracy
+    \item Dr.~Anand's AI was uncertain about a case that turned out to be genuinely difficult
+\end{itemize}
+
+\subsection{Misconception 3: ``Calibration Equals Accuracy''}
+
+\paragraph{Student thinking:} ``A 90\%-accurate model is well-calibrated.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Use the weather forecaster analogy: someone who always says ``50\% chance of rain'' can be right 50\% of the time (calibrated) or 100\% of the time in a rainy climate (miscalibrated-underconfident)
+    \item Calibration is about the \emph{relationship} between expressed confidence and accuracy
+\end{itemize}
+
+\subsection{Misconception 4: ``Human Review Always Helps''}
+
+\paragraph{Student thinking:} ``When in doubt, ask a human.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item For aleatoric uncertainty, human review doesn't reliably improve outcomes --- the ambiguity is in the world
+    \item Human review costs time and attention; over-routing creates alert fatigue
+    \item Chapter~4 formalizes this: human review should be routed to where human knowledge adds value (epistemic cases) and error costs are high
+\end{itemize}
+
+\subsection{Misconception 5: ``Silent Systems Are More Trustworthy''}
+
+\paragraph{Student thinking:} ``A confident-looking AI seems more reliable.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The Air Canada chatbot \emph{looked} confident and was wrong
+    \item Systems that express uncertainty honestly are more trustworthy, not less
+    \item Research shows users who understand AI uncertainty make better decisions than users who assume infallibility
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Uncertainty Audit Paper (500--750 words)}
+
+\textbf{Prompt:} Choose an AI-powered product you use. Analyze:
+\begin{enumerate}
+    \item What types of uncertainty does it likely encounter (aleatoric vs.\ epistemic)?
+    \item How does it currently signal (or fail to signal) confusion?
+    \item What would better uncertainty signaling look like?
+    \item How would improved signaling enable better HITL design?
+\end{enumerate}
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Uncertainty type analysis (30\%):} Correct application of aleatoric/epistemic distinction
+    \item \textbf{Signal assessment (30\%):} Specific, accurate description of current behavior
+    \item \textbf{Design proposal (25\%):} Feasible, well-reasoned improvement
+    \item \textbf{Framework connection (15\%):} Links to Five Dimensions
+\end{itemize}
+
+\subsection{Option 2: Calibration Case Study}
+
+Given provided confidence score and accuracy data for a real or simulated system:
+\begin{enumerate}
+    \item Construct a reliability diagram
+    \item Calculate ECE
+    \item Recommend a calibration correction method
+    \item Describe the HITL routing implications of the calibration gap
+\end{enumerate}
+
+\subsection{Option 3: Discussion Post + Peer Response}
+
+\textbf{Post:} 200-word response to: ``A medical AI reports 95\% confidence on a diagnosis but recent tests show it's only 80\% accurate on similar cases. Should you trust it? What should happen next?''
+
+\textbf{Peer response:} Engage with a classmate's post, either building on or challenging their analysis.
+
+% ============================================================================
+\section{Extension Activities}
+% ============================================================================
+
+\subsection{Individual Research Topics}
+\begin{enumerate}
+    \item \textbf{Historical Analysis:} How have weather forecasting systems improved calibration over the last 50 years? What lessons apply to AI systems?
+    \item \textbf{Domain Study:} Research calibration practices in financial risk modeling. How do they compare to typical ML deployments?
+    \item \textbf{Cross-Cultural:} How do different cultures interpret probabilistic forecasts? Does this affect how uncertainty signals should be designed?
+\end{enumerate}
+
+\subsection{Group Projects}
+\begin{enumerate}
+    \item \textbf{Calibration Audit:} As a group, test the calibration of a publicly available AI service. Design the test, collect data, analyze results.
+    \item \textbf{Case Database:} Collect documented cases of AI systems that failed silently (overconfident wrong outputs). Analyze each for which type of uncertainty was present and whether HITL would have helped.
+\end{enumerate}
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~1:} Alert fatigue (too many flags = calibration problem); the Goldilocks problem; uncertainty quantification introduced
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~3:} Where does uncertainty come from? Training data gaps, overfitting, the train/test gap
+    \item \textbf{Chapter~4:} Threshold problem --- what to do with a confidence score; false positives vs.\ false negatives
+    \item \textbf{Chapter~5:} Interface design for uncertainty communication --- how to present the flag to the human
+\end{itemize}
+
+\subsection{Cross-Curricular Connections}
+\begin{itemize}
+    \item \textbf{Statistics:} Probability calibration; reliability diagrams; expected calibration error
+    \item \textbf{Philosophy of Science:} Epistemic vs.\ aleatory uncertainty in scientific reasoning
+    \item \textbf{Medical Informatics:} Diagnostic uncertainty communication; clinical decision support
+    \item \textbf{Psychology:} How humans interpret probabilistic information; overconfidence in human judgment
+\end{itemize}
+
+% ============================================================================
+\section{Sample Lesson Plan}
+% ============================================================================
+
+\begin{table}[htbp]
+\caption{Sample 50-minute lesson plan for Chapter~2}
+\label{tab:lesson-plan-ch02}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{4cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Opening story: radiologist + poll & Ch.\ 2 slide with X-ray scenario \\
+0:08--0:20 & Aleatoric vs.\ epistemic + sorting activity & Scenario cards or slide \\
+0:20--0:30 & Calibration concept + reliability diagram & Diagram slide + numeric example \\
+0:30--0:40 & Surfacing confusion: 3 modes + comparisons & Case study slides \\
+0:40--0:45 & Wrong vs.\ confused 2×2 & Whiteboard or slide \\
+0:45--0:50 & Wrap-up, assign Try This, preview Ch.\ 3 & Chapter handout \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This teacher's manual provides everything needed to successfully teach Chapter~2 on AI uncertainty. The central reframe --- confusion as signal rather than failure --- is the conceptual foundation students need for the threshold, interface, and annotation chapters that follow.}
+
+\medskip
+\noindent\textit{Next: Chapter~3 explores where AI uncertainty originates --- in the training process itself --- and why that makes HITL demand predictable.}

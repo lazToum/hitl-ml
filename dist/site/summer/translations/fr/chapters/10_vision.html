@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>L’humain dans la boucle en vision par ordinateur &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/fr/chapters/10_vision';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/fr/chapters/10_vision.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>L’humain dans la boucle en vision par ordinateur</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comment-les-choix-d-annotation-deviennent-des-biais-du-modele">Comment les choix d’annotation deviennent des biais du modèle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#le-cas-imagenet">Le cas ImageNet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-de-classification-d-images">Annotation de classification d’images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-d-objets-annotation-de-boites-englobantes">Détection d’objets : annotation de boîtes englobantes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-semantique-et-d-instance">Segmentation sémantique et d’instance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apprentissage-actif-pour-la-vision-par-ordinateur">Apprentissage actif pour la vision par ordinateur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apprentissage-semi-supervise-avec-guidage-humain">Apprentissage semi-supervisé avec guidage humain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-video">Annotation vidéo</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="l-humain-dans-la-boucle-en-vision-par-ordinateur">
+<h1>L’humain dans la boucle en vision par ordinateur<a class="headerlink" href="#l-humain-dans-la-boucle-en-vision-par-ordinateur" title="Permalink to this heading">#</a></h1>
+<p>La vision par ordinateur fournit certains des exemples les plus visuellement intuitifs du HITL ML. Le défi ImageNet, construit sur 14 millions d’images étiquetées par des humains, a lancé l’ère de l’apprentissage profond. L’annotation d’images médicales par des radiologues alimente le diagnostic par IA. Les véhicules autonomes dépendent de millions de images étiquetées par des humains pour apprendre à percevoir le monde.</p>
+<p>Ce qu’il est facile de négliger : ce ne sont pas simplement des cas où les humains fournissent une vérité de terrain. Ce sont des cas où les humains construisent des jeux de données qui incorporent des choix perceptuels, culturels et opérationnels spécifiques — des choix qui ne deviennent visibles que plus tard, quand les modèles échouent de manières prévisibles.</p>
+<hr class="docutils" />
+<section id="comment-les-choix-d-annotation-deviennent-des-biais-du-modele">
+<h2>Comment les choix d’annotation deviennent des biais du modèle<a class="headerlink" href="#comment-les-choix-d-annotation-deviennent-des-biais-du-modele" title="Permalink to this heading">#</a></h2>
+<p>La présentation standard traite l’annotation comme une collecte de données : les humains observent le monde et enregistrent ce qu’ils voient. La présentation plus précise est que l’annotation est de la <em>conception de jeu de données</em> : les humains décident quelles catégories utiliser, où tracer les frontières, quels cas limites inclure et comment résoudre l’ambiguïté — et toutes ces décisions façonnent ce que le modèle entraîné percevra.</p>
+<section id="le-cas-imagenet">
+<h3>Le cas ImageNet<a class="headerlink" href="#le-cas-imagenet" title="Permalink to this heading">#</a></h3>
+<p>ImageNet <a href="#id1"><span class="problematic" id="id2">russakovsky2015imagenet</span></a> est le jeu de données le plus important de l’histoire de la vision par ordinateur. Son ensemble d’étiquettes dérive des synsets WordNet, choisis principalement pour être nombreux et sémantiquement distincts. Plusieurs conséquences de ce choix de conception sont apparues des années plus tard :</p>
+<ul class="simple">
+<li><p><strong>Les catégories de personnes encodaient des associations démographiques.</strong> Les premières versions des étiquettes de synsets pour les personnes dans ImageNet incluaient beaucoup de termes qui seraient aujourd’hui considérés comme dégradants ou biaisés, reflétant à la fois la source historique de WordNet et les décisions implicites de la main-d’œuvre d’annotation sur les étiquettes à appliquer à quelles images <a href="#id3"><span class="problematic" id="id4">yang2020towards</span></a>. Les étiquettes appliquées aux images de personnes encodaient des associations de race, de genre et de classe qui se sont directement propagées dans les plongements des modèles.</p></li>
+<li><p><strong>Taxonomie fine des espèces, grossière pour presque tout le reste.</strong> ImageNet peut distinguer 120 races de chiens mais regroupe une énorme variation en outils, véhicules, nourriture et mobilier en catégories uniques. C’était une conséquence du suivi de la structure de WordNet, non un choix délibéré sur ce qui importe. Les modèles entraînés sur ImageNet présentent la même précision asymétrique.</p></li>
+<li><p><strong>Valeurs visuelles par défaut occidentales et anglophones.</strong> Les images ont été principalement collectées depuis Flickr et des recherches Internet utilisant des requêtes en anglais. La distribution résultante est fortement orientée vers l’environnement visuel et les objets culturels des pays riches anglophones.</p></li>
+</ul>
+<p>Aucune de ces décisions n’était une erreur. C’étaient des choix de conception d’annotation faits rapidement à grande échelle, souvent par des personnes qui n’anticipaient pas comment le jeu de données serait utilisé. La leçon n’est pas qu’ImageNet aurait dû être construit différemment (même si c’est le cas), mais que <strong>la conception d’annotation est la conception du modèle</strong>, et devrait être traitée avec le même soin.</p>
+<div class="note admonition">
+<p class="admonition-title">Le schéma d’annotation est une théorie du monde</p>
+<p>Toute taxonomie d’étiquettes formule des affirmations sur quelles distinctions importent. Choisir de séparer « voiture » de « camion » tout en regroupant toutes les berlines dans une classe est une affirmation théorique sur quelles distinctions sont sémantiquement pertinentes. Choisir d’annoter « personne » comme une classe unique quelle que soit la pose, les vêtements ou l’activité est une affirmation théorique différente. Les modèles entraînés sur ces schémas feront les mêmes distinctions, et pas plus — ils ne généraliseront pas au-delà des catégories qu’ils ont été entraînés à distinguer.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="annotation-de-classification-d-images">
+<h2>Annotation de classification d’images<a class="headerlink" href="#annotation-de-classification-d-images" title="Permalink to this heading">#</a></h2>
+<p>La tâche d’annotation CV la plus simple est l’attribution d’une ou plusieurs étiquettes à une image entière.</p>
+<p><strong>Hiérarchie d’étiquettes.</strong> L’étiquette « chien » est un enfant de « animal » dans une hiérarchie sémantique. Les modèles entraînés sur des taxonomies plates peuvent ne pas bien généraliser à travers les niveaux d’abstraction. ImageNet utilise une hiérarchie basée sur les synsets qui permet l’évaluation à plusieurs niveaux de spécificité.</p>
+<p><strong>Ambiguïté multi-étiquettes.</strong> Une scène de rue peut contenir simultanément une voiture, une personne, un vélo et un feu de circulation. Décider quelles étiquettes inclure nécessite des consignes claires sur les seuils de pertinence.</p>
+<p><strong>Distributions longue queue.</strong> Les jeux de données d’images naturelles suivent une loi de puissance : quelques catégories sont extrêmement courantes ; la plupart sont rares. L’apprentissage actif est particulièrement précieux pour les catégories longue queue où l’échantillonnage aléatoire ne fournit qu’une poignée d’exemples.</p>
+</section>
+<hr class="docutils" />
+<section id="detection-d-objets-annotation-de-boites-englobantes">
+<h2>Détection d’objets : annotation de boîtes englobantes<a class="headerlink" href="#detection-d-objets-annotation-de-boites-englobantes" title="Permalink to this heading">#</a></h2>
+<p>La détection d’objets exige des annotateurs qu’ils dessinent des boîtes englobantes alignées sur les axes autour des instances de chaque classe d’objet. Cela introduit des exigences de précision géométrique et des cas limites significatifs.</p>
+<p><strong>Métriques de qualité d’annotation :</strong></p>
+<p><em>L’IoU (Intersection sur Union)</em> mesure le chevauchement entre une boîte annotée et une boîte de référence :</p>
+<div class="math notranslate nohighlight">
+\[
+\text{IoU}(A, B) = \frac{|A \cap B|}{|A \cup B|}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\text{IoU} \geq 0{,}5\)</span> est le seuil standard pour une « détection correcte » dans PASCAL VOC ; COCO <a href="#id5"><span class="problematic" id="id6">lin2014microsoft</span></a> utilise une gamme de seuils de 0,5 à 0,95, ce qui est considérablement plus exigeant et plus informatif.</p>
+<p><strong>Cas limites d’annotation à résoudre dans les consignes :</strong></p>
+<ul class="simple">
+<li><p>Objets occultés : annoter la partie visible ou extrapoler l’étendue complète ?</p></li>
+<li><p>Objets tronqués (partiellement hors cadre) : inclure ou exclure ?</p></li>
+<li><p>Régions de foule : utiliser une annotation spéciale « foule » ou annoter les instances individuelles ?</p></li>
+</ul>
+<p>Chacune de ces décisions change ce que signifie une « détection correcte » — et donc change ce que le modèle est entraîné à faire.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_iou</span><span class="p">(</span><span class="n">boxA</span><span class="p">,</span> <span class="n">boxB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute IoU between two boxes [x1, y1, x2, y2].&quot;&quot;&quot;</span>
+    <span class="n">xA</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">yA</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">xB</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">yB</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">inter_area</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xB</span> <span class="o">-</span> <span class="n">xA</span><span class="p">)</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">yB</span> <span class="o">-</span> <span class="n">yA</span><span class="p">)</span>
+    <span class="n">boxA_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxA</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxA</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">boxB_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">boxB</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">boxB</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">union_area</span> <span class="o">=</span> <span class="n">boxA_area</span> <span class="o">+</span> <span class="n">boxB_area</span> <span class="o">-</span> <span class="n">inter_area</span>
+    <span class="k">return</span> <span class="n">inter_area</span> <span class="o">/</span> <span class="p">(</span><span class="n">union_area</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span>
+
+<span class="n">ref_box</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]</span>
+<span class="n">ann1_box</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">]</span>   <span class="c1"># close</span>
+<span class="n">ann2_box</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">]</span>   <span class="c1"># less precise</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IoU (ann1 vs ref):  </span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann1_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IoU (ann2 vs ref):  </span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann2_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IoU (ann1 vs ann2): </span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann1_box</span><span class="p">,</span><span class="w"> </span><span class="n">ann2_box</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">ref_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ref_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">ref_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">ref_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ref_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ref_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reference&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">ann1_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann1_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">ann1_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">ann1_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann1_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ann1_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#0d9e8e&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Ann1 (IoU=</span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann1_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">ann2_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann2_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">ann2_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">ann2_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann2_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ann2_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Ann2 (IoU=</span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann2_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Bounding Box Agreement (IoU)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;bbox_iou.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="segmentation-semantique-et-d-instance">
+<h2>Segmentation sémantique et d’instance<a class="headerlink" href="#segmentation-semantique-et-d-instance" title="Permalink to this heading">#</a></h2>
+<p>L’annotation de segmentation nécessite d’assigner une étiquette de classe à chaque pixel d’une image — parmi les types d’annotation les plus coûteux.</p>
+<p><strong>Segmentation sémantique :</strong> Chaque pixel appartient à une classe sémantique (route, ciel, personne, voiture). Tous les pixels de la même classe partagent la même étiquette, quel que soit l’objet individuel auquel ils appartiennent.</p>
+<p><strong>Segmentation d’instance :</strong> Chaque instance d’objet individuel reçoit une étiquette unique. Une foule de 20 personnes devient 20 masques distincts.</p>
+<p><strong>Segmentation panoptique :</strong> Combine les deux : les classes « chose » (objets dénombrables) ont des masques d’instance ; les classes « matière » (route, ciel) ont des masques sémantiques.</p>
+<p><strong>Annotation assistée par SAM :</strong> Le Modèle Segment Anything de Meta <a href="#id7"><span class="problematic" id="id8">kirillov2023segment</span></a> génère des masques de segmentation de haute qualité à partir d’un simple clic de point. Les annotateurs cliquent sur le centre d’un objet ; SAM propose un masque ; l’annotateur accepte ou corrige. Les auteurs de SAM rapportent des accélérations d’environ 6,5 fois par rapport à l’étiquetage basé sur des polygones ; les gains varient selon les types de scènes et les outils d’annotation.</p>
+<p>SAM représente un changement plus large : <strong>le rôle de l’annotateur passe du dessin à la révision</strong>. Cela a des implications pour la qualité d’annotation au-delà de la vitesse. Quand les annotateurs dessinent, leur attention est mobilisée tout au long du processus. Quand les annotateurs révisent et cliquent sur « accepter », il y a des preuves qu’ils manquent plus facilement les erreurs — une version du biais d’automatisation spécifique au contexte d’annotation.</p>
+</section>
+<hr class="docutils" />
+<section id="apprentissage-actif-pour-la-vision-par-ordinateur">
+<h2>Apprentissage actif pour la vision par ordinateur<a class="headerlink" href="#apprentissage-actif-pour-la-vision-par-ordinateur" title="Permalink to this heading">#</a></h2>
+<p>L’apprentissage actif est particulièrement précieux en CV parce que :</p>
+<ol class="arabic simple">
+<li><p>Les images sont de haute dimension et riches en caractéristiques — les plongements des modèles pré-entraînés portent des signaux forts pour l’estimation de l’incertitude</p></li>
+<li><p>Les grands pools non étiquetés sont bon marché (photos, images vidéo)</p></li>
+<li><p>L’annotation (surtout la segmentation) est coûteuse et ne peut pas être facilement externalisée pour des domaines spécialisés</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                            <span class="n">n_classes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">2500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">2500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">2500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">margin_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">sorted_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sorted_p</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">sorted_p</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># most negative = most uncertain</span>
+
+<span class="n">n_init</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;active&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="n">label_counts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">]:</span>
+    <span class="n">labeled</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_init</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">label_counts</span><span class="p">:</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">target</span> <span class="ow">and</span> <span class="n">unlabeled</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;active&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="n">model_temp</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+                    <span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+                <span class="n">margins</span> <span class="o">=</span> <span class="n">margin_uncertainty</span><span class="p">(</span><span class="n">model_temp</span><span class="p">,</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled</span><span class="p">])</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">margins</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unlabeled</span><span class="p">))</span>
+            <span class="n">labeled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+
+        <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">strategy</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Active (margin sampling)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;random&#39;</span><span class="p">],</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Labeled training images&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning for 5-Class Image Classification&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;cv_active_learning.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="apprentissage-semi-supervise-avec-guidage-humain">
+<h2>Apprentissage semi-supervisé avec guidage humain<a class="headerlink" href="#apprentissage-semi-supervise-avec-guidage-humain" title="Permalink to this heading">#</a></h2>
+<p>La grande quantité de données visuelles non étiquetées disponibles rend l’apprentissage semi-supervisé particulièrement attrayant pour la CV.</p>
+<p><strong>Auto-entraînement / pseudo-étiquetage :</strong> Entraîner un modèle sur des données étiquetées ; utiliser les prédictions à haute confiance sur des données non étiquetées comme pseudo-étiquettes ; ré-entraîner. La question de conception critique est le seuil de confiance. Un seuil bas apporte plus d’exemples mais introduit du bruit ; un seuil élevé laisse la plupart du pool non étiqueté inutilisé. L’implication humaine peut guider ce seuil — les annotateurs vérifient un échantillon d’exemples pseudo-étiquetés pour le calibrer.</p>
+<p><strong>FixMatch et régularisation par cohérence :</strong> Ces méthodes entraînent des modèles à produire des prédictions cohérentes sous augmentation. L’intuition HITL clé : les humains sont consultés non seulement pour les étiquettes mais pour la <strong>conception d’augmentation</strong> — quelles invariances le modèle devrait-il apprendre ? Un modèle pour l’imagerie médicale devrait être invariant à la rotation et à la luminosité mais pas à l’échelle ; un modèle pour la détection de texte ne devrait pas être rendu invariant à la distorsion perspective. Ces choix spécifiques au domaine nécessitent une expertise humaine, et les commettre à tort dégrade substantiellement l’apprentissage semi-supervisé.</p>
+<p><strong>Apprentissage actif semi-supervisé :</strong> La combinaison la plus efficace : l’apprentissage actif concentre les étiquettes humaines là où l’incertitude du modèle est la plus élevée ; l’auto-entraînement étiquette automatiquement la queue à haute confiance. L’effort humain se concentre là où il est le plus précieux, et le modèle bootstrap sur le reste. À chaque cycle, un audit humain d’un échantillon aléatoire de pseudo-étiquettes fournit une vérification de qualité sans nécessiter une révision complète.</p>
+</section>
+<hr class="docutils" />
+<section id="annotation-video">
+<h2>Annotation vidéo<a class="headerlink" href="#annotation-video" title="Permalink to this heading">#</a></h2>
+<p>L’annotation vidéo multiplie les défis de l’annotation d’images par le temps :</p>
+<ul class="simple">
+<li><p><strong>Suivi :</strong> Les objets doivent être identifiés à travers les images. Les annotateurs étiquettent les images clés ; les algorithmes de suivi interpolent entre elles. Les échecs de suivi — occlusion, réentrée, mouvement rapide — nécessitent une ré-étiquetage humain à des taux plus élevés que le suivi en régime permanent.</p></li>
+<li><p><strong>Cohérence temporelle :</strong> Les frontières dessinées à l’image <span class="math notranslate nohighlight">\(t\)</span> devraient être spatialement cohérentes avec l’image <span class="math notranslate nohighlight">\(t+1\)</span>. Les annotations incohérentes sont un signal d’entraînement disant au modèle que les objets se déplacent de manière discontinue — une forme de bruit d’annotation particulièrement dommageable pour les modèles de détection.</p></li>
+<li><p><strong>Évolutivité :</strong> Une vidéo d’une heure à 30 images par seconde représente 108 000 images. L’annotation complète est impraticable ; les stratégies d’échantillonnage doivent être conçues avec soin pour s’assurer que les événements rares (cas limites, quasi-accidents, scénarios de défaillance) ne sont pas systématiquement exclus.</p></li>
+</ul>
+<p>Les outils d’annotation vidéo modernes prennent en charge le <strong>suivi intelligent</strong> qui propage les annotations à travers les images et signale les images où la confiance du suivi tombe en dessous d’un seuil, invitant l’annotateur à revérifier. C’est une application directe de l’idée d’apprentissage actif au pipeline d’annotation lui-même : l’outil interroge l’annotateur exactement là où son interpolation est incertaine.</p>
+<p><strong>Le problème des événements rares dans les systèmes autonomes.</strong> Pour les applications où les conséquences des événements rares sont catastrophiques — conduite autonome, navigation par drone — la distribution des images vues en fonctionnement normal est mal assortie à la distribution des images qui importent le plus. Un jeu de données construit par échantillonnage uniforme d’images de conduite contiendra des millions d’images « il ne se passe rien d’intéressant » et une poignée d’images de quasi-accident, d’éclairage inhabituel et de capteur dégradé qui importent réellement pour la sécurité. L’apprentissage actif HITL qui identifie et priorise de telles images n’est pas un hack d’efficacité — c’est une exigence de sécurité.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Jeu de données ImageNet : <a href="#id9"><span class="problematic" id="id10">russakovsky2015imagenet</span></a>. Biais d’étiquettes dans ImageNet : <a href="#id11"><span class="problematic" id="id12">yang2020towards</span></a>. Référence COCO : <a href="#id13"><span class="problematic" id="id14">lin2014microsoft</span></a>. SAM (Segment Anything) : <a href="#id15"><span class="problematic" id="id16">kirillov2023segment</span></a>. Apprentissage actif par ensemble noyau pour la CV : <a href="#id17"><span class="problematic" id="id18">sener2018active</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/fr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comment-les-choix-d-annotation-deviennent-des-biais-du-modele">Comment les choix d’annotation deviennent des biais du modèle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#le-cas-imagenet">Le cas ImageNet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-de-classification-d-images">Annotation de classification d’images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-d-objets-annotation-de-boites-englobantes">Détection d’objets : annotation de boîtes englobantes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-semantique-et-d-instance">Segmentation sémantique et d’instance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apprentissage-actif-pour-la-vision-par-ordinateur">Apprentissage actif pour la vision par ordinateur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apprentissage-semi-supervise-avec-guidage-humain">Apprentissage semi-supervisé avec guidage humain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-video">Annotation vidéo</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO session_clues (session_id, clue_id) VALUES ($1, $2)\n                 ON CONFLICT DO NOTHING",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f872765bcfad5ff6b0eb94eb03f3e1daffa9ef7e55aa925801a9a7974a97b453"
+}

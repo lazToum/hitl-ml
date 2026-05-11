@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Doğal Dil İşlemede Döngüde İnsan &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/tr/chapters/09_nlp';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/tr/chapters/09_nlp.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Doğal Dil İşlemede Döngüde İnsan</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dogal-dil-isleme-aciklamasindaki-kurucu-problem">Doğal Dil İşleme Açıklamasındaki Kurucu Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metin-siniflandirmasi-aciklamasi">Metin Sınıflandırması Açıklaması</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adlandirilmis-varlik-tanima">Adlandırılmış Varlık Tanıma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iliski-cikarimi-ve-anlamsal-aciklama">İlişki Çıkarımı ve Anlamsal Açıklama</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#makine-cevirisi-sonrasi-duzenleme-mcsd">Makine Çevirisi Sonrası Düzenleme (MCSD)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konusma-yapay-zekasi-ve-diyalog-aciklamasi">Konuşma Yapay Zekası ve Diyalog Açıklaması</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programatik-etiketleme-ve-zayif-denetim">Programatik Etiketleme ve Zayıf Denetim</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dil-modelleri-icin-rlhf-aciklama-gercekligi">Dil Modelleri için RLHF: Açıklama Gerçekliği</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklamamodel-geri-bildirim-dongusu">Açıklama–Model Geri Bildirim Döngüsü</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uretici-dogal-dil-isleme-modellerinin-degerlendirilmesi">Üretici Doğal Dil İşleme Modellerinin Değerlendirilmesi</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dogal-dil-islemede-dongude-insan">
+<h1>Doğal Dil İşlemede Döngüde İnsan<a class="headerlink" href="#dogal-dil-islemede-dongude-insan" title="Permalink to this heading">#</a></h1>
+<p>Doğal dil, HITL ML’nin tartışmasız en büyük etkiyi yarattığı alan — ve en derin kavramsal güçlüklerin ortaya çıktığı yerdir. Dil özünde toplumsal bir nitelik taşır: anlamı insan toplulukları inşa eder, edimbilimi bağlam ve amaca bağlıdır ve kalitesi yalnızca insan okuyucular tarafından değerlendirilebilir. Ancak bu durum aynı zamanda şu anlama gelir: doğal dil işleme açıklaması yalnızca gözlemleri toplamak değildir. Kategorileri <em>inşa etmektir</em>.</p>
+<hr class="docutils" />
+<section id="dogal-dil-isleme-aciklamasindaki-kurucu-problem">
+<h2>Doğal Dil İşleme Açıklamasındaki Kurucu Problem<a class="headerlink" href="#dogal-dil-isleme-aciklamasindaki-kurucu-problem" title="Permalink to this heading">#</a></h2>
+<p>Tıbbi görüntülemede bir gerçek zemin vardır: tümör var ya da yok. Radyologun etiketi belirsiz olabilir, ancak gerçek bir şeyi yansıtmaya çalışır. Doğal dil işleme açıklaması çoğunlukla temelden farklıdır. Bir açıklayıcı bir twiTi “toksik” olarak işaretlediğinde, tweet’te tespit etmeye çalıştığımız toksik bir molekül yoktur. <strong>Etiket kategoriyi inşa eder.</strong></p>
+<p>Bunun çoğunlukla yeterince anlaşılmayan derin sonuçları vardır:</p>
+<p><strong>Açıklama işgücü olguyu tanımlar.</strong> “Saldırgan dil” için bir etiket şeması, onu tasarlayanların ve uygulayanların duyarlılıklarını kodlar. Tek bir demografik arka plandan İngilizce konuşan açıklayıcılardan oluşan ve kurumsal politika ekibinin hazırladığı kılavuzlar doğrultusunda çalışan bir ekip, o ekibin saldırganlık anlayışını yansıtan bir veri kümesi üretir — evrensel bir insan standardı değil. Bu tür verilerle eğitilen modeller aynı örtük sınırlara sahip olacaktır.</p>
+<p><strong>Kılavuzlar, bunu kabul edip etmeseler de teoriktir.</strong> Her açıklama şeması, ontoloji hakkında iddialar içerir. “İroni” ve “alaycılığın” aynı sınıf olduğuna karar vermek teorik bir iddiadır; tarafsız bir kolaylık değil. “Öfkeyi” “haklı öfke” ile “düşmanca öfkeyi” ayırt etmek yerine tek bir sınıf olarak etiketlemeye karar vermek, aşağı akış görevi için önem taşıyan bir ayrımı ortadan kaldırır. Bu kararlar üretim baskısı altında alınır ve nadiren yeniden gözden geçirilir.</p>
+<p><strong>Zaman içinde etiket istikrarsızlığı.</strong> Toplumsal dil gelişir. 2018’de eğitilmiş bir toksisite modeli, 2024 içeriğini yanlış sınıflandıracaktır; istatistiksel olarak yetersiz eğitildiği için değil, belirli terimlerin toplumsal anlamı değiştiği için. Doğal dil işleme açıklaması statik bir dağılımdan örnekleme değildir — etiketleme eyleminin kısmen oluşturmaya katkıda bulunduğu hareketli bir hedeften örneklemektir.</p>
+<div class="important admonition">
+<p class="admonition-title">Açıklama Yapay Ürün Problemi</p>
+<p>Geva ve diğerleri <a href="#id1"><span class="problematic" id="id2">geva2019annotator</span></a>, Doğal Dil Çıkarımı (NLI) veri kümelerinin açıklama sürecinin kendisi tarafından öğretilen sistematik yapay ürünler içerdiğini gösterdi. Verilen bir öncülü için “çıkarım” hipotezleri yazmakla görevlendirilen açıklayıcılar belirli sözdizimsel kalıplar kullanma eğilimindedir; “çelişki” hipotezleri yazanlar başkalarını kullanır. Modeller, amaçlanan anlamsal ilişki yerine bu yapay ürünlere dayanarak sınıflandırmayı öğrenir — altta yatan doğal dil işleme görevini değil, açıklama görevini çözerler.</p>
+<p>Bu özensizlik değildir. İnsanların bir etikete uyacak örnekler oluşturmasının doğasında bulunan bir sonuçtur. HITL süreci, veriye hiçbir zaman amaçlanmamış sistematik bir sinyal enjekte eder.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="metin-siniflandirmasi-aciklamasi">
+<h2>Metin Sınıflandırması Açıklaması<a class="headerlink" href="#metin-siniflandirmasi-aciklamasi" title="Permalink to this heading">#</a></h2>
+<p>En basit doğal dil işleme açıklama görevi, bir metin belgesine kategori atamaktır. Duygu analizi, konu sınıflandırması, niyet tespiti ve spam filtreleme sınıflandırma görevleridir.</p>
+<p><strong>Metin sınıflandırmasına özgü güçlükler:</strong></p>
+<p><em>Öznellik.</em> “Toksik” veya “saldırgan” gibi kategoriler özünde özneldir ve kültürel bağlamlar, açıklayıcı arka planları ve platform bağlamına göre farklılık gösterir. Açıklayıcılar arasında saldırganlık algıları demografiye göre önemli ölçüde farklılaşır — doğruluk için doğrudan çıkarımları olan bir gerçek <a href="#id3"><span class="problematic" id="id4">blodgett2020language</span></a>.</p>
+<p><em>Etiket belirsizliği.</em> Pek çok belge birden fazla kategoriye girer ya da sınırda yer alır. %60 olumlu ve %40 olumsuz olan bir yorum gerçek anlamda belirsizdir; yanlış etiketlenmemiştir. Tek bir etiketi zorlamak gerçek bilgiyi atar (yumuşak etiketler ve açıklayıcı anlaşmazlığı üzerine bkz. Bölüm 13).</p>
+<p><em>Etiket ayrıntısı.</em> 2 sınıflı bir duygu modeli sosyal medya izleme için yeterli olabilir; 7 puanlı bir ölçek ürün geri bildirimi analizi için gerekli olabilir. Doğru ayrıntı düzeyi aşağı akış görevine bağlıdır, ancak genellikle açıklamadan önce sabitlenir — yetersiz veriyle alınan sonuçlu bir tasarım kararı.</p>
+</section>
+<hr class="docutils" />
+<section id="adlandirilmis-varlik-tanima">
+<h2>Adlandırılmış Varlık Tanıma<a class="headerlink" href="#adlandirilmis-varlik-tanima" title="Permalink to this heading">#</a></h2>
+<p>Adlandırılmış Varlık Tanıma (NER) açıklaması, metin parçalarını tanımlamayı ve bir varlık türü (KİŞİ, KURULUŞ, KONUM vb.) atamayı gerektirir. Birkaç nedenle belge sınıflandırmasından daha karmaşıktır:</p>
+<p><strong>Parça sınırları belirsizdir.</strong> “Apple CEO Tim Cook açıkladı…” ifadesinde KİŞİ varlığı “Tim Cook” mu yoksa “Apple CEO Tim Cook” mu kapsar? Kılavuzlar bu vakaları açıkça ele almalıdır ve parçalar üzerindeki açıklayıcılar arası anlaşma tutarlı olarak türler üzerindeki anlaşmadan düşüktür.</p>
+<p><strong>Tür ataması dünya bilgisi gerektirir.</strong> “Apple” bir bağlamda KURULUŞ, diğerinde ÜRÜN ve “elmalı pasta”da muhtemelen hiçbiridir. Açıklayıcıların doğru tür atamaları yapabilmesi için yeterli alan bilgisi gerekir.</p>
+<p><strong>İç içe geçmiş varlıklar.</strong> “University of California, Berkeley” ifadesi KONUM içinde iç içe geçmiş KURULUŞ içerir. Standart BIO etiketlemesi iç içe geçmiş varlıkları temsil edemez; daha karmaşık şemalar (örneğin BIOES veya grafik tabanlı biçimler) gerekir.</p>
+<p><strong>Açıklama verimliliği.</strong> Bir taban Adlandırılmış Varlık Tanıma modeli ile ön açıklama, açıklayıcıların sıfırdan açıklama yerine tahminleri düzeltmesine olanak tanıyarak açıklamayı önemli ölçüde hızlandırır. Klinik Adlandırılmış Varlık Tanıma üzerine yapılan bir çalışmada %30–60 verim artışları gözlemlenmiştir <a href="#id5"><span class="problematic" id="id6">lingren2014evaluating</span></a>; bu tür kazanımların büyüklüğü taban model kalitesine ve alana göre önemli ölçüde değişir.</p>
+</section>
+<hr class="docutils" />
+<section id="iliski-cikarimi-ve-anlamsal-aciklama">
+<h2>İlişki Çıkarımı ve Anlamsal Açıklama<a class="headerlink" href="#iliski-cikarimi-ve-anlamsal-aciklama" title="Permalink to this heading">#</a></h2>
+<p>Varlıkları tanımlamanın ötesinde, ilişki çıkarımı varlıklar arasındaki <em>ilişkileri</em> açıklamayı gerektirir:</p>
+<ul class="simple">
+<li><p>Açıklayıcıların her iki varlığı ve bunları birbirine bağlayan yüklemi anlaması gerekir</p></li>
+<li><p>İlişki türlerinin karmaşık anlamsal ayrımları vardır (ÇALIŞIYOR_AT ile İSTİHDAM_EDİLEN ile KURDU)</p></li>
+<li><p>Negatif örnekler (ilişkisi olmayan varlık çiftleri) pozitif örneklerden çok daha yaygındır</p></li>
+</ul>
+<p><strong>İlişki çıkarımı için açıklayıcılar arası anlaşma</strong>, sınıflandırma görevlerinden düşük olma eğilimindedir. İyi tanımlanmış şemalar için <span class="math notranslate nohighlight">\(\kappa\)</span> değerleri 0,65–0,80 aralığında rapor edilmektedir <a href="#id7"><span class="problematic" id="id8">pustejovsky2012natural</span></a>; karmaşık anlamsal ilişkiler (olay nedenselliği, zamansal ilişkiler) için anlaşma şema tasarımına ve açıklayıcı eğitimine bağlı olarak önemli ölçüde düşebilir.</p>
+</section>
+<hr class="docutils" />
+<section id="makine-cevirisi-sonrasi-duzenleme-mcsd">
+<h2>Makine Çevirisi Sonrası Düzenleme (MCSD)<a class="headerlink" href="#makine-cevirisi-sonrasi-duzenleme-mcsd" title="Permalink to this heading">#</a></h2>
+<p>Makine çevirisi sonrası düzenleme, HITL doğal dil işlemenin olgun bir biçimidir. İnsan çevirmen, sıfırdan çevirmek yerine bir makine çevirisi sisteminin çıktısını düzeltir:</p>
+<p><strong>Hafif sonrası düzenleme (HSD):</strong> Yalnızca kritik hatalar düzeltilir. Çeviri kalitesi gereksinimlerinin ılımlı olduğu durumlara uygundur.</p>
+<p><strong>Tam sonrası düzenleme (TSD):</strong> Çıktı yayın kalitesine getirilir. Düzenlenen çıktı genellikle sonraki makine çevirisi iyileştirmesi için eğitim verisi hâline gelir — gerçek bir döngüde insan iyileştirme döngüsü.</p>
+<p><strong>HTER (İnsan Hedefli Çeviri Düzenleme Oranı):</strong> Makine çevirisi çıktısı ile sonrası düzenlenmiş çeviri arasındaki düzenleme mesafesini cümle uzunluğuna göre normalleştirilmiş olarak ölçen bir ölçüt <a href="#id9"><span class="problematic" id="id10">graham2015accurate</span></a>. Pratik bir kural olarak, yaklaşık 0,3’ün altındaki HTER genellikle iyi makine çevirisi çıktısı olarak değerlendirilir; 0,5’in üzerinde sıfırdan çeviri daha hızlı olabilir — ancak bu eşikler alana ve dil çiftine göre değişir.</p>
+</section>
+<hr class="docutils" />
+<section id="konusma-yapay-zekasi-ve-diyalog-aciklamasi">
+<h2>Konuşma Yapay Zekası ve Diyalog Açıklaması<a class="headerlink" href="#konusma-yapay-zekasi-ve-diyalog-aciklamasi" title="Permalink to this heading">#</a></h2>
+<p>Diyalog açıklaması zamansal yapıyı beraberinde getirir:</p>
+<ul class="simple">
+<li><p><strong>Tur düzeyinde açıklama:</strong> her turu etiketle (niyet, duygu, kalite)</p></li>
+<li><p><strong>Diyalog düzeyinde açıklama:</strong> genel tutarlılığı, görev başarısını, kullanıcı memnuniyetini değerlendir</p></li>
+<li><p><strong>Etkileşim izi açıklaması:</strong> konuşmadaki belirli başarısızlık anlarını belirle</p></li>
+</ul>
+<p>HITL, özellikle diyalogda önem taşır; çünkü model başarısızlıkları çoğunlukla ince ve birikimlidir: 3. turdaki olgusal bir hata, 7. turda belirginleşmeyebilir. Konuşmaları izleyen insan açıklayıcılar, otomatik ölçütlerin tamamen kaçırdığı bu uzun mesafeli başarısızlık örüntülerini belirleyebilir.</p>
+</section>
+<hr class="docutils" />
+<section id="programatik-etiketleme-ve-zayif-denetim">
+<h2>Programatik Etiketleme ve Zayıf Denetim<a class="headerlink" href="#programatik-etiketleme-ve-zayif-denetim" title="Permalink to this heading">#</a></h2>
+<p>Etiketli veri kıt olduğunda, <strong>zayıf denetim</strong> ölçekli olasılıksal etiketler oluşturmak için birden fazla gürültülü, örtüşen etiketleme işlevinin kullanılmasına olanak tanır. <strong>Snorkel</strong> <a href="#id11"><span class="problematic" id="id12">ratner2017snorkel</span></a> standart çerçevedir:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------------</span>
+<span class="c1"># Toy weak supervision: sentiment classification</span>
+<span class="c1"># 5 labeling functions (LFs) with different coverage/accuracy</span>
+<span class="c1"># Label: +1 (positive), -1 (negative), 0 (abstain)</span>
+<span class="c1"># -------------------------------------------------------</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">true_labels</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="n">X_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
+    <span class="n">true_labels</span> <span class="o">*</span> <span class="mf">0.8</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">rng_lf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="n">rng_lf</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">coverage</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="n">rng_lf</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">accuracy</span>
+    <span class="n">votes</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="n">correct</span><span class="p">]</span>  <span class="o">=</span> <span class="n">true_labels</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="n">correct</span><span class="p">]</span>
+    <span class="n">votes</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">correct</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">true_labels</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">correct</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">votes</span>
+
+<span class="n">LFs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.78</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.70</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">majority_vote</span><span class="p">(</span><span class="n">LF_matrix</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">LF_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="n">LF_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">LF_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">votes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">votes</span><span class="o">.</span><span class="n">sum</span><span class="p">())))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="n">mv_labels</span> <span class="o">=</span> <span class="n">majority_vote</span><span class="p">(</span><span class="n">LFs</span><span class="p">)</span>
+<span class="n">covered</span> <span class="o">=</span> <span class="n">mv_labels</span> <span class="o">!=</span> <span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coverage:                    </span><span class="si">{</span><span class="n">covered</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MV accuracy (covered):       </span><span class="si">{</span><span class="p">(</span><span class="n">mv_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">true_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X_features</span><span class="p">[</span><span class="n">covered</span><span class="p">],</span> <span class="n">mv_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X_features</span><span class="p">[</span><span class="o">~</span><span class="n">covered</span><span class="p">],</span> <span class="n">true_labels</span><span class="p">[</span><span class="o">~</span><span class="n">covered</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;F1 on uncovered test set:    </span><span class="si">{</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">preds</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dil-modelleri-icin-rlhf-aciklama-gercekligi">
+<h2>Dil Modelleri için RLHF: Açıklama Gerçekliği<a class="headerlink" href="#dil-modelleri-icin-rlhf-aciklama-gercekligi" title="Permalink to this heading">#</a></h2>
+<p>Bölüm 6, RLHF’yi teknik olarak ele aldı. Doğal dil işleme perspektifinden, açıklama görevi dışarıdan göründüğünden daha güçtür.</p>
+<p><strong>Açıklayıcıların gerçekte ne yapması isteniyor</strong> — iki model çıktısını karşılaştırmak ve hangisinin “daha iyi” olduğunu belirtmek — basit görünür. Pratikte, “daha iyi” açıklayıcıların kişisel sezgileri kullanarak çözdüğü eksik belirtilmiş bir kavramdır. Kimisi akıcılığa büyük ağırlık verir; kimisi olgusal doğruluğa; kimisi ayrıntılılığı cezalandırır. Sıkı kılavuzlar olmadan, ortaya çıkan tercih veri kümesi, soyut insan değerlerini değil, istihdam edilen açıklama işgücünün belirli çözüm stratejilerini yansıtır.</p>
+<p><strong>Temel açıklama boyutları şunlardır:</strong></p>
+<ul class="simple">
+<li><p><em>Yararlılık:</em> Yanıt soruyu iyi yanıtlıyor mu? Bilgilendirici, açık ve uygun ölçüde ayrıntılı mı?</p></li>
+<li><p><em>Olgusallık:</em> Yanıt olgusal olarak doğru mu? Bu, değerlendiricilerin alan bilgisine sahip olmasını gerektirir — genelci açıklayıcılar uzman iddiaları doğrulayamadığından ölçekte ciddi kalite sorunları yaratır.</p></li>
+<li><p><em>Zararsızlık:</em> Yanıt toksik, önyargılı, zararlı veya uygunsuz içerikten kaçınıyor mu? “Zararlı”nın bağlama bağlı olduğu ve kültürler, zaman ve platform bağlamı genelinde değiştiği göz önüne alındığında bu yargılar ayrıntılı kılavuzlar gerektirir.</p></li>
+<li><p><em>Kalibrasyon:</em> Yanıt uygun belirsizliği ifade ediyor mu? Açıklayıcılar sistematik olarak güvenli tonda yanıtları tercih etmektedir; bu durum, uygun epistemik alçakgönüllülüğe karşı bir ödül sinyali yaratır.</p></li>
+</ul>
+<p>Ölçütler arasındaki etkileşim karmaşıktır: tehlikeli bir soruya maksimum düzeyde yararlı yanıt, maksimum düzeyde zararlı olabilir. Kılavuzlar, birbiriyle rekabet eden ölçütler arasında nasıl denge kurulacağını belirtmelidir — ve bu dengelerin kendisi, açıklama kararları değil politika kararlarıdır. Açıklama işgücü politika yapmaktadır.</p>
+<p><strong>Ölçek, demografik etkiyi yoğunlaştırır.</strong> Büyük modeller için RLHF nispeten küçük açıklama işgücünü (yüzlerden birkaç bine kadar) içerir ve bu işgücü milyarlarca aşağı akış kararı verir. Bu işgücünün demografik ve kültürel önyargıları, açıklama daha dağıtılmış olsaydı olmayacak biçimde modelin davranışına yansır. Bu, mevcut RLHF hattındaki en az tartışılan yapısal sorunlardan biridir.</p>
+</section>
+<hr class="docutils" />
+<section id="aciklamamodel-geri-bildirim-dongusu">
+<h2>Açıklama–Model Geri Bildirim Döngüsü<a class="headerlink" href="#aciklamamodel-geri-bildirim-dongusu" title="Permalink to this heading">#</a></h2>
+<p>Doğal dil işlemede, diğer herhangi bir alandan daha fazla, açıklama ve model geliştirme süreçleri zaman içinde iç içe geçer:</p>
+<ol class="arabic simple">
+<li><p>Açıklayıcılar, bir modelin mevcut çıktılarını örtük olarak referans olarak kullanarak kalibre edilir.</p></li>
+<li><p>Ödül modeli, açıklamaların neyi tercih ettiğini öğrenir.</p></li>
+<li><p>Üretici, yüksek ödül elde eden çıktılar üretmek üzere ince ayarlanır.</p></li>
+<li><p>Bu çıktılar, sonraki açıklama turlarında “iyi”nin neye benzediğini etkiler.</p></li>
+</ol>
+<p>Bu geri bildirim döngüsü özünde hastalıklı değildir — RLHF’nin yakınsamasını sağlayan budur — ancak modelin davranışının insan tercihlerini yansıttığı için mi yoksa açıklayıcı sezgilerini örüntü eşleştirmeyi öğrendiği için mi şekillendiğini ampirik olarak ayırt etmek güçtür.</p>
+<p>Temiz bir çözüm yoktur. En iyi mevcut uygulama, düzenli aralıklarla toplanan tutulmuş tercih yargıları kullanarak kayma izlemek ve açıklama kılavuzu versiyonunu deneysel değişken olarak ele almaktır.</p>
+</section>
+<hr class="docutils" />
+<section id="uretici-dogal-dil-isleme-modellerinin-degerlendirilmesi">
+<h2>Üretici Doğal Dil İşleme Modellerinin Değerlendirilmesi<a class="headerlink" href="#uretici-dogal-dil-isleme-modellerinin-degerlendirilmesi" title="Permalink to this heading">#</a></h2>
+<p>Net bir doğruluk ölçütü olan sınıflandırma modellerinin aksine, üretim kalitesini değerlendirmek insan yargısı gerektirir:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Değerlendirme yöntemi</p></th>
+<th class="head"><p>Açıklama</p></th>
+<th class="head"><p>Maliyet</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Doğrudan değerlendirme (DA)</p></td>
+<td><p>Açıklayıcılar kaliteyi ölçekle derecelendirir</p></td>
+<td><p>Orta</p></td>
+</tr>
+<tr class="row-odd"><td><p>Karşılaştırmalı yargı</p></td>
+<td><p>Açıklayıcılar iki çıktuyu karşılaştırır</p></td>
+<td><p>Düşük</p></td>
+</tr>
+<tr class="row-even"><td><p>MQM (Çok Boyutlu Kalite Ölçütleri)</p></td>
+<td><p>Yapılandırılmış hata taksonomisi</p></td>
+<td><p>Yüksek</p></td>
+</tr>
+<tr class="row-odd"><td><p>RLHF tercihi</p></td>
+<td><p>Eğitim için kullanılan tercih etiketleri</p></td>
+<td><p>Orta</p></td>
+</tr>
+<tr class="row-even"><td><p>Yargıç olarak BDM</p></td>
+<td><p>BDM çıktıları puanlar (insanla ılımlı korelasyon)</p></td>
+<td><p>Çok düşük</p></td>
+</tr>
+<tr class="row-odd"><td><p>BERTScore, BLEU</p></td>
+<td><p>Otomatik ölçütler (insan yargısıyla yetersiz korelasyon)</p></td>
+<td><p>Çok düşük</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Otomatik ölçütler (makine çevirisi için BLEU, özetleme için ROUGE) ucuzdur ancak insan kalite yargılarıyla yetersiz biçimde ilişkilidir <a href="#id13"><span class="problematic" id="id14">reiter2018structured</span></a>. Yargıç olarak BDM yaklaşımları, insan açıklayıcılarla ılımlı anlaşma göstermektedir <a href="#id15"><span class="problematic" id="id16">zheng2023judging</span></a> ve hızlı yineleme için giderek artan biçimde kullanılmaktadır; ancak nihai değerlendirmeler için insan değerlendirmesinin yerini almamalıdır. Gerçek riskler içeren kararlar için insan değerlendirmesi zorunluluğunu korumaktadır.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Snorkel zayıf denetimi: <a href="#id17"><span class="problematic" id="id18">ratner2017snorkel</span></a>. Doğal dil işleme açıklama kılavuzları: <a href="#id19"><span class="problematic" id="id20">pustejovsky2012natural</span></a>. Doğal dil çıkarımında açıklama yapay ürünleri: <a href="#id21"><span class="problematic" id="id22">geva2019annotator</span></a>. Açıklayıcı önyargısı ve doğal dil işleme veri kümeleri: <a href="#id23"><span class="problematic" id="id24">blodgett2020language</span></a>. Üretici model değerlendirmesi için: <a href="#id25"><span class="problematic" id="id26">reiter2018structured</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/tr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dogal-dil-isleme-aciklamasindaki-kurucu-problem">Doğal Dil İşleme Açıklamasındaki Kurucu Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metin-siniflandirmasi-aciklamasi">Metin Sınıflandırması Açıklaması</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adlandirilmis-varlik-tanima">Adlandırılmış Varlık Tanıma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iliski-cikarimi-ve-anlamsal-aciklama">İlişki Çıkarımı ve Anlamsal Açıklama</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#makine-cevirisi-sonrasi-duzenleme-mcsd">Makine Çevirisi Sonrası Düzenleme (MCSD)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konusma-yapay-zekasi-ve-diyalog-aciklamasi">Konuşma Yapay Zekası ve Diyalog Açıklaması</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programatik-etiketleme-ve-zayif-denetim">Programatik Etiketleme ve Zayıf Denetim</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dil-modelleri-icin-rlhf-aciklama-gercekligi">Dil Modelleri için RLHF: Açıklama Gerçekliği</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklamamodel-geri-bildirim-dongusu">Açıklama–Model Geri Bildirim Döngüsü</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uretici-dogal-dil-isleme-modellerinin-degerlendirilmesi">Üretici Doğal Dil İşleme Modellerinin Değerlendirilmesi</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

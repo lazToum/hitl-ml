@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Learning from Comparisons and Rankings &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/en/chapters/08_preferences';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/en/chapters/08_preferences.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Learning from Comparisons and Rankings</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-comparisons-are-better-than-ratings">Why Comparisons Are Better Than Ratings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#psychological-grounding">Psychological Grounding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-efficiency">Statistical Efficiency</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability">Scalability</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bradley-terry-model">The Bradley-Terry Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifiability">Identifiability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thurstone-s-model">Thurstone’s Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rank-aggregation">Rank Aggregation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dueling-bandits">Dueling Bandits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preference-learning-for-language-models">Preference Learning for Language Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-high-quality-preference-data">Collecting High-Quality Preference Data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="learning-from-comparisons-and-rankings">
+<h1>Learning from Comparisons and Rankings<a class="headerlink" href="#learning-from-comparisons-and-rankings" title="Permalink to this heading">#</a></h1>
+<p>Asking humans to assign an absolute quality score to an output is hard. What is the numerical quality of this essay, on a scale from 1 to 10? The question is ill-posed: humans lack a stable internal scale, and their scores are heavily influenced by anchoring, context, and fatigue.</p>
+<p>Asking humans to <em>compare</em> two outputs is much easier: which essay is better, A or B? Comparative judgments are more consistent, more reliable, and tap into human preferences more directly than absolute ratings. This chapter covers the mathematical foundations and practical applications of learning from comparisons and rankings.</p>
+<hr class="docutils" />
+<section id="why-comparisons-are-better-than-ratings">
+<h2>Why Comparisons Are Better Than Ratings<a class="headerlink" href="#why-comparisons-are-better-than-ratings" title="Permalink to this heading">#</a></h2>
+<section id="psychological-grounding">
+<h3>Psychological Grounding<a class="headerlink" href="#psychological-grounding" title="Permalink to this heading">#</a></h3>
+<p>The superiority of comparative judgments has a long history in psychometrics. Thurstone’s Law of Comparative Judgment <a href="#id1"><span class="problematic" id="id2">thurstone1927law</span></a> (1927) showed that even when humans have inconsistent absolute judgments, their relative judgments follow a consistent probabilistic law. Comparisons exploit the fact that humans are far better at <em>relative</em> perception than absolute calibration.</p>
+</section>
+<section id="statistical-efficiency">
+<h3>Statistical Efficiency<a class="headerlink" href="#statistical-efficiency" title="Permalink to this heading">#</a></h3>
+<p>Each pairwise comparison provides information about the <em>relative</em> positions of two items on the quality scale. With <span class="math notranslate nohighlight">\(K\)</span> items, <span class="math notranslate nohighlight">\(K-1\)</span> comparisons can rank all items; only <span class="math notranslate nohighlight">\(O(\log K)\)</span> comparisons are needed to find the top item. Absolute ratings typically require more judgments to achieve the same precision.</p>
+</section>
+<section id="scalability">
+<h3>Scalability<a class="headerlink" href="#scalability" title="Permalink to this heading">#</a></h3>
+<p>For generative models, the number of distinct outputs is effectively infinite. Rating an output absolutely requires establishing a shared scale across all outputs; comparing outputs requires only local, relative judgments that are naturally calibrated to each other.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-bradley-terry-model">
+<h2>The Bradley-Terry Model<a class="headerlink" href="#the-bradley-terry-model" title="Permalink to this heading">#</a></h2>
+<p>The dominant probabilistic model for pairwise comparisons is the <strong>Bradley-Terry (BT) model</strong> <a href="#id3"><span class="problematic" id="id4">bradley1952rank</span></a>. Each item <span class="math notranslate nohighlight">\(i\)</span> has a latent quality score <span class="math notranslate nohighlight">\(\alpha_i \in \mathbb{R}\)</span>. The probability that item <span class="math notranslate nohighlight">\(i\)</span> is preferred to item <span class="math notranslate nohighlight">\(j\)</span> in a direct comparison is:</p>
+<div class="math notranslate nohighlight">
+\[
+P(i \succ j) = \frac{e^{\alpha_i}}{e^{\alpha_i} + e^{\alpha_j}} = \sigma(\alpha_i - \alpha_j)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the logistic sigmoid. This is equivalent to assuming that the perceived quality of item <span class="math notranslate nohighlight">\(i\)</span> is <span class="math notranslate nohighlight">\(\alpha_i + \epsilon\)</span> where <span class="math notranslate nohighlight">\(\epsilon\)</span> is a standard logistic noise term.</p>
+<section id="identifiability">
+<h3>Identifiability<a class="headerlink" href="#identifiability" title="Permalink to this heading">#</a></h3>
+<p>The BT model is identifiable up to a translation: if <span class="math notranslate nohighlight">\(\alpha\)</span> is a solution, so is <span class="math notranslate nohighlight">\(\alpha + c\)</span> for any constant <span class="math notranslate nohighlight">\(c\)</span>. A standard convention is to fix one score (e.g., <span class="math notranslate nohighlight">\(\alpha_0 = 0\)</span>) or to constrain <span class="math notranslate nohighlight">\(\sum_i \alpha_i = 0\)</span>. The scores are only identified when the <strong>comparison graph</strong> (nodes = items, edges = observed pairs) is <strong>connected</strong> — if the graph has disconnected components, the relative scores across components are undefined.</p>
+</section>
+<section id="parameter-estimation">
+<h3>Parameter Estimation<a class="headerlink" href="#parameter-estimation" title="Permalink to this heading">#</a></h3>
+<p>Given a dataset of pairwise comparisons <span class="math notranslate nohighlight">\(\mathcal{D} = \{(i, j, y_{ij})\}\)</span> where <span class="math notranslate nohighlight">\(y_{ij} = 1\)</span> if <span class="math notranslate nohighlight">\(i\)</span> was preferred to <span class="math notranslate nohighlight">\(j\)</span>, the log-likelihood is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(\alpha) = \sum_{(i, j, y_{ij}) \in \mathcal{D}} \left[ y_{ij} \log \sigma(\alpha_i - \alpha_j) + (1 - y_{ij}) \log \sigma(\alpha_j - \alpha_i) \right]
+\]</div>
+<p>This is a concave function of <span class="math notranslate nohighlight">\(\alpha\)</span> and can be maximized via gradient ascent or Newton’s method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">expit</span>  <span class="c1"># sigmoid</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------</span>
+<span class="c1"># Simulate Bradley-Terry: 8 items with true quality scores</span>
+<span class="c1"># Generate pairwise comparisons and recover the scores</span>
+<span class="c1"># -----------------------------------------------</span>
+
+<span class="n">N_ITEMS</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">true_alpha</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_ITEMS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True quality ranking: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Generate comparisons: every pair compared 5 times</span>
+<span class="n">comparisons</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITEMS</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_ITEMS</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">p_i_wins</span> <span class="o">=</span> <span class="n">expit</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">true_alpha</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">winner</span> <span class="o">=</span> <span class="n">i</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p_i_wins</span> <span class="k">else</span> <span class="n">j</span>
+            <span class="n">loser</span>  <span class="o">=</span> <span class="n">j</span> <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="n">i</span> <span class="k">else</span> <span class="n">i</span>
+            <span class="n">comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">winner</span><span class="p">,</span> <span class="n">loser</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total comparisons: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">comparisons</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">neg_log_likelihood</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bradley-Terry negative log-likelihood.&quot;&quot;&quot;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">winner</span><span class="p">,</span> <span class="n">loser</span> <span class="ow">in</span> <span class="n">comparisons</span><span class="p">:</span>
+        <span class="n">log_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">expit</span><span class="p">(</span><span class="n">alpha</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">[</span><span class="n">loser</span><span class="p">])</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">-=</span> <span class="n">log_prob</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">neg_grad</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">winner</span><span class="p">,</span> <span class="n">loser</span> <span class="ow">in</span> <span class="n">comparisons</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">expit</span><span class="p">(</span><span class="n">alpha</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">[</span><span class="n">loser</span><span class="p">])</span>
+        <span class="n">grad</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span> <span class="o">-=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span>
+        <span class="n">grad</span><span class="p">[</span><span class="n">loser</span><span class="p">]</span>  <span class="o">-=</span> <span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grad</span>
+
+<span class="c1"># Fix alpha[0] = 0 to resolve scale ambiguity</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">neg_log_likelihood</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">a</span><span class="p">]),</span> <span class="n">comparisons</span><span class="p">),</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_ITEMS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">jac</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">neg_grad</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">a</span><span class="p">]),</span> <span class="n">comparisons</span><span class="p">)[</span><span class="mi">1</span><span class="p">:],</span>
+    <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span>
+<span class="p">)</span>
+<span class="n">est_alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+
+<span class="c1"># Compare true vs estimated ranking</span>
+<span class="n">true_rank</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">est_rank</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">est_alpha</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">True ranking (item indices): </span><span class="si">{</span><span class="n">true_rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated ranking:           </span><span class="si">{</span><span class="n">est_rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">rank_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">,</span> <span class="n">est_alpha</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Correlation with true scores: </span><span class="si">{</span><span class="n">rank_corr</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="thurstone-s-model">
+<h2>Thurstone’s Model<a class="headerlink" href="#thurstone-s-model" title="Permalink to this heading">#</a></h2>
+<p>Thurstone’s model <a href="#id5"><span class="problematic" id="id6">thurstone1927law</span></a> is closely related to Bradley-Terry but uses a Gaussian rather than logistic noise:</p>
+<div class="math notranslate nohighlight">
+\[
+P(i \succ j) = \Phi\left(\frac{\alpha_i - \alpha_j}{\sqrt{2}\sigma}\right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Phi\)</span> is the standard normal CDF. When <span class="math notranslate nohighlight">\(\sigma = 1/\sqrt{2}\)</span>, this becomes equivalent to BT with a minor scaling difference. In practice, the two models give nearly identical results.</p>
+</section>
+<hr class="docutils" />
+<section id="rank-aggregation">
+<h2>Rank Aggregation<a class="headerlink" href="#rank-aggregation" title="Permalink to this heading">#</a></h2>
+<p>When each annotator provides a complete ranking of <span class="math notranslate nohighlight">\(K\)</span> items (rather than pairwise comparisons), the problem is <strong>rank aggregation</strong>: combine multiple ranked lists into a consensus ranking.</p>
+<p><strong>Borda count:</strong> Each item receives a score equal to the number of items ranked below it in each annotator’s ranking. Scores are summed across annotators. Simple and robust.</p>
+<p><strong>Kemeny–Young:</strong> Find the ranking that minimizes the sum of pairwise disagreements (the Kendall tau distance) with each annotator’s ranking. This is NP-hard for large <span class="math notranslate nohighlight">\(K\)</span> but tractable for small sets.</p>
+<p><strong>RankNet / ListNet:</strong> Neural approaches that learn a scoring function from ranked lists, enabling generalization to unseen items.</p>
+</section>
+<hr class="docutils" />
+<section id="dueling-bandits">
+<h2>Dueling Bandits<a class="headerlink" href="#dueling-bandits" title="Permalink to this heading">#</a></h2>
+<p>In <strong>online</strong> preference learning, items arrive in a stream and we must decide which pairs to compare, balancing exploration (learning about unknown items) and exploitation (presenting high-quality items). This is the <strong>dueling bandit</strong> problem <a href="#id7"><span class="problematic" id="id8">yue2009interactively</span></a>.</p>
+<p>Key algorithms:</p>
+<ul class="simple">
+<li><p><strong>Doubler:</strong> Maintains a champion item; challenges it with random competitors</p></li>
+<li><p><strong>RUCB (Relative Upper Confidence Bound):</strong> Computes UCB-style confidence intervals for each item’s probability of beating each other item</p></li>
+<li><p><strong>MergeRank:</strong> Combines tournament-style comparison with UCB</p></li>
+</ul>
+<p>Dueling bandits are used in online recommendation systems (which article to show next, given implicit feedback) and interactive preference elicitation for RLHF data collection.</p>
+</section>
+<hr class="docutils" />
+<section id="preference-learning-for-language-models">
+<h2>Preference Learning for Language Models<a class="headerlink" href="#preference-learning-for-language-models" title="Permalink to this heading">#</a></h2>
+<p>In the context of RLHF (Chapter 6), the Bradley-Terry model is used to train the reward model. An important variant is <strong>Direct Preference Optimization (DPO)</strong> <a href="#id9"><span class="problematic" id="id10">rafailov2023direct</span></a>, which shows that the RLHF objective can be optimized directly from preference data without training a separate reward model:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_\text{DPO}(\theta) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma \left( \beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_\text{ref}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_\text{ref}(y_l \mid x)} \right) \right]
+\]</div>
+<p>DPO is simpler than full RLHF (no PPO training loop, no reward model) while achieving comparable or better results on many benchmarks <a href="#id11"><span class="problematic" id="id12">rafailov2023direct</span></a>. It has become a widely adopted alternative to PPO-based RLHF for instruction-following fine-tuning, though both approaches remain in active use and their relative strengths are task-dependent.</p>
+</section>
+<hr class="docutils" />
+<section id="collecting-high-quality-preference-data">
+<h2>Collecting High-Quality Preference Data<a class="headerlink" href="#collecting-high-quality-preference-data" title="Permalink to this heading">#</a></h2>
+<p>The quality of preference data determines the quality of the reward model. Key considerations:</p>
+<p><strong>Prompt diversity.</strong> Preference data should cover the full distribution of prompts the model will encounter in deployment. Gaps in coverage lead to unreliable reward model behavior in those regions.</p>
+<p><strong>Response diversity.</strong> Comparing two very similar responses provides little information. The compared responses should differ enough for annotators to have a clear preference.</p>
+<p><strong>Annotator agreement.</strong> Low inter-annotator agreement suggests the comparison criteria are ambiguous. Measure agreement (Cohen’s κ) and revise guidelines when it is below acceptable thresholds.</p>
+<p><strong>Calibration.</strong> Annotators should understand <em>why</em> one response is better: helpfulness, accuracy, safety, style? Tasks that bundle multiple criteria tend to produce inconsistent preferences. It is often better to collect preferences on each criterion separately.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Bradley-Terry model: <a href="#id13"><span class="problematic" id="id14">bradley1952rank</span></a>. Thurstone: <a href="#id15"><span class="problematic" id="id16">thurstone1927law</span></a>. Dueling bandits: <a href="#id17"><span class="problematic" id="id18">yue2009interactively</span></a>. Direct Preference Optimization (DPO): <a href="#id19"><span class="problematic" id="id20">rafailov2023direct</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/en/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-comparisons-are-better-than-ratings">Why Comparisons Are Better Than Ratings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#psychological-grounding">Psychological Grounding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-efficiency">Statistical Efficiency</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability">Scalability</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bradley-terry-model">The Bradley-Terry Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifiability">Identifiability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thurstone-s-model">Thurstone’s Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rank-aggregation">Rank Aggregation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dueling-bandits">Dueling Bandits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preference-learning-for-language-models">Preference Learning for Language Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-high-quality-preference-data">Collecting High-Quality Preference Data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,354 @@
+% ============================================================================
+% TECHNICAL APPENDIX 14A: Fairness Metrics, Bias Auditing, and Algorithmic Accountability
+% Source: /chapters/ch14/Ch14A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 14A: Fairness Metrics, Bias Auditing, and Algorithmic Accountability Tools}
+\addcontentsline{toc}{chapter}{Technical Appendix 14A: Fairness Metrics and Algorithmic Accountability}
+
+\begin{chapterquote}{Mathematical foundations and Python implementations for building and auditing fair AI systems}
+Fairness in machine learning is not a single property---it is a family of distinct mathematical requirements, some mutually incompatible. This appendix formalizes the major definitions, proves the impossibility theorem, and provides implementation tools for bias auditing and mitigation.
+\end{chapterquote}
+
+% ============================================================================
+\section{Formal Fairness Definitions}
+\label{sec:a14-fairness-definitions}
+% ============================================================================
+
+Let:
+\begin{itemize}
+    \item $\hat{Y}$ = model prediction (binary: 0 or 1)
+    \item $Y$ = true outcome
+    \item $A$ = sensitive attribute (e.g., race, gender, age group)
+    \item $X$ = all other features
+\end{itemize}
+
+\paragraph{Demographic Parity (Statistical Parity).}
+\[
+P(\hat{Y} = 1 \mid A = 0) = P(\hat{Y} = 1 \mid A = 1)
+\]
+The probability of a positive prediction is equal across groups. A hiring algorithm satisfies demographic parity if it recommends candidates at equal rates regardless of protected attribute.
+
+\paragraph{Equalized Odds \autocite{hardt2016equality}.}
+\[
+P(\hat{Y} = 1 \mid Y = y, A = 0) = P(\hat{Y} = 1 \mid Y = y, A = 1) \quad \text{for } y \in \{0,1\}
+\]
+Both the true positive rate (TPR) and false positive rate (FPR) are equal across groups. A medical screening tool satisfies equalized odds if it correctly identifies sick patients---and incorrectly flags healthy ones---at equal rates regardless of demographic group.
+
+\paragraph{Equal Opportunity} (weaker form of equalized odds): only the TPR constraint:
+\[
+P(\hat{Y} = 1 \mid Y = 1, A = 0) = P(\hat{Y} = 1 \mid Y = 1, A = 1)
+\]
+
+\paragraph{Calibration (Predictive Rate Parity).}
+\[
+P(Y = 1 \mid \hat{Y} = 1, A = 0) = P(Y = 1 \mid \hat{Y} = 1, A = 1)
+\]
+Among all individuals predicted positive, the fraction who are actually positive is equal across groups.
+
+% ============================================================================
+\section{The Fairness Impossibility Theorem}
+\label{sec:a14-impossibility}
+% ============================================================================
+
+\textcite{chouldechova2017fair} proved that calibration and equal FPR cannot simultaneously hold when base rates differ across groups.
+
+\paragraph{Setup.} Let $b_A = P(Y = 1 \mid A)$ denote the base rate of the outcome for group $A$.
+
+\paragraph{Theorem \autocite{chouldechova2017fair}.} If $b_0 \neq b_1$ (base rates differ), then no score $s$ can simultaneously satisfy:
+\begin{enumerate}
+    \item \textbf{Calibration:} $P(Y=1 \mid s, A) = s$ for all groups
+    \item \textbf{Equal FPR:} $P(\hat{Y}=1 \mid Y=0, A=0) = P(\hat{Y}=1 \mid Y=0, A=1)$
+    \item \textbf{Equal FNR:} $P(\hat{Y}=0 \mid Y=1, A=0) = P(\hat{Y}=0 \mid Y=1, A=1)$
+\end{enumerate}
+
+\paragraph{Intuitive proof.} For a calibrated model at threshold $\tau$:
+\[
+\text{FPR}_A = \frac{(1-\text{PPV}_A) \cdot \text{PR}_A}{1 - b_A}
+\]
+where $\text{PPV}_A$ is the positive predictive value and $\text{PR}_A$ is the prediction rate for group $A$. If $b_0 \neq b_1$ and PPV is equalized (calibration holds), then FPR equality requires $\text{PR}_A$ to adjust in a way that inevitably violates FNR equality. All three cannot hold simultaneously.
+
+\begin{lstlisting}[style=python, caption={Fairness impossibility demonstration}]
+import numpy as np
+from sklearn.metrics import confusion_matrix
+
+def compute_fairness_metrics(y_true, y_pred, groups):
+    results = {}
+    for group_val in [0, 1]:
+        mask = groups == group_val
+        yt, yp = y_true[mask], y_pred[mask]
+        tn, fp, fn, tp = confusion_matrix(yt, yp, labels=[0, 1]).ravel()
+        n = len(yt)
+        results[f'group_{group_val}'] = {
+            'TPR':       tp / (tp + fn) if (tp + fn) > 0 else np.nan,
+            'FPR':       fp / (fp + tn) if (fp + tn) > 0 else np.nan,
+            'PPV':       tp / (tp + fp) if (tp + fp) > 0 else np.nan,
+            'pred_rate': (tp + fp) / n,
+            'base_rate': (tp + fn) / n,
+        }
+    return results
+
+def demonstrate_impossibility(base_rate_0=0.2, base_rate_1=0.4, n=2000):
+    np.random.seed(42)
+    y0 = np.random.binomial(1, base_rate_0, n // 2)
+    y1 = np.random.binomial(1, base_rate_1, n // 2)
+    y  = np.concatenate([y0, y1])
+    groups = np.concatenate([np.zeros(n // 2), np.ones(n // 2)])
+
+    scores = np.where(
+        groups == 0,
+        np.random.beta(2, 8, n),
+        np.random.beta(4, 6, n)
+    )
+    y_pred  = (scores > 0.3).astype(int)
+    metrics = compute_fairness_metrics(y, y_pred, groups)
+
+    for g in ['group_0', 'group_1']:
+        m = metrics[g]
+        print(f"{g}: TPR={m['TPR']:.3f}, FPR={m['FPR']:.3f}, "
+              f"PPV={m['PPV']:.3f}, PredRate={m['pred_rate']:.3f}")
+
+    fpr_gap = abs(metrics['group_0']['FPR'] - metrics['group_1']['FPR'])
+    ppv_gap = abs(metrics['group_0']['PPV'] - metrics['group_1']['PPV'])
+    print(f"\nFPR gap: {fpr_gap:.3f} | PPV gap (calibration): {ppv_gap:.3f}")
+    print("Note: minimising PPV gap (calibration) cannot prevent FPR gap "
+          "when base rates differ.")
+\end{lstlisting}
+
+% ============================================================================
+\section{Bias Detection with Fairlearn}
+\label{sec:a14-fairlearn}
+% ============================================================================
+
+Microsoft's Fairlearn library provides audit dashboards and mitigation algorithms.
+
+\begin{lstlisting}[style=python, caption={Full fairness audit with Fairlearn}]
+from fairlearn.metrics import (
+    MetricFrame, demographic_parity_difference,
+    equalized_odds_difference, selection_rate,
+)
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+
+def full_fairness_audit(y_true, y_pred, sensitive_features, feature_name):
+    mf = MetricFrame(
+        metrics={
+            'accuracy':       accuracy_score,
+            'precision':      precision_score,
+            'recall':         recall_score,
+            'selection_rate': selection_rate,
+        },
+        y_true=y_true,
+        y_pred=y_pred,
+        sensitive_features=sensitive_features,
+    )
+    dp_diff = demographic_parity_difference(
+        y_true, y_pred, sensitive_features=sensitive_features
+    )
+    eo_diff = equalized_odds_difference(
+        y_true, y_pred, sensitive_features=sensitive_features
+    )
+
+    print(f"Fairness Audit: {feature_name}")
+    print(mf.by_group.to_string())
+    print(f"Demographic parity diff:  {dp_diff:.4f}  (0 = fair)")
+    print(f"Equalized odds diff:      {eo_diff:.4f}  (0 = fair)")
+
+    if abs(dp_diff) > 0.1:
+        print(f"WARNING: Demographic parity gap ({dp_diff:.3f}) exceeds 0.1")
+    if abs(eo_diff) > 0.1:
+        print(f"WARNING: Equalized odds gap ({eo_diff:.3f}) exceeds 0.1")
+
+    return {'metric_frame': mf, 'dp_diff': dp_diff, 'eo_diff': eo_diff}
+\end{lstlisting}
+
+% ============================================================================
+\section{Bias Mitigation Techniques}
+\label{sec:a14-mitigation}
+% ============================================================================
+
+Three categories of mitigation correspond to three pipeline stages: \textbf{pre-processing} (modify training data before training), \textbf{in-processing} (add fairness constraints to the learning objective), and \textbf{post-processing} (adjust predictions after training).
+
+\begin{lstlisting}[style=python, caption={In-processing, post-processing, and pre-processing mitigation}]
+from fairlearn.reductions import ExponentiatedGradient, DemographicParity
+from fairlearn.postprocessing import ThresholdOptimizer
+from sklearn.linear_model import LogisticRegression
+import numpy as np
+
+# In-processing: Exponentiated Gradient
+def train_fair_inprocessing(X_train, y_train, sensitive_train):
+    mitigator = ExponentiatedGradient(
+        estimator=LogisticRegression(max_iter=500),
+        constraints=DemographicParity(),
+        eps=0.01,
+    )
+    mitigator.fit(X_train, y_train, sensitive_features=sensitive_train)
+    return mitigator
+
+# Post-processing: Threshold Optimizer
+def train_fair_postprocessing(estimator, X_train, y_train, sensitive_train):
+    postprocess_est = ThresholdOptimizer(
+        estimator=estimator,
+        constraints='equalized_odds',
+        predict_method='predict_proba',
+        objective='accuracy_score',
+    )
+    postprocess_est.fit(X_train, y_train, sensitive_features=sensitive_train)
+    return postprocess_est
+
+# Pre-processing: Reweighing (removes group-label correlation by instance weights)
+def compute_reweighing_weights(y_train, sensitive_train):
+    n = len(y_train)
+    weights = np.ones(n)
+    for g in np.unique(sensitive_train):
+        for l in np.unique(y_train):
+            mask  = (sensitive_train == g) & (y_train == l)
+            n_gl  = mask.sum()
+            if n_gl > 0:
+                expected  = (sensitive_train == g).sum() / n \
+                          * (y_train == l).sum() / n * n
+                weights[mask] = expected / n_gl
+    return weights
+\end{lstlisting}
+
+% ============================================================================
+\section{Disparate Impact Ratio (AIF360)}
+\label{sec:a14-dir}
+% ============================================================================
+
+The disparate impact ratio (DIR) is the standard metric used in US employment discrimination law (the ``4/5ths rule''):
+\[
+\text{DIR} = \frac{P(\hat{Y}=1 \mid A=\text{minority})}{P(\hat{Y}=1 \mid A=\text{majority})}
+\]
+A DIR below 0.8 is a legal threshold for disparate impact in employment contexts.
+
+\begin{lstlisting}[style=python, caption={Disparate impact ratio via AIF360}]
+from aif360.datasets import BinaryLabelDataset
+from aif360.metrics import BinaryLabelDatasetMetric
+
+def compute_disparate_impact(df, label_col, sensitive_col,
+                              privileged_val, unprivileged_val):
+    privileged_groups   = [{sensitive_col: privileged_val}]
+    unprivileged_groups = [{sensitive_col: unprivileged_val}]
+
+    dataset = BinaryLabelDataset(
+        df=df[[sensitive_col, label_col]],
+        label_names=[label_col],
+        protected_attribute_names=[sensitive_col],
+    )
+    metric = BinaryLabelDatasetMetric(
+        dataset,
+        unprivileged_groups=unprivileged_groups,
+        privileged_groups=privileged_groups,
+    )
+    dir_val   = metric.disparate_impact()
+    mean_diff = metric.mean_difference()
+
+    print(f"Disparate Impact Ratio: {dir_val:.4f}")
+    print(f"  (Legal threshold: >= 0.80; below = potential disparate impact)")
+    print(f"Mean Difference (stat parity): {mean_diff:.4f}")
+    if dir_val < 0.80:
+        print("ALERT: Disparate impact below 4/5ths rule threshold.")
+    return {'disparate_impact': dir_val, 'mean_difference': mean_diff}
+\end{lstlisting}
+
+% ============================================================================
+\section{Counterfactual Fairness}
+\label{sec:a14-counterfactual}
+% ============================================================================
+
+Counterfactual fairness \autocite{kusner2017counterfactual} asks: would the prediction change if the individual belonged to a different demographic group, holding all causally independent features constant?
+\[
+P(\hat{Y}_{A \leftarrow a}(U) = y \mid X=x, A=a) = P(\hat{Y}_{A \leftarrow a'}(U) = y \mid X=x, A=a)
+\]
+This requires a causal model of the data-generating process. The testing principle can be approximated by flipping the sensitive attribute and measuring prediction change.
+
+\begin{lstlisting}[style=python, caption={Approximate counterfactual fairness test}]
+def counterfactual_fairness_test(model, X_test, sensitive_col,
+                                  group_a_val, group_b_val,
+                                  non_sensitive_cols):
+    X_a         = X_test[X_test[sensitive_col] == group_a_val].copy()
+    X_a_counter = X_a.copy()
+    X_a_counter[sensitive_col] = group_b_val
+
+    preds_original = model.predict(X_a[non_sensitive_cols])
+    preds_counter  = model.predict(X_a_counter[non_sensitive_cols])
+
+    changed = (preds_original != preds_counter).mean()
+    print(f"Counterfactual flip rate: {changed:.4f}")
+    print(f"  (0 = counterfactually fair; >0 = predictions changed by group flip)")
+    return changed
+\end{lstlisting}
+
+% ============================================================================
+\section{Feedback Loop Detection}
+\label{sec:a14-feedback-loops}
+% ============================================================================
+
+Detecting whether a deployed model is amplifying disparities over time requires monitoring group-level prediction rates across retraining cycles.
+
+\begin{lstlisting}[style=python, caption={Feedback loop amplification test}]
+import numpy as np
+from scipy import stats
+
+def detect_feedback_amplification(predictions_history, group_labels,
+                                   n_cycles=5):
+    disparity_over_time = []
+    for cycle in range(min(n_cycles, len(predictions_history))):
+        preds  = np.array(predictions_history[cycle])
+        groups = np.array(group_labels[cycle])
+        rates  = {g: preds[groups == g].mean() for g in np.unique(groups)}
+        disparity_over_time.append(max(rates.values()) - min(rates.values()))
+
+    cycles = np.arange(len(disparity_over_time))
+    slope, _, r_val, p_val, _ = stats.linregress(cycles, disparity_over_time)
+
+    print(f"Disparities over cycles: {[f'{d:.4f}' for d in disparity_over_time]}")
+    print(f"Trend slope: {slope:.4f}/cycle, R²={r_val**2:.3f}, p={p_val:.4f}")
+    if slope > 0 and p_val < 0.05:
+        print("WARNING: Statistically significant disparity amplification.")
+    elif slope > 0:
+        print("NOTE: Upward trend in disparity (not yet statistically significant).")
+    else:
+        print("No evidence of feedback amplification detected.")
+
+    return {'slope': slope, 'p_value': p_val,
+            'amplification_detected': slope > 0 and p_val < 0.05}
+\end{lstlisting}
+
+% ============================================================================
+\section{Pre-Deployment Audit Checklist}
+\label{sec:a14-checklist}
+% ============================================================================
+
+A structured audit checklist derived from NIST AI RMF (2023) and EU AI Act requirements:
+
+\begin{center}
+\begin{tabular}{@{}lp{4cm}p{3cm}p{3.5cm}@{}}
+\toprule
+\textbf{Stage} & \textbf{Check} & \textbf{Tool} & \textbf{Threshold} \\
+\midrule
+Data       & Demographic representation in training set & EDA + sampling stats  & No group $<$ 5\% of $N$ \\
+Data       & Label distribution by group                & MetricFrame           & Parity diff $<$ 0.10 \\
+Model      & Demographic parity at deployment threshold & Fairlearn             & Diff $<$ 0.10 \\
+Model      & Equalized odds                             & Fairlearn             & Diff $<$ 0.10 \\
+Model      & Calibration by group                       & ECE per group         & Per-group ECE $<$ 0.05 \\
+Model      & Disparate impact ratio                     & AIF360                & DIR $\geq$ 0.80 \\
+Deployment & Slice-based monitoring (monthly)           & SliceFinder           & Alert at 5\% degradation \\
+Deployment & Feedback loop correlation test             & Custom                & Slope $p < 0.05 \to$ halt \\
+Process    & Reviewer demographic diversity             & Audit log             & Document + review \\
+Process    & Contestability mechanism functional        & Process audit         & 100\% cases have pathway \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================================
+\section{Further Reading}
+\label{sec:a14-further-reading}
+% ============================================================================
+
+\begin{itemize}
+    \item \textcite{chouldechova2017fair} --- Fair prediction with disparate impact. \textit{Big Data, 5}(2).
+    \item \textcite{hardt2016equality} --- Equality of opportunity in supervised learning. \textit{NeurIPS 29}.
+    \item \textcite{kusner2017counterfactual} --- Counterfactual fairness. \textit{NeurIPS 30}.
+    \item Bird, S., et al.\ (2020). Fairlearn: A toolkit for assessing and improving fairness in AI. \textit{Microsoft Research}.
+\end{itemize}

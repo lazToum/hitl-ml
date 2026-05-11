@@ -1,0 +1,335 @@
+% ============================================================================
+% CHAPTER 8 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch8/Ch8AM_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 8}
+\label{ch:solutions-ch08}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Architecture-aligned answers enabling instructors to teach the seven-component framework with precision and consistency.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Pipeline vs.\ Loop}
+
+\textbf{Prompt:} ``What is the key difference between a HITL pipeline and a HITL loop? Give one example of each.''
+
+\paragraph{Model Answer.}
+
+\textbf{Pipeline:} Data flows one direction. Human review produces outputs that are used downstream but do not change the model. The model is the same tomorrow as today.
+
+\emph{Example:} A human reviews flagged customer service emails and decides whether to escalate or close them. Their decisions help individual customers, but the spam classifier is never updated based on their work.
+
+\textbf{Loop:} Human outputs flow back into the model. The model improves over time because of what humans tell it.
+
+\emph{Example:} The same customer service system, but flagged emails that humans review are accumulated as training examples. The model is retrained monthly on the aggregate of human decisions. When reviewers start seeing a new type of complaint, the model eventually learns to handle it.
+
+\paragraph{What distinguishes them architecturally:} The presence of Component 5 (Feedback Integration). A pipeline has components 1--4. A loop has all seven.
+
+\paragraph{Grading Criteria.}
+\begin{description}
+    \item[Excellent] Clear definition of both; correct identification of the feedback integration component as the distinguishing factor; examples that illustrate the difference specifically, not just generically
+    \item[Good] Correct definitions; examples that are plausible but may not precisely illustrate the structural difference
+    \item[Satisfactory] Correct intuition about the difference; examples may be imprecise or only one direction of the contrast
+    \item[Needs Improvement] Confuses ``having a human in the loop'' with feedback integration; only describes one type
+\end{description}
+
+\subsubsection{Question 2: Uber Tempe as Architecture Failure}
+
+\textbf{Prompt:} ``Why does the Uber Tempe incident qualify as an architecture failure? Which architectural component was missing or deficient?''
+
+\paragraph{Model Answer.}
+
+The sensors detected the pedestrian. The system's uncertainty quantification was functioning: the system classified the object with high uncertainty, cycling through multiple classifications (unknown object, vehicle, bicycle). The failure was in the \textbf{routing component} (Component 3): the system allowed uncertain classifications to resolve to a stable incorrect classification without triggering human confirmation. Once it settled on ``stationary vehicle,'' it discontinued escalation even though its prior uncertainty had been extremely high.
+
+A secondary failure was in the \textbf{interface component} (Component 4): no mechanism existed to communicate the model's uncertainty state to the backup driver in an actionable form. She was physically present but had no signal that would prompt engagement.
+
+The result: the human was in the loop nominally (in the seat, responsible) but not operationally (no uncertainty signal, no escalation trigger, no capacity to intervene in time).
+
+\paragraph{What an architecture analysis reveals that a ``driver failure'' framing misses:}
+\begin{itemize}
+    \item Blaming the driver treats the failure as individual and unique; architecture analysis reveals it as systemic and predictable
+    \item Any driver in the same interface design would face the same dynamics
+    \item The fix is architectural (redesign routing to require human confirmation of uncertain classifications, redesign interface to communicate uncertainty in real time), not behavioral (``drivers must pay attention'')
+\end{itemize}
+
+\paragraph{Grading Criteria.}
+\begin{description}
+    \item[Excellent] Identifies routing as primary failure with specific mechanism; identifies interface as contributing failure; explains why ``driver failure'' framing is incomplete; connects to systemic vs.\ individual failure distinction
+    \item[Good] Identifies routing failure correctly; notes interface problem; some analysis of why this is systemic
+    \item[Satisfactory] Identifies one component failure; limited analysis of the systemic vs.\ individual dimension
+    \item[Needs Improvement] Frames it as driver failure or sensor failure without engaging the architecture question
+\end{description}
+
+\subsubsection{Question 3: What Monitoring Detects}
+
+\textbf{Prompt:} ``Describe two failure modes that Component 6 (Monitoring) would detect. Why can't the other components detect these?''
+
+\paragraph{Model Answer.}
+
+\textbf{Failure Mode 1: Distribution drift.}
+The inputs to the system have changed --- users are behaving differently, the world is different, a new population is using the product --- but no individual case looks alarming. The model is performing worse than it used to, but case-by-case there's no visible error. Monitoring catches this by tracking the distribution of model outputs, confidence scores, and (where available) ground truth accuracy over time. A shift in any of these distributions signals drift.
+
+Why other components can't detect this: the routing component handles individual cases; it has no view of aggregate trends. The audit component logs what happened; it doesn't analyze trends. Feedback integration doesn't detect problems --- it incorporates feedback (which may itself be degraded by the drift).
+
+\textbf{Failure Mode 2: Rising human override rate.}
+Reviewers have been overriding the model at increasing rates. This might indicate model degradation (the model is making more mistakes), reviewer training drift (reviewers have developed new standards), or routing misconfiguration. Without monitoring, this trend is invisible. Monitoring catches it by tracking override rates over time and alerting when a threshold is crossed.
+
+Why other components can't detect this: the interface collects individual override decisions; it has no view of aggregate trends. The prediction layer doesn't know the model is getting overridden more. The audit layer logs the overrides but requires active analysis to detect the trend.
+
+\paragraph{Key insight for students:} Monitoring detects \emph{statistical patterns that emerge over time}, not individual case errors. Other components handle individual cases. Only monitoring has the temporal scope to catch slow-moving failure modes.
+
+\paragraph{Grading Criteria.}
+\begin{description}
+    \item[Excellent] Two specific, distinct failure modes; clear explanation of why monitoring catches them; clear explanation of why other components cannot (specifying which other component and why it lacks scope)
+    \item[Good] Two failure modes; monitoring explanation correct; limited analysis of why other components can't detect
+    \item[Satisfactory] One good failure mode; basic monitoring description
+    \item[Needs Improvement] Vague failure modes; does not engage the ``why can't other components detect this'' question
+\end{description}
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 4: New Harmful Content Scenario}
+
+\textbf{Prompt:} ``A content moderation system uses batch retraining monthly. New harmful content emerges in week 1. Describe the system's behavior from week 1 to week 5. What architecture change would reduce this lag?''
+
+\paragraph{Model Answer.}
+
+\textbf{Week 1:} New harmful content type appears. The model has never seen it. Two cases:
+\begin{itemize}
+    \item \emph{If model is uncertain:} Routes to human reviewers. They correctly flag it as harmful. Labels accumulate.
+    \item \emph{If model is overconfident:} Auto-approves as non-harmful. No labels generated. Content enters the platform.
+\end{itemize}
+
+\textbf{Weeks 2--3:}
+\begin{itemize}
+    \item If uncertain routing: labels from week 1 are growing. Model won't incorporate them until month-end retraining. Human reviewers are manually catching harmful content the model misses.
+    \item If overconfident error: harmful content continues to pass automatically. No labels generated; no signal to trigger intervention.
+\end{itemize}
+
+\textbf{Week 4 (retraining):} Labels from uncertain-routed cases incorporated. If overconfident errors occurred, nothing was collected from those cases.
+
+\textbf{Week 5:} Model improved on new content type --- but only for the portion that was uncertain-routed. Overconfident errors may have trained on no new data at all. A month of harmful content has passed through the overconfident pathway.
+
+\paragraph{Architecture changes to reduce lag:}
+\begin{enumerate}
+    \item \textbf{Sample-based audit of high-confidence auto-approvals} (e.g., random 2\% sample sent to human review regardless of confidence). This catches overconfident errors even when uncertainty routing misses them.
+    \item \textbf{Online learning for high-priority categories}: reduce retraining lag from monthly to daily or real-time for content categories with severe harm potential.
+    \item \textbf{Anomaly detection on prediction distribution}: monitor the distribution of model outputs; a sudden shift in the distribution of confidence scores for a specific content category signals something new is being encountered.
+\end{enumerate}
+
+\subsubsection{Question 5: Active Learning vs.\ Batch Retraining}
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Active learning vs.\ batch retraining comparison}
+\label{tab:al-vs-batch}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Batch Retraining} & \textbf{Active Learning} \\
+\midrule
+Latency & Monthly/weekly cycle & Varies; query-responsive \\
+Label efficiency & Moderate (labels all uncertain) & High (prioritizes most valuable) \\
+Implementation complexity & Lower & Higher (scoring, queue management) \\
+Error propagation risk & Low (batch quality check possible) & Medium (labels enter training faster) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Choose batch retraining when:} The task is stable and well-defined; drift is slow; annotation cost is not the primary constraint; you can afford monthly cycles; labels are relatively fast to generate; quality control via batch review is important.
+
+\textbf{Choose active learning when:} Annotation cost is high (specialist reviewers); the distribution is evolving rapidly; rare categories need targeted coverage; you have engineering capacity to build the scoring and queue management; learning value per label matters more than simplicity.
+
+\paragraph{Common student errors:}
+\begin{itemize}
+    \item ``Active learning is always better'' --- ignores implementation complexity and error propagation risk
+    \item Confusing active learning with real-time updating (active learning can use batch cycles; the ``active'' refers to query strategy, not update speed)
+\end{itemize}
+
+\subsubsection{Question 6: Diagnosing a 40\% Override Rate}
+
+\paragraph{Model Answer.}
+
+\textbf{Three hypotheses:}
+\begin{enumerate}
+    \item \textbf{Model drift}: the model is making more mistakes than before; reviewers are correctly overriding wrong decisions
+    \item \textbf{Changing judgment standards}: reviewers' interpretation of the task has shifted; they're applying stricter (or different) standards than when the model was calibrated
+    \item \textbf{Routing misconfiguration}: cases that shouldn't reach human review are being routed there; reviewers are correcting cases that were never uncertain in the first place
+\end{enumerate}
+
+\textbf{Diagnosis procedure:}
+\begin{enumerate}
+    \item Pull a random sample of overridden cases. Are they genuinely bad model predictions, or were they actually correct? If most overrides are correct (model was right), this suggests routing misconfiguration or judgment drift rather than model degradation.
+    \item Compare override rates across reviewer cohorts. If new reviewers have lower override rates than experienced ones, it may suggest experienced reviewers have developed stricter standards (judgment drift).
+    \item Check whether override rate correlates with case type. If concentrated in one category, it suggests model drift specific to that category.
+    \item Compare the confidence distribution of overridden cases vs.\ non-overridden cases. If overridden cases had high model confidence, this indicates model overconfidence --- the model is wrong but doesn't know it.
+\end{enumerate}
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 7: Legal Email HITL Architecture}
+
+\paragraph{Model Answer.}
+
+\begin{description}
+    \item[Component 1 --- Prediction] Email classifier using NLP. Features: sender reputation, recipient patterns, subject, body, attachments, historical correspondence context. Output: risk score across legal risk categories (privilege concerns, compliance issues, regulatory flags).
+
+    \item[Component 2 --- Uncertainty Quantification] Temperature-scaled ensemble. Calibrated on a holdout set labeled by senior legal counsel. Key requirement: well-calibrated because routing decisions depend on confidence scores. Weekly calibration check.
+
+    \item[Component 3 --- Routing] Three-zone: auto-archive below 0.15 risk threshold; auto-escalate to legal team lead above 0.85; human review band 0.15--0.85. Second rule: any email from a counterparty in active litigation auto-escalates regardless of score.
+
+    \item[Component 4 --- Interface] Email preview with highlighted risky phrases (explainability). Sender risk history panel. Recommended action with confidence score. Structured response form with categories (archive / flag for attorney / escalate to outside counsel / urgent).
+
+    \item[Component 5 --- Feedback Integration] Monthly batch retraining from review decisions. Quality check by senior legal counsel on random 10\% sample. Active learning queue for the mid-confidence band.
+
+    \item[Component 6 --- Monitoring] Distribution shift monitoring on email feature space. Override rate tracking. Weekly false positive/negative sample review. Queue depth SLA monitoring.
+
+    \item[Component 7 --- Audit] Full logging: model prediction score, routing decision, reviewer identity, time-to-review, response category, downstream outcome (escalated, archived, responded, litigated).
+\end{description}
+
+\textbf{Top three failure modes:}
+\begin{enumerate}
+    \item \textbf{Ghost reviewer during busy periods}: legal staff prioritize client work; queue grows; harmful emails age past SLA. \emph{Mitigation}: SLA monitoring with automatic escalation alerts to department head when queue exceeds threshold.
+    \item \textbf{Distribution drift from new legal risks}: new regulation or litigation category appears; model untrained on it. \emph{Mitigation}: sample-based review of high-confidence auto-archives; legal team briefing when new regulatory areas emerge.
+    \item \textbf{Specification gaming}: model learns to flag emails from certain senders (always reviewed anyway) to reduce calibration pressure on genuinely uncertain cases. \emph{Mitigation}: disaggregated performance tracking by sender type; anomaly detection on routing patterns.
+\end{enumerate}
+
+\subsubsection{Question 8: Specification Gaming}
+
+\paragraph{Model Answer.}
+
+\textbf{Concrete scenario:} A content moderation model is evaluated by its agreement with human reviewer decisions on routed cases. A well-designed model should route uncertain cases. But the model discovers that routing \emph{fewer} cases to humans --- and making more autonomous decisions, even wrong ones --- results in a higher agreement score (because it only gets evaluated on what it routes). It learns to keep the uncertain cases, make autonomous decisions on them, and only route cases it's very confident about. The feedback metric is gamed; the underlying task (catch harmful content) is undermined.
+
+\textbf{Component responsible for catching it:} Component 6 (Monitoring). The monitoring layer should track: (a) the rate at which harmful content is auto-approved without human review; (b) the distribution of cases being routed vs.\ auto-processed; (c) downstream outcomes of auto-processed cases (if available). A model gaming specification will show anomalies in these metrics.
+
+\textbf{Design interventions:}
+\begin{enumerate}
+    \item \textbf{Track auto-processed outcomes}: audit a random sample of auto-processed cases; measure error rate, not just agreement with routed-case decisions
+    \item \textbf{Decouple feedback metric from routing rate}: evaluate the model on a held-out random sample, independent of what the model chose to route
+    \item \textbf{Separate routing incentives from accuracy incentives}: design the model's objective function to reward routing uncertain cases, not penalize it for routing them
+\end{enumerate}
+
+% ============================================================================
+\section{Technical Exercise Solutions}
+% ============================================================================
+
+\subsection{Feedback Integration Pseudocode}
+
+The following pseudocode illustrates a batch retraining pipeline with a sample-based audit:
+
+\begin{lstlisting}[style=python, caption={Batch retraining with sample-based audit}, label={lst:batch-retrain}]
+# Component 5: Feedback Integration (batch retraining)
+# Component 6: Monitoring (sample-based audit)
+
+class HITLFeedbackPipeline:
+    def __init__(self, model, audit_rate=0.02):
+        self.model = model
+        self.audit_rate = audit_rate  # 2% random audit of auto-processed
+        self.review_buffer = []       # Accumulates human-labeled cases
+        self.audit_buffer = []        # Accumulates audited auto-cases
+
+    def process_case(self, case, confidence):
+        """Route case based on confidence; accumulate labels."""
+        if confidence > HIGH_THRESHOLD:
+            action = self.model.auto_process(case)
+            # Sample-based audit: send 2% to human review
+            if random.random() < self.audit_rate:
+                self.audit_buffer.append((case, action, confidence))
+        elif confidence < LOW_THRESHOLD:
+            action = self.model.auto_process_cautious(case)
+        else:
+            # Route to human review
+            human_label = self.interface.get_human_decision(case)
+            self.review_buffer.append((case, human_label))
+            action = human_label
+
+    def monthly_retrain(self):
+        """Quality-check labels, retrain, clear buffer."""
+        quality_checked = self.quality_check(self.review_buffer)
+        audit_errors = [(c, l) for c, auto, l in self.audit_buffer
+                        if l != auto]  # Human disagrees with auto
+        all_new_labels = quality_checked + audit_errors
+        self.model.retrain(all_new_labels)
+        self.review_buffer.clear()
+        self.audit_buffer.clear()
+        # Component 6: Log retraining event for monitoring
+        self.monitoring.log_retrain(len(all_new_labels))
+\end{lstlisting}
+
+\subsection{Monitoring Metrics Reference}
+
+Key metrics for Component 6 (Monitoring):
+
+\begin{table}[htbp]
+\caption{Monitoring metrics by failure mode}
+\label{tab:monitoring-metrics}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{3.5cm}p{4cm}@{}}
+\toprule
+\textbf{Failure Mode} & \textbf{Monitoring Metric} & \textbf{Alert Condition} \\
+\midrule
+Distribution drift & KL divergence from reference & Exceeds threshold \\
+Calibration drift & Expected Calibration Error (ECE) & Increases by $>0.05$ \\
+Reviewer bottleneck & Queue depth / time-to-review & Queue depth $>$ SLA \\
+Label quality degradation & Inter-annotator agreement & Kappa drops $<0.6$ \\
+Specification gaming & Routing rate trend & Sustained decrease over 2 weeks \\
+Ghost reviewer & Cases aging in queue & Cases $>48$ hours old \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Assessment Rubrics}
+% ============================================================================
+
+\subsection{Architecture Design Rubric}
+
+\begin{table}[htbp]
+\caption{Architecture design exercise rubric}
+\label{tab:arch-design-rubric}
+\centering
+\begin{tabular}{@{}p{3cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Criterion} & \textbf{Excellent (A)} & \textbf{Good (B)} & \textbf{Satisfactory (C)} & \textbf{Needs Work (D)} \\
+\midrule
+Completeness & All 7 components present and specified & 6--7 components present & 5 components, some gaps & $<5$ components \\
+Specificity & Each component concretely described with domain detail & Most components concrete & Some vague or generic descriptions & Mostly abstract \\
+Failure Analysis & 3 specific, plausible failure modes with mitigation & 2--3 failure modes & 1--2 failure modes & No failure analysis \\
+Feedback Strategy & Strategy chosen and justified against alternatives & Strategy chosen with reasoning & Strategy named without justification & No feedback strategy \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Common Wrong Answers and Corrections}
+
+\paragraph{``RLHF is just another name for active learning.''}
+No. Active learning routes specific cases to humans for labeling based on information value. RLHF trains a reward model on human preference comparisons and uses that reward model to fine-tune a generative model. They are different feedback integration strategies serving different architectures.
+
+\paragraph{``A pipeline is fine if the human's decisions are good.''}
+A pipeline with good human decisions is better than a pipeline with poor human decisions --- but it's still a pipeline. The model never improves. Every new failure type requires manual human intervention forever. The benefit of the loop is that model improvement reduces human workload over time and captures systematic knowledge from human reviewers.
+
+\paragraph{``The audit component is optional for small systems.''}
+Audit is most important precisely for small systems where you lack the scale to do statistical monitoring. When you can't trust aggregate metrics, you need case-by-case logging to diagnose failures. Small systems without audit trails have no debugging capability at all.
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{These solutions are frameworks, not scripts. The best student answers will bring domain-specific details, edge cases, and critiques of the framework itself. Reward intellectual engagement with the material, not just correct recall of the seven-component names.}

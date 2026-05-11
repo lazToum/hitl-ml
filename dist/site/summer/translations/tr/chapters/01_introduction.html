@@ -1,0 +1,657 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Döngüde İnsan Makine Öğrenmesi Nedir? &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/tr/chapters/01_introduction';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/tr/chapters/01_introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Döngüde İnsan Makine Öğrenmesi Nedir?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otomasyon-paradoksu">Otomasyon Paradoksu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dongude-insan-makine-ogrenmesini-tanimlamak">Döngüde İnsan Makine Öğrenmesini Tanımlamak</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kisa-bir-tarih">Kısa Bir Tarih</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzman-sistemler-ve-bilgi-muhendisligi-1960-lar1980-ler">Uzman Sistemler ve Bilgi Mühendisliği (1960’lar–1980’ler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#istatistiksel-donus-1980-ler2000-ler">İstatistiksel Dönüş (1980’ler–2000’ler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derin-ogrenme-cagi-2010-largunumuz">Derin Öğrenme Çağı (2010’lar–günümüz)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neden-hitl-insan-yargisi-icin-gerekce">Neden HITL? İnsan Yargısı İçin Gerekçe</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sagduyu-ve-dunya-bilgisi">1. Sağduyu ve Dünya Bilgisi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anlamsal-temellendirme">2. Anlamsal Temellendirme</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deger-hizalamasi">3. Değer Hizalaması</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uyarlanabilirlik">4. Uyarlanabilirlik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hesap-verebilirlik">5. Hesap Verebilirlik</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geri-bildirim-dongusu">Geri Bildirim Döngüsü</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-nin-olmadigi-seyler">HITL’nin Olmadığı Şeyler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insan-geri-bildiriminin-ekonomisi">İnsan Geri Bildiriminin Ekonomisi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-kitabina-genel-bakis">El Kitabına Genel Bakış</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dongude-insan-makine-ogrenmesi-nedir">
+<h1>Döngüde İnsan Makine Öğrenmesi Nedir?<a class="headerlink" href="#dongude-insan-makine-ogrenmesi-nedir" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>Deneyimden öğrenebilen bir makine… ama yalnızca ona doğru deneyimleri verirseniz.
+– Alan Turing’den uyarlanmıştır</p>
+</div></blockquote>
+<section id="otomasyon-paradoksu">
+<h2>Otomasyon Paradoksu<a class="headerlink" href="#otomasyon-paradoksu" title="Permalink to this heading">#</a></h2>
+<p>Her yeni otomasyon dalgası, insan dikkatine yönelik yeni talepler yaratır. Havayolları otopilot sistemlerini tanıttığında pilotlar izleyiciye dönüştü — anlık kontrolden değil, <em>ne zaman devreye gireceklerini bilmek</em> gibi daha zorlu görevden sorumlu hâle geldiler. Süpermarketler self-checkout sistemlerini hayata geçirdiğinde, bu sistemlerin geleneksel kasiyerlere kıyasla işlem başına daha fazla insan denetimi gerektirdiği anlaşıldı. Makine öğrenmesi tıp, finans, istihdam ve içerik moderasyonu gibi alanlarda ölçekli kararlar almaya başladığında ise insan yargısına yönelik devasa ve süregelen bir talep ortaya çıktı.</p>
+<p>Bu, <strong>otomasyon paradoksunun</strong> ta kendisidir <a href="#id1"><span class="problematic" id="id2">bainbridge1983ironies</span></a>: otomatik bir sistem ne kadar yetenekli hâle gelirse, hatalarının sonuçları o kadar ağır olur ve dolayısıyla sağlam insan denetiminin gerekliliği de o denli artar. Makine öğrenmesi bu paradoksun dışında değildir.</p>
+<p>Döngüde İnsan Makine Öğrenmesi (HITL ML), bu paradoksu ciddiye alan ve onu baştan itibaren sistemlerin tasarımına dahil eden alandır. İnsan katılımını nihayetinde kaldırılacak geçici bir iskele olarak ele almak yerine, HITL ML insan–makine etkileşimini bir <em>özellik</em> olarak değerlendirir: modelleri daha doğru, insan değerleriyle daha uyumlu ve daha güvenilir kılabilecek bir sinyal, düzeltme ve yönlendirme kaynağı.</p>
+</section>
+<hr class="docutils" />
+<section id="dongude-insan-makine-ogrenmesini-tanimlamak">
+<h2>Döngüde İnsan Makine Öğrenmesini Tanımlamak<a class="headerlink" href="#dongude-insan-makine-ogrenmesini-tanimlamak" title="Permalink to this heading">#</a></h2>
+<p>HITL ML’ye ilişkin tek bir kabul görmüş tanım bulunmamakta olup terim, literatürde birbirine örtüşen birkaç anlamda kullanılmaktadır. Bu el kitabında geniş kapsamlı ancak kesin bir tanım benimsemekteyiz:</p>
+<div class="important admonition">
+<p class="admonition-title">Tanım</p>
+<p><strong>Döngüde İnsan Makine Öğrenmesi</strong>, insan geri bildiriminin öğrenme sürecine <em>kasıtlı, yapılandırılmış ve süregelen</em> biçimde dahil edildiği herhangi bir makine öğrenmesi sistemini veya metodolojisini ifade eder — yalnızca veri kümesi oluşturma anında değil, eğitim, değerlendirme ve dağıtım süreçleri boyunca.</p>
+</div>
+<p>Bu tanımın üç temel maddesi vardır:</p>
+<p><strong>Kasıtlı.</strong> HITL, tesadüfi insan etkisini (örneğin eğitim verilerinin başlangıçta insanlar tarafından oluşturulduğu gerçeğini) değil; insan geri bildirimini açıkça talep etmek, dahil etmek ve bundan faydalanmak üzere tasarlanmış sistemleri kapsar.</p>
+<p><strong>Yapılandırılmış.</strong> Geri bildirim belirli bir biçime sahiptir — bir etiket, bir düzeltme, bir tercih yargısı, bir gösteri — ve öğrenme algoritmasında tanımlanmış bir rolü vardır.</p>
+<p><strong>Süregelen.</strong> Geri bildirim döngüsü zaman içinde devam eder; sistemin yeni durumlarla karşılaştıkça, hata yaptıkça ve insan rehberliği aldıkça gelişmesine olanak tanır.</p>
+<p>Bu tanım, klasik açıklama hatlarını, aktif öğrenmeyi, etkileşimli makine öğrenmesini, RLHF’yi ve taklit öğrenmesini kapsar. Pasif veri toplamayı ve yalnızca çevrimdışı denetimli öğrenmeyi dışarıda bırakır (her ne kadar sınır belirsiz olsa da, Bölüm 2’de ele alınacaktır).</p>
+</section>
+<hr class="docutils" />
+<section id="kisa-bir-tarih">
+<h2>Kısa Bir Tarih<a class="headerlink" href="#kisa-bir-tarih" title="Permalink to this heading">#</a></h2>
+<section id="uzman-sistemler-ve-bilgi-muhendisligi-1960-lar1980-ler">
+<h3>Uzman Sistemler ve Bilgi Mühendisliği (1960’lar–1980’ler)<a class="headerlink" href="#uzman-sistemler-ve-bilgi-muhendisligi-1960-lar1980-ler" title="Permalink to this heading">#</a></h3>
+<p>İlk yapay zeka sistemleri neredeyse tamamen döngüde insandı: bilgi mühendisleri, aylarca alan uzmanlarıyla oturup MYCIN ve DENDRAL gibi uzman sistemlere kuralları özenle kodladı. Her bilgi parçası açıkça bir insan tarafından sağlandı. Makine uygulayıcıydı; insan ise kahindir.</p>
+<p>Bu sistemler dar alanlarda şaşırtıcı biçimde iyi çalıştı, ancak kırılgandı — elle hazırlanmış kuralların ötesine genelleyemedi ve bakımı pahalıydı.</p>
+</section>
+<section id="istatistiksel-donus-1980-ler2000-ler">
+<h3>İstatistiksel Dönüş (1980’ler–2000’ler)<a class="headerlink" href="#istatistiksel-donus-1980-ler2000-ler" title="Permalink to this heading">#</a></h3>
+<p>1980’ler ve 1990’larda istatistiksel makine öğrenmesine geçiş, insan katılımının doğasını değiştirdi. Bilgiyi kural olarak kodlamak yerine insanlar artık <em>örnekler</em> sağladı — modellerin kalıpları çıkarsayabilmesi için etiketlenmiş veri kümeleri. İnsanın rolü açıklayıcı olmaya dönüştü: belgeleri etiketlemek, görüntüleri işaretlemek, konuşmaları metne dökmek.</p>
+<p>Bu büyük bir ilerleme oldu ancak yeni bir darboğaz yarattı: <strong>etiketli veri pahalıdır</strong>. Araştırmacılar insan etiketleme çabasından en verimli biçimde nasıl yararlanılabileceğini sormaya başladı. Bu soru, 1990’ların başında ilk kez formalize edilen <strong>aktif öğrenme</strong> alanının doğmasına yol açtı <a href="#id3"><span class="problematic" id="id4">cohn1994improving</span></a>.</p>
+</section>
+<section id="derin-ogrenme-cagi-2010-largunumuz">
+<h3>Derin Öğrenme Çağı (2010’lar–günümüz)<a class="headerlink" href="#derin-ogrenme-cagi-2010-largunumuz" title="Permalink to this heading">#</a></h3>
+<p>Derin öğrenme devrimi yeni bir rejim yarattı: veriden son derece karmaşık işlevler öğrenebilen milyarlarca parametreli modeller — ancak orantılı ölçüde büyük etiketli veri kümeleri gerektiriyor. ImageNet (14 milyon etiketli görüntü) ve ardından gelen büyük ölçekli açıklama projeleri, ölçeğin hem gücünü hem de maliyetini gözler önüne serdi.</p>
+<p>Aynı zamanda makine öğrenmesinin ölçekli dağıtımı yeni sorunları açığa çıkardı: ortalamada doğru ancak belirli gruplara sistematik biçimde hatalı davranan, gerçekleri güvenle halüsine eden, ölçülebilir vekil hedefler için optimize eden — insan değerlerinden değil — modeller. Bu başarısızlıklar yeni insan katılımı biçimlerini motive etti: yalnızca etiketleme değil, <em>hizalama</em> — modellerin insanların gerçekten istediği biçimde davranmasını sağlama projesi.</p>
+<p>Bu hizalama odaklı HITL çalışmasının en belirgin ifadesi, InstructGPT <a href="#id5"><span class="problematic" id="id6">ouyang2022training</span></a> gibi sistemlerin omurgasına dönüşen ve modern dil modellerinin talimat takip yeteneklerini destekleyen <strong>İnsan Geri Bildiriminden Pekiştirmeli Öğrenme (RLHF)</strong> oldu <a href="#id7"><span class="problematic" id="id8">christiano2017deep</span></a>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="neden-hitl-insan-yargisi-icin-gerekce">
+<h2>Neden HITL? İnsan Yargısı İçin Gerekçe<a class="headerlink" href="#neden-hitl-insan-yargisi-icin-gerekce" title="Permalink to this heading">#</a></h2>
+<p>İnsan yargısını makine öğrenmesi sistemlerine dahil etmeye değer kılan ne? Birkaç özellik:</p>
+<section id="sagduyu-ve-dunya-bilgisi">
+<h3>1. Sağduyu ve Dünya Bilgisi<a class="headerlink" href="#sagduyu-ve-dunya-bilgisi" title="Permalink to this heading">#</a></h3>
+<p>İnsanlar herhangi bir göreve muazzam bir arka plan bilgisiyle gelir. Bir radyolog bir röntgen görüntüsünü etiketlediğinde yıllarca süren eğitimine, anatomi bilgisine ve hastalıkların nasıl göründüğüne ilişkin örtük bilgisine başvurur — bu bilgiyi tam olarak belirtmek ya da yalnızca veriden edinmek son derece güçtür.</p>
+</section>
+<section id="anlamsal-temellendirme">
+<h3>2. Anlamsal Temellendirme<a class="headerlink" href="#anlamsal-temellendirme" title="Permalink to this heading">#</a></h3>
+<p>Etiketler, insanların ne anlama geldiğini kavramasıyla anlam kazanır. ImageNet’teki “kedi” sınıfı, insanların sezgisel olarak tanıdığı ancak hiçbir biçimsel tanımın tam olarak yakalayamadığı bulanık bir kavrama karşılık gelir. Modeller etiketin uzantısını öğrenir (hangi görüntülerin bununla eşleştiğini) ancak kavramın kendisini öğrenemeyebilir; bu durum, herhangi bir insanın doğru biçimde ele alacağı sınır vakalarda başarısızlıklara yol açar.</p>
+</section>
+<section id="deger-hizalamasi">
+<h3>3. Değer Hizalaması<a class="headerlink" href="#deger-hizalamasi" title="Permalink to this heading">#</a></h3>
+<p>İnsanların makine öğrenmesi modellerinin yalnızca veriden türetemeyeceği tercihleri, değerleri ve etik yargıları vardır. Bir metnin “yararlı” mı yoksa “zararlı” mı olduğu salt ampirik bir soru değildir — bireyler ve bağlamlar arasında değişen insan değerlerine bağlıdır. HITL, bu değerlerin makine öğrenmesi sistemlerine aktarılabildiği başlıca mekanizmadır.</p>
+</section>
+<section id="uyarlanabilirlik">
+<h3>4. Uyarlanabilirlik<a class="headerlink" href="#uyarlanabilirlik" title="Permalink to this heading">#</a></h3>
+<p>İnsan yargısı yeniden eğitim gerekmeksizin yeni durumlarla baş edebilir. Tarihsel verilerle eğitilmiş bir model, dünya değiştiğinde feci biçimde başarısız olabilir; bir insan ise yeniliği fark edip uygun biçimde tepki verebilir.</p>
+</section>
+<section id="hesap-verebilirlik">
+<h3>5. Hesap Verebilirlik<a class="headerlink" href="#hesap-verebilirlik" title="Permalink to this heading">#</a></h3>
+<p>Tıp, hukuk ve finans gibi yüksek riskli alanlarda kararların insan varlıklarına hesap vermesi gerekmektedir. HITL sistemleri, insanları makine davranışını anlayabilecek, doğrulayabilecek ve geçersiz kılabilecek bir konumda tutarak bu hesap verebilirliği uygulanabilir hâle getirir.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="geri-bildirim-dongusu">
+<h2>Geri Bildirim Döngüsü<a class="headerlink" href="#geri-bildirim-dongusu" title="Permalink to this heading">#</a></h2>
+<p>HITL ML’nin merkezi yapısı, bir model ile bir ya da birden fazla insan arasındaki geri bildirim döngüsüdür:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+---------------------------------------------+
+|                                             |
+|   Model tahminler / istekler sunar          |
+|   ----------------------------------&gt;       |
+|                                   İnsan    |
+|   İnsan geri bildirim sağlar     &lt;-------- |
+|   ----------------------------------        |
+|                                             |
+|   Model geri bildirimi dahil ederek         |
+|   güncellenir                               |
+|                                             |
++---------------------------------------------+
+</pre></div>
+</div>
+<p>Geri bildirimin niteliği, HITL paradigmaları arasında büyük ölçüde farklılaşır:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Geri bildirim türü</p></th>
+<th class="head"><p>Örnek</p></th>
+<th class="head"><p>Birincil paradigma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sınıf etiketi</p></td>
+<td><p>“Bu e-posta istenmeyen”</p></td>
+<td><p>Denetimli öğrenme</p></td>
+</tr>
+<tr class="row-odd"><td><p>Düzeltme</p></td>
+<td><p>“Varlık ORG olmalı, PER değil”</p></td>
+<td><p>Aktif / etkileşimli ML</p></td>
+</tr>
+<tr class="row-even"><td><p>Tercih</p></td>
+<td><p>“A yanıtı B’den daha iyi”</p></td>
+<td><p>RLHF / sıralama</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gösteri</p></td>
+<td><p>Robota bir nesneyi nasıl kavrayacağını gösterme</p></td>
+<td><p>Taklit öğrenmesi</p></td>
+</tr>
+<tr class="row-even"><td><p>Doğal dil</p></td>
+<td><p>“Yanıtlarında daha özlü ol”</p></td>
+<td><p>Talimat ince ayarı</p></td>
+</tr>
+<tr class="row-odd"><td><p>Örtük sinyal</p></td>
+<td><p>Kullanıcı tıkladı / tıklamadı</p></td>
+<td><p>Örtük geri bildirim</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="hitl-nin-olmadigi-seyler">
+<h2>HITL’nin Olmadığı Şeyler<a class="headerlink" href="#hitl-nin-olmadigi-seyler" title="Permalink to this heading">#</a></h2>
+<p>Tanımımızın dışında kalanları belirtmek önem taşır.</p>
+<p><strong>HITL, döngüde insan dağıtımıyla aynı şey değildir</strong> (bazen “döngü üzerinde insan” olarak da anılır); bu durumda insanlar otomatik kararları izler ve geçersiz kılabilir, ancak düzeltmeleri eğitime geri beslemez. Bu ayrımı Bölüm 2’de ele alacağız.</p>
+<p><strong>HITL tek başına zayıf denetim değildir.</strong> Snorkel gibi programatik etiketleme sistemleri, ölçekli gürültülü etiketler üretmek için etiketleme işlevlerini (çoğunlukla insan tarafından yazılan kuralları) kullanır. Bu yapılandırılmış bir insan girdisi biçimidir, ancak geri bildirim HITL’nin genellikle ima ettiği şekilde yinelemeli değildir.</p>
+<p><strong>HITL, yalnızca etiketli veri kullanmak değildir.</strong> Her denetimli öğrenme modeli insan tarafından etiketlenmiş veri kullanır. HITL, özellikle insan geri bildiriminin öğrenme sürecinin <em>etkin, yinelemeli</em> bir parçası olduğu sistemleri ifade eder.</p>
+</section>
+<hr class="docutils" />
+<section id="insan-geri-bildiriminin-ekonomisi">
+<h2>İnsan Geri Bildiriminin Ekonomisi<a class="headerlink" href="#insan-geri-bildiriminin-ekonomisi" title="Permalink to this heading">#</a></h2>
+<p>İnsan geri bildirimi değerlidir ancak maliyetlidir. Tıbbi görüntü açıklaması, uzmanlık alanı ve görev karmaşıklığına bağlı olarak uzman tarafından gerçekleştirildiğinde görüntü başına onlarca ila yüzlerce dolar arasında bir maliyete sahip olabilir <a href="#id9"><span class="problematic" id="id10">monarch2021human</span></a>. Amazon Mechanical Turk gibi platformlardaki kitle kaynaklı çalışma etiketleri, çok daha düşük kalitede olmak üzere öğe başına 0,01–0,10 ABD doları arasında değişebilir <a href="#id11"><span class="problematic" id="id12">hara2018data</span></a>. HITL ML’nin temel güçlüğü <strong>her bir insan geri bildirim biriminin değerini en üst düzeye çıkarmaktır</strong>.</p>
+<p>Bu durum, el kitabının büyük bölümünde işlenen birleştirici soruya yol açar:</p>
+<div class="tip admonition">
+<p class="admonition-title">HITL ML’nin Merkezi Sorusu</p>
+<p><em>Sabit bir insan zamanı ve dikkati bütçesi göz önüne alındığında, insanlara ne sorulacağına, ne zaman sorulacağına ve yanıtlarının model eğitimine nasıl dahil edileceğine nasıl karar verilmelidir?</em></p>
+</div>
+<p>Bu sorunun yanıtı alana, geri bildirim biçimine, açıklama maliyetine, hata riskine ve modelin mevcut durumuna bağlıdır — HITL ML’nin zengin ve hâlâ gelişmekte olan bir disiplin olmasının nedeni de budur.</p>
+</section>
+<hr class="docutils" />
+<section id="el-kitabina-genel-bakis">
+<h2>El Kitabına Genel Bakış<a class="headerlink" href="#el-kitabina-genel-bakis" title="Permalink to this heading">#</a></h2>
+<p>El kitabının geri kalanı şu şekilde yapılandırılmıştır. <strong>Bölüm II</strong>, HITL’nin üç klasik sütununu kapsar: açıklama, aktif öğrenme ve etkileşimli makine öğrenmesi. <strong>Bölüm III</strong>, modern yapay zeka için merkezi hâle gelen geri bildirimden öğrenme paradigmalarını ele alır: RLHF, taklit öğrenmesi ve tercih öğrenmesi. <strong>Bölüm IV</strong>, HITL’yi belirli uygulama alanları perspektifinden inceler. <strong>Bölüm V</strong>, platformlar, kitle kaynaklı çalışma ve değerlendirme üzerine bir uygulayıcı bakışı sunar. <strong>Bölüm VI</strong> ise etik sorunları ele alır ve ileriye bakar.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Alanın uygulayıcı odaklı genel bir değerlendirmesi için bkz. <a href="#id13"><span class="problematic" id="id14">monarch2021human</span></a>. HITL’nin büyük bölümünün biçimsel işlemini başlatan temel aktif öğrenme makalesi için bkz. <a href="#id15"><span class="problematic" id="id16">settles2009active</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/tr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otomasyon-paradoksu">Otomasyon Paradoksu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dongude-insan-makine-ogrenmesini-tanimlamak">Döngüde İnsan Makine Öğrenmesini Tanımlamak</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kisa-bir-tarih">Kısa Bir Tarih</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzman-sistemler-ve-bilgi-muhendisligi-1960-lar1980-ler">Uzman Sistemler ve Bilgi Mühendisliği (1960’lar–1980’ler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#istatistiksel-donus-1980-ler2000-ler">İstatistiksel Dönüş (1980’ler–2000’ler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derin-ogrenme-cagi-2010-largunumuz">Derin Öğrenme Çağı (2010’lar–günümüz)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neden-hitl-insan-yargisi-icin-gerekce">Neden HITL? İnsan Yargısı İçin Gerekçe</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sagduyu-ve-dunya-bilgisi">1. Sağduyu ve Dünya Bilgisi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anlamsal-temellendirme">2. Anlamsal Temellendirme</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deger-hizalamasi">3. Değer Hizalaması</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uyarlanabilirlik">4. Uyarlanabilirlik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hesap-verebilirlik">5. Hesap Verebilirlik</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geri-bildirim-dongusu">Geri Bildirim Döngüsü</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-nin-olmadigi-seyler">HITL’nin Olmadığı Şeyler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insan-geri-bildiriminin-ekonomisi">İnsan Geri Bildiriminin Ekonomisi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-kitabina-genel-bakis">El Kitabına Genel Bakış</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

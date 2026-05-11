@@ -1,0 +1,241 @@
+% ============================================================================
+% TECHNICAL APPENDIX 4A: Threshold Optimization and Cost-Sensitive Learning
+% The mathematics of decision boundaries and error cost tradeoffs
+% ============================================================================
+% Source: /markdown/ch4/Ch4A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 4A: Threshold Optimization and Cost-Sensitive Learning}
+\addcontentsline{toc}{chapter}{Technical Appendix 4A: Threshold Optimization and Cost-Sensitive Learning}
+
+\begin{chapterquote}{Formal foundations for Chapter 4}
+Chapter~4 introduced the threshold as the mechanism that turns a probability into an action, and argued that optimal threshold-setting requires knowing the cost structure of each error type. This appendix formalizes that argument through ROC analysis, precision-recall tradeoffs, cost-sensitive learning, and multi-threshold HITL band design.
+\end{chapterquote}
+
+% ============================================================================
+\section{The ROC Curve and AUC}
+% ============================================================================
+
+\subsection{Definition}
+
+For a binary classifier with scores $s(x) \in [0,1]$, sweeping the threshold $\tau \in [0,1]$ traces the Receiver Operating Characteristic (ROC) curve:
+
+\[
+\mathrm{TPR}(\tau) = P\!\left(s(x) \geq \tau \mid y = 1\right) \quad \text{[True Positive Rate / Sensitivity]}
+\]
+\[
+\mathrm{FPR}(\tau) = P\!\left(s(x) \geq \tau \mid y = 0\right) \quad \text{[False Positive Rate]}
+\]
+
+The Area Under the ROC Curve (AUC) equals the probability that a random positive is scored higher than a random negative:
+
+\[
+\mathrm{AUC} = P\!\left(s(x^+) > s(x^-)\right)
+\]
+
+AUC measures ranking quality, independent of threshold choice.
+
+\begin{keyconcept}[AUC vs.\ Threshold: Separate Questions]
+AUC tells you how separable your classes are. The threshold tells you where to make the cut given your cost structure. These are separate questions. A model with high AUC can still have a badly chosen threshold; a model with modest AUC but a carefully chosen threshold can outperform a high-AUC model with a naive threshold.
+\end{keyconcept}
+
+\subsection{Optimal Threshold Selection}
+
+The optimal threshold $\tau^*$ minimizes expected cost:
+
+\[
+\mathbb{E}[\mathrm{Cost}(\tau)] = C_{\mathrm{FN}} \cdot \mathrm{FNR}(\tau) \cdot P(y=1) + C_{\mathrm{FP}} \cdot \mathrm{FPR}(\tau) \cdot P(y=0)
+\]
+
+where $C_{\mathrm{FN}}$ is the cost of a false negative (miss) and $C_{\mathrm{FP}}$ is the cost of a false positive (false alarm).
+
+Setting $d\,\mathbb{E}[\mathrm{Cost}(\tau)]/d\tau = 0$ gives the optimal threshold:
+
+\[
+\tau^* = \frac{C_{\mathrm{FP}} \cdot P(y=0)}{C_{\mathrm{FP}} \cdot P(y=0) + C_{\mathrm{FN}} \cdot P(y=1)}
+\]
+
+\begin{itemize}
+    \item For equal costs ($C_{\mathrm{FN}} = C_{\mathrm{FP}}$) and balanced classes ($P(y=0) = P(y=1) = 0.5$): $\tau^* = 0.5$
+    \item For $C_{\mathrm{FN}} \gg C_{\mathrm{FP}}$ (missing a positive is very costly, e.g., cancer screening): $\tau^* \ll 0.5$
+\end{itemize}
+
+% ============================================================================
+\section{Precision-Recall Tradeoff}
+% ============================================================================
+
+\subsection{When AUC Is Misleading}
+
+AUC is dominated by performance on the majority class. For imbalanced problems (rare positive class), precision-recall analysis is more informative.
+
+\[
+\mathrm{Precision}(\tau) = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FP}} = P\!\left(y=1 \mid s(x) \geq \tau\right)
+\]
+\[
+\mathrm{Recall}(\tau) = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}} = P\!\left(s(x) \geq \tau \mid y=1\right)
+\]
+
+The $F_\beta$ score balances precision and recall with weight $\beta$:
+
+\[
+F_\beta = \frac{(1 + \beta^2) \cdot \mathrm{Precision} \cdot \mathrm{Recall}}{\beta^2 \cdot \mathrm{Precision} + \mathrm{Recall}}
+\]
+
+\begin{itemize}
+    \item $\beta = 1$: Equal weight on precision and recall (F1 score)
+    \item $\beta = 2$: Recall twice as important (use when false negatives are more costly)
+    \item $\beta = 0.5$: Precision twice as important (use when false positives are more costly)
+\end{itemize}
+
+\subsection{HITL Band as Precision-Recall Bridge}
+
+A two-threshold HITL system $(\tau_{\mathrm{low}},\, \tau_{\mathrm{high}})$ with human review for scores in $(\tau_{\mathrm{low}},\, \tau_{\mathrm{high}})$:
+
+\[
+\text{Automated TPR} = P\!\left(s(x) \geq \tau_{\mathrm{high}} \mid y=1\right)
+\]
+\[
+\text{Automated FPR} = P\!\left(s(x) \geq \tau_{\mathrm{high}} \mid y=0\right)
+\]
+\[
+\text{Human Review Rate} = P\!\left(\tau_{\mathrm{low}} \leq s(x) < \tau_{\mathrm{high}}\right)
+\]
+
+This system achieves full precision (only reviews above $\tau_{\mathrm{high}}$ are automatically positive) at the cost of sending the uncertain band to humans. Optimizing the band width trades reviewer workload against precision/recall tradeoffs.
+
+% ============================================================================
+\section{Cost-Sensitive Learning}
+% ============================================================================
+
+\subsection{Class Weighting}
+
+Most ML frameworks allow cost-sensitive training via class weights. For a binary classifier with $C_{\mathrm{FN}} \neq C_{\mathrm{FP}}$:
+
+\begin{lstlisting}[style=python, caption={Cost-sensitive training in PyTorch and scikit-learn}]
+# PyTorch
+weight   = torch.tensor([C_FP, C_FN])
+loss_fn  = nn.CrossEntropyLoss(weight=weight)
+
+# scikit-learn
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression(class_weight={0: C_FP, 1: C_FN})
+\end{lstlisting}
+
+This biases the model to minimize the more costly error during training, effectively shifting the optimal threshold without post-hoc adjustment.
+
+\subsection{Calibrated Decision Rules}
+
+Given a well-calibrated model with output $p(x) = P(y=1 \mid x)$:
+
+\begin{lstlisting}[style=python, caption={Optimal decision rule with HITL routing band}]
+def optimal_decision(score, c_fp, c_fn, margin=0.1):
+    """
+    Make optimal decision given cost structure.
+
+    Returns: 'positive', 'negative', or 'uncertain' (for HITL routing)
+    """
+    # Optimal threshold: score where cost_positive = cost_negative
+    tau_optimal = c_fp / (c_fp + c_fn)
+
+    # HITL band: add uncertainty margin around optimal threshold
+    if score >= tau_optimal + margin:
+        return 'positive'
+    elif score <= tau_optimal - margin:
+        return 'negative'
+    else:
+        return 'uncertain'   # Route to human review
+\end{lstlisting}
+
+% ============================================================================
+\section{Multi-Threshold HITL Systems}
+% ============================================================================
+
+\subsection{Three-Way Classification}
+
+A HITL band system partitions the score space into three regions:
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Score range} & \textbf{Action} \\
+\midrule
+$[0,\, \tau_L)$ & Automatic NEGATIVE (high-confidence negative) \\
+$[\tau_L,\, \tau_H]$ & HUMAN REVIEW (uncertain) \\
+$(\tau_H,\, 1]$ & Automatic POSITIVE (high-confidence positive) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Optimization.} Find $\tau_L$ and $\tau_H$ to minimize total system cost:
+
+\begin{align*}
+\mathrm{Cost}(\tau_L, \tau_H) = \;
+  &C_{\mathrm{FN}} \cdot P\!\left(s(x) < \tau_L \mid y=1\right) \cdot P(y=1) \quad [\text{missed positives}] \\
++ &C_{\mathrm{FP}} \cdot P\!\left(s(x) > \tau_H \mid y=0\right) \cdot P(y=0) \quad [\text{false alarms, automated}] \\
++ &C_H \cdot P\!\left(\tau_L \leq s(x) \leq \tau_H\right) \quad [\text{human review cost}] \\
++ &C_{H,\mathrm{FN}} \cdot P\!\left(\text{human misses } y=1 \text{ in band}\right) \\
++ &C_{H,\mathrm{FP}} \cdot P\!\left(\text{human false alarms in band}\right)
+\end{align*}
+
+where $C_H$ is the per-case review cost and $C_{H,\mathrm{FN}}$, $C_{H,\mathrm{FP}}$ account for human errors in the review band.
+
+\subsection{Capacity Constraints}
+
+When human review has a capacity constraint (max reviews per unit time $= R_{\max}$):
+
+\[
+P\!\left(\tau_L \leq s(x) \leq \tau_H\right) \cdot \text{arrival\_rate} \leq R_{\max}
+\]
+
+\begin{keyconcept}[Threshold and Reviewer Capacity]
+As arrival rate increases (busy periods), the band $(\tau_H - \tau_L)$ must narrow~--- fewer cases go to human review, more are handled autonomously. This is the mathematical basis for the observation in Chapter~4 that threshold settings must adapt to reviewer capacity. Ignoring this constraint leads to alert fatigue, which degrades the quality of every human decision in the review queue.
+\end{keyconcept}
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[Optimal Threshold for Fraud Detection]
+A fraud detection system achieves AUC~$= 0.94$. The base rate of fraud is 0.2\%, $C_{\mathrm{FN}} = \$500$ (average fraud amount), $C_{\mathrm{FP}} = \$2$ (customer service cost of false decline). Compute the optimal threshold $\tau^*$ using the formula from Section~4A.1.2. At this threshold, what is the expected false positive rate? Is this operationally feasible?
+\end{Exercise}
+
+\begin{Exercise}[Dynamic Threshold Under Queue Pressure]
+A content moderation system has a human review capacity of 1000 cases/hour. The arrival rate of flagged content is 800/hour normally, but spikes to 2000/hour during breaking news events. Design a dynamic threshold system that adjusts $\tau_L$ and $\tau_H$ based on current review queue length. What are the consequences for each error type during a high-traffic period?
+\end{Exercise}
+
+\begin{Exercise}[HITL Band Simulation]
+Implement the three-way classification system from Section~4A.4.1 in Python. Create a simulation where you vary the margin parameter and observe how the review rate, false negative rate, and false positive rate change. Find the margin that minimizes total cost for a given cost structure.
+\end{Exercise}
+
+\begin{Exercise}[ROC vs.\ Precision-Recall on Imbalanced Data]
+Draw the ROC curve and precision-recall curve for the same model on an imbalanced dataset (1\% positive class). Identify the operating point on each curve that corresponds to the optimal threshold from Section~4A.1.2. Why does the ROC curve look more favorable than the PR curve for this scenario?
+\end{Exercise}
+
+% ============================================================================
+\section{Recommended Reading}
+% ============================================================================
+
+\subsection*{Foundational}
+\begin{itemize}
+    \item Elkan, C. (2001). The foundations of cost-sensitive learning. \textit{IJCAI}, 17(1), 973--978.
+    \item Fawcett, T. (2006). An introduction to ROC analysis. \textit{Pattern Recognition Letters}, 27(8), 861--874.
+\end{itemize}
+
+\subsection*{Calibration and Decision Rules}
+\begin{itemize}
+    \item Zadrozny, B., \& Elkan, C. (2001). Obtaining calibrated probability estimates from decision trees and naive Bayesian classifiers. \textit{ICML}.
+    \item Davis, J., \& Goadrich, M. (2006). The relationship between precision-recall and ROC curves. \textit{ICML}.
+\end{itemize}
+
+\subsection*{Unified Treatment}
+\begin{itemize}
+    \item Hernández-Orallo, J., Flach, P., \& Ferri, C. (2012). A unified view of performance metrics: Translating threshold choice into expected classification loss. \textit{Journal of Machine Learning Research}, 13, 2813--2869.
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the mathematical foundations for threshold optimization, ROC and precision-recall analysis, cost-sensitive learning, and multi-threshold HITL band design as introduced in Chapter~4. The exercises connect the theory to concrete design decisions in fraud detection, content moderation, and other high-stakes HITL systems.}

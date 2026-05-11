@@ -1,0 +1,44 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT h.id, h.title, h.status, h.created_at,\n                  COUNT(c.id) AS \"clue_count!: i64\"\n           FROM hunts h\n           LEFT JOIN clues c ON c.hunt_id = h.id\n           WHERE h.status = 'active'\n           GROUP BY h.id\n           ORDER BY h.created_at DESC",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "title",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "status",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 4,
+        "name": "clue_count!: i64",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      null
+    ]
+  },
+  "hash": "5733635762fa574c34bd4ea4c767f52d771703b952f492ec314139ebf7423904"
+}

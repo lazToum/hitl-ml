@@ -1,0 +1,164 @@
+% ============================================================================
+% CHAPTER 12: Measuring Success
+% What "good HITL" actually looks like when you pull out a ruler
+% ============================================================================
+% Source: /markdown/ch12/Ch12_final.md
+% ============================================================================
+
+\begin{chapterquote}{The measurement trap}
+When a measure becomes a target, it ceases to be a good measure.
+\end{chapterquote}
+
+% ============================================================================
+\section{The 400-Reviews-Per-Hour Problem}
+% ============================================================================
+
+In 2019, a mid-sized e-commerce platform deployed a content moderation system to screen product listings for policy violations. The algorithm handled roughly 85 percent of listings automatically. The rest---borderline cases involving possibly counterfeit goods, prohibited items, or ambiguous descriptions---got routed to a team of human reviewers.
+
+Management wanted to know: is this working?
+
+They chose a simple metric to answer that question: reviews completed per hour. Reviewers who processed more cases were rated higher. Reviewers who lagged got performance improvement conversations. Within six weeks, average throughput climbed from about 40 reviews per hour to over 400.
+
+Impressive. And catastrophically wrong.
+
+What had actually happened was that reviewers, under pressure to move faster, had learned to approve most borderline cases with a glance. The algorithm was routing them uncertain cases---exactly the cases that \emph{needed} careful human attention. But ``careful attention'' doesn't score well when the metric is speed. So reviewers pattern-matched the easy ones, skimmed past the hard ones, and clicked approve.
+
+The model, which was designed to learn from reviewer decisions, dutifully incorporated these rubber-stamp approvals as ground truth. Over several months, its threshold for flagging violations drifted upward. More borderline cases were auto-approved. Fewer were sent to humans. The feedback loop tightened.
+
+By the time anyone noticed---when a journalist published a story about the platform's counterfeit problem---the model was worse than it had been before the HITL system was introduced. The reviewers, optimizing for the metric they were actually measured on, had broken the system entirely.
+
+\begin{cautionbox}[\term{Goodhart's Law} in HITL Systems]
+When a measure becomes a target, it ceases to be a good measure. In human-AI collaboration, the consequences are particularly severe because feedback loops are tight, mistakes are invisible, and the model gets smarter---in exactly the wrong direction.
+\end{cautionbox}
+
+% ============================================================================
+\section{Why Accuracy Alone Is Never Enough}
+% ============================================================================
+
+The most natural question to ask of any AI system is: how often is it right? Accuracy is necessary. But it is not sufficient---and in HITL systems, it can be actively misleading.
+
+Consider a fraud detection system applied to a dataset where 1 percent of transactions are fraudulent. A model that labels every single transaction ``legitimate'' achieves 99 percent accuracy. It also catches zero fraud. An accuracy-first evaluation would call this a good model. Anyone whose credit card gets stolen would disagree.
+
+This is why real measurement requires looking at the full picture: \term{precision} (when the model flags a case, how often is it actually a problem?), \term{recall} (of all the real problems, how many did the model catch?), and the \term{F1 score} that balances the two. For HITL systems specifically, these metrics must be tracked separately for auto-processed cases and human-reviewed cases.
+
+A system where auto-processed cases achieve 98 percent accuracy and human-reviewed cases achieve 94 percent accuracy might look fine in aggregate. But it is telling you something important: the cases humans review are harder for humans too. The question is whether human review is adding value, or whether the system is routing the wrong cases, or whether reviewers are fatigued and not giving hard cases the attention they deserve.
+
+% ============================================================================
+\section{A Complete Measurement Framework}
+% ============================================================================
+
+Good HITL measurement covers seven distinct dimensions. Each illuminates something the others miss.
+
+\paragraph{Model accuracy and calibration.} Accuracy captures raw performance. \term{Calibration} captures something subtler: does the model's expressed confidence correspond to its actual reliability? A well-calibrated model that says it is 80 percent confident should be right about 80 percent of the time. A poorly calibrated model sends the wrong cases to humans---keeping the cases where it is actually uncertain and routing the ones it happens to be wrong about.
+
+This matters enormously for HITL design because routing decisions depend on confidence scores. If those scores don't mean what you think they mean, the whole intervention design breaks down.
+
+\paragraph{Human workload.} How many cases per hour is each reviewer handling? How does this change over a shift? Research on human performance consistently shows a fatigue curve: most people can sustain high attention for roughly 20--30 minutes, after which their error rate climbs \autocite{warm2008vigilance}. A HITL system routing 500 cases per hour to a team of five implicitly assumes each reviewer can sustain 100 per hour with consistent quality. That assumption is almost certainly wrong for anything requiring genuine judgment.
+
+\paragraph{Time-to-decision.} How long from flagging until a decision is made? In fraud detection, this matters in seconds. In medical imaging, hours may be acceptable. Time-to-decision is a system-level metric that captures bottlenecks no amount of model accuracy data will reveal.
+
+\paragraph{Cost per decision.} Human review is expensive. This needs to be measured explicitly, because cost shapes every design tradeoff. A system routing 40 percent of cases to human review when 5 percent would achieve similar quality wastes resources that could be spent on better interventions elsewhere.
+
+\paragraph{Error rates by pathway.} Track error rates separately for auto-processed and human-reviewed cases, and watch whether they move in the right direction over time. If reviewers are gaming the throughput metric, error rates may look stable while underlying quality deteriorates.
+
+\paragraph{Reviewer agreement rate.} When the same uncertain case is reviewed by two different reviewers, how often do they agree? Tracking agreement rates over time reveals distribution shifts, fatigue, or diverging interpretation of decision criteria. A sudden drop in agreement is a warning signal.
+
+\paragraph{Feedback loop latency.} How long until a human decision improves the model? Short latency means faster learning, but also faster propagation of reviewer errors. The tradeoff depends on the quality control processes applied before incorporating feedback into training.
+
+% ============================================================================
+\section{The A/B Testing Mindset}
+% ============================================================================
+
+Here is something many HITL practitioners overlook: you can run a controlled experiment on your HITL design.
+
+Want to know whether your current confidence threshold for routing is optimal? Randomly assign incoming cases to two groups---one gets the current threshold, one gets a slightly lower threshold. Compare outcomes across every metric in your framework. The group whose threshold produces better outcomes at acceptable cost tells you which direction to move.
+
+Most organizations set routing thresholds once, at launch, based on intuition or informal testing, and never revisit them. Meanwhile, the distribution of incoming cases shifts, reviewer expertise changes, and model calibration drifts---all of which can make the original threshold obsolete.
+
+\begin{keyconcept}[The Experimental Approach]
+A/B testing in HITL systems requires adaptations from standard experimental design: reviewers must not know they are in an experiment; cases must be assigned in a statistically sound way (not arm A on Monday, arm B on Friday); and a held-out test set evaluated against stable ground truth is essential. The payoff is continuous, evidence-driven improvement rather than intuition-driven stagnation.
+\end{keyconcept}
+
+% ============================================================================
+\section{The Divergence Trap}
+\label{sec:divergence-trap}
+% ============================================================================
+
+There is a failure mode in HITL measurement that deserves its own name: \term{the divergence trap}---optimizing short-term accuracy at the cost of long-term calibration.
+
+Imagine a medical imaging HITL system where the model flags uncertain scans for radiologist review. The radiologists handle hard cases well. Short-term accuracy looks excellent. But the model is learning from their decisions on the cases it was most uncertain about---which tend to be unusual presentations, rare variants, edge cases.
+
+Over time, the model incorporates these corrections and becomes better calibrated on the common cases. It grows more confident about them and routes fewer to humans. The unusual ones continue flowing to the human queue.
+
+Apparent accuracy improves. But the model's effective coverage has narrowed: it handles more of the easy cases autonomously and pushes the unusual ones---the cases with the most to teach it---into the human review queue. If that queue becomes overwhelmed, or if reviewers lose familiarity with the common cases they never review anymore, the system becomes brittle when the case distribution shifts.
+
+\begin{cautionbox}[Detecting the Divergence Trap]
+The divergence trap is visible only if you track long-term calibration, not just short-term accuracy. One practical countermeasure: periodically inject known-easy cases into the human review queue, both to keep reviewers calibrated and to monitor whether the model's confidence on common cases is drifting.
+\end{cautionbox}
+
+% ============================================================================
+\section{Goodhart's Law and the Metric You Choose}
+% ============================================================================
+
+Charles Goodhart, a British economist, observed in 1975 that ``when a measure becomes a target, it ceases to be a good measure.'' The principle has been rediscovered repeatedly across healthcare, education, software development, and now AI---because it describes something fundamental about how people respond to measurement \autocite{strathern1997improving}.
+
+In HITL systems, Goodhart's law operates on three levels simultaneously.
+
+\textbf{Reviewer-level Goodhart:} Reviewers optimize for whatever metric they are evaluated on. If it is throughput, they go fast. If it is agreement with the algorithm, they defer to the algorithm. If it is accuracy on a held-out test set they know about, they learn the test set.
+
+\textbf{Organization-level Goodhart:} Organizations optimize for whatever metric they report upward. If that metric is ``percentage of cases auto-processed,'' there is organizational pressure to lower the routing threshold without quality controls.
+
+\textbf{Model-level Goodhart:} Models train on reviewer behavior, silently absorbing whatever biases or gaming that behavior contains.
+
+The only real protection is to measure multiple things simultaneously and to hold some things sacred: a periodic human audit of a random sample of \emph{all} decisions---not just the flagged ones---evaluated by reviewers who do not know the original decisions. This is operationally awkward. It is also the only rigorous way to detect system-wide degradation before it becomes a public problem.
+
+% ============================================================================
+\section{What Good Measurement Looks Like}
+% ============================================================================
+
+The 400-reviews-per-hour story had a preventable outcome. The organization measured exactly one thing and nothing else. A complete measurement framework would have caught the problem in weeks rather than months.
+
+In practice, this means: a dashboard tracking accuracy, calibration error, throughput, and reviewer agreement at weekly intervals; a separate track comparing error rates by pathway, watching for them to diverge; an automatic alert when reviewer agreement on borderline cases drops below the historical baseline; and a quarterly audit where a sample of cases from all pathways---including auto-approved---is reviewed by senior reviewers who do not know the original decisions.
+
+And critically: a metric measuring \emph{model improvement over time}. If the model is not getting better from human feedback, either the feedback loop is broken, the feedback is not good enough to learn from, or the cases being reviewed are too hard to yield useful signal. That last possibility is an argument for routing some easy, clearly-resolved cases into the review queue to provide the model with strong training signal.
+
+Measurement in HITL systems is not surveillance. It is the visibility necessary to improve.
+
+\bigskip
+
+\begin{trythis}
+Think of a decision-making system you interact with regularly---a spam filter, a content recommendation engine, a loan approval process. What single metric would you guess the organization tracks to evaluate it? Now think of two other metrics that single measure might be hiding. What would you need to see to know whether the system was actually working well?
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+    \item Accuracy is necessary but not sufficient---a model labeling everything ``legitimate'' on a 99:1 imbalanced dataset achieves 99\% accuracy while catching zero fraud
+    \item A complete HITL measurement framework covers seven dimensions: model accuracy, calibration, human workload, time-to-decision, cost per decision, error rates by pathway, reviewer agreement, and feedback loop latency
+    \item Goodhart's Law operates at three levels simultaneously: reviewer, organization, and model
+    \item The divergence trap: optimizing short-term accuracy narrows long-term learning by routing unusual cases---the most informative ones---into the human queue
+    \item A/B testing applied to HITL design enables continuous, evidence-driven improvement of routing thresholds
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Examples}
+
+\begin{description}
+    \item[The 400-reviews-per-hour case] Throughput metric incentivized rubber-stamping; model trained on gamed labels; system degraded over months
+    \item[Class imbalance and accuracy] A 99\%-accurate fraud detector that labels everything ``legitimate'' catches zero fraud
+    \item[Feedback loop latency] The lag between human correction and model improvement shapes both learning speed and error propagation risk
+    \item[Quarterly pathway audits] Random samples of auto-processed cases, reviewed by senior staff without knowledge of original decisions, are required to detect drift
+\end{description}
+
+\subsection*{Key Principles}
+
+\begin{itemize}
+    \item Measure multiple things simultaneously; single metrics invite gaming
+    \item Track metrics separately by pathway: auto-processed versus human-reviewed
+    \item Hold periodic audits on cases the system handles autonomously, not only the cases it flags
+    \item Treat measurement design as an intervention-design problem---what you measure shapes what reviewers and organizations optimize for
+\end{itemize}

@@ -1,0 +1,185 @@
+% ============================================================================
+% CHAPTER 16: Beyond Text and Images
+% How HITL design changes when data moves, the world pushes back,
+% and the stakes are physical
+% ============================================================================
+% Source: /markdown/ch16/Ch16_final.md
+% ============================================================================
+
+\begin{chapterquote}{The premise of Chapter 16}
+When data is not static and consequences are physical, the principles of human-in-the-loop design remain the same---but everything about their application changes.
+\end{chapterquote}
+
+% ============================================================================
+\section{The Voice That Doesn't Fit the Transcript}
+\label{sec:voice-transcript}
+% ============================================================================
+
+On a Tuesday evening in April 2017, a trained crisis counselor named Marcus was monitoring call quality for an anonymous crisis hotline when he noticed something odd in the \ai-assisted transcription review queue. A call that the system had flagged as ``resolved---no intervention needed'' showed a transcript where the caller's words were fine: composed, measured, grateful. The \ai had assigned it a low-risk score.
+
+But the audio told a different story.
+
+Marcus had worked crisis lines for eleven years. He'd learned to hear the things that transcripts can't capture: the catch in someone's breath between sentences, the millisecond pause before a word like ``okay'' that transforms it from an answer to a concession. He played the call. The words were exactly as transcribed. The voice was not the voice of someone who was fine.
+
+He escalated. He was right.
+
+This story illustrates something important about \hitl design beyond the domains we've covered so far. Text-based \ai can be tested on its text. Image \ai can be evaluated on its images. But the caller's distress was in the prosody---the rhythm, pitch, and timing of speech---not in the semantic content. The model had been trained to read the words. The human was trained to hear the person.
+
+% ============================================================================
+\section{Domain 1: Audio and Speech}
+\label{sec:audio-speech}
+% ============================================================================
+
+Speech is deceptive. It presents itself as text-with-a-channel, as if the sound were just a delivery mechanism for the words. But decades of research in linguistics and psychoacoustics make clear that the channel carries enormous information: speaker identity, emotional state, health status, engagement level, confidence, deception, fatigue. Strip away the channel and you strip away much of what humans actually respond to.
+
+\subsection{The Transcription Feedback Loop}
+
+The most mature \hitl application in speech is transcription correction: a speech recognition system produces a transcript, human reviewers correct errors, and those corrections feed back into model training.
+
+The interesting complication in speech is that correction is bidirectional. When a human corrects ``they're gonna leave at three'' to ``they're going to leave at three,'' are they correcting an error or imposing a style preference? If the speaker said ``gonna,'' the correct transcription is ``gonna.'' A reviewer who ``corrects'' it to ``going to'' is not fixing the model---they are injecting a dialect bias that will cause the model to systematically misrepresent speakers who use informal registers \autocite{koenecke2020racial}.
+
+\begin{cautionbox}[Annotation Failure in Audio]
+In court transcription, medical dictation, and recorded business meetings, systematic dialect bias in transcription can have material consequences for the people whose speech was transcribed. Building transcription \hitl requires explicit guidelines that distinguish error correction from style correction, and quality checks that detect systematic correction patterns correlated with speaker demographics.
+\end{cautionbox}
+
+\subsection{Speaker Diarization: The Attribution Problem}
+
+Speaker diarization---determining ``who said what'' in a multi-speaker recording---is one of the hardest problems in speech processing, and one of the most interesting \hitl design problems.
+
+A diarization model must segment an audio stream, cluster segments by speaker, and label each cluster with a speaker identity. These errors compound: a segmentation error can cause a clustering error, which causes an attribution error. In legal settings---depositions, recorded hearings, criminal investigations---correct attribution determines what each person said and when. Diarization systems used in legal contexts require \hitl designs that are unusually careful about error propagation and that maintain an audit trail connecting each attributed segment to the model's confidence in that attribution.
+
+\subsection{Crisis Detection and the Prosody Gap}
+
+\begin{keyconcept}[The Prosody Gap]
+Modern NLP models are very good at analyzing the semantic content of speech. They are much worse at the prosodic and paralinguistic features---hesitations, flat affect, tremor---that experienced counselors learn to hear. In mental health applications, the model's uncertainty is not the only relevant signal: there may be cases where the model is confident (the words are fine) but the human expert would not be.
+\end{keyconcept}
+
+One design approach: a secondary model trained on prosodic features operating in parallel with the text-based model. When the two models disagree---text says low-risk, prosody says high-risk---the case escalates to human review. The disagreement between models is itself a signal of uncertainty even when neither individual model is uncertain. This principle generalizes: in multimodal systems, model disagreement between modalities is often more informative than single-model confidence.
+
+% ============================================================================
+\section{Domain 2: Time-Series and Sensor Data}
+\label{sec:time-series}
+% ============================================================================
+
+Text and images are static. But much of the world's most important data is dynamic: streams of sensor readings, vital sign monitors, industrial process measurements, seismic instruments. Time-series \hitl is structurally different from text/image \hitl in ways that matter.
+
+\subsection{Industrial IoT: The 0.1\% That Matters}
+
+Consider a pressure sensor in a continuous chemical processing plant. It reads every 100 milliseconds, 24 hours a day---approximately 6 million data points per week. Of those 6 million readings, the vast majority will be within normal operating range. But then there will be a handful---perhaps a dozen per month---where the sensor reading signals something genuinely anomalous: a valve malfunction, an unexpected exothermic reaction, a blocked line.
+
+The human operator's job is not to watch 6 million numbers. It's to handle the 0.1\% of alarms that represent genuine anomalies requiring human judgment. The \ai system's job is triage: distinguishing between the 99.9\% of readings the automatic control system can handle and the 0.1\% that need a human.
+
+This creates a specific design challenge. In complex chemical plants, a poorly calibrated alarm system can generate hundreds of alerts per operator per hour---a condition the industry calls \term{alarm flood}. Research on industrial control room operators shows that alarm flood is one of the most significant contributors to operator error and industrial incidents \autocite{eemua191}.
+
+\subsection{Earthquake Early Warning: Oversight, Not Review}
+
+The earthquake early warning system used in Japan and Mexico broadcasts alerts when seismic P-waves are detected, giving citizens seconds of warning before the more destructive S-waves arrive. The human's role in this \hitl system is not case-by-case review---the alert decision is automated. The human's role is system-level oversight: monitoring for false alerts, which damage public trust and cause secondary harms, and checking for system failures that would prevent a true alert from broadcasting.
+
+This is a different kind of \hitl---oversight and governance rather than triage and review. As systems become faster and more autonomous, this oversight role becomes increasingly important.
+
+\subsection{ICU Patient Monitoring: The False Alarm Crisis}
+
+In the modern intensive care unit, a patient may be connected to a cardiac monitor, pulse oximeter, blood pressure cuff, ventilator alarm, and medication infusion pump. Studies have found that ICU alarm rates can exceed 700 alarms per patient per day. The false alarm rate in cardiac monitor studies alone ranges from 72\% to over 99\% \autocite{cvach2012monitor}.
+
+\begin{cautionbox}[The ICU Alarm Crisis]
+Nurses in high-alarm environments report the same phenomenon documented in clinical decision support systems: they stop hearing the alarms. When the one genuine alarm fires, it sounds like the other 699. This is a Stakes Calibration failure at the system level: the \hitl design has failed to distinguish between alarms that require immediate intervention and alarms that are merely information.
+\end{cautionbox}
+
+The solution is not better sensors---the sensors are already excellent. The solution is smarter filtering: a model that integrates all sensor streams in context and produces a ranked patient state assessment rather than a list of individual parameter alarms.
+
+% ============================================================================
+\section{Domain 3: Scientific Discovery}
+\label{sec:scientific-discovery}
+% ============================================================================
+
+\subsection{AlphaFold and the Validation Problem}
+
+In 2020, DeepMind's AlphaFold2 achieved a stunning result at the biennial CASP competition: it predicted protein structures with accuracy comparable to experimental methods \autocite{jumper2021alphafold}. For many proteins, AlphaFold's predictions were indistinguishable from structures determined by X-ray crystallography.
+
+This was also a \hitl design challenge. AlphaFold provides per-residue confidence scores (pLDDT scores) indicating how confident the model is about each part of the predicted structure. Regions with high scores (above 90) are generally reliable. Regions with low scores (below 50) may be genuinely disordered in the protein, or may be regions where the model is guessing.
+
+The pLDDT scores are the \hitl interface---they tell the human researcher which parts of the prediction to trust and which to verify experimentally. This illustrates a broader principle in scientific \hitl: the model's job is often to narrow the hypothesis space, not to provide final answers. The human's job is to select which hypotheses to test.
+
+\subsection{Bayesian Optimization in Materials Science}
+
+In materials science, a researcher might want to find the composition of a material that maximizes some desired property. The search space is often enormous. Bayesian optimization maintains a probabilistic model of the relationship between composition and property, suggesting at each iteration the composition most likely to produce new information \autocite{shahriari2016bayesian}.
+
+The human researcher plays a specific role: they run the experiment, report the outcome, and---crucially---decide whether to trust the reported outcome. Experimental failures in materials science (contaminated precursors, equipment issues, measurement errors) can produce data points that would mislead the optimization if treated as reliable. The researcher's judgment about data quality is part of the feedback signal. The \hitl design challenge is to provide the researcher with enough information about the model's current state that they can make informed decisions about when to override the model's recommendation.
+
+\subsection{Drug Interaction Prediction}
+
+Drug-drug interactions (DDIs) are a significant source of adverse events. Machine learning models use molecular graph representations to predict whether two drugs are likely to interact, scanning millions of pairs and flagging candidates for experimental validation. The \hitl design involves tiered escalation: high-confidence predictions go into a clinical reference database; low-confidence predictions are routed to pharmacology experts who bring structural reasoning and mechanistic knowledge the model cannot access. The experts' assessments become additional training labels---active learning in a domain where generating ground truth requires laboratory experiments or human expert judgment.
+
+% ============================================================================
+\section{Domain 4: Robotics and Physical Systems}
+\label{sec:robotics}
+% ============================================================================
+
+When \ai acts in the physical world, errors have physical consequences. A misclassified email can be recovered from. A robot arm that moves in the wrong direction may not be recoverable. \hitl in robotics is not just about improving \ai performance---it's about managing the risks of \ai acting in domains where mistakes can cause injury, damage, or death.
+
+\subsection{Teleoperation: The Latency Problem}
+
+In hazardous environments---nuclear facilities, deep-sea operations, bomb disposal, space exploration---robots extend the human's reach into places humans cannot safely go. Modern teleoperation incorporates \ai assistance: the robot handles low-level motor control (balance, obstacle avoidance), while the human handles high-level task planning (which object to pick up, where to put it). This is \term{shared autonomy}---the human and the robot each contribute to the execution of a task, with the boundary varying based on task difficulty, model confidence, and communication latency.
+
+The \hitl design challenge in teleoperation is latency. When a human on Earth is operating a robot on the Moon, communication delays can exceed a second. The \ai assistance layer needs to buffer the human's intentions, execute them smoothly at the robot's end, and alert the human when something unexpected happens that their command stream did not anticipate \autocite{hauser2013teleoperation}.
+
+\subsection{Shared Autonomy: Uncertainty-Driven Handoff}
+
+Shared autonomy research, developed for powered wheelchairs and robotic manipulation for users with motor impairments, has produced a framework that applies directly to \hitl in physical systems: the robot estimates the probability distribution over the human's intended goal, executes actions consistent with the most likely goal while remaining consistent with other plausible goals, and asks for clarification when the distribution is too uncertain to act effectively \autocite{javdani2015shared}.
+
+This is Uncertainty Detection, Intervention Design, and Stakes Calibration all at once. The system acts autonomously in the region of high confidence about the human's intent. It asks or slows in the region of uncertainty. It errs toward safety in regions where the cost of a wrong action is high.
+
+\subsection{Prosthetics and BCIs: The Most Intimate HITL Systems}
+
+At the furthest boundary of \hitl in physical systems are prosthetics and brain-computer interfaces (BCIs). Here, the human is not simply in the loop---the human's nervous system is the loop.
+
+A modern myoelectric prosthetic hand uses surface electrodes to read electrical signals from the user's remaining muscles. A \ml model interprets those signals as intended hand movements. The user's brain sends a signal; muscles contract; electrodes read the contraction; the model predicts the intended movement; the prosthetic actuates \autocite{farina2014emg}.
+
+The calibration problem is unusually personal. Every user's residual muscle patterns are different. A model trained on one user's data will perform poorly on another. Personalization---continuous adaptation to the individual user's patterns over time---is not optional; it's the core design requirement. This is Feedback Integration as an intimate, embodied process.
+
+\begin{keyconcept}[Co-Adaptation]
+In prosthetics and BCIs, \term{co-adaptation} describes the mutual adaptation of human and \ai system over time: the user adapts to the model, and the model adapts to the user. Over time, a skilled BCI user and a well-designed model converge on a shared language. This is the most intimate form of human-\ai collaboration we have yet developed---and it is also the most visible instance of a process that occurs in all \hitl systems, albeit more slowly and less obviously.
+\end{keyconcept}
+
+% ============================================================================
+\section{What Changes When Data Is Not Static}
+\label{sec:not-static}
+% ============================================================================
+
+Across all four domains, a common thread emerges. When data is not static, the design of \hitl systems must change in specific ways:
+
+\paragraph{Streaming data requires continuous evaluation.} A static text classification system can be evaluated on a held-out test set before deployment. A streaming anomaly detection system is always encountering new data. Performance must be monitored continuously, with alerts for drift and degradation.
+
+\paragraph{Real-time decisions compress the intervention window.} In earthquake early warning, in ICU alarms, in teleoperation, the window for human intervention is measured in seconds or less. \hitl design must either slow the system to create a meaningful intervention window, or design the human's role as oversight and calibration rather than case-by-case review.
+
+\paragraph{Physical-world consequences change the asymmetry.} In text classification, the cost of an incorrect automated decision is usually recoverable. In robotics, in patient monitoring, in industrial control, incorrect automated decisions can have consequences that are not recoverable. This shifts the cost-asymmetry calculation dramatically toward caution.
+
+\paragraph{Multimodal data surfaces disagreements between sensors.} When a system integrates audio, video, and text---or pressure, temperature, and flow rate---disagreements between modalities often signal conditions outside the model's training distribution. Model disagreement as an uncertainty signal is a powerful design principle in multimodal \hitl systems.
+
+% ============================================================================
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\begin{trythis}
+Think of a device or system that monitors something over time---your smartwatch, a weather app, a fitness tracker, a home security system. How does it handle uncertainty in its sensor data? When does it alert you, and when does it act automatically? Apply the Five Dimensions framework: which dimension is handled best? Which is handled worst? What would a better \hitl design look like?
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+    \item \hitl design takes structurally different forms across audio/speech, time-series/sensor data, scientific discovery, and robotics.
+    \item In audio, the prosody gap---information in the voice that transcripts don't capture---requires human oversight that model confidence scores alone cannot substitute for.
+    \item In time-series, the challenge is triage at scale: distinguishing the 0.1\% of alarms that matter from the 99.9\% that don't.
+    \item In scientific discovery, \ai narrows hypothesis spaces and suggests next experiments; humans provide experimental judgment and validate results.
+    \item In robotics, physical-world consequences change the stakes calibration for autonomous action. Co-adaptation describes the mutual learning of human and system over time.
+\end{itemize}
+\end{keyconcept}
+
+\noindent\textit{In the next chapter, we explore the frontier: systems that get better at knowing what they don't know---and the progression from passive \hitl to proactive \ai collaboration.}

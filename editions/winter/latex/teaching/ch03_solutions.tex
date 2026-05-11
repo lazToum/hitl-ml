@@ -1,0 +1,473 @@
+% ============================================================================
+% CHAPTER 3 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch3/C3AM_updated.md (Solutions Guide)
+%         /markdown/ch3/Ch3AS_updated.md (Technical Exercise Solutions)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 3}
+\label{ch:solutions-ch03}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers enabling instructors to facilitate discussions on machine learning foundations and the structural origins of the generalization gap.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Personal Overfitting}
+
+\textbf{Prompt:} ``Describe a time you `overfitted' to a limited set of examples in your own life.''
+
+\paragraph{Model Answer.}
+
+Strong answers identify a real personal example and draw the correct parallel to machine learning. The key features to look for: learning from a limited sample, inferring a rule or pattern, and that rule failing on a new case.
+
+\textit{Strong example:} ``I learned to make coffee using my roommate's machine and assumed all coffee makers worked the same way. When I used a different machine, my rule failed --- wrong ratios, wrong settings. I had overfitted to one machine's quirks.''
+
+\textit{ML connection:} Like a model that learns ``cats have blue backgrounds'' from a non-representative training set, I learned ``coffee takes exactly this much water'' from a non-representative appliance. More exposure to diverse coffee machines (a richer training distribution) would have helped me generalize.
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[A-grade response] Accurate parallel; identifies the rule learned; explains what made the sample limited; describes how generalization failed; makes the connection to spurious pattern learning explicit. Example: ``I assumed everyone pronounced my professor's name the same way the teaching assistant did, because I only heard it from one person. When I met the professor, I used the wrong pronunciation. I had trained on one example and `overfitted' to that specific instance rather than generalizing to the correct pattern.''
+
+    \item[B-grade response] Correct direction but loose analogy; may not identify the specific rule or the spurious pattern nature of the failure. Still identifies limited training sample and failure to generalize.
+
+    \item[C-grade response] Relevant personal example but weak connection to ML concepts. May describe an overgeneralization without identifying the limited-sample origin.
+\end{description}
+
+\paragraph{Common wrong answers.}
+\begin{itemize}
+    \item ``I made an assumption and it was wrong'' --- This describes an error, but doesn't identify the limited-sample mechanism that is the ML parallel.
+    \item Describing a mistake from misunderstanding rather than over-generalizing from a specific sample.
+\end{itemize}
+
+\subsubsection{Question 2: Spam Filter Distribution Shift}
+
+\textbf{Prompt:} ``A spam filter trained on business email from 2018 --- in what ways might emails from 2025 be different? Which differences create distribution edge cases?''
+
+\paragraph{Model Answer.}
+
+Strong answers identify multiple types of change and categorize them:
+
+\textbf{Covariate shift examples} (P(x) changes, P(y$\mid$x) stable):
+\begin{itemize}
+    \item New platforms referenced (WhatsApp, TikTok, Discord) absent from 2018 data
+    \item New slang and abbreviations
+    \item More emoji and informal punctuation in business email
+    \item New company names and product categories
+\end{itemize}
+
+\textbf{Concept drift examples} (P(y$\mid$x) changes):
+\begin{itemize}
+    \item New phishing techniques crafted to mimic 2025 business communication styles
+    \item AI-generated spam that doesn't match any 2018 templates
+    \item New categories of spam (NFT/crypto scams, AI product spam)
+\end{itemize}
+
+\textbf{HITL implication:} The filter should route low-confidence cases to human review and monitor for signs of calibration drift.
+
+\begin{keyconcept}[Instructor Note]
+Distinguishing covariate shift from concept drift is a learning objective for Intermediate students. For Introductory discussions, accept any accurate identification of distribution changes without requiring formal categorization.
+\end{keyconcept}
+
+\subsubsection{Question 3: Test Set vs.\ Real World}
+
+\textbf{Prompt:} ``Why is it not sufficient to just test a machine learning system on a test set before deploying it? What does the test set miss?''
+
+\paragraph{Model Answer.}
+
+The test set is a controlled sample drawn from the same distribution as the training data. It is cleaned, labeled, and from the same time and context as the training data.
+
+\textbf{What the test set misses:}
+\begin{enumerate}
+    \item \textbf{Temporal distribution shift:} The world changes. New events, new language, new attack patterns appear in deployment.
+    \item \textbf{Population coverage gaps:} Training and test sets typically reflect the most common users and scenarios. Rare but real edge cases may be entirely absent.
+    \item \textbf{Adversarial adaptation:} Spam authors, fraudsters, and others actively adapt to evade detection after training.
+    \item \textbf{Deployment context differences:} Real users interact differently than annotators who created the test set.
+    \item \textbf{Scale effects:} At deployment scale, rare failure modes become common in absolute terms.
+\end{enumerate}
+
+\textbf{Core lesson:} Test performance establishes a ceiling for deployment performance, not a reliable prediction of it.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 4: Medical AI in Kenya}
+
+\textbf{Prompt:} ``A medical AI trained on five major U.S.\ hospitals is deployed in rural health clinics in Kenya. Identify three specific types of distribution shift and predict errors.''
+
+\paragraph{Model Answer.}
+
+\textbf{Shift 1: Demographic covariate shift}
+\begin{itemize}
+    \item US academic medical centers serve a younger, more insured, more urban population
+    \item Rural Kenyan clinics serve patients with very different baseline health profiles
+    \item Predicted errors: miscalibrated risk scores; failure to recognize East African endemic disease presentations
+\end{itemize}
+
+\textbf{Shift 2: Disease prevalence label shift}
+\begin{itemize}
+    \item Malaria, typhoid, HIV-associated opportunistic infections have much higher base rates in rural Kenya
+    \item A US-trained model may flag these as ``unusual'' or misclassify to more familiar conditions
+    \item Predicted errors: higher false negative rates on endemic diseases; potential systematic misdiagnosis
+\end{itemize}
+
+\textbf{Shift 3: Equipment and imaging covariate shift}
+\begin{itemize}
+    \item Rural clinics often use older, lower-resolution imaging equipment
+    \item AI trained on high-quality images may perform poorly on lower-quality inputs
+    \item Predicted errors: systematic accuracy degradation on all image-based tasks; possible high-confidence errors on poor-quality inputs if not calibrated for image quality
+\end{itemize}
+
+\textbf{HITL response:} Aggressive human-in-the-loop for all cases, particularly unfamiliar disease presentations. Rapid recalibration using local labeled data. Community health worker review at minimum confidence thresholds.
+
+\subsubsection{Question 5: Gap Interpretation}
+
+\textbf{Prompt:} ``A model: 98\% train, 87\% test (same distribution), 72\% deployment. Interpret.''
+
+\paragraph{Model Answer.}
+
+\textbf{Train$\to$test gap (98\% $\to$ 87\%):}
+\begin{itemize}
+    \item 11 percentage point drop from training to same-distribution test is large for modern ML
+    \item Suggests possible overfitting: model is learning some noise from the training set
+\end{itemize}
+
+\textbf{Test$\to$deployment gap (87\% $\to$ 72\%):}
+\begin{itemize}
+    \item 15 percentage point drop from same-distribution test to deployment
+    \item Very large deployment gap suggesting significant distribution shift
+    \item Possible causes: temporal shift, population shift, adversarial adaptation
+\end{itemize}
+
+\textbf{Full interpretation:}
+Both overfitting (train$\to$test gap) and distribution shift (test$\to$deployment gap) are present. The deployment gap is larger, indicating distribution shift is the dominant problem.
+
+\textbf{HITL priority:} Address distribution shift first (monitor deployment inputs, collect new labels from deployment distribution); then address overfitting (regularization, more training data).
+
+\subsubsection{Question 6: Overfitting and HITL Routing Failure}
+
+\textbf{Prompt:} ``How does overfitting create a specific challenge for uncertainty-based HITL routing?''
+
+\paragraph{Model Answer.}
+
+\textbf{The mechanism:} An overfit model has learned statistical patterns specific to the training data's noise. When it encounters a deployment example that matches these spurious patterns, it outputs a high-confidence prediction --- even if the underlying truth is uncertain.
+
+\textbf{The HITL routing consequence:} HITL routing based on uncertainty works by sending low-confidence cases to human review. But an overfit model:
+\begin{itemize}
+    \item Produces \emph{high}-confidence outputs on novel inputs that match spurious training-noise patterns
+    \item Produces \emph{low}-confidence outputs on familiar cases that happen not to match training noise
+\end{itemize}
+
+The routing system therefore sends the wrong set of cases to human review. High-confidence wrong answers fly through the autonomous channel. Low-confidence potentially-correct answers waste human review capacity.
+
+\textbf{Concrete example:} An overfit spam filter learned that emails from a particular domain are ``not spam.'' New phishing emails from that domain get routed as high-confidence ``not spam'' --- no flag, no review, straight to inbox.
+
+\textbf{Solution:} Calibration auditing in addition to uncertainty routing. Routinely sample high-confidence outputs and verify them with human review to detect systematic overconfidence.
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 7: Bias-Variance and HITL Value}
+
+\textbf{Prompt:} ``Using the bias-variance decomposition, explain when HITL value is highest for high-variance vs.\ high-bias models.''
+
+\paragraph{Model Answer.}
+
+\textbf{High-variance model:}
+\begin{itemize}
+    \item Low bias: captures complex patterns correctly on average
+    \item High variance: predictions fluctuate significantly across different training samples
+    \item Errors are \emph{unpredictable in location} --- they occur on unusual inputs without systematic pattern
+    \item Calibration tends to be poor on novel inputs
+\end{itemize}
+
+\textbf{HITL value for high-variance:} High. Errors occur in unpredictable places. Uncertainty-based routing may not catch all errors because the model may be confidently wrong on inputs that happen to match spurious learned patterns. HITL design should combine uncertainty routing with random sampling (spot-checking high-confidence cases).
+
+\textbf{High-bias model:}
+\begin{itemize}
+    \item High bias: doesn't capture complex patterns; systematic underfitting
+    \item Low variance: consistently wrong in the same predictable ways
+    \item Errors are \emph{systematic and predictable} --- fail on all instances of a certain type
+\end{itemize}
+
+\textbf{HITL value for high-bias:} Lower for case-by-case review; higher for systematic data collection. The model's errors are not random --- it consistently fails on a category of input. Human review of these cases produces uniform decisions that could have been captured by targeted data collection and retraining.
+
+\textbf{Design implication:}
+\begin{itemize}
+    \item High-variance: invest in HITL for real-time review of edge cases
+    \item High-bias: invest in systematic data collection from underperforming categories; use HITL to identify which categories need data, not to handle individual cases
+\end{itemize}
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Distribution Edge Map --- Sample Strong Solution}
+
+\textbf{Scenario:} Content moderation AI trained on US/UK/AU English social media posts, 2019--2022.
+
+\begin{table}[htbp]
+\caption{Distribution edge map: sample strong solution}
+\label{tab:edge-map-solution}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{3.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Edge Case Category} & \textbf{Specific Examples} & \textbf{Expected Errors} \\
+\midrule
+Non-English content & Spanish, Tagalog, Hindi posts & Classifies based on superficial English patterns; high FP on innocuous foreign text \\
+Post-2022 events & New political conflicts, new public figures & Applies old patterns to new figures; context-blind classification \\
+Non-Western cultural context & Religious celebrations using language similar to threats; cultural idioms & FP on culturally specific expression; low confidence on genuinely ambiguous content \\
+Platform format changes & New emoji usages, new format conventions & Pattern mismatch with training distribution; erratic confidence \\
+Coordinated inauthentic behavior & Influence operations using legitimate-looking language & Designed to evade training distribution; high FN rate \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{HITL implication:} Each category represents a predictable distribution edge. A well-designed system should route all non-English content to human review, monitor for sudden changes in model confidence patterns after news events, and maintain human review queues for content near classification boundaries.
+
+\subsection{Activity 2: Overfit/Underfit Diagnosis --- Solutions}
+
+\paragraph{System A: 99\% train, 98\% test, 91\% deployment.}
+\begin{itemize}
+    \item Train$\to$test gap: 1\% (very small --- good generalization within distribution)
+    \item Test$\to$deployment gap: 7\% (moderate)
+    \item \textbf{Diagnosis:} Primarily deployment distribution shift. The model generalizes well within its training distribution but the deployment distribution differs.
+    \item \textbf{HITL intervention:} Monitor for distribution drift; add human review for cases detected as OOD.
+\end{itemize}
+
+\paragraph{System B: 77\% train, 76\% test, 73\% deployment.}
+\begin{itemize}
+    \item Train$\to$test gap: 1\% (minimal --- model is not overfitting)
+    \item Absolute accuracy is low across all sets
+    \item \textbf{Diagnosis:} Primarily underfitting. The model is not capturing the patterns even in training data.
+    \item \textbf{HITL intervention:} Human review for everything; but the bigger fix is model improvement. HITL masks the problem rather than fixing it.
+\end{itemize}
+
+\paragraph{System C: 98\% train, 71\% test, 65\% deployment.}
+\begin{itemize}
+    \item Train$\to$test gap: 27\% (very large --- severe overfitting)
+    \item \textbf{Diagnosis:} Primarily severe overfitting. The model memorized training data and fails to generalize.
+    \item \textbf{HITL intervention:} Calibration auditing (model may be overconfident on wrong predictions). Primary fix: address overfitting (regularization, more training data, simpler model).
+\end{itemize}
+
+\subsection{Activity 3: What Was the Training Data? --- Sample Responses}
+
+\begin{description}
+    \item[Autocorrect failing on ``Nguyen''] Training data over-represents Western European names; Vietnamese names underrepresented. Solution: add diverse name corpora; or detect potential proper nouns and don't ``correct'' them.
+    \item[Translation failing on informal text] Training likely from formal parallel corpora (news, EU documents, books). Solution: add training on social media translations; or route informal text to human translators.
+    \item[Image classifier failing on dark skin tones] Training data (e.g., ImageNet) historically skewed toward lighter skin tones. Solution: actively curated diverse training data; calibration auditing by demographic subgroup.
+\end{description}
+
+% ============================================================================
+\section{Technical Exercise Solutions (Appendix 3A)}
+% ============================================================================
+
+\subsection{Exercise 3A.1: Spam Filter Distribution Shift Diagnosis}
+
+\paragraph{Most likely distribution shift type:} Primarily covariate shift --- P(x) has changed in deployment. New senders, new subjects, new phishing styles, new vocabulary. The definition of spam (P(y$\mid$x)) is roughly constant, but what email looks like has changed.
+
+Secondary possibility: concept drift --- if spam techniques have evolved significantly, P(y$\mid$x) may also have changed (e.g., AI-generated phishing that mimics legitimate email styles).
+
+\paragraph{How to diagnose:}
+\begin{enumerate}
+    \item \textbf{Confidence score analysis} --- compute the distribution of confidence scores in deployment vs.\ training. If deployment emails cluster at mid-range confidence (0.4--0.7) more often, the model is encountering more uncertain cases.
+    \item \textbf{Error pattern analysis} --- collect false positives and false negatives from deployment. Are they systematically similar? (New sender domains? New vocabulary?)
+    \item \textbf{Temporal analysis} --- is accuracy declining over time? Rate of decline indicates drift speed.
+    \item \textbf{Feature distribution comparison} --- compare distributions of key features between training and deployment using KS tests or MMD.
+\end{enumerate}
+
+\begin{lstlisting}[style=python, caption={Distribution drift detection using KS test}]
+from scipy.stats import ks_2samp
+import numpy as np
+
+def monitor_deployment_drift(train_features, deploy_batches,
+                              threshold=0.05):
+    """
+    Detect distribution drift using KS test per feature.
+
+    Parameters
+    ----------
+    train_features : np.ndarray, shape (n_train, n_features)
+    deploy_batches : list of np.ndarray, each one week of data
+    threshold : float, p-value threshold for drift detection
+
+    Returns
+    -------
+    list of (batch_index, feature_index, p_value) alerts
+    """
+    alerts = []
+    for batch_idx, batch in enumerate(deploy_batches):
+        for feat_idx in range(train_features.shape[1]):
+            stat, p_val = ks_2samp(
+                train_features[:, feat_idx],
+                batch[:, feat_idx]
+            )
+            if p_val < threshold:
+                alerts.append((batch_idx, feat_idx, p_val))
+    return alerts
+\end{lstlisting}
+
+\paragraph{Best HITL intervention:} Three-pronged:
+\begin{enumerate}
+    \item \textbf{Immediate:} Lower the confidence threshold for routing to spam folder. Accept more false positives in exchange for fewer false negatives until retraining.
+    \item \textbf{Short-term:} Prominent ``Report as spam'' button that routes flagged emails directly into a labeled training batch.
+    \item \textbf{Systematic:} Active learning loop --- emails the model is uncertain about (confidence 0.4--0.6) sampled and sent to human reviewers weekly; their labels used in monthly model updates.
+\end{enumerate}
+
+\subsection{Exercise 3A.2: Large Pre-trained Model vs.\ Simpler Domain-Specific Model}
+
+\paragraph{The HITL-specific risk of large pre-trained models fine-tuned on small domain data.}
+
+The large pre-trained model has learned general patterns from a massive corpus during pre-training. During fine-tuning on small domain data, it:
+\begin{enumerate}
+    \item Retains general knowledge (good)
+    \item Retains biases and patterns from pre-training that conflict with domain specifics (risky)
+    \item May appear highly confident on domain-specific queries where its actual accuracy is poor
+\end{enumerate}
+
+This creates the ``confident but wrong'' failure mode: expressed confidence (from the large pre-training base) is high, but domain-specific accuracy is lower than that confidence implies.
+
+The simpler domain-specific model, by contrast, is uncertain about the same things it is bad at --- a better alignment between expressed uncertainty and actual error.
+
+\begin{lstlisting}[style=python, caption={Domain density monitoring for fine-tuned models}]
+from collections import defaultdict
+import numpy as np
+
+class DomainDriftMonitor:
+    """Monitor a fine-tuned model for pre-training influence."""
+
+    def __init__(self, domain_keywords, model_tokenizer):
+        self.domain_keywords = set(domain_keywords)
+        self.tokenizer = model_tokenizer
+        self.confidence_by_domain_density = defaultdict(list)
+
+    def compute_domain_density(self, text):
+        """Fraction of tokens that are domain-specific keywords."""
+        tokens = self.tokenizer.tokenize(text.lower())
+        domain_tokens = sum(
+            1 for t in tokens if t in self.domain_keywords
+        )
+        return domain_tokens / len(tokens) if tokens else 0
+
+    def log_prediction(self, text, confidence, correct):
+        density = self.compute_domain_density(text)
+        bucket = round(density * 10) / 10
+        self.confidence_by_domain_density[bucket].append(
+            (confidence, correct)
+        )
+
+    def check_calibration_by_density(self):
+        for density, records in sorted(
+            self.confidence_by_domain_density.items()
+        ):
+            confidences = [r[0] for r in records]
+            accuracies = [r[1] for r in records]
+            print(f"Domain density {density:.1f}: "
+                  f"confidence={np.mean(confidences):.3f}, "
+                  f"accuracy={np.mean(accuracies):.3f}")
+\end{lstlisting}
+
+\subsection{Exercise 3A.3: MMD Monitoring Implementation}
+
+\begin{lstlisting}[style=python, caption={Maximum Mean Discrepancy drift monitor}]
+import numpy as np
+from scipy.spatial.distance import cdist
+
+def compute_mmd(X_ref, X_new, sigma=None):
+    """
+    Compute MMD^2 between reference and new data distributions.
+    Uses RBF (Gaussian) kernel with median heuristic if sigma is None.
+
+    Returns: float >= 0  (0 = identical distributions)
+    """
+    if sigma is None:
+        all_data = np.vstack([X_ref, X_new])
+        dists = cdist(all_data, all_data, 'euclidean')
+        sigma = np.median(dists[dists > 0])
+
+    def rbf(X, Y):
+        return np.exp(-cdist(X, Y, 'sqeuclidean') / (2 * sigma**2))
+
+    K_rr = rbf(X_ref, X_ref)
+    K_nn = rbf(X_new, X_new)
+    K_rn = rbf(X_ref, X_new)
+    n_r, n_n = len(X_ref), len(X_new)
+
+    mmd2 = (K_rr.sum() - np.trace(K_rr)) / (n_r * (n_r - 1))
+    mmd2 += (K_nn.sum() - np.trace(K_nn)) / (n_n * (n_n - 1))
+    mmd2 -= 2 * K_rn.mean()
+    return max(0, mmd2)
+\end{lstlisting}
+
+\paragraph{Threshold selection guidance:}
+\begin{itemize}
+    \item \textbf{Permutation test ($\alpha = 0.05$):} Most principled approach. Use when reference data $> 200$ samples.
+    \item \textbf{High-stakes heuristic:} 95th percentile of MMD values observed during a known-stable period.
+    \item \textbf{Operational tradeoff:} Lower threshold (more sensitive) triggers more human audits; higher threshold catches only large shifts. For medical and safety-critical applications, err toward lower thresholds.
+\end{itemize}
+
+\subsection{Exercise 3A.4: Aleatoric Uncertainty and Irreducible Error}
+
+\paragraph{Why HITL cannot reduce aleatoric uncertainty.}
+
+Aleatoric uncertainty arises from irreducible noise in the data generating process. Formally, even with infinite training data and an optimal Bayesian estimator, the expected error equals the aleatoric component:
+\[
+\lim_{|D|\to\infty} \mathbb{E}[L(f^*(x), y)] = \sigma^2_{\text{aleatoric}}(x)
+\]
+A human expert, given the same input $x$, faces the same $P(y\mid x)$ distribution. Sending this case to a human reviewer adds cost, latency, and reviewer frustration without improving outcomes.
+
+\paragraph{What a HITL system should do instead:}
+
+\textbf{Option 1: Request better data}
+\begin{quote}
+If aleatoric uncertainty is high, the correct response is to acquire better data (cleaner recording, better image, more context) rather than routing to human review of the same degraded input.
+\end{quote}
+
+\textbf{Option 2: Communicate uncertainty to end user}
+Return the full predictive distribution (e.g., ``P(positive) = 0.47, P(negative) = 0.53'') rather than forcing a single label.
+
+\textbf{Option 3: Return multiple predictions with probabilities}
+Rather than a single label, present the most likely interpretations with calibrated probabilities.
+
+\paragraph{Practical diagnostic:} If multiple human annotators also disagree significantly on the same case, it is likely primarily aleatoric. If they agree strongly, the uncertainty is likely epistemic --- the model doesn't know what they know. Inter-annotator agreement rate on model-uncertain cases is therefore a useful diagnostic.
+
+% ============================================================================
+\section{``Try This'' Exercise --- Model Student Responses}
+% ============================================================================
+
+\paragraph{Sample Strong Response.}
+
+``I tracked the train/test/deployment distinction for a week by looking at AI tools I use and noticing when they behaved unexpectedly:
+
+\begin{enumerate}
+    \item \textbf{Autocorrect} on my phone: It regularly `corrects' my professor's last name, which is Vietnamese. This is a classic training distribution gap --- the training corpus underrepresented non-Western names. The model is confidently wrong with no uncertainty signal.
+
+    \item \textbf{Voice assistant}: I asked about a news event from last month. The assistant gave me information about an older event with the same name, then confidently presented it as current. This is temporal distribution shift --- the model's training cutoff pre-dates my query.
+
+    \item \textbf{Spam filter}: I noticed a legitimate email from a new colleague went to spam. Looking at it, it had features common in phishing (urgency, unusual link) but was genuine. The filter is using patterns from its training distribution that don't account for legitimate edge cases with superficially spam-like features.
+\end{enumerate}
+
+Pattern across all three: the failures involved confident wrong answers, not uncertain hesitation. This is overfitting/distribution shift presenting as overconfidence --- exactly the failure mode that makes HITL routing hard.''
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``If the model was tested and got 95\%, isn't it good enough?''}
+Test accuracy measures performance on data from the same distribution as training. Deployment data includes inputs from the messy real world that may differ in systematic ways. The 95\% test accuracy is an upper bound, not a deployment guarantee. The gap between test and deployment performance is what Chapter~3 is about.
+
+\paragraph{``Isn't the generalization gap just a data problem? More data fixes it.''}
+More data from the same distribution improves performance within that distribution. It does not help with inputs from genuinely different distributions (temporal shift, population shift, geographic shift). Every additional gigabyte of data from 2019--2022 English social media does not help the content moderation model handle 2026 posts or non-English content. The edges shift but they do not disappear.
+
+\paragraph{``Why do large language models seem to generalize so well?''}
+Large language models are trained on extraordinarily broad distributions (essentially much of the internet). This shifts their distribution edges much further out. But they still have edges --- they fail on content not well-represented in their training corpus, on tasks that require specialized domain knowledge, and on inputs that require real-time information. The edges are harder to hit accidentally, but the structural argument still holds.

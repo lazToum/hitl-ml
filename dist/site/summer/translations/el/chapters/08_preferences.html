@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Μάθηση από Συγκρίσεις και Κατατάξεις &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/el/chapters/08_preferences';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/el/chapters/08_preferences.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Μάθηση από Συγκρίσεις και Κατατάξεις</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Γιατί οι Συγκρίσεις Είναι Καλύτερες από τις Αξιολογήσεις</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Ψυχομετρική Θεμελίωση</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Στατιστική Αποτελεσματικότητα</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Κλιμακωσιμότητα</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bradley-terry">Το Μοντέλο Bradley-Terry</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Ταυτοποιησιμότητα</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Εκτίμηση Παραμέτρων</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thurstone">Το Μοντέλο Thurstone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Συνάθροιση Κατατάξεων</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dueling-bandits">Dueling Bandits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Μάθηση Προτίμησης για Γλωσσικά Μοντέλα</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Συλλογή Δεδομένων Προτίμησης Υψηλής Ποιότητας</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Μάθηση από Συγκρίσεις και Κατατάξεις<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>Να ζητάς από ανθρώπους να αναθέσουν απόλυτη βαθμολογία ποιότητας σε μια έξοδο είναι δύσκολο. Ποια είναι η αριθμητική ποιότητα αυτής της δοκιμής, σε κλίμακα 1 έως 10; Το ερώτημα είναι ακαθόριστο: οι άνθρωποι στερούνται σταθερής εσωτερικής κλίμακας, και οι βαθμολογίες τους επηρεάζονται έντονα από αγκύρωση, πλαίσιο και κόπωση.</p>
+<p>Να ζητάς από ανθρώπους να <em>συγκρίνουν</em> δύο εξόδους είναι πολύ ευκολότερο: ποια δοκιμή είναι καλύτερη, Α ή Β; Οι συγκριτικές κρίσεις είναι πιο συνεπείς, πιο αξιόπιστες και αξιοποιούν πιο άμεσα τις ανθρώπινες προτιμήσεις από τις απόλυτες αξιολογήσεις. Αυτό το κεφάλαιο καλύπτει τις μαθηματικές βάσεις και τις πρακτικές εφαρμογές της μάθησης από συγκρίσεις και κατατάξεις.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>Γιατί οι Συγκρίσεις Είναι Καλύτερες από τις Αξιολογήσεις<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3>Ψυχομετρική Θεμελίωση<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Η υπεροχή των συγκριτικών κρίσεων έχει μακρά ιστορία στην ψυχομετρία. Ο Νόμος Συγκριτικής Κρίσης του Thurstone <a href="#id4"><span class="problematic" id="id5">thurstone1927law</span></a> (1927) έδειξε ότι ακόμα και όταν οι άνθρωποι έχουν ασυνεπείς απόλυτες κρίσεις, οι σχετικές κρίσεις τους ακολουθούν έναν συνεπή πιθανολογικό νόμο. Οι συγκρίσεις εκμεταλλεύονται το γεγονός ότι οι άνθρωποι είναι πολύ καλύτεροι στην <em>σχετική</em> αντίληψη από ότι στην απόλυτη βαθμονόμηση.</p>
+</section>
+<section id="id6">
+<h3>Στατιστική Αποτελεσματικότητα<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>Κάθε ζευγαρωτή σύγκριση παρέχει πληροφορία για τις <em>σχετικές</em> θέσεις δύο στοιχείων στην κλίμακα ποιότητας. Με <span class="math notranslate nohighlight">\(K\)</span> στοιχεία, <span class="math notranslate nohighlight">\(K-1\)</span> συγκρίσεις μπορούν να κατατάξουν όλα τα στοιχεία· μόνο <span class="math notranslate nohighlight">\(O(\log K)\)</span> συγκρίσεις χρειάζονται για να βρούμε το κορυφαίο στοιχείο. Οι απόλυτες αξιολογήσεις συνήθως απαιτούν περισσότερες κρίσεις για να επιτύχουν την ίδια ακρίβεια.</p>
+</section>
+<section id="id7">
+<h3>Κλιμακωσιμότητα<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>Για γεννητικά μοντέλα, ο αριθμός διακριτών εξόδων είναι πρακτικά άπειρος. Η αξιολόγηση μιας εξόδου σε απόλυτους όρους απαιτεί τη δημιουργία κοινής κλίμακας σε όλες τις εξόδους· η σύγκριση εξόδων απαιτεί μόνο τοπικές, σχετικές κρίσεις που βαθμονομούνται φυσικά μεταξύ τους.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="bradley-terry">
+<h2>Το Μοντέλο Bradley-Terry<a class="headerlink" href="#bradley-terry" title="Permalink to this heading">#</a></h2>
+<p>Το κυρίαρχο πιθανολογικό μοντέλο για ζευγαρωτές συγκρίσεις είναι το <strong>μοντέλο Bradley-Terry (BT)</strong> <a href="#id8"><span class="problematic" id="id9">bradley1952rank</span></a>. Κάθε στοιχείο <span class="math notranslate nohighlight">\(i\)</span> έχει μια λανθάνουσα βαθμολογία ποιότητας <span class="math notranslate nohighlight">\(\alpha_i \in \mathbb{R}\)</span>. Η πιθανότητα να προτιμηθεί το στοιχείο <span class="math notranslate nohighlight">\(i\)</span> από το στοιχείο <span class="math notranslate nohighlight">\(j\)</span> σε άμεση σύγκριση είναι:</p>
+<div class="math notranslate nohighlight">
+\[
+P(i \succ j) = \frac{e^{\alpha_i}}{e^{\alpha_i} + e^{\alpha_j}} = \sigma(\alpha_i - \alpha_j)
+\]</div>
+<p>όπου <span class="math notranslate nohighlight">\(\sigma\)</span> είναι η λογιστική σιγμοειδής. Αυτό ισοδυναμεί με υπόθεση ότι η αντιληπτή ποιότητα του στοιχείου <span class="math notranslate nohighlight">\(i\)</span> είναι <span class="math notranslate nohighlight">\(\alpha_i + \epsilon\)</span> όπου <span class="math notranslate nohighlight">\(\epsilon\)</span> είναι ένας τυπικός λογιστικός όρος θορύβου.</p>
+<section id="id10">
+<h3>Ταυτοποιησιμότητα<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>Το μοντέλο BT είναι ταυτοποιήσιμο έως μεταφορά: εάν το <span class="math notranslate nohighlight">\(\alpha\)</span> είναι λύση, έτσι είναι και το <span class="math notranslate nohighlight">\(\alpha + c\)</span> για οποιαδήποτε σταθερά <span class="math notranslate nohighlight">\(c\)</span>. Μια τυπική σύμβαση είναι να κουπώσουμε μία βαθμολογία (π.χ. <span class="math notranslate nohighlight">\(\alpha_0 = 0\)</span>) ή να περιορίσουμε <span class="math notranslate nohighlight">\(\sum_i \alpha_i = 0\)</span>. Οι βαθμολογίες εντοπίζονται μόνο όταν ο <strong>γράφος σύγκρισης</strong> (κόμβοι = στοιχεία, ακμές = παρατηρούμενα ζεύγη) είναι <strong>συνδεδεμένος</strong> — εάν ο γράφος έχει αποσυνδεδεμένα συστατικά, οι σχετικές βαθμολογίες σε αυτά τα συστατικά είναι αόριστες.</p>
+</section>
+<section id="id11">
+<h3>Εκτίμηση Παραμέτρων<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>Δεδομένου ενός συνόλου δεδομένων ζευγαρωτών συγκρίσεων <span class="math notranslate nohighlight">\(\mathcal{D} = \{(i, j, y_{ij})\}\)</span> όπου <span class="math notranslate nohighlight">\(y_{ij} = 1\)</span> εάν προτιμήθηκε το <span class="math notranslate nohighlight">\(i\)</span> από το <span class="math notranslate nohighlight">\(j\)</span>, η λογαριθμοπιθανότητα είναι:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(\alpha) = \sum_{(i, j, y_{ij}) \in \mathcal{D}} \left[ y_{ij} \log \sigma(\alpha_i - \alpha_j) + (1 - y_{ij}) \log \sigma(\alpha_j - \alpha_i) \right]
+\]</div>
+<p>Αυτή είναι μια κοίλη συνάρτηση του <span class="math notranslate nohighlight">\(\alpha\)</span> και μπορεί να μεγιστοποιηθεί μέσω ανόδου κλίσης ή μεθόδου Newton.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">expit</span>  <span class="c1"># sigmoid</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------</span>
+<span class="c1"># Simulate Bradley-Terry: 8 items with true quality scores</span>
+<span class="c1"># Generate pairwise comparisons and recover the scores</span>
+<span class="c1"># -----------------------------------------------</span>
+
+<span class="n">N_ITEMS</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">true_alpha</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_ITEMS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True quality ranking: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Generate comparisons: every pair compared 5 times</span>
+<span class="n">comparisons</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITEMS</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_ITEMS</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">p_i_wins</span> <span class="o">=</span> <span class="n">expit</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">true_alpha</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">winner</span> <span class="o">=</span> <span class="n">i</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p_i_wins</span> <span class="k">else</span> <span class="n">j</span>
+            <span class="n">loser</span>  <span class="o">=</span> <span class="n">j</span> <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="n">i</span> <span class="k">else</span> <span class="n">i</span>
+            <span class="n">comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">winner</span><span class="p">,</span> <span class="n">loser</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total comparisons: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">comparisons</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">neg_log_likelihood</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bradley-Terry negative log-likelihood.&quot;&quot;&quot;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">winner</span><span class="p">,</span> <span class="n">loser</span> <span class="ow">in</span> <span class="n">comparisons</span><span class="p">:</span>
+        <span class="n">log_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">expit</span><span class="p">(</span><span class="n">alpha</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">[</span><span class="n">loser</span><span class="p">])</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">-=</span> <span class="n">log_prob</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">neg_grad</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">winner</span><span class="p">,</span> <span class="n">loser</span> <span class="ow">in</span> <span class="n">comparisons</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">expit</span><span class="p">(</span><span class="n">alpha</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">[</span><span class="n">loser</span><span class="p">])</span>
+        <span class="n">grad</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span> <span class="o">-=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span>
+        <span class="n">grad</span><span class="p">[</span><span class="n">loser</span><span class="p">]</span>  <span class="o">-=</span> <span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grad</span>
+
+<span class="c1"># Fix alpha[0] = 0 to resolve scale ambiguity</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">neg_log_likelihood</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">a</span><span class="p">]),</span> <span class="n">comparisons</span><span class="p">),</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_ITEMS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">jac</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">neg_grad</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">a</span><span class="p">]),</span> <span class="n">comparisons</span><span class="p">)[</span><span class="mi">1</span><span class="p">:],</span>
+    <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span>
+<span class="p">)</span>
+<span class="n">est_alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+
+<span class="c1"># Compare true vs estimated ranking</span>
+<span class="n">true_rank</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">est_rank</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">est_alpha</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">True ranking (item indices): </span><span class="si">{</span><span class="n">true_rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated ranking:           </span><span class="si">{</span><span class="n">est_rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">rank_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">true_alpha</span><span class="p">,</span> <span class="n">est_alpha</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Correlation with true scores: </span><span class="si">{</span><span class="n">rank_corr</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="thurstone">
+<h2>Το Μοντέλο Thurstone<a class="headerlink" href="#thurstone" title="Permalink to this heading">#</a></h2>
+<p>Το μοντέλο Thurstone <a href="#id12"><span class="problematic" id="id13">thurstone1927law</span></a> είναι στενά συνδεδεμένο με το Bradley-Terry αλλά χρησιμοποιεί Γκαουσιανό αντί για λογιστικό θόρυβο:</p>
+<div class="math notranslate nohighlight">
+\[
+P(i \succ j) = \Phi\left(\frac{\alpha_i - \alpha_j}{\sqrt{2}\sigma}\right)
+\]</div>
+<p>όπου <span class="math notranslate nohighlight">\(\Phi\)</span> είναι η τυπική κανονική CDF. Όταν <span class="math notranslate nohighlight">\(\sigma = 1/\sqrt{2}\)</span>, αυτό γίνεται ισοδύναμο με BT με μικρή διαφορά κλίμακας. Στην πράξη, τα δύο μοντέλα δίνουν σχεδόν πανομοιότυπα αποτελέσματα.</p>
+</section>
+<hr class="docutils" />
+<section id="id14">
+<h2>Συνάθροιση Κατατάξεων<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
+<p>Όταν κάθε σχολιαστής παρέχει μια πλήρη κατάταξη <span class="math notranslate nohighlight">\(K\)</span> στοιχείων (αντί για ζευγαρωτές συγκρίσεις), το πρόβλημα είναι η <strong>συνάθροιση κατατάξεων</strong>: συνδυασμός πολλαπλών κατατεταγμένων λιστών σε μια κατάταξη συναίνεσης.</p>
+<p><strong>Μέτρηση Borda:</strong> Κάθε στοιχείο λαμβάνει βαθμολογία ίση με τον αριθμό στοιχείων που κατατάσσονται κάτω από αυτό στην κατάταξη κάθε σχολιαστή. Οι βαθμολογίες αθροίζονται σε όλους τους σχολιαστές. Απλό και ανθεκτικό.</p>
+<p><strong>Kemeny–Young:</strong> Βρίσκει την κατάταξη που ελαχιστοποιεί το άθροισμα ανά-ζεύγος διαφωνιών (η απόσταση Kendall tau) με την κατάταξη κάθε σχολιαστή. Αυτό είναι NP-δύσκολο για μεγάλα <span class="math notranslate nohighlight">\(K\)</span> αλλά εφικτό για μικρά σύνολα.</p>
+<p><strong>RankNet / ListNet:</strong> Νευρωνικές προσεγγίσεις που μαθαίνουν μια συνάρτηση βαθμολόγησης από κατατεταγμένες λίστες, επιτρέποντας γενίκευση σε μη-εμφανισθέντα στοιχεία.</p>
+</section>
+<hr class="docutils" />
+<section id="dueling-bandits">
+<h2>Dueling Bandits<a class="headerlink" href="#dueling-bandits" title="Permalink to this heading">#</a></h2>
+<p>Στη <strong>διαδικτυακή</strong> μάθηση προτίμησης, τα στοιχεία φτάνουν σε ροή και πρέπει να αποφασίσουμε ποια ζεύγη να συγκρίνουμε, εξισορροπώντας εξερεύνηση (μάθηση για άγνωστα στοιχεία) και εκμετάλλευση (παρουσίαση υψηλής ποιότητας στοιχείων). Αυτό είναι το <strong>πρόβλημα dueling bandit</strong> <a href="#id15"><span class="problematic" id="id16">yue2009interactively</span></a>.</p>
+<p>Βασικοί αλγόριθμοι:</p>
+<ul class="simple">
+<li><p><strong>Doubler:</strong> Διατηρεί ένα πρωταθλητή στοιχείο· το προκαλεί με τυχαίους ανταγωνιστές</p></li>
+<li><p><strong>RUCB (Σχετικό Άνω Φράγμα Εμπιστοσύνης):</strong> Υπολογίζει διαστήματα εμπιστοσύνης τύπου UCB για την πιθανότητα κάθε στοιχείου να νικά κάθε άλλο στοιχείο</p></li>
+<li><p><strong>MergeRank:</strong> Συνδυάζει σύγκριση τύπου τουρνουά με UCB</p></li>
+</ul>
+<p>Τα dueling bandits χρησιμοποιούνται σε διαδικτυακά συστήματα σύστασης (ποιο άρθρο να δείξω στη συνέχεια, δεδομένης σιωπηρής ανατροφοδότησης) και διαδραστική εξαγωγή προτίμησης για συλλογή δεδομένων RLHF.</p>
+</section>
+<hr class="docutils" />
+<section id="id17">
+<h2>Μάθηση Προτίμησης για Γλωσσικά Μοντέλα<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
+<p>Στο πλαίσιο του RLHF (Κεφάλαιο 6), το μοντέλο Bradley-Terry χρησιμοποιείται για εκπαίδευση του μοντέλου ανταμοιβής. Μια σημαντική παραλλαγή είναι η <strong>Άμεση Βελτιστοποίηση Προτίμησης (DPO)</strong> <a href="#id18"><span class="problematic" id="id19">rafailov2023direct</span></a>, που δείχνει ότι ο στόχος RLHF μπορεί να βελτιστοποιηθεί άμεσα από δεδομένα προτίμησης χωρίς εκπαίδευση ξεχωριστού μοντέλου ανταμοιβής:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_\text{DPO}(\theta) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma \left( \beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_\text{ref}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_\text{ref}(y_l \mid x)} \right) \right]
+\]</div>
+<p>Το DPO είναι απλούστερο από το πλήρες RLHF (χωρίς βρόχο εκπαίδευσης PPO, χωρίς μοντέλο ανταμοιβής) επιτυγχάνοντας συγκρίσιμα ή καλύτερα αποτελέσματα σε πολλά αναφοράς <a href="#id20"><span class="problematic" id="id21">rafailov2023direct</span></a>. Έχει γίνει ευρέως υιοθετημένη εναλλακτική στο RLHF βάσει PPO για fine-tuning ακολούθησης οδηγιών, αν και και οι δύο προσεγγίσεις παραμένουν σε ενεργή χρήση και τα σχετικά τους πλεονεκτήματα εξαρτώνται από το έργο.</p>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h2>Συλλογή Δεδομένων Προτίμησης Υψηλής Ποιότητας<a class="headerlink" href="#id22" title="Permalink to this heading">#</a></h2>
+<p>Η ποιότητα των δεδομένων προτίμησης καθορίζει την ποιότητα του μοντέλου ανταμοιβής. Βασικές εκτιμήσεις:</p>
+<p><strong>Ποικιλομορφία εντολών.</strong> Τα δεδομένα προτίμησης πρέπει να καλύπτουν την πλήρη κατανομή των εντολών που θα συναντήσει το μοντέλο κατά την ανάπτυξη. Κενά κάλυψης οδηγούν σε αναξιόπιστη συμπεριφορά μοντέλου ανταμοιβής σε αυτές τις περιοχές.</p>
+<p><strong>Ποικιλομορφία απαντήσεων.</strong> Η σύγκριση δύο πολύ παρόμοιων απαντήσεων παρέχει λίγες πληροφορίες. Οι συγκρινόμενες απαντήσεις πρέπει να διαφέρουν αρκετά ώστε οι σχολιαστές να έχουν σαφή προτίμηση.</p>
+<p><strong>Συμφωνία σχολιαστών.</strong> Χαμηλή συμφωνία μεταξύ σχολιαστών υποδηλώνει ότι τα κριτήρια σύγκρισης είναι ασαφή. Μετρήστε τη συμφωνία (κάππα Cohen) και αναθεωρήστε τις οδηγίες όταν είναι κάτω από αποδεκτά κατώφλια.</p>
+<p><strong>Βαθμονόμηση.</strong> Οι σχολιαστές πρέπει να κατανοούν <em>γιατί</em> μια απάντηση είναι καλύτερη: χρησιμότητα, ακρίβεια, ασφάλεια, στυλ; Τα έργα που ομαδοποιούν πολλαπλά κριτήρια τείνουν να παράγουν ασυνεπείς προτιμήσεις. Είναι συχνά καλύτερο να συλλέγουμε προτιμήσεις για κάθε κριτήριο ξεχωριστά.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Μοντέλο Bradley-Terry: <a href="#id23"><span class="problematic" id="id24">bradley1952rank</span></a>. Thurstone: <a href="#id25"><span class="problematic" id="id26">thurstone1927law</span></a>. Dueling bandits: <a href="#id27"><span class="problematic" id="id28">yue2009interactively</span></a>. Άμεση Βελτιστοποίηση Προτίμησης (DPO): <a href="#id29"><span class="problematic" id="id30">rafailov2023direct</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/el/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Γιατί οι Συγκρίσεις Είναι Καλύτερες από τις Αξιολογήσεις</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Ψυχομετρική Θεμελίωση</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Στατιστική Αποτελεσματικότητα</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Κλιμακωσιμότητα</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bradley-terry">Το Μοντέλο Bradley-Terry</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Ταυτοποιησιμότητα</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Εκτίμηση Παραμέτρων</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thurstone">Το Μοντέλο Thurstone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Συνάθροιση Κατατάξεων</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dueling-bandits">Dueling Bandits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Μάθηση Προτίμησης για Γλωσσικά Μοντέλα</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Συλλογή Δεδομένων Προτίμησης Υψηλής Ποιότητας</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

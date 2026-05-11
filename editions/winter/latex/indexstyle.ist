@@ -1,0 +1,14 @@
+% Index style file for Human in the Loop
+% Simple, clean index formatting
+
+headings_flag 1
+heading_prefix "\\textbf{"
+heading_suffix "}\\nopagebreak\n"
+
+delim_0 "\\dotfill "
+delim_1 "\\dotfill "
+delim_2 "\\dotfill "
+
+item_0 "\n  \\item "
+item_1 "\n    \\subitem "
+item_2 "\n      \\subsubitem "

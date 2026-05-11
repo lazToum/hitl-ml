@@ -1,0 +1,58 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT * FROM session_clues WHERE session_id = $1\n         ORDER BY unlocked_at DESC LIMIT 1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "session_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "clue_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "unlocked_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 4,
+        "name": "solved_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "attempts",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "hints_used",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "27c5361b8b4f4235297db4c604efceb379873d8ff3c42d198249eb9a8de7cfb9"
+}

@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Ön Bilgiler"
+    chapters:
+      - file: front/declaration
+        title: "Özgünlük Beyanı"
+      - file: front/abstract
+        title: "Özet"
+      - file: front/acknowledgments
+        title: "Teşekkürler"
+
+  - caption: "Bölüm I — Temel Kavramlar"
+    chapters:
+      - file: chapters/01_introduction
+        title: "Döngüde İnsan Makine Öğrenmesi Nedir?"
+      - file: chapters/02_taxonomy
+        title: "İnsan–Makine Etkileşiminin Bir Taksonomisi"
+
+  - caption: "Bölüm II — Temel Teknikler"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Veri Açıklaması ve Etiketleme"
+      - file: chapters/04_active_learning
+        title: "Aktif Öğrenme"
+      - file: chapters/05_interactive_ml
+        title: "Etkileşimli Makine Öğrenmesi"
+
+  - caption: "Bölüm III — İnsan Geri Bildiriminden Öğrenme"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "İnsan Geri Bildiriminden Pekiştirmeli Öğrenme"
+      - file: chapters/07_demonstrations
+        title: "Gösterilerden Öğrenme"
+      - file: chapters/08_preferences
+        title: "Karşılaştırma ve Sıralamalardan Öğrenme"
+
+  - caption: "Bölüm IV — Uygulamalar"
+    chapters:
+      - file: chapters/09_nlp
+        title: "Doğal Dil İşlemede Döngüde İnsan"
+      - file: chapters/10_vision
+        title: "Bilgisayarlı Görüde Döngüde İnsan"
+      - file: chapters/11_healthcare
+        title: "Sağlık ve Bilimde Döngüde İnsan"
+
+  - caption: "Bölüm V — Sistemler ve Pratik"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Açıklama Platformları ve Araçlar"
+      - file: chapters/13_crowdsourcing
+        title: "Kitle Kaynaklı Çalışma ve Kalite Kontrolü"
+      - file: chapters/14_evaluation
+        title: "Değerlendirme ve Ölçütler"
+
+  - caption: "Bölüm VI — Etik ve Ufuklar"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Adalet, Önyargı ve Etik"
+      - file: chapters/16_future
+        title: "Gelecek Yönelimler"
+
+  - caption: "Arka Bilgiler"
+    chapters:
+      - file: bibliography
+        title: "Kaynakça"
+      - file: chapters/17_limen
+        title: "Limen: Her Şeyin Döngüsünde Bir İnsan"
+      - file: front/on_leaving
+        title: "Ayrılış Üzerine"

@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>प्राकृतिक भाषा संसाधन में HITL &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/hi/chapters/09_nlp';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/hi/chapters/09_nlp.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>प्राकृतिक भाषा संसाधन में HITL</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp">NLP अनुलेखन में संविधात्मक समस्या</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">पाठ वर्गीकरण अनुलेखन</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">नाम इकाई पहचान</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mtpe">मशीन अनुवाद पोस्ट-एडिटिंग (MTPE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">प्रोग्रामेटिक लेबलिंग और कमज़ोर पर्यवेक्षण</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf">भाषा मॉडलों के लिए RLHF: अनुलेखन वास्तविकता</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">जेनरेटिव NLP मॉडलों का मूल्यांकन</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hitl">
+<h1>प्राकृतिक भाषा संसाधन में HITL<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h1>
+<p>प्राकृतिक भाषा वह डोमेन है जहाँ HITL ML का शायद सबसे बड़ा प्रभाव पड़ा है — और जहाँ इसकी सबसे गहरी वैचारिक कठिनाइयाँ सामने आती हैं। भाषा स्वाभाविक रूप से सामाजिक है: इसका अर्थ मानव समुदायों द्वारा निर्मित होता है, इसकी व्यावहारिकता संदर्भ और इरादे पर निर्भर करती है, और इसकी गुणवत्ता का निर्णय केवल मानव पाठकों द्वारा ही किया जा सकता है। लेकिन इसका यह भी अर्थ है कि NLP अनुलेखन केवल अवलोकन एकत्र करने की प्रक्रिया नहीं है। यह श्रेणियाँ <em>निर्मित</em> करने की प्रक्रिया है।</p>
+<hr class="docutils" />
+<section id="nlp">
+<h2>NLP अनुलेखन में संविधात्मक समस्या<a class="headerlink" href="#nlp" title="Permalink to this heading">#</a></h2>
+<p>चिकित्सा इमेजिंग में एक वास्तविक सत्य होता है: एक ट्यूमर मौजूद है या नहीं है। NLP अनुलेखन अक्सर मूलतः अलग होता है। जब एक अनुलेखक एक ट्वीट को “विषाक्त” के रूप में चिह्नित करता है, तो ट्वीट में कोई विषाक्त-अणु नहीं है जिसे हम पहचानने की कोशिश कर रहे हैं। <strong>लेबल श्रेणी का निर्माण करता है।</strong></p>
+<p>इसके गहरे परिणाम हैं जो अक्सर कम समझे जाते हैं:</p>
+<p><strong>अनुलेखन कार्यबल घटना को परिभाषित करता है।</strong> “आपत्तिजनक भाषण” के लिए एक लेबल योजना उस व्यक्ति की संवेदनशीलताओं को कूटबद्ध करती है जिसने इसे डिज़ाइन किया और जिसने इसे लागू किया।</p>
+<p><strong>दिशानिर्देश सिद्धांत हैं, चाहे वे इसे स्वीकार करें या नहीं।</strong> प्रत्येक अनुलेखन योजना ओन्टोलॉजी के बारे में दावे करती है।</p>
+<p><strong>समय के साथ लेबल अस्थिरता।</strong> सामाजिक भाषा विकसित होती है।</p>
+<div class="important admonition">
+<p class="admonition-title">अनुलेखन कलाकृति समस्या</p>
+<p>Geva et al. <a href="#id1"><span class="problematic" id="id2">geva2019annotator</span></a> ने प्रदर्शित किया कि NLI (प्राकृतिक भाषा अनुमान) डेटासेट में अनुलेखन प्रक्रिया द्वारा ही पेश की गई व्यवस्थित कलाकृतियाँ होती हैं। मॉडल अंतर्निहित NLP कार्य को हल करने के बजाय इन कलाकृतियों के आधार पर वर्गीकरण करना सीखते हैं — वे अनुलेखन कार्य को हल करते हैं।</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>पाठ वर्गीकरण अनुलेखन<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>सबसे सरल NLP अनुलेखन कार्य किसी पाठ दस्तावेज़ को एक श्रेणी असाइन करना है।</p>
+<p><strong>पाठ वर्गीकरण के लिए विशिष्ट चुनौतियाँ:</strong></p>
+<p><em>व्यक्तिपरकता।</em> “विषाक्त” या “आपत्तिजनक” जैसी श्रेणियाँ स्वाभाविक रूप से व्यक्तिपरक हैं और सांस्कृतिक संदर्भों में भिन्न होती हैं <a href="#id4"><span class="problematic" id="id5">blodgett2020language</span></a>।</p>
+<p><em>लेबल अस्पष्टता।</em> कई दस्तावेज़ एकाधिक श्रेणियों से संबंधित हैं या सीमा पर आते हैं।</p>
+<p><em>लेबल विस्तार।</em> 2-वर्ग भावना मॉडल सोशल मीडिया निगरानी के लिए पर्याप्त हो सकता है; उत्पाद फ़ीडबैक विश्लेषण के लिए 7-बिंदु पैमाने की आवश्यकता हो सकती है।</p>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>नाम इकाई पहचान<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>NER अनुलेखन पाठ के हिस्सों की पहचान करने और एक इकाई प्रकार (PERSON, ORGANIZATION, LOCATION, आदि) असाइन करने की आवश्यकता है।</p>
+<p><strong>स्पैन सीमाएँ अस्पष्ट होती हैं।</strong> “Apple CEO Tim Cook announced…” में, PERSON इकाई “Tim Cook” या “Apple CEO Tim Cook” को स्पैन करती है?</p>
+<p><strong>विश्व-ज्ञान की आवश्यकता।</strong> “Apple” एक संदर्भ में ORG है, दूसरे में PRODUCT, और “apple pie” में न तो।</p>
+<p><strong>अनुलेखन दक्षता।</strong> एक बेसलाइन NER मॉडल के साथ पूर्व-अनुलेखन अनुलेखन को काफी तेज़ करता है। नैदानिक NER के एक अध्ययन में, 30-60% की थ्रूपुट वृद्धि देखी गई <a href="#id7"><span class="problematic" id="id8">lingren2014evaluating</span></a>।</p>
+</section>
+<hr class="docutils" />
+<section id="mtpe">
+<h2>मशीन अनुवाद पोस्ट-एडिटिंग (MTPE)<a class="headerlink" href="#mtpe" title="Permalink to this heading">#</a></h2>
+<p>मशीन अनुवाद पोस्ट-एडिटिंग HITL NLP का एक परिपक्व रूप है। एक मानव अनुवादक स्क्रैच से अनुवाद करने के बजाय MT प्रणाली के आउटपुट को सुधारता है:</p>
+<p><strong>लाइट पोस्ट-एडिटिंग (LPE):</strong> केवल महत्वपूर्ण त्रुटियाँ सुधारी जाती हैं।</p>
+<p><strong>पूर्ण पोस्ट-एडिटिंग (FPE):</strong> आउटपुट को प्रकाशन गुणवत्ता तक सुधारा जाता है। संपादित आउटपुट आमतौर पर आगे MT सुधार के लिए प्रशिक्षण डेटा बन जाता है।</p>
+<p><strong>HTER (Human-targeted Translation Edit Rate):</strong> वाक्य लंबाई से सामान्यीकृत MT आउटपुट और पोस्ट-एडिट अनुवाद के बीच संपादन दूरी को मापता है <a href="#id9"><span class="problematic" id="id10">graham2015accurate</span></a>।</p>
+</section>
+<hr class="docutils" />
+<section id="id11">
+<h2>प्रोग्रामेटिक लेबलिंग और कमज़ोर पर्यवेक्षण<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<p>जब लेबल किया गया डेटा दुर्लभ हो, <strong>कमज़ोर पर्यवेक्षण</strong> बड़े पैमाने पर प्रायिकता लेबल उत्पन्न करने के लिए एकाधिक शोरगुल वाले, ओवरलैपिंग लेबलिंग फ़ंक्शन का उपयोग करने की अनुमति देता है। <strong>Snorkel</strong> <a href="#id12"><span class="problematic" id="id13">ratner2017snorkel</span></a> कैनॉनिकल फ्रेमवर्क है:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------------</span>
+<span class="c1"># Toy weak supervision: sentiment classification</span>
+<span class="c1"># 5 labeling functions (LFs) with different coverage/accuracy</span>
+<span class="c1"># Label: +1 (positive), -1 (negative), 0 (abstain)</span>
+<span class="c1"># -------------------------------------------------------</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">true_labels</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="n">X_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
+    <span class="n">true_labels</span> <span class="o">*</span> <span class="mf">0.8</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">rng_lf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="n">rng_lf</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">coverage</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="n">rng_lf</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">accuracy</span>
+    <span class="n">votes</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="n">correct</span><span class="p">]</span>  <span class="o">=</span> <span class="n">true_labels</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="n">correct</span><span class="p">]</span>
+    <span class="n">votes</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">correct</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">true_labels</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">correct</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">votes</span>
+
+<span class="n">LFs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.78</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.70</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">majority_vote</span><span class="p">(</span><span class="n">LF_matrix</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">LF_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="n">LF_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">LF_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">votes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">votes</span><span class="o">.</span><span class="n">sum</span><span class="p">())))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="n">mv_labels</span> <span class="o">=</span> <span class="n">majority_vote</span><span class="p">(</span><span class="n">LFs</span><span class="p">)</span>
+<span class="n">covered</span> <span class="o">=</span> <span class="n">mv_labels</span> <span class="o">!=</span> <span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coverage:                    </span><span class="si">{</span><span class="n">covered</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MV accuracy (covered):       </span><span class="si">{</span><span class="p">(</span><span class="n">mv_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">true_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X_features</span><span class="p">[</span><span class="n">covered</span><span class="p">],</span> <span class="n">mv_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X_features</span><span class="p">[</span><span class="o">~</span><span class="n">covered</span><span class="p">],</span> <span class="n">true_labels</span><span class="p">[</span><span class="o">~</span><span class="n">covered</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;F1 on uncovered test set:    </span><span class="si">{</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">preds</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="rlhf">
+<h2>भाषा मॉडलों के लिए RLHF: अनुलेखन वास्तविकता<a class="headerlink" href="#rlhf" title="Permalink to this heading">#</a></h2>
+<p>अनुलेखकों से वास्तव में क्या करने के लिए कहा जाता है — दो मॉडल आउटपुट की तुलना करना और इंगित करना कि कौन सा “बेहतर” है — सरल लगता है। व्यवहार में, “बेहतर” एक अनिर्दिष्ट निर्माण है जिसे अनुलेखक व्यक्तिगत अनुमानी का उपयोग करके हल करते हैं।</p>
+<p><strong>मुख्य अनुलेखन आयाम हैं:</strong></p>
+<ul class="simple">
+<li><p><em>सहायकता:</em> क्या प्रतिक्रिया प्रश्न का अच्छी तरह उत्तर देती है?</p></li>
+<li><p><em>तथ्यात्मकता:</em> क्या प्रतिक्रिया तथ्यात्मक रूप से सटीक है?</p></li>
+<li><p><em>हानिरहितता:</em> क्या प्रतिक्रिया विषाक्त, पक्षपाती, हानिकारक सामग्री से बचती है?</p></li>
+<li><p><em>अंशांकन:</em> क्या प्रतिक्रिया उचित अनिश्चितता व्यक्त करती है?</p></li>
+</ul>
+<p><strong>पैमाने पर जनसांख्यिकीय प्रभाव को केंद्रित करता है।</strong> बड़े मॉडलों के लिए RLHF में अपेक्षाकृत छोटे अनुलेखन कार्यबल (सैकड़ों से कम हज़ारों) शामिल हैं जो अरबों डाउनस्ट्रीम निर्णय लेते हैं।</p>
+</section>
+<hr class="docutils" />
+<section id="id14">
+<h2>जेनरेटिव NLP मॉडलों का मूल्यांकन<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>मूल्यांकन विधि</p></th>
+<th class="head"><p>विवरण</p></th>
+<th class="head"><p>लागत</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>प्रत्यक्ष मूल्यांकन (DA)</p></td>
+<td><p>अनुलेखक पैमाने पर गुणवत्ता रेट करते हैं</p></td>
+<td><p>मध्यम</p></td>
+</tr>
+<tr class="row-odd"><td><p>तुलनात्मक निर्णय</p></td>
+<td><p>अनुलेखक दो आउटपुट की तुलना करते हैं</p></td>
+<td><p>कम</p></td>
+</tr>
+<tr class="row-even"><td><p>MQM (बहुआयामी गुणवत्ता मेट्रिक्स)</p></td>
+<td><p>संरचित त्रुटि वर्गीकरण</p></td>
+<td><p>उच्च</p></td>
+</tr>
+<tr class="row-odd"><td><p>RLHF प्राथमिकता</p></td>
+<td><p>प्रशिक्षण के लिए उपयोग किए गए प्राथमिकता लेबल</p></td>
+<td><p>मध्यम</p></td>
+</tr>
+<tr class="row-even"><td><p>LLM-as-judge</p></td>
+<td><p>LLM स्कोर आउटपुट (मानव के साथ मध्यम सहसंबंध)</p></td>
+<td><p>बहुत कम</p></td>
+</tr>
+<tr class="row-odd"><td><p>BERTScore, BLEU</p></td>
+<td><p>स्वचालित मेट्रिक्स (मानव निर्णय के साथ अपूर्ण सहसंबंध)</p></td>
+<td><p>बहुत कम</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Snorkel कमज़ोर पर्यवेक्षण: <a href="#id15"><span class="problematic" id="id16">ratner2017snorkel</span></a>। NLP अनुलेखन दिशानिर्देश: <a href="#id17"><span class="problematic" id="id18">pustejovsky2012natural</span></a>। NLI में अनुलेखन कलाकृतियाँ: <a href="#id19"><span class="problematic" id="id20">geva2019annotator</span></a>। अनुलेखक पूर्वाग्रह और NLP डेटासेट: <a href="#id21"><span class="problematic" id="id22">blodgett2020language</span></a>। जेनरेटिव मॉडलों के मूल्यांकन के लिए: <a href="#id23"><span class="problematic" id="id24">reiter2018structured</span></a>।</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/hi/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp">NLP अनुलेखन में संविधात्मक समस्या</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">पाठ वर्गीकरण अनुलेखन</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">नाम इकाई पहचान</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mtpe">मशीन अनुवाद पोस्ट-एडिटिंग (MTPE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">प्रोग्रामेटिक लेबलिंग और कमज़ोर पर्यवेक्षण</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf">भाषा मॉडलों के लिए RLHF: अनुलेखन वास्तविकता</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">जेनरेटिव NLP मॉडलों का मूल्यांकन</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

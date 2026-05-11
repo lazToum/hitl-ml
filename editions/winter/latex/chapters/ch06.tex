@@ -1,0 +1,213 @@
+% ============================================================================
+% CHAPTER 6: Interfaces That Make Humans Smarter
+% How the design of a screen can make a doctor brilliant — or helpless
+% ============================================================================
+% Source: /markdown/ch6/Ch6_final.md
+% ============================================================================
+
+\begin{chapterquote}{The premise of Chapter 6}
+A HITL system is only as good as its worst interface---the design of a screen can make a doctor brilliant, or helpless.
+\end{chapterquote}
+
+% ============================================================================
+\section{The Judge and the Number}
+\label{sec:ch6-judge-number}
+% ============================================================================
+
+On a Tuesday morning in Broward County, Florida, a judge opened a pre-sentencing report and found something unusual near the top: a score. The number was produced by COMPAS---Correctional Offender Management Profiling for Alternative Sanctions---an algorithmic risk assessment tool used in dozens of American jurisdictions. The score was supposed to tell the judge how likely the defendant was to reoffend. High risk or low risk. A number to guide the sentence.
+
+The judge had questions. What data had produced it? Which factors drove the score up or down? Was it the defendant's age? Their prior record? Their neighborhood? The tool's vendor, Northpointe (now Equivant), considered those inputs proprietary. The score arrived without explanation, like a verdict without a trial.
+
+The judge did what many judges do: they used the number. Research by ProPublica, published in 2016, would later show that the COMPAS tool was wrong about recidivism almost as often as it was right---about as accurate as asking a random person on the street---and dramatically more likely to falsely flag Black defendants as high risk compared to white defendants with similar profiles \autocite{angwin2016machine}. The algorithm had a race problem that the score, presented as a clean integer, completely obscured.
+
+But here is the part of the story that gets less attention: the judge was not irrational. They were responding, predictably and almost inevitably, to the way the information was presented. A number with no explanation exerts a strange psychological gravity. It feels more objective than a probation officer's narrative. It feels more certain than it is. The interface between the algorithm and the human had not made the judge smarter. It had quietly replaced their judgment.
+
+This is the subject of this chapter: not whether AI systems should assist human decision-makers, but \emph{how}. The interface---the screen, the dashboard, the number, the recommendation---is not a neutral transmission channel. It shapes what humans notice, what they ignore, and ultimately what they decide. A badly designed interface does not just fail to help. It actively makes its human partner worse.
+
+% ============================================================================
+\section{The Invisible Architecture of Attention}
+\label{sec:ch6-attention}
+% ============================================================================
+
+When radiologist Dr.\ Sarah Chen sits down at her workstation at six in the morning, she faces a queue of about 80 chest X-rays. Some are routine. Some are not. The AI triage system flags the ones it considers urgent and surfaces them first.
+
+In 2018, a Stanford team led by Andrew Ng demonstrated that a deep learning system called CheXNet could detect pneumonia from chest X-rays at a level that matched or exceeded radiologist performance \autocite{rajpurkar2017chexnet}. The headlines celebrated the model's accuracy. Subsequent research examining how radiologists interacted with AI systems like CheXNet found something more consequential: the way the AI's findings were presented to radiologists dramatically changed what the radiologists actually detected \autocite{gaube2021ai}.
+
+When radiologists were shown AI outputs as a probability score alone---``94\% pneumonia''---their accuracy on pneumonia improved, but their detection of other findings dropped. Their attention had been guided, almost literally by the number, toward the AI's specialty and away from everything else in the image.
+
+When radiologists were shown AI outputs as a highlighted region on the image---a colored overlay showing exactly where the algorithm was looking---something different happened. The radiologists interrogated the highlighted region more carefully, sometimes catching errors in the AI's reasoning. They also paid more attention to the surrounding unhighlighted areas, because the highlighted region made the contrast vivid.
+
+\begin{keyconcept}[The Presentation Effect]
+Same model. Same data. Dramatically different human performance. The variable was the design of how the AI communicated with the radiologist. How information is shown determines what information is used.
+\end{keyconcept}
+
+This is what interface designers in medical AI call the \term{presentation effect}, and it is one of the most consistent findings in the field. The architecture of attention---what gets a bright box, what gets a sidebar, what appears first, what requires a click to access---is not a cosmetic choice. It is a decision about what humans will think.
+
+% ============================================================================
+\section{Automation Bias and the Seduction of the Algorithm}
+\label{sec:ch6-automation-bias}
+% ============================================================================
+
+In the spring of 2019, researchers at Vanderbilt University published a study with an uncomfortable finding. They had given radiologists the same set of mammography images under three conditions: no AI assistance, AI assistance with a correct recommendation, and AI assistance with a deliberately incorrect recommendation. The question was how often radiologists would agree with the AI, and whether they would catch the AI's mistakes.
+
+When the AI was correct, it helped---radiologists agreed with it at high rates and their accuracy improved. When the AI was wrong, however, a distressing number of radiologists followed it anyway. Radiologists in the AI-assisted condition missed cancers that they had correctly identified without the AI, apparently because the AI's negative finding overrode their own judgment \autocite{gaube2021ai}.
+
+This is \term{automation bias}: the tendency to over-rely on automated recommendations, particularly when the human is uncertain or fatigued. It is not a character flaw. It is a documented cognitive response to the presence of a system that presents itself as authoritative. The more confident-looking the recommendation, the more powerful the bias.
+
+\begin{cautionbox}[Automation Bias in Expert Practice]
+Automation bias was first systematically documented in aviation, where it was called ``automation complacency.'' Pilots in highly automated cockpits were found to be less vigilant, less likely to notice anomalies, more likely to accept erroneous automated suggestions~\autocite{parasuraman2010complacency}. The same pattern appears in air traffic control, nuclear power plant monitoring, and now, everywhere AI recommendations are shown to human reviewers.
+\end{cautionbox}
+
+The unsettling implication is that AI assistance can make expert humans worse. Not in every case, and not in every domain, but under the right conditions---a fatigued reviewer, a plausible-looking error, a confident-seeming display---the AI's recommendation can function as a kind of anchor that pulls human judgment toward it even when judgment should pull away.
+
+The antidote is not to hide the AI recommendation. It is to design the interface so that the human forms their own judgment before seeing the AI's, or is required to articulate a reason when they deviate from their own initial assessment. The Israeli Air Force, studying automation bias in combat systems, found that requiring operators to commit to a decision before seeing the automated recommendation reduced bias significantly \autocite{mosier1998automation}. The sequence of information presentation turned out to matter more than the content.
+
+% ============================================================================
+\section{The Death by a Thousand Clicks}
+\label{sec:ch6-clicks}
+% ============================================================================
+
+Maria works for a content moderation company contracted by one of the largest social media platforms in the world. Every day she reviews about 400 posts flagged by the platform's AI as potentially violating community guidelines. Her interface has seventeen categories for violation type, each with sub-categories. To flag something as ``coordinated inauthentic behavior'' she must navigate to a different tool entirely, enter a case ID, and then return to her original queue.
+
+Maria's average review time is 47 seconds per post. She is considered efficient.
+
+The problem is not that 47 seconds is too little time. The problem is that a large fraction of those 47 seconds is consumed by interface mechanics---clicking, navigating, confirming, entering IDs---rather than by actual judgment. Researchers who study content moderation, including the team led by Sarah Roberts at UCLA, have documented what they call the ``cognitive depletion'' effect: as the day goes on and the number of posts reviewed climbs past 200, past 300, the quality of moderation decisions declines measurably \autocite{roberts2019behind}. Reviewers make more errors on the same types of content late in the day that they handled correctly in the morning.
+
+But the depletion is not just fatigue in the ordinary sense. It is the specific cognitive cost of operating a complex interface under time pressure. Every unnecessary click is a small withdrawal from a limited attention budget.
+
+\begin{examplebox}[The Appen Annotation Redesign]
+When Appen, one of the world's largest data annotation companies, redesigned its annotation interface in 2020 to reduce the number of clicks required per task and streamline instruction display, inter-annotator agreement on a sample benchmark task increased from 0.74 to 0.83 on Cohen's kappa. The annotators were the same people, looking at the same content, applying the same guidelines. The interface had made them better at their job.
+\end{examplebox}
+
+The fix is rarely glamorous. It is usually keyboard shortcuts, sensible defaults, streamlined workflows, and a ruthless audit of which clicks actually serve the quality of the human decision and which merely serve the recordkeeping needs of the system. But it requires asking, seriously and specifically: what cognitive work do we actually want the human to do here? And then, for every interface element: does this support that work, or impede it?
+
+% ============================================================================
+\section{What Explainable AI Actually Looks Like}
+\label{sec:ch6-xai}
+% ============================================================================
+
+The COMPAS story prompted a wave of interest in what researchers call \term{Explainable AI}, or XAI. The basic idea is simple: AI systems should be able to explain why they produced a particular output. A judge should be able to see not just a risk score but the factors that drove it. A doctor should see not just a diagnosis probability but the regions of the scan that drove the model's confidence.
+
+The reality of XAI in practice is messier.
+
+The most common approach is \term{LIME}---Local Interpretable Model-Agnostic Explanations, developed by Marco Ribeiro and colleagues at the University of Washington \autocite{ribeiro2016lime}. LIME works by generating a simpler model around a specific prediction that approximates the complex model's behavior in that local region.
+
+The problem is that LIME explanations can be unstable. Run the same prediction through LIME twice with slightly different random seeds, and you may get a different ranking of important features. Researchers demonstrated that LIME's explanations for identical model predictions can vary enough that a human reviewer shown two different LIME outputs for the same case might make two different decisions.
+
+A competing approach, \term{SHAP} (SHapley Additive exPlanations), provides more mathematically grounded explanations based on game-theoretic principles \autocite{lundberg2017shap}. SHAP is more consistent but more computationally expensive. Neither LIME nor SHAP tells you whether the model is actually reasoning correctly---they show you which features the model is using, not whether those features are the right ones to use.
+
+For radiology AI, the most common XAI approach is the attention map or \term{Grad-CAM}---a visualization showing which pixels in an image most influenced the model's prediction \autocite{selvaraju2017gradcam}. Studies by Zech and colleagues at NYU showed that early pneumonia models were sometimes attending to whether a hospital's name was embedded in the scan---those scans were more often from ICUs where pneumonia patients happened to concentrate. The model had learned a spurious correlation, and Grad-CAM made it visible.
+
+\begin{technote}[The Uncomfortable Truth About XAI]
+An explanation is only useful if the human receiving it can actually act on it. A heatmap that a radiologist cannot interpret provides no safety benefit. A SHAP plot that a loan officer cannot read does not protect the borrower. Explanation design is interface design, and all the same rules apply: what cognitive work do we actually want the human to do?
+\end{technote}
+
+% ============================================================================
+\section{Interfaces That Support Judgment vs.\ Interfaces That Replace It}
+\label{sec:ch6-design-space}
+% ============================================================================
+
+Imagine a spectrum. At one end: an interface that shows the human only the AI's final recommendation---``Approve,'' ``Deny,'' ``High Risk,'' ``Low Risk.'' The human has information about the conclusion but not the reasoning. This is the COMPAS interface.
+
+At the other end: an interface that shows the human all the raw information the AI has access to, all the uncertainty estimates, all the feature contributions, a full audit trail. This is maximal transparency, and it is also practically useless. No human can process all that information in the time available for a real decision.
+
+Between these extremes is a design space that has been surprisingly little explored until recently. The best interfaces in this space share a few properties.
+
+\paragraph{They separate the AI's job from the human's job.} The AI handles pattern recognition and data synthesis; the human handles judgment about edge cases, context, and stakes. The interface makes this division visible: here is what the AI found, here is where the AI is confident, here is where the AI is not.
+
+\paragraph{They present uncertainty as information, not as failure.} A confidence level of 62\% is not the AI apologizing---it is the AI directing the human's attention to a case that genuinely requires human judgment. An orange flag on uncertain cases and a green tag on confident ones tells the human not ``the AI isn't sure,'' but ``the AI is inviting your expertise here.''
+
+\paragraph{They preserve the human's capacity for independent judgment.} Some interface designs are so anchored around the AI recommendation that the human reviewer finds themselves responding to the AI rather than to the underlying case. Studies in legal document review found that human reviewers who saw a document summary without the original document were more likely to follow the summary even when it was wrong, compared to reviewers who saw both.
+
+\paragraph{They make disagreement easy.} If a reviewer wants to flag disagreement with the AI, the interface should make that disagreement easy to record and route to appropriate review. Many current HITL interfaces make agreement a single click and disagreement a three-menu navigation. This asymmetry is a thumb on the scale.
+
+% ============================================================================
+\section{The Radiology Interface Wars}
+\label{sec:ch6-radiology}
+% ============================================================================
+
+Few fields have experimented more intensively with AI-assisted human decision-making interfaces than radiology.
+
+Zebra Medical Vision, an Israeli medical imaging AI company, deployed a liver disease detection tool at a large European hospital system in 2019. The tool produced recommendations with high accuracy rates in trials. In the first six months of deployment, however, radiologist satisfaction was low, and the hospital's medical informatics team noticed something unexpected: radiologists were systematically reviewing AI-flagged cases more slowly than non-flagged cases.
+
+Post-deployment interviews revealed why. The AI's confidence visualization---a horizontal bar from 0\% to 100\%---was being interpreted as a suggestion that they should spend time proportional to the AI's confidence. High confidence cases were getting long review times as radiologists tried to understand why the AI was so sure. Low confidence cases were getting short times because the low-confidence marker was making radiologists feel the case was probably benign.
+
+The design team had built the confidence display to help. It was doing the opposite. A redesign replaced the bar with a simple flag: ``AI found a region of interest'' or ``AI found no region of interest.'' Review times normalized. Radiologist satisfaction improved. Accuracy was unchanged.
+
+\begin{examplebox}[MGH Stroke Detection: Parallel Reading Success]
+Massachusetts General Hospital's radiology AI for stroke detection implemented a ``parallel reading'' protocol: the human radiologist reads the scan independently, records their initial findings, then sees the AI's analysis alongside---including a highlighted region, a confidence level, and a plain-language summary of the key feature driving the AI's concern. Radiologists in the parallel reading condition showed meaningfully higher sensitivity for stroke detection than radiologists in the AI-first condition, and reported higher confidence in their own judgment.
+
+The parallel reading interface had preserved one thing the AI-first interface had not: the radiologist's ownership of the diagnosis.
+\end{examplebox}
+
+% ============================================================================
+\section{The Five Dimensions Through the Interface Lens}
+\label{sec:ch6-five-dimensions}
+% ============================================================================
+
+The five-dimension framework maps cleanly onto interface design choices.
+
+\paragraph{Uncertainty Detection} must be made visible. An AI's internal uncertainty estimate is worthless if the interface does not communicate it to the human reviewer. The COMPAS system showed a score without uncertainty bounds. The Zebra radiology system showed a bar that was misinterpreted. The MGH stroke system showed a highlighted region with a plain-language description. The last was most effective at directing human attention appropriately.
+
+\paragraph{Intervention Design} is the interface's core problem. What is the human being asked to do? The best interventions are designed with a specific cognitive task in mind: the human is being asked to do something they are genuinely better at than the AI.
+
+\paragraph{Timing} in interface terms is about sequencing. Does the human see the AI recommendation before forming their own view, after, or simultaneously? The parallel reading approach optimizes timing deliberately: human-first, then AI. The COMPAS score was delivered at the moment of sentencing in a format that made it feel like a fact rather than a recommendation.
+
+\paragraph{Stakes Calibration} should shape the visual weight of recommendations. A high-stakes flagged case should look different from a routine flagged case. Many annotation interfaces treat all flags equally, presenting a false confidence to human reviewers that every flag deserves the same attention.
+
+\paragraph{Feedback Integration} requires the interface to make the human's feedback visible and learnable. If a radiologist consistently disagrees with the AI about a particular type of finding, that pattern should be detectable---to improve the model, to route those cases to this radiologist, or to trigger a review of the AI's training data.
+
+% ============================================================================
+\section{Why Design Is a Safety Issue}
+\label{sec:ch6-safety}
+% ============================================================================
+
+In 2020, a study in \emph{JAMA Network Open} examined five emergency departments that deployed the same AI chest X-ray triage system. Three departments showed improved accuracy. Two showed no improvement, and one showed a statistically significant \emph{decrease} in diagnostic accuracy for non-flagged cases.
+
+The critical variable was not the AI model. It was the interface design. The three departments with improved outcomes had implemented the AI as a parallel second read, with its findings displayed after the radiologist's initial assessment. The two departments with unchanged or worsened outcomes had implemented the AI as a first read.
+
+The AI did not make those radiologists worse. The interface did.
+
+\begin{keyconcept}[Interface Design as Safety Engineering]
+A HITL system whose interface makes humans worse is not a HITL system that is working well. It is a HITL system that has quietly removed the loop from human-in-the-loop. Interface design is a safety issue with the same practical significance as model accuracy.
+\end{keyconcept}
+
+% ============================================================================
+
+\begin{trythis}
+The next time you use a system that gives you a recommendation---a navigation app, a streaming service, a shopping site---notice the order. Did you form your own preference before you saw the recommendation, or did the recommendation arrive first? Pay attention to whether having seen the recommendation makes it harder to decide differently, even if you genuinely want to. That slight resistance is automation bias in action. It is real, it is measurable, and it is built into the interface whether the designers intended it or not.
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+    \item Interfaces are not neutral transmission channels---they shape what humans notice, how they reason, and what they decide
+    \item \term{Automation bias} is the documented tendency to over-rely on automated recommendations; it degrades with fatigue and scales with displayed AI confidence
+    \item XAI tools (LIME, SHAP, Grad-CAM) have real value but also real failure modes when outputs are misinterpreted or poorly presented
+    \item The best interfaces separate the AI's job from the human's job, present uncertainty as information, preserve independent judgment, and make disagreement easy
+    \item Interface design is a safety issue with the same practical significance as model accuracy
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Examples}
+
+\begin{description}
+    \item[COMPAS risk scoring] A score without explanation replaced judicial reasoning and embedded racial bias in a format that looked like objectivity
+    \item[CheXNet radiology AI] Same model, dramatically different radiologist performance depending on how AI findings were displayed
+    \item[Vanderbilt mammography study] AI assistance caused radiologists to miss cancers they had caught unassisted---automation bias in expert practice
+    \item[Zebra Medical liver AI] Confidence bar caused radiologists to mis-allocate review time; redesign to a simple flag improved satisfaction without loss of accuracy
+    \item[MGH stroke parallel reading] Human-first interface preserved diagnostic ownership and improved sensitivity
+    \item[Appen annotation redesign] Interface changes alone improved inter-annotator agreement from 0.74 to 0.83 kappa
+\end{description}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{In the next chapter, we turn to the other side of the interface: not what the AI shows the human, but what the human provides to the AI. Labels are the foundation of supervised learning---but they are not neutral, and extracting good ones from human annotators requires its own design discipline.}

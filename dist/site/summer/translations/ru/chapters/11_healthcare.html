@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>HITL в здравоохранении и науке &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ru/chapters/11_healthcare';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ru/chapters/11_healthcare.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>HITL в здравоохранении и науке</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Анализ медицинских изображений</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Требования к экспертам-аннотаторам</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Вариабельность показателей радиологов</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Активное обучение для редких состояний</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp">Аннотирование клинических NLP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2">i2b2 / n2c2 как шаблон</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Нормативные соображения</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Аннотирование научных данных</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#galaxy-zoo">Астрономия: Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Геномика: классификация патогенности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Климат и науки о Земле</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Нейронаука: коннектомика</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Управление специалистами-аннотаторами</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Конвейер HITL активного обучения для медицинской визуализации</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hitl">
+<h1>HITL в здравоохранении и науке<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h1>
+<p>Здравоохранение и наука представляют собой две области, где HITL ML является наиболее значимым и наиболее дискуссионным. Ставки высоки: пропущенный диагноз рака или ошибочная мишень для лекарства несёт реальные человеческие потери. Аннотирование требует редкой и дорогостоящей экспертизы. Нормативные требования ограничивают возможности и порядок валидации моделей. И в отличие от NLP, где проблема аннотирования частично является проблемой социального конструирования, здесь нередко существует подлинная истина — опухоль есть или её нет, — даже если ни один отдельный наблюдатель не может надёжно её определить.</p>
+<p>Господствующая трактовка в массовой прессе — «ИИ против человека»: вытеснит ли ИИ радиологов? Эта трактовка неверна существенным образом. Реальный вопрос состоит в том, какая форма сотрудничества человека и ИИ даёт лучшие результаты, чем каждая из сторон по отдельности, и как строить системы, обеспечивающие это сотрудничество, а не разрушающие его.</p>
+<hr class="docutils" />
+<section id="id1">
+<h2>Анализ медицинских изображений<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Медицинская визуализация — радиология (рентген, КТ, МРТ), патология (гистологические препараты), дерматология, офтальмология — область, где медицинский ИИ продвинулся наиболее быстро.</p>
+<section id="id2">
+<h3>Требования к экспертам-аннотаторам<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>Аннотирование медицинских изображений, как правило, требует врачей с узкоспециализированной подготовкой. Это делает аннотирование:</p>
+<ul class="simple">
+<li><p><strong>Медленным:</strong> У специалистов ограниченное время; аннотирование конкурирует с клиническими обязанностями</p></li>
+<li><p><strong>Дорогостоящим:</strong> Стоимость варьируется от нескольких десятков до нескольких сотен долларов за аннотированный случай в зависимости от подспециальности, модальности и сложности задачи</p></li>
+<li><p><strong>Вариабельным:</strong> Даже специалисты расходятся, особенно в пограничных случаях — факт, который нередко воспринимается как проблема, однако на самом деле является информативным</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>Вариабельность показателей радиологов<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Вариабельность показателей хорошо задокументирована в радиологии. Для интерпретации рентгенограмм грудной клетки межчитательское несогласие существенно — в исследовании CheXNet четыре радиолога разметили один и тот же тестовый набор для обнаружения пневмонии с результатами F1, различающимися примерно на 12 процентных пунктов <a href="#id4"><span class="problematic" id="id5">rajpurkar2017chexnet</span></a>, что отражает подлинную диагностическую неопределённость в пограничных случаях. Для обнаружения узлов на КТ лёгких интрачитательская вариабельность (один читатель, один случай, разные дни) может быть столь же высокой, как и межчитательская.</p>
+<p>Эта вариабельность — не просто шум; она отражает подлинную диагностическую неопределённость. Модели, обученные на аннотациях единственного радиолога, могут усваивать специфические предвзятости этого врача, а не лежащую в основе патологию.</p>
+<div class="note admonition">
+<p class="admonition-title">Полемика вокруг CheXNet как урок HITL</p>
+<p>Когда Раджпуркар и др. заявили, что их модель CheXNet «превзошла производительность радиолога» при обнаружении пневмонии, это утверждение было немедленно оспорено сообществом радиологов <a href="#id6"><span class="problematic" id="id7">yu2022assessing</span></a>. Часть полемики касалась конкретного тестового набора и сравнения с радиологами. Но более глубокой проблемой была методологическая: «производительность радиолога», принятая в качестве базовой линии, использовала одиночных читателей под временны́м давлением, тогда как клиническая радиология, как правило, включает консультацию, сравнение с предыдущими снимками и доступ к клиническому контексту — ничего из чего у модели не было.</p>
+<p>Урок не в том, была ли модель хорошей или плохой, а в том, что <strong>сравнения производительности требуют спецификации конфигурации HITL</strong>. Модель, превосходящая одиночного радиолога при холодном чтении, может всё же уступать радиологу, использующему выход модели как второе мнение. Это разные системы с разными режимами ошибок, и их агрегирование даёт разные результаты.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Мягкие метки в медицине</p>
+<p>Ряд проектов медицинского ИИ перешли к использованию <strong>мягких меток</strong>, отражающих распределение мнений экспертов, а не единственный «золотой стандарт» метки. Рентгенограмма грудной клетки, размеченная как 60% пневмония / 40% ателектаз группой радиологов, несёт больше информации, чем вынужденный бинарный выбор. Модели, обученные на таких распределениях, демонстрируют лучшую калиброванность и более адекватную квантификацию неопределённости — и эта неопределённость клинически значима, поскольку говорит клиницисту, когда следует проконсультироваться, а не только что думает модель.</p>
+</div>
+</section>
+<section id="id8">
+<h3>Активное обучение для редких состояний<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>Активное обучение особенно ценно для редких заболеваний и редких патологий, где даже большой неразмеченный пул содержит лишь небольшое количество положительных случаев. Стандартная случайная выборка будет расходовать время эксперта главным образом на разметку отрицательных случаев.</p>
+<p>Активное обучение на основе неопределённости естественным образом выбирает пограничные случаи, в которых модель неопределённа, — которые для редких состояний, как правило, являются положительными и пограничными отрицательными. Это концентрирует время специалиста там, где оно наиболее ценно. Сочетание несбалансированного обучения (<code class="docutils literal notranslate"><span class="pre">class_weight='balanced'</span></code> или аналогичное) и выбора на основе неопределённости является стандартной практикой для задач обнаружения редких патологий.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="nlp">
+<h2>Аннотирование клинических NLP<a class="headerlink" href="#nlp" title="Permalink to this heading">#</a></h2>
+<p>Электронные медицинские записи (ЭМЗ) содержат огромный массив клинических нарративных текстов: врачебные заметки, выписные эпикризы, радиологические заключения, патологоанатомические заключения. Извлечение структурированной информации из этого текста требует NLP — а высококачественный NLP требует аннотированных обучающих данных.</p>
+<p><strong>Распространённые задачи аннотирования клинического NLP:</strong></p>
+<ul class="simple">
+<li><p><strong>Клинический NER:</strong> Выявление лекарств, дозировок, диагнозов, процедур и симптомов в тексте</p></li>
+<li><p><strong>Обнаружение отрицания:</strong> «Нет признаков пневмонии» против «Пневмония подтверждена» — критическое различие, неожиданно трудное для автоматизации</p></li>
+<li><p><strong>Временно́е рассуждение:</strong> Различение текущих состояний от анамнеза («в анамнезе ИМ, поступил с болью в груди»)</p></li>
+<li><p><strong>Деидентификация:</strong> Удаление защищённой медицинской информации (ЗМИ) для обеспечения возможности обмена данными</p></li>
+</ul>
+<p><strong>Деидентификация ЗМИ</strong> является одновременно задачей аннотирования и требованием управления данными. Согласно HIPAA (США) и GDPR (ЕС), медицинские данные не могут передаваться без удаления или анонимизации идентификаторов пациентов. Инструменты автоматической деидентификации существуют, но несовершенны; человеческий контроль автоматических выходов является стандартной практикой, а профиль рисков асимметричен: ложноотрицательные результаты (пропущенные ЗМИ) создают юридическую ответственность, что требует консервативных порогов.</p>
+<section id="i2b2-n2c2">
+<h3>i2b2 / n2c2 как шаблон<a class="headerlink" href="#i2b2-n2c2" title="Permalink to this heading">#</a></h3>
+<p>Инициативы совместных задач i2b2 (Informatics for Integrating Biology and the Bedside) и преемника n2c2 (National NLP Clinical Challenges) выпустили серию экспертно аннотированных датасетов клинического NLP. Они иллюстрируют как потенциал, так и стоимость: усилия по аннотированию, как правило, включают команды экспертов клинической предметной области, работающих на протяжении нескольких месяцев, аннотирующих сотни документов на задачу. Датасеты n2c2 катализировали быстрый прогресс именно потому, что решили проблему управления обменом данными (деидентификация + институциональные соглашения), а не только проблему аннотирования.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>Нормативные соображения<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>Медицинский ИИ подлежит нормативному контролю в большинстве юрисдикций.</p>
+<p><strong>FDA (США):</strong> Программное обеспечение медицинских устройств на основе ИИ/МО (SaMD) требует предмаркетного одобрения или разрешения. Направление действий FDA по ИИ/МО 2021 года акцентирует <strong>заранее определённые планы контроля изменений</strong> — документирование того, как модель будет обновляться и как эти обновления будут валидироваться до развёртывания. Модель, непрерывно обучающаяся на клинической обратной связи, в этой рамке является другим устройством после каждого обновления и может требовать повторной валидации.</p>
+<p><strong>CE-маркировка (Европа):</strong> Медицинские устройства, включая системы ИИ, должны соответствовать Регламенту о медицинских изделиях (MDR). MDR требует клинической оценки, надзора после выхода на рынок и документации данных, использованных для обучения и валидации.</p>
+<p><strong>Ключевое следствие для HITL:</strong> Нормативные рамки требуют чёткой документации процессов аннотирования, квалификации аннотаторов, межчитательской надёжности и любых изменений в обучающих данных. Это не бюрократические накладные расходы — это аудиторский след, позволяющий клиницисту понять, какие обучающие данные породили текущее поведение модели, и это юридически обязательно. Конвейеры HITL, рассматривающие аннотирование как неформальный подпроцесс, создают нормативный риск, который, как правило, проявляется в самый неподходящий момент.</p>
+</section>
+<hr class="docutils" />
+<section id="id10">
+<h2>Аннотирование научных данных<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<p>За пределами здравоохранения HITL ML играет всё бо́льшую и недооценённую роль в научных исследованиях, где задача аннотирования нередко сочетает предметную экспертизу с масштабом.</p>
+<section id="galaxy-zoo">
+<h3>Астрономия: Galaxy Zoo<a class="headerlink" href="#galaxy-zoo" title="Permalink to this heading">#</a></h3>
+<p>Galaxy Zoo <a href="#id11"><span class="problematic" id="id12">lintott2008galaxy</span></a> организовал краудсорсинг морфологической классификации галактик из Слоановского цифрового обзора неба среди учёных-любителей. Исходный проект собрал свыше 40 миллионов классификаций от более чем 100 000 добровольцев, продемонстрировав осуществимость крупномасштабного краудсорсинга научной классификации изображений, когда задача может быть разбита на простые вопросы, на которые можно ответить без специализированной подготовки («Эта галактика гладкая или структурированная?»).</p>
+<p>Опыт Galaxy Zoo дал два важных методологических вывода. Во-первых, согласие между учёными-любителями и профессиональными астрономами было высоким для ясных случаев и систематически расходилось в пограничных случаях — именно там, где научно значимо различие. Решением стало не отброс данных учёных-любителей по пограничным случаям, а трактовка распределения ответов добровольцев как мягкой метки, кодирующей подлинную морфологическую неоднозначность. Во-вторых, классификатор, обученный на метках Galaxy Zoo, превзошёл модели, обученные воспроизводить выбор любого отдельного эксперта, поскольку распределение толпы захватывало реальную визуальную неопределённость, которую вынужденный выбор эксперта сворачивал.</p>
+</section>
+<section id="id13">
+<h3>Геномика: классификация патогенности<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<p>Аннотирование геномных вариантов — решение о том, является ли вариант патогенным, доброкачественным или неопределённого значения, — является высокорисковой задачей NLP и экспертного суждения. Клинические базы данных вариантов, такие как ClinVar, агрегируют интерпретации экспертов из нескольких лабораторий, и расхождения между лабораториями распространены. Активное обучение используется для приоритизации вариантов, требующих полного экспертного рассмотрения (поиск в литературе, оценка функциональных данных), по сравнению с теми, которые могут быть автоклассифицированы существующими данными. Результатом является гибридный конвейер, где большинство вариантов обрабатываются автоматической логикой, подмножество требует экспертного рассмотрения, а наиболее сложные случаи помечаются для многолабораторного консенсуса.</p>
+</section>
+<section id="id14">
+<h3>Климат и науки о Земле<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>Разметка спутниковых снимков для определения изменений землепользования, вырубки лесов, площади ледников и трасс штормов включает экспертов по дистанционному зондированию и всё чаще — платформы гражданской науки. Главная задача HITL в этой области — временна́я: метки, сделанные сегодня, могут устареть по мере изменения мира, а верификация по истине (полевые исследования) дорогостояща и логистически ограничена. Активное обучение, приоритизирующее изображения, где предсказание модели расходится с физическими априорными данными (например, предсказание вырубки леса в охраняемом регионе), является практическим способом направить скудные ресурсы полевой верификации.</p>
+</section>
+<section id="id15">
+<h3>Нейронаука: коннектомика<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>Реконструкция нейронных цепей из изображений электронной микроскопии — коннектомика — требует пиксельной аннотации мембран нейронов в огромных стеках изображений. Проект Eyewire геймифицировал эту задачу, вовлекая десятки тысяч игроков в трассировку нейронов через объёмы 3D-изображений. Геймификация решила специфическую проблему HITL: задача требует устойчивого внимания и пространственного мышления на протяжении длительных сеансов, что вызывает снижение качества при традиционном аннотировании. Разбиение задачи на игровые сегменты с социальной механикой поддерживало вовлечённость и качество аннотаторов в масштабах, недостижимых для профессионального аннотирования.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id16">
+<h2>Управление специалистами-аннотаторами<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h2>
+<p>Когда аннотирование требует редкой экспертизы, обычные подходы краудсорсинга (глава 13) неприменимы.</p>
+<p><strong>Фундаментальное противоречие</strong> состоит в том, что люди, способные создавать наиболее качественные аннотации, — это также люди, чьё время наиболее ценно и ограниченно. Каждое проектное решение в конвейере аннотирования специалистами должно оцениваться с точки зрения вопроса: оптимально ли это использует скудное экспертное время?</p>
+<p><strong>Что это означает на практике:</strong></p>
+<ul class="simple">
+<li><p><strong>Агрессивное предварительное аннотирование.</strong> Использовать аннотаторов более низкого уровня, автоматизированные модели или основанные на правилах системы для генерации кандидатов, которые специалист проверяет и исправляет, а не создаёт с нуля. Суждение специалиста является узким местом; предоставление ему предварительной аннотации для исправления быстрее, чем просить аннотировать с чистого экрана, при условии что качество предварительной аннотации достаточно, чтобы исправление не оказалось медленнее начала с нуля.</p></li>
+<li><p><strong>Проектировать для внимания эксперта, а не для пропускной способности.</strong> Интерфейсы аннотирования, оптимизированные для высокой пропускной способности (быстрые бинарные решения, горячие клавиши, минимальный дисплей), подходят для краудсорсинга. Аннотирование специалистами часто выигрывает от более богатых интерфейсов: сравнение бок о бок с предыдущими случаями, лёгкий доступ к справочным материалам, поля уверенности аннотирования и возможность пометить случай для обсуждения. Это замедляет отдельные аннотации, но улучшает качество и снижает потребность в повторном аннотировании.</p></li>
+<li><p><strong>Явно отслеживать паттерны отдельных аннотаторов.</strong> При небольшом пуле специалистов осуществимо и важно отслеживать коэффициент согласия каждого аннотатора с группой, отмечать случаи, кажущиеся несогласованными с их собственной историей, и обсуждать их на регулярных калибровочных сессиях. Это не слежка — это тот же процесс качества, который клиническая медицина использует для анализа производительности, и специалисты, как правило, хорошо реагируют, когда это преподносится как совместное улучшение качества, а не как оценка.</p></li>
+<li><p><strong>Проектирование сеансов имеет значение.</strong> Медицинское аннотирование когнитивно требовательно. Данные радиологии и патологии свидетельствуют о том, что частота ошибок заметно возрастает примерно после 90 минут непрерывного чтения и что перерывы даже в несколько минут могут частично восстановить внимание. Интерфейсы аннотирования, принудительно вводящие подсказки о перерывах (без возможности их игнорировать), — это простое проектное решение HITL с реальным влиянием на качество.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id17">
+<h2>Конвейер HITL активного обучения для медицинской визуализации<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Simulate a rare-pathology detection task</span>
+<span class="c1"># 8% positive class (e.g., rare pathology)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_informative</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">],</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">4000</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">4000</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">4000</span><span class="p">:]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training set positive prevalence: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_medical_al</span><span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+    <span class="n">labeled</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled</span><span class="p">]</span>
+    <span class="n">aucs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_initial</span> <span class="o">+</span> <span class="n">budget</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">aucs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;uncertainty&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">entropy</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unlabeled</span><span class="p">))</span>
+
+        <span class="n">labeled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aucs</span><span class="p">)</span>
+
+<span class="n">aucs_al</span>  <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;uncertainty&#39;</span><span class="p">)</span>
+<span class="n">aucs_rnd</span> <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+<span class="n">label_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aucs_al</span><span class="p">))</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">50</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_al</span><span class="p">,</span>  <span class="s1">&#39;o-&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertainty AL&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_rnd</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Expert labels obtained&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;AUROC&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning for Rare Pathology Detection&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;medical_al.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Show how AL preferentially selects positive examples</span>
+<span class="c1"># by checking which class the queried examples belong to</span>
+<span class="n">n_init</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">labeled_al</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_init</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">labeled_rnd</span> <span class="o">=</span> <span class="n">labeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">unlabeled_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_al</span><span class="p">]</span>
+<span class="n">unlabeled_rnd</span> <span class="o">=</span> <span class="n">unlabeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">])</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_al</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">top50_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">unlabeled_al</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">entropy</span><span class="p">)[</span><span class="o">-</span><span class="mi">50</span><span class="p">:]]</span>
+<span class="n">top50_rnd</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unlabeled_rnd</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">pos_rate_al</span>  <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_al</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">pos_rate_rnd</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_rnd</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Positive rate in next 50 queries:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Uncertainty AL: </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">  (base rate: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Random:         </span><span class="si">{</span><span class="n">pos_rate_rnd</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AL queries </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="o">/</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">x more positives than random&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Краудсорсинг Galaxy Zoo: <a href="#id18"><span class="problematic" id="id19">lintott2008galaxy</span></a>. Производительность радиологов в CheXNet: <a href="#id20"><span class="problematic" id="id21">rajpurkar2017chexnet</span></a>. Качество рентгенограмм и диагностика с поддержкой ИИ: <a href="#id22"><span class="problematic" id="id23">yu2022assessing</span></a>. Методология аннотирования клинического NLP: <a href="#id24"><span class="problematic" id="id25">pustejovsky2012natural</span></a>. Руководство FDA по плану действий в области ИИ/МО см. в опубликованной документации FDA (2021).</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ru/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Анализ медицинских изображений</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Требования к экспертам-аннотаторам</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Вариабельность показателей радиологов</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Активное обучение для редких состояний</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp">Аннотирование клинических NLP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2">i2b2 / n2c2 как шаблон</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Нормативные соображения</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Аннотирование научных данных</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#galaxy-zoo">Астрономия: Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Геномика: классификация патогенности</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Климат и науки о Земле</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Нейронаука: коннектомика</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Управление специалистами-аннотаторами</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Конвейер HITL активного обучения для медицинской визуализации</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

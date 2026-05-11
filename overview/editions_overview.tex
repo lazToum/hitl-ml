@@ -1,0 +1,814 @@
+%==============================================================
+% Human in the Loop — Editions Overview
+% Standalone document, compiles with pdfLaTeX, XeLaTeX, or LuaLaTeX
+%==============================================================
+
+\documentclass[12pt, a4paper]{article}
+
+%--------------------------------------------------------------
+% Engine detection — Libertinus if Xe/Lua, else Palatino fallback
+%--------------------------------------------------------------
+\usepackage{iftex}
+
+\ifXeTeX
+  \usepackage{fontspec}
+  \IfFontExistsTF{Libertinus Serif}{%
+    \setmainfont{Libertinus Serif}%
+    \setsansfont{Libertinus Sans}%
+  }{%
+    \setmainfont{Palatino}%
+    \setsansfont{Helvetica Neue}%
+  }
+\else\ifLuaTeX
+  \usepackage{fontspec}
+  \IfFontExistsTF{Libertinus Serif}{%
+    \setmainfont{Libertinus Serif}%
+    \setsansfont{Libertinus Sans}%
+  }{%
+    \setmainfont{Palatino}%
+    \setsansfont{Helvetica Neue}%
+  }
+\else
+  % pdfLaTeX fallback
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{palatino}
+  \usepackage[scaled=0.92]{helvet}
+\fi\fi
+
+%--------------------------------------------------------------
+% Core packages
+%--------------------------------------------------------------
+\usepackage[
+  top=2.6cm, bottom=2.6cm,
+  left=3.0cm, right=3.0cm,
+  headheight=15pt
+]{geometry}
+
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable, most}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{parskip}
+
+\usepackage[
+  colorlinks=true,
+  linkcolor=amberdeep,
+  urlcolor=amberdeep,
+  pdfauthor={Human in the Loop Series},
+  pdftitle={Human in the Loop — A Guide to the Editions},
+  pdfsubject={Editions Overview, 2026}
+]{hyperref}
+
+%--------------------------------------------------------------
+% Color palette
+%--------------------------------------------------------------
+\definecolor{amber}{RGB}{212,165,116}        % warm amber accent
+\definecolor{amberdeep}{RGB}{179,120,60}     % darker amber for links/rules
+\definecolor{amberlight}{RGB}{250,238,222}   % very pale amber (box bg)
+\definecolor{charcoal}{RGB}{38,38,40}        % near-black headings
+\definecolor{midgrey}{RGB}{110,110,115}      % secondary text
+\definecolor{rulecolor}{RGB}{180,140,90}     % decorative rules
+\definecolor{springgreen}{RGB}{134,179,120}  % Spring edition accent
+\definecolor{summergold}{RGB}{212,185,60}    % Summer edition accent
+\definecolor{autumnred}{RGB}{185,90,40}      % Autumn edition accent
+\definecolor{winterblue}{RGB}{90,135,179}    % Winter edition accent
+\definecolor{textbookteal}{RGB}{72,158,158}  % Textbook accent
+
+%--------------------------------------------------------------
+% Typography / section styling
+%--------------------------------------------------------------
+\color{charcoal}
+
+\titleformat{\section}
+  {\Large\bfseries\color{charcoal}\sffamily}
+  {}
+  {0pt}
+  {}
+  [\vspace{2pt}\color{rulecolor}\rule{\linewidth}{0.8pt}\vspace{4pt}]
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{amberdeep}\sffamily}
+  {}
+  {0pt}
+  {}
+
+\titlespacing*{\section}{0pt}{28pt}{10pt}
+\titlespacing*{\subsection}{0pt}{14pt}{4pt}
+
+%--------------------------------------------------------------
+% List styling
+%--------------------------------------------------------------
+\setlist[itemize]{
+  leftmargin=1.4em,
+  itemsep=3pt,
+  parsep=0pt,
+  topsep=4pt,
+  label={\color{amber}\textbullet}
+}
+\setlist[enumerate]{
+  leftmargin=1.6em,
+  itemsep=3pt,
+  parsep=0pt,
+  topsep=4pt
+}
+
+%--------------------------------------------------------------
+% tcolorbox styles
+%--------------------------------------------------------------
+\tcbset{
+  amberstyle/.style={
+    enhanced,
+    colback=amberlight,
+    colframe=amber,
+    arc=4pt,
+    boxrule=0.7pt,
+    left=10pt, right=10pt,
+    top=8pt, bottom=8pt,
+    fontupper=\small,
+  },
+  editionbox/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=#1,
+    arc=4pt,
+    boxrule=1.2pt,
+    left=12pt, right=12pt,
+    top=10pt, bottom=10pt,
+    attach boxed title to top left={yshift=-2mm, xshift=6mm},
+    boxed title style={
+      colback=#1,
+      colframe=#1,
+      arc=3pt,
+      boxrule=0pt,
+      fontupper=\small\bfseries\sffamily\color{white},
+      left=6pt, right=6pt, top=3pt, bottom=3pt,
+    },
+  },
+  callout/.style={
+    enhanced,
+    colback=charcoal,
+    colframe=charcoal,
+    arc=4pt,
+    boxrule=0pt,
+    left=12pt, right=12pt,
+    top=10pt, bottom=10pt,
+    fontupper=\color{white}\small,
+  },
+  dimensiontable/.style={
+    enhanced,
+    colback=amberlight,
+    colframe=amberdeep,
+    arc=5pt,
+    boxrule=1pt,
+    left=12pt, right=12pt,
+    top=12pt, bottom=12pt,
+  },
+}
+
+%--------------------------------------------------------------
+% Header / footer
+%--------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\color{amber}\rule{\linewidth}{0.3pt}}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancyhead[L]{\footnotesize\color{midgrey}\sffamily Human in the Loop}
+\fancyhead[R]{\footnotesize\color{midgrey}\sffamily A Guide to the Editions}
+\fancyfoot[C]{\footnotesize\color{midgrey}\thepage}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyfoot[C]{\footnotesize\color{midgrey}\thepage}%
+}
+
+%--------------------------------------------------------------
+% Helpers
+%--------------------------------------------------------------
+\newcommand{\amberrule}{%
+  {\color{rulecolor}\rule{\linewidth}{0.5pt}}%
+}
+\newcommand{\thinrule}{%
+  \vspace{6pt}{\color{amber!50}\rule{\linewidth}{0.3pt}}\vspace{6pt}%
+}
+\newcommand{\seriesname}{\textit{Human in the Loop}}
+\newcommand{\tagline}{\textit{``The future is not full automation. It is calibrated collaboration.''}}
+
+%--------------------------------------------------------------
+% Character description command
+%--------------------------------------------------------------
+\newcommand{\character}[3]{%
+  % #1 name  #2 descriptor  #3 description
+  \noindent
+  \begin{tcolorbox}[amberstyle, left=8pt, right=8pt, top=5pt, bottom=5pt]
+    \noindent{\small\bfseries\sffamily\color{amberdeep} #1}\enspace
+    {\footnotesize\color{midgrey}\sffamily — #2}\\[3pt]
+    {\small #3}
+  \end{tcolorbox}%
+  \vspace{4pt}%
+}
+
+%==============================================================
+\begin{document}
+%==============================================================
+
+%--------------------------------------------------------------
+% TITLE PAGE
+%--------------------------------------------------------------
+\thispagestyle{empty}
+
+\vspace*{3.5cm}
+
+\begin{center}
+
+  {\footnotesize\sffamily\color{midgrey}\textls[120]{SERIES DOCUMENTATION \quad \textbullet \quad 2026}}
+
+  \vspace{0.9cm}
+
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=amber,
+    arc=0pt,
+    boxrule=0pt,
+    leftrule=4pt,
+    left=16pt, right=16pt,
+    top=16pt, bottom=16pt,
+    width=\textwidth,
+  ]
+    \begin{center}
+      {\Huge\bfseries\color{charcoal} Human in the Loop}
+
+      \vspace{8pt}
+      \amberrule
+
+      \vspace{10pt}
+      {\large\color{midgrey}\itshape Misunderstood}
+
+      \vspace{20pt}
+      {\Large\bfseries\sffamily\color{amberdeep} A Guide to the Editions}
+    \end{center}
+  \end{tcolorbox}
+
+  \vspace{1.6cm}
+
+  {\small\sffamily\color{midgrey} Four editions. One framework. A single claim about the future of intelligent systems.}
+
+  \vspace{2.4cm}
+
+  \amberrule
+
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    {\footnotesize\color{springgreen}\sffamily SPRING EDITION}\\
+    {\small\itshape Interactive Platform}
+  \end{minipage}%
+  \begin{minipage}{0.04\textwidth}\centering\color{amber}|\end{minipage}%
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    {\footnotesize\color{summergold}\sffamily SUMMER EDITION}\\
+    {\small\itshape The Workbook}
+  \end{minipage}
+
+  \vspace{0.6cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    {\footnotesize\color{autumnred}\sffamily AUTUMN EDITION}\\
+    {\small\itshape Misunderstood}
+  \end{minipage}%
+  \begin{minipage}{0.04\textwidth}\centering\color{amber}|\end{minipage}%
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    {\footnotesize\color{winterblue}\sffamily WINTER EDITION}\\
+    {\small\itshape Full Course Textbook}
+  \end{minipage}
+
+  \vspace{2.5cm}
+  \amberrule
+  \vspace{0.5cm}
+
+  {\footnotesize\color{midgrey}\sffamily 2026 \quad \textbullet \quad For internal circulation}
+
+\end{center}
+
+\newpage
+
+%--------------------------------------------------------------
+% THE SERIES
+%--------------------------------------------------------------
+\section{The Series}
+
+\begin{tcolorbox}[callout]
+\tagline
+\end{tcolorbox}
+
+\vspace{10pt}
+
+\seriesname{} is a book series about one of the most consequential design questions of our era: \textit{where does the machine end and the human begin?}
+
+Not in the romantic sense of human dignity versus robotic efficiency. In the practical, operational, deeply consequential sense. Machines break in quiet ways. They misread context. They do not understand stakes. They hallucinate with confidence. They escalate only when programmed to, and stay silent otherwise. \textbf{This series is about what that silence costs — and what it looks like to design systems that know when to speak.}
+
+\subsection{Who the Series Is For}
+
+The series was written for three overlapping audiences who rarely share the same shelf:
+
+\begin{itemize}
+  \item \textbf{Practitioners} — annotation team members, data labelers, HITL coordinators, QA reviewers. People who are \textit{already in the loop} and want language for what they do.
+  \item \textbf{Students} — undergraduates and graduates in AI ethics, human-computer interaction, information science, cognitive science. People building the mental models they will carry into careers.
+  \item \textbf{Instructors and researchers} — people who teach these systems, evaluate them, and write about them. People who need a rigorous framework, not a manifesto.
+\end{itemize}
+
+\subsection{The Core Thesis}
+
+Machines need humans not because they fail — all machines fail sometimes — but because \textbf{accountability and lived experience are permanent human functions}. A machine can approximate a medical diagnosis. It cannot bear responsibility for a wrong one. A machine can process a grief counseling transcript. It cannot understand what it means to lose someone.
+
+The series does not argue for less automation. It argues for \textit{calibrated} automation: systems that know their edges, ask at the right moment, and integrate the answers they receive. The measure of a good intelligent system is not how rarely it asks for help. It is how well it knows when to.
+
+\subsection{A Note on Format}
+
+Each edition of this series was designed for a different reading context — from a single afternoon with a pamphlet to a full semester with the textbook. They share a framework, a vocabulary, and a cast of characters. They do not need to be read in any particular order. But they reward readers who move between them.
+
+\newpage
+
+%--------------------------------------------------------------
+% THE FIVE DIMENSIONS
+%--------------------------------------------------------------
+\section{The Five-Dimension Framework}
+
+Every edition in this series applies the same analytical lens to intelligent systems. The \textbf{Five-Dimension Framework} asks five questions about any system that involves human oversight. Together, they form a portrait of how well a system knows what it does not know — and how gracefully it behaves at the edge of its competence.
+
+\begin{tcolorbox}[dimensiontable]
+\begin{center}
+{\small\bfseries\sffamily\color{amberdeep} THE FIVE DIMENSIONS OF HUMAN-IN-THE-LOOP DESIGN}
+\end{center}
+
+\vspace{8pt}
+
+\renewcommand{\arraystretch}{1.55}
+\begin{tabular}{@{}>{\bfseries\color{amberdeep}\small}p{3.6cm}>{\small}p{8.8cm}@{}}
+\toprule
+\rowcolor{amber!20}
+\multicolumn{1}{l}{\textbf{\small\sffamily Dimension}} & \multicolumn{1}{l}{\textbf{\small\sffamily Key Question}} \\
+\midrule
+Uncertainty Detection  & Can the system recognize when it is unsure? \\
+Intervention Design    & How does it ask for help, and in what form? \\
+Timing                 & When does it ask — before, during, or after? \\
+Stakes Calibration     & Does it understand the consequences of being wrong? \\
+Feedback Integration   & Does it learn from the responses it receives? \\
+\bottomrule
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{12pt}
+
+\subsection{Why Five Dimensions?}
+
+A system can score well on one dimension and catastrophically on another. The GPS that drove a car into a lake was not miscalibrated on \textit{uncertainty detection} — it had certainty. It was miscalibrated on \textit{stakes}: it did not understand that a route instruction carries different risk over a road than over water. The Nest thermostat that learned from your schedule asked silently — acceptable in a low-stakes domain. The Air Canada chatbot that promised discounts that did not exist failed on both \textit{uncertainty detection} (it was not flagging its own hallucinations) and \textit{intervention design} (there was no escalation path to a human).
+
+Netflix's ``Are you still watching?'' is a small but instructive success: the system detects uncertainty (ambiguous engagement), designs a minimal intervention (one question), times it appropriately (after sustained inactivity), calibrates stakes correctly (streaming consumption is low-stakes), and integrates feedback (the answer updates the session state).
+
+\subsection{Using the Framework}
+
+The framework is not a checklist. It is a set of lenses. Any edition of this series can be entered with these five questions in hand. They will organize what you read.
+
+\begin{tcolorbox}[amberstyle]
+\textbf{Practitioner tip:} When you review a flagged item in an annotation queue, you are acting as the system's uncertainty detection and intervention design modules simultaneously. Your judgment \textit{is} the framework in operation.
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% SPRING EDITION
+%--------------------------------------------------------------
+\section{Spring Edition: \textit{Interactive Platform}}
+
+\begin{tcolorbox}[editionbox=springgreen, title=Spring Edition \textbullet\ Interactive Scavenger-Hunt Platform]
+
+\subsection*{\color{charcoal} What It Is}
+
+The Spring edition is a fully self-hostable interactive platform — a scavenger-hunt game engine built to teach human-in-the-loop concepts through play. Rather than reading about uncertainty detection or feedback integration, participants experience these dynamics directly: following clues, submitting answers, receiving adaptive hints when stuck, and seeing how the system's AI layer responds to their attempts.
+
+\subsection*{\color{charcoal} Architecture}
+
+The platform is a multi-service application designed for classroom, workshop, and team deployment:
+
+\begin{itemize}
+  \item \textbf{Rust/Axum API} — Game state management, WebSocket events, answer validation, rate limiting.
+  \item \textbf{Python/FastAPI AI sidecar} — LLM-powered clue generation, difficulty estimation, adaptive hints, and photo verification. Supports any provider via a single \texttt{LLM\_MODEL} setting (Anthropic, OpenAI, Ollama for zero-cost local use).
+  \item \textbf{React web dashboard} — Hunt creator interface: design clues, preview layouts, export QR codes, watch live sessions.
+  \item \textbf{Flutter mobile app} — Player app: QR code scanning, NFC, GPS verification, photo submission, offline persistence.
+  \item \textbf{PostgreSQL + Redis + Zitadel} — Persistent state, caching, OAuth2/OIDC identity for multi-role access (creator / player / observer).
+\end{itemize}
+
+\subsection*{\color{charcoal} Pedagogical Design}
+
+Hunt creators encode HITL concepts directly into clue chains: a clue might ask a player to identify whether a photo ``passes'' a human review check, or to decide at what confidence threshold the system should escalate to a human. The AI hint layer models adaptive intervention design — the system asks for help from the human (the player) in calibrated, minimally intrusive ways.
+
+\subsection*{\color{charcoal} Best For}
+
+Workshop facilitators, university instructors running labs, and teams doing HITL onboarding who want participants to experience the concepts kinesthetically before encountering them analytically.
+
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% AUTUMN EDITION
+%--------------------------------------------------------------
+\section{Autumn Edition: \textit{Misunderstood}}
+
+\begin{tcolorbox}[editionbox=autumnred, title=Autumn Edition \textbullet\ Practitioner Pamphlet]
+
+\subsection*{\color{charcoal} What It Is}
+
+\textit{Misunderstood} is a short, punchy pamphlet — designed to be read in a single sitting, ideally during onboarding. It is written for people who are new to annotation work and human-in-the-loop roles, and for the experienced practitioners who supervise them. It corrects \textbf{six common misconceptions} about what HITL work is, why it matters, and what it means to be the human in the loop.
+
+\subsection*{\color{charcoal} The Six Misconceptions Addressed}
+
+\begin{enumerate}
+  \item \textit{``We are just checking the AI's work.''} — Annotation is not auditing; it is teaching. Every label is a signal.
+  \item \textit{``The AI will be replaced eventually, so this work won't exist.''} — Stakes and accountability will always require human judgment, even if specific tasks automate.
+  \item \textit{``If it looks right, it is right.''} — Surface correctness is not the same as contextual correctness. A label can be technically accurate and domain-misleading.
+  \item \textit{``My individual labels don't matter much.''} — Systematic individual errors aggregate. One consistent mislabeler is not invisible to a training pipeline.
+  \item \textit{``The system knows what it's doing.''} — Confidence is not competence. Systems can be certain and wrong.
+  \item \textit{``Asking for clarification is a sign of weakness.''} — Uncertainty detection starts with the human. Flagging is the job, not a failure of the job.
+\end{enumerate}
+
+\subsection*{\color{charcoal} Format and Voice}
+
+\textit{Misunderstood} is written in a conversational register. Each misconception is introduced through a scene from the annotation floor, voiced by one of the series characters, and then unpacked with both emotional honesty and analytical precision. The edition is published as a self-contained web document (zero external dependencies) and as a PDF.
+
+\subsection*{\color{charcoal} Best For}
+
+New annotation team members on their first week. Returning practitioners who have absorbed cynicism. Anyone who has ever wondered whether their work in an AI pipeline actually matters.
+
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% SUMMER WORKBOOK
+%--------------------------------------------------------------
+\section{Summer Workbook Edition}
+
+\begin{tcolorbox}[editionbox=summergold, title=Summer Workbook Edition \textbullet\ Self-Paced Learner]
+
+\subsection*{\color{charcoal} What It Is}
+
+The Summer Workbook is the hands-on companion to the series. It was designed for learners who prefer to understand through doing — through puzzles, activities, writing exercises, and carefully constructed dilemmas with no clean answers. It can be used independently or as a supplement to the main textbook.
+
+\subsection*{\color{charcoal} Core Sections}
+
+\textbf{Activities and Exercises.} Each activity targets a specific dimension of the Five-Dimension Framework. Activities range from short reflective writing (``Describe a time you asked for help from a system and it did not help'') to structured analysis of real-world case studies.
+
+\textbf{Word Search and Vocabulary Building.} Terminology-first exercises designed to make the field's vocabulary familiar before the concepts become complex. Annotation, calibration, escalation, latency, hallucination, feedback loop — these words should be second nature.
+
+\textbf{Crossroads Dilemmas.} The centerpiece of the Workbook. Each \textbf{Crossroads} problem presents a scenario where a system reaches a moment of genuine ambiguity — a decision point where both asking and not asking carry real costs. The learner is asked not to find the right answer but to articulate the \textit{tradeoffs}. Example dilemmas include:
+
+\begin{itemize}
+  \item A medical triage system that flags a case as low-priority with 78\% confidence. The queue is 400 patients deep.
+  \item A content moderation system that is uncertain whether a post is satire or genuine incitement.
+  \item A navigation system aware of road conditions the human driver cannot see.
+  \item A customer service bot that has been asked a question it cannot answer and knows it cannot answer.
+\end{itemize}
+
+\textbf{Research Questions.} Structured prompts for deeper investigation, suitable for short papers, seminar discussion, or individual reflection.
+
+\subsection*{\color{charcoal} Best For}
+
+Learners in self-paced courses. Study groups. Workshop facilitators who want structured material. Individuals who finished the Spring edition and want to apply the framework before encountering the full textbook.
+
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% WINTER EDITION
+%--------------------------------------------------------------
+\section{Winter is Coming Edition}
+
+\begin{tcolorbox}[editionbox=winterblue, title=Winter is Coming Edition \textbullet\ Exam Study Companion]
+
+\subsection*{\color{charcoal} What It Is}
+
+\textit{Winter is Coming} is the exam study companion for the main textbook. It consolidates the frameworks, key cases, vocabulary, and analytical arguments from the full course into a compact, structured reference. Its title is a gentle acknowledgment that exams arrive whether you are ready or not — and that preparation is itself a form of calibrated human behavior.
+
+\subsection*{\color{charcoal} What It Contains}
+
+\textbf{Frameworks Consolidated.} Every named framework in the series — the Five-Dimension Framework, the Silence Cost Model, the Escalation Ladder, the Feedback Loop Anatomy — presented in clean, scannable summary form with the core insight and the primary warning for each.
+
+\textbf{Case Studies in Brief.} The twelve major cases from the textbook, each reduced to a structured two-page summary: \textit{what happened}, \textit{which dimension failed}, \textit{what it would take to fix it}. Cases include:
+
+\begin{itemize}
+  \item Netflix: ``Are you still watching?'' (Uncertainty detection and feedback integration done well)
+  \item Nest thermostat: Learning without asking (Low-stakes silent calibration)
+  \item GPS into water: Overconfident silence (Stakes calibration failure)
+  \item Air Canada chatbot: Hallucination without escalation (Uncertainty detection and intervention design failure)
+  \item And eight additional cases across healthcare, transportation, content moderation, and finance
+\end{itemize}
+
+\textbf{Practice Questions.} Short-answer and essay-form questions organized by chapter. Includes both definitional questions (``Define stakes calibration in your own words'') and analytical questions (``Apply the Five-Dimension Framework to a system you use daily'').
+
+\textbf{Vocabulary Reference.} Alphabetical glossary of sixty-plus terms used across the series.
+
+\subsection*{\color{charcoal} Best For}
+
+Students preparing for midterms or finals in a course using the main textbook. Self-directed learners who want a structured review before moving to advanced material. Practitioners who want a quick reorientation to the academic framing of work they do intuitively.
+
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% MAIN TEXTBOOK
+%--------------------------------------------------------------
+\section{Main Textbook: Full Course Edition}
+
+\begin{tcolorbox}[editionbox=textbookteal, title=Main Textbook \textbullet\ Academic Course Edition]
+
+\subsection*{\color{charcoal} What It Is}
+
+The main textbook is the scholarly anchor of the series. It is written for semester-long courses at the undergraduate or graduate level. It proceeds from first principles — what is a decision, what is uncertainty, what is accountability — through to applied system design and policy implications. It is long, rigorous, and rewarding in the way that careful books are.
+
+\subsection*{\color{charcoal} Structure: 18 Chapters and Appendices}
+
+\begin{minipage}[t]{0.47\textwidth}
+\textbf{Part I: Foundations} (Ch. 1--5)\\
+{\small
+Ch. 1: The Question Behind the Question\\
+Ch. 2: What Machines Know and Do Not Know\\
+Ch. 3: Uncertainty, Confidence, and Calibration\\
+Ch. 4: What Accountability Requires\\
+Ch. 5: Lived Experience as Evidence\\
+}
+
+\vspace{8pt}
+\textbf{Part II: The Framework} (Ch. 6--10)\\
+{\small
+Ch. 6: Detecting Uncertainty in Practice\\
+Ch. 7: Designing for Intervention\\
+Ch. 8: The Timing Problem\\
+Ch. 9: Stakes and Consequence\\
+Ch. 10: Feedback as a Design Primitive\\
+}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.47\textwidth}
+\textbf{Part III: Cases} (Ch. 11--15)\\
+{\small
+Ch. 11: The Silence Failures\\
+Ch. 12: The Overconfidence Failures\\
+Ch. 13: The Escalation Failures\\
+Ch. 14: The Design Successes\\
+Ch. 15: What Good Systems Look Like\\
+}
+
+\vspace{8pt}
+\textbf{Part IV: Implications} (Ch. 16--18)\\
+{\small
+Ch. 16: Policy and Regulation\\
+Ch. 17: The Workforce of the Loop\\
+Ch. 18: Calibrated Collaboration\\
+}
+\end{minipage}
+
+\vspace{10pt}
+
+\textbf{Appendices include:} Technical appendix on calibration metrics; annotation workflow reference; instructor's guide with discussion prompts, assignment scaffolds, and exam rubrics; index; glossary.
+
+\subsection*{\color{charcoal} Instructor Editions}
+
+Instructor editions include a full solutions manual for the case analysis questions, modular syllabus templates for 8-week, 12-week, and 16-week formats, and a slide deck library organized by chapter.
+
+\subsection*{\color{charcoal} Best For}
+
+Courses in AI ethics, human-computer interaction, information science, cognitive science, and science and technology studies. Advanced seminar use. Researchers who want a comprehensive treatment of the HITL design space.
+
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% THE CHARACTERS
+%--------------------------------------------------------------
+\section{The Characters}
+
+\textit{Misunderstood} and the companion editions are not written as abstract lectures. They are written through characters — people who work in and around human-in-the-loop systems and who carry the series' arguments in their practical, specific, sometimes conflicted voices. Each character represents a real perspective that exists inside annotation work and HITL operations.
+
+\vspace{8pt}
+
+\character{Percy}{The Experienced Skeptic}%
+{Percy has worked in annotation for years and has developed a finely calibrated sense of when the system is wrong and why. They trust their instincts, which is mostly a virtue and occasionally a blind spot. Percy voices the question this work tends to suppress: \textit{What happens if we are the ones miscalibrated?}}
+
+\character{Ray}{The Engineer Adjacent}%
+{Ray came to annotation from a technical background and keeps wanting to fix the pipeline rather than work within it. They ask uncomfortable questions about why certain errors keep recurring. Ray represents the practitioner who sees the system from below and wants to change it from above.}
+
+\character{Manny}{The Team Anchor}%
+{Manny is the person every team has — the one who keeps calibration consistent, who notices when the group is drifting, who raises the issue nobody else wants to raise. Manny carries the organizational wisdom of the series: that teams are feedback systems too.}
+
+\character{Ash}{The New Arrival}%
+{Ash is new and shows it. They ask beginner questions that turn out not to be beginner questions. They get things wrong and notice that they got them wrong. Ash is the reader who enters \textit{Misunderstood} with all six misconceptions intact and leaves with five of them gone and one still stubbornly resisting.}
+
+\character{Sage}{The Philosopher of the Floor}%
+{Sage is the one who asks why. Not troublesomely — they just want the framework to make sense before they apply it. Sage represents the series' conviction that good practice requires good understanding, and that the two are not in conflict.}
+
+\character{Gen}{The Output Optimizer}%
+{Gen is efficient in ways that sometimes tip into cutting corners. They represent a real pressure that annotation work faces: throughput versus quality. Gen is not a villain; they are a person under real constraints making reasonable compromises that may not, at scale, be reasonable at all.}
+
+\character{Maya}{The Bridge Builder}%
+{Maya works between the annotation team and the model teams — one foot in each world. They carry the series' central tension: the machine side wants precision, the human side wants context, and neither fully understands what the other is optimizing for. Maya is trying to translate.}
+
+\vspace{8pt}
+
+\begin{tcolorbox}[amberstyle]
+The characters appear across editions but are most fully realized in the Autumn edition (\textit{Misunderstood}) and the Summer Workbook. The main textbook uses them in vignettes. The Winter companion cites them by name in practice questions.
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% HOW TO USE THE SERIES
+%--------------------------------------------------------------
+\section{How to Use the Series}
+
+There is no single correct entry point. The series was designed to be entered from wherever the reader is. Below are three suggested paths — not rules, but invitations.
+
+\vspace{10pt}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=white,
+  colframe=springgreen,
+  arc=4pt,
+  boxrule=1pt,
+  left=12pt, right=12pt, top=10pt, bottom=10pt,
+  attach boxed title to top left={yshift=-2mm, xshift=6mm},
+  boxed title style={colback=springgreen, colframe=springgreen, arc=3pt, boxrule=0pt,
+    fontupper=\small\bfseries\sffamily\color{white}, left=6pt, right=6pt, top=3pt, bottom=3pt},
+  title={Practitioner Path}
+]
+\textbf{Start with:} \textit{Misunderstood} (Autumn Edition)\\
+\textbf{Then:} Summer Workbook — the Crossroads problems\\
+\textbf{Optional:} Winter Textbook, Part III (Case Studies) and Part IV (Implications)\\[6pt]
+This path is for people already working in HITL roles who want language and framework for what they do. You do not need the full textbook. You need the vocabulary, the validation, and the cases.
+\end{tcolorbox}
+
+\vspace{10pt}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=white,
+  colframe=winterblue,
+  arc=4pt,
+  boxrule=1pt,
+  left=12pt, right=12pt, top=10pt, bottom=10pt,
+  attach boxed title to top left={yshift=-2mm, xshift=6mm},
+  boxed title style={colback=winterblue, colframe=winterblue, arc=3pt, boxrule=0pt,
+    fontupper=\small\bfseries\sffamily\color{white}, left=6pt, right=6pt, top=3pt, bottom=3pt},
+  title={Student Path}
+]
+\textbf{Start with:} Main Textbook, Part I and Part II\\
+\textbf{Alongside:} Summer Workbook activities (keyed by chapter)\\
+\textbf{Consolidate with:} \textit{Winter is Coming} (before assessments)\\
+\textbf{Return to:} \textit{Misunderstood} (Autumn) after completing Part III\\[6pt]
+This path is for students in a formal course. The Workbook is your lab. \textit{Winter is Coming} is your review. \textit{Misunderstood} is a short humanizing read best appreciated once you have the framework.
+\end{tcolorbox}
+
+\vspace{10pt}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=white,
+  colframe=textbookteal,
+  arc=4pt,
+  boxrule=1pt,
+  left=12pt, right=12pt, top=10pt, bottom=10pt,
+  attach boxed title to top left={yshift=-2mm, xshift=6mm},
+  boxed title style={colback=textbookteal, colframe=textbookteal, arc=3pt, boxrule=0pt,
+    fontupper=\small\bfseries\sffamily\color{white}, left=6pt, right=6pt, top=3pt, bottom=3pt},
+  title={Course Instructor Path}
+]
+\textbf{Assign as primary text:} Main Textbook\\
+\textbf{Assign Week 1:} \textit{Misunderstood} — Autumn Edition (tone-setting; culture of the field)\\
+\textbf{Assign throughout:} Summer Workbook activities as homework scaffolds\\
+\textbf{Assign Week prior to midterm/final:} \textit{Winter is Coming}\\[6pt]
+The Instructor Edition of the main textbook includes a syllabus template that sequences all four editions across 16 weeks. The characters from \textit{Misunderstood} can anchor discussion sections and case analysis workshops throughout the course.
+\end{tcolorbox}
+
+\vspace{10pt}
+
+\begin{tcolorbox}[amberstyle]
+\textbf{Note on independence:} Every edition is designed to stand alone. If you only ever read \textit{Misunderstood}, you will have encountered the series' core argument. If you only ever work through the Summer Workbook, you will have internalized the Five-Dimension Framework through practice. Entry and exit at any point is by design.
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------
+% THE CORE CLAIM — CLOSING PAGE
+%--------------------------------------------------------------
+\thispagestyle{fancy}
+
+\vspace*{1.5cm}
+
+\begin{center}
+{\footnotesize\sffamily\color{midgrey}\textls[120]{CLOSING}}
+
+\vspace{0.8cm}
+
+{\Large\bfseries\color{charcoal} The Core Claim}
+
+\vspace{0.5cm}
+\amberrule
+\end{center}
+
+\vspace{0.8cm}
+
+The argument running through every edition of this series is not that machines are dangerous. It is more specific, and more actionable, than that.
+
+\vspace{10pt}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=charcoal,
+  colframe=charcoal,
+  arc=5pt,
+  boxrule=0pt,
+  left=20pt, right=20pt,
+  top=20pt, bottom=20pt,
+]
+\begin{center}
+\large\color{white}\itshape
+``A system's intelligence is not measured by how rarely it fails.\\[4pt]
+It is measured by how clearly it knows when it is at the edge\\[4pt]
+of what it can do — and by what it does next.''
+\end{center}
+\end{tcolorbox}
+
+\vspace{14pt}
+
+The GPS that drove into the lake was not unintelligent in the conventional sense. It was navigating. It was optimizing. It had a plan. What it lacked was \textit{stakes calibration} — an awareness that the consequences of being wrong in this context were not a delayed arrival but a catastrophe. Confidence without calibration is not competence. It is a liability.
+
+The annotation worker who flags an uncertain item is not admitting defeat. They are \textit{demonstrating} the only thing that makes a human-in-the-loop system function: the willingness to introduce a pause, a question, a moment of human judgment at the point where the machine's certainty outstrips the machine's wisdom.
+
+\vspace{12pt}
+
+\begin{center}
+\color{amber}\rule{4cm}{0.6pt}
+\end{center}
+
+\vspace{12pt}
+
+The future imagined in this series is not one in which machines do less. It is one in which machines do more — more accurately, more responsibly, more legibly — because the humans inside the loop are valued, trained, and listened to.
+
+\textbf{Calibrated collaboration} is not a compromise between automation and human labor. It is a design principle. It requires that we know what machines are good at, what they miss, and what they cannot bear to carry alone. It requires that we build the intervention points. That we staff them. That we take seriously the people who work there.
+
+\vspace{12pt}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=amberlight,
+  colframe=amber,
+  arc=4pt,
+  boxrule=0.7pt,
+  left=16pt, right=16pt,
+  top=14pt, bottom=14pt,
+]
+\begin{center}
+{\large\bfseries\color{charcoal} The future is not full automation.}
+
+\vspace{6pt}
+{\large\itshape\color{amberdeep} It is calibrated collaboration.}
+
+\vspace{10pt}
+\amberrule
+\vspace{10pt}
+
+{\small\color{midgrey} \seriesname: Misunderstood}\\[3pt]
+{\small\color{midgrey} Four Editions \textbullet\ One Framework \textbullet\ 2026}
+\end{center}
+\end{tcolorbox}
+
+\vspace*{\fill}
+
+\begin{center}
+{\footnotesize\color{midgrey}\sffamily For Percy, Ray, Manny, Ash, Sage, Gen, and Maya —\\
+and for every person who has ever been the human in the loop.}
+\end{center}
+
+%==============================================================
+\end{document}
+%==============================================================

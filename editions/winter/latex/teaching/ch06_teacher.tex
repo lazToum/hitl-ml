@@ -1,0 +1,453 @@
+% ============================================================================
+% CHAPTER 6 TEACHER'S MANUAL
+% Complete instructional guide for teaching HITL interface design
+% ============================================================================
+% Source: /markdown/ch6/Ch6T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 6}
+\label{ch:teacher-ch06}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching interface design that augments rather than replaces human judgment using \emph{Interfaces That Make Humans Smarter}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Define automation bias and explain its cognitive mechanism (anchor-adjustment)
+    \item Describe how information presentation sequence affects decision quality
+    \item Identify the major types of Explainable AI (XAI) methods and their limitations
+    \item Explain what cognitive load theory predicts about annotation interface design
+    \item List at least four properties of interfaces that support (rather than replace) human judgment
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply the five-dimension framework to analyze a HITL interface design
+    \item Diagnose automation bias from behavioral data (override rates, revision direction)
+    \item Evaluate the quality of an XAI explanation using faithfulness and stability criteria
+    \item Analyze trade-offs between AI-first and human-first interface sequencing for a given domain
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design an interface that minimizes extraneous cognitive load for a specific review task
+    \item Propose a presentation sequence that reduces automation bias for a given domain
+    \item Critique a deployed HITL interface using evidence from the radiology studies
+    \item Evaluate whether an XAI tool's explanations are likely to help or harm human decision quality
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapter~1} (HITL fundamentals, five-dimension framework)
+    \item \textbf{Chapters~4 and 5} (confidence and uncertainty, HITL band, review queues) --- Chapter~6 addresses how cases routed through the HITL band are presented to human reviewers
+    \item \textbf{Basic HCI concepts} helpful but not required
+    \item \textbf{No programming prerequisite} for the main chapter; Appendix~6A requires Python familiarity
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[HCI courses] Core content on decision support design; connects cognitive load theory to practical design choices
+    \item[AI/ML courses] Bridge between model development and deployment; interface as safety-critical infrastructure
+    \item[Medical informatics] CheXNet, COMPAS, and MGH stroke cases directly applicable
+    \item[Ethics/policy courses] COMPAS analysis is a primary case study in algorithmic accountability
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Contrast Pair}
+
+Chapter~6 works best organized around a central contrast: interfaces that support human judgment vs.\ interfaces that replace it. Use COMPAS (failure) and MGH stroke parallel reading (success) as the anchor pair.
+
+\begin{table}[htbp]
+\caption{COMPAS vs.\ MGH stroke parallel reading: interface contrast}
+\label{tab:contrast-ch06}
+\centering
+\begin{tabular}{@{}p{3cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{COMPAS} & \textbf{MGH Parallel Reading} \\
+\midrule
+Sequence & Score shown before/during judgment & Human reads first, AI second \\
+Explanation & None (proprietary) & Plain-language rationale \\
+Independent judgment preserved? & No & Yes \\
+Override mechanism & Informal/cultural & Structured \\
+Outcome & Racial bias amplified, reasoning outsourced & Improved sensitivity, radiologist ownership maintained \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The XAI Reality Check}
+
+Students often arrive with an idealized view of explainability. Chapter~6 challenges this with three counter-examples:
+
+\begin{enumerate}
+    \item \textbf{COMPAS:} No explanation provided; the score was treated as a fact
+    \item \textbf{Zebra confidence bar:} Explanation provided but systematically misinterpreted
+    \item \textbf{LIME stability problem:} Explanations can vary between runs for identical inputs
+\end{enumerate}
+
+\begin{cautionbox}[Key Insight]
+A technically correct explanation is not necessarily a useful one. Explanation design is interface design, and explanations that are not comprehensible, actionable, and correctly interpreted provide no safety benefit --- and can actively cause harm.
+\end{cautionbox}
+
+\subsection{Cognitive Load Vocabulary}
+
+Introduce these terms early and return to them throughout:
+
+\begin{table}[htbp]
+\caption{Cognitive load types: definitions and interface implications}
+\label{tab:cognitive-load-ch06}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{4.5cm}p{4cm}@{}}
+\toprule
+\textbf{Load Type} & \textbf{Definition} & \textbf{Interface Implication} \\
+\midrule
+Intrinsic & Difficulty of the decision task itself & Cannot be reduced by interface; it is the work \\
+Extraneous & Cognitive overhead from interface mechanics & Every unnecessary click is extraneous load \\
+Germane & Effort available for genuine judgment & Germane load = total capacity $-$ extraneous load \\
+Annotation fatigue & Quality degradation over long sessions & Session length limits, breaks, rotation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[The Click Budget]
+The practical punchline: every unnecessary click is a withdrawal from the germane load budget. Interface redesign that saves 9 seconds of mechanical overhead per item frees 60 minutes of judgment time in a 400-item review session. That is not UX polish; that is cognitive capacity reallocation.
+\end{keyconcept}
+
+\subsection{The Four Judgment-Support Principles}
+
+\begin{enumerate}
+    \item \textbf{Separate the AI's job from the human's job} --- the interface should make clear what the AI decided and what the human must decide
+    \item \textbf{Present uncertainty as information, not failure} --- confidence ranges should be visible and meaningful
+    \item \textbf{Preserve independent judgment} --- the human must form a view before seeing the AI's recommendation
+    \item \textbf{Make disagreement easy} --- if agreeing with the AI is 1 click and disagreeing is 5 clicks, that asymmetry is a design choice that shapes outcomes
+\end{enumerate}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening Hook: The Judge and the Number (5 minutes)}
+
+Ask students: ``If a judge receives a recidivism risk score in a pre-sentencing report, should they use it?'' Take a quick vote before revealing the COMPAS story. Reveal ProPublica's findings. Key reveal: the problem was not only the algorithm --- it was the interface that presented the score without explanation or uncertainty bounds.
+
+\subsubsection{Part 1: The Presentation Effect (12 minutes)}
+
+\textbf{Core claim:} Same AI, different interfaces, dramatically different human performance.
+
+Present the three CheXNet interface conditions:
+\begin{enumerate}
+    \item Probability score alone $\to$ pneumonia accuracy up, other findings down
+    \item Highlighted region $\to$ better independent judgment, catches AI errors
+    \item Both $\to$ best outcomes when human reads first
+\end{enumerate}
+
+\begin{trythis}
+\textbf{Discussion prompt:} ``Which condition would you want your radiologist to use? Why?'' Take a vote. Then introduce the Vanderbilt mammography finding: AI assistance caused radiologists to miss cancers they had caught without AI. Let this land before continuing.
+\end{trythis}
+
+\subsubsection{Part 2: The Click Budget (10 minutes)}
+
+Walk through the content moderation example:
+\begin{itemize}
+    \item 400 reviews per day, 47 seconds each
+    \item Significant fraction is interface mechanics, not judgment
+    \item Quality degrades measurably across the session
+\end{itemize}
+
+Show the Appen annotation redesign result: 0.74 $\to$ 0.83 kappa from interface changes alone. Ask: ``What changed? The annotators were the same people, looking at the same content.''
+
+\subsubsection{Part 3: XAI Reality Check (10 minutes)}
+
+Walk through the four XAI approaches with their limitations:
+
+\begin{table}[htbp]
+\caption{XAI methods: properties and human utility}
+\label{tab:xai-ch06}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{4cm}p{4.5cm}@{}}
+\toprule
+\textbf{Method} & \textbf{Strength} & \textbf{Limitation} \\
+\midrule
+LIME & Intuitive local explanation & Unstable across runs for identical inputs \\
+SHAP & More stable, consistent values & Requires data literacy to interpret correctly \\
+Grad-CAM & Visual; useful in imaging & Can mislead (Zebra bar); implementation-dependent \\
+Plain-language rationale & Best human utility in studies & Requires engineering to generate faithfully \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Provocative question:} ``What does it mean that showing a SHAP plot to a non-expert loan officer produces \emph{negative} explanation utility?''
+
+\subsubsection{Part 4: Four Judgment-Support Principles (8 minutes)}
+
+Introduce the four properties. Emphasize the disagree-facilitation point: if agreeing with the AI is 1 click and disagreeing is 5 clicks, that asymmetry is a design choice that shapes outcomes.
+
+\subsubsection{Wrap-Up (5 minutes)}
+
+Return to the JAMA Network Open study: same AI model, five hospitals, different interfaces, one hospital got \emph{worse} accuracy.
+
+\textbf{Closing claim:} ``Interface design is a safety issue, not a cosmetic afterthought.''
+
+\begin{table}[htbp]
+\caption{50-minute lesson plan for Chapter~6}
+\label{tab:lesson-plan-ch06}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{4cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:05 & Opening hook: COMPAS story + vote & Score display mockup \\
+0:05--0:17 & CheXNet three conditions + automation bias intro & Interface comparison slides \\
+0:17--0:27 & Click budget, Appen result, cognitive load & Cognitive load diagram \\
+0:27--0:37 & XAI reality check: LIME/SHAP/Grad-CAM & Human utility table \\
+0:37--0:45 & Four judgment-support principles + JAMA study & Design principles slide \\
+0:45--0:50 & Wrap-up, assign Try This & Chapter handout \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Interface Audit Activity (15 min).} Students open a tool they use regularly that incorporates recommendations and audit it against the four judgment-support principles.
+
+\paragraph{Add: Automation Bias Demonstration (10 min).} Students complete Activity~1 (AI-first vs.\ human-first) and compute their own automation bias coefficient.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{COMPAS basics:} ``What information would a judge need to evaluate whether a COMPAS risk score is reliable? What would a good interface for this tool look like?''\\
+    \textit{Target: Feature transparency, uncertainty bounds, base rate context, model validation data for this demographic, documented failure modes. Good interface: score as range, not point; plain-language accuracy statement; structured acknowledgment; one-click weight documentation.}
+
+    \item \textbf{Automation bias recognition:} ``The Vanderbilt study found AI assistance caused radiologists to miss cancers they caught without AI. How is this possible? What does it tell you about how the AI's recommendations were displayed?''\\
+    \textit{Target: Anchoring mechanism --- AI recommendation functions as cognitive anchor; radiologist adjusts from anchor rather than reasoning from first principles. If AI says ``low malignancy,'' confirming evidence is processed more thoroughly than disconfirming evidence.}
+
+    \item \textbf{Click economics:} ``A content moderator reviews 400 posts per day. The current interface takes 14 seconds of mechanical overhead per post. A redesigned interface reduces this to 5 seconds. What is the effect on daily judgment capacity?''\\
+    \textit{Target: Time saved = $400 \times 9 = 3,600$ seconds = 60 minutes; or judgment time per post increases from 33 to 42 seconds (+27\%); or throughput increases by 35\%. Yes, it matters: calibration-adjusted for fatigue model, quality also improves.}
+
+    \item \textbf{XAI intuition:} ``A bank uses a loan approval AI. The interface shows applicants their SHAP score breakdown. What would an applicant need to understand to act on this information? What barriers exist?''\\
+    \textit{Target: Applicant needs to understand: what features are, why they matter, what direction of each feature is favorable, what ``SHAP value'' means quantitatively. Barriers: data literacy, feature names may be jargon, directional interpretation requires knowing the model's sign conventions.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Sequence design:} ``Design the ideal information sequencing for an AI-assisted medical diagnosis tool. At what point does the clinician see the AI's recommendation? At what point the explanation? Defend your sequencing.''\\
+    \textit{Target: Human assessment recorded first; then AI recommendation shown; then explanation. This sequence prevents anchoring on the AI's diagnosis, preserves independent clinical reasoning, and makes the AI a second opinion rather than a prior assessment.}
+
+    \item \textbf{Five-dimension COMPAS analysis:} ``Apply the five-dimension framework to the COMPAS sentencing tool. Identify the weakest dimension. Propose a specific interface change to strengthen it.''\\
+    \textit{Target: Uncertainty Detection (1/5), Intervention Design (1/5), Feedback Integration (1/5) are all weakest. Highest-impact fix: Uncertainty Detection --- replace ``Risk Score: 7'' with a range + accuracy statement for this demographic/offense type.}
+
+    \item \textbf{Annotation interface design:} ``You are designing an annotation interface for classifying satellite images as `safe' or `unsafe' for drone operations. Apply the chapter's principles. What information appears on screen, in what order, what cognitive task are you asking the annotator to perform?''\\
+    \textit{Target: Show the satellite image without AI classification first; ask annotator to record initial judgment; then show AI classification and confidence range; structured override/agree mechanism; break recommended every 50 items.}
+
+    \item \textbf{XAI limits:} ``A civil rights organization argues that SHAP explanations don't actually make a recidivism system fair. Construct the strongest version of this argument. Then construct the strongest rebuttal.''\\
+    \textit{Target: Strongest critique: SHAP correctly explains a model's reasoning, but if the model's reasoning is based on features correlated with protected characteristics, explaining that reasoning accurately does not make it just. Strongest rebuttal: SHAP makes visible what features drive decisions, enabling auditors to identify and remove biased features.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Formal automation bias:} ``Using the anchor-adjustment model from Appendix~6A, model the effect of a 4-hour annotation session on effective judgment quality. At what session length does quality drop below an acceptable threshold? How does reducing interface mechanics from 14 to 5 seconds per item change this calculation?''
+
+    \item \textbf{Explanation utility measurement:} ``Propose an experimental design to measure the Human Utility of a Grad-CAM explanation in a dermatology AI. What are your control conditions? How do you handle Grad-CAM instability?''
+
+    \item \textbf{Safety case analysis:} ``The JAMA Network Open study found one hospital's diagnostic accuracy declined after AI deployment. Write a technical post-mortem. What interface design decisions likely caused the decline? What metrics should the hospital have been monitoring?''
+
+    \item \textbf{COMPAS redesign:} ``Redesign the COMPAS sentencing interface from scratch. Your design must: (a) communicate model uncertainty; (b) preserve judicial independence; (c) provide a judge-actionable explanation; (d) make disagreement easy to record. Sketch and justify every design decision.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: AI-First vs.\ Human-First (25 minutes)}
+
+\textbf{Setup:} Students work in pairs. Each pair receives 10 ambiguous classification tasks (satellite land-cover images, blurry text snippets, or ambiguous audio transcript excerpts).
+
+\textbf{Condition A (half the class):} Students classify independently first. Then they see the AI's classification and confidence. They may revise. Record both judgments.
+
+\textbf{Condition B (other half):} Students see the AI's classification and confidence first. Then they classify. Record the judgment.
+
+\textbf{Analysis:} Compare agreement rates between initial and final judgment in each condition. Is the revision rate higher in Condition~A or B? What is the direction of revisions?
+
+\paragraph{Computing automation bias coefficient $\alpha$:}
+\[
+\alpha = \frac{|\text{Final judgment} - \text{AI recommendation}|}{|\text{Independent judgment} - \text{AI recommendation}|}
+\]
+Values near 0: followed AI completely. Values near 1: maintained independent judgment. Expect $\alpha \approx 0.3$--$0.5$ in Condition~B, $\alpha \approx 0.7$--$0.9$ in Condition~A.
+
+\textbf{Debrief:} Both groups had equal intelligence and equal access to the images. The variable was information sequencing, not capability. This is a direct demonstration of automation bias.
+
+\subsection{Activity 2: Interface Audit (20 minutes)}
+
+\textbf{Task:} Students audit a real interface against the four judgment-support principles.
+
+\begin{table}[htbp]
+\caption{Interface audit worksheet}
+\label{tab:interface-audit-ch06}
+\centering
+\begin{tabular}{@{}p{4cm}p{2cm}p{4cm}p{2.5cm}@{}}
+\toprule
+\textbf{Principle} & \textbf{Rating (1--5)} & \textbf{Evidence} & \textbf{Proposed Fix} \\
+\midrule
+AI's job / human's job separated & & & \\[8pt]
+Uncertainty as information & & & \\[8pt]
+Independent judgment preserved & & & \\[8pt]
+Disagreement made easy & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Deliverable:} One-page audit report with a mockup of the proposed fix for the weakest dimension.
+
+\subsection{Activity 3: XAI Comprehension Test (15 minutes)}
+
+\textbf{Setup:} Show students three explanations for the same AI decision:
+\begin{enumerate}
+    \item A probability score (``87\% likely to be X'')
+    \item A SHAP feature importance bar chart
+    \item A plain-language rationale (``The model rated this high due to high word-count variance and three negation markers in the first sentence'')
+\end{enumerate}
+
+\textbf{Task:} For each explanation format:
+\begin{enumerate}
+    \item Can you tell what the AI was paying attention to?
+    \item Can you tell where the AI might be wrong?
+    \item Can you act on this explanation to verify the AI's reasoning?
+\end{enumerate}
+
+\textbf{Debrief:} Plain-language rationale typically scores highest on questions 1 and 3. SHAP scores highest on question 2 if students have data literacy, lowest if they do not. Explanation utility is context-dependent and user-dependent.
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``Explainability Solves the Problem''}
+
+\paragraph{Student thinking:} ``If you just show people why the AI made a decision, the bias problem is solved.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Multiple chapter cases document explanations that were provided but misinterpreted (Zebra bar), unstable (LIME), or produced negative human utility (SHAP to non-experts)
+    \item Explanation design is a distinct problem from model interpretability
+    \item A technically correct explanation is not necessarily a useful one
+    \item The goal is explanation utility for the specific human reviewer, not explanation completeness
+\end{itemize}
+
+\subsection{Misconception 2: ``More Information Is Always Better''}
+
+\paragraph{Student thinking:} ``You should show the human everything the AI knows.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Working memory is finite (Miller's Law: $7 \pm 2$ chunks)
+    \item Flooding the interface with feature contributions, uncertainty bounds, alternative hypotheses, and audit trails increases extraneous cognitive load and reduces judgment quality
+    \item The goal is the right information, not all information
+    \item The click budget argument: every additional piece of information is a cognitive cost
+\end{itemize}
+
+\subsection{Misconception 3: ``If AI Made the Radiologist Worse, AI Is Bad for Radiology''}
+
+\paragraph{Student thinking:} ``If AI assistance can decrease diagnostic accuracy, we should not use it.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The five-departments study showed 3/5 implementations improved accuracy
+    \item The variable was interface design, not AI presence
+    \item The correct conclusion: bad interface design can make AI harmful; interface design therefore deserves serious investment
+    \item AI in radiology with good interface design is beneficial; AI with bad interface design is harmful; the difference is the interface
+\end{itemize}
+
+\subsection{Misconception 4: ``Automation Bias Affects Only Lazy or Low-Intelligence Users''}
+
+\paragraph{Student thinking:} ``Smart, careful people won't fall for automation bias.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Automation bias has been documented among trained pilots, experienced radiologists, air traffic controllers, military operators
+    \item It is a cognitive architecture response to authoritative-seeming recommendations, not a character flaw
+    \item Research shows that expertise reduces but does not eliminate automation bias
+    \item The anchor-adjustment model applies to all humans: we adjust from anchors; the question is only how much
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Interface Critique Paper (800 words)}
+
+\textbf{Prompt:} ``Choose a real AI-assisted decision support tool (medical, legal, or content moderation). Analyze its interface using the four judgment-support principles and the five-dimension framework. Identify the highest-risk design failure. Propose a specific redesign.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Framework accuracy (30\%):} Correct application of both the four principles and five-dimension framework
+    \item \textbf{Evidence-based diagnosis (25\%):} Specific evidence for each rating; highest-risk failure identified with justification
+    \item \textbf{Quality of redesign proposal (25\%):} Specific, implementable, addresses the identified failure mode
+    \item \textbf{Writing clarity (20\%):} Clear, structured argument
+\end{itemize}
+
+\subsection{Option 2: Interface Redesign Project}
+
+\textbf{Deliverables:} Annotated wireframe; decision rationale document; cognitive load analysis; expected change in kappa for annotation tasks (if applicable).
+
+\textbf{Assessment criteria:} Adherence to four judgment-support principles; cognitive load accounting; explainability design; disagree-facilitation mechanism; feedback integration path.
+
+\subsection{Option 3: Research Summary}
+
+\textbf{Prompt:} ``Read and summarize two empirical studies on automation bias or XAI explanation utility. For each: identify what interface variable was manipulated, what outcome was measured, and what the finding implies for HITL design practice.''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~1:} The five-dimension framework; Netflix (low-stakes, graceful ask) vs.\ Nest (silent action) are interface design choices
+    \item \textbf{Chapter~5:} Uncertainty detection and calibration --- Chapter~6 addresses how calibrated uncertainty gets displayed to human reviewers
+    \item \textbf{Chapter~4:} Stakes calibration --- visual weight of recommendations should reflect stakes; the HITL band determines which cases reach the interface
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~7:} Annotation quality --- Chapter~6 shows how interface affects annotator performance; Chapter~7 develops the measurement framework (kappa, agreement metrics)
+    \item \textbf{Chapter~8:} Full HITL pipeline --- interface is the human-facing surface; logging disagreements enables retraining
+    \item \textbf{Chapter~9:} Tool landscape --- Label Studio, Argilla, and similar tools differ in interface quality; Chapter~6 provides evaluation criteria
+\end{itemize}
+
+\subsection{Cross-Curricular Connections}
+\begin{itemize}
+    \item \textbf{Cognitive psychology:} Dual-process theory (System~1/System~2); anchoring and adjustment heuristic; cognitive load theory
+    \item \textbf{HCI:} Information visualization; progressive disclosure; interface friction as intentional design
+    \item \textbf{Medical informatics:} Clinical decision support design; alert fatigue; AI-assisted diagnostics
+    \item \textbf{Law/policy:} Algorithmic accountability; right to explanation; COMPAS and the limits of proprietary explanations
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This teacher's manual provides everything needed to teach Chapter~6 on HITL interface design. The central argument --- that interface design is a safety issue, not a cosmetic afterthought --- connects the technical HITL design chapters to the human performance research that gives them their stakes.}
+
+\medskip
+\noindent\textit{Next: Chapter~7 addresses the measurement of human contributions to AI systems --- how to obtain high-quality labels from people, and how to know when you have.}

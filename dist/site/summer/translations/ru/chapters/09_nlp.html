@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>HITL в обработке естественного языка &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ru/chapters/09_nlp';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ru/chapters/09_nlp.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>HITL в обработке естественного языка</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp">Конститутивная проблема в аннотировании NLP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Аннотирование текстовой классификации</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Распознавание именованных сущностей</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Извлечение отношений и семантическое аннотирование</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mtpe">Постредактирование машинного перевода (MTPE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Диалоговый ИИ и аннотирование диалогов</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Программная разметка и слабый надзор</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf">RLHF для языковых моделей: реальность аннотирования</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Цикл обратной связи аннотирование–модель</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Оценка генеративных моделей NLP</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hitl">
+<h1>HITL в обработке естественного языка<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h1>
+<p>Естественный язык — область, где HITL ML оказало, пожалуй, наибольшее влияние, и где обнажаются его наиболее глубокие концептуальные трудности. Язык по своей природе социален: его смысл конструируется человеческими сообществами, его прагматика зависит от контекста и намерений, а его качество может оцениваться только читателями-людьми. Но это также означает, что аннотирование в NLP — это не просто процесс сбора наблюдений. Это процесс <em>конструирования</em> категорий.</p>
+<hr class="docutils" />
+<section id="nlp">
+<h2>Конститутивная проблема в аннотировании NLP<a class="headerlink" href="#nlp" title="Permalink to this heading">#</a></h2>
+<p>В медицинской визуализации существует истина: опухоль есть или её нет. Метка радиолога может быть неопределённой, но она стремится фиксировать нечто реальное. Аннотирование NLP нередко принципиально иное. Когда аннотатор помечает твит как «токсичный», в твите нет молекулы токсичности, которую мы пытаемся обнаружить. <strong>Метка конституирует категорию.</strong></p>
+<p>Это имеет глубокие последствия, которые часто недооцениваются:</p>
+<p><strong>Аннотаторы определяют само явление.</strong> Схема меток для «оскорбительной речи» кодирует чувствительность тех, кто её разработал, и тех, кто её применял. Команда англоязычных аннотаторов из единой демографической группы, работающих по инструкциям, написанным командой корпоративной политики, создаёт датасет, отражающий понимание оскорбления этой командой — а не некий универсальный человеческий стандарт. Модели, обученные на таких данных, будут демонстрировать те же имплицитные границы.</p>
+<p><strong>Инструкции — это теория, осознают они это или нет.</strong> Каждая схема аннотирования делает онтологические утверждения. Решение считать «иронию» и «сарказм» одним классом — это теоретическое утверждение, а не нейтральное удобство. Решение помечать «гнев» как единый класс, не различая «праведный гнев» и «враждебный гнев», сворачивает различие, которое может быть важным для последующей задачи. Эти решения принимаются под производственным давлением и редко пересматриваются.</p>
+<p><strong>Нестабильность меток во времени.</strong> Социальный язык эволюционирует. Модель токсичности, обученная в 2018 году, будет неверно классифицировать контент 2024 года не потому, что статистически недообучена, а потому что социальный смысл определённых терминов изменился. Аннотирование NLP — это не выборка из статичного распределения, а выборка из движущейся цели, которую акт разметки частично помогает конституировать.</p>
+<div class="important admonition">
+<p class="admonition-title">Проблема артефактов аннотирования</p>
+<p>Гева и др. <a href="#id1"><span class="problematic" id="id2">geva2019annotator</span></a> продемонстрировали, что датасеты NLI (вывода в естественном языке) содержат систематические артефакты, введённые самим процессом аннотирования. Аннотаторы, которых просят написать гипотезы «импликации» для данной предпосылки, склонны использовать определённые синтаксические паттерны; аннотаторы, пишущие гипотезы «противоречия» — другие. Модели учатся классифицировать на основе этих артефактов, а не предполагаемых семантических отношений — они решают задачу аннотирования, а не лежащую в основе задачу NLP.</p>
+<p>Это не небрежность. Это неизбежное следствие того, что люди конструируют примеры под метки. Процесс HITL вносит систематический сигнал, который никогда не предназначался попасть в данные.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>Аннотирование текстовой классификации<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>Простейшая задача аннотирования NLP — присвоение категории текстовому документу. Анализ тональности, тематическая классификация, обнаружение намерений и фильтрация спама — всё это задачи классификации.</p>
+<p><strong>Специфические проблемы текстовой классификации:</strong></p>
+<p><em>Субъективность.</em> Категории вроде «токсичного» или «оскорбительного» по своей природе субъективны и варьируются в зависимости от культурного контекста, демографии аннотаторов и платформного контекста. Восприятие оскорбительности у разных аннотаторов значительно различается в зависимости от демографии — факт с прямыми последствиями для справедливости <a href="#id4"><span class="problematic" id="id5">blodgett2020language</span></a>.</p>
+<p><em>Неоднозначность меток.</em> Многие документы принадлежат нескольким категориям или находятся на границе. Отзыв, на 60% позитивный и на 40% негативный, является по-настоящему неоднозначным, а не неверно размеченным. Принудительная одна метка отбрасывает реальную информацию (см. главу 13 о мягких метках и несогласии аннотаторов).</p>
+<p><em>Гранулярность меток.</em> Двухклассовая модель тональности может быть достаточной для мониторинга социальных сетей; для анализа обратной связи о продукте может понадобиться 7-балльная шкала. Правильная гранулярность зависит от последующей задачи, но обычно фиксируется до аннотирования — это существенное проектное решение, принимаемое с недостаточными данными.</p>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>Распознавание именованных сущностей<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>Аннотирование NER требует выявления участков текста и присвоения типа сущности (PERSON, ORGANIZATION, LOCATION и т. д.). Аннотирование сложнее, чем классификация документов, по нескольким причинам:</p>
+<p><strong>Границы промежутков неоднозначны.</strong> В «Apple CEO Tim Cook объявил…», какую сущность PERSON охватывать — «Tim Cook» или «Apple CEO Tim Cook»? Инструкции должны явно рассматривать такие случаи, и межаннотаторское согласие по промежуткам неизменно ниже, чем по типам.</p>
+<p><strong>Присвоение типов требует знаний предметной области.</strong> «Apple» — ORG в одном контексте, PRODUCT в другом, и ни то, ни другое в «яблочном пироге». Аннотаторам нужны достаточные знания предметной области для правильного присвоения типов.</p>
+<p><strong>Вложенные сущности.</strong> «Калифорнийский университет в Беркли» содержит ORGANIZATION, вложенную в LOCATION. Стандартное BIO-тегирование не может представлять вложенные сущности; требуются более сложные схемы (например, BIOES или форматы на основе графов).</p>
+<p><strong>Эффективность аннотирования.</strong> Предварительное аннотирование с помощью базовой модели NER значительно ускоряет аннотирование, позволяя аннотаторам исправлять предсказания, а не аннотировать с нуля. В одном исследовании клинического NER наблюдался прирост пропускной способности на 30–60% <a href="#id7"><span class="problematic" id="id8">lingren2014evaluating</span></a>; масштаб таких выгод во многом зависит от качества базовой модели и области применения.</p>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>Извлечение отношений и семантическое аннотирование<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>Помимо идентификации сущностей, извлечение отношений требует аннотирования <em>взаимосвязей</em> между сущностями:</p>
+<ul class="simple">
+<li><p>Аннотаторы должны понимать как сущности, так и предикат, соединяющий их</p></li>
+<li><p>Типы отношений имеют сложные семантические различия (WORKS_AT vs. EMPLOYED_BY vs. FOUNDED)</p></li>
+<li><p>Отрицательные примеры (пары сущностей без отношения) значительно более распространены, чем положительные</p></li>
+</ul>
+<p><strong>Межаннотаторское согласие при извлечении отношений</strong> ниже, чем при задачах классификации. Для хорошо определённых схем значения <span class="math notranslate nohighlight">\(\kappa\)</span> в диапазоне 0,65–0,80 широко сообщаются <a href="#id10"><span class="problematic" id="id11">pustejovsky2012natural</span></a>; для сложных семантических отношений (событийная причинность, временные отношения) согласие может значительно снизиться в зависимости от схемы и подготовки аннотаторов.</p>
+</section>
+<hr class="docutils" />
+<section id="mtpe">
+<h2>Постредактирование машинного перевода (MTPE)<a class="headerlink" href="#mtpe" title="Permalink to this heading">#</a></h2>
+<p>Постредактирование машинного перевода — зрелая форма HITL NLP. Переводчик-человек исправляет выход системы МП, а не переводит с нуля:</p>
+<p><strong>Лёгкое постредактирование (LPE):</strong> Исправляются только критические ошибки. Подходит, когда требования к качеству перевода умеренные.</p>
+<p><strong>Полное постредактирование (FPE):</strong> Выход доводится до публикационного качества. Отредактированный выход, как правило, становится обучающими данными для дальнейшего улучшения МП — подлинный цикл HITL-совершенствования.</p>
+<p><strong>HTER (Human-targeted Translation Edit Rate):</strong> Метрика, измеряющая расстояние редактирования между выходом МП и постотредактированным переводом, нормализованное по длине предложения <a href="#id12"><span class="problematic" id="id13">graham2015accurate</span></a>. Как приблизительное практическое правило, HTER ниже ~0,3 часто считается хорошим выходом МП; выше 0,5 перевод с нуля может быть быстрее — хотя эти пороги варьируются в зависимости от области и языковой пары.</p>
+</section>
+<hr class="docutils" />
+<section id="id14">
+<h2>Диалоговый ИИ и аннотирование диалогов<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
+<p>Аннотирование диалогов вводит временну́ю структуру:</p>
+<ul class="simple">
+<li><p><strong>Аннотирование на уровне хода:</strong> разметка каждого хода (намерение, тональность, качество)</p></li>
+<li><p><strong>Аннотирование на уровне диалога:</strong> оценка общей связности, успеха задачи, удовлетворённости пользователя</p></li>
+<li><p><strong>Аннотирование трассы взаимодействия:</strong> выявление конкретных моментов сбоя в разговоре</p></li>
+</ul>
+<p>HITL особенно важен в диалоге, поскольку сбои модели часто тонкие и накопительные: фактическая ошибка в ходе 3 может не стать очевидной до хода 7. Аннотаторы-люди, прослеживающие разговоры, способны выявлять такие долгосрочные паттерны сбоев, которые автоматические метрики полностью упускают.</p>
+</section>
+<hr class="docutils" />
+<section id="id15">
+<h2>Программная разметка и слабый надзор<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
+<p>Когда размеченных данных мало, <strong>слабый надзор</strong> позволяет использовать несколько зашумлённых, перекрывающихся функций разметки для генерации вероятностных меток в масштабе. <strong>Snorkel</strong> <a href="#id16"><span class="problematic" id="id17">ratner2017snorkel</span></a> является канонической рамкой:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------------</span>
+<span class="c1"># Toy weak supervision: sentiment classification</span>
+<span class="c1"># 5 labeling functions (LFs) with different coverage/accuracy</span>
+<span class="c1"># Label: +1 (positive), -1 (negative), 0 (abstain)</span>
+<span class="c1"># -------------------------------------------------------</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">true_labels</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="n">X_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
+    <span class="n">true_labels</span> <span class="o">*</span> <span class="mf">0.8</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">rng_lf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="n">rng_lf</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">coverage</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="n">rng_lf</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">accuracy</span>
+    <span class="n">votes</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="n">correct</span><span class="p">]</span>  <span class="o">=</span> <span class="n">true_labels</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="n">correct</span><span class="p">]</span>
+    <span class="n">votes</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">correct</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">true_labels</span><span class="p">[</span><span class="n">active</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">correct</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">votes</span>
+
+<span class="n">LFs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.78</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.70</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">make_lf</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">majority_vote</span><span class="p">(</span><span class="n">LF_matrix</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">LF_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="n">LF_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">LF_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">votes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">votes</span><span class="o">.</span><span class="n">sum</span><span class="p">())))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="n">mv_labels</span> <span class="o">=</span> <span class="n">majority_vote</span><span class="p">(</span><span class="n">LFs</span><span class="p">)</span>
+<span class="n">covered</span> <span class="o">=</span> <span class="n">mv_labels</span> <span class="o">!=</span> <span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coverage:                    </span><span class="si">{</span><span class="n">covered</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MV accuracy (covered):       </span><span class="si">{</span><span class="p">(</span><span class="n">mv_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">true_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X_features</span><span class="p">[</span><span class="n">covered</span><span class="p">],</span> <span class="n">mv_labels</span><span class="p">[</span><span class="n">covered</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X_features</span><span class="p">[</span><span class="o">~</span><span class="n">covered</span><span class="p">],</span> <span class="n">true_labels</span><span class="p">[</span><span class="o">~</span><span class="n">covered</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;F1 on uncovered test set:    </span><span class="si">{</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">preds</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="rlhf">
+<h2>RLHF для языковых моделей: реальность аннотирования<a class="headerlink" href="#rlhf" title="Permalink to this heading">#</a></h2>
+<p>Глава 6 охватила RLHF технически. С точки зрения NLP задача аннотирования сложнее, чем кажется снаружи.</p>
+<p><strong>Что аннотаторов просят делать в действительности</strong> — сравнивать два вывода модели и указывать, какой «лучше», — звучит просто. На практике «лучше» — неопределённый конструкт, который аннотаторы разрешают с помощью личных эвристик. Одни придают большой вес беглости; другие — фактической точности; третьи штрафуют за многословие. Без жёстких инструкций полученный датасет предпочтений отражает не человеческие ценности в абстракции, а конкретные стратегии разрешения применяемой аннотационной рабочей силы.</p>
+<p><strong>Ключевые измерения аннотирования:</strong></p>
+<ul class="simple">
+<li><p><em>Полезность:</em> Хорошо ли ответ отвечает на вопрос? Является ли он информативным, ясным и достаточно подробным?</p></li>
+<li><p><em>Фактологичность:</em> Является ли ответ фактически точным? Это требует от оценщиков экспертных знаний — условие, создающее серьёзные проблемы качества в масштабе, поскольку обобщённые аннотаторы не могут верифицировать специализированные утверждения.</p></li>
+<li><p><em>Безвредность:</em> Избегает ли ответ токсичного, предвзятого, вредоносного или неуместного контента? Эти суждения требуют подробных инструкций, поскольку «вредное» сильно зависит от контекста и варьируется в зависимости от культуры, времени и платформного контекста.</p></li>
+<li><p><em>Калиброванность:</em> Выражает ли ответ адекватную неопределённость? Аннотаторы систематически предпочитают ответы, звучащие уверенно, что создаёт сигнал вознаграждения против уместной эпистемической скромности.</p></li>
+</ul>
+<p>Взаимодействие критериев сложно: максимально полезный ответ на опасный вопрос может быть максимально вредным. Инструкции должны определять, как соотносить конкурирующие критерии, — а эти соотношения являются, по существу, политическими решениями, а не аннотационными. Аннотаторы принимают политические решения.</p>
+<p><strong>Масштаб концентрирует демографическое влияние.</strong> RLHF для больших моделей включает относительно небольшие аннотационные рабочие силы (сотни — тысячи человек), принимающие миллиарды последующих решений. Демографические и культурные предвзятости этой рабочей силы распространяются в поведение модели в масштабе так, как это не происходило бы при более распределённом аннотировании. Это одна из наименее обсуждаемых структурных проблем в текущем конвейере RLHF.</p>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h2>Цикл обратной связи аннотирование–модель<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<p>В NLP больше, чем в любой другой области, процессы аннотирования и разработки моделей со временем переплетаются:</p>
+<ol class="arabic simple">
+<li><p>Аннотаторы калибруются с использованием существующих выходов модели в качестве референса (часто неявно).</p></li>
+<li><p>Модель вознаграждения обучается тому, что аннотаторы склонны предпочитать.</p></li>
+<li><p>Генератор дообучается для производства выходов, получающих высокое вознаграждение.</p></li>
+<li><p>Эти выходы влияют на то, как выглядит «хорошее» в последующих раундах аннотирования.</p></li>
+</ol>
+<p>Этот цикл не является по сути патологическим — он обеспечивает сходимость RLHF, — но он означает, что поведение модели формируется движущейся целью, которую сам процесс аннотирования помогает двигать. Эмпирически трудно различить, что модель научилась отражать человеческие предпочтения и что она научилась сопоставлять паттерны эвристик аннотаторов.</p>
+<p>Чистого решения нет. Лучшая текущая практика — следить за дрейфом с помощью отложенных суждений предпочтения, собранных через регулярные интервалы, и рассматривать версию инструкций по аннотированию как экспериментальную переменную.</p>
+</section>
+<hr class="docutils" />
+<section id="id19">
+<h2>Оценка генеративных моделей NLP<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<p>В отличие от классификационных моделей с чёткой метрикой точности, оценка качества генерации требует человеческого суждения:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Метод оценки</p></th>
+<th class="head"><p>Описание</p></th>
+<th class="head"><p>Стоимость</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Прямая оценка (DA)</p></td>
+<td><p>Аннотаторы оценивают качество по шкале</p></td>
+<td><p>Средняя</p></td>
+</tr>
+<tr class="row-odd"><td><p>Сравнительное суждение</p></td>
+<td><p>Аннотаторы сравнивают два вывода</p></td>
+<td><p>Низкая</p></td>
+</tr>
+<tr class="row-even"><td><p>MQM (многомерная метрика качества)</p></td>
+<td><p>Структурированная таксономия ошибок</p></td>
+<td><p>Высокая</p></td>
+</tr>
+<tr class="row-odd"><td><p>Предпочтение RLHF</p></td>
+<td><p>Метки предпочтений для обучения</p></td>
+<td><p>Средняя</p></td>
+</tr>
+<tr class="row-even"><td><p>LLM как оценщик</p></td>
+<td><p>LLM оценивает выходы (умеренная корреляция с людьми)</p></td>
+<td><p>Очень низкая</p></td>
+</tr>
+<tr class="row-odd"><td><p>BERTScore, BLEU</p></td>
+<td><p>Автоматические метрики (несовершенная корреляция)</p></td>
+<td><p>Очень низкая</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Автоматические метрики (BLEU для МП, ROUGE для суммаризации) дёшевы, но несовершенно коррелируют с человеческими оценками качества <a href="#id20"><span class="problematic" id="id21">reiter2018structured</span></a>. Подходы «LLM как оценщик» показывают умеренное согласие с аннотаторами-людьми <a href="#id22"><span class="problematic" id="id23">zheng2023judging</span></a> и всё шире применяются для быстрых итераций, однако не должны заменять человеческую оценку для окончательных выводов. Для решений с реальными ставками человеческая оценка остаётся необходимой.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Слабый надзор Snorkel: <a href="#id24"><span class="problematic" id="id25">ratner2017snorkel</span></a>. Инструкции по аннотированию NLP: <a href="#id26"><span class="problematic" id="id27">pustejovsky2012natural</span></a>. Артефакты аннотирования в NLI: <a href="#id28"><span class="problematic" id="id29">geva2019annotator</span></a>. Предвзятость аннотаторов и датасеты NLP: <a href="#id30"><span class="problematic" id="id31">blodgett2020language</span></a>. Оценка генеративных моделей: <a href="#id32"><span class="problematic" id="id33">reiter2018structured</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ru/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp">Конститутивная проблема в аннотировании NLP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Аннотирование текстовой классификации</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Распознавание именованных сущностей</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Извлечение отношений и семантическое аннотирование</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mtpe">Постредактирование машинного перевода (MTPE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Диалоговый ИИ и аннотирование диалогов</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Программная разметка и слабый надзор</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf">RLHF для языковых моделей: реальность аннотирования</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Цикл обратной связи аннотирование–модель</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Оценка генеративных моделей NLP</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

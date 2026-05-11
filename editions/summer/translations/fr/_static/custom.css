@@ -1,0 +1,398 @@
+/* ============================================================
+   Human in the Loop ML — Custom Book Styles
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ---- Root Variables ---- */
+:root {
+  --hitl-indigo:     #2b3a8f;
+  --hitl-indigo-light: #4a5cc7;
+  --hitl-coral:      #e05c5c;
+  --hitl-teal:       #0d9e8e;
+  --hitl-gold:       #f0a500;
+  --hitl-bg:         #fafafa;
+  --hitl-text:       #1a1a2e;
+  --hitl-muted:      #6b7280;
+  --hitl-border:     #e5e7eb;
+  --hitl-code-bg:    #1e1e2e;
+}
+
+/* ---- Body & Typography ---- */
+body {
+  font-family: 'Merriweather', Georgia, serif;
+  color: var(--hitl-text);
+  background: var(--hitl-bg);
+  line-height: 1.85;
+  font-size: 1.02rem;
+}
+
+.bd-article p,
+.bd-article li {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
+
+h1, h2, h3, h4, h5, h6,
+.bd-article h1, .bd-article h2,
+.bd-article h3, .bd-article h4 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  color: var(--hitl-indigo);
+  letter-spacing: -0.02em;
+}
+
+.bd-article h1 { font-size: 2.25rem; margin-top: 1rem; border-bottom: 3px solid var(--hitl-coral); padding-bottom: 0.4rem; }
+.bd-article h2 { font-size: 1.6rem;  margin-top: 2.5rem; }
+.bd-article h3 { font-size: 1.25rem; margin-top: 2rem; color: var(--hitl-indigo-light); }
+.bd-article h4 { font-size: 1.05rem; color: var(--hitl-muted); font-weight: 600; }
+
+/* ---- Code ---- */
+pre, code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+  font-size: 0.875rem !important;
+}
+
+/* ── Cell input: flush border, flat bottom when output follows ── */
+div.cell div.cell_input {
+  border: none !important;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+/* When there is NO following output, full rounding */
+div.cell:not(:has(.cell_output)) div.cell_input {
+  border-radius: 8px;
+}
+
+/* Dark theme for code input cells */
+.cell_input .highlight pre,
+.highlight-python pre, .highlight-bash pre, .highlight-text pre,
+.highlight-default pre, .highlight-none pre, .highlight-ipython3 pre {
+  background: var(--hitl-code-bg) !important;
+  color: #f8f8f2 !important;
+  border-radius: 0;
+  padding: 1.2rem 1.4rem;
+  border-left: none;
+  margin: 0 !important;
+}
+
+/* Thin indigo top-left accent on input */
+div.cell div.cell_input::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--hitl-indigo-light) 0%, transparent 100%);
+}
+
+/* Pygments light-theme assigns #080808 (near-black) to names and punctuation —
+   override those tokens to be readable on our dark background */
+.cell_input .highlight,
+.cell_input .highlight .n,
+.cell_input .highlight .p,
+.cell_input .highlight .nb,
+.cell_input .highlight .nf,
+.cell_input .highlight .na,
+.cell_input .highlight .nv,
+.highlight-python .highlight .n,
+.highlight-python .highlight .p,
+.highlight-python .highlight .nb,
+.highlight-python .highlight .nf {
+  color: #cdd6f4 !important;
+}
+
+/* Comments are #515151 in light theme — brighten for dark bg */
+.cell_input .highlight .c,
+.cell_input .highlight .c1,
+.cell_input .highlight .cm,
+.cell_input .highlight .cs,
+.highlight-python .highlight .c,
+.highlight-python .highlight .c1 {
+  color: #7c9e82 !important;
+}
+
+/* Light theme for cell output — attaches flush below input */
+.cell_output {
+  margin-top: 0 !important;
+  padding-left: 0 !important;
+}
+
+.highlight-myst-ansi .highlight pre,
+.highlight-myst-ansi pre,
+.cell_output pre {
+  background: #f0ede6 !important;
+  color: #2c2c2c !important;
+  border-radius: 0 0 8px 8px;
+  padding: 0.85rem 1.4rem;
+  border-left: none;
+  margin: 0 !important;
+}
+
+.cell_output .output.stream,
+.cell_output .output.text_plain {
+  background: #f0ede6 !important;
+  border: none !important;
+  border-radius: 0 0 8px 8px;
+  border-top: 1px solid #d8d3c9 !important;
+}
+
+/* Plain text / diagram blocks: monochrome, no token colors */
+.highlight-text pre,
+.highlight-text .highlight span,
+.highlight-default pre,
+.highlight-default .highlight span,
+.highlight-none pre,
+.highlight-none .highlight span {
+  color: #c8d0e0 !important;
+}
+
+/* Fallback: any remaining .highlight pre not already styled */
+.highlight pre {
+  background: var(--hitl-code-bg) !important;
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  border-left: 4px solid var(--hitl-indigo-light);
+}
+
+code:not(.highlight code) {
+  background: #f0f0f5;
+  color: var(--hitl-coral);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* ---- Navigation ---- */
+.bd-sidebar-primary {
+  background: white;
+  border-right: 1px solid var(--hitl-border);
+}
+
+.bd-sidenav .current > a {
+  color: var(--hitl-indigo) !important;
+  font-weight: 600;
+  border-left: 3px solid var(--hitl-coral);
+  padding-left: 0.5rem;
+}
+
+/* ---- Admonitions (callout boxes) ---- */
+.admonition {
+  border-radius: 8px;
+  border: none;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.admonition.note {
+  background: #eff6ff;
+  border-left: 4px solid var(--hitl-indigo);
+}
+
+.admonition.tip, .admonition.hint {
+  background: #f0fdf4;
+  border-left: 4px solid var(--hitl-teal);
+}
+
+.admonition.warning, .admonition.caution {
+  background: #fffbeb;
+  border-left: 4px solid var(--hitl-gold);
+}
+
+.admonition.important, .admonition.seealso {
+  background: #fff1f2;
+  border-left: 4px solid var(--hitl-coral);
+}
+
+.admonition-title {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 0 0.4rem 0 !important;
+  margin-bottom: 0.35rem !important;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.admonition.note .admonition-title     { color: var(--hitl-indigo) !important; }
+.admonition.tip .admonition-title,
+.admonition.hint .admonition-title     { color: var(--hitl-teal) !important; }
+.admonition.warning .admonition-title,
+.admonition.caution .admonition-title  { color: #b45309 !important; }
+.admonition.important .admonition-title,
+.admonition.seealso .admonition-title  { color: var(--hitl-coral) !important; }
+
+/* ---- Tables ---- */
+.bd-article table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  margin: 1.5rem 0;
+}
+
+.bd-article thead th {
+  background: var(--hitl-indigo);
+  color: white;
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.bd-article tbody tr:nth-child(even) { background: #f5f5fa; }
+.bd-article tbody td { padding: 0.55rem 1rem; border-bottom: 1px solid var(--hitl-border); }
+
+/* ---- Math ---- */
+.math { font-size: 1.05em; }
+
+/* ---- Figures ---- */
+.bd-article figure {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.bd-article figcaption {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: var(--hitl-muted);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* ---- Part/Chapter header splash ---- */
+.bd-article .part-header {
+  background: linear-gradient(135deg, var(--hitl-indigo) 0%, var(--hitl-indigo-light) 100%);
+  color: white;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+/* ---- Proof / theorem boxes ---- */
+.proof, .theorem, .definition, .proposition {
+  border: 1px solid var(--hitl-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: white;
+}
+
+/* ---- Footer ---- */
+footer {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--hitl-muted);
+  border-top: 1px solid var(--hitl-border);
+  margin-top: 3rem;
+  padding-top: 1rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .bd-article h1 { font-size: 1.75rem; }
+  .bd-article h2 { font-size: 1.35rem; }
+}
+
+/* ============================================================
+   Accessibility
+   ============================================================ */
+
+/* Respect user browser font-size preference (never lock to px on html/body) */
+html {
+  font-size: 100%;
+}
+
+/* Keyboard focus indicators */
+:focus-visible {
+  outline: 3px solid var(--hitl-indigo-light);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Skip-to-content link (hidden until focused) */
+.skip-to-content {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--hitl-indigo);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  border-radius: 0 0 6px 0;
+  text-decoration: none;
+}
+.skip-to-content:focus { top: 0; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+  :root {
+    --hitl-indigo:       #1a2570;
+    --hitl-indigo-light: #2b3a8f;
+    --hitl-coral:        #b02020;
+    --hitl-teal:         #076057;
+    --hitl-text:         #000000;
+    --hitl-muted:        #333333;
+    --hitl-border:       #888888;
+    --hitl-bg:           #ffffff;
+  }
+  code:not(.highlight code) {
+    background: #f0f0f0;
+    color: #b02020;
+    outline: 1px solid #b02020;
+  }
+  .admonition {
+    border-left-width: 6px !important;
+    box-shadow: none;
+  }
+  .bd-article thead th {
+    background: #000;
+  }
+}
+
+/* Dark mode (system preference) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hitl-bg:     #12121e;
+    --hitl-text:   #e8e8f0;
+    --hitl-border: #2e2e48;
+    --hitl-muted:  #9ca3af;
+  }
+  body { background: var(--hitl-bg); color: var(--hitl-text); }
+
+  .bd-sidebar-primary { background: #181828; border-color: var(--hitl-border); }
+
+  .admonition.note      { background: #1a2040; }
+  .admonition.tip,
+  .admonition.hint      { background: #0d2420; }
+  .admonition.warning,
+  .admonition.caution   { background: #241c00; }
+  .admonition.important,
+  .admonition.seealso   { background: #2a0f0f; }
+
+  .bd-article table { color: var(--hitl-text); }
+  .bd-article tbody tr:nth-child(even) { background: #1e1e30; }
+  .bd-article tbody td { border-color: var(--hitl-border); }
+
+  code:not(.highlight code) {
+    background: #2a2a40;
+    color: #f28b8b;
+  }
+
+  .proof, .theorem, .definition, .proposition {
+    background: #181828;
+    border-color: var(--hitl-border);
+  }
+}

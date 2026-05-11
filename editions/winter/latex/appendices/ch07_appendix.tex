@@ -1,0 +1,275 @@
+% ============================================================================
+% TECHNICAL APPENDIX 7A: Annotation Metrics, Agreement Statistics, and Label Quality
+% Formal treatment of inter-annotator agreement and annotation pipeline design
+% ============================================================================
+% Source: /markdown/ch7/Ch7A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 7A: Annotation Metrics and Label Quality}
+\addcontentsline{toc}{chapter}{Technical Appendix 7A: Annotation Metrics}
+
+\begin{chapterquote}{Formal foundations for the examples in Chapter 7}
+The annotation challenges described in Chapter~7 can be formalized using agreement statistics, Bayesian aggregation models, and signal detection theory.
+\end{chapterquote}
+
+% ============================================================================
+\section{Cohen's Kappa: Derivation and Properties}
+% ============================================================================
+
+\subsection{Basic Formula}
+
+For two annotators labeling $N$ items into $k$ categories, let $n_{ij}$ be the number of items where annotator~1 assigned category~$i$ and annotator~2 assigned category~$j$.
+
+\[
+P_o = \frac{\sum_i n_{ii}}{N} \quad \text{(observed agreement)}
+\]
+
+\[
+P_e = \sum_i \frac{n_{i\cdot}}{N} \cdot \frac{n_{\cdot i}}{N} \quad \text{(expected chance agreement)}
+\]
+
+\[
+\kappa = \frac{P_o - P_e}{1 - P_e}
+\]
+
+where $n_{i\cdot} = \sum_j n_{ij}$ is the row marginal and $n_{\cdot i} = \sum_j n_{ji}$ is the column marginal.
+
+\subsection{Variance and Confidence Intervals}
+
+\[
+\text{Var}(\kappa) \approx \frac{P_o(1-P_o)}{N(1-P_e)^2}
+\]
+
+Approximate 95\% confidence interval: $\kappa \pm 1.96\sqrt{\text{Var}(\kappa)}$
+
+\begin{cautionbox}
+This variance formula is a simplified approximation that ignores variance from estimating $P_e$ itself, producing confidence intervals that are slightly too narrow---especially when $P_e$ is large or $N$ is small. For publication-quality intervals use the exact formula from \textcite{fleiss1971measuring} or a bootstrap estimate.
+\end{cautionbox}
+
+For reliable kappa estimates, require $N \geq 30$ items per annotator pair.
+
+\subsection{Weighted Kappa for Ordinal Categories}
+
+With linear weights $w_{ij} = 1 - |i-j|/(k-1)$ or quadratic weights $w_{ij} = 1 - [(i-j)/(k-1)]^2$, define weighted observed and expected agreement:
+
+\[
+P_o^w = \sum_{ij} \frac{w_{ij}\, n_{ij}}{N}, \qquad P_e^w = \sum_{ij} w_{ij}\, P_{e,ij},
+\quad P_{e,ij} = \frac{n_{i\cdot}}{N} \cdot \frac{n_{\cdot j}}{N}
+\]
+
+Weighted kappa follows the same structure as unweighted kappa \autocite{cohen1968weighted}:
+
+\[
+\kappa_w = \frac{P_o^w - P_e^w}{1 - P_e^w}
+\]
+
+Quadratic weights are standard for medical rating scales; linear weights for quality assessments.
+
+% ============================================================================
+\section{Fleiss' Kappa: Extension to Multiple Annotators}
+% ============================================================================
+
+For $M$ annotators labeling $N$ items into $k$ categories, let $n_{ij}$ be the number of annotators who assigned item~$i$ to category~$j$:
+
+\[
+\bar{P} = \frac{1}{NM(M-1)} \sum_i \sum_j n_{ij}(n_{ij}-1)
+\qquad
+\bar{P}_e = \sum_j \left(\frac{\sum_i n_{ij}}{NM}\right)^2
+\]
+
+\[
+\kappa_F = \frac{\bar{P} - \bar{P}_e}{1 - \bar{P}_e}
+\]
+
+\begin{table}[htbp]
+\caption{Agreement benchmarks by annotation domain}
+\label{tab:kappa-benchmarks}
+\centering
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Domain} & \textbf{Typical Range} & \textbf{Target} \\
+\midrule
+Binary toxicity (general)      & 0.45--0.65 & $\geq 0.60$ \\
+Medical image (radiology)      & 0.55--0.75 & $\geq 0.75$ \\
+Sentiment analysis (clear)     & 0.70--0.85 & $\geq 0.70$ \\
+Named entity recognition       & 0.80--0.95 & $\geq 0.85$ \\
+Legal document classification  & 0.50--0.70 & $\geq 0.65$ \\
+RLHF instruction quality       & 0.55--0.75 & $\geq 0.65$ \\
+AAVE toxicity (diverse pool)   & 0.40--0.55 & $\geq 0.60$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Annotation as a Bayesian Inference Problem: Dawid-Skene}
+% ============================================================================
+
+\subsection{Generative Model}
+
+The Dawid-Skene model \autocite{dawid1979maximum} treats annotator labels as noisy observations of a true latent label, estimating both true labels and annotator error rates jointly.
+
+For item $i$, annotator $j$, and observed label $y_{ij}$:
+\[
+P(y_{ij} = l \mid z_i = k) = \pi_{jkl}
+\]
+where $z_i$ is the true label for item $i$ and $\pi_{jkl}$ is annotator $j$'s probability of labeling as $l$ when the true label is $k$.
+
+\subsection{EM Algorithm}
+
+\paragraph{E-step.} Compute posterior probability of true label:
+\[
+P(z_i = k \mid \mathbf{y}_i) \propto p_k \prod_j \prod_l \pi_{jkl}^{\mathbf{1}[y_{ij}=l]}
+\]
+
+\paragraph{M-step.} Update annotator error rates and class priors:
+\[
+\hat{\pi}_{jkl} = \frac{\sum_i P(z_i=k) \cdot \mathbf{1}[y_{ij}=l]}{\sum_i P(z_i=k)}
+\qquad
+\hat{p}_k = \frac{1}{N} \sum_i P(z_i = k)
+\]
+
+\begin{lstlisting}[style=python, caption={Dawid-Skene EM (simplified)}]
+def dawid_skene_em(annotations, n_classes, n_iters=50):
+    """
+    annotations: dict {item_id: {annotator_id: label}}
+    Returns: estimated true label posteriors T, annotator conf. matrices pi
+    """
+    N, K = len(annotations), n_classes
+    items = list(annotations.keys())
+    annotators = list(set(a for item in annotations.values() for a in item))
+    M = len(annotators)
+
+    # Initialize T with majority vote
+    T = np.zeros((N, K))
+    for i, item in enumerate(items):
+        for v in annotations[item].values():
+            T[i, v] += 1
+        T[i] /= T[i].sum()
+
+    pi = np.ones((M, K, K)) / K
+
+    for _ in range(n_iters):
+        # M-step: update pi
+        for j, ann in enumerate(annotators):
+            for k in range(K):
+                for l in range(K):
+                    num = sum(T[i,k] for i,item in enumerate(items)
+                              if ann in annotations[item]
+                              and annotations[item][ann] == l)
+                    den = sum(T[i,k] for i,item in enumerate(items)
+                              if ann in annotations[item])
+                    pi[j,k,l] = num / (den + 1e-10)
+
+        prior = T.mean(axis=0)
+
+        # E-step: update T
+        log_T = np.log(prior[np.newaxis,:] + 1e-10) * np.ones((N,K))
+        for i, item in enumerate(items):
+            for j, ann in enumerate(annotators):
+                if ann in annotations[item]:
+                    l = annotations[item][ann]
+                    log_T[i] += np.log(pi[j,:,l] + 1e-10)
+
+        log_T -= log_T.max(axis=1, keepdims=True)
+        T = np.exp(log_T)
+        T /= T.sum(axis=1, keepdims=True)
+
+    return T, pi
+\end{lstlisting}
+
+% ============================================================================
+\section{Framing Effects: Signal Detection Theory Framework}
+% ============================================================================
+
+Model annotation as a signal detection problem. The annotator observes item $x$ with latent ``harmfulness'' signal $s(x) \in \mathbb{R}$, and classifies by comparing to threshold $\theta$:
+
+\[
+\hat{y} = \begin{cases} 1 & s(x) > \theta \\ 0 & s(x) \leq \theta \end{cases}
+\]
+
+The annotation guideline framing shifts $\theta$ for individual annotators:
+\[
+\theta_A = \theta_0 + \Delta_A
+\]
+
+Inter-annotator agreement is a function of the variance in individual thresholds:
+\[
+\kappa \approx 1 - f(\sigma_\theta^2)
+\]
+
+Framing effects that reduce $\sigma_\theta^2$ (by more precisely specifying the threshold) directly increase $\kappa$. The ``reasonable person'' standard reduces idiosyncratic threshold variation at the cost of introducing shared cultural blind spots.
+
+% ============================================================================
+\section{Sample Size Planning for Annotation Projects}
+% ============================================================================
+
+\subsection{Statistical Power for Kappa Estimation}
+
+To estimate kappa with margin of error $e$ at confidence level $\alpha$:
+
+\[
+N \geq \frac{z_{\alpha/2}^2 \cdot P_o(1-P_o)}{e^2 (1-P_e)^2}
+\]
+
+For typical annotation settings ($P_o \approx 0.80$, $P_e \approx 0.50$, $e = 0.05$, $\alpha = 0.05$):
+
+\[
+N \geq \frac{3.84 \times 0.16}{0.0025 \times 0.25} \approx 983 \text{ items}
+\]
+
+\subsection{Redundancy and Quality Trade-off}
+
+Expected kappa improvement from $n_r$ annotators per item with majority-vote aggregation:
+
+\[
+\kappa(n_r) \approx \kappa_1 + (1 - \kappa_1) \cdot \left(1 - e^{-\lambda(n_r - 1)}\right)
+\]
+
+where $\kappa_1$ is single-annotator kappa and $\lambda \approx 0.3$. Increasing redundancy beyond $n_r = 5$ yields diminishing returns; the marginal quality gain from a 6th annotator is typically less than 0.01 kappa.
+
+\begin{technote}[Empirical Constant $\lambda$]
+The value $\lambda \approx 0.3$ is an empirical heuristic derived from annotation studies across multiple NLP and CV tasks; it is not derived from first principles. In practice, $\lambda$ varies by task difficulty and annotator pool. Treat the formula as a planning heuristic, not a precise prediction, and calibrate against pilot annotation data for any specific project.
+\end{technote}
+
+% ============================================================================
+\section{Exercises and Assignments}
+% ============================================================================
+
+\begin{Exercise}[Cohen's Kappa Computation]
+Two annotators classify 100 social media posts:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & Ann.~2: T & Ann.~2: N \\
+\midrule
+Ann.~1: T & 20 & 15 \\
+Ann.~1: N & 10 & 55 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Compute $P_o$, $P_e$, $\kappa$, and a 95\% confidence interval. Interpret using the Landis-Koch scale and recommend whether to proceed with model training.
+\end{Exercise}
+
+\begin{Exercise}[Fleiss' Kappa Properties]
+Three annotators each label 50 documents. Compute Fleiss' kappa and compare to average pairwise Cohen's kappa. Under what conditions do they diverge most significantly? Construct a 3-annotator example where average pairwise kappa is misleadingly optimistic.
+\end{Exercise}
+
+\begin{Exercise}[Dawid-Skene Simulation]
+Simulate annotation data for 100 items with two expert annotators (error rate 5\%) and eight novice annotators (error rate 30\%). Compare accuracy of majority voting vs.\ Dawid-Skene EM vs.\ expert-only majority vote. How much does including novice annotators help or hurt under each method?
+\end{Exercise}
+
+\begin{Exercise}[Framing Effect Experiment]
+Design an experiment to measure framing effects on a toxicity annotation task. Specify: two guideline versions, number of items, number of annotators per condition, statistical tests for kappa difference and positive label rate difference, and expected results based on the signal detection model.
+\end{Exercise}
+
+\begin{Exercise}[Annotation Budget Optimization]
+Budget: \$5,000. Task: binary annotation, minimum 2,000 items. Expert: \$2.00/label, $\kappa_1 = 0.75$. Crowdworkers: \$0.05/label, $\kappa_1 = 0.50$. Design three annotation strategies. For each: estimate expected quality (using the redundancy formula), coverage, and total cost. Which strategy do you recommend, and under what conditions would you choose differently?
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the formal tools for quantifying annotation quality and diagnosing label problems described in Chapter~7. The kappa family of statistics, the Dawid-Skene model, and the signal detection framework together constitute the annotation quality toolkit for applied \hitl system development.}

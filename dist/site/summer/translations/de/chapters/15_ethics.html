@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Fairness, Bias und Ethik &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/de/chapters/15_ethics';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/de/chapters/15_ethics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Fairness, Bias und Ethik</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quellen-von-verzerrungen-in-hitl-systemen">Quellen von Verzerrungen in HITL-Systemen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotator-demografie">Annotator-Demografie</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aufgaben-framing">Aufgaben-Framing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plattformeffekte">Plattformeffekte</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bestatigungs-und-ankerungsverzerrungen">Bestätigungs- und Ankerungsverzerrungen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness-in-hitl-systemen">Fairness in HITL-Systemen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#was-ist-fairness">Was ist Fairness?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness-bewusstes-aktives-lernen">Fairness-bewusstes aktives Lernen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotator-wohlbefinden">Annotator-Wohlbefinden</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#das-ghost-work-problem">Das Ghost-Work-Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ethische-praktiken">Ethische Praktiken</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datenschutz-bei-der-annotation">Datenschutz bei der Annotation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geschutzte-gesundheitsinformationen-phi-und-pii">Geschützte Gesundheitsinformationen (PHI) und PII</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthetische-daten-als-alternative">Synthetische Daten als Alternative</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversariale-annotation-und-datenvergiftung">Adversariale Annotation und Datenvergiftung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#institutionelle-ethik">Institutionelle Ethik</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irb-und-ethikprufung">IRB und Ethikprüfung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datenverwaltung">Datenverwaltung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transparenz-und-verantwortlichkeit">Transparenz und Verantwortlichkeit</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="fairness-bias-und-ethik">
+<h1>Fairness, Bias und Ethik<a class="headerlink" href="#fairness-bias-und-ethik" title="Permalink to this heading">#</a></h1>
+<p>Human-in-the-Loop-Systeme erben sowohl die Fähigkeiten als auch die Einschränkungen der Menschen in ihnen. Annotatoren bringen Wissen, Urteilsvermögen und Kreativität in ihre Arbeit — aber auch Vorurteile, Ermüdung und den sozialen Kontext ihrer Leben. Die Entscheidungen, die wir beim Design von HITL-Systemen treffen — wer annotiert, was gefragt wird, wie Vergütung erfolgt und wie die Arbeit genutzt wird — haben Konsequenzen, die weit über Modellgenauigkeitsmetriken hinausgehen.</p>
+<p>Dieses Kapitel behandelt die ethischen Dimensionen von HITL ML.</p>
+<hr class="docutils" />
+<section id="quellen-von-verzerrungen-in-hitl-systemen">
+<h2>Quellen von Verzerrungen in HITL-Systemen<a class="headerlink" href="#quellen-von-verzerrungen-in-hitl-systemen" title="Permalink to this heading">#</a></h2>
+<section id="annotator-demografie">
+<h3>Annotator-Demografie<a class="headerlink" href="#annotator-demografie" title="Permalink to this heading">#</a></h3>
+<p>Annotation ist kein neutraler Akt. Die Labels, die Annotatoren vergeben, spiegeln ihre Perspektiven, Erfahrungen und kulturellen Kontexte wider. Wenn die Annotationsbelegschaft demografisch homogen ist — wie es oft der Fall ist, wobei Crowdwork jung, männlich und westlich tendiert — kodiert der resultierende Datensatz die Perspektiven dieser Gruppe.</p>
+<p><strong>Belege:</strong> Studien von NLP-Annotationsdatensätzen haben gezeigt, dass demografische Merkmale von Annotatoren ihre Label-Entscheidungen bei subjektiven Aufgaben (Toxizität, Stimmung, Anstößigkeit) vorhersagen. Datensätze, die von überwiegend US-amerikanischen Crowdworkern annotiert wurden, kodieren US-kulturelle Normen, die nicht auf andere Regionen verallgemeinern <a href="#id1"><span class="problematic" id="id2">geva2019annotator</span></a>.</p>
+<p><strong>Konsequenzen:</strong> Auf solchen Daten trainierte Modelle funktionieren gut für Nutzer, die dem Annotatorenpool ähneln, und schlechter — oder auf voreingenommene Weise — für Nutzer, die das nicht tun.</p>
+<p><strong>Milderung:</strong> Bewusste Belegschaftsdiversifizierung; geschichtete Annotation (sicherstellen, dass Annotatoren aus relevanten demografischen Gruppen zu relevanten Aufgaben beitragen); Annotator-Demografie und ihre Auswirkungen auf Label-Verteilungen verfolgen.</p>
+</section>
+<section id="aufgaben-framing">
+<h3>Aufgaben-Framing<a class="headerlink" href="#aufgaben-framing" title="Permalink to this heading">#</a></h3>
+<p>Wie eine Frage gestellt wird, beeinflusst die Antworten, die sie hervorruft. Wenn Annotatoren gefragt werden „Ist dieser Text toxisch?” können sie anders antworten als wenn sie gefragt werden „Würde dieser Text jemandem schaden, der zur erwähnten Gruppe gehört?” Das Framing bettet Annahmen darüber ein, was zählt.</p>
+<p><strong>Beispiel:</strong> Die Annotation von „missbräuchlicher Sprache” in sozialen Medien variiert erheblich je nachdem, ob Annotatoren Kontextinformationen über die Identität des Autors gezeigt werden. Eine Aussage, die isoliert bedrohlich erscheint, kann als rückgeeigente Sprache oder Gruppenhumor erkannt werden, wenn Kontext geliefert wird.</p>
+</section>
+<section id="plattformeffekte">
+<h3>Plattformeffekte<a class="headerlink" href="#plattformeffekte" title="Permalink to this heading">#</a></h3>
+<p>Die Plattform und die Zahlungsstruktur beeinflussen die Annotationsqualität. Arbeiter, die pro Aufgabe statt pro Stunde bezahlt werden, haben einen Anreiz, schnell zu arbeiten; dies erhöht den Durchsatz, vermindert aber die Qualität. Arbeiter, die befürchten, wegen niedriger Genauigkeit von einer Plattform gesperrt zu werden, können vermeiden, „unsicher” zu markieren und stattdessen raten, was echte Ambiguität verdeckt.</p>
+</section>
+<section id="bestatigungs-und-ankerungsverzerrungen">
+<h3>Bestätigungs- und Ankerungsverzerrungen<a class="headerlink" href="#bestatigungs-und-ankerungsverzerrungen" title="Permalink to this heading">#</a></h3>
+<p>Annotatoren werden beeinflusst von:</p>
+<ul class="simple">
+<li><p><strong>Vorannotation:</strong> Modelvorhersagen, die Annotatoren gezeigt werden, werden häufiger akzeptiert als abgelehnt, selbst wenn sie falsch sind</p></li>
+<li><p><strong>Reihenfolgeeffekte:</strong> Dasselbe Element in verschiedenen Kontexten zu kennzeichnen liefert unterschiedliche Antworten</p></li>
+<li><p><strong>Priming:</strong> Vorherige Elemente in einer Aufgabe beeinflussen, wie nachfolgende Elemente annotiert werden</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="fairness-in-hitl-systemen">
+<h2>Fairness in HITL-Systemen<a class="headerlink" href="#fairness-in-hitl-systemen" title="Permalink to this heading">#</a></h2>
+<section id="was-ist-fairness">
+<h3>Was ist Fairness?<a class="headerlink" href="#was-ist-fairness" title="Permalink to this heading">#</a></h3>
+<p>Fairness im maschinellen Lernen ist ein umstrittenes Konzept mit mehreren formalen Definitionen, die oft wechselseitig unvereinbar sind <a href="#id3"><span class="problematic" id="id4">barocas2019fairness</span></a>. Für HITL-Zwecke sind die relevantesten Dimensionen:</p>
+<p><strong>Repräsentation:</strong> Sind die Trainingsdaten repräsentativ für die Populationen, die das Modell beeinflussen wird?</p>
+<p><strong>Leistungsparität:</strong> Funktioniert das Modell gleich gut für verschiedene demografische Gruppen?</p>
+<p><strong>Kennzeichnungskonsistenz:</strong> Werden dieselben Verhaltensweisen unabhängig davon, wer sie ausführt, identisch gekennzeichnet? (Forschung hat gezeigt, dass dies nicht immer der Fall ist — identischer Inhalt wird manchmal unterschiedlich gekennzeichnet, wenn er verschiedenen Rassen- oder Geschlechtergruppen zugeordnet wird.)</p>
+</section>
+<section id="fairness-bewusstes-aktives-lernen">
+<h3>Fairness-bewusstes aktives Lernen<a class="headerlink" href="#fairness-bewusstes-aktives-lernen" title="Permalink to this heading">#</a></h3>
+<p>Standard-Aktive-Lern-Anfragen konzentrieren sich auf Modellunsicherheit, was dazu neigt, sich auf Mehrheitsklassenbeispiele zu konzentrieren. Dies kann Leistungsungleichheiten für Minderheitsgruppen verschlimmern.</p>
+<p><strong>Fairness-bewusste Anfragen­strategien</strong> ergänzen das Unsicherheitskriterium mit Vielfältigkeits- oder Repräsentationseinschränkungen:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left[ \lambda \cdot \text{Unsicherheit}(x) + (1 - \lambda) \cdot \text{Minderheitsgruppen-Bonus}(x) \right]
+\]</div>
+<p>Das Setzen von <span class="math notranslate nohighlight">\(\lambda &lt; 1\)</span> stellt sicher, dass die Anfragestrategie die Minderheitenrepräsentation nicht vollständig ignoriert.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="annotator-wohlbefinden">
+<h2>Annotator-Wohlbefinden<a class="headerlink" href="#annotator-wohlbefinden" title="Permalink to this heading">#</a></h2>
+<section id="das-ghost-work-problem">
+<h3>Das Ghost-Work-Problem<a class="headerlink" href="#das-ghost-work-problem" title="Permalink to this heading">#</a></h3>
+<p>Die Annotationsarbeit, die ML antreibt, ist größtenteils unsichtbar. Datenarbeiter — oft im Globalen Süden — kennzeichnen Bilder, transkribieren Sprache und moderieren Inhalte für niedrige Löhne, ohne Sozialleistungen, in Gig-Economy-Vereinbarungen ohne Arbeitsplatzsicherheit. Crawford und Jolers „Anatomy of an AI System” <a href="#id5"><span class="problematic" id="id6">crawford2018anatomy</span></a> und Gray und Suris „Ghost Work” <a href="#id7"><span class="problematic" id="id8">gray2019ghost</span></a> dokumentierten das Ausmaß und die Prekarität dieser Arbeit.</p>
+<p><strong>Amazon-MTurk-Statistiken:</strong> Eine systematische Analyse der MTurk-Einnahmen aus 2018 fand einen medianen effektiven Stundenlohn von ca. 2 $/Std. — unter dem Mindestlohn in den meisten US-Bundesstaaten und vielen Hocheinkommensländern <a href="#id9"><span class="problematic" id="id10">hara2018data</span></a>. Arbeiter außerhalb von Hocheinkommensländern stehen oft vor zusätzlichen Barrieren: Auftraggeber beschränken häufig hochbezahlte Aufgaben auf nur-US-Qualifikationen, und der Pool von Arbeitern, die für die verbleibenden offenen Aufgaben konkurrieren, ist global, was die effektiven Einnahmen weiter komprimiert.</p>
+<p><strong>Inhaltsmoderation:</strong> Eine besonders schädliche Form der Annotationsarbeit — Überprüfung von grafischen, gewalttätigen und verstörenden Inhalten — wurde mit PTSD, Depression und Angstzuständen bei Arbeitern in Verbindung gebracht <a href="#id11"><span class="problematic" id="id12">newton2019trauma</span></a>. Plattformen wurden wegen unzureichender psychischer Gesundheitsunterstützung und übermäßiger Expositionskontingente kritisiert.</p>
+</section>
+<section id="ethische-praktiken">
+<h3>Ethische Praktiken<a class="headerlink" href="#ethische-praktiken" title="Permalink to this heading">#</a></h3>
+<p><strong>Fairer Lohn:</strong> Annotationsarbeiter mindestens zum lokalen Mindestlohn bezahlen. Forschung hat gezeigt, dass höherer Lohn qualitativ hochwertigere Arbeiter anzieht, ohne die Kosten pro korrektem Label proportional zu erhöhen.</p>
+<p><strong>Sichtbarkeit der Arbeit:</strong> Die Arbeit, die Trainingsdaten erstellt, in Veröffentlichungen und Produktdokumentation anerkennen.</p>
+<p><strong>Psychische Gesundheitsunterstützung:</strong> Für Arbeiter, die schädliche Inhalte überprüfen, psychologische Unterstützung, Rotationspläne und Expositionsgrenzen bereitstellen.</p>
+<p><strong>Arbeiterrepräsentation:</strong> Annotationsarbeitern ermöglichen, Bedenken zu melden, Richtlinienklarstellungen anzufordern und unfaire Qualitätsbewertungen anzufechten.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="datenschutz-bei-der-annotation">
+<h2>Datenschutz bei der Annotation<a class="headerlink" href="#datenschutz-bei-der-annotation" title="Permalink to this heading">#</a></h2>
+<section id="geschutzte-gesundheitsinformationen-phi-und-pii">
+<h3>Geschützte Gesundheitsinformationen (PHI) und PII<a class="headerlink" href="#geschutzte-gesundheitsinformationen-phi-und-pii" title="Permalink to this heading">#</a></h3>
+<p>Annotationsaufgaben umfassen oft sensible personenbezogene Daten. Ein medizinisches Annotationsprojekt kann Arbeitern Patientenakten zugänglich machen; ein NLP-Projekt kann Arbeitern private Kommunikation zugänglich machen; ein Inhaltsmoderierungsprojekt setzt Arbeiter persönlichen Offenbarungen von Nutzern aus.</p>
+<p>Regulatorische Rahmen (HIPAA, DSGVO) schränken ein, wie persönliche Daten mit Annotationsbelegschaften geteilt werden können. Grundprinzipien:</p>
+<ul class="simple">
+<li><p><strong>Datensparsamkeit:</strong> Nur die Information teilen, die Annotatoren für die Aufgabe benötigen</p></li>
+<li><p><strong>De-Identifizierung:</strong> PHI und PII vor der Annotation entfernen, wo möglich</p></li>
+<li><p><strong>Einwilligung:</strong> Wo echte Nutzerdaten annotiert werden, geeignete Einwilligung oder rechtliche Grundlage sicherstellen</p></li>
+<li><p><strong>Zugangskontrolle:</strong> Einschränken, welche Annotatoren auf sensible Daten zugreifen können, basierend auf Rolle und Sicherheitsfreigabe</p></li>
+</ul>
+</section>
+<section id="synthetische-daten-als-alternative">
+<h3>Synthetische Daten als Alternative<a class="headerlink" href="#synthetische-daten-als-alternative" title="Permalink to this heading">#</a></h3>
+<p>Für Aufgaben, bei denen echte Daten Datenschutzrisiken tragen, kann synthetische Datengenerierung annotierungsfertige Datensätze erstellen, ohne sensible Informationen preiszugeben. Für klinisches NLP beispielsweise kann synthetischer EHR-Text realistische Trainingsdaten für De-Identifizierungsmodelle liefern, ohne tatsächliche Patientenakten preiszugeben.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="adversariale-annotation-und-datenvergiftung">
+<h2>Adversariale Annotation und Datenvergiftung<a class="headerlink" href="#adversariale-annotation-und-datenvergiftung" title="Permalink to this heading">#</a></h2>
+<p>HITL-Systeme schaffen eine Angriffsfläche: Wenn ein Angreifer den Annotationsprozess beeinflussen kann, kann er das Verhalten des Modells beeinflussen.</p>
+<p><strong>Datenvergiftung via Annotation:</strong> Ein Angreifer mit Zugang zur Annotationsbelegschaft (z. B. ein kompromittiertes Crowdworker-Konto) kann systematisch falsch annotierte Beispiele einschleusen. Dies ist besonders effektiv in aktiven Lernszenarien, bei denen das Modell bevorzugt unsichere Beispiele abfragt — die das Ziel des Angreifers sein könnten.</p>
+<p><strong>Reward-Hacking via Feedback:</strong> Bei RLHF können Annotatoren (oder KI-generierte Annotationen), die bestimmte Arten von Inhalten konsequent hoch bewerten, das Modell zu diesem Inhalt lenken, unabhängig von seiner wahren Qualität.</p>
+<p><strong>Minderung:</strong> Mehrere unabhängige Annotatoren pro Element; Ausreißererkennung bei Annotationsmustern; Überwachung auf abnormale Übereinstimmung oder Uneinigkeit; Aufrechterhaltung von Evaluierungsmengen, die nicht von der Annotationsbelegschaft beeinflusst werden können.</p>
+</section>
+<hr class="docutils" />
+<section id="institutionelle-ethik">
+<h2>Institutionelle Ethik<a class="headerlink" href="#institutionelle-ethik" title="Permalink to this heading">#</a></h2>
+<section id="irb-und-ethikprufung">
+<h3>IRB und Ethikprüfung<a class="headerlink" href="#irb-und-ethikprufung" title="Permalink to this heading">#</a></h3>
+<p>Forschungsprojekte mit menschlichen Probanden — einschließlich Annotationsarbeiter — erfordern oft Genehmigung des Institutional Review Board (IRB). Annotationsprojekte, die Daten über die Überzeugungen der Arbeiter, Reaktionen auf sensible Inhalte oder demografische Informationen sammeln, sollten unter demselben ethischen Rahmen wie andere Humanforschung überprüft werden.</p>
+</section>
+<section id="datenverwaltung">
+<h3>Datenverwaltung<a class="headerlink" href="#datenverwaltung" title="Permalink to this heading">#</a></h3>
+<p>Organisationen sollten klare Richtlinien haben für:</p>
+<ul class="simple">
+<li><p>Welche Daten für externe Annotation vs. interne Annotation gesendet werden können</p></li>
+<li><p>Wie lange Annotationsdaten gespeichert werden und von wem</p></li>
+<li><p>Wer Zugang zu Annotationen und den darauf trainierten Modellen hat</p></li>
+<li><p>Wie mit Anfragen zur Löschung annotierter Daten umzugehen ist (DSGVO-Recht auf Löschung)</p></li>
+</ul>
+</section>
+<section id="transparenz-und-verantwortlichkeit">
+<h3>Transparenz und Verantwortlichkeit<a class="headerlink" href="#transparenz-und-verantwortlichkeit" title="Permalink to this heading">#</a></h3>
+<p>Von ML-Systemen betroffene Nutzer haben ein berechtigtes Interesse daran zu verstehen, wie diese Systeme aufgebaut wurden. Das Dokumentieren der Annotationsmethodik — wer die Daten annotiert hat, unter welchen Bedingungen, mit welchen Richtlinien — ist eine Form der Verantwortlichkeit, die Nutzern, Regulatoren und dem Feld als Ganzes zugute kommt.</p>
+<p><strong>Datasheets for Datasets</strong> <a href="#id13"><span class="problematic" id="id14">gebru2021datasheets</span></a> bietet eine strukturierte Vorlage zur Dokumentation der Datensatzherkunft, Annotationsverfahren und bekannter Einschränkungen.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Algorithmisches Fairness-Rahmenwerk: <a href="#id15"><span class="problematic" id="id16">barocas2019fairness</span></a>. Ghost Work und Plattformarbeit: Gray &amp; Suri (2019). Datasheets for Datasets: <a href="#id17"><span class="problematic" id="id18">gebru2021datasheets</span></a>. Wohlbefinden von Inhaltsmoderierungsarbeitern: <a href="#id19"><span class="problematic" id="id20">newton2019trauma</span></a>. Annotator-Demografie und NLP-Datensätze: <a href="#id21"><span class="problematic" id="id22">geva2019annotator</span></a>.</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/de/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quellen-von-verzerrungen-in-hitl-systemen">Quellen von Verzerrungen in HITL-Systemen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotator-demografie">Annotator-Demografie</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aufgaben-framing">Aufgaben-Framing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plattformeffekte">Plattformeffekte</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bestatigungs-und-ankerungsverzerrungen">Bestätigungs- und Ankerungsverzerrungen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness-in-hitl-systemen">Fairness in HITL-Systemen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#was-ist-fairness">Was ist Fairness?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness-bewusstes-aktives-lernen">Fairness-bewusstes aktives Lernen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotator-wohlbefinden">Annotator-Wohlbefinden</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#das-ghost-work-problem">Das Ghost-Work-Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ethische-praktiken">Ethische Praktiken</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datenschutz-bei-der-annotation">Datenschutz bei der Annotation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geschutzte-gesundheitsinformationen-phi-und-pii">Geschützte Gesundheitsinformationen (PHI) und PII</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthetische-daten-als-alternative">Synthetische Daten als Alternative</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversariale-annotation-und-datenvergiftung">Adversariale Annotation und Datenvergiftung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#institutionelle-ethik">Institutionelle Ethik</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irb-und-ethikprufung">IRB und Ethikprüfung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datenverwaltung">Datenverwaltung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transparenz-und-verantwortlichkeit">Transparenz und Verantwortlichkeit</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>HITL katika Afya na Sayansi &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/sw/chapters/11_healthcare';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/sw/chapters/11_healthcare.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>HITL katika Afya na Sayansi</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uchambuzi-wa-picha-za-kimatibabu">Uchambuzi wa Picha za Kimatibabu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mahitaji-ya-mweka-maelezo-mtaalamu">Mahitaji ya Mweka Maelezo Mtaalamu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tofauti-kati-ya-madaktari-wa-radiolojia">Tofauti kati ya Madaktari wa Radiolojia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ujifunzaji-tendaji-kwa-hali-adimu">Ujifunzaji Tendaji kwa Hali Adimu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-maelezo-wa-nlp-ya-kliniki">Uwekaji Maelezo wa NLP ya Kliniki</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2-kama-kiolezo">i2b2 / n2c2 kama Kiolezo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mambo-ya-kisheria">Mambo ya Kisheria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-maelezo-wa-data-ya-kisayansi">Uwekaji Maelezo wa Data ya Kisayansi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astronomia-galaxy-zoo">Astronomia: Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genomiki-uainishaji-wa-pathogenicity">Genomiki: Uainishaji wa Pathogenicity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hali-ya-hewa-na-sayansi-ya-ardhi">Hali ya Hewa na Sayansi ya Ardhi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sayansi-ya-neva-connectomics">Sayansi ya Neva: Connectomics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kusimamia-wawekaji-maelezo-wataalamu">Kusimamia Wawekaji Maelezo Wataalamu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mfumo-wa-ujifunzaji-tendaji-wa-hitl-kwa-picha-za-kimatibabu">Mfumo wa Ujifunzaji Tendaji wa HITL kwa Picha za Kimatibabu</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hitl-katika-afya-na-sayansi">
+<h1>HITL katika Afya na Sayansi<a class="headerlink" href="#hitl-katika-afya-na-sayansi" title="Permalink to this heading">#</a></h1>
+<p>Huduma ya afya na sayansi zinawakilisha mawili kati ya maeneo ambapo HITL ML ina matokeo makubwa zaidi na inajadiliwa zaidi. Hatua ni kubwa: utambuzi wa saratani uliokosewa au lengo la dawa lenye kasoro lina gharama ya kweli ya kibinadamu. Uwekaji maelezo unahitaji utaalamu wa nadra na ghali. Mahitaji ya kisheria yanazuia mifano inaweza kufanya nini na jinsi lazima ithhibitishwe. Na tofauti na NLP, ambapo tatizo la uwekaji maelezo ni kwa sehemu la ujenzi wa kijamii, hapa mara nyingi kuna ukweli halisi wa ardhi — uvimbe upo au hauko — hata kama hakuna mwangalifu mmoja anayeweza kuuamua kwa uaminifu.</p>
+<p>Mfumo mkubwa katika chanjo maarufu ni “AI dhidi ya binadamu”: je, AI itabadilisha madaktari wa radiolojia? Mfumo huu ni mbaya kwa njia inayohusika. Swali halisi ni aina gani ya ushirikiano wa binadamu-AI inazalisha matokeo bora kuliko yoyote peke yake, na jinsi ya kujenga mifumo inayowezesha ushirikiano huo badala ya kuutatiza.</p>
+<hr class="docutils" />
+<section id="uchambuzi-wa-picha-za-kimatibabu">
+<h2>Uchambuzi wa Picha za Kimatibabu<a class="headerlink" href="#uchambuzi-wa-picha-za-kimatibabu" title="Permalink to this heading">#</a></h2>
+<p>Kupiga picha za kimatibabu — radiolojia (X-ray, CT, MRI), patholojia (slaidi za tishu), darmatolojia, ofthalmolojia — ni uwanja ambapo AI ya kimatibabu imepiga hatua haraka zaidi.</p>
+<section id="mahitaji-ya-mweka-maelezo-mtaalamu">
+<h3>Mahitaji ya Mweka Maelezo Mtaalamu<a class="headerlink" href="#mahitaji-ya-mweka-maelezo-mtaalamu" title="Permalink to this heading">#</a></h3>
+<p>Uwekaji maelezo wa picha za kimatibabu kawaida unahitaji madaktari wenye mafunzo maalum ya taaluma ndogo. Hii hufanya uwekaji maelezo kuwa:</p>
+<ul class="simple">
+<li><p><strong>Wa polepole:</strong> Wataalamu wana muda mdogo; uwekaji maelezo unashindana na majukumu ya kliniki</p></li>
+<li><p><strong>Ghali:</strong> Gharama zinaanzia makumi hadi mamia ya dola kwa kesi iliyowekewa maelezo, kulingana na taaluma ndogo, hali, na ugumu wa kazi</p></li>
+<li><p><strong>Tofauti:</strong> Hata wataalamu wanakinzana, hasa kwenye hali za mpaka — ukweli ambao mara nyingi unachukuliwa kama tatizo lakini kweli una habari</p></li>
+</ul>
+</section>
+<section id="tofauti-kati-ya-madaktari-wa-radiolojia">
+<h3>Tofauti kati ya Madaktari wa Radiolojia<a class="headerlink" href="#tofauti-kati-ya-madaktari-wa-radiolojia" title="Permalink to this heading">#</a></h3>
+<p>Tofauti ya msomaji imeandikwa vizuri katika radiolojia. Kwa tafsiri ya X-ray ya kifua, kutokubaliana kwa wasomaji ni muhimu — katika utafiti wa CheXNet, madaktari wanne wa radiolojia waliweka lebo kwenye seti sawa ya upimaji wa ugunduzaji wa nimonia na alamu za F1 zinazopana takriban pointi 12 za asilimia <a href="#id1"><span class="problematic" id="id2">rajpurkar2017chexnet</span></a>, zinaakisi wasiwasi wa kweli wa utambuzi kwenye hali za mpaka. Kwa ugunduzaji wa nodulio kwenye CT ya mapafu, tofauti ya ndani ya msomaji (msomaji mmoja, kesi moja, siku tofauti) inaweza kuwa kubwa kama tofauti kati ya wasomaji.</p>
+<p>Tofauti hii si kelele tu — inaakisi wasiwasi wa kweli wa utambuzi. Mifano iliyofunzwa kwenye maelezo ya daktari mmoja wa radiolojia inaweza kujifunza upendeleo maalum wa daktari huyo badala ya patholojia iliyo chini.</p>
+<div class="note admonition">
+<p class="admonition-title">Mgongano wa CheXNet kama Somo la HITL</p>
+<p>Rajpurkar et al. walipodai kwamba mfano wao wa CheXNet “ulizidi utendaji wa daktari wa radiolojia” kwenye ugunduzaji wa nimonia, dai hilo lilipingwa mara moja na jumuiya ya radiolojia <a href="#id3"><span class="problematic" id="id4">yu2022assessing</span></a>. Sehemu ya mgongano ulikuwa kuhusu seti maalum ya upimaji na ulinganisho wa daktari wa radiolojia. Lakini tatizo la kina zaidi lilikuwa la kimbinu: msingi wa “utendaji wa daktari wa radiolojia” uliotumia wasomaji wa peke yao chini ya shinikizo la muda, wakati radiolojia ya kliniki kawaida inahusisha mashauriano, ulinganisho na picha za awali, na ufikiaji wa muktadha wa kliniki — ambayo mfano haukuwa nayo.</p>
+<p>Somo si kwamba mfano ulikuwa mzuri au mbaya, bali kwamba <strong>ulinganisho wa utendaji unahitaji kubainisha mpangilio wa HITL</strong>. Mfano unaozidi daktari wa radiolojia wa peke yake anayesoma baridi unaweza bado kuwa sahihi kidogo kuliko daktari wa radiolojia anayetumia tokeo la mfano kama maoni ya pili. Hizi ni mifumo tofauti yenye njia tofauti za makosa, na inakusanyika tofauti.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Lebo laini katika dawa</p>
+<p>Miradi kadhaa ya AI ya kimatibabu imehamia kutumia <strong>lebo laini</strong> zinazoakisi usambazaji wa maoni ya wataalam badala ya lebo moja ya “kiwango cha dhahabu”. X-ray ya kifua iliyowekewa lebo kama nimonia 60% / atelectasis 40% na jopo la madaktari wa radiolojia ina habari zaidi kuliko chaguo la kulazimishwa la binary. Mifano iliyofunzwa kwenye usambazaji kama huo inaonyesha urekebishaji bora na upimaji wa wasiwasi unaofaa zaidi — na wasiwasi huo una maana ya kliniki, kwani humwambia daktari wa kliniki wakati wa kushauriana, si tu mfano unaofikiria nini.</p>
+</div>
+</section>
+<section id="ujifunzaji-tendaji-kwa-hali-adimu">
+<h3>Ujifunzaji Tendaji kwa Hali Adimu<a class="headerlink" href="#ujifunzaji-tendaji-kwa-hali-adimu" title="Permalink to this heading">#</a></h3>
+<p>Ujifunzaji tendaji una thamani sana kwa magonjwa adimu na patholojia adimu, ambapo hata bwawa kubwa lisilo na lebo lina kesi chache za chanya. Sampuli ya nasibu ya kawaida ingepoteza muda wa mtaalamu kuweka lebo hasa kesi hasi.</p>
+<p>Ujifunzaji tendaji unaotegemea wasiwasi huchagua kwa asili hali za mpaka ambapo mfano una wasiwasi — ambazo, kwa hali adimu, huwa ni kesi za chanya na hasi za mpaka. Hii inazingatia muda wa mtaalamu mahali panapokuwa na thamani zaidi. Mchanganyiko wa mafunzo ya darasa lisiosawaziwa (na <code class="docutils literal notranslate"><span class="pre">class_weight='balanced'</span></code> au sawa) na uchaguzi unaotegemea wasiwasi ni mazoezi ya kawaida kwa kazi za ugunduzi wa patholojia adimu.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="uwekaji-maelezo-wa-nlp-ya-kliniki">
+<h2>Uwekaji Maelezo wa NLP ya Kliniki<a class="headerlink" href="#uwekaji-maelezo-wa-nlp-ya-kliniki" title="Permalink to this heading">#</a></h2>
+<p>Rekodi za kielectroniki za kiafya (EHRs) zina utajiri mkubwa wa maandishi ya hadithi ya kliniki: maelezo ya madaktari, muhtasari wa kutoka hospitalini, ripoti za radiolojia, ripoti za patholojia. Kuchimba habari zilizopangwa kutoka maandishi haya kunahitaji NLP — na NLP ya ubora wa juu inahitaji data ya mafunzo iliyowekewa maelezo.</p>
+<p><strong>Kazi za kawaida za uwekaji maelezo wa NLP ya kliniki:</strong></p>
+<ul class="simple">
+<li><p><strong>NER ya kliniki:</strong> Kutambua dawa, kipimo, utambuzi, taratibu, na dalili katika maandishi</p></li>
+<li><p><strong>Ugunduzaji wa kukanusha:</strong> “Hakuna ushahidi wa nimonia” dhidi ya “Nimonia imethibitishwa” — tofauti muhimu ambayo ni ngumu kushangaza</p></li>
+<li><p><strong>Ufikiriaji wa muda:</strong> Kutofautisha hali za sasa na historia (“historia ya MI, alihudhuria na maumivu ya kifua”)</p></li>
+<li><p><strong>Kuondoa utambuzi:</strong> Kuondoa Habari Zilizo Chini ya Ulinzi (PHI) kuwezesha kushiriki data</p></li>
+</ul>
+<p><strong>Kuondoa utambuzi wa PHI</strong> ni kazi ya uwekaji maelezo na mahitaji ya utawala wa data. Chini ya HIPAA (Marekani) na GDPR (EU), data ya kiafya haiwezi kushirikiwa bila kuondoa au kufanya isijulikane vitambulisho vya mgonjwa. Zana za kuondoa utambuzi kiotomatiki zipo lakini si kamili; mapitio ya binadamu ya matokeo ya kiotomatiki ni mazoezi ya kawaida, na wasifu wa hatari ni usio-sawa: hasi za uongo (PHI zilizokosewa) zinaunda mfiduo wa kisheria, ikifanya viwango vya kihafidhina vya lazima.</p>
+<section id="i2b2-n2c2-kama-kiolezo">
+<h3>i2b2 / n2c2 kama Kiolezo<a class="headerlink" href="#i2b2-n2c2-kama-kiolezo" title="Permalink to this heading">#</a></h3>
+<p>Mipango ya kazi zilizoshirikiwa za i2b2 (Informatics for Integrating Biology and the Bedside) na mrithi n2c2 (National NLP Clinical Challenges) imetoa safu ya mkusanyiko wa data wa NLP ya kliniki uliosema na wataalam. Hizi zinaonyesha uwezo na gharama: juhudi za uwekaji maelezo kawaida zinahusisha timu za wataalam wa uwanja wa kliniki wanaofanya kazi kwa miezi kadhaa, wakiweka maelezo kwenye hati mamia kwa changamoto. Mkusanyiko wa data wa n2c2 umechochea maendeleo ya haraka hasa kwa sababu ulitatua tatizo la utawala wa kushiriki data (kuondoa utambuzi + makubaliano ya kitaasisi), si tatizo la uwekaji maelezo tu.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mambo-ya-kisheria">
+<h2>Mambo ya Kisheria<a class="headerlink" href="#mambo-ya-kisheria" title="Permalink to this heading">#</a></h2>
+<p>AI ya kimatibabu inakabiliwa na usimamizi wa kisheria katika mamlaka nyingi.</p>
+<p><strong>FDA (Marekani):</strong> Programu kama Kifaa cha Kimatibabu (SaMD) inayotegemea AI/ML inahitaji idhini ya awali au ruhusa ya soko. Mpango wa Utekelezaji wa AI/ML wa FDA wa 2021 unasisitiza <strong>mipango ya udhibiti wa mabadiliko iliyoamuliwa awali</strong> — kuandika jinsi mfano utasasishwa na jinsi masasisho hayo yatathhibitishwa kabla ya utekelezaji. Mfano unaojifunza kwa kuendelea kutoka kwa maoni ya kliniki ni, chini ya mfumo huu, kifaa tofauti baada ya kila sasishi na kinaweza kuhitaji uthibitishaji upya.</p>
+<p><strong>Alama ya CE (Ulaya):</strong> Vifaa vya kimatibabu ikiwemo mifumo ya AI lazima vizingatie Kanuni za Kifaa cha Kimatibabu (MDR). MDR inahitaji tathmini ya kliniki, ufuatiliaji wa baada ya soko, na nyaraka za data iliyotumiwa kwa mafunzo na uthibitishaji.</p>
+<p><strong>Athari kuu ya HITL:</strong> Mifumo ya kisheria inahitaji nyaraka wazi za michakato ya uwekaji maelezo, sifa za wawekaji maelezo, uaminifu wa tathmini ya wasomaji wengi, na mabadiliko yoyote kwa data ya mafunzo. Hii si mzigo wa kiutawala — ni mkondo wa ukaguzi unaoruhusu daktari wa kliniki kuelewa data ya mafunzo iliyozalisha tabia ya sasa ya mfano, na inahitajika kwa kisheria. Mifumo ya HITL inayouona uwekaji maelezo kama mchakato usio rasmi huunda hatari ya kisheria ambayo kawaida huonekana wakati mbaya zaidi.</p>
+</section>
+<hr class="docutils" />
+<section id="uwekaji-maelezo-wa-data-ya-kisayansi">
+<h2>Uwekaji Maelezo wa Data ya Kisayansi<a class="headerlink" href="#uwekaji-maelezo-wa-data-ya-kisayansi" title="Permalink to this heading">#</a></h2>
+<p>Zaidi ya huduma ya afya, HITL ML inacheza jukumu linaloongezeka na lisilotambuliwa kikamilifu katika utafiti wa kisayansi, ambapo changamoto ya uwekaji maelezo mara nyingi huchanganya utaalamu wa uwanja na kiwango.</p>
+<section id="astronomia-galaxy-zoo">
+<h3>Astronomia: Galaxy Zoo<a class="headerlink" href="#astronomia-galaxy-zoo" title="Permalink to this heading">#</a></h3>
+<p>Galaxy Zoo <a href="#id5"><span class="problematic" id="id6">lintott2008galaxy</span></a> iliwashirikisha wanasayansi raia kuainisha muundo wa galaksi kutoka kwa Sloan Digital Sky Survey. Mradi wa awali ulikusanya zaidi ya uainishaji milioni 40 kutoka kwa wajitolea zaidi ya 100,000, ukionyesha kwamba ushirikiano wa umma kwa kiwango kikubwa wa uainishaji wa picha za kisayansi unawezekana kazi inapoweza kugawanywa katika maswali rahisi yanayoweza kujibiwa bila mafunzo ya mtaalamu (“Je, galaksi hii ni laini au ina vipengele?”).</p>
+<p>Uzoefu wa Galaxy Zoo ulizalisha matokeo mawili muhimu ya kimbinu. Kwanza, makubaliano kati ya wanasayansi raia na wanaastronomi wa kitaalamu yalikuwa ya juu kwa hali wazi na yalitofautiana kwa kimfumo kwenye hali za mpaka — hasa hali ambapo tofauti ina umuhimu wa kisayansi. Suluhisho haikuwa kutupa data ya sayansi ya raia kwenye hali za mpaka bali kutibu usambazaji wa majibu ya wajitolea kama lebo laini inayoweka utata wa kweli wa kimuundo. Pili, kisambazaji kilichofunzwa kwenye lebo za Galaxy Zoo kilikuwa bora kuliko mifano iliyofunzwa kuiga lebo za mtaalamu yeyote mmoja, kwa sababu usambazaji wa umati ulinasa wasiwasi wa kweli wa kuona ambao chaguo la kulazimishwa la mtaalamu mmoja ulikukunywa.</p>
+</section>
+<section id="genomiki-uainishaji-wa-pathogenicity">
+<h3>Genomiki: Uainishaji wa Pathogenicity<a class="headerlink" href="#genomiki-uainishaji-wa-pathogenicity" title="Permalink to this heading">#</a></h3>
+<p>Kuweka maelezo kwenye tofauti za genomiki — kuamua kama tofauti ni ya kudhuru, salama, au ya maana isiyo wazi — ni tatizo la NLP yenye hatari kubwa na hukumu ya wataalam. Hifadhidata za kimatibabu za tofauti kama ClinVar hujumuisha tafsiri za wataalam kutoka maabara nyingi zinazotoa, na kutokubaliana kati ya maabara ni kawaida. Ujifunzaji tendaji unatumika kutanguliza tofauti zipi zinahitaji mapitio kamili ya wataalam (utafutaji wa fasihi, tathmini ya ushahidi wa kazi) dhidi ya zipi zinaweza kuwekewa maelezo kiotomatiki na ushahidi uliopo. Matokeo ni mfumo mseto ambapo tofauti nyingi zinashughulikiwa na mantiki ya kiotomatiki, kundi dogo linahitaji mapitio ya wataalam, na hali ngumu zaidi zinabainishwa kwa makubaliano ya maabara nyingi.</p>
+</section>
+<section id="hali-ya-hewa-na-sayansi-ya-ardhi">
+<h3>Hali ya Hewa na Sayansi ya Ardhi<a class="headerlink" href="#hali-ya-hewa-na-sayansi-ya-ardhi" title="Permalink to this heading">#</a></h3>
+<p>Kuweka lebo kwenye picha za satelaiti kwa mabadiliko ya matumizi ya ardhi, ukataji miti, upanuzi wa barafu, na njia za dhoruba kunahusisha wataalam wa kunasa kwa mbali na, zaidi, majukwaa ya sayansi ya raia. Changamoto kuu ya HITL katika uwanja huu ni ya muda: lebo zilizofanywa leo zinaweza kuwa za zamani kadri ulimwengu unavyobadilika, na uthibitishaji wa ukweli wa ardhi (uchunguzi wa shambani) ni ghali na umezuiliwa kwa ulogistiki. Ujifunzaji tendaji unaotanguliza picha ambapo utabiri wa mfano unakinzana na vigezo vya kimwili (k.m., kutabiri ukataji miti katika eneo linalojulikana kuwa linalindwa) ni njia ya vitendo ya kuelekeza rasilimali adimu za uthibitishaji wa shambani.</p>
+</section>
+<section id="sayansi-ya-neva-connectomics">
+<h3>Sayansi ya Neva: Connectomics<a class="headerlink" href="#sayansi-ya-neva-connectomics" title="Permalink to this heading">#</a></h3>
+<p>Kuunda upya mzunguko wa neva kutoka picha za darubini ya elektroni — connectomics — inahitaji uwekaji maelezo wa kiwango cha pikseli wa utando wa neva kati ya safu kubwa za picha. Mradi wa Eyewire uliweza kufanya mchezo wa kazi hii, ukiwaingiza wachezaji maelfu wa kufuatilia neva kupitia seli za picha za 3D. Muundo wa uchezaji ulitoa tatizo maalum la HITL: kazi inahitaji makini yanayoendelea na ufikiriaji wa anga kwa vikao virefu, ambavyo husababisha kupungua kwa ubora katika uwekaji maelezo wa kitambo. Kugawanya kazi katika sehemu za mchezo na mitambo ya kijamii kuliweka ushirikiano na ubora wa wawekaji maelezo kwa kiwango ambacho uwekaji maelezo wa kitaalamu hauwezi kufikia.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kusimamia-wawekaji-maelezo-wataalamu">
+<h2>Kusimamia Wawekaji Maelezo Wataalamu<a class="headerlink" href="#kusimamia-wawekaji-maelezo-wataalamu" title="Permalink to this heading">#</a></h2>
+<p>Uwekaji maelezo unapohitaji utaalamu wa nadra, njia za kawaida za ushirikiano wa umma (Sura ya 13) hazitumiki.</p>
+<p><strong>Mvutano wa kimsingi</strong> ni kwamba watu wanaoweza kuzalisha maelezo ya ubora wa juu zaidi pia ni watu ambao wakati wao una thamani zaidi na umezuiliwa zaidi. Kila uamuzi wa muundo katika mfumo wa uwekaji maelezo wa wataalamu unapaswa kupimwa dhidi ya swali: je, hii inafanya matumizi bora ya muda wa mtaalamu adimu?</p>
+<p><strong>Hii inamaanisha nini katika mazoezi:</strong></p>
+<ul class="simple">
+<li><p><strong>Weka maelezo ya awali kwa nguvu.</strong> Tumia wawekaji maelezo wa kiwango cha chini, mifano otomatiki, au mifumo inayotegemea sheria kuzalisha wagombea ambao mtaalamu anakagua na kurekebisha badala ya kuunda kutoka mwanzo. Hukumu ya mtaalamu ndiyo kikwazo; kuwalisha uwekaji maelezo wa awali wa kurekebisha ni wa haraka zaidi kuliko kuwaomba waweke maelezo kutoka skrini tupu, mradi ubora wa uwekaji maelezo wa awali ni wa kutosha kwamba marekebisho si ya polepole zaidi kuliko kuanza upya.</p></li>
+<li><p><strong>Buniwa kwa makini ya mtaalamu, si uzalishaji.</strong> Violesura vya uwekaji maelezo vilivyoboreshwa kwa uzalishaji wa juu (maamuzi ya haraka ya binary, mkato wa kibodi, onyesho dogo) yanafaa kwa ushirikiano wa umma. Uwekaji maelezo wa wataalamu mara nyingi hufaidika na violesura tajiri zaidi: ulinganisho wa jozi wa kesi za awali, ufikiaji rahisi wa vifaa vya rejeleo, uwanja wa kuamini wa uwekaji maelezo, na uwezo wa kubainisha kesi kwa majadiliano. Hizi zinapunguza maelezo binafsi lakini zinaboresha ubora na kupunguza haja ya kuweka maelezo tena.</p></li>
+<li><p><strong>Fuatilia mifumo ya wawekaji maelezo binafsi waziwazi.</strong> Na bwawa dogo la wataalamu, inawezekana na muhimu kufuatilia kiwango cha makubaliano cha kila mweka maelezo na jopo, kubainisha kesi zinazoonekana kutofautiana na historia yao wenyewe, na kuzijadili katika vikao vya urekebishaji wa kawaida. Hii si ufuatiliaji — ni mchakato huo huo wa ubora ambao dawa ya kliniki inatumia kwa mapitio ya utendaji, na wataalamu kwa ujumla wanajibu vizuri inapowasilishwa kama uboreshaji wa ubora wa pamoja badala ya tathmini.</p></li>
+<li><p><strong>Muundo wa kikao una umuhimu.</strong> Uwekaji maelezo wa kimatibabu ni wa kudai kiakili. Ushahidi kutoka radiolojia na patholojia unaonyesha kwamba viwango vya makosa huongezeka kwa kiasi kinachopimika baada ya takriban dakika 90 za kusoma kwa kuendelea, na kwamba mapumziko ya dakika chache hata yanaweza kurejesha makini kwa sehemu. Violesura vya uwekaji maelezo vinavyolazimisha mapumziko ya maelekezo (bila kufanywa vinaweza kutupwa) ni uamuzi rahisi wa muundo wa HITL wenye athari ya kweli ya ubora.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="mfumo-wa-ujifunzaji-tendaji-wa-hitl-kwa-picha-za-kimatibabu">
+<h2>Mfumo wa Ujifunzaji Tendaji wa HITL kwa Picha za Kimatibabu<a class="headerlink" href="#mfumo-wa-ujifunzaji-tendaji-wa-hitl-kwa-picha-za-kimatibabu" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Simulate a rare-pathology detection task</span>
+<span class="c1"># 8% positive class (e.g., rare pathology)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_informative</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">],</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">4000</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">4000</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">4000</span><span class="p">:]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training set positive prevalence: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_medical_al</span><span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+    <span class="n">labeled</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled</span><span class="p">]</span>
+    <span class="n">aucs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_initial</span> <span class="o">+</span> <span class="n">budget</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">aucs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;uncertainty&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">entropy</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unlabeled</span><span class="p">))</span>
+
+        <span class="n">labeled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aucs</span><span class="p">)</span>
+
+<span class="n">aucs_al</span>  <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;uncertainty&#39;</span><span class="p">)</span>
+<span class="n">aucs_rnd</span> <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+<span class="n">label_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aucs_al</span><span class="p">))</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">50</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_al</span><span class="p">,</span>  <span class="s1">&#39;o-&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertainty AL&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_rnd</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Expert labels obtained&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;AUROC&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning for Rare Pathology Detection&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;medical_al.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Show how AL preferentially selects positive examples</span>
+<span class="c1"># by checking which class the queried examples belong to</span>
+<span class="n">n_init</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">labeled_al</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_init</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">labeled_rnd</span> <span class="o">=</span> <span class="n">labeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">unlabeled_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_al</span><span class="p">]</span>
+<span class="n">unlabeled_rnd</span> <span class="o">=</span> <span class="n">unlabeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">])</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_al</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">top50_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">unlabeled_al</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">entropy</span><span class="p">)[</span><span class="o">-</span><span class="mi">50</span><span class="p">:]]</span>
+<span class="n">top50_rnd</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unlabeled_rnd</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">pos_rate_al</span>  <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_al</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">pos_rate_rnd</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_rnd</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Positive rate in next 50 queries:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Uncertainty AL: </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">  (base rate: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Random:         </span><span class="si">{</span><span class="n">pos_rate_rnd</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AL queries </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="o">/</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">x more positives than random&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Ushirikiano wa umma wa Galaxy Zoo: <a href="#id7"><span class="problematic" id="id8">lintott2008galaxy</span></a>. Utendaji wa daktari wa radiolojia wa CheXNet: <a href="#id9"><span class="problematic" id="id10">rajpurkar2017chexnet</span></a>. Ubora wa picha na utambuzi unaosaidiwa na AI: <a href="#id11"><span class="problematic" id="id12">yu2022assessing</span></a>. Mbinu ya uwekaji maelezo wa NLP ya kliniki: <a href="#id13"><span class="problematic" id="id14">pustejovsky2012natural</span></a>. Kwa mwongozo wa mpango wa utekelezaji wa AI/ML wa FDA, angalia nyaraka zilizochapishwa na FDA (2021).</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/sw/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uchambuzi-wa-picha-za-kimatibabu">Uchambuzi wa Picha za Kimatibabu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mahitaji-ya-mweka-maelezo-mtaalamu">Mahitaji ya Mweka Maelezo Mtaalamu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tofauti-kati-ya-madaktari-wa-radiolojia">Tofauti kati ya Madaktari wa Radiolojia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ujifunzaji-tendaji-kwa-hali-adimu">Ujifunzaji Tendaji kwa Hali Adimu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-maelezo-wa-nlp-ya-kliniki">Uwekaji Maelezo wa NLP ya Kliniki</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2-kama-kiolezo">i2b2 / n2c2 kama Kiolezo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mambo-ya-kisheria">Mambo ya Kisheria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-maelezo-wa-data-ya-kisayansi">Uwekaji Maelezo wa Data ya Kisayansi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astronomia-galaxy-zoo">Astronomia: Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genomiki-uainishaji-wa-pathogenicity">Genomiki: Uainishaji wa Pathogenicity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hali-ya-hewa-na-sayansi-ya-ardhi">Hali ya Hewa na Sayansi ya Ardhi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sayansi-ya-neva-connectomics">Sayansi ya Neva: Connectomics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kusimamia-wawekaji-maelezo-wataalamu">Kusimamia Wawekaji Maelezo Wataalamu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mfumo-wa-ujifunzaji-tendaji-wa-hitl-kwa-picha-za-kimatibabu">Mfumo wa Ujifunzaji Tendaji wa HITL kwa Picha za Kimatibabu</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

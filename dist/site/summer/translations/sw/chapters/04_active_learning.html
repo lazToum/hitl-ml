@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Ujifunzaji Tendaji &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/sw/chapters/04_active_learning';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/sw/chapters/04_active_learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ujifunzaji Tendaji</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpangilio-wa-ujifunzaji-tendaji">Mpangilio wa Ujifunzaji Tendaji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#misingi-ya-kinadharia">Misingi ya Kinadharia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mikakati-ya-maswali">Mikakati ya Maswali</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampuli-ya-wasiwasi">Sampuli ya Wasiwasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maswali-kwa-kamati-qbc">Maswali kwa Kamati (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mabadiliko-ya-mfano-yanayotarajiwa">Mabadiliko ya Mfano Yanayotarajiwa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seti-ya-msingi-mbinu-za-kijiometri">Seti ya Msingi / Mbinu za Kijiometri</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#makadirio-ya-wasiwasi-kwa-mifano-ya-kina">Makadirio ya Wasiwasi kwa Mifano ya Kina</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aina-mbili-za-wasiwasi">Aina Mbili za Wasiwasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mc-dropout">MC Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#makundi-ya-kina">Makundi ya Kina</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mzunguko-kamili-wa-ujifunzaji-tendaji">Mzunguko Kamili wa Ujifunzaji Tendaji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tatizo-la-kuanza-baridi">Tatizo la Kuanza Baridi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ujifunzaji-tendaji-wa-hali-ya-vifurushi">Ujifunzaji Tendaji wa Hali ya Vifurushi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vigezo-vya-kusimama">Vigezo vya Kusimama</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wakati-ujifunzaji-tendaji-unafanya-kazi-na-wakati-haifanyi">Wakati Ujifunzaji Tendaji Unafanya Kazi (na Wakati Haifanyi)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ujifunzaji-tendaji">
+<h1>Ujifunzaji Tendaji<a class="headerlink" href="#ujifunzaji-tendaji" title="Permalink to this heading">#</a></h1>
+<p>Data yenye lebo ni ghali. Ufahamu wa msingi wa ujifunzaji tendaji ni kwamba <em>si mifano yote isiyo na lebo ina taarifa sawa</em> — mfano unaweza kuboresha haraka zaidi ukipewa nafasi ya kuchagua mifano gani ya kuuliza kuhusu. Badala ya kuweka lebo kwa data bila mpangilio, mfumo wa ujifunzaji tendaji huuliza chanzo (kawaida mweka maelezo wa binadamu) kuhusu mifano inayoweza zaidi kuboresha mfano.</p>
+<p>Sura hii inashughulikia nadharia na mazoezi ya ujifunzaji tendaji: mikakati ya maswali, miundo ya sampuli, vigezo vya kusimama, na masuala ya vitendo kwa utekelezaji wa kweli.</p>
+<hr class="docutils" />
+<section id="mpangilio-wa-ujifunzaji-tendaji">
+<h2>Mpangilio wa Ujifunzaji Tendaji<a class="headerlink" href="#mpangilio-wa-ujifunzaji-tendaji" title="Permalink to this heading">#</a></h2>
+<p>Mpangilio wa kawaida wa <strong>ujifunzaji tendaji wa msingi wa bwawa</strong> unahusisha:</p>
+<ul class="simple">
+<li><p><strong>Seti yenye lebo</strong> <span class="math notranslate nohighlight">\(\mathcal{L} = \{(x_i, y_i)\}_{i=1}^n\)</span> — ndogo awali</p></li>
+<li><p><strong>Bwawa lisilo na lebo</strong> <span class="math notranslate nohighlight">\(\mathcal{U} = \{x_j\}_{j=1}^m\)</span> — kawaida kubwa zaidi sana kuliko <span class="math notranslate nohighlight">\(\mathcal{L}\)</span></p></li>
+<li><p><strong>Chanzo</strong> <span class="math notranslate nohighlight">\(\mathcal{O}\)</span> kinachoweza kurudisha <span class="math notranslate nohighlight">\(y = \mathcal{O}(x)\)</span> kwa <span class="math notranslate nohighlight">\(x\)</span> yoyote iliyoulizwa</p></li>
+<li><p><strong>Mkakati wa maswali</strong> <span class="math notranslate nohighlight">\(\phi\)</span> unaochagua swali lijalo <span class="math notranslate nohighlight">\(x^* = \phi(\mathcal{L}, \mathcal{U}, f_\theta)\)</span></p></li>
+</ul>
+<p>Mzunguko wa ujifunzaji tendaji:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    1. Anzisha: L = seti ndogo ya mbegu zenye lebo, U = bwawa lisilo na lebo
+    2. Funza: f_θ ← funza(L)
+    3. Uliza: x* = argmax φ(x; f_θ) kwa x ∈ U
+    4. Weka lebo: y* = O(x*)
+    5. Sasisha: L ← L ∪ {(x*, y*)}, U ← U \ {x*}
+    → Rudia kutoka 2 hadi bajeti imekwisha
+</pre></div>
+</div>
+<p>Lengo ni kufikia ubora wa mfano unaolengwa kwa maswali machache iwezekanavyo ya chanzo.</p>
+</section>
+<hr class="docutils" />
+<section id="misingi-ya-kinadharia">
+<h2>Misingi ya Kinadharia<a class="headerlink" href="#misingi-ya-kinadharia" title="Permalink to this heading">#</a></h2>
+<p>Swali la asili ni: ujifunzaji tendaji unaweza kusaidia kiasi gani? Katika hali bora zaidi, ujifunzaji tendaji unaweza kufikia kupungua kwa <em>mara nyingi sana</em> katika ugumu wa lebo — kufikia kosa <span class="math notranslate nohighlight">\(\epsilon\)</span> na lebo <span class="math notranslate nohighlight">\(O(\log(1/\epsilon))\)</span> badala ya <span class="math notranslate nohighlight">\(O(1/\epsilon)\)</span> inayohitajika na ujifunzaji passiv, angalau katika mazingira yanayoweza kutekelezwa na mkakati mzuri wa maswali <a href="#id1"><span class="problematic" id="id2">settles2009active</span></a>.</p>
+<p>Katika mazoezi, dhamana ni ngumu zaidi kupata. <strong>Ujifunzaji tendaji wa agnostiki</strong> <a href="#id3"><span class="problematic" id="id4">balcan2006agnostic</span></a> unaonyesha kwamba akiba ya lebo inawezekana hata dhana inayolengwa haipo katika darasa la nadharia, lakini akiba inategemea sana mgawo wa kutokubaliana — kipimo cha jinsi seti ya nadharia zinazowezekana inavyopungua haraka kadri data inavyokusanyika.</p>
+<p>Athari kuu ya vitendo: faida ya ujifunzaji tendaji ni kubwa zaidi wakati <strong>mpaka wa uamuzi ni rahisi na umejumuishwa</strong> (kwa hivyo maswali ya wasiwasi yanaondoa haraka nadharia zisizo sahihi), na ndogo zaidi wakati darasa la nadharia ni kubwa au mpaka ni mgumu.</p>
+</section>
+<hr class="docutils" />
+<section id="mikakati-ya-maswali">
+<h2>Mikakati ya Maswali<a class="headerlink" href="#mikakati-ya-maswali" title="Permalink to this heading">#</a></h2>
+<section id="sampuli-ya-wasiwasi">
+<h3>Sampuli ya Wasiwasi<a class="headerlink" href="#sampuli-ya-wasiwasi" title="Permalink to this heading">#</a></h3>
+<p>Mkakati rahisi na unaotumika zaidi: uliza mfano ambao mfano una <em>wasiwasi zaidi</em> nao <a href="#id5"><span class="problematic" id="id6">lewis1994sequential</span></a>.</p>
+<p><strong>Imani ya chini</strong> huuliza mfano ambao mfano una imani ndogo zaidi katika utabiri wake mkuu:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left(1 - P_\theta(\hat{y} \mid x)\right)
+\]</div>
+<p><strong>Sampuli ya pembezoni</strong> inazingatia pengo kati ya uwezekano wa juu mbili uliotabiriwa:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmin_{x \in \mathcal{U}} \left(P_\theta(\hat{y}_1 \mid x) - P_\theta(\hat{y}_2 \mid x)\right)
+\]</div>
+<p><strong>Sampuli ya entropi</strong> inatumia usambazaji wote uliotabiriwa:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left( -\sum_{k=1}^K P_\theta(y_k \mid x) \log P_\theta(y_k \mid x) \right)
+\]</div>
+<p>Sampuli ya entropi ndiyo ya msingi zaidi kati ya tatu — inazingatia madarasa yote — na kwa ujumla inazidi nyingine kwa matatizo ya madarasa mengi.</p>
+</section>
+<section id="maswali-kwa-kamati-qbc">
+<h3>Maswali kwa Kamati (QbC)<a class="headerlink" href="#maswali-kwa-kamati-qbc" title="Permalink to this heading">#</a></h3>
+<p>Funza <strong>kamati</strong> ya mifano <span class="math notranslate nohighlight">\(C\)</span> (kwa kutumia mifumo ya upiganaji, uzinduzi tofauti, au miundo tofauti). Uliza mfano ambao kamati inakinzana nao zaidi:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \; \text{kutokubaliana}(\{f_c(x)\}_{c=1}^C)
+\]</div>
+<p>Kutokubaliana kunaweza kupimwa kama <strong>entropi ya kura</strong> (entropi juu ya kura za wingi za kamati) au <strong>kutofautiana kwa KL</strong> kutoka kwa usambazaji wa makubaliano.</p>
+<p>QbC inatoa makadirio bora ya wasiwasi kuliko mfano mmoja lakini inahitaji kufunza mifano mingi, ambayo ni ghali kinadharia.</p>
+</section>
+<section id="mabadiliko-ya-mfano-yanayotarajiwa">
+<h3>Mabadiliko ya Mfano Yanayotarajiwa<a class="headerlink" href="#mabadiliko-ya-mfano-yanayotarajiwa" title="Permalink to this heading">#</a></h3>
+<p>Uliza mfano ambao ungesababisha mabadiliko makubwa zaidi kwa mfano wa sasa ukiwekewa lebo. Kwa mifano inayotegemea gradient, hii inalingana na mfano wenye ukubwa wa gradient ya wastani unaotarajiwa <a href="#id7"><span class="problematic" id="id8">settles2008analysis</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \sum_{y \in \mathcal{Y}} P_\theta(y \mid x) \left\| \nabla_\theta \mathcal{L}(f_\theta(x), y) \right\|
+\]</div>
+<p>Mkakati huu una msukumo wa kinadharia lakini unahitaji kuhesabu gradient kwa kila mgombea, na kuufanya ghali kwa mifano mikubwa.</p>
+</section>
+<section id="seti-ya-msingi-mbinu-za-kijiometri">
+<h3>Seti ya Msingi / Mbinu za Kijiometri<a class="headerlink" href="#seti-ya-msingi-mbinu-za-kijiometri" title="Permalink to this heading">#</a></h3>
+<p>Mikakati inayotegemea wasiwasi inaweza <strong>kubaguliwa kuelekea nje ya kawaida</strong>: mfano usio wa kawaida unaweza kuwa na wasiwasi mkubwa lakini si mwakilishi wa usambazaji wa data. Mbinu za seti ya msingi zinashughulikia hili kwa kutafuta sampuli mbalimbali inayoshughulikia nafasi ya vipengele.</p>
+<p>Kanuni ya <strong>k-center ya mara moja</strong> <a href="#id9"><span class="problematic" id="id10">sener2018active</span></a> inapata seti ndogo zaidi ya pointi ambapo kila pointi isiyowekewa lebo iko ndani ya <span class="math notranslate nohighlight">\(\delta\)</span> ya angalau pointi moja iliyoulizwa:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \min_{x' \in \mathcal{L}} d(x, x')
+\]</div>
+<p>yaani, uliza pointi iliyo mbali zaidi na pointi yoyote iliyowekewa lebo kwa sasa. Hii inachochea seti iliyoenea vizuri ya maelezo.</p>
+</section>
+<section id="badge">
+<h3>BADGE<a class="headerlink" href="#badge" title="Permalink to this heading">#</a></h3>
+<p><strong>Kujifunza Tendaji kwa Vifurushi kwa Uwakilishi wa Gradient Mbalimbali</strong> <a href="#id11"><span class="problematic" id="id12">ash2020deep</span></a> huchanganya wasiwasi na utofauti: huchagua kifurushi cha mifano ambayo uwakilishi wa gradient yake (kuhusiana na lebo iliyotabiriwa) ni kubwa kwa ukubwa (wasiwasi) na mbalimbali (inayoshughulikia maeneo tofauti ya nafasi ya gradient). Hii ni moja ya mikakati ya kisasa inayoshindana zaidi.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="makadirio-ya-wasiwasi-kwa-mifano-ya-kina">
+<h2>Makadirio ya Wasiwasi kwa Mifano ya Kina<a class="headerlink" href="#makadirio-ya-wasiwasi-kwa-mifano-ya-kina" title="Permalink to this heading">#</a></h2>
+<p>Mikakati hapo juu inadhani ufikiaji wa matokeo ya uwezekano yaliyorekebishwa kutoka kwa mfano. Kwa mifano rahisi (regression ya logistiki, wasambazaji wa softmax), hii ni rahisi. Kwa mtandao wa kina, kupata makadirio ya wasiwasi yanayotegemeka kunahitaji mbinu za ziada.</p>
+<section id="aina-mbili-za-wasiwasi">
+<h3>Aina Mbili za Wasiwasi<a class="headerlink" href="#aina-mbili-za-wasiwasi" title="Permalink to this heading">#</a></h3>
+<p>Kufuata Kendall na Gal <a href="#id13"><span class="problematic" id="id14">kendall2017uncertainties</span></a>, tunatofautisha:</p>
+<p><strong>Wasiwasi wa aleatoric</strong> (wasiwasi wa data): kelele asili katika uchunguzi ambazo haziwezi kupunguzwa kwa kukusanya data zaidi. Picha iliyofifia ina wasiwasi wa aleatoric — hakuna kiasi cha data ya ziada ya mafunzo kutoka kwa usambazaji sawa kitakachofanya mfano kuwa na imani zaidi nao.</p>
+<p><strong>Wasiwasi wa epistemic</strong> (wasiwasi wa mfano): wasiwasi unaotokana na data ndogo ya mafunzo au mfano ambao haujawahi kuona mifano inayofanana. Wasiwasi wa epistemic <em>unaweza</em> kupunguzwa kwa kuweka lebo data zaidi — na kwa hivyo ndiyo kiasi muhimu cha ujifunzaji tendaji wa uchaguzi wa maswali.</p>
+<p>Kwa ujifunzaji tendaji, tunataka kuuliza mifano yenye wasiwasi mkubwa wa epistemic, si wa aleatoric mkubwa. Kuuliza mfano ulio na utata wa kimsingi kunapoteza juhudi za chanzo: hakuna lebo watakayotoa itakayokuwa wazi sahihi.</p>
+</section>
+<section id="mc-dropout">
+<h3>MC Dropout<a class="headerlink" href="#mc-dropout" title="Permalink to this heading">#</a></h3>
+<p>Mbinu ya vitendo ya makadirio ya wasiwasi wa epistemic kwa mitandao ya neva ni <strong>MC Dropout</strong> <a href="#id15"><span class="problematic" id="id16">gal2016dropout</span></a>: tumia dropout wakati wa inferensi na uendeshe picha <span class="math notranslate nohighlight">\(T\)</span> za mbele. Tofauti kati ya utabiri ni makadirio ya wasiwasi wa epistemic.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MCDropoutNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">p_drop</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run T stochastic forward passes with dropout active.</span>
+<span class="sd">    Returns mean prediction and epistemic uncertainty (predictive variance).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># keep dropout active during inference</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="p">])</span>  <span class="c1"># shape: (T, N, C)</span>
+    <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Epistemic uncertainty: mean of variances across passes</span>
+    <span class="n">epistemic</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Aleatoric uncertainty: entropy of mean prediction</span>
+    <span class="n">aleatoric</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">mean_pred</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean_pred</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean_pred</span><span class="p">,</span> <span class="n">epistemic</span><span class="p">,</span> <span class="n">aleatoric</span>
+
+<span class="c1"># Quick demonstration</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MCDropoutNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># In-distribution example (simulated)</span>
+<span class="n">x_familiar</span>   <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="c1"># Out-of-distribution example (far from training distribution)</span>
+<span class="n">x_unfamiliar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.0</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;In-distribution &quot;</span><span class="p">,</span> <span class="n">x_familiar</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Out-of-distribution&quot;</span><span class="p">,</span> <span class="n">x_unfamiliar</span><span class="p">)]:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">al</span> <span class="o">=</span> <span class="n">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> | epistemic: </span><span class="si">{</span><span class="n">ep</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | aleatoric: </span><span class="si">{</span><span class="n">al</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Katika mtandao ambao haujafunzwa hapo juu, mifano yote miwili inaonyesha wasiwasi sawa. Baada ya mafunzo, mfano wa nje ya usambazaji utaonyesha wasiwasi wa juu zaidi wa epistemic — mfano haujajifunza upangaji wa kutegemewa kwa ingizo mbali na usambazaji wa mafunzo.</p>
+</section>
+<section id="makundi-ya-kina">
+<h3>Makundi ya Kina<a class="headerlink" href="#makundi-ya-kina" title="Permalink to this heading">#</a></h3>
+<p>Kufunza mifano <span class="math notranslate nohighlight">\(M\)</span> iliyoanzishwa kwa kujitegemea na kuchanganya utabiri wao kutoa makadirio ya wasiwasi rahisi na mara nyingi ya kutegemewa zaidi kuliko MC Dropout <a href="#id17"><span class="problematic" id="id18">lakshminarayanan2017simple</span></a>. Kutokubaliana kati ya wanakikundi ni ishara ya wasiwasi wa epistemic.</p>
+<p>Kwa ujifunzaji tendaji kwa kiwango kikubwa, MC Dropout na makundi ya kina yote mawili yanaongeza mzigo wa ziada unaolingana na picha <span class="math notranslate nohighlight">\(T\)</span> au <span class="math notranslate nohighlight">\(M\)</span> za mbele. Katika mazoezi, <span class="math notranslate nohighlight">\(T = 10\)</span>–<span class="math notranslate nohighlight">\(30\)</span> kwa MC Dropout au wanakikundi <span class="math notranslate nohighlight">\(M = 5\)</span> mara nyingi inatosha kupanga mifano kwa wasiwasi wa epistemic, hata kama maadili ya kamili hayarekebishwi vizuri.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mzunguko-kamili-wa-ujifunzaji-tendaji">
+<h2>Mzunguko Kamili wa Ujifunzaji Tendaji<a class="headerlink" href="#mzunguko-kamili-wa-ujifunzaji-tendaji" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Generate dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">1500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">1500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">1500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index of most uncertain sample (entropy).&quot;&quot;&quot;</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ent</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random baseline.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_queries</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">query_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">labeled_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_idx</span><span class="p">]</span>
+    <span class="n">accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_queries</span> <span class="o">//</span> <span class="n">query_batch</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">])</span>
+        <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+        <span class="c1"># Query</span>
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query_batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;entropy&#39;</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">labeled_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled_idx</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+            <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span>
+
+<span class="n">labels_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">30</span>  <span class="c1"># label counts at each step</span>
+
+<span class="n">accs_active</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+<span class="n">accs_random</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_active</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entropy sampling&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_random</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of labeled examples&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning vs. Random Sampling&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;active_learning_curve.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning reaches </span><span class="si">{</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random sampling reaches </span><span class="si">{</span><span class="n">accs_random</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning saves ~</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">accs_random</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">accs_random</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">accs_active</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels to match random&#39;s final accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="tatizo-la-kuanza-baridi">
+<h2>Tatizo la Kuanza Baridi<a class="headerlink" href="#tatizo-la-kuanza-baridi" title="Permalink to this heading">#</a></h2>
+<p>Ujifunzaji tendaji unahitaji mfano uliofunzwa kupanga pointi zisizo na lebo — lakini mwanzoni, huna (au una kidogo sana) mifano yenye lebo. Hili ndilo <strong>tatizo la kuanza baridi</strong>.</p>
+<p>Suluhisho za vitendo:</p>
+<ol class="arabic simple">
+<li><p><strong>Uanzishaji wa nasibu:</strong> Weka lebo kwenye seti ndogo ya mbegu ya nasibu (mifano 20–100) kabla ya kuanza ujifunzaji tendaji.</p></li>
+<li><p><strong>Uanzishaji unaotegemea makundi:</strong> Tumia k-means kwenye bwawa lisilo na lebo; weka lebo kwenye mfano mmoja kutoka kwa kila kundi. Hii inahakikisha utofauti katika seti ya awali yenye lebo.</p></li>
+<li><p><strong>Uchaguzi unaotegemea uwakilishi:</strong> Tumia enkoda iliyofunzwa awali kuwakilisha mifano; chagua kikundi mbalimbali kupitia seti ya msingi.</p></li>
+</ol>
+<p>Kwa kazi nyingi, lebo chache za mbegu za nasibu kawaida zinatosha kuanza ujifunzaji tendaji; idadi halisi inategemea usawa wa darasa, ukubwa wa vipengele, na ugumu wa mfano.</p>
+</section>
+<hr class="docutils" />
+<section id="ujifunzaji-tendaji-wa-hali-ya-vifurushi">
+<h2>Ujifunzaji Tendaji wa Hali ya Vifurushi<a class="headerlink" href="#ujifunzaji-tendaji-wa-hali-ya-vifurushi" title="Permalink to this heading">#</a></h2>
+<p>Katika mazoezi, wawekaji maelezo wanafanya kazi kwa vifurushi — ni kisiasa kufunza na kutekeleza mfano mpya baada ya kila lebo moja. <strong>Ujifunzaji tendaji wa hali ya vifurushi</strong> huchagua seti ya mifano <span class="math notranslate nohighlight">\(b\)</span> ya kuweka lebo wakati mmoja.</p>
+<p>Kuchagua bila msimamo mifano <span class="math notranslate nohighlight">\(b\)</span> ya juu yenye wasiwasi mkubwa zaidi husababisha <strong>urudiarudia</strong>: mifano yenye wasiwasi mkubwa huwa imejikusanya pamoja (k.m., mifano karibu na mpaka wa uamuzi katika eneo sawa). Mikakati bora ya vifurushi inaboresha kwa wasiwasi <em>na</em> utofauti ndani ya kifurushi.</p>
+<p><strong>Michakato ya Pointi ya Kuthibitisha (DPPs)</strong> inatoa njia ya msingi ya kuchagua vifurushi mbalimbali: vinafafanua usambazaji juu ya vikundi vinavyoadhibu vitu vinavyofanana. Uwezekano wa kikundi <span class="math notranslate nohighlight">\(S\)</span> chini ya DPP ni unaolingana na <span class="math notranslate nohighlight">\(\det(L_S)\)</span> ambapo <span class="math notranslate nohighlight">\(L\)</span> ni matrix ya kernel inayowakilisha kufanana.</p>
+</section>
+<hr class="docutils" />
+<section id="vigezo-vya-kusimama">
+<h2>Vigezo vya Kusimama<a class="headerlink" href="#vigezo-vya-kusimama" title="Permalink to this heading">#</a></h2>
+<p>Ujifunzaji tendaji unapaswa kusimama lini? Vigezo vya kawaida:</p>
+<ul class="simple">
+<li><p><strong>Bajeti imekwisha:</strong> Rahisi zaidi — simama bajeti ya uwekaji maelezo inapoisha.</p></li>
+<li><p><strong>Usimamaji wa utendaji:</strong> Simama usahihi wa mfano kwenye seti ya uthibitishaji ya pembezoni haukuboresha kwa zaidi ya <span class="math notranslate nohighlight">\(\delta\)</span> kwa raundi <span class="math notranslate nohighlight">\(k\)</span> mfululizo.</p></li>
+<li><p><strong>Kizingiti cha imani:</strong> Simama chini ya sehemu fulani ya mifano isiyowekewa lebo ina wasiwasi juu ya kizingiti.</p></li>
+<li><p><strong>Upunguzaji wa hasara wa juu zaidi:</strong> Kadiri manufaa yanayowezekana kutoka kwa lebo za ziada; simama inapoanguka chini ya kizingiti <a href="#id19"><span class="problematic" id="id20">bloodgood2009method</span></a>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="wakati-ujifunzaji-tendaji-unafanya-kazi-na-wakati-haifanyi">
+<h2>Wakati Ujifunzaji Tendaji Unafanya Kazi (na Wakati Haifanyi)<a class="headerlink" href="#wakati-ujifunzaji-tendaji-unafanya-kazi-na-wakati-haifanyi" title="Permalink to this heading">#</a></h2>
+<p>Ujifunzaji tendaji huwa hufanya kazi vizuri wakati:</p>
+<ul class="simple">
+<li><p>Uwekaji lebo ni ghali na bwawa lisilo na lebo ni kubwa</p></li>
+<li><p>Data ina muundo wazi ambao mfano unaweza kutumia kutambua mifano ya habari</p></li>
+<li><p>Darasa la mfano linafaa kwa kazi</p></li>
+</ul>
+<p>Ujifunzaji tendaji hufanya vibaya wakati:</p>
+<ul class="simple">
+<li><p>Mfano wa awali ni mbaya sana (kuanza baridi) na hauwezi kupanga mifano kwa maana</p></li>
+<li><p>Mkakati wa maswali huchagua nje ya kawaida au mifano iliyowekewa lebo vibaya (ustahimilivu wa kelele una umuhimu)</p></li>
+<li><p>Usambazaji wa data unahamia kati ya bwawa lisilo na lebo na usambazaji wa upimaji</p></li>
+</ul>
+<p>Wasiwasi mkuu wa vitendo ni <strong>kutofautiana kwa usambazaji</strong>: ujifunzaji tendaji huwa huuliza mifano karibu na mpaka wa uamuzi, ukiunda seti ya lebo iliyobaguliwa ambayo inaweza kutokuwakilisha vizuri usambazaji wa upimaji. Hii inaweza kusababisha mipaka ya uamuzi iliyofunzwa vizuri lakini urekebishaji mbaya.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Utafiti wa msingi ni <a href="#id21"><span class="problematic" id="id22">settles2009active</span></a>. Misingi ya kinadharia (ugumu wa lebo, mipaka ya agnostiki): <a href="#id23"><span class="problematic" id="id24">balcan2006agnostic</span></a>. Kwa ujifunzaji tendaji maalum wa kujifunza kwa kina, angalia <a href="#id25"><span class="problematic" id="id26">ash2020deep</span></a> (BADGE) na <a href="#id27"><span class="problematic" id="id28">sener2018active</span></a> (seti ya msingi). Kwa tathmini ya kina ya wakati ujifunzaji tendaji husaidia kweli, angalia <a href="#id29"><span class="problematic" id="id30">lowell2019practical</span></a>. Kuhusu wasiwasi wa aleatoric dhidi ya epistemic kwa mifano ya kina, angalia <a href="#id31"><span class="problematic" id="id32">kendall2017uncertainties</span></a>; kwa makundi ya kina kama wakadiriaji wa wasiwasi, angalia <a href="#id33"><span class="problematic" id="id34">lakshminarayanan2017simple</span></a>; kwa MC Dropout kama inferensi ya takriban ya Bayesian, angalia <a href="#id35"><span class="problematic" id="id36">gal2016dropout</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/sw/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpangilio-wa-ujifunzaji-tendaji">Mpangilio wa Ujifunzaji Tendaji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#misingi-ya-kinadharia">Misingi ya Kinadharia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mikakati-ya-maswali">Mikakati ya Maswali</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampuli-ya-wasiwasi">Sampuli ya Wasiwasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maswali-kwa-kamati-qbc">Maswali kwa Kamati (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mabadiliko-ya-mfano-yanayotarajiwa">Mabadiliko ya Mfano Yanayotarajiwa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seti-ya-msingi-mbinu-za-kijiometri">Seti ya Msingi / Mbinu za Kijiometri</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#makadirio-ya-wasiwasi-kwa-mifano-ya-kina">Makadirio ya Wasiwasi kwa Mifano ya Kina</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aina-mbili-za-wasiwasi">Aina Mbili za Wasiwasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mc-dropout">MC Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#makundi-ya-kina">Makundi ya Kina</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mzunguko-kamili-wa-ujifunzaji-tendaji">Mzunguko Kamili wa Ujifunzaji Tendaji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tatizo-la-kuanza-baridi">Tatizo la Kuanza Baridi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ujifunzaji-tendaji-wa-hali-ya-vifurushi">Ujifunzaji Tendaji wa Hali ya Vifurushi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vigezo-vya-kusimama">Vigezo vya Kusimama</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wakati-ujifunzaji-tendaji-unafanya-kazi-na-wakati-haifanyi">Wakati Ujifunzaji Tendaji Unafanya Kazi (na Wakati Haifanyi)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

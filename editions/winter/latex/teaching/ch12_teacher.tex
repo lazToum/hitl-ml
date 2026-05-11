@@ -1,0 +1,388 @@
+% ============================================================================
+% CHAPTER 12 TEACHER'S MANUAL
+% Complete instructional guide for HITL measurement and evaluation
+% ============================================================================
+% Source: /markdown/ch12/Ch12T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 12}
+\label{ch:teacher-ch12}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching HITL measurement and evaluation using \emph{Measuring Success}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Define precision, recall, F1, calibration error, and inter-rater agreement
+    \item Explain why accuracy alone is insufficient for evaluating HITL systems
+    \item Describe Goodhart's Law and its specific manifestations at the reviewer, organizational, and model levels
+    \item List all seven dimensions of the HITL measurement framework
+    \item Define the divergence trap and explain how it differs from the Goodhart problem
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Compute basic classification metrics (precision, recall, F1) from a confusion matrix
+    \item Apply the seven-dimension framework to evaluate a real or hypothetical HITL deployment
+    \item Identify which metric is most likely being gamed in a described scenario
+    \item Distinguish between pathway-specific and aggregate error rates
+    \item Explain why a 99\% accurate fraud detector might catch zero fraud
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a complete measurement framework for a new HITL system
+    \item Propose an A/B test to evaluate a proposed change to a routing threshold
+    \item Identify conditions under which optimizing one metric degrades another
+    \item Critique a proposed measurement approach for susceptibility to Goodhart effects
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--4:} HITL fundamentals, uncertainty quantification, Five Dimensions framework
+    \item \textbf{Statistics:} Basic probability, understanding of proportions and means; confidence intervals helpful but not required for the conceptual treatment
+    \item \textbf{Optional:} Machine learning fundamentals helpful for calibration discussion
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Mid-Course (Weeks 8--10)] Pairs naturally with system design chapters; students now have enough HITL context to appreciate the measurement challenges
+    \item[Applied Concentration] Excellent capstone topic for applied HITL courses --- connects all previous concepts to practical evaluation
+    \item[Standalone] Can be taught as a ``How to Evaluate AI Systems'' unit
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Seven-Dimension Measurement Framework}
+
+\begin{table}[htbp]
+\caption{The seven-dimension HITL measurement framework}
+\label{tab:seven-dim-framework}
+\centering
+\begin{tabular}{@{}p{3cm}p{4cm}p{4.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Key Question} & \textbf{What It Misses If Omitted} \\
+\midrule
+Model accuracy & Is the model right? & Nothing alone --- but insufficient \\
+Calibration quality & Does confidence mean what we think? & Routing decisions based on bad confidence scores \\
+Human workload & Can reviewers sustain quality? & Fatigue-induced error that looks like stable performance \\
+Time-to-decision & How fast is the system? & Bottlenecks that accuracy data never reveals \\
+Cost per decision & What does it cost? & Inefficient routing that wastes review capacity \\
+Error rates by pathway & Are humans adding value? & Model improvement hiding reviewer degradation \\
+Feedback loop latency & How fast does the model learn? & Lag between human corrections and model improvement \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{technote}[Teaching Tip]
+Use this table as a diagnostic tool. Present a scenario (the 400-reviews-per-hour case is perfect), ask students which dimension is missing, and have them predict what goes wrong. The 400-reviews case involves missing workload tracking, which hid fatigue-induced error degradation. But it also involves Goodhart's Law operating at the reviewer level.
+\end{technote}
+
+\subsection{The Goodhart Problem Taxonomy}
+
+Three distinct mechanisms operate simultaneously in HITL systems:
+
+\begin{enumerate}
+    \item \textbf{Reviewer-level Goodhart:} Reviewers optimize for the metric they are evaluated on. Throughput metric $\to$ rubber-stamping.
+    \item \textbf{Organization-level Goodhart:} Organizations optimize for the metric they report upward. ``Percentage auto-processed'' $\to$ pressure to lower routing threshold without quality controls.
+    \item \textbf{Model-level Goodhart:} The model trains on reviewer behavior, silently absorbing whatever biases or gaming that behavior contains.
+\end{enumerate}
+
+\begin{cautionbox}[The Compounding Problem]
+In the 400-reviews-per-hour case, all three Goodhart levels operated simultaneously: reviewers gamed throughput, the organization celebrated the throughput improvement, and the model trained on the rubber-stamped approvals. Each level reinforced the others. Catching this required metrics at all three levels simultaneously.
+\end{cautionbox}
+
+\subsection{The Divergence Trap vs.\ the Goodhart Problem}
+
+These are related but distinct concepts that students often conflate.
+
+\begin{description}
+    \item[Goodhart] Measure becomes a target; gaming degrades true quality. Involves deliberate or incentive-driven optimization pressure.
+    \item[Divergence trap] Optimizing short-term accuracy narrows the model's effective learning domain over time. Can happen even when everyone is acting in good faith, optimizing correctly on the right metrics.
+\end{description}
+
+The divergence trap is a structural property of self-improving systems that selectively learn from edge cases: as the model improves, it routes the easy cases away from human review, concentrating the human review queue with hard cases and unusual presentations. The model then trains on increasingly narrow feedback.
+
+\subsection{The Class Imbalance Problem}
+
+The fraud detection example (99\% accuracy on 99:1 imbalanced data, catching zero fraud) is the most accessible introduction to why accuracy alone is insufficient. Use it early to motivate the entire measurement framework.
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\begin{table}[htbp]
+\caption{50-minute lecture plan for Chapter~12}
+\label{tab:lecture-plan-ch12}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{3.5cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Opening: the 400-reviews case (without explanation yet) & Case summary slide \\
+0:08--0:18 & Why accuracy alone fails: class imbalance + precision/recall & Confusion matrix slide \\
+0:18--0:30 & The seven-dimension framework & Framework table \\
+0:30--0:40 & Goodhart's Law: three levels + the 400-reviews explanation & Goodhart taxonomy slide \\
+0:40--0:47 & The divergence trap and A/B testing mindset & Divergence diagram \\
+0:47--0:50 & Wrap-up: measurement as visibility, not surveillance & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Opening: The 400-Reviews Problem (8 minutes)}
+
+Present the case study without explaining what went wrong. Management deployed a HITL content moderation system. They measured reviews per hour. Within six weeks, throughput climbed from 40 to 400 reviews per hour.
+
+\begin{trythis}
+\textbf{Poll:} ``Is this a success? Would you present this to executives as a win?''
+
+After the poll, reveal the outcome: the model trained on rubber-stamped approvals and degraded significantly. Ask: ``What metric should they have been measuring?'' This launches the seven-dimension framework discussion naturally.
+\end{trythis}
+
+\subsubsection{Part 1: Why Accuracy Alone Fails (10 minutes)}
+
+\begin{itemize}
+    \item Class imbalance example: 99\% fraud detection accuracy on 99:1 data can be achieved by labeling everything ``legitimate.'' The model catches zero fraud.
+    \item Introduce precision (when we flag, are we right?) and recall (of all the real problems, how many did we catch?)
+    \item Show that high accuracy is compatible with terrible precision or terrible recall
+    \item HITL-specific point: track accuracy separately for auto-processed and human-reviewed pathways. A 94\% vs.\ 98\% gap between pathways is informative.
+\end{itemize}
+
+\subsubsection{Part 2: The Seven-Dimension Framework (12 minutes)}
+
+Walk through the table. For each dimension, ask: ``If you didn't measure this, what would you miss?'' Students who have worked the 400-reviews case will now see exactly which dimensions were missing.
+
+Key emphasis:
+\begin{itemize}
+    \item Human workload: the fatigue curve (quality degrades after 20--30 minutes of sustained high-stakes review)
+    \item Feedback loop latency: short latency = faster learning but faster error propagation. The trade-off is real.
+    \item Error rates by pathway: if reviewers rarely override the model's recommendations, either the model is excellent or the reviewers are rubber-stamping. You cannot tell without ground truth audits.
+\end{itemize}
+
+\subsubsection{Part 3: Goodhart's Law (10 minutes)}
+
+Three levels. Walk through each with the 400-reviews example:
+\begin{itemize}
+    \item Reviewer level: throughput metric $\to$ click fast $\to$ rubber-stamp
+    \item Organization level: throughput headline metric $\to$ celebrate $\to$ don't look deeper
+    \item Model level: model trains on rubber-stamped data $\to$ threshold drifts $\to$ degradation
+\end{itemize}
+
+The only protection: measure multiple things simultaneously; hold some metrics sacred; use random sample audits not subject to gaming.
+
+\subsubsection{Part 4: Divergence Trap and A/B Testing (7 minutes)}
+
+\begin{itemize}
+    \item Divergence trap: even when everyone optimizes correctly, the model's effective coverage narrows as it improves. Inject easy cases into the review queue to maintain calibration.
+    \item A/B testing: you can run experiments on your HITL design. Change the routing threshold for a randomly assigned subset and compare outcomes. Don't set thresholds once at launch and never revisit.
+\end{itemize}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Metrics Calculation Workshop (15 min).}
+Provide students with a confusion matrix and have them compute precision, recall, F1, and then discuss what each implies for the HITL routing design.
+
+\paragraph{Add: A/B Test Design Exercise (10 min).}
+Small groups design an A/B test for one specific HITL design change. Specify: the treatment and control conditions, the primary metric, the sample size (conceptual), and the decision criterion.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Class Imbalance:} ``A fraud detection system applied to a dataset where 1\% of transactions are fraudulent reports 99\% accuracy. It flags zero transactions for review. What's wrong with this system, and what metric would catch the problem?''\\
+    \textit{Target: The model labels everything `legitimate.' Accuracy = 99\% but recall = 0\%. Precision is undefined (no positive predictions). Recall is the metric that catches the problem.}
+
+    \item \textbf{Goodhart Identification:} ``A content moderation team is evaluated on the percentage of cases resolved within 24 hours. Six months later, they are hitting 95\% same-day resolution. What are two possible explanations for this --- one good, one reflecting Goodhart's Law?''\\
+    \textit{Target: Good: the team genuinely became faster. Goodhart: the team started closing cases without full review to meet the 24-hour deadline, or escalated fewer ambiguous cases to reduce resolution time.}
+
+    \item \textbf{Pathway Error Rates:} ``A HITL fraud detection system auto-processes 90\% of transactions at 98\% accuracy and sends 10\% to human reviewers. The human-reviewed cases show 85\% accuracy. Is this a problem?''\\
+    \textit{Target: Not necessarily. Human-reviewed cases are specifically the hard, uncertain ones --- lower accuracy on the hard set is expected. The question is whether human review is adding value above the AI's decision on those cases, not whether the accuracy on hard cases matches easy cases.}
+
+    \item \textbf{Measurement Framework Design:} ``An organization deploys a new HITL medical imaging system. Which two dimensions of the seven-dimension framework should they prioritize measuring in the first month, and why?''\\
+    \textit{Target: Model accuracy (is it performing as expected on production data?) and human workload (are reviewers being overloaded in ways that will degrade quality?). Both are early-warning indicators.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Goodhart at Three Levels:} ``In the 400-reviews-per-hour case, identify exactly which Goodhart mechanism was operating at the reviewer level, the organization level, and the model level. How did the three levels reinforce each other?''\\
+    \textit{Target: Reviewer --- throughput metric $\to$ rubber-stamp. Organization --- throughput headline $\to$ no deeper look. Model --- trained on rubber-stamped approvals $\to$ threshold drift. Reinforcement: each level provided cover for the others; declining quality was invisible.}
+
+    \item \textbf{The Divergence Trap:} ``Explain the divergence trap in your own words. Why is it a problem even when everyone is acting in good faith? How would you detect it before it becomes a crisis?''\\
+    \textit{Target: As model improves, it handles easy cases autonomously and routes harder/unusual cases to humans. Model trains on increasingly narrow, hard-case feedback. Effective coverage narrows. Detection: track model calibration on a held-out random sample (not just the review queue), and watch for confidence score distribution on auto-approved cases shifting over time.}
+
+    \item \textbf{A/B Test Design:} ``You hypothesize that lowering the confidence threshold for routing (routing more cases to human review) will improve downstream model performance, but you're not sure if the cost in reviewer time is worth it. Design an A/B test to answer this question.''\\
+    \textit{Target: Treatment = 5 percentage-point lower threshold (routes more to review); control = current threshold. Primary metric: model accuracy on held-out test set at 30 and 60 days. Secondary metric: cost per decision (reviewer time). Decision criterion: model improvement $>$ reviewer cost increase.}
+
+    \item \textbf{Feedback Loop Latency Trade-off:} ``Short feedback loop latency (reviewer decisions quickly incorporated into training) means the model learns faster but reviewer errors propagate faster. How would you calibrate this trade-off for a medical imaging system versus a spam filter?''\\
+    \textit{Target: Medical imaging: longer latency justified because reviewer errors on medical cases are dangerous; want a quality-check gate before training. Spam filter: shorter latency acceptable because reviewer errors are lower-stakes and the signal-to-noise ratio in corrections is higher.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Multi-Level Goodhart Defense:} ``Design a complete anti-Goodhart measurement architecture for a HITL system with 20 reviewers. Specify: what metrics are tracked at the reviewer level, organization level, and model level; how each resists gaming; and what the quarterly audit process looks like.''
+
+    \item \textbf{Divergence Trap Countermeasure:} ``A medical imaging HITL system has been in production for two years. Propose a methodology to determine whether the divergence trap has affected its performance, and a corrective intervention if you find evidence that it has.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Confusion Matrix Drill (15 minutes)}
+
+\textbf{Setup:} Pairs. Provide a confusion matrix (e.g., 1,000 predictions: 900 true negatives, 80 true positives, 10 false positives, 10 false negatives).
+
+\textbf{Task:}
+\begin{enumerate}
+    \item Calculate accuracy, precision, recall, F1 score
+    \item Interpret: for this system (assume fraud detection), which error type is more costly?
+    \item Design a routing threshold change that would improve recall at the cost of precision
+    \item Explain the HITL implication: what changes in the review queue when precision drops?
+\end{enumerate}
+
+\paragraph{Expected answers.}
+
+\begin{itemize}
+    \item Accuracy: $(900+80)/1000 = 98\%$
+    \item Precision: $80/(80+10) = 88.9\%$
+    \item Recall: $80/(80+10) = 88.9\%$ (note: symmetric in this case)
+    \item F1: $2 \times (0.889 \times 0.889) / (0.889 + 0.889) = 88.9\%$
+    \item Improving recall by lowering the flagging threshold: more flagged cases, including more false positives, reaches reviewers. Reviewer workload increases; the signal-to-noise ratio in the review queue decreases.
+\end{itemize}
+
+\subsection{Activity 2: Goodhart Identification Game (20 minutes)}
+
+\textbf{Setup:} Groups of 3--4. Each group receives a HITL system description with one measurement scheme.
+
+\textbf{Task:} For each scenario, identify:
+\begin{enumerate}
+    \item Which of Goodhart's three levels is most at risk
+    \item Specifically how the metric would be gamed in practice
+    \item A replacement or supplementary metric that resists gaming
+\end{enumerate}
+
+\paragraph{Scenarios.}
+\begin{description}
+    \item[Scenario A] Loan approval HITL system. Reviewer metric: ``percentage of AI recommendations accepted.''
+    \item[Scenario B] Medical triage HITL system. Reviewer metric: ``average time per case.''
+    \item[Scenario C] Content moderation. Model metric: ``percentage of content flagged per day.''
+    \item[Scenario D] Fraud detection. Organizational metric: ``false positive rate.''
+\end{description}
+
+\subsection{Activity 3: Seven-Dimension Audit (20 minutes)}
+
+\textbf{Setup:} Small groups. Each group receives a brief case description of a deployed HITL system.
+
+\textbf{Task:} Complete the seven-dimension audit and identify the two most critical missing measurements.
+
+\begin{table}[htbp]
+\caption{Seven-dimension audit worksheet}
+\label{tab:seven-dim-worksheet}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{2cm}p{4.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Tracked?} & \textbf{How Tracked} & \textbf{Risk if Missing} \\
+\midrule
+Model accuracy & & & \\[6pt]
+Calibration & & & \\[6pt]
+Human workload & & & \\[6pt]
+Time-to-decision & & & \\[6pt]
+Cost per decision & & & \\[6pt]
+Error rates by pathway & & & \\[6pt]
+Feedback loop latency & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``High Accuracy Is Sufficient''}
+
+\paragraph{Correction.}
+Use the fraud detection class imbalance example. A 99\%-accurate model that labels everything ``legitimate'' demonstrates that accuracy tells you nothing about whether the system is doing what you need it to do. Precision and recall are necessary additional dimensions; so are all seven dimensions of the framework.
+
+\subsection{Misconception 2: ``Goodhart's Law Is About Bad Actors''}
+
+\paragraph{Correction.}
+Goodhart effects emerge from rational behavior under incentive structures, not from malice. The reviewers who rubber-stamped approvals to hit throughput targets were responding rationally to the metric they were evaluated on. The problem is in the metric design, not the reviewers' character.
+
+\subsection{Misconception 3: ``You Can't Run A/B Tests on Human Decisions''}
+
+\paragraph{Correction.}
+A/B testing in HITL systems is well-established practice in the industry. Requirements are: random case assignment (not arm A on Monday, arm B on Friday); reviewers must not know they are in an experiment; a stable ground truth is required for evaluation. These constraints are manageable; the payoff is continuous, evidence-driven improvement.
+
+\subsection{Misconception 4: ``More Human Review Is Always Better''}
+
+\paragraph{Correction.}
+Routing too many cases to human review creates alert fatigue, increases costs, and may actually degrade quality if reviewers are overwhelmed. The divergence trap shows that routing too many cases to human review also narrows the model's learning signal over time. The goal is \emph{calibrated} routing that maximizes the value of human judgment per unit of reviewer effort.
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Measurement Framework Design (500--750 words)}
+
+\textbf{Prompt:} Design a complete measurement framework for a HITL system of your choice. Specify: what you measure for each of the seven dimensions, how you measure it, how often, and what threshold triggers an alert.
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Coverage (25\%):} All seven dimensions addressed
+    \item \textbf{Specificity (35\%):} Specific, measurable metrics with operationalized definitions
+    \item \textbf{Goodhart resistance (25\%):} Evidence that the student has considered how each metric could be gamed and chosen metrics that resist gaming
+    \item \textbf{Alert design (15\%):} Threshold values are specified and justified
+\end{itemize}
+
+\subsection{Option 2: Case Analysis Paper}
+
+\textbf{Prompt:} Analyze the 400-reviews-per-hour case study in depth. Identify all three Goodhart levels. Propose a complete measurement architecture that would have detected the problem within 30 days. Explain why your proposed metrics are resistant to the same gaming.
+
+\subsection{Option 3: A/B Test Design}
+
+\textbf{Prompt:} Design a specific A/B test for a HITL system of your choice. Specify: hypothesis, treatment and control conditions, primary outcome metric, sample size (estimated), decision criterion, and how you would prevent the experiment from itself becoming subject to Goodhart's Law.
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~2:} Calibration concepts; the seven-dimension framework's calibration dimension extends Chapter~2's ECE analysis to deployment monitoring
+    \item \textbf{Chapter~4:} Threshold problem --- A/B testing optimizes the routing threshold that Chapter~4 established conceptually
+    \item \textbf{Chapter~9:} Annotation quality --- inter-rater agreement (Chapter~7) appears here as the reviewer agreement dimension
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~13:} Psychology --- fatigue effects connect to the human workload dimension; automation bias affects reviewer agreement rates
+    \item \textbf{Chapter~15:} Failure modes --- the four-failure-mode taxonomy maps onto the seven-dimension framework; measurement detects failures
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~12 is the measurement chapter the whole book has been building toward. Every failure mode described in earlier chapters is detectable by one or more of the seven dimensions. The chapter's most important contribution is the Goodhart taxonomy: students who can identify all three Goodhart levels simultaneously will design measurement systems that are much harder to game --- and much more informative about whether their HITL systems are actually working.}

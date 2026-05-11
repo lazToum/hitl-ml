@@ -1,0 +1,461 @@
+% ============================================================================
+% CHAPTER 3 TEACHER'S MANUAL
+% Complete instructional guide for teaching how computers learn
+% ============================================================================
+% Source: /markdown/ch3/Ch3T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 3}
+\label{ch:teacher-ch03}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching the origins of machine learning uncertainty using \emph{How Computers Learn: The Simple Version}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Describe the three steps of supervised machine learning: Gather, Learn, Generalize
+    \item Define overfitting and underfitting and identify which is more dangerous for HITL design
+    \item Explain the generalization gap and why it is a permanent structural feature of any learnable system
+    \item Describe the train/test split and its relationship to real-world deployment performance
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Identify which inputs in a deployment scenario are most likely to sit near the distribution edge
+    \item Evaluate whether a model's poor performance is primarily due to overfitting, underfitting, or deployment distribution shift
+    \item Predict which types of inputs will benefit most from human review, given knowledge of the training data
+    \item Classify distribution shift as covariate shift or concept drift in realistic scenarios
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a data collection strategy to reduce epistemic uncertainty in a specific domain
+    \item Propose HITL routing criteria based on knowledge of the training distribution boundary
+    \item Critique AI system claims that ``more data'' or ``better architecture'' eliminates the need for human oversight
+    \item Argue why the generalization gap is permanent, not a temporary engineering limitation
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1 and 2 (required):} HITL framework, aleatoric vs.\ epistemic uncertainty, calibration
+    \item \textbf{No mathematical background required} for the main chapter
+    \item \textbf{Appendix~3A} requires linear algebra and basic statistics (bias-variance decomposition, MMD)
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Standard sequence] Taught after Chapter~2 (uncertainty types) and before Chapter~4 (thresholds) --- provides the ``why'' behind uncertainty patterns
+    \item[ML-oriented course] This chapter bridges general ML education and HITL design by explaining \emph{why} models fail at the edges and why that failure is structural
+    \item[Policy/ethics emphasis] The generalization gap argument directly refutes ``AI will outgrow human oversight'' claims
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Pedagogical Goal}
+
+The chapter's core argument is a reframe: the need for human oversight at the edges of machine learning is not a temporary bug to be engineered away. It is a structural consequence of learning from finite data. The pedagogical goal is to shift students from ``AI will eventually be good enough not to need humans'' to ``the generalization gap is permanent, and HITL is the designed response to it.''
+
+\begin{technote}[Teaching Tip]
+Open with the teacher/folder metaphor before introducing any vocabulary. The image of a teacher showing photographs of cats and dogs is intuitive enough that students grasp training distribution immediately. Then immediately ask: ``What happens when you show the teacher a photograph of a snow leopard?'' The gap between training distribution and deployment reality becomes visceral.
+\end{technote}
+
+\subsection{The Three Steps of Supervised Learning}
+
+\begin{table}[htbp]
+\caption{Three steps of supervised machine learning: instructor reference}
+\label{tab:three-steps-ch03}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Step} & \textbf{What Happens} & \textbf{Real Examples} \\
+\midrule
+Gather & Collect labeled training examples & Gmail spam clicks; ImageNet labels; Wikipedia text \\
+Learn & Adjust internal weights until patterns match & Analogous to dimmer switch finding right brightness \\
+Generalize & Apply learned patterns to new inputs & The email the model has never seen \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[Key Question to Pose]
+After presenting all three steps, ask: ``What happens when the new email is very different from anything in the training set?'' This leads directly into distribution edges and the HITL rationale without needing to introduce technical vocabulary first.
+\end{keyconcept}
+
+\subsection{Overfitting vs.\ Underfitting}
+
+\begin{table}[htbp]
+\caption{Overfitting vs.\ underfitting: HITL implications}
+\label{tab:overfit-underfit}
+\centering
+\begin{tabular}{@{}p{3cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{Property} & \textbf{Overfitting} & \textbf{Underfitting} \\
+\midrule
+Training accuracy & High & Low \\
+Test accuracy & Drops substantially & Roughly equals training \\
+Deployment gap & Large & Smaller (but accuracy low everywhere) \\
+Dangerous for HITL? & Yes --- false confidence on novel inputs & Less so --- errors are systematic and detectable \\
+Error type & Unpredictable, high-confidence errors & Predictable, often low-confidence errors \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{cautionbox}[Critical Teaching Point]
+Overfitting is more dangerous for HITL than underfitting. An overfit model produces high-confidence wrong outputs on novel inputs that match its spurious learned patterns. This creates the worst-case HITL scenario: wrong answer + no uncertainty signal = no routing trigger. Underfitting, by contrast, produces consistently poor performance that is at least visible.
+\end{cautionbox}
+
+\subsection{The Three-Way Distribution Gap}
+
+Draw this on the board explicitly. Students often know the train/test split but miss the third level:
+
+\begin{table}[htbp]
+\caption{The three-way distribution gap}
+\label{tab:three-way-gap}
+\centering
+\begin{tabular}{@{}p{4cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Distribution} & \textbf{Properties} & \textbf{Performance} \\
+\midrule
+Training & Labeled, curated, controlled & Optimized against \\
+Test (held-out) & Same source as training & Upper bound for deployment \\
+Deployment & Real-world: wider, weirder, shifting & Typically lower; sometimes dramatically so \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[The Central Structural Argument]
+Test performance establishes a ceiling for deployment performance --- not a reliable prediction of it. The deployment gap exists because the test set is drawn from the same controlled distribution as training, while deployment faces inputs from the full messy world. This is why HITL exists: not because current AI is immature, but because no system trained on finite past data can perfectly anticipate future inputs.
+\end{keyconcept}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening: The Teacher with the Folder (7 minutes)}
+
+Tell the cat/dog teacher metaphor slowly:
+\begin{itemize}
+    \item The training set is the folder of labeled photographs
+    \item Learning = noticing patterns in the folder
+    \item Generalization = applying those patterns to new photographs
+\end{itemize}
+
+\begin{trythis}
+\textbf{Class question:} ``Has this ever happened to you --- you learned a rule from limited examples, and that rule failed when you encountered something different?'' Draw the parallel to machine learning systems. Then ask: ``What happens when the teacher is shown a snow leopard?''
+\end{trythis}
+
+\subsubsection{Part 1: The Three Steps (10 minutes)}
+
+Walk through Gather $\to$ Learn $\to$ Generalize with concrete examples:
+\begin{itemize}
+    \item \textbf{Gather:} Gmail spam folder (your clicks are labeling data); ImageNet (millions of labeled images)
+    \item \textbf{Learn:} Weights adjust until patterns match --- use the dimmer-switch analogy (no math required)
+    \item \textbf{Generalize:} The new email the model has never seen
+\end{itemize}
+
+Key question: ``What happens when the new email is very different from anything in the training set?''
+
+\subsubsection{Part 2: Overfitting vs.\ Underfitting (10 minutes)}
+
+Use the blue-background-cat example. Make it visual:
+\begin{itemize}
+    \item Draw a scatter plot on the board with two classes
+    \item Show a simple boundary (underfitting --- misses structure)
+    \item Show a wiggly boundary that fits every point perfectly (overfitting --- fits noise)
+    \item Ask: ``Which boundary would you trust on new data?''
+\end{itemize}
+
+\textbf{HITL connection:} Overfit models are confident but wrong on novel inputs. This creates silent errors --- bad outputs that do not trigger uncertainty flags.
+
+\subsubsection{Part 3: The Generalization Gap (10 minutes)}
+
+Central argument: even a perfect learner has edges. This is not temporary. Use the ``new situation'' examples:
+\begin{itemize}
+    \item Model trained on 2020 data, deployed in 2025 (language change, new topics, new technologies)
+    \item Model trained on US patients, deployed in a rural Kenyan clinic
+    \item Model trained on clear-weather images, deployed during fog season
+\end{itemize}
+
+\begin{keyconcept}[Addressing the ``More Data'' Objection]
+Many students will immediately object: ``Can't you just train on more data?'' The answer is: yes, and you should --- but more data from the same distribution does not help with genuinely novel inputs. The edges of the distribution shift but they do not disappear. More data expands the center of competence; it does not eliminate the boundary.
+\end{keyconcept}
+
+\subsubsection{Part 4: The Train/Test/Deployment Gap (8 minutes)}
+
+Draw the three-level distinction explicitly (Table~\ref{tab:three-way-gap}). Emphasize that test performance does not predict deployment performance on edge cases. This is why HITL exists.
+
+\begin{table}[htbp]
+\caption{50-minute lesson plan for Chapter~3}
+\label{tab:lesson-plan-ch03}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{4cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:07 & Opening story: teacher/folder metaphor + discussion & Whiteboard \\
+0:07--0:17 & Three steps: Gather $\to$ Learn $\to$ Generalize & Slide with examples \\
+0:17--0:27 & Overfitting vs.\ underfitting + scatter plot & Whiteboard drawing \\
+0:27--0:37 & Generalization gap + ``more data'' objection & Three examples slide \\
+0:37--0:45 & Train/test/deployment three-way gap & Table on board \\
+0:45--0:50 & Wrap-up, assign Try This, preview Ch.\ 4 & Chapter handout \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Wrap-Up and Preview (5 minutes)}
+Close with the structural argument: ``The need for human help at the edges of machine learning is not a bug in current technology. It is a structural feature of learning from data. The question is not whether to involve humans --- it is how to do it well.'' Preview Chapter~4: given that the model has uncertainty at the edges, how do we translate that uncertainty into a decision?
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Distribution Edge Map Activity (15 min).}
+Students map distribution edges for a given scenario. See Activity~1 below.
+
+\paragraph{Add: Overfit/Underfit Diagnosis Workshop (10 min).}
+Students interpret train/test/deployment accuracy triples and diagnose each system.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Personal Overfitting:} ``Describe a time you `overfitted' to a limited set of examples in your own life --- drew a rule from too few cases that failed when you encountered something new. How does this relate to machine learning?''\\
+    \textit{Target insight: Strong answers identify the rule learned, what made the sample limited, and how generalization failed. The ML parallel: overfit models learn spurious patterns from non-representative training sets.}
+
+    \item \textbf{Distribution Shift:} ``A spam filter is trained on business email from 2018. In what ways might emails from 2025 be different? Which differences would be likely to create distribution edge cases?''\\
+    \textit{Target insight: Multiple shift types --- new platforms referenced, new phishing styles, AI-generated spam, new vocabulary. Categorize as covariate shift (P(x) changes) vs.\ concept drift (P(y\textbar x) changes).}
+
+    \item \textbf{Test Set Limits:} ``Why is it not sufficient to just test a machine learning system on a test set before deploying it? What does the test set miss?''\\
+    \textit{Target insight: Test set is from same controlled distribution. Misses: temporal shift, rare edge cases absent from both train and test, adversarial adaptation, scale effects.}
+
+    \item \textbf{Vocabulary Check:} ``In your own words, explain the difference between overfitting and the generalization gap. Are they the same thing?''\\
+    \textit{Target insight: Overfitting is a property of the model relative to its training set. The generalization gap is a structural property of learning from finite data --- it exists even for a perfectly fit model when deployed on inputs that differ from the training distribution.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Medical AI Distribution Shift:} ``A medical AI trained on data from five major U.S.\ hospitals is deployed in rural health clinics in Kenya. Identify three specific types of distribution shift you would expect, and for each, predict what kind of errors the model would make.''\\
+    \textit{Target: Demographic covariate shift (different patient population); disease prevalence label shift (higher base rates for malaria, typhoid); equipment covariate shift (lower-resolution imaging). Each shift type produces different error patterns.}
+
+    \item \textbf{Gap Interpretation:} ``A model achieves 98\% accuracy on its training set and 87\% accuracy on a held-out test set from the same distribution. Now it achieves 72\% in deployment. Interpret these three numbers. What does each gap tell you?''\\
+    \textit{Target: Train$\to$test gap (11 pp) suggests moderate overfitting. Test$\to$deployment gap (15 pp) suggests significant distribution shift. Distribution shift is the dominant problem.}
+
+    \item \textbf{Overfitting and HITL Routing:} ``Explain how overfitting creates a specific challenge for uncertainty-based HITL routing: why might an overfit model fail to flag the cases it most needs help with?''\\
+    \textit{Target: Overfit model produces high-confidence outputs on novel inputs that happen to match spurious learned patterns. Wrong + high confidence = no routing trigger. The routing system fails because it relies on the model's uncertainty signal, which is miscalibrated.}
+
+    \item \textbf{Covariate Shift Design:} ``A content moderation AI trained on 2019--2022 US/UK/AU English social media is deployed globally in 2026. Identify two distribution shifts that would produce high-confidence wrong answers rather than uncertain ones. Why is this the dangerous failure mode?''\\
+    \textit{Target: New attack patterns that superficially resemble safe content (adversarial concept drift); new cultural contexts where harmful patterns don't appear harmful to the model (cultural distribution shift). Both produce confident misclassifications with no uncertainty signal.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Bias-Variance and HITL Value:} ``Using the bias-variance decomposition from Appendix~3A, explain why the human-in-the-loop value is highest for high-variance models and lowest for high-bias models. What does this imply about when to invest in HITL vs.\ when to invest in data collection?''
+
+    \item \textbf{PAC Learning and Rare Categories:} ``PAC learning theory provides sample complexity bounds: the number of examples needed to achieve a given error rate with given probability. How does this framework explain why rare-category detection requires disproportionately large amounts of labeled human feedback?''
+
+    \item \textbf{MMD Monitoring:} ``Design a production monitoring system for a deployed model using MMD (Maximum Mean Discrepancy) to detect distribution drift. What is your reference distribution? What threshold triggers human audit? What does `human audit' look like in practice?''
+
+    \item \textbf{Aleatoric vs.\ Epistemic at Deployment:} ``A speech recognizer achieves 5\% WER on Midwestern American English but 40\% WER on Scottish English. Is this primarily aleatoric or epistemic uncertainty? How would you design the HITL response for each type, and why would they differ?''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Distribution Edge Map (15 minutes)}
+
+\textbf{Setup:} Individual or small-group work.
+
+\textbf{Scenario:} ``A content moderation AI is trained on social media posts from English-speaking users in the US, UK, and Australia from 2019--2022.''
+
+\textbf{Task:} Students identify five categories of cases that would be at or beyond the distribution edge, and predict what kind of errors the model would make on each.
+
+\paragraph{Sample Mapping Table.}
+\begin{table}[htbp]
+\caption{Distribution edge map: content moderation AI}
+\label{tab:edge-map-ch03}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{3.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Edge Case Category} & \textbf{Examples} & \textbf{Expected Error Type} \\
+\midrule
+Non-English content & Spanish, Hindi, Tagalog posts & Classifies on superficial English patterns; high FP on innocuous foreign text \\
+Post-2022 events & New political conflicts, new slang & No learned context; applies outdated patterns to new figures \\
+Non-Western cultural context & Cultural idioms resembling threat language & FP on culturally specific expression \\
+Coordinated inauthentic behavior & Influence operations using legitimate language & Designed to evade training distribution; high FN \\
+Platform format changes & New emoji usages, new format conventions & Pattern mismatch; erratic confidence \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Debrief:} For each category, ask: ``Does this error pattern suggest a useful uncertainty signal or a silent failure?''
+
+\subsection{Activity 2: Overfit/Underfit Diagnosis (10 minutes)}
+
+\textbf{Setup:} Present three systems with their train/test/deployment accuracy numbers:
+
+\begin{table}[htbp]
+\caption{Systems for overfitting/underfitting diagnosis}
+\label{tab:diagnosis-ch03}
+\centering
+\begin{tabular}{@{}p{2cm}p{2.5cm}p{2.5cm}p{2.5cm}p{4cm}@{}}
+\toprule
+\textbf{System} & \textbf{Train} & \textbf{Test} & \textbf{Deploy} & \textbf{Diagnosis} \\
+\midrule
+A & 99\% & 98\% & 91\% & Distribution shift (not overfitting) \\
+B & 77\% & 76\% & 73\% & Underfitting \\
+C & 98\% & 71\% & 65\% & Severe overfitting \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Task:} For each system, diagnose the primary failure mode and propose the most appropriate HITL intervention.
+
+\textbf{Debrief key point:} System~A's problem requires distribution-aware routing (OOD detection). System~B's problem is best addressed by model improvement, not HITL expansion. System~C requires calibration auditing because high-confidence outputs may be wrong.
+
+\subsection{Activity 3: What Was the Training Data? (10 minutes)}
+
+\textbf{Setup:} Show students AI failure examples.
+
+\textbf{Task:} Reverse-engineer what the training data likely contained and what it lacked.
+
+\paragraph{Examples.}
+\begin{description}
+    \item[Autocorrect on ``Nguyen''] Training data over-represents Western European names; Vietnamese names underrepresented. Solution: diverse name corpora, or never ``correct'' potential proper nouns.
+    \item[Translation failing on informal text] Training from formal parallel corpora (news, EU documents); social media register absent. Solution: add Twitter/social translations; or route informal text to human translation.
+    \item[Image classifier failing on dark skin tones] ImageNet historically skewed toward lighter skin tones. Solution: actively curated diverse training data; calibration auditing by demographic subgroup.
+\end{description}
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``More Data Solves the Generalization Problem''}
+
+\paragraph{Student thinking:} ``If you just get enough data, AI will generalize to everything.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item More data from the same distribution helps with epistemic uncertainty within that distribution
+    \item It does not help with genuinely novel inputs: a model trained on 10 billion English emails still cannot reliably classify Tagalog ones
+    \item The edges of the distribution shift with more data, but they do not disappear
+    \item Correct this carefully: ``more data'' is genuinely good advice, but not sufficient for deployment robustness
+\end{itemize}
+
+\subsection{Misconception 2: ``Overfitting Means the Model Is Wrong About Everything''}
+
+\paragraph{Student thinking:} ``If a model is overfit, all its predictions are bad.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Overfitting means wrong about inputs that differ from training in the ways the model overfit to
+    \item The model may be very accurate on typical inputs
+    \item The problem is that wrong predictions on unusual inputs often come with false confidence --- silent errors
+\end{itemize}
+
+\subsection{Misconception 3: ``The Test Set Tells You Real-World Performance''}
+
+\paragraph{Student thinking:} ``We tested it and it got 95\%, so it will get 95\% in deployment.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The test set is usually cleaner, more balanced, and more similar to training than real-world deployment
+    \item The test set does not include inputs from after training (temporal shift)
+    \item It typically excludes rare edge cases --- the ones that cause the most problems at scale
+    \item Test performance is an upper bound for deployment, not a prediction
+\end{itemize}
+
+\subsection{Misconception 4: ``Neural Networks Learn Rules''}
+
+\paragraph{Student thinking:} ``If I could read the model's rules, I could verify them.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Neural networks learn weights, not human-readable rules
+    \item No rule extraction allows auditing in the traditional sense
+    \item This has direct HITL implications: you cannot verify model reasoning by inspection; you verify it by monitoring outcomes
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Short Answer (200--350 words)}
+
+\textbf{Prompt:} ``Explain the generalization gap and give one example of a real AI deployment where it has caused problems. What human-in-the-loop mechanism would help in your example?''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Generalization gap explanation (35\%):} Correct definition; permanent vs.\ temporary; connection to finite training data
+    \item \textbf{Real example quality (30\%):} Specific, accurate, with identifiable distribution shift type
+    \item \textbf{HITL mechanism (35\%):} Feasible, linked to the specific error type in the example
+\end{itemize}
+
+\subsection{Option 2: Essay (500--750 words)}
+
+\textbf{Prompt:} ``Some argue that with enough data and compute, AI systems will eventually generalize well enough that human oversight becomes unnecessary. Using concepts from this chapter, argue why this claim is incorrect in principle. Your argument should use at least two of the following: distribution shift, overfitting, aleatoric uncertainty, rare categories.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Argument structure (25\%):} Clear thesis; logically ordered; addresses the claim directly
+    \item \textbf{Concept application (40\%):} Correct use of at least two required concepts with specific examples
+    \item \textbf{Counter-argument engagement (20\%):} Acknowledges the ``more data helps'' point but explains why it is insufficient
+    \item \textbf{Writing clarity (15\%):} Clear, precise, well-organized
+\end{itemize}
+
+\subsection{Option 3: Case Analysis (400--500 words)}
+
+\textbf{Prompt:} ``A hospital uses an AI diagnostic tool trained on data from three large academic medical centers in the US. The tool is deployed at fifteen rural community clinics with different patient demographics. The hospital reports that performance is `similar to validation.' Six months later, a study finds that the tool's performance is significantly lower on patients of East African descent. (a) Explain this finding using concepts from this chapter. (b) What HITL mechanism should have been in place from day one?''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~1:} Five Dimensions framework; distribution edges as the context for all five dimensions
+    \item \textbf{Chapter~2:} Epistemic uncertainty = training data gaps; this chapter explains \emph{why} those gaps exist and where they are predictably located
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~4:} Threshold problem --- given that the model has uncertainty at the edges, how do we translate that into a decision? What threshold routes edge cases to human review?
+    \item \textbf{Chapter~5:} Asking design --- edge cases are the inputs that trigger HITL asks; their format matters
+    \item \textbf{Chapter~7:} Annotation --- human labels at the distribution edge are the most valuable (highest epistemic uncertainty) and the hardest to obtain (rarest inputs)
+\end{itemize}
+
+\subsection{Cross-Curricular Connections}
+\begin{itemize}
+    \item \textbf{Statistics:} Bias-variance tradeoff; PAC learning; distribution shift formalisms (covariate shift, concept drift)
+    \item \textbf{Philosophy of Science:} Induction problem; Hume's problem of induction; Goodman's ``grue'' paradox
+    \item \textbf{Medical Informatics:} External validation; generalizability of clinical prediction models
+    \item \textbf{Sociology:} Who is in the training data? Whose experience shapes the model's world?
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This teacher's manual provides everything needed to teach Chapter~3 on the structural origins of machine learning uncertainty. The central reframe --- that the generalization gap is permanent, not a temporary engineering limitation --- is the theoretical foundation for all the HITL design chapters that follow.}
+
+\medskip
+\noindent\textit{Next: Chapter~4 confronts the threshold problem --- given an AI with known uncertainty at the edges, how do we convert that uncertainty into a routing decision?}

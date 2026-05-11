@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Edition — Human in the Loop: Misunderstood</title>
+  <style>
+    :root {
+      --bg: #f4efe6; --bg-alt: #fbf8f2; --surface: rgba(255,255,255,0.72);
+      --surface-border: rgba(45,62,80,0.14); --text: #1d2935; --muted: #5b6875;
+      --accent: #0d9e8e; --accent-2: #b85c38; --shadow: 0 18px 40px rgba(35,44,56,0.08);
+      --radius: 18px; --page-max: 1100px;
+      --winter: #2b3a8f; --summer: #c47e1a; --companion: #6b7c5e;
+    }
+    *{box-sizing:border-box}
+    html{font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;color:var(--text);
+      background:radial-gradient(circle at top left,rgba(43,58,143,.08),transparent 32%),linear-gradient(180deg,var(--bg-alt),var(--bg));}
+    body{margin:0;min-height:100vh}
+    a{color:inherit;text-decoration:none}
+    .page-shell{max-width:var(--page-max);margin:0 auto;padding:48px 24px 72px}
+    .back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:32px;color:var(--muted);
+      font-size:.88rem;font-family:"JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.02em;transition:color 120ms ease}
+    .back-link:hover{color:var(--accent)}.back-link::before{content:"←"}
+    .hero{padding:32px 0 24px}
+    .eyebrow{margin:0 0 12px;color:var(--winter);font:700 .8rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .hero h1{margin:0;font-size:clamp(2.2rem,5vw,4rem);line-height:.95}
+    .lede{max-width:720px;margin:18px 0 0;color:var(--muted);font-size:1.08rem;line-height:1.6}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+    .edition-card{display:flex;flex-direction:column;gap:10px;min-height:200px;padding:20px;
+      background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius);
+      box-shadow:var(--shadow);backdrop-filter:blur(10px);transition:transform 140ms ease,border-color 140ms ease}
+    .edition-card:hover{border-color:rgba(13,158,142,.36);transform:translateY(-2px)}
+    .edition-tag{font:700 .78rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .edition-card[data-season="winter"]{border-left:4px solid var(--winter)} .edition-card[data-season="winter"] .edition-tag{color:var(--winter)}
+    .edition-card[data-season="summer"]{border-left:4px solid var(--summer)} .edition-card[data-season="summer"] .edition-tag{color:var(--summer)}
+    .edition-card[data-season="companion"]{border-left:4px solid var(--companion)} .edition-card[data-season="companion"] .edition-tag{color:var(--companion)}
+    .edition-card strong{font-size:1.15rem}
+    .edition-card span:last-child{color:var(--muted);line-height:1.55}
+    .about-block{max-width:720px;margin:24px 0 0;padding:22px 24px;background:var(--surface);
+      border:1px solid var(--surface-border);border-radius:var(--radius);box-shadow:var(--shadow);
+      color:var(--muted);line-height:1.7}
+    .about-block p{margin:0 0 10px}.about-block p:last-child{margin-bottom:0}
+    .site-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--surface-border);color:var(--muted);font-size:.82rem}
+    .site-footer a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <a class="back-link" href="../">Series overview</a>
+
+    <section class="hero">
+      <p class="eyebrow">Winter Edition</p>
+      <h1>Human in the Loop: Misunderstood</h1>
+      <p class="lede">
+        The main textbook. 18 chapters, 18 technical appendices with reference
+        implementations, a complete teaching package, and the full five-dimension
+        framework for evaluating human-in-the-loop systems.
+      </p>
+    </section>
+
+    <section class="card-grid">
+      <a class="edition-card" data-season="winter" href="../downloads/winter/hitl_winter_edition.pdf">
+        <span class="edition-tag">PDF</span>
+        <strong>Download the book</strong>
+        <span>Trade paperback format (6&times;9), typeset in Libertinus Serif. The canonical build.</span>
+      </a>
+      <a class="edition-card" data-season="companion" href="../companion/">
+        <span class="edition-tag">Companion</span>
+        <strong>Study materials</strong>
+        <span>Instructor guide, chapter solutions, and supporting texts for Winter readers.</span>
+      </a>
+      <a class="edition-card" data-season="summer" href="../summer/">
+        <span class="edition-tag">Summer</span>
+        <strong>Workbook edition</strong>
+        <span>A lighter, question-driven companion to the Winter material — no prerequisites.</span>
+      </a>
+    </section>
+
+    <div class="about-block">
+      <p>
+        Winter is organized around the five-dimension HITL framework: uncertainty
+        detection, intervention design, timing, stakes calibration, and feedback
+        integration. Each chapter opens with a concrete scenario — a 911 dispatcher,
+        a hospital alarm system, a criminal sentencing algorithm — before developing
+        the technical and design principles behind it.
+      </p>
+      <p>
+        Technical appendices follow each chapter with Python reference implementations.
+        The teaching package includes instructor notes and full solutions for all 18 chapters.
+      </p>
+    </div>
+
+    <footer class="site-footer">
+      &copy; 2026 Lazaros Toumanidis &mdash;
+      <a href="https://laztoum.com">laztoum.com</a>
+    </footer>
+  </main>
+</body>
+</html>

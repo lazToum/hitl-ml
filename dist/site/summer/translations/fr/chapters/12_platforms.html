@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Plateformes et outils d’annotation &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/fr/chapters/12_platforms';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/fr/chapters/12_platforms.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Plateformes et outils d’annotation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-paysage-des-plateformes-d-annotation">Le paysage des plateformes d’annotation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plateformes-open-source">Plateformes open source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plateformes-commerciales">Plateformes commerciales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparaison-des-fonctionnalites-des-plateformes-d-annotation">Comparaison des fonctionnalités des plateformes d’annotation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l-annotation-comme-code">L’annotation comme code</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="plateformes-et-outils-d-annotation">
+<h1>Plateformes et outils d’annotation<a class="headerlink" href="#plateformes-et-outils-d-annotation" title="Permalink to this heading">#</a></h1>
+<p>La plateforme d’annotation est l’environnement où le retour humain devient des données. Une bonne plateforme augmente le débit, réduit les erreurs, maintient les contrôles de qualité et rend le pipeline d’annotation gérable à grande échelle. Choisir la bonne plateforme — et savoir quand construire plutôt qu’acheter — est une décision importante dans tout projet HITL.</p>
+<hr class="docutils" />
+<section id="le-paysage-des-plateformes-d-annotation">
+<h2>Le paysage des plateformes d’annotation<a class="headerlink" href="#le-paysage-des-plateformes-d-annotation" title="Permalink to this heading">#</a></h2>
+<p>Le marché des outils d’annotation a considérablement grandi et mûri ces dernières années, porté par la demande des entreprises en données d’entraînement pour l’apprentissage automatique. Les outils vont des services entièrement gérés aux frameworks open source auto-hébergés.</p>
+<section id="plateformes-open-source">
+<h3>Plateformes open source<a class="headerlink" href="#plateformes-open-source" title="Permalink to this heading">#</a></h3>
+<p><strong>Label Studio</strong> est la plateforme d’annotation open source la plus populaire, prenant en charge les données textuelles, images, audio, vidéo et séries temporelles via une configuration de tâche unifiée basée sur XML. Elle peut être auto-hébergée et s’intègre avec des backends d’apprentissage automatique pour l’apprentissage actif. Points forts : flexibilité, soutien communautaire et possibilité d’intégrer des prédictions ML pour la pré-annotation.</p>
+<p><strong>Prodigy</strong> (des créateurs de spaCy) est un outil d’annotation hautement orienté flux de travail conçu pour les tâches TAL. Son architecture en streaming envoie des exemples un par un et prend en charge l’apprentissage actif nativement. L’interface d’annotation est minimaliste mais rapide — conçue pour maximiser le débit. Prodigy est un logiciel payant mais largement utilisé dans la recherche en TAL.</p>
+<p><strong>CVAT (Computer Vision Annotation Tool)</strong> est le principal outil open source pour l’annotation en CV, avec un fort support pour la détection, la segmentation et l’annotation vidéo. Développé à l’origine chez Intel, CVAT prend en charge les algorithmes de suivi, l’annotation de squelettes et les intégrations d’algorithmes tiers.</p>
+<p><strong>Doccano</strong> cible les tâches d’étiquetage de séquences (NER, extraction de relations, classification de texte). Son interface web simple le rend accessible aux équipes sans ressources dédiées en ingénierie de données.</p>
+</section>
+<section id="plateformes-commerciales">
+<h3>Plateformes commerciales<a class="headerlink" href="#plateformes-commerciales" title="Permalink to this heading">#</a></h3>
+<p><strong>Scale AI</strong> fournit des services d’annotation gérés de bout en bout : main-d’œuvre humaine, gestion de la qualité et intégration API. Particulièrement forte pour la conduite autonome, la robotique et l’annotation 3D complexe. La tarification est basée sur la complexité et le volume de la tâche.</p>
+<p><strong>Labelbox</strong> est une plateforme complète pour la curation de données, l’annotation et l’étiquetage assisté par apprentissage automatique. Fonctionnalités d’entreprise robustes : gestion de projets, flux de travail qualité, boucles de retour du modèle et intégrations avec les principales plateformes d’apprentissage automatique (SageMaker, Vertex AI, Azure ML).</p>
+<p><strong>Appen</strong> (anciennement Figure Eight / CrowdFlower) opère une grande main-d’œuvre d’annotation mondiale aux côtés d’outils. Un bon choix quand le volume et la gestion de la main-d’œuvre sont les principales préoccupations.</p>
+<p><strong>Surge AI</strong> se concentre sur les annotateurs experts et est fort pour les tâches nécessitant une connaissance du domaine ou un jugement nuancé.</p>
+<p><strong>Humanloop</strong> se spécialise dans la collecte de retours pour les LLM — annotation de préférences, collecte de données RLHF et évaluation des modèles.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="comparaison-des-fonctionnalites-des-plateformes-d-annotation">
+<h2>Comparaison des fonctionnalités des plateformes d’annotation<a class="headerlink" href="#comparaison-des-fonctionnalites-des-plateformes-d-annotation" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fonctionnalité</p></th>
+<th class="head"><p>Label Studio</p></th>
+<th class="head"><p>Prodigy</p></th>
+<th class="head"><p>CVAT</p></th>
+<th class="head"><p>Labelbox</p></th>
+<th class="head"><p>Scale AI</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Licence</p></td>
+<td><p>Open source</p></td>
+<td><p>Commercial</p></td>
+<td><p>Open source</p></td>
+<td><p>Commercial</p></td>
+<td><p>Commercial</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hébergement</p></td>
+<td><p>Auto / cloud</p></td>
+<td><p>Auto</p></td>
+<td><p>Auto / cloud</p></td>
+<td><p>Cloud</p></td>
+<td><p>Géré</p></td>
+</tr>
+<tr class="row-even"><td><p>Annotation de texte</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>—</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>Annotation d’images</p></td>
+<td><p>✓</p></td>
+<td><p>Limité</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>Annotation vidéo</p></td>
+<td><p>✓</p></td>
+<td><p>—</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intégration apprentissage actif</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>Limité</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>Pré-annotation assistée par ML</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>Flux de travail contrôle qualité</p></td>
+<td><p>Basique</p></td>
+<td><p>Basique</p></td>
+<td><p>Basique</p></td>
+<td><p>Avancé</p></td>
+<td><p>Avancé</p></td>
+</tr>
+<tr class="row-even"><td><p>Accès API / programmatique</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gestion de la main-d’œuvre</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Limité</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="l-annotation-comme-code">
+<h2>L’annotation comme code<a class="headerlink" href="#l-annotation-comme-code" title="Permalink to this heading">#</a></h2>
+<p>Un aspect critique mais souvent négligé de l’infrastructure d’annotation est le <strong>contrôle de version pour les annotations et les schémas d’annotation</strong>. Traiter l’annotation comme du code signifie :</p>
+<p><strong>Conception schéma d’abord.</strong> La taxonomie des étiquettes et les règles d’annotation sont définies dans un fichier de configuration versionné (YAML ou JSON) avant le début de l’annotation. Les modifications du schéma créent une nouvelle version.</p>
+<p><strong>Versionnage des annotations.</strong> Les annotations sont stockées avec un lien vers la version du schéma sous laquelle elles ont été créées. Cela permet l’audit, la restauration et la comparaison des annotations entre les versions du schéma.</p>
+<p><strong>Pipelines reproductibles.</strong> Le pipeline d’annotation — des données brutes aux étiquettes prêtes à l’entraînement — devrait être reproductible à partir du code. Les modèles de pré-annotation, les filtres de qualité, la logique d’agrégation et les divisions de données devraient tous être enregistrés.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span># Example: Label Studio annotation schema (text classification)
+label_config: |
+  &lt;View&gt;
+    &lt;Text name=&quot;text&quot; value=&quot;$text&quot;/&gt;
+    &lt;Choices name=&quot;sentiment&quot; toName=&quot;text&quot; choice=&quot;single&quot;&gt;
+      &lt;Choice value=&quot;positive&quot;/&gt;
+      &lt;Choice value=&quot;negative&quot;/&gt;
+      &lt;Choice value=&quot;neutral&quot;/&gt;
+      &lt;Choice value=&quot;mixed&quot;/&gt;
+    &lt;/Choices&gt;
+  &lt;/View&gt;
+schema_version: &quot;2.1.0&quot;
+task_type: text_classification
+guidelines_version: &quot;guidelines_v3.pdf&quot;
+```text
+Source de données
+    |
+    v
+Pool non étiqueté --&gt;  Plateforme d&#39;annotation --&gt; Jeu de données étiqueté
+    ^                        |                              |
+    |                        | (assisté par ML)             v
+Apprentissage actif &lt;--------+                        Cycle d&#39;entraînement
+stratégie de requête                                        |
+    ^                                                       v
+    +---------- Modèle entraîné &lt;--------------------- Évaluation
+                                                            |
+                                                      Déploiement &amp;
+                                                      surveillance
+</pre></div>
+</div>
+<p>Points d’intégration clés :</p>
+<ol class="arabic simple">
+<li><p><strong>Ingestion de données :</strong> Les données non étiquetées circulent automatiquement de l’entrepôt de données vers la plateforme d’annotation</p></li>
+<li><p><strong>Service du modèle :</strong> Le meilleur modèle actuel est déployé sur la plateforme d’annotation pour la pré-annotation et l’évaluation de l’apprentissage actif</p></li>
+<li><p><strong>Export :</strong> Les annotations complètes sont exportées dans un format compatible avec le framework d’entraînement (JSON COCO, jeux de données Hugging Face, etc.)</p></li>
+<li><p><strong>Boucle de retour :</strong> Les erreurs du modèle en production sont acheminées vers la plateforme d’annotation pour correction</p></li>
+</ol>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Pour la documentation Label Studio et l’intégration de l’apprentissage actif : <a class="reference external" href="https://labelstud.io">https://labelstud.io</a>. Pour Prodigy : <a class="reference external" href="https://prodi.gy">https://prodi.gy</a>. CVAT : <a class="reference external" href="https://cvat.ai">https://cvat.ai</a>. Pour une comparaison complète des outils d’annotation, voir <a href="#id1"><span class="problematic" id="id2">monarch2021human</span></a>, Chapitre 7.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/fr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-paysage-des-plateformes-d-annotation">Le paysage des plateformes d’annotation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plateformes-open-source">Plateformes open source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plateformes-commerciales">Plateformes commerciales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparaison-des-fonctionnalites-des-plateformes-d-annotation">Comparaison des fonctionnalités des plateformes d’annotation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l-annotation-comme-code">L’annotation comme code</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

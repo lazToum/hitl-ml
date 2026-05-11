@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Ujifunzaji wa Mashine wenye Binadamu Katikati ni Nini? &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/sw/chapters/01_introduction';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/sw/chapters/01_introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ujifunzaji wa Mashine wenye Binadamu Katikati ni Nini?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mkanganyiko-wa-otomatiki">Mkanganyiko wa Otomatiki</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kufafanua-hitl-ml">Kufafanua HITL ML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historia-fupi">Historia Fupi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mifumo-ya-wataalam-na-uhandisi-wa-maarifa-miaka-ya-19601980">Mifumo ya Wataalam na Uhandisi wa Maarifa (Miaka ya 1960–1980)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mabadiliko-ya-takwimu-miaka-ya-19802000">Mabadiliko ya Takwimu (Miaka ya 1980–2000)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enzi-ya-kujifunza-kwa-kina-miaka-ya-2010-hadi-sasa">Enzi ya Kujifunza Kwa Kina (Miaka ya 2010 hadi sasa)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kwa-nini-hitl-hoja-kwa-hukumu-ya-binadamu">Kwa Nini HITL? Hoja kwa Hukumu ya Binadamu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#akili-ya-kawaida-na-maarifa-ya-dunia">1. Akili ya Kawaida na Maarifa ya Dunia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msingi-wa-kisemantiki">2. Msingi wa Kisemantiki</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upatanisho-wa-maadili">3. Upatanisho wa Maadili</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwezo-wa-kubadilika">4. Uwezo wa Kubadilika</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwajibikaji">5. Uwajibikaji</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mzunguko-wa-maoni">Mzunguko wa Maoni</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kinachosi-hitl">Kinachosi HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uchumi-wa-maoni-ya-binadamu">Uchumi wa Maoni ya Binadamu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#muhtasari-wa-kitabu-cha-mwongozo">Muhtasari wa Kitabu cha Mwongozo</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ujifunzaji-wa-mashine-wenye-binadamu-katikati-ni-nini">
+<h1>Ujifunzaji wa Mashine wenye Binadamu Katikati ni Nini?<a class="headerlink" href="#ujifunzaji-wa-mashine-wenye-binadamu-katikati-ni-nini" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>Mashine inayoweza kujifunza kutoka kwa uzoefu… lakini tu ukiipa uzoefu sahihi.
+– kwa kufuata Alan Turing</p>
+</div></blockquote>
+<section id="mkanganyiko-wa-otomatiki">
+<h2>Mkanganyiko wa Otomatiki<a class="headerlink" href="#mkanganyiko-wa-otomatiki" title="Permalink to this heading">#</a></h2>
+<p>Kila wimbi jipya la otomatiki huunda mahitaji mapya ya makini ya binadamu. Wakati mashirika ya ndege yalianzisha rubani otomatiki, marubani wakawa wasimamizi — hawajibikii udhibiti wa dakika kwa dakika bali kwa kazi ngumu zaidi ya kujua <em>wakati</em> wa kuchukua udhibiti. Wakati maduka makubwa yalianzisha malipo ya kujihudumia, waligundua kwamba mifumo hiyo inahitaji usimamizi zaidi wa binadamu kwa kila muamala kuliko wahesabu wa kawaida, si chini. Na wakati ujifunzaji wa mashine ulianza kufanya maamuzi kwa kiwango kikubwa — katika dawa, fedha, uajiri, na usimamizi wa maudhui — iliunda mahitaji makubwa, yanayoendelea ya hukumu ya binadamu.</p>
+<p>Hii ndiyo <strong>mkanganyiko wa otomatiki</strong> <a href="#id1"><span class="problematic" id="id2">bainbridge1983ironies</span></a>: kadri mfumo otomatiki unavyoimarika, ndivyo kushindwa kwake kunakuwa na matokeo makubwa zaidi, na kwa hivyo ndivyo usimamizi madhubuti wa binadamu unavyohitajika zaidi. Ujifunzaji wa mashine si ubaguzi.</p>
+<p>Ujifunzaji wa Mashine wenye Binadamu Katikati (HITL ML) ni uwanja unaochukua mkanganyiko huu kwa uzito na kuujenga katika muundo wa mifumo tangu mwanzo. Badala ya kuona ushiriki wa binadamu kama nyenzo za muda zinazostahili kuondolewa hatimaye, HITL ML inauona mwingiliano kati ya binadamu na mashine kama <em>kipengele</em> — chanzo cha ishara, marekebisho, na mwongozo unaoweza kufanya mifano kuwa sahihi zaidi, iliyopatanishwa zaidi na maadili ya binadamu, na inayostahili kuaminiwa zaidi.</p>
+</section>
+<hr class="docutils" />
+<section id="kufafanua-hitl-ml">
+<h2>Kufafanua HITL ML<a class="headerlink" href="#kufafanua-hitl-ml" title="Permalink to this heading">#</a></h2>
+<p>Hakuna ufafanuzi mmoja uliokubaliwa wa HITL ML, na neno hilo linatumika kwa njia kadhaa zinazoingiliana katika fasihi. Kwa kitabu hiki cha mwongozo tunakubali ufafanuzi mpana lakini sahihi:</p>
+<div class="important admonition">
+<p class="admonition-title">Ufafanuzi</p>
+<p><strong>Ujifunzaji wa Mashine wenye Binadamu Katikati</strong> unarejelea mfumo wowote wa ML au mbinu ambapo maoni ya binadamu yanajumuishwa katika mchakato wa kujifunza kwa njia ya <em>makusudi, iliyopangwa, na inayoendelea</em> — si tu wakati wa uundaji wa mkusanyiko wa data, bali katika mafunzo yote, tathmini, na utekelezaji.</p>
+</div>
+<p>Ufafanuzi huu una vipengele vitatu muhimu:</p>
+<p><strong>Kwa makusudi.</strong> HITL si ushawishi wa bahati mbaya wa binadamu (k.m., ukweli kwamba data ya mafunzo iliundwa awali na binadamu). Unarejelea mifumo iliyoundwa wazi ili kuomba, kujumuisha, na kufaidika na maoni ya binadamu.</p>
+<p><strong>Iliyopangwa.</strong> Maoni yana mfumo uliofafanuliwa — lebo, marekebisho, hukumu ya upendeleo, maonyesho — na jukumu lililofafanuliwa katika kanuni ya kujifunza.</p>
+<p><strong>Inayoendelea.</strong> Mzunguko wa maoni unaendelea kwa wakati, ukiuruhusu mfumo kuboresha unapokutana na hali mpya, kufanya makosa, na kupokea mwongozo wa binadamu.</p>
+<p>Ufafanuzi huu unajumuisha mifumo ya kitambo ya uwekaji maelezo, ujifunzaji tendaji, ML ya mwingiliano, RLHF, na kujifunza kwa kuiga. Unaacha nje ukusanyaji wa passiv wa data na ujifunzaji wa usimamizi wa nje ya mtandao peke yake (ingawa mpaka ni dhaifu, kama tutakavyojadili katika Sura ya 2).</p>
+</section>
+<hr class="docutils" />
+<section id="historia-fupi">
+<h2>Historia Fupi<a class="headerlink" href="#historia-fupi" title="Permalink to this heading">#</a></h2>
+<section id="mifumo-ya-wataalam-na-uhandisi-wa-maarifa-miaka-ya-19601980">
+<h3>Mifumo ya Wataalam na Uhandisi wa Maarifa (Miaka ya 1960–1980)<a class="headerlink" href="#mifumo-ya-wataalam-na-uhandisi-wa-maarifa-miaka-ya-19601980" title="Permalink to this heading">#</a></h3>
+<p>Mifumo ya kwanza ya AI ilikuwa karibu yote ya binadamu katika mzunguko: wahandisi wa maarifa walikaa na wataalam wa fani kwa miezi, wakiingiza kwa makini sheria kwenye mifumo ya wataalam kama MYCIN na DENDRAL. Kila kipande cha maarifa kilipewa waziwazi na binadamu. Mashine ilikuwa ya utekelezaji; binadamu alikuwa chanzo.</p>
+<p>Mifumo hii ilifanya kazi vizuri kushangaza katika maeneo nyembamba lakini ilikuwa brittle — haikuweza kujumlisha zaidi ya sheria zilizoundwa kwa mkono na ilikuwa ghali kutunza.</p>
+</section>
+<section id="mabadiliko-ya-takwimu-miaka-ya-19802000">
+<h3>Mabadiliko ya Takwimu (Miaka ya 1980–2000)<a class="headerlink" href="#mabadiliko-ya-takwimu-miaka-ya-19802000" title="Permalink to this heading">#</a></h3>
+<p>Mabadiliko ya ujifunzaji wa mashine wa takwimu katika miaka ya 1980 na 1990 yalibadilisha asili ya ushiriki wa binadamu. Badala ya kuweka maarifa kama sheria, binadamu sasa walitoa <em>mifano</em> — mkusanyiko wa data ulioongezewa lebo ambao uliruhusu mifano kutabiri mifumo. Jukumu la binadamu likawa la mweka maelezo: kuweka lebo kwa hati, kutengeneza picha, kunukuu usemi.</p>
+<p>Hii ilikuwa hatua kubwa mbele, lakini iliunda kikwazo kipya: <strong>data yenye lebo ni ghali</strong>. Watafiti walianza kuuliza jinsi ya kutumia kwa ufanisi zaidi juhudi za uwekaji lebo za binadamu. Swali hili lilizaa <strong>ujifunzaji tendaji</strong>, uliofanywa rasmi kwanza mwanzoni mwa miaka ya 1990 <a href="#id3"><span class="problematic" id="id4">cohn1994improving</span></a>.</p>
+</section>
+<section id="enzi-ya-kujifunza-kwa-kina-miaka-ya-2010-hadi-sasa">
+<h3>Enzi ya Kujifunza Kwa Kina (Miaka ya 2010 hadi sasa)<a class="headerlink" href="#enzi-ya-kujifunza-kwa-kina-miaka-ya-2010-hadi-sasa" title="Permalink to this heading">#</a></h3>
+<p>Mapinduzi ya kujifunza kwa kina yaliunda utaratibu mpya: mifano yenye mabilioni ya vigezo inayoweza kujifunza utendaji kazi mgumu sana kutoka kwa data — lakini inahitaji mkusanyiko mkubwa wa data yenye lebo. ImageNet (picha milioni 14 zenye lebo) na miradi ya baadaye ya uwekaji maelezo kwa kiwango kikubwa ilionyesha nguvu na gharama ya kiwango.</p>
+<p>Wakati huo huo, utekelezaji wa ML kwa kiwango kikubwa ulifichua matatizo mapya: mifano iliyokuwa sahihi kwa wastani lakini yenye makosa ya kimfumo kwa makundi maalum, iliyokuwa na imani ya uongo juu ya ukweli, iliyoboreshwa kwa wawakilishi wanaoweza kupimwa badala ya maadili ya binadamu. Kushindwa huku kulisababisha aina mpya za ushiriki wa binadamu: si kuweka lebo tu, bali <em>upatanisho</em> — mradi wa kufanya mifano ifanye kama binadamu wanavyotaka kweli.</p>
+<p>Usemi wazi zaidi wa kazi hii ya HITL inayozingatia upatanisho ni <strong>Ujifunzaji wa Kuimarisha kutoka kwa Maoni ya Binadamu (RLHF)</strong> <a href="#id5"><span class="problematic" id="id6">christiano2017deep</span></a>, ambao ukawa msingi wa mifumo kama InstructGPT <a href="#id7"><span class="problematic" id="id8">ouyang2022training</span></a> na uwezo wa kufuata maelekezo wa mifano ya kisasa ya lugha.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kwa-nini-hitl-hoja-kwa-hukumu-ya-binadamu">
+<h2>Kwa Nini HITL? Hoja kwa Hukumu ya Binadamu<a class="headerlink" href="#kwa-nini-hitl-hoja-kwa-hukumu-ya-binadamu" title="Permalink to this heading">#</a></h2>
+<p>Ni nini kinachofanya hukumu ya binadamu kuwa na thamani ya kujumuisha katika mifumo ya ujifunzaji wa mashine? Sifa kadhaa:</p>
+<section id="akili-ya-kawaida-na-maarifa-ya-dunia">
+<h3>1. Akili ya Kawaida na Maarifa ya Dunia<a class="headerlink" href="#akili-ya-kawaida-na-maarifa-ya-dunia" title="Permalink to this heading">#</a></h3>
+<p>Binadamu huleta maarifa mapana ya msingi kwa kazi yoyote. Wakati daktari wa radiolojia anaweka lebo kwenye picha ya X-ray, anategemea miaka ya mafunzo, uelewa wa anatomy, na maarifa ya picha ya magonjwa yanayoonekana — maarifa ambayo ni magumu sana kufafanua kikamilifu au kupata kutoka kwa data peke yake.</p>
+</section>
+<section id="msingi-wa-kisemantiki">
+<h3>2. Msingi wa Kisemantiki<a class="headerlink" href="#msingi-wa-kisemantiki" title="Permalink to this heading">#</a></h3>
+<p>Lebo zina maana kwa sababu binadamu wanaelewa zinamaanisha nini. Darasa “paka” katika ImageNet linarejelea dhana isiyo na mipaka wazi ambayo binadamu wanaijua kwa silika lakini ambayo hakuna ufafanuzi rasmi unaoinakili kikamilifu. Mifano hujifunza upanuzi wa lebo (picha zipi zinaielekeza) lakini inaweza isijifunze dhana yenyewe, na kusababisha kushindwa kwa hali za mpaka ambazo binadamu yeyote angezimudu kwa usahihi.</p>
+</section>
+<section id="upatanisho-wa-maadili">
+<h3>3. Upatanisho wa Maadili<a class="headerlink" href="#upatanisho-wa-maadili" title="Permalink to this heading">#</a></h3>
+<p>Binadamu wana mapendeleo, maadili, na hukumu za kimaadili ambazo mifano ya ML haiwezi kupata kutoka kwa data peke yake. Kama kipande cha maandishi ni “cha kusaidia” au “cha kudhuru” si swali la kimajaribio tu — inategemea maadili ya binadamu yanayotofautiana kati ya watu binafsi na muktadha. HITL ndiyo njia kuu ambayo maadili haya yanaweza kuwasilishwa kwa mifumo ya ML.</p>
+</section>
+<section id="uwezo-wa-kubadilika">
+<h3>4. Uwezo wa Kubadilika<a class="headerlink" href="#uwezo-wa-kubadilika" title="Permalink to this heading">#</a></h3>
+<p>Hukumu ya binadamu inaweza kubadilika kwa hali mpya bila mafunzo upya. Mfano uliofunzwa kwa data ya kihistoria unaweza kushindwa vibaya wakati ulimwengu unabadilika; binadamu anaweza kutambua uvumbuzi na kujibu ipasavyo.</p>
+</section>
+<section id="uwajibikaji">
+<h3>5. Uwajibikaji<a class="headerlink" href="#uwajibikaji" title="Permalink to this heading">#</a></h3>
+<p>Katika maeneo yenye hatari kubwa — dawa, sheria, fedha — maamuzi yanahitaji kuwajibika kwa binadamu. Mifumo ya HITL inafanya uwajibikaji huu uwezekane kwa kuweka binadamu katika nafasi ya kuelewa, kuthibitisha, na kubatilisha tabia ya mashine.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mzunguko-wa-maoni">
+<h2>Mzunguko wa Maoni<a class="headerlink" href="#mzunguko-wa-maoni" title="Permalink to this heading">#</a></h2>
+<p>Muundo wa msingi wa HITL ML ni mzunguko wa maoni kati ya mfano na binadamu mmoja au zaidi:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+---------------------------------------------+
+|                                             |
+|   Mfano hufanya utabiri / huomba           |
+|   ----------------------------------&gt;       |
+|                                   Binadamu |
+|   Binadamu hutoa maoni           &lt;-------- |
+|   ----------------------------------        |
+|                                             |
+|   Mfano husasishwa kulingana na maoni      |
+|                                             |
++---------------------------------------------+
+</pre></div>
+</div>
+<p>Asili ya maoni inatofautiana sana katika mifumo ya HITL:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aina ya maoni</p></th>
+<th class="head"><p>Mfano</p></th>
+<th class="head"><p>Mfumo mkuu</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Lebo ya darasa</p></td>
+<td><p>“Barua pepe hii ni taka”</p></td>
+<td><p>Ujifunzaji wa usimamizi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Marekebisho</p></td>
+<td><p>“Kitengo kinapaswa kuwa ORG, si PER”</p></td>
+<td><p>ML tendaji / mwingiliano</p></td>
+</tr>
+<tr class="row-even"><td><p>Upendeleo</p></td>
+<td><p>“Jibu A ni bora kuliko B”</p></td>
+<td><p>RLHF / upangaji</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maonyesho</p></td>
+<td><p>Kuonyesha roboti jinsi ya kushika kitu</p></td>
+<td><p>Kujifunza kwa kuiga</p></td>
+</tr>
+<tr class="row-even"><td><p>Lugha asilia</p></td>
+<td><p>“Kuwa mfupi zaidi katika majibu yako”</p></td>
+<td><p>Urekebishaji wa maelekezo</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ishara ya picha</p></td>
+<td><p>Mtumiaji alibofya / hakubofya</p></td>
+<td><p>Maoni ya picha</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="kinachosi-hitl">
+<h2>Kinachosi HITL<a class="headerlink" href="#kinachosi-hitl" title="Permalink to this heading">#</a></h2>
+<p>Inafaa kuwa wazi kuhusu kinachoko <em>nje</em> ya ufafanuzi wetu.</p>
+<p><strong>HITL si sawa na utekelezaji wa binadamu katika mzunguko</strong> (mara nyingi huitwa “binadamu juu ya mzunguko”), ambapo binadamu wanasimamia maamuzi otomatiki na wanaweza kuyabatilisha lakini hawapelekei marekebisho kurudi katika mafunzo. Tutajadili tofauti hii katika Sura ya 2.</p>
+<p><strong>HITL si usimamizi dhaifu peke yake.</strong> Mifumo ya uwekaji lebo ya programu kama Snorkel hutumia kazi za uwekaji lebo (mara nyingi sheria zilizoandikwa na binadamu) kuzalisha lebo zenye kelele kwa kiwango kikubwa. Hii ni aina ya ingizo la binadamu lililoundwa, lakini maoni si ya mzunguko kwa njia ambayo HITL kawaida ina maana.</p>
+<p><strong>HITL si utumiaji tu wa data yenye lebo.</strong> Kila mfano wa ujifunzaji wa usimamizi hutumia data iliyowekewa lebo na binadamu. HITL inarejelea hasa mifumo ambapo maoni ya binadamu ni sehemu <em>tendaji, ya mzunguko</em> ya mchakato wa kujifunza.</p>
+</section>
+<hr class="docutils" />
+<section id="uchumi-wa-maoni-ya-binadamu">
+<h2>Uchumi wa Maoni ya Binadamu<a class="headerlink" href="#uchumi-wa-maoni-ya-binadamu" title="Permalink to this heading">#</a></h2>
+<p>Maoni ya binadamu yana thamani lakini ni ghali. Uwekaji maelezo wa picha ya kimatibabu unaweza kugharimu popote kutoka makumi hadi mamia ya dola kwa picha ikifanywa na mtaalam, kulingana na taaluma ndogo na ugumu wa kazi <a href="#id9"><span class="problematic" id="id10">monarch2021human</span></a>. Lebo za wafanyakazi wa umma kwenye majukwaa kama Amazon Mechanical Turk zinaweza kugharimu <span class="math notranslate nohighlight">\(0.01–\)</span>0.10 kwa kipengele <a href="#id11"><span class="problematic" id="id12">hara2018data</span></a> kwa ubora mdogo zaidi. Changamoto ya msingi ya HITL ML ni <strong>kuongeza thamani ya kila kitengo cha maoni ya binadamu</strong>.</p>
+<p>Hii inasababisha swali la muungano linalopigia uzi katika sehemu nyingi za kitabu hiki:</p>
+<div class="tip admonition">
+<p class="admonition-title">Swali Kuu la HITL ML</p>
+<p><em>Kwa bajeti iliyowekwa ya wakati na makini ya binadamu, tunapaswa kuamua vipi nini kuuliza binadamu, wakati wa kuuliza, na jinsi ya kujumuisha majibu yao katika mafunzo ya mfano?</em></p>
+</div>
+<p>Jibu la swali hili linategemea eneo la matumizi, mfumo wa maoni, gharama ya uwekaji maelezo, hatari ya kosa, na hali ya sasa ya mfano — ndiyo maana HITL ML ni taaluma tajiri na inayoendelea kubadilika.</p>
+</section>
+<hr class="docutils" />
+<section id="muhtasari-wa-kitabu-cha-mwongozo">
+<h2>Muhtasari wa Kitabu cha Mwongozo<a class="headerlink" href="#muhtasari-wa-kitabu-cha-mwongozo" title="Permalink to this heading">#</a></h2>
+<p>Sehemu iliyobaki ya kitabu hiki imepangwa kama ifuatavyo. <strong>Sehemu ya II</strong> inashughulikia nguzo tatu za kitambo za HITL: uwekaji maelezo, ujifunzaji tendaji, na ML ya mwingiliano. <strong>Sehemu ya III</strong> inazungumzia mifumo mipya ya kujifunza kutoka kwa maoni — RLHF, kujifunza kwa kuiga, na kujifunza upendeleo — ambayo imekuwa ya msingi kwa AI ya kisasa. <strong>Sehemu ya IV</strong> inachunguza HITL kupitia lenzi ya maeneo maalum ya matumizi. <strong>Sehemu ya V</strong> inachukua mtazamo wa mtaalamu wa vitendo kuhusu majukwaa, ushirikiano wa umma, na tathmini. <strong>Sehemu ya VI</strong> inashughulikia maadili na kutazama mbele.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Kwa mapitio yanayozingatia wataalamu wa vitendo wa uwanja huu, angalia <a href="#id13"><span class="problematic" id="id14">monarch2021human</span></a>. Kwa makala ya msingi ya ujifunzaji tendaji iliyoanzisha matibabu mengi rasmi ya HITL, angalia <a href="#id15"><span class="problematic" id="id16">settles2009active</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/sw/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mkanganyiko-wa-otomatiki">Mkanganyiko wa Otomatiki</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kufafanua-hitl-ml">Kufafanua HITL ML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historia-fupi">Historia Fupi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mifumo-ya-wataalam-na-uhandisi-wa-maarifa-miaka-ya-19601980">Mifumo ya Wataalam na Uhandisi wa Maarifa (Miaka ya 1960–1980)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mabadiliko-ya-takwimu-miaka-ya-19802000">Mabadiliko ya Takwimu (Miaka ya 1980–2000)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enzi-ya-kujifunza-kwa-kina-miaka-ya-2010-hadi-sasa">Enzi ya Kujifunza Kwa Kina (Miaka ya 2010 hadi sasa)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kwa-nini-hitl-hoja-kwa-hukumu-ya-binadamu">Kwa Nini HITL? Hoja kwa Hukumu ya Binadamu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#akili-ya-kawaida-na-maarifa-ya-dunia">1. Akili ya Kawaida na Maarifa ya Dunia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msingi-wa-kisemantiki">2. Msingi wa Kisemantiki</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upatanisho-wa-maadili">3. Upatanisho wa Maadili</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwezo-wa-kubadilika">4. Uwezo wa Kubadilika</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwajibikaji">5. Uwajibikaji</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mzunguko-wa-maoni">Mzunguko wa Maoni</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kinachosi-hitl">Kinachosi HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uchumi-wa-maoni-ya-binadamu">Uchumi wa Maoni ya Binadamu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#muhtasari-wa-kitabu-cha-mwongozo">Muhtasari wa Kitabu cha Mwongozo</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

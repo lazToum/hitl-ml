@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>What the Game Taught Us &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/15_reflection';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Deployment: Shipping the Loop" href="14_deployment.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/15_reflection.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>What the Game Taught Us</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-loop-closed">The loop, closed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-built-and-what-we-left-out">What we built (and what we left out)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-dimensions-revisited">The five dimensions, revisited</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-game-taught-you">What the game taught you</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-last-thing">One last thing</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="what-the-game-taught-us">
+<h1>What the Game Taught Us<a class="headerlink" href="#what-the-game-taught-us" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>You do not understand a system by reading about it. You understand it by breaking it.</p>
+<p class="attribution">—Chapter 15</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> You have spent a semester building this system. What is the most important thing you learned that you could not have learned from a textbook?</p>
+<p><strong>2.</strong> The HITL framework describes five dimensions. After building the system, which dimension feels most important? Which feels like an abstraction that doesn’t quite fit the reality you saw?</p>
+<p><strong>3.</strong> If you were asked to give advice to someone building the next HITL system — not this game, but a medical AI, an annotation platform, a content moderation tool — what are the three things you would tell them?</p>
+</section>
+<hr class="docutils" />
+<section id="the-loop-closed">
+<h2>The loop, closed<a class="headerlink" href="#the-loop-closed" title="Permalink to this heading">#</a></h2>
+<p>Let us trace the feedback loop one more time, now that all the pieces exist.</p>
+<p>A creator sits at the web dashboard. They write a clue — or ask the AI to draft one — about a local landmark. They set a fuzzy threshold of 0.80, write three progressive hints, estimate difficulty at “medium.” They print the QR sheet and place codes around the city. They activate the hunt.</p>
+<p>A player opens the Flutter app, authenticates, starts a session. They walk to the first location, scan the code, read the clue. They submit an answer. It is rejected. They try again. After the third attempt, the hint button becomes active. They request hint 1. They solve it. They move to the next location.</p>
+<p>An observer watches the session stream. They see that three players are simultaneously stuck on clue 2. They send a nudge to the most-stuck player. Today that nudge becomes an <code class="docutils literal notranslate"><span class="pre">observer_nudge</span></code> event in the observer feed; a player-facing delivery channel would be the next step.</p>
+<p>At the end of the day, the creator reviews the session data. Clue 2: 4.7 average attempts, 89% hint usage, 23% abandonment. Clue 5: 1.1 average attempts, 0% hint usage, 0% abandonment. Clue 2 was too hard, or badly written, or placed at an inaccessible location. The creator does not know which without looking at the wrong answers — which the system does not store.</p>
+<p>The loop is partially closed. The creator learned something. The system does not learn anything automatically.</p>
+<p>This is HITL in practice.</p>
+</section>
+<hr class="docutils" />
+<section id="what-we-built-and-what-we-left-out">
+<h2>What we built (and what we left out)<a class="headerlink" href="#what-we-built-and-what-we-left-out" title="Permalink to this heading">#</a></h2>
+<p>Built:</p>
+<ul class="simple">
+<li><p>A Rust API that compiles, passes type checking, and handles the core game state machine</p></li>
+<li><p>A Python AI sidecar that generates clues, estimates difficulty, checks semantic matches, verifies photo answers, generates adaptive hints, and analyzes completed sessions</p></li>
+<li><p>A Flutter mobile app with QR scanning, NFC tapping, GPS submission, and OIDC auth</p></li>
+<li><p>A React web dashboard for creators and observers</p></li>
+<li><p>A PostgreSQL schema that captures the feedback signals of the loop</p></li>
+<li><p>A Zitadel OIDC server that manages identity without storing passwords</p></li>
+<li><p>A docker-compose environment that starts everything with one command</p></li>
+</ul>
+<p>Left out (honestly):</p>
+<ul class="simple">
+<li><p>Redis beyond answer-attempt rate limiting — no session cache or queue yet</p></li>
+<li><p>Adaptive hints with real attempt history — fallback hints are exposed, but wrong-answer strings are not stored and the request currently passes an empty attempts array</p></li>
+<li><p>Wrong-answer capture — the schema does not store what players guessed, only that they guessed</p></li>
+<li><p>Broader tests — Rust validator and hint unit tests exist, but API integration, sidecar contract, and behavioral HITL tests are still missing</p></li>
+<li><p>The calibration loop — session data accumulates but nothing reads it to improve estimates</p></li>
+<li><p>A health endpoint for the Rust API</p></li>
+<li><p>Backup policy for postgres</p></li>
+</ul>
+<p>These omissions are not failures. They are the normal state of a real system in progress. Every production HITL system you will ever encounter has a list like this. The important thing is to know the list, name it, and prioritize it honestly.</p>
+</section>
+<hr class="docutils" />
+<section id="the-five-dimensions-revisited">
+<h2>The five dimensions, revisited<a class="headerlink" href="#the-five-dimensions-revisited" title="Permalink to this heading">#</a></h2>
+<p><strong>Control.</strong> We gave creators fine-grained control (per-clue thresholds) but limited player control (cannot appeal an AI photo rejection, cannot see why a hint is not yet available). We gave developers unlimited control (can see the event log, can change the schema). The distribution of control followed the distribution of trust — which followed the distribution of technical access.</p>
+<p>The lesson: control is rarely designed explicitly. It falls out of who has access to what. If you want to give users more control, you have to build it deliberately; it will not happen by default.</p>
+<p><strong>Transparency.</strong> Players can see their clue, their hints, and their progress. They cannot see attempt counts, elapsed time, or hint unlock conditions. Creators can see everything through the observer dashboard. The event log is comprehensive but unqueried.</p>
+<p>The lesson: transparency is not binary. It is a set of discrete choices about what to expose to whom. Each choice has a cost (implementation) and a benefit (trust, feedback, accountability). Most systems are less transparent than their designers intended because the implementation cost was deferred.</p>
+<p><strong>Feedback.</strong> Player behavior is captured faithfully: attempts, hints used, timing, event sequence. None of it is used automatically to improve the system. The feedback loop requires a human (the creator) to review data, draw conclusions, and make changes. The loop is closed by human effort, not by mechanism.</p>
+<p>The lesson: data collection is not feedback. Data collection is the prerequisite for feedback. The loop closes when someone acts on the data. Building collection infrastructure without building the path from data to action is common and expensive.</p>
+<p><strong>Autonomy.</strong> The system acts autonomously in well-defined situations: validates answers against explicit rules, unlocks hints when thresholds are met, creates player accounts on first login, rejects invalid tokens, and rate-limits rapid answer attempts when Redis is available. AI is also on the action path: photo verification can pass or reject a photo clue, semantic matching can accept a text answer that string matching would reject, and adaptive hints can be generated after static hints are exhausted.</p>
+<p>The lesson: the boundary of autonomy should be drawn at cases where incorrect automatic action would be harmful or hard to reverse. Automatic account creation is low-stakes — a wrong inference can be corrected later. Automatically marking a photo clue complete, or rejecting a valid photo, directly changes a player’s run and is harder to unwind.</p>
+<p><strong>Trust.</strong> Creators trust the AI suggestions to the extent they read them carefully before approving. Players trust the hint engine to release hints when they are actually stuck, not just when a timer expires. Observers trust the event stream to be complete, even though they cannot tell when it is lagged.</p>
+<p>The lesson: trust in a system is calibrated over time by experience. A system that releases hints prematurely erodes trust in the hint engine. A system that sometimes rejects correct answers erodes trust in the validator. Building trust requires getting the defaults right for the most common cases — the edge cases can be addressed later, but the first impression sets expectations.</p>
+</section>
+<hr class="docutils" />
+<section id="what-the-game-taught-you">
+<h2>What the game taught you<a class="headerlink" href="#what-the-game-taught-you" title="Permalink to this heading">#</a></h2>
+<p>The game is a HITL system. You built it. You made choices — explicit ones (the threshold defaults, the role model) and implicit ones (what not to log, what to leave unimplemented). You are now the creator of a system that, if deployed, will shape the experience of every player who runs it.</p>
+<p>Three questions for you to carry out of this edition:</p>
+<p><strong>What did you get wrong?</strong> Not in the sense of bugs (though those too), but in the sense of design decisions that seemed fine during implementation and feel wrong in retrospect. The schema, the API contract, the UI, the AI integration — somewhere in here there is a decision you would make differently now.</p>
+<p><strong>What feedback would change your design?</strong> If you ran this system with 100 real players and collected all the data, what would you look at first? What would cause you to redesign something significant?</p>
+<p><strong>What is the human in your loop doing that no one is watching?</strong> In every system, there is a human whose actions are consequential but unmonitored — an annotator whose disagreements are averaged away, a creator whose defaults were never reviewed, a developer whose SQL query returns slightly wrong results. Where is that human in this system?</p>
+</section>
+<hr class="docutils" />
+<section id="one-last-thing">
+<h2>One last thing<a class="headerlink" href="#one-last-thing" title="Permalink to this heading">#</a></h2>
+<p>The title of this handbook is “Human in the Loop: Misunderstood.”</p>
+<p>The misunderstanding is not that HITL is overcomplicated. It is that HITL is underestimated.</p>
+<p>Putting a human in the loop sounds like a safety net — a fallback for when the AI is not sure. In practice, the human is doing the hardest parts of the whole system: defining what counts as correct, noticing when the system is wrong in ways the metrics do not capture, making decisions in the edge cases that no training data anticipated.</p>
+<p>The game you built is a small system. The humans in it — the creator, the player, the observer — are doing hard things with imperfect tools.</p>
+<p>That is the normal condition of HITL work. Build tools worthy of it.</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="14_deployment.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Deployment: Shipping the Loop</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-loop-closed">The loop, closed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-built-and-what-we-left-out">What we built (and what we left out)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-dimensions-revisited">The five dimensions, revisited</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-game-taught-you">What the game taught you</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-last-thing">One last thing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

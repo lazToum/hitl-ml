@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>¿Qué es el Aprendizaje Automático con Humano en el Bucle? &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/es/chapters/01_introduction';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/es/chapters/01_introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>¿Qué es el Aprendizaje Automático con Humano en el Bucle?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-paradoja-de-la-automatizacion">La Paradoja de la Automatización</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-del-aprendizaje-automatico-con-humano-en-el-bucle">Definición del Aprendizaje Automático con Humano en el Bucle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-breve-historia">Una Breve Historia</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sistemas-expertos-e-ingenieria-del-conocimiento-decadas-de-19601980">Sistemas Expertos e Ingeniería del Conocimiento (décadas de 1960–1980)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-giro-estadistico-decadas-de-19802000">El Giro Estadístico (décadas de 1980–2000)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-era-del-aprendizaje-profundo-de-la-decada-de-2010-hasta-la-actualidad">La Era del Aprendizaje Profundo (de la década de 2010 hasta la actualidad)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-hitl-el-caso-del-juicio-humano">¿Por qué HITL? El caso del juicio humano</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sentido-comun-y-conocimiento-del-mundo">1. Sentido Común y Conocimiento del Mundo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anclaje-semantico">2. Anclaje Semántico</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alineacion-de-valores">3. Alineación de Valores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptabilidad">4. Adaptabilidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendicion-de-cuentas">5. Rendición de Cuentas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-bucle-de-retroalimentacion">El Bucle de Retroalimentación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lo-que-hitl-no-es">Lo que HITL No Es</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-economia-de-la-retroalimentacion-humana">La Economía de la Retroalimentación Humana</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion-general-del-manual">Descripción General del Manual</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="que-es-el-aprendizaje-automatico-con-humano-en-el-bucle">
+<h1>¿Qué es el Aprendizaje Automático con Humano en el Bucle?<a class="headerlink" href="#que-es-el-aprendizaje-automatico-con-humano-en-el-bucle" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>Una máquina que puede aprender de la experiencia… pero solo si le proporcionas las experiencias adecuadas.
+– parafraseando a Alan Turing</p>
+</div></blockquote>
+<section id="la-paradoja-de-la-automatizacion">
+<h2>La Paradoja de la Automatización<a class="headerlink" href="#la-paradoja-de-la-automatizacion" title="Permalink to this heading">#</a></h2>
+<p>Cada nueva oleada de automatización genera nuevas exigencias sobre la atención humana. Cuando las aerolíneas introdujeron el piloto automático, los pilotos se convirtieron en supervisores: ya no responsables del control momento a momento, sino de la tarea más difícil de saber <em>cuándo</em> intervenir. Cuando los supermercados introdujeron las cajas de autopago, descubrieron que esos sistemas requieren más supervisión humana por transacción que los cajeros tradicionales, no menos. Y cuando el aprendizaje automático comenzó a tomar decisiones a escala —en medicina, finanzas, contratación laboral y moderación de contenido— generó una demanda enorme y continua de juicio humano.</p>
+<p>Esta es la <strong>paradoja de la automatización</strong> <a href="#id1"><span class="problematic" id="id2">bainbridge1983ironies</span></a>: cuanto más capaz se vuelve un sistema automatizado, más graves son sus fallos y, por tanto, más necesaria resulta una supervisión humana robusta. El aprendizaje automático no es una excepción.</p>
+<p>El Aprendizaje Automático con Humano en el Bucle (HITL ML) es el campo que toma esta paradoja en serio y la incorpora al diseño de los sistemas desde el principio. En lugar de tratar la participación humana como un andamiaje temporal destinado a ser eventualmente eliminado, HITL ML trata la interacción humano–máquina como una <em>característica</em> —una fuente de señal, corrección y orientación que puede hacer los modelos más precisos, más alineados con los valores humanos y más confiables.</p>
+</section>
+<hr class="docutils" />
+<section id="definicion-del-aprendizaje-automatico-con-humano-en-el-bucle">
+<h2>Definición del Aprendizaje Automático con Humano en el Bucle<a class="headerlink" href="#definicion-del-aprendizaje-automatico-con-humano-en-el-bucle" title="Permalink to this heading">#</a></h2>
+<p>No existe una definición única acordada de HITL ML, y el término se utiliza de varias maneras superpuestas en la bibliografía. Para este manual adoptamos una definición amplia pero precisa:</p>
+<div class="important admonition">
+<p class="admonition-title">Definición</p>
+<p><strong>El Aprendizaje Automático con Humano en el Bucle</strong> hace referencia a cualquier sistema o metodología de aprendizaje automático en el que la retroalimentación humana se incorpora al proceso de aprendizaje de manera <em>deliberada, estructurada y continua</em> —no solo en el momento de creación del conjunto de datos, sino a lo largo del entrenamiento, la evaluación y el despliegue.</p>
+</div>
+<p>Esta definición tiene tres cláusulas clave:</p>
+<p><strong>Deliberada.</strong> HITL no se refiere a la influencia humana accidental (por ejemplo, el hecho de que los datos de entrenamiento fueran originalmente creados por humanos). Se refiere a sistemas diseñados explícitamente para solicitar, incorporar y beneficiarse de la retroalimentación humana.</p>
+<p><strong>Estructurada.</strong> La retroalimentación tiene una forma definida —una etiqueta, una corrección, un juicio de preferencia, una demostración— y un papel definido en el algoritmo de aprendizaje.</p>
+<p><strong>Continua.</strong> El bucle de retroalimentación se mantiene a lo largo del tiempo, permitiendo que el sistema mejore a medida que encuentra nuevas situaciones, comete errores y recibe orientación humana.</p>
+<p>Esta definición incluye los flujos de anotación clásicos, el aprendizaje activo, el aprendizaje automático interactivo, RLHF y el aprendizaje por imitación. Excluye la recopilación de datos pasiva y el aprendizaje supervisado puramente offline (aunque la línea es difusa, como se discutirá en el Capítulo 2).</p>
+</section>
+<hr class="docutils" />
+<section id="una-breve-historia">
+<h2>Una Breve Historia<a class="headerlink" href="#una-breve-historia" title="Permalink to this heading">#</a></h2>
+<section id="sistemas-expertos-e-ingenieria-del-conocimiento-decadas-de-19601980">
+<h3>Sistemas Expertos e Ingeniería del Conocimiento (décadas de 1960–1980)<a class="headerlink" href="#sistemas-expertos-e-ingenieria-del-conocimiento-decadas-de-19601980" title="Permalink to this heading">#</a></h3>
+<p>Los primeros sistemas de IA eran casi completamente con humano en el bucle: los ingenieros del conocimiento se sentaban con expertos en el dominio durante meses, codificando pacientemente reglas en sistemas expertos como MYCIN y DENDRAL. Cada pieza de conocimiento era proporcionada explícitamente por un humano. La máquina era el ejecutor; el humano era el oráculo.</p>
+<p>Estos sistemas funcionaban sorprendentemente bien en dominios estrechos, pero eran frágiles: incapaces de generalizar más allá de sus reglas artesanales y costosos de mantener.</p>
+</section>
+<section id="el-giro-estadistico-decadas-de-19802000">
+<h3>El Giro Estadístico (décadas de 1980–2000)<a class="headerlink" href="#el-giro-estadistico-decadas-de-19802000" title="Permalink to this heading">#</a></h3>
+<p>El cambio hacia el aprendizaje automático estadístico en las décadas de 1980 y 1990 transformó la naturaleza de la participación humana. En lugar de codificar el conocimiento como reglas, los humanos proporcionaban ahora <em>ejemplos</em> —conjuntos de datos etiquetados que permitían a los modelos inferir patrones. El papel humano pasó a ser el de anotador: etiquetar documentos, clasificar imágenes, transcribir discurso.</p>
+<p>Fue un gran avance, pero creó un nuevo cuello de botella: <strong>los datos etiquetados son costosos</strong>. Los investigadores comenzaron a preguntarse cómo aprovechar al máximo el esfuerzo de etiquetado humano. Esta pregunta dio lugar al <strong>aprendizaje activo</strong>, formalizado por primera vez a principios de la década de 1990 <a href="#id3"><span class="problematic" id="id4">cohn1994improving</span></a>.</p>
+</section>
+<section id="la-era-del-aprendizaje-profundo-de-la-decada-de-2010-hasta-la-actualidad">
+<h3>La Era del Aprendizaje Profundo (de la década de 2010 hasta la actualidad)<a class="headerlink" href="#la-era-del-aprendizaje-profundo-de-la-decada-de-2010-hasta-la-actualidad" title="Permalink to this heading">#</a></h3>
+<p>La revolución del aprendizaje profundo creó un nuevo régimen: modelos con miles de millones de parámetros capaces de aprender funciones extraordinariamente complejas a partir de datos, pero que requieren conjuntos de datos etiquetados de tamaño equivalentemente enorme. ImageNet (14 millones de imágenes etiquetadas) y los proyectos de anotación a gran escala que le siguieron mostraron tanto el poder como el coste de la escala.</p>
+<p>Al mismo tiempo, el despliegue del aprendizaje automático a escala expuso nuevos problemas: modelos precisos en promedio pero sistemáticamente erróneos para grupos específicos, que alucinaban hechos con confianza, que optimizaban métricas proxy en lugar de valores humanos. Estos fallos motivaron nuevas formas de participación humana: no solo el etiquetado, sino la <em>alineación</em> —el proyecto de hacer que los modelos se comporten de la manera que los humanos realmente desean.</p>
+<p>La expresión más clara de este trabajo de HITL centrado en la alineación es el <strong>Aprendizaje por Refuerzo a partir de Retroalimentación Humana (RLHF)</strong> <a href="#id5"><span class="problematic" id="id6">christiano2017deep</span></a>, que se convirtió en la columna vertebral de sistemas como InstructGPT <a href="#id7"><span class="problematic" id="id8">ouyang2022training</span></a> y las capacidades de seguimiento de instrucciones de los modelos de lenguaje modernos.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="por-que-hitl-el-caso-del-juicio-humano">
+<h2>¿Por qué HITL? El caso del juicio humano<a class="headerlink" href="#por-que-hitl-el-caso-del-juicio-humano" title="Permalink to this heading">#</a></h2>
+<p>¿Qué hace que el juicio humano sea suficientemente valioso como para incorporarlo a los sistemas de aprendizaje automático? Varias propiedades:</p>
+<section id="sentido-comun-y-conocimiento-del-mundo">
+<h3>1. Sentido Común y Conocimiento del Mundo<a class="headerlink" href="#sentido-comun-y-conocimiento-del-mundo" title="Permalink to this heading">#</a></h3>
+<p>Los humanos aportan un vasto conocimiento de fondo a cualquier tarea. Cuando un radiólogo etiqueta una radiografía, recurre a años de formación, a una comprensión de la anatomía y al conocimiento implícito sobre el aspecto de las enfermedades —un conocimiento extraordinariamente difícil de especificar completamente o de adquirir solo a partir de los datos.</p>
+</section>
+<section id="anclaje-semantico">
+<h3>2. Anclaje Semántico<a class="headerlink" href="#anclaje-semantico" title="Permalink to this heading">#</a></h3>
+<p>Las etiquetas son significativas porque los humanos entienden lo que significan. La clase “gato” en ImageNet hace referencia a un concepto difuso que los humanos reconocen intuitivamente pero que ninguna definición formal captura completamente. Los modelos aprenden la extensión de la etiqueta (qué imágenes se corresponden con ella) pero pueden no aprender el concepto en sí, lo que lleva a fallos en casos límite que cualquier humano manejaría correctamente.</p>
+</section>
+<section id="alineacion-de-valores">
+<h3>3. Alineación de Valores<a class="headerlink" href="#alineacion-de-valores" title="Permalink to this heading">#</a></h3>
+<p>Los humanos tienen preferencias, valores y juicios éticos que los modelos de aprendizaje automático no pueden derivar de los datos por sí solos. Si un fragmento de texto es “útil” o “dañino” no es una pregunta puramente empírica: depende de valores humanos que varían entre individuos y contextos. HITL es el mecanismo principal mediante el cual estos valores pueden comunicarse a los sistemas de aprendizaje automático.</p>
+</section>
+<section id="adaptabilidad">
+<h3>4. Adaptabilidad<a class="headerlink" href="#adaptabilidad" title="Permalink to this heading">#</a></h3>
+<p>El juicio humano puede adaptarse a situaciones novedosas sin necesidad de reentrenamiento. Un modelo entrenado con datos históricos puede fallar catastróficamente cuando el mundo cambia; un humano puede reconocer la novedad y responder adecuadamente.</p>
+</section>
+<section id="rendicion-de-cuentas">
+<h3>5. Rendición de Cuentas<a class="headerlink" href="#rendicion-de-cuentas" title="Permalink to this heading">#</a></h3>
+<p>En dominios de alto riesgo —medicina, derecho, finanzas— las decisiones deben ser responsables ante los seres humanos. Los sistemas HITL hacen que esta rendición de cuentas sea viable al mantener a los humanos en posición de comprender, verificar e invalidar el comportamiento de las máquinas.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="el-bucle-de-retroalimentacion">
+<h2>El Bucle de Retroalimentación<a class="headerlink" href="#el-bucle-de-retroalimentacion" title="Permalink to this heading">#</a></h2>
+<p>La estructura central de HITL ML es un bucle de retroalimentación entre un modelo y uno o más humanos:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+---------------------------------------------+
+|                                             |
+|   El modelo hace predicciones / solicita   |
+|   ----------------------------------&gt;       |
+|                                   Humano   |
+|   El humano proporciona feedback &lt;--------- |
+|   ----------------------------------        |
+|                                             |
+|   El modelo actualiza con el feedback      |
+|                                             |
++---------------------------------------------+
+</pre></div>
+</div>
+<p>La naturaleza de la retroalimentación varía enormemente entre los paradigmas de HITL:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipo de retroalimentación</p></th>
+<th class="head"><p>Ejemplo</p></th>
+<th class="head"><p>Paradigma principal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Etiqueta de clase</p></td>
+<td><p>“Este correo electrónico es spam”</p></td>
+<td><p>Aprendizaje supervisado</p></td>
+</tr>
+<tr class="row-odd"><td><p>Corrección</p></td>
+<td><p>“La entidad debería ser ORG, no PER”</p></td>
+<td><p>Aprendizaje activo/interactivo</p></td>
+</tr>
+<tr class="row-even"><td><p>Preferencia</p></td>
+<td><p>“La respuesta A es mejor que la B”</p></td>
+<td><p>RLHF / clasificación</p></td>
+</tr>
+<tr class="row-odd"><td><p>Demostración</p></td>
+<td><p>Mostrar al robot cómo agarrar un objeto</p></td>
+<td><p>Aprendizaje por imitación</p></td>
+</tr>
+<tr class="row-even"><td><p>Lenguaje natural</p></td>
+<td><p>“Sé más conciso en tus respuestas”</p></td>
+<td><p>Ajuste por instrucciones</p></td>
+</tr>
+<tr class="row-odd"><td><p>Señal implícita</p></td>
+<td><p>El usuario hizo clic / no hizo clic</p></td>
+<td><p>Retroalimentación implícita</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="lo-que-hitl-no-es">
+<h2>Lo que HITL No Es<a class="headerlink" href="#lo-que-hitl-no-es" title="Permalink to this heading">#</a></h2>
+<p>Conviene ser precisos sobre lo que queda <em>fuera</em> de nuestra definición.</p>
+<p><strong>HITL no es lo mismo que el despliegue con humano en el bucle</strong> (a veces llamado “humano sobre el bucle”), donde los humanos supervisan decisiones automatizadas y pueden invalidarlas, pero no retroalimentan correcciones al entrenamiento. Trataremos esta distinción en el Capítulo 2.</p>
+<p><strong>HITL no es solo supervisión débil.</strong> Los sistemas de etiquetado programático como Snorkel utilizan funciones de etiquetado (a menudo reglas de autoría humana) para generar etiquetas ruidosas a escala. Esta es una forma de entrada humana estructurada, pero la retroalimentación no es iterativa en el sentido que HITL generalmente implica.</p>
+<p><strong>HITL no consiste simplemente en usar datos etiquetados.</strong> Todos los modelos de aprendizaje supervisado utilizan datos etiquetados por humanos. HITL se refiere específicamente a sistemas en los que la retroalimentación humana es una parte <em>activa e iterativa</em> del proceso de aprendizaje.</p>
+</section>
+<hr class="docutils" />
+<section id="la-economia-de-la-retroalimentacion-humana">
+<h2>La Economía de la Retroalimentación Humana<a class="headerlink" href="#la-economia-de-la-retroalimentacion-humana" title="Permalink to this heading">#</a></h2>
+<p>La retroalimentación humana es valiosa pero costosa. Una anotación de imagen médica puede costar entre decenas y cientos de dólares por imagen cuando la realiza un especialista, dependiendo de la subespecialidad y la complejidad de la tarea <a href="#id9"><span class="problematic" id="id10">monarch2021human</span></a>. Las etiquetas de trabajadores de crowdsourcing en plataformas como Amazon Mechanical Turk pueden costar entre <span class="math notranslate nohighlight">\(0,01 y \)</span>0,10 por elemento <a href="#id11"><span class="problematic" id="id12">hara2018data</span></a> con una calidad mucho menor. El desafío fundamental del HITL ML es <strong>maximizar el valor de cada unidad de retroalimentación humana</strong>.</p>
+<p>Esto conduce a una pregunta unificadora que atraviesa la mayor parte de este manual:</p>
+<div class="tip admonition">
+<p class="admonition-title">La Pregunta Central del HITL ML</p>
+<p><em>Dado un presupuesto fijo de tiempo y atención humana, ¿cómo debemos decidir qué preguntar a los humanos, cuándo preguntarlo y cómo incorporar sus respuestas al entrenamiento del modelo?</em></p>
+</div>
+<p>La respuesta a esta pregunta depende del dominio, la forma de retroalimentación, el coste de anotación, el riesgo de error y el estado actual del modelo —razón por la cual HITL ML es una disciplina rica y en continua evolución.</p>
+</section>
+<hr class="docutils" />
+<section id="descripcion-general-del-manual">
+<h2>Descripción General del Manual<a class="headerlink" href="#descripcion-general-del-manual" title="Permalink to this heading">#</a></h2>
+<p>El resto de este manual está estructurado de la siguiente manera. La <strong>Parte II</strong> cubre los tres pilares clásicos de HITL: anotación, aprendizaje activo y aprendizaje automático interactivo. La <strong>Parte III</strong> aborda los paradigmas más recientes del aprendizaje a partir de retroalimentación —RLHF, aprendizaje por imitación y aprendizaje de preferencias— que se han vuelto centrales en la IA moderna. La <strong>Parte IV</strong> examina HITL desde la perspectiva de dominios de aplicación específicos. La <strong>Parte V</strong> adopta una perspectiva de profesional sobre plataformas, crowdsourcing y evaluación. La <strong>Parte VI</strong> aborda la ética y mira hacia el futuro.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Para una visión general del campo orientada al profesional, véase <a href="#id13"><span class="problematic" id="id14">monarch2021human</span></a>. Para el artículo fundacional sobre aprendizaje activo que inició gran parte del tratamiento formal de HITL, véase <a href="#id15"><span class="problematic" id="id16">settles2009active</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/es/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-paradoja-de-la-automatizacion">La Paradoja de la Automatización</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-del-aprendizaje-automatico-con-humano-en-el-bucle">Definición del Aprendizaje Automático con Humano en el Bucle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-breve-historia">Una Breve Historia</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sistemas-expertos-e-ingenieria-del-conocimiento-decadas-de-19601980">Sistemas Expertos e Ingeniería del Conocimiento (décadas de 1960–1980)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-giro-estadistico-decadas-de-19802000">El Giro Estadístico (décadas de 1980–2000)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-era-del-aprendizaje-profundo-de-la-decada-de-2010-hasta-la-actualidad">La Era del Aprendizaje Profundo (de la década de 2010 hasta la actualidad)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-hitl-el-caso-del-juicio-humano">¿Por qué HITL? El caso del juicio humano</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sentido-comun-y-conocimiento-del-mundo">1. Sentido Común y Conocimiento del Mundo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anclaje-semantico">2. Anclaje Semántico</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alineacion-de-valores">3. Alineación de Valores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptabilidad">4. Adaptabilidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendicion-de-cuentas">5. Rendición de Cuentas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-bucle-de-retroalimentacion">El Bucle de Retroalimentación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lo-que-hitl-no-es">Lo que HITL No Es</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-economia-de-la-retroalimentacion-humana">La Economía de la Retroalimentación Humana</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion-general-del-manual">Descripción General del Manual</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

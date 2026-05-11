@@ -1,0 +1,141 @@
+# =============================================================
+# .gitignore — Human in the Loop: Misunderstood (consolidated)
+# =============================================================
+
+# -------------------------------------------------------
+# LaTeX build artifacts
+# -------------------------------------------------------
+editions/winter/latex/*.aux
+editions/winter/latex/*.bbl
+editions/winter/latex/*.bcf
+editions/winter/latex/*.blg
+editions/winter/latex/*.idx
+editions/winter/latex/*.ilg
+editions/winter/latex/*.ind
+editions/winter/latex/*.log
+editions/winter/latex/*.run.xml
+editions/winter/latex/*.synctex.gz
+editions/winter/latex/*.toc
+editions/winter/latex/tmp_old/
+overview/*.aux
+overview/*.log
+overview/*.out
+editions/spring/*.aux
+editions/spring/*.log
+editions/spring/*.out
+
+# Keep the compiled main PDF committed (pre-built deliverable)
+# To untrack: git rm --cached editions/winter/latex/main.pdf
+# editions/winter/latex/main.pdf
+
+# -------------------------------------------------------
+# Jupyter Book build outputs
+# -------------------------------------------------------
+editions/summer/_build/
+editions/spring/_build/
+editions/summer/translations/**/_build/
+_build/
+
+# -------------------------------------------------------
+# dist/ — keep pre-built deliverables, exclude zip bundles
+# -------------------------------------------------------
+dist/summer_interactive/
+dist/*.zip
+*.zip
+
+# -------------------------------------------------------
+# Node / React
+# -------------------------------------------------------
+node_modules/
+web/reader/node_modules/
+web/reader/dist/
+editions/spring/web/node_modules/
+editions/spring/web/dist/
+editions/spring/mobile/**/.dart_tool/
+editions/spring/mobile/**/build/
+editions/spring/mobile/.idea/
+
+# -------------------------------------------------------
+# Python
+# -------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+.coverage
+htmlcov/
+build/compat/__pycache__/
+
+# -------------------------------------------------------
+# Spring platform runtime
+# -------------------------------------------------------
+editions/spring/.env
+editions/spring/db/*.sqlite3
+editions/spring/db/*.db
+editions/spring/backend-rust/target/
+
+# -------------------------------------------------------
+# macOS
+# -------------------------------------------------------
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# -------------------------------------------------------
+# Local tooling
+# -------------------------------------------------------
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+.local/
+.claude/settings.local.json
+
+# -------------------------------------------------------
+# Sourcemaps and linter caches (generated, large)
+# -------------------------------------------------------
+**/*.js.map
+**/*.css.map
+**/.eslintcache
+**/.stylelintcache
+
+# -------------------------------------------------------
+# LIMEN OS — lives in its own repo (github.com/lazToum/limen-os)
+# -------------------------------------------------------
+limen-os/
+
+# -------------------------------------------------------
+# Embedded LIMEN OS workspace generated/local state
+# (kept for reference, superseded by blanket exclusion above)
+# -------------------------------------------------------
+limen-os/.ruff_cache/
+limen-os/.mypy_cache/
+limen-os/.pytest_cache/
+limen-os/.tic
+limen-os/.toc
+limen-os/.vagrant/
+limen-os/**/node_modules/
+limen-os/**/dist/
+limen-os/**/target/
+limen-os/**/.dart_tool/
+limen-os/**/.idea/
+limen-os/docker/code-server/data/
+limen-os/docker/code-server/userdata/
+limen-os/docker/tools/agentflow/.ruff_cache/
+limen-os/docker/tools/agentflow/static/app/assets/
+
+# -------------------------------------------------------
+# Archives / screenshots
+# -------------------------------------------------------
+Screenshot*.png
+Archive.zip

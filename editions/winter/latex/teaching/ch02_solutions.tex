@@ -1,0 +1,477 @@
+% ============================================================================
+% CHAPTER 2 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch2/C2AM_updated.md (Solutions Guide)
+%         /markdown/ch2/Ch2AS_updated.md (Technical Exercise Solutions)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 2}
+\label{ch:solutions-ch02}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers enabling instructors to facilitate discussions on uncertainty with confidence and consistency.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: The Radiologist Story}
+
+\textbf{Prompt:} ``Dr.~Anand's AI didn't give the right diagnosis but still saved the patient. How? What exactly did the AI do correctly?''
+
+\paragraph{Model Answer.}
+
+The AI performed its most important function correctly: it expressed calibrated uncertainty. The system output a confidence score of 51\%---essentially a coin flip---rather than a confident-but-wrong diagnosis.
+
+By expressing uncertainty, the system:
+\begin{enumerate}
+    \item Triggered human review (Dr.~Anand looked more carefully)
+    \item Communicated that the case was at the boundary of its knowledge
+    \item Avoided the most dangerous failure mode: confidently wrong output
+\end{enumerate}
+
+\paragraph{What the AI did right.}
+\begin{itemize}
+    \item Detected that it didn't know (Uncertainty Detection, Dimension~1)
+    \item Surfaced that uncertainty explicitly rather than burying it
+    \item Routed the case appropriately to the expert
+\end{itemize}
+
+\paragraph{What the AI did not do (and didn't need to).}
+\begin{itemize}
+    \item Diagnose correctly --- this was beyond its knowledge
+    \item Explain \emph{why} it was uncertain --- though this would have been additional value
+\end{itemize}
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[A-grade response] ``The AI correctly implemented the Uncertainty Detection dimension of the HITL framework. By outputting 51\% confidence rather than a confident diagnosis, it signaled to Dr.~Anand that the case was at the edge of its training. This is the system working as designed --- the AI's value wasn't in diagnosing the fungal infection but in flagging that something unusual was happening. The 51\% made the uncertainty visible and actionable.''
+
+    \item[B-grade response] ``The AI flagged that it wasn't confident, which made the doctor look more carefully. Without that flag, she might have glanced at a routine-looking image and missed the rare infection.''
+
+    \item[C-grade response] ``The AI said it wasn't sure, so the doctor checked again and found the real problem.''
+\end{description}
+
+\paragraph{Common wrong answers.}
+\begin{itemize}
+    \item ``The AI found the cancer'' --- No, the CT scan found it. The AI triggered the CT.
+    \item ``The AI failed and the doctor succeeded'' --- Partially right, but misses that the AI's uncertainty expression was itself a success.
+\end{itemize}
+
+\subsubsection{Question 2: Aleatoric vs.\ Epistemic Uncertainty}
+
+\textbf{Prompt:} ``Explain the difference between aleatoric and epistemic uncertainty in your own words. Give one example of each.''
+
+\paragraph{Model Answer.}
+
+\textbf{Aleatoric uncertainty} is uncertainty baked into the situation itself. No matter how good the system is or how much it learns, some ambiguity remains because the signal simply isn't there. A blurry photograph will always be blurry; a recording in a thunderstorm will always be noisy; a medical test with a 15\% false positive rate will always have that false positive rate. More training doesn't fix it.
+
+\textbf{Epistemic uncertainty} is uncertainty from incomplete knowledge. The system doesn't know something that \emph{could} be known --- by a human expert, by a different model, or by the same model after more training. It's the difference between ``no one could know this'' and ``I haven't learned this yet.''
+
+\paragraph{Examples students should be able to generate.}
+\begin{itemize}
+    \item Weather forecast for 10 days from now: mostly aleatoric (chaos in atmospheric systems)
+    \item Voice recognition for a language the app doesn't support: epistemic (training gap)
+    \item Spell-checker flagging a name from a culture not in its dictionary: epistemic
+    \item Autocorrect failing on a poorly handwritten screenshot: aleatoric
+\end{itemize}
+
+\begin{keyconcept}[HITL Implication to Include in Strong Answers]
+Human review reliably helps with epistemic uncertainty (the human knows what the model doesn't). Human review doesn't reliably help with aleatoric uncertainty (the human faces the same fog). This distinction determines when HITL routing adds value.
+\end{keyconcept}
+
+\subsubsection{Question 3: Medical AI vs.\ Air Canada Chatbot}
+
+\textbf{Prompt:} ``Compare how the medical imaging AI and the Air Canada chatbot handled their uncertainties.''
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Medical AI vs.\ Air Canada chatbot: five-dimension comparison}
+\label{tab:medical-aircanada}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Medical AI} & \textbf{Air Canada Chatbot} \\
+\midrule
+Was it uncertain? & Yes (epistemic --- rare condition) & Yes (missing/wrong training) \\
+Did it express uncertainty? & Yes --- 51\% confidence score & No --- confident-sounding answer \\
+Type of failure mode & None --- signaled correctly & Silent failure \\
+Human response possible? & Yes --- radiologist reviewed & No --- user had no signal \\
+Outcome & Rare infection caught & Patient given wrong policy, financial loss \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Key insight.} Both systems encountered something outside their reliable knowledge. The medical AI surfaced that uncertainty; the chatbot buried it. The difference is not in capability but in design philosophy.
+
+\subsubsection{Question 4: Voice Recognition Accent Disparity}
+
+\textbf{Prompt:} ``A voice recognition system has 40\% word error rate on Scottish accents but 5\% on Midwestern American accents. What type of uncertainty? Should it flag its output differently?''
+
+\paragraph{Model Answer.}
+
+\paragraph{Type:} Epistemic uncertainty --- the model was trained primarily on Midwestern American English and lacks sufficient Scottish accent examples. The accent is clear to any human listener; the model simply hasn't learned to process it.
+
+\paragraph{Should it flag differently?} Yes, for several reasons:
+
+\begin{enumerate}
+    \item The accuracy difference is dramatic (8$\times$ higher error rate), which changes the HITL calculus
+    \item Users of a system with 40\% error rate but no uncertainty signal will over-trust incorrect transcriptions
+    \item For high-stakes applications (court transcription, medical documentation), the difference is critical
+\end{enumerate}
+
+\paragraph{Recommended design.}
+\begin{itemize}
+    \item Detect input accent/dialect and estimate accuracy accordingly
+    \item Apply lower confidence scores to accents underrepresented in training data
+    \item Flag transcriptions with high modeled error probability for human review
+    \item In the interface: ``Transcription confidence: Low --- please review carefully''
+\end{itemize}
+
+\paragraph{Broader point.} Presenting a Scottish-accented input transcript with the same visual confidence as a Midwestern input is a design choice to hide epistemic uncertainty---the Nest thermostat problem applied to speech recognition.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Framework Application: Radiology AI, Five Dimensions}
+
+\textbf{Prompt:} ``Apply the Five Dimensions framework to the radiology AI scenario.''
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Five-dimension framework applied to radiology AI}
+\label{tab:radiology-five-dim}
+\centering
+\begin{tabular}{@{}p{3cm}p{2cm}p{7.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Assessment \& Evidence} \\
+\midrule
+Uncertainty Detection & 5/5 & Outputs 51\% confidence score; system knows it's uncertain \\
+Intervention Design & 4/5 & Flags as ``recommend clinical review'' --- clear action signal; could include \emph{why} uncertain \\
+Timing & 4/5 & Flags before radiologist's review --- appropriate \\
+Stakes Calibration & 5/5 & Medical setting --- presumably high threshold for auto-diagnosis \\
+Feedback Integration & ?/5 & Unknown --- does Dr.~Anand's correct diagnosis improve the model? \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Weakest Dimension.} Feedback Integration. The story describes a one-time interaction; we don't know whether the radiologist's correction was fed back to improve the model. In many deployed medical AI systems, human corrections are logged but not used in real-time learning. This is a missed opportunity.
+
+\paragraph{Strongest Dimension.} Uncertainty Detection. The 51\% output is precisely calibrated --- the model genuinely was nearly equivocal between two diagnoses.
+
+\subsubsection{Design Challenge: College Admissions Essay AI}
+
+\textbf{Prompt:} ``A college uses an AI to score admissions essays. Accuracy drops from 85\% to 62\% for non-standard essays. Design an uncertainty system.''
+
+\paragraph{Model Answer.}
+
+\paragraph{Step 1: Identify uncertainty type.}
+Non-standard essays represent \emph{epistemic} uncertainty --- the model hasn't been trained on diverse essay styles. Human admissions readers typically can evaluate these well, confirming it's epistemic.
+
+\paragraph{Step 2: Uncertainty signaling strategy.}
+\begin{lstlisting}[style=python, caption={Confidence routing logic for admissions AI}]
+# Routing logic
+if confidence > 0.85:     # High confidence
+    action = "auto_score"    # ~70% of essays
+elif confidence > 0.65:   # Medium confidence
+    action = "soft_flag"     # "Reviewer attention recommended" ~15%
+else:                     # Low confidence
+    action = "hard_flag"     # "Human review required" ~15%
+\end{lstlisting}
+
+\paragraph{Step 3: Routing threshold.}
+With 20\% human review capacity:
+\begin{itemize}
+    \item Route the lowest 20\% of confidence scores to human review
+    \item This captures most of the high-uncertainty essays without exceeding capacity
+    \item Route by confidence, not score value
+\end{itemize}
+
+\paragraph{Step 4: Reviewer interface.}
+\begin{itemize}
+    \item Show AI score + confidence interval, not just the point estimate
+    \item Highlight which scoring rubric dimensions drove the uncertainty
+    \item Show similar essays (nearest training examples) for calibration
+    \item Allow quick ``confirm/override/escalate'' options
+\end{itemize}
+
+\paragraph{Step 5: Alert fatigue prevention.}
+\begin{itemize}
+    \item Calibrate so that flagged essays are genuinely uncertain --- not just unusual
+    \item Track reviewer override rates; if reviewers rarely change AI scores on flagged essays, the threshold is too low
+\end{itemize}
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Calibration Strategy: Cross-Hospital Deployment}
+
+\textbf{Prompt:} ``A model trained on one hospital's population is deployed at another. How does calibration change? What corrections apply?''
+
+\paragraph{Model Answer.}
+
+\paragraph{Expected calibration change.} Under dataset shift, calibration typically degrades --- the model's confidence scores no longer accurately predict accuracy on the new population:
+\begin{itemize}
+    \item If the new hospital serves a sicker population, the model may be overconfident on unusual presentations it hasn't seen
+    \item If demographic differences change disease prevalence, calibration gaps open up
+\end{itemize}
+
+\paragraph{Correction approaches.}
+\begin{enumerate}
+    \item \textbf{Collect a new calibration set from the deployment hospital} --- ideally 1,000+ labeled cases
+    \item \textbf{Refit temperature scaling} on the new calibration set --- a single parameter, fast to fit, handles systematic overconfidence
+    \item \textbf{If accuracy drops significantly (not just calibration), consider fine-tuning} on deployment hospital data --- recalibration alone cannot fix genuine accuracy gaps
+    \item \textbf{Monitor calibration continuously} as deployment continues
+\end{enumerate}
+
+\paragraph{What not to do.} Simply apply the training hospital's temperature parameter to the new hospital --- this assumes the same calibration relationship holds, which it may not.
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Uncertainty Type Sorting --- Instructor Key}
+
+\begin{table}[htbp]
+\caption{Uncertainty type sorting key}
+\label{tab:sorting-key}
+\centering
+\begin{tabular}{@{}p{4.5cm}p{2.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Scenario} & \textbf{Type} & \textbf{Human Review Helps?} \\
+\midrule
+Speech in storm & Aleatoric & Marginally --- same noise affects human \\
+New product category & Epistemic & Yes --- human recognizes new category \\
+Sarcasm detection & Epistemic & Yes --- humans recognize sarcasm (usually) \\
+Two simultaneous rare conditions & Mixed & Yes for epistemic component \\
+Untranslatable word & Epistemic & Yes --- human translator can handle \\
+Legitimate-but-unusual transaction & Aleatoric & Marginally --- cardholder has context \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[Debrief Insight]
+There are few pure aleatoric cases --- most real-world AI uncertainty has an epistemic component. But for cases with a strong aleatoric component, human review should be designed to provide \emph{additional context}, not just a second opinion on the same evidence.
+\end{keyconcept}
+
+\subsection{Activity 2: Calibration Intuition --- Solutions}
+
+\begin{table}[htbp]
+\caption{Calibration gap analysis}
+\label{tab:calibration-gaps}
+\centering
+\begin{tabular}{@{}p{4cm}p{3cm}p{4.5cm}@{}}
+\toprule
+\textbf{System} & \textbf{Calibration Gap} & \textbf{Assessment} \\
+\midrule
+Weather (90\% stated, 85\% actual) & 5\% gap & Slightly overconfident, acceptable \\
+Spam filter (95\% stated, 95\% actual) & 0\% gap & Well calibrated \\
+Medical chatbot (99\% stated, 72\% actual) & 27\% gap & Dangerously overconfident \\
+Navigation (95\% stated, 70\% actual) & 25\% gap & Significantly overconfident \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Most dangerous:} The medical chatbot --- highest-stakes application with the largest calibration gap. Users trust it far more than they should.
+
+\begin{technote}[Teaching Point]
+In high-stakes domains, overconfidence is more dangerous than underconfidence. A medical chatbot that said ``I'm 72\% confident'' would enable appropriate HITL (users would verify before acting). A chatbot that says ``I'm 99\% confident'' trains users to skip verification.
+\end{technote}
+
+\subsection{Activity 3: Design Challenge --- Sample Strong Solution}
+
+\paragraph{Uncertainty signals.}
+\begin{enumerate}
+    \item Confidence score (displayed as percentage to admissions officers)
+    \item ``Flagged for review'' indicator at $<$70\% confidence
+    \item Specific uncertainty reasons: ``Essay structure differs significantly from training examples'' or ``Syntax patterns suggest non-native writer --- accuracy may vary''
+\end{enumerate}
+
+\paragraph{Review routing.}
+\begin{itemize}
+    \item 80\% auto-scored; 20\% flagged
+    \item Within flagged: sort by confidence ascending (most uncertain first)
+    \item Priority flag: essays near score thresholds (accept/waitlist/reject boundaries) + low confidence
+\end{itemize}
+
+\paragraph{Reviewer interface design.}
+\begin{itemize}
+    \item Show AI score range, not point estimate: ``65--75'' rather than ``70''
+    \item Show which rubric categories are most uncertain
+    \item Three reviewer actions: Confirm / Modify / Escalate (to senior reviewer)
+    \item Estimated review time: 3 minutes per essay
+\end{itemize}
+
+\paragraph{Feedback integration.}
+\begin{itemize}
+    \item Track reviewer overrides; high override rate on certain essay types = recalibrate model for those types
+    \item Annual retraining with confirmed-correct scores from all reviewed essays
+\end{itemize}
+
+% ============================================================================
+\section{Technical Exercise Solutions (Appendix 2A)}
+% ============================================================================
+
+\subsection{Exercise 2A.1: Calibration Measurement and Reliability Diagrams}
+
+\paragraph{Core ECE Implementation.}
+
+\begin{lstlisting}[style=python, caption={Expected Calibration Error computation}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def compute_ece(confidences, correct, n_bins=15):
+    """
+    Compute Expected Calibration Error.
+
+    Args:
+        confidences: np.array, predicted probabilities in [0,1]
+        correct: np.array, binary correctness {0,1}
+        n_bins: int, number of equal-width bins
+
+    Returns:
+        ece: float
+        bin_data: list of (bin_center, avg_conf, accuracy, count)
+    """
+    bin_boundaries = np.linspace(0, 1, n_bins + 1)
+    ece = 0.0
+    n = len(confidences)
+    bin_data = []
+
+    for i in range(n_bins):
+        in_bin = (confidences > bin_boundaries[i]) & \
+                 (confidences <= bin_boundaries[i+1])
+        n_in_bin = in_bin.sum()
+
+        if n_in_bin > 0:
+            avg_conf = confidences[in_bin].mean()
+            accuracy = correct[in_bin].mean()
+            prop = n_in_bin / n
+            ece += prop * abs(avg_conf - accuracy)
+            bin_center = (bin_boundaries[i] + bin_boundaries[i+1]) / 2
+            bin_data.append((bin_center, avg_conf, accuracy, n_in_bin))
+
+    return ece, bin_data
+\end{lstlisting}
+
+\paragraph{Expected Results Interpretation.}
+
+\textbf{Overconfident model (typical deep learning):}
+\begin{itemize}
+    \item Reliability diagram: bars fall \emph{below} the diagonal
+    \item ECE: typically 0.05--0.15 for common benchmarks
+    \item Interpretation: model says ``90\% confident'' but is right only 80\% of the time
+\end{itemize}
+
+\textbf{After temperature scaling:}
+\begin{itemize}
+    \item Reliability diagram: bars closer to diagonal
+    \item ECE: typically 0.02--0.05
+    \item Note: accuracy does not change --- only the calibration of confidence scores
+\end{itemize}
+
+\textbf{Subgroup analysis interpretation:} If a voice recognition system shows ECE $\approx$ 0.03 for American English speakers but ECE $\approx$ 0.25 for Scottish-accented speakers, flagging Scottish-accented inputs for lower-confidence output is both technically correct and ethically required for a fair system.
+
+\subsection{Exercise 2A.2: Aleatoric vs.\ Epistemic Decomposition}
+
+\paragraph{Key Expected Observations.}
+
+\textbf{In-distribution decision boundary region:}
+\begin{itemize}
+    \item Aleatoric uncertainty: HIGH (both classes are close; even perfect model would be 50/50)
+    \item Epistemic uncertainty: LOW (model has seen many examples here)
+\end{itemize}
+
+\textbf{Out-of-distribution (OOD) region:}
+\begin{itemize}
+    \item Aleatoric uncertainty: LOW-MEDIUM (model assigns to one class with moderate confidence)
+    \item Epistemic uncertainty: HIGH (model is extrapolating far from training data)
+\end{itemize}
+
+\paragraph{Theoretical connection.} Aleatoric uncertainty peaks between in-distribution clusters (irreducible class overlap). Epistemic uncertainty peaks in OOD regions (model ignorance). This confirms the theoretical prediction and directly motivates the HITL routing design: route high-epistemic-uncertainty cases to human review; communicate high-aleatoric-uncertainty cases to users as genuinely ambiguous.
+
+\subsection{Exercise 2A.3: HITL Routing Optimization}
+
+\paragraph{Key Insight.}
+
+With asymmetric error costs ($C_{FN} = 100$, $C_{FP} = 10$, $C_{human} = 2$):
+
+\begin{itemize}
+    \item \textbf{Full automation:} High cost because some high-confidence auto-decisions are wrong, and FN cost is high
+    \item \textbf{Full human review:} Fixed cost of \$2 per sample; safer but expensive
+    \item \textbf{Optimal HITL:} Routes $\sim$30--50\% of cases to human review (the uncertain ones); catches most false negatives at lower overall cost than full review
+\end{itemize}
+
+\paragraph{Medical analogy.} Because $C_{FN} = 10 \times C_{FP}$, the optimal threshold is lower than you might expect --- it's worth routing more cases to human review to avoid even rare false negatives. This mirrors the medical AI scenario: missing a cancer is far worse than an unnecessary biopsy.
+
+\subsection{Exercise 2A.4: OOD Detection Comparison}
+
+\paragraph{Expected AUROC Results.}
+
+\begin{table}[htbp]
+\caption{Expected OOD detection performance}
+\label{tab:ood-detection}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Method} & \textbf{Typical AUROC} & \textbf{Limitation} \\
+\midrule
+Max Softmax & 0.75--0.85 & Overconfident on OOD inputs \\
+MC Dropout Entropy & 0.80--0.90 & Better; captures epistemic uncertainty \\
+Mahalanobis Distance & 0.85--0.95 & Best; feature-space distance is informative \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Why Mahalanobis distance works best.} It operates in the model's learned feature space --- OOD inputs produce features distant from any training class centroid, even when the softmax distribution looks confident. This is the practical fix for the ``overconfident OOD'' problem.
+
+\paragraph{Connection to Chapter~2.} The voice recognition system with high error rates on Scottish accents would benefit from Mahalanobis-style OOD detection: if the audio feature representation is far from the centroid of any trained accent cluster, flag for low confidence regardless of what the softmax says.
+
+% ============================================================================
+\section{``Try This'' Exercise --- Model Student Responses}
+% ============================================================================
+
+\paragraph{Sample Strong Response.}
+
+``I tracked uncertainty signals for a week. Most interesting findings:
+
+\begin{enumerate}
+    \item \textbf{Google Maps} showed a range (`15--22 minutes') during heavy traffic --- honest uncertainty communication. I adjusted my departure time.
+
+    \item \textbf{Email spam folder} --- I noticed several legitimate cold emails had been filtered. The system gave no indication of \emph{why} or how confident it was. `Possible spam --- marketing language' would have been much more useful than silent filtering.
+
+    \item \textbf{iPhone autocorrect} --- one correction was clearly wrong (changed a proper noun I'd typed correctly). No uncertainty flag. This is the Air Canada problem at tiny scale.
+
+    \item \textbf{Weather app} --- always showed probability of rain percentage. I trusted the 80\% forecasts more than the 90\%+ ones because I noticed they were actually right more often.
+\end{enumerate}
+
+\textbf{Pattern:} Apps with confidence signals (Maps, Weather) let me make better decisions. Apps without confidence signals (Autocorrect, Spam filter) occasionally misled me without warning. The absence of an uncertainty signal is itself a kind of overconfidence.''
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``Why can't we just ask a human to review everything?''}
+Human review costs time, attention, and money. At scale: a spam filter processing 100 million emails per day cannot route all 100 million to human reviewers. Even at 1 second per email, full review would require 3,000 person-years of work per day. Calibrated routing selects the cases where human judgment adds the most value.
+
+\paragraph{``Isn't all AI uncertainty epistemic, since models can always be improved?''}
+In principle yes --- with infinite data and perfect models, all uncertainty could be eliminated. But in practice, the timescales differ enormously. Aleatoric uncertainty (blurry photo) is irreducible with current data; epistemic uncertainty (missing training class) is reducible with targeted data collection. For HITL design purposes, the operational distinction is: ``Would a human expert looking at the same input be uncertain?'' Yes → aleatoric component. No → epistemic.
+
+\paragraph{``What if the human reviewer is also wrong?''}
+Human expertise isn't infinite, and human errors are real. The HITL argument isn't that humans are infallible --- it's that:
+\begin{enumerate}
+    \item Human and AI errors are often \emph{different} errors (they fail on different cases)
+    \item The combination is stronger than either alone (complementarity)
+    \item For epistemic uncertainty specifically, domain expertise typically exceeds model knowledge in edge cases
+\end{enumerate}
+Chapter~4 will address this further with the discussion of error costs and threshold optimization.

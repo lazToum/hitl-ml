@@ -1,0 +1,58 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT * FROM sessions WHERE id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "hunt_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "player_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "team_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "current_clue_sequence",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 5,
+        "name": "started_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 6,
+        "name": "completed_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "b61377101cd65dbd8c97702fe3a76f791c43849b84d5e16e4e3d98cbde9f7a17"
+}

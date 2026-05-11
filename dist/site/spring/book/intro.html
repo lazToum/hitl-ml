@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Human in the Loop: Misunderstood &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Building HITL: Why a Game?" href="chapters/01_building_hitl.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/intro.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Human in the Loop: Misunderstood</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spring-edition-build-the-loop">Spring Edition — Build the Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-edition">How to use this edition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="human-in-the-loop-misunderstood">
+<h1>Human in the Loop: Misunderstood<a class="headerlink" href="#human-in-the-loop-misunderstood" title="Permalink to this heading">#</a></h1>
+<section id="spring-edition-build-the-loop">
+<h2>Spring Edition — Build the Loop<a class="headerlink" href="#spring-edition-build-the-loop" title="Permalink to this heading">#</a></h2>
+<blockquote class="epigraph">
+<div><p>The best way to understand a system is to build one that breaks in interesting ways.</p>
+<p class="attribution">—Spring Edition</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>This edition is different.</p>
+<p>The Summer Edition asked you to <em>think</em> about human-in-the-loop systems. The Winter Edition asked you to <em>analyse</em> them rigorously. This one asks you to <em>build</em> one — from a blank directory to a running system that puts real humans in a real loop.</p>
+<p>The system we will build is a <strong>Treasure Hunt</strong> game.</p>
+<p>That might sound like a detour. It isn’t. A treasure hunt is, at its core, a HITL system:</p>
+<ul class="simple">
+<li><p>A <strong>creator</strong> designs clues — labelling the world, deciding what counts as a correct answer, choosing how much help to offer.</p></li>
+<li><p>A <strong>player</strong> receives outputs from that design process, acts on them, and generates feedback through their behavior — how long they spent on a clue, how many attempts they made, whether they needed a hint.</p></li>
+<li><p>A <strong>developer</strong> builds the machinery that connects those two humans, routes their decisions through an AI layer, and closes the loop.</p></li>
+</ul>
+<p>By the end, you will have:</p>
+<ul class="simple">
+<li><p>A <strong>Rust/Axum</strong> REST API that validates answers, manages game state, and streams live events over WebSockets</p></li>
+<li><p>A <strong>Python/FastAPI</strong> AI sidecar that generates clues, estimates difficulty, and provides adaptive hints using a Large Language Model (LLM)</p></li>
+<li><p>A <strong>React</strong> creator dashboard where hunt designers can build, preview, and print QR sheets</p></li>
+<li><p>A <strong>Flutter</strong> mobile app where players scan codes, submit answers, and receive hints in the field</p></li>
+<li><p>a running local stack provisioned with a single <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span></code></p></li>
+</ul>
+<p>Each chapter introduces a new piece of the system. Each piece connects back to a HITL concept. The code is real — you can run it.</p>
+</section>
+<hr class="docutils" />
+<section id="how-to-use-this-edition">
+<h2>How to use this edition<a class="headerlink" href="#how-to-use-this-edition" title="Permalink to this heading">#</a></h2>
+<p>Each chapter has three layers:</p>
+<ol class="arabic simple">
+<li><p><strong>The build</strong> — concrete implementation, with code you will write or extend</p></li>
+<li><p><strong>The concept</strong> — the HITL idea this piece of code embodies</p></li>
+<li><p><strong>The reflection</strong> — questions to sit with, not necessarily to answer</p></li>
+</ol>
+<p>You do not need to read linearly. If you want to jump straight to the AI chapter, jump. If you want to start from deployment and work backwards, work backwards.</p>
+<p>But the code <em>is</em> linear. Chapter 3’s schema is a prerequisite for Chapter 4’s queries.</p>
+</section>
+<hr class="docutils" />
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Basic familiarity with Rust (you don’t need to be expert — the code is explained as it’s written)</p></li>
+<li><p>Python 3.11+</p></li>
+<li><p>Docker + Docker Compose</p></li>
+<li><p>A terminal and a text editor</p></li>
+</ul>
+<p>Optionally, for the Flutter chapters: Flutter SDK 3.22+.</p>
+</section>
+<hr class="docutils" />
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>path/to/repo/editions/spring
+cp<span class="w"> </span>.env.example<span class="w"> </span>.env<span class="w">          </span><span class="c1"># fill in LLM_API_KEY / LLM_MODEL</span>
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build<span class="w">  </span><span class="c1"># use RUST_API_HOST_PORT / AI_SERVICE_HOST_PORT if needed</span>
+<span class="nb">cd</span><span class="w"> </span>backend-rust<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cargo<span class="w"> </span>build
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">build</span></code> succeeds in your environment and <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">ps</span></code> shows the services running, you are ready.</p>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11_observer.html">Watching in Real Time</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="chapters/01_building_hitl.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Building HITL: Why a Game?</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spring-edition-build-the-loop">Spring Edition — Build the Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-edition">How to use this edition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

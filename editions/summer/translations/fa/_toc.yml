@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "مطالب مقدماتی"
+    chapters:
+      - file: front/declaration
+        title: "اعلامیه اصالت"
+      - file: front/abstract
+        title: "چکیده"
+      - file: front/acknowledgments
+        title: "سپاسگزاری‌ها"
+
+  - caption: "بخش اول — مبانی"
+    chapters:
+      - file: chapters/01_introduction
+        title: "یادگیری ماشین با حلقه انسانی چیست؟"
+      - file: chapters/02_taxonomy
+        title: "طبقه‌بندی تعامل انسان و ماشین"
+
+  - caption: "بخش دوم — تکنیک‌های اصلی"
+    chapters:
+      - file: chapters/03_annotation
+        title: "حاشیه‌نویسی و برچسب‌گذاری داده"
+      - file: chapters/04_active_learning
+        title: "یادگیری فعال"
+      - file: chapters/05_interactive_ml
+        title: "یادگیری ماشین تعاملی"
+
+  - caption: "بخش سوم — یادگیری از بازخورد انسانی"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "یادگیری تقویتی از بازخورد انسانی"
+      - file: chapters/07_demonstrations
+        title: "یادگیری از نمایش‌ها"
+      - file: chapters/08_preferences
+        title: "یادگیری از مقایسه‌ها و رتبه‌بندی‌ها"
+
+  - caption: "بخش چهارم — کاربردها"
+    chapters:
+      - file: chapters/09_nlp
+        title: "حلقه انسانی در پردازش زبان طبیعی"
+      - file: chapters/10_vision
+        title: "حلقه انسانی در بینایی ماشین"
+      - file: chapters/11_healthcare
+        title: "حلقه انسانی در بهداشت و علوم"
+
+  - caption: "بخش پنجم — سامانه‌ها و عملکرد"
+    chapters:
+      - file: chapters/12_platforms
+        title: "بسترها و ابزارهای حاشیه‌نویسی"
+      - file: chapters/13_crowdsourcing
+        title: "برون‌سپاری جمعی و کنترل کیفیت"
+      - file: chapters/14_evaluation
+        title: "ارزیابی و معیارها"
+
+  - caption: "بخش ششم — اخلاق و افق‌ها"
+    chapters:
+      - file: chapters/15_ethics
+        title: "انصاف، تورش و اخلاق"
+      - file: chapters/16_future
+        title: "جهت‌گیری‌های آینده"
+
+  - caption: "مطالب پایانی"
+    chapters:
+      - file: bibliography
+        title: "کتاب‌نامه"
+      - file: chapters/17_limen
+        title: "لیمن: انسانی در حلقه هر چیز"
+      - file: front/on_leaving
+        title: "درباره رفتن"

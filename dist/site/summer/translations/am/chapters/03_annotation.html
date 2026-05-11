@@ -1,0 +1,783 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>የውሂብ ትርጓሜና መለያ ሰጪነት &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/am/chapters/03_annotation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/am/chapters/03_annotation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>የውሂብ ትርጓሜና መለያ ሰጪነት</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ትርጓሜ ዓይነቶቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ምደባ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ቅደም ተከተሉ መለያ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ስፋቱ እና ዝምድናው ትርጓሜ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">የሚሰፉ ሳጥኖቹ እና ዕቃ ዕውቅና</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ክፍፍሉ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ቅጂ ስሪቱ እና ትርጉሙ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">ትርጓሜ መምሪያዎቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">ትርጓሜ ጥራቱ መለካት፦ ትርጓሜ-ሰጪዎቹ-መካከሉ ስምምነቱ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ኮሄን ካፓ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">ፍሌስ ካፓ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ክሪፔንዶርፍ አልፋ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">አለመስማማቶቹ ሊፈቱ ዘዴዎቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">ብዙ ድምፅ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">ክብደቱ ድምፅ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">ለስሳ መለያዎቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">ዳኝነቱ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">ስታቲስቲካዊ ሞዴሎቹ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">ትርጓሜ መለያ ሁኔታ እና ተጽዕኖዎቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">ትርጓሜ ዋጋ እና ቀልጣፋነቱ</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>የውሂብ ትርጓሜና መለያ ሰጪነት<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>ትርጓሜ ML ሰው ሳትፎ ሁሉ ሰፊ ያለ ቅርጸቱ ነው። ሞዴሉ ሊማሩ ከምን ትክክለኛ ምላሾቹ ናቸው ብሎ ሊነግሩ ሰው ሊያስፈልጋቸዋል — ያ ሰው ብዙ ጊዜ ሰው ነው። ይህ ምዕራፍ ትርጓሜ ቲዎሪና ሥራ ይሸፍናሉ፦ ትርጓሜ ምን ያቸግሩ፣ ትርጓሜ ሥራዎቹ ዲዛይን ሁኔታ፣ ጥራቱ ሁኔታ መለካት ዘዴ፣ እናም ልዩነቱ ሁኔታ ሊፈቱ ዘዴ።</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>ትርጓሜ ዓይነቶቹ<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>ትርጓሜ ሥራዎቹ ቅርጸቻቸው፣ ቸርነቻቸው፣ እና ዋጋቻቸው ሁሉ ሰፊ ሊለዩ ይዟሉ። ዋናዎቹ ዓይነቶቹ ናቸው፦</p>
+<section id="id3">
+<h3>ምደባ<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>ትርጓሜ ሰጪው ለእያንዳንዱ ዕቃ <span class="math notranslate nohighlight">\(K\)</span> ቀደምቱ ምድቦቹ አንዱ ሊያዛምዱ ይዟሉ። ይህ ሃሳባዊ ትርጓሜ ሥራ ቀላሉ ነው ግን ጥሩ ምድቡ ዕቅዱ (ሰለምሳሌ <em>ምደባ</em>) ሊዘጋጁ አስደናቂ ቸር ሊሆን ይዟሉ።</p>
+<p><strong>ሁለቱ ምደባ</strong> (ይህ ምስሉ ድመት ነው?) ቀላሉ ሁኔታ ነው። <strong>ብዙ ምድቦቹ</strong> (ይህ እንስሳ ምን ዝርያ ነው?) ትርጓሜ ሰጪዎቹ ዝርዝሩ ውስጥ አንዱ ሊምረጡ ይዟሉ። <strong>ብዙ-መለያ</strong> ትርጓሜ (ይህ ጽሑፍ ምን ርዕሰ ጉዳዮቹ ያጠቃልላሉ?) ተደራቢ ብዙ መለያዎቹ ሊፈቅዱ ይዟሉ።</p>
+</section>
+<section id="id4">
+<h3>ቅደም ተከተሉ መለያ<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>ቅደም ተከተሉ ውስጥ እያንዳንዱ ቶኬን መለያ ይቀበላሉ። ስሙ-አካሉ ዕውቅና (NER) ዋናው ምሳሌ ነው — ትርጓሜ ሰጪዎቹ PERSON፣ ORGANIZATION፣ LOCATION ወዘተ ሆኖ ጽሑፍ ስፋቶቹ ቀፍዳሉ። ትርጓሜ ብዙ ጊዜ BIO (ጅምሩ-ውስጡ-ውጭ) ወይም BIOES ቀፋዥ ዕቅዱ ጥቅም ላይ ይውላሉ፦</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  B-ORG    O           B-ORG    O     O      O
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>ስፋቱ እና ዝምድናው ትርጓሜ<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>ተናጠሉ ቶኬኖቹ ሁሉ ሊለጥፉ ከሚሄዱ ቀጣዩ ቅርጸቻቸው፣ ትርጓሜ ሰጪዎቹ ሊሄዱ ሊፈልጉ ይዟሉ፦</p>
+<ul class="simple">
+<li><p>ስፋቶቹ (ብዙ-ቶኬን ምሳሌዎቹ) ሊለዩ እናም ዓይነቶቹ ሊሰጡ</p></li>
+<li><p>ስፋቶቹ መካከሉ <em>ዝምድናዎቹ</em> ሊቀፍዱ (“Apple” OME “Shazam” ሸጠ)</p></li>
+<li><p>ያው-አካሉ ሁሉ ዳሰሳ ሰንሰለቶቹ (ያው አካሉ ሁሉ ዳሰሳዎቹ) ሊለጥፉ</p></li>
+</ul>
+<p>እነዚህ ሥራዎቹ ሃሳባዊ ወጪ ይዟሉ እናም ዝቅ ያለ ትርጓሜ-ሰጪዎቹ-መካከሉ ስምምነቱ ሊኖር ይዟሉ።</p>
+</section>
+<section id="id6">
+<h3>የሚሰፉ ሳጥኖቹ እና ዕቃ ዕውቅና<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>ትርጓሜ ሰጪዎቹ ምስሎቹ ውስጥ ዕቃዎቹ ዙሪያ ሳጥኖቹ ሊስሉ እናም ለእያንዳንዱ ሳጥን ምድቡ መለያ ሊሰጡ ይዟሉ። መናኸሪያ ትክክለኛነቱ ዋጋ ያለ ነው፦ ጣሪያ ያለው ሳጥን ሁኔታ ዳሰሳ ጠፍቶ ይሄዳሉ፤ ትልቅ ሳጥን ዳኬቱ ሙሉ ለሙሉ ያጠቃልላሉ። ዘመናዊ ትርጓሜ መሳሪያዎቹ ዋቢ ትርጓሜዎቹ ጋር ኢንተርሴክሽን-ኦቨር-ዩኒዮን (IoU) ሊሰሉ ጥራቱ ጉዳዮቹ ሊቀፍዱ ይዟሉ።</p>
+</section>
+<section id="id7">
+<h3>ክፍፍሉ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>ፒክሴሉ-ደረጃ ትርጓሜ፦ እያንዳንዱ ፒክሴሉ ምድቡ ሊሰጡ (ሲማንቲካዊ ክፍፍሉ) ወይም ተለይቶ ዕቃ ዕቃ (ዕቃ ዕቃ ክፍፍሉ) ሊሰጡ ይዟሉ። ጥሩ ጥራቱ ክፍፍሉ ሁሉ ትርጓሜ ዓይነቶቹ ዝቅ ያለ ዋጋ ያለ ሆኖ፣ ዶሜይን እና መሳሪያ ርዳታ ላይ ተሞርኩዞ ቸር ዕይታ ምስሎቹ ሁሉ አሥር ሃምሳ ዶላር እስከ ሃምሳ ዶላር በላይ ዋጋ ሊሆን ይዟሉ።</p>
+</section>
+<section id="id8">
+<h3>ቅጂ ስሪቱ እና ትርጉሙ<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>ድምፅ → ጽሑፍ (ASR ስልጠናቸው ውሂቡ)፣ ጽሑፍ-ዕጅ → ጽሑፍ (OCR ውሂቡ)፣ ወይም ምንጩ ቋንቋ → ዒላማ ቋንቋ (MT ውሂቡ)። እነዚህ ሥራዎቹ ቋንቋ ሙያ ይፈልጋሉ እናም ሰለጠኑ ትርጓሜ ሰጪዎቹ ሳይኖሩ ሊሠሩ አይቻልም።</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>ትርጓሜ መምሪያዎቹ<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>ትርጓሜ ጥራቱ ዋናው ወሳኝ ምክንያቱ <strong>ትርጓሜ መምሪያዎቹ</strong> ጥራቱ ነው፦ ትርጓሜ ሰጪዎቹ ሚከተሉ ጽሑፍ ትዕዛዞቹ።</p>
+<p>ጥሩ መምሪያዎቹ፦</p>
+<ul class="simple">
+<li><p>ሥራ ዓላማ ሊዘረዝሩ እናም <em>ለምን</em> መለያው ዋጋ አለ ሊያሳዩ</p></li>
+<li><p>ለእያንዳንዱ ምድቡ ምሳሌ አዎን እና ምሳሌ አይደለም ዘርዝሮ ዋናው ትርጓሜ ሊሰጡ</p></li>
+<li><p>ብዙ ጫፍ-ሁኔታዎቹ እና ቸር ሁኔታዎቹ ሆን ብሎ ሊዳስሱ</p></li>
+<li><p>እርግጠኛ ሳይሆኑ ምን ሊሠሩ ሊወስኑ (ሰለምሳሌ “ዝለሉ” ሊቀፍዱ ወ. ሙሉ ምርጫ)</p></li>
+<li><p>ሙሉ ትርጓሜ ሠሩ ምሳሌዎቹ ሊያካትቱ</p></li>
+</ul>
+<p>ደካማ መምሪያዎቹ ጫፍ-ሁኔታዎቹ ሁሉ ትርጓሜ ሰጪዎቹ “አጠቃላይ ስሜቱ ሊጠቀሙ” ይሉ — ሞዴሉ ጥራቱ ሚቀንስ እና ትርጓሜ-ሰጪዎቹ-መካከሉ ስምምነቱ ሚቀፍር ወጥ ያልሆኑ ወሳኔዎቹ ይፈጥራሉ።</p>
+<div class="note admonition">
+<p class="admonition-title">መምሪያዎቹ ዕድገቱ ተሳቻ ነው</p>
+<p>ፍጹም መምሪያዎቹ ከጅምሩ ሊዘጋጁ ዕጣ ፈንታ አትጠብቁ። አነስ ያለ ፓይለቱ ትርጓሜ ዙሩ ሊሠሩ፣ ልዩነቶቹ ሊዳስሱ፣ እናም መምሪያዎቹ ሊዘምኑ ይሂዱ። ደጋጋሚ። ጥሩ ሆኖ ያደጉ መምሪያዎቹ ብዙ ጊዜ 3–5 ክለሳ ዙሮቹ ሊያጠናቅቁ ሙሉ ሊሆኑ ይዟሉ።</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id10">
+<h2>ትርጓሜ ጥራቱ መለካት፦ ትርጓሜ-ሰጪዎቹ-መካከሉ ስምምነቱ<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<p>ብዙ ትርጓሜ ሰጪዎቹ ያው ውሂቡ ሊለጥፉ፣ ስምምነቻቸው ሊለካ ይቻላሉ። ሰፊ ስምምነቱ ሥራ ጥሩ ሆኖ ተዘጋጅቶ፣ ትርጓሜ ሰጪዎቹ ሙሉ ተረዱ ሊያሳያሉ። ዝቅ ያለ ስምምነቱ ሥራ፣ መምሪያዎቹ፣ ወይም ውሂቡ ውስጥ ብዥታ ሊያሳያሉ።</p>
+<section id="id11">
+<h3>ኮሄን ካፓ<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>ሁለቱ ትርጓሜ ሰጪዎቹ ውሂቡ <span class="math notranslate nohighlight">\(K\)</span> ምድቦቹ ሁሉ ሊለጥፉ፣ <strong>ኮሄን ካፓ</strong> <a href="#id12"><span class="problematic" id="id13">cohen1960coefficient</span></a> የዕድሉ ተጽዕኖ ሲቀንሱ ቀጥተኛ ስምምነቱ ያሳያሉ፦</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa = \frac{P_o - P_e}{1 - P_e}
+\]</div>
+<p><span class="math notranslate nohighlight">\(P_o\)</span> ቀጥተኛ ምጥጥን ስምምነቱ ሲሆን <span class="math notranslate nohighlight">\(P_e\)</span> ዕድሉ ሁሉ ስምምነቱ ምናምን (የሚከፈሉ መለያ ስርጭቶቹ ሁሉ ሊሰሉ) ነው።</p>
+<p><span class="math notranslate nohighlight">\(\kappa = 1\)</span> ፍጹም ስምምነቱ ማለት ነው፤ <span class="math notranslate nohighlight">\(\kappa = 0\)</span> ዕድሉ ያልተሻሻለ ስምምነቱ ማለት ነው፤ <span class="math notranslate nohighlight">\(\kappa &lt; 0\)</span> ሥርዓታዊ አለመስማማቱ ማለት ነው።</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(\kappa\)</span> ምድቡ</p></th>
+<th class="head"><p>ትርጓሜ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(&lt; 0\)</span></p></td>
+<td><p>ዕድሉ ያነሰ</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0.0 - 0.20\)</span></p></td>
+<td><p>ጥቂቱ</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0.21 - 0.40\)</span></p></td>
+<td><p>ምቹ</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0.41 - 0.60\)</span></p></td>
+<td><p>መካከለኛ</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0.61 - 0.80\)</span></p></td>
+<td><p>ጠቃሚ</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0.81 - 1.00\)</span></p></td>
+<td><p>ሙሉ ለሙሉ ያህሉ</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id14">
+<h3>ፍሌስ ካፓ<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(M &gt; 2\)</span> ትርጓሜ ሰጪዎቹ ሁሉ ኮሄን ካፓ ሊሰፋ ይዟሉ። እያንዳንዱ ትርጓሜ ሰጪ ዕጥፍ ዕጥፍ እያንዳንዱ ዕቃ ሊለጥፉ፤ ቀመሩ ሁሉ ትርጓሜ ሰጪዎቹ ሊጠቃለሉ ይዟሉ፦</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_F = \frac{\bar{P} - \bar{P}_e}{1 - \bar{P}_e}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\bar{P}\)</span> ሁሉ ትርጓሜ ሰጪ ቡድኖቹ ሁሉ ጥምር ስምምነቱ አማካዩ ሲሆን፣ <span class="math notranslate nohighlight">\(\bar{P}_e\)</span> ምናምን ስጥ ሁሉ የሚጠበቀው ስምምነቱ ነው።</p>
+</section>
+<section id="id15">
+<h3>ክሪፔንዶርፍ አልፋ<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>ሁሉ ዓይነቱ ሁሉ ቁጥሩ ሁሉ ትርጓሜ ሰጪዎቹ፣ ሁሉ ሚዛን ዓይነቶቹ (ስሙ፣ ዝርዝሩ፣ ልቀቱ፣ ምጥጥን)፣ እናም ጠፍቶ ያለ ውሂቡ ሊደግፉ አጠቃላዩ ቆጣሪ <a href="#id16"><span class="problematic" id="id17">krippendorff2011computing</span></a>፦</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha = 1 - \frac{D_o}{D_e}
+\]</div>
+<p><span class="math notranslate nohighlight">\(D_o\)</span> ቀጥተኛ አለመስማማቱ ሲሆን <span class="math notranslate nohighlight">\(D_e\)</span> የሚጠበቀው አለመስማማቱ ነው። ክሪፔንዶርፍ አልፋ ምልጃቱ ሁሉ አካዳሚያዊ ሥራ ውስጥ ብዙ ጊዜ ዋልቆ ጥቅም ላይ ይውላሉ።</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">cohen_kappa_score</span>
+
+<span class="c1"># Simulate two annotators labeling 200 items into 3 categories</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">true_labels</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># Annotator 1: mostly agrees with ground truth</span>
+<span class="n">ann1</span> <span class="o">=</span> <span class="n">true_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">flip_mask</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.15</span>
+<span class="n">ann1</span><span class="p">[</span><span class="n">flip_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flip_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># Annotator 2: less consistent</span>
+<span class="n">ann2</span> <span class="o">=</span> <span class="n">true_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">flip_mask2</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.30</span>
+<span class="n">ann2</span><span class="p">[</span><span class="n">flip_mask2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flip_mask2</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="n">kappa_12</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann1</span><span class="p">,</span> <span class="n">ann2</span><span class="p">)</span>
+<span class="n">kappa_1true</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann1</span><span class="p">,</span> <span class="n">true_labels</span><span class="p">)</span>
+<span class="n">kappa_2true</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann2</span><span class="p">,</span> <span class="n">true_labels</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann1 vs ann2):   </span><span class="si">{</span><span class="n">kappa_12</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann1 vs truth):  </span><span class="si">{</span><span class="n">kappa_1true</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann2 vs truth):  </span><span class="si">{</span><span class="n">kappa_2true</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h2>አለመስማማቶቹ ሊፈቱ ዘዴዎቹ<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<p>ትርጓሜ ሰጪዎቹ ሲለዩ፣ ብዙ ስልቶቹ አሉ፦</p>
+<section id="id19">
+<h3>ብዙ ድምፅ<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
+<p>ሁሉ ብዙ ጊዜ መለያው “ወርቅ ደረጃ” ሆኖ ሊወሰዱ ይዟሉ። ቀላሉ እና ጠንካራ ሲሆን በእያንዳንዱ ዕቃ ሁሉ ትርጓሜ ሰጪዎቹ ቁጥሩ ሁሉ ነጠለ ሲሆን። ትርጓሜ ሰጪዎቹ አነስ ቡድን ሥርዓታዊ ትክክለኛ ሲሆን ሊወድቁ ይዟሉ።</p>
+</section>
+<section id="id20">
+<h3>ክብደቱ ድምፅ<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h3>
+<p>ትርጓሜ ሰጪዎቹ ትክክለኛ ሁኔታ ሊረዱ ሲታሰቡ ክብደቶቻቸው ሊሰጡ (ወርቅ ደረጃ ወይም ሌሎቹ ትርጓሜ ሰጪዎቹ ጋር ስምምነቱ ሁሉ ሊወጡ)። ትክክለኛ ትርጓሜ ሰጪዎቹ ሁሉ ተጽዕኖ ሰፊ ይዟሉ።</p>
+</section>
+<section id="id21">
+<h3>ለስሳ መለያዎቹ<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h3>
+<p>ትርጓሜዎቹ ሁሉ አንድ መለያ ሆኖ ሊጨፈጭፉ ሳይሄዱ፣ ስርጭቱ ሊጠብቁ ይዟሉ። 5 ትርጓሜ ሰጪዎቹ ሁሉ 3 “አዎን” እና 2 “ምናምን” ካሉ፣ <span class="math notranslate nohighlight">\((p_\text{pos}, p_\text{neutral}, p_\text{neg}) = (0.6, 0.4, 0.0)\)</span> ሆኖ ሊያሳዩ ይዟሉ። ለስሳ መለያዎቹ ሁሉ ስልጠናቸው ማስተካከያቱ ሊሻሻሉ ይዟሉ።</p>
+</section>
+<section id="id22">
+<h3>ዳኝነቱ<a class="headerlink" href="#id22" title="Permalink to this heading">#</a></h3>
+<p>ሙያ ትርጓሜ ሰጪ ወይም ዶሜይን ባለሙያ አለመስማማቶቹ ሊፈቱ ይዟሉ። ወርቅ ደረጃ ግን ዋጋ አለ፤ ብዙ ጊዜ ሰፊ-ዋጋ ዶሜይን ሁሉ ብቻ ሊቀመጡ ይዟሉ።</p>
+</section>
+<section id="id23">
+<h3>ስታቲስቲካዊ ሞዴሎቹ<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h3>
+<p>ውስብስቡ አቀራረቦቹ ትርጓሜ ሰጪ ቀልጣፋነቱ ምናምን ሆኖ ሊቀርቡ ይዟሉ። <strong>ዳዊድ-ስኬን</strong> ሞዴሉ <a href="#id24"><span class="problematic" id="id25">dawid1979maximum</span></a> ትርጓሜ ሰጪ ስህተቱ ማትሪሾቹ እና ዕቃ ዕውነቱ መለያዎቹ EM ሁሉ ሊቆጥሩ ይዟሉ። ምዕራፍ 13 ዝርዝሩ ይዳስሳሉ።</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id26">
+<h2>ትርጓሜ መለያ ሁኔታ እና ተጽዕኖዎቹ<a class="headerlink" href="#id26" title="Permalink to this heading">#</a></h2>
+<p>ዕውነቱ ትርጓሜ ሁኔታ አለ። ትርጓሜ ሁኔታ ሞዴሉ ስልጠናቸው ተጽዕኖዎቹ ሁኔታ ዓይነቱ ላይ ይወሰናሉ፦</p>
+<ul class="simple">
+<li><p><strong>ምናምን ሁኔታ</strong> (ምናምን ሆኖ ሚቀየሩ መለያዎቹ) ቀልጣፋነቱ ሊቀንሱ ግን ሞዴሎቹ ሙሉ ምጥጥን ደረጃ ሁሉ (ብዙ ሥራዎቹ ሁሉ ~20% ሁሉ) ሊቋቋሙ ይዟሉ።</p></li>
+<li><p><strong>ሥርዓታዊ/ተቃዋሚ ሁኔታ</strong> (ተለይቶ ቅርጸቶቹ ሁሉ ሥርዓታዊ ስህተቶቹ ያሉ መለያዎቹ) ሁሉ ዝቅ ያለ ጉዳቱ ሁሉ ሊደርሱ ቸር ለማወቅ ሊያስቸግሩ ይዟሉ።</p></li>
+<li><p><strong>ምድቡ-ሁኔታ-ሁኔታ</strong> (ተለይቶ ምድቦቹ ሁሉ ስህተቶቹ ሁሉ) ሞዴሉ ወሳኔ ድንበሩ ሊዘነጉ ይዟሉ።</p></li>
+</ul>
+<p>ተጨባጭ ሕግ ዓሳቢ፦ <span class="math notranslate nohighlight">\(n\)</span> ስልጠናቸው ምሳሌዎቹ እና <span class="math notranslate nohighlight">\(\epsilon\)</span> ሁኔታ ያለ ምልክቶቹ ምጥጥን ሲሰጡ፣ ሞዴሉ ቀልጣፋነቱ ምናምን <span class="math notranslate nohighlight">\((1 - 2\epsilon)^2 n\)</span> ንጹህ ምሳሌዎቹ ሲኖሩ ያህሉ ሊቀንሱ ይዟሉ <a href="#id27"><span class="problematic" id="id28">natarajan2013learning</span></a>። <span class="math notranslate nohighlight">\(\epsilon = 0.2\)</span> ሁሉ ይህ ውሂቡ 36% ሲጠፉ ያህሉ ነው።</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">noise_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">mean_accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">noise_levels</span><span class="p">:</span>
+    <span class="n">y_noisy</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">flip</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">eps</span>
+    <span class="n">y_noisy</span><span class="p">[</span><span class="n">flip</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">y_noisy</span><span class="p">[</span><span class="n">flip</span><span class="p">]</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y_noisy</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">mean_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noise_levels</span><span class="p">,</span> <span class="n">mean_accs</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Label noise rate (ε)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cross-validated accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Effect of Label Noise on Model Performance&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;20% noise&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;label_noise_effect.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Accuracy at 0% noise:  </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy at 20% noise: </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0.45</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">14</span><span class="p">)]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy at 40% noise: </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id29">
+<h2>ትርጓሜ ዋጋ እና ቀልጣፋነቱ<a class="headerlink" href="#id29" title="Permalink to this heading">#</a></h2>
+<p>ትርጓሜ ኢኮኖሚክስ ለፕሮጀክቱ እቅዱ አስፈላጊ ነው።</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ሥራ ዓይነቱ</p></th>
+<th class="head"><p>ምናምን ቀልጣፋነቱ</p></th>
+<th class="head"><p>ዋጋ ለዕቃ (ልዩ ሙያ)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ሁለቱ ምስሉ ምደባ</p></td>
+<td><p>200–500/ሰዓት</p></td>
+<td><p>$0.02–0.10</p></td>
+</tr>
+<tr class="row-odd"><td><p>NER (አጭሩ ጽሑፍ)</p></td>
+<td><p>50–150 ዕቃዎቹ/ሰዓት</p></td>
+<td><p>$0.10–0.50</p></td>
+</tr>
+<tr class="row-even"><td><p>ዝምድናው ማውጣቱ</p></td>
+<td><p>20–60 ዕቃዎቹ/ሰዓት</p></td>
+<td><p>$0.30–1.50</p></td>
+</tr>
+<tr class="row-odd"><td><p>ሕክምናዊ ምስሉ ክፍፍሉ</p></td>
+<td><p>5–30 ዕቃዎቹ/ሰዓት</p></td>
+<td><p>$10–100</p></td>
+</tr>
+<tr class="row-even"><td><p>ቪዲዮ ትርጓሜ</p></td>
+<td><p>5–20 ደቂቃ ቪዲዮ/ሰዓት</p></td>
+<td><p>$20–200</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>እነዚህ ቁጥሮቹ ምናምን ደረጃ ምናምን ናቸው እናም ዶሜይን ሙያ ፍላጎቱ፣ ትርጓሜ መሳሪያ ጥራቱ፣ መምሪያ ዋናቱ፣ እና ትርጓሜ ሰጪ ልምዱ ሁሉ ሰፊ ሊለዩ ይዟሉ። ሁሉ ምሳሌዎቹ ሆኖ ሊታዩ ይዟሉ፣ ቀጥተኛ ሆነው ሊወሰዱ አይዟሉ።</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>ትርጓሜ መሳሪያ ምርጫዎቹ ምዕራፍ 12 ሁሉ ይሸፈናሉ። ሕዝቡ ሰሪ ትርጓሜ (ዳዊድ-ስኬን፣ MACE) ምዕራፍ 13 ሁሉ ይሸፈናሉ።</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/am/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ትርጓሜ ዓይነቶቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ምደባ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ቅደም ተከተሉ መለያ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ስፋቱ እና ዝምድናው ትርጓሜ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">የሚሰፉ ሳጥኖቹ እና ዕቃ ዕውቅና</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ክፍፍሉ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ቅጂ ስሪቱ እና ትርጉሙ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">ትርጓሜ መምሪያዎቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">ትርጓሜ ጥራቱ መለካት፦ ትርጓሜ-ሰጪዎቹ-መካከሉ ስምምነቱ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ኮሄን ካፓ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">ፍሌስ ካፓ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ክሪፔንዶርፍ አልፋ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">አለመስማማቶቹ ሊፈቱ ዘዴዎቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">ብዙ ድምፅ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">ክብደቱ ድምፅ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">ለስሳ መለያዎቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">ዳኝነቱ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">ስታቲስቲካዊ ሞዴሎቹ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">ትርጓሜ መለያ ሁኔታ እና ተጽዕኖዎቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">ትርጓሜ ዋጋ እና ቀልጣፋነቱ</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

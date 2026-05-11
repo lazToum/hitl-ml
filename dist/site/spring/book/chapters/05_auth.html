@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Identity in the Loop: OIDC and Roles &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/05_auth';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Answer Validation: The Judgment Call" href="06_validation.html" />
+    <link rel="prev" title="The API Layer: Rust and Axum" href="04_api.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/05_auth.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Identity in the Loop: OIDC and Roles</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-rolling-your-own-auth">The problem with rolling your own auth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-oidc-provides">What OIDC provides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zitadel-setup">Zitadel setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-time-bootstrap">First-time bootstrap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oidc-clients-and-dev-users">OIDC clients and dev users</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#production-connectors">Production connectors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jwks-cache">The JWKS cache</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token-validation">Token validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-inference">Role inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#player-resolution">Player resolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-networking-note">Docker networking note</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="identity-in-the-loop-oidc-and-roles">
+<h1>Identity in the Loop: OIDC and Roles<a class="headerlink" href="#identity-in-the-loop-oidc-and-roles" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>Identity is not a property of a person. It is a claim made by a system about a person, which other systems choose to trust.</p>
+<p class="attribution">—Chapter 5</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> A system that stores passwords is responsible for the security of those passwords. A system that delegates login to an identity provider is responsible for choosing the right identity provider and trusting it correctly. Which responsibility is heavier?</p>
+<p><strong>2.</strong> In a HITL system, the “human” in the loop has an identity. Does the system need to know that identity? Could a HITL system work with anonymous participants? What do you lose?</p>
+<p><strong>3.</strong> A JWT contains claims about a user — their name, email, group memberships. The API trusts those claims because they are signed by the issuer. What happens if the issuer is compromised?</p>
+</section>
+<hr class="docutils" />
+<section id="the-problem-with-rolling-your-own-auth">
+<h2>The problem with rolling your own auth<a class="headerlink" href="#the-problem-with-rolling-your-own-auth" title="Permalink to this heading">#</a></h2>
+<p>Earlier versions of this system used a <code class="docutils literal notranslate"><span class="pre">JWT_SECRET</span></code> environment variable. The server minted tokens, stored hashed passwords, and verified signatures using a shared secret.</p>
+<p>This is the most common approach in tutorials. It is also the approach that leads to the most security incidents.</p>
+<p>Password storage, reset flows, token expiry, refresh tokens, account linking, multi-factor auth — each of these is a solved problem with well-maintained open source solutions. Rolling your own means reinventing them, usually worse, with less time for other features.</p>
+<p>More importantly for this system: we have three distinct roles (player, creator, observer) and potentially many deployment contexts (classroom, event, online). A proper identity system can handle group-based role assignment, external identity providers (Google, university SSO), and audit logging out of the box.</p>
+<p>We replaced the homebrew JWT system with <a class="reference external" href="https://zitadel.com/">Zitadel</a>: a modern, self-hosted identity platform built in Go. It ships a polished login UI, project-level role management, and a full admin console — without requiring a JVM or a heavyweight runtime.</p>
+</section>
+<hr class="docutils" />
+<section id="what-oidc-provides">
+<h2>What OIDC provides<a class="headerlink" href="#what-oidc-provides" title="Permalink to this heading">#</a></h2>
+<p>OpenID Connect (OIDC) is a thin identity layer on top of OAuth2. From the perspective of our API:</p>
+<ul class="simple">
+<li><p><strong>Zitadel</strong> is the <strong>authorization server</strong> — it issues tokens and owns credentials</p></li>
+<li><p>Our <strong>Rust API</strong> is the <strong>resource server</strong> — it validates tokens and grants access to resources</p></li>
+<li><p>The <strong>Flutter app</strong> and <strong>web dashboard</strong> are <strong>clients</strong> — they obtain tokens and present them</p></li>
+</ul>
+<p>The API never sees passwords. It never mints tokens. It only validates them — by fetching the public keys from Zitadel’s JWKS endpoint and verifying the token’s cryptographic signature.</p>
+<p>This is the correct role for a resource server. It is also a much smaller attack surface.</p>
+</section>
+<hr class="docutils" />
+<section id="zitadel-setup">
+<h2>Zitadel setup<a class="headerlink" href="#zitadel-setup" title="Permalink to this heading">#</a></h2>
+<section id="first-time-bootstrap">
+<h3>First-time bootstrap<a class="headerlink" href="#first-time-bootstrap" title="Permalink to this heading">#</a></h3>
+<p>Zitadel starts from Docker Compose alongside Postgres. On the first run, it creates the database schema, the default organization, and the admin account:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+<span class="c1"># Zitadel is available at http://localhost:8180</span>
+<span class="c1"># Admin: admin@localhost:8180 / Admin1234! (or ZITADEL_ADMIN_PASSWORD)</span>
+</pre></div>
+</div>
+</section>
+<section id="oidc-clients-and-dev-users">
+<h3>OIDC clients and dev users<a class="headerlink" href="#oidc-clients-and-dev-users" title="Permalink to this heading">#</a></h3>
+<p>After the first startup, run the setup script once:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Log in at http://localhost:8180</span>
+<span class="c1"># 2. Avatar → Personal Access Tokens → New (copy the token)</span>
+<span class="nv">ZITADEL_SA_PAT</span><span class="o">=</span>&lt;token&gt;<span class="w"> </span>bash<span class="w"> </span>zitadel/setup.sh
+</pre></div>
+</div>
+<p>The script creates:</p>
+<ul class="simple">
+<li><p>A <strong>TreasureHunt</strong> project with <code class="docutils literal notranslate"><span class="pre">creator</span></code>, <code class="docutils literal notranslate"><span class="pre">observer</span></code>, and <code class="docutils literal notranslate"><span class="pre">player</span></code> roles</p></li>
+<li><p>A <strong>web-dashboard</strong> OIDC app (PKCE, public client)</p></li>
+<li><p>A <strong>mobile-app</strong> OIDC app (native, PKCE)</p></li>
+<li><p>Three dev users: <code class="docutils literal notranslate"><span class="pre">creator&#64;example.com</span></code>, <code class="docutils literal notranslate"><span class="pre">observer&#64;example.com</span></code>, <code class="docutils literal notranslate"><span class="pre">player&#64;example.com</span></code> (password: <code class="docutils literal notranslate"><span class="pre">Password1!</span></code>)</p></li>
+</ul>
+<p>It prints the <code class="docutils literal notranslate"><span class="pre">VITE_OIDC_CLIENT_ID</span></code> to add to <code class="docutils literal notranslate"><span class="pre">.env</span></code>.</p>
+</section>
+<section id="production-connectors">
+<h3>Production connectors<a class="headerlink" href="#production-connectors" title="Permalink to this heading">#</a></h3>
+<p>To switch from local accounts to Google, GitHub, or institutional SSO: navigate to Zitadel’s admin console at <code class="docutils literal notranslate"><span class="pre">http://localhost:8180/ui/console</span></code>, choose your organization, and add an Identity Provider under <strong>Identity Providers</strong>. The rest of the system does not change — Zitadel handles the federation, and the Rust API only sees Zitadel-issued tokens.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-jwks-cache">
+<h2>The JWKS cache<a class="headerlink" href="#the-jwks-cache" title="Permalink to this heading">#</a></h2>
+<p>The API cannot trust tokens without verifying their signatures. Verifying requires the issuer’s public key. Fetching that key on every request would be slow and would make the API dependent on Zitadel being available for every request.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">JwksCache</span></code> in <code class="docutils literal notranslate"><span class="pre">middleware/auth.rs</span></code> solves this:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">JwksCache</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">issuer</span><span class="p">:</span><span class="w">   </span><span class="nb">String</span><span class="p">,</span>
+<span class="w">    </span><span class="n">jwks_url</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<span class="w">    </span><span class="n">http</span><span class="p">:</span><span class="w">     </span><span class="nc">reqwest</span><span class="p">::</span><span class="n">Client</span><span class="p">,</span>
+<span class="w">    </span><span class="n">inner</span><span class="p">:</span><span class="w">    </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="n">RwLock</span><span class="o">&lt;</span><span class="n">Inner</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Inner</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">keys</span><span class="p">:</span><span class="w">       </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">RawJwk</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">fetched_at</span><span class="p">:</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">Instant</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Keys are fetched once and cached for 5 minutes (the TTL is <code class="docutils literal notranslate"><span class="pre">elapsed.as_secs()</span> <span class="pre">&gt;</span> <span class="pre">300</span></code>). On cache miss or expiry, the cache refreshes from the JWKS endpoint. If the primary endpoint fails, it falls back to OIDC discovery to find the correct JWKS URI.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">RwLock&lt;Inner&gt;</span></code> pattern allows concurrent reads (many requests validating tokens simultaneously) and exclusive writes (one refresh at a time). This is safe in async Rust because <code class="docutils literal notranslate"><span class="pre">tokio::sync::RwLock</span></code> is designed for async contexts — it does not block the thread while waiting for the lock.</p>
+</section>
+<hr class="docutils" />
+<section id="token-validation">
+<h2>Token validation<a class="headerlink" href="#token-validation" title="Permalink to this heading">#</a></h2>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">anyhow</span><span class="p">::</span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">OidcClaims</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decode_header</span><span class="p">(</span><span class="n">token</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">kid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">header</span><span class="p">.</span><span class="n">kid</span><span class="p">.</span><span class="n">as_deref</span><span class="p">().</span><span class="n">unwrap_or</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">keys</span><span class="p">().</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">jwk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">keys</span><span class="p">.</span><span class="n">iter</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="o">|</span><span class="n">k</span><span class="o">|</span><span class="w"> </span><span class="n">k</span><span class="p">.</span><span class="n">kid</span><span class="p">.</span><span class="n">as_deref</span><span class="p">().</span><span class="n">unwrap_or</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">kid</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">keys</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">context</span><span class="p">(</span><span class="s">&quot;no matching key&quot;</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">decoding_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">jwk</span><span class="p">.</span><span class="n">kty</span><span class="p">.</span><span class="n">as_str</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s">&quot;RSA&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">DecodingKey</span><span class="p">::</span><span class="n">from_rsa_components</span><span class="p">(</span><span class="n">jwk</span><span class="p">.</span><span class="n">n</span><span class="p">.</span><span class="n">as_deref</span><span class="p">()</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="n">jwk</span><span class="p">.</span><span class="n">e</span><span class="p">.</span><span class="n">as_deref</span><span class="p">()</span><span class="o">?</span><span class="p">)</span><span class="o">?</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;EC&quot;</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">DecodingKey</span><span class="p">::</span><span class="n">from_ec_components</span><span class="p">(</span><span class="n">jwk</span><span class="p">.</span><span class="n">x</span><span class="p">.</span><span class="n">as_deref</span><span class="p">()</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="n">jwk</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">as_deref</span><span class="p">()</span><span class="o">?</span><span class="p">)</span><span class="o">?</span><span class="p">,</span>
+<span class="w">        </span><span class="n">kty</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">anyhow</span><span class="p">::</span><span class="n">bail</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;unsupported key type: {kty}&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Validation</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">algo</span><span class="p">);</span>
+<span class="w">    </span><span class="n">val</span><span class="p">.</span><span class="n">set_issuer</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">issuer</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">val</span><span class="p">.</span><span class="n">validate_aud</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">decode</span><span class="p">::</span><span class="o">&lt;</span><span class="n">OidcClaims</span><span class="o">&gt;</span><span class="p">(</span><span class="n">token</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">decoding_key</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">val</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="n">claims</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A few deliberate choices here:</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">validate_aud</span> <span class="pre">=</span> <span class="pre">false</span></code>.</strong> The resource server does not check the audience claim. In a multi-service architecture, the audience would identify which service the token was issued for. In a single-service setup, checking it adds friction without security benefit. This could be changed.</p>
+<p><strong>Key ID matching with fallback.</strong> If the JWKS has only one key (common in development), the validation uses it regardless of the <code class="docutils literal notranslate"><span class="pre">kid</span></code> header. This handles misconfigured provider setups gracefully.</p>
+<p><strong>Issuer validation.</strong> The <code class="docutils literal notranslate"><span class="pre">issuer</span></code> field is checked against <code class="docutils literal notranslate"><span class="pre">iss</span></code> in the token. This prevents tokens issued by a different instance from being accepted.</p>
+</section>
+<hr class="docutils" />
+<section id="role-inference">
+<h2>Role inference<a class="headerlink" href="#role-inference" title="Permalink to this heading">#</a></h2>
+<p>Zitadel carries role information in a project-scoped claim:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;urn:zitadel:iam:org:project:roles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;creator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;orgDomain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;treasurehunt&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">infer_role()</span></code> function checks this first, then falls back to a generic <code class="docutils literal notranslate"><span class="pre">groups</span></code> array used by some OIDC providers, then to email-prefix convention — which handles the three dev accounts out of the box without any role grant setup:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">fn</span><span class="w"> </span><span class="nf">infer_role</span><span class="p">(</span><span class="n">claims</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">OidcClaims</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 1. Zitadel project roles</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">roles</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">claims</span><span class="p">.</span><span class="n">zitadel_roles</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">roles</span><span class="p">.</span><span class="n">contains_key</span><span class="p">(</span><span class="s">&quot;creator&quot;</span><span class="p">)</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;creator&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">roles</span><span class="p">.</span><span class="n">contains_key</span><span class="p">(</span><span class="s">&quot;observer&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;observer&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">roles</span><span class="p">.</span><span class="n">contains_key</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">)</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;player&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// 2. Generic groups claim fallback</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">claims</span><span class="p">.</span><span class="n">groups</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">groups</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">any</span><span class="p">(</span><span class="o">|</span><span class="n">g</span><span class="o">|</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;creators&quot;</span><span class="p">)</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;creator&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">groups</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">any</span><span class="p">(</span><span class="o">|</span><span class="n">g</span><span class="o">|</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;observers&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;observer&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;player&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// 3. Email-based fallback — dev accounts work without role grants</span>
+<span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">claims</span><span class="p">.</span><span class="n">email</span><span class="p">.</span><span class="n">as_deref</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">Some</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">starts_with</span><span class="p">(</span><span class="s">&quot;creator&quot;</span><span class="p">)</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&quot;creator&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span>
+<span class="w">        </span><span class="nb">Some</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">starts_with</span><span class="p">(</span><span class="s">&quot;observer&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&quot;observer&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&quot;player&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="player-resolution">
+<h2>Player resolution<a class="headerlink" href="#player-resolution" title="Permalink to this heading">#</a></h2>
+<p>Validating the token tells us who issued the identity claim. Resolving the player converts that claim into a local database record:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">resolve_player</span><span class="p">(</span><span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">PgPool</span><span class="p">,</span><span class="w"> </span><span class="n">claims</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">OidcClaims</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">ResolvedPlayer</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">row</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqlx</span><span class="p">::</span><span class="n">query</span><span class="o">!</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;SELECT id, role FROM players WHERE external_id = $1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">claims</span><span class="p">.</span><span class="n">sub</span>
+<span class="w">    </span><span class="p">).</span><span class="n">fetch_optional</span><span class="p">(</span><span class="n">db</span><span class="p">).</span><span class="k">await</span><span class="o">?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="n">ResolvedPlayer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="nc">row</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="nc">row</span><span class="p">.</span><span class="n">role</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// First login — create player</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">infer_role</span><span class="p">(</span><span class="o">&amp;</span><span class="n">claims</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* from name or email prefix */</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqlx</span><span class="p">::</span><span class="n">query</span><span class="o">!</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;INSERT INTO players (display_name, email, external_id, role)</span>
+<span class="s">         VALUES ($1, $2, $3, $4)</span>
+<span class="s">         RETURNING id, role&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">display_name</span><span class="p">,</span><span class="w"> </span><span class="n">claims</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">claims</span><span class="p">.</span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="n">role</span><span class="p">,</span>
+<span class="w">    </span><span class="p">).</span><span class="n">fetch_one</span><span class="p">(</span><span class="n">db</span><span class="p">).</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">ResolvedPlayer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="nc">row</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="nc">row</span><span class="p">.</span><span class="n">role</span><span class="w"> </span><span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Every token validation that reaches a valid Zitadel token will either find or create a player row. This is “just-in-time provisioning” — accounts are created on first use rather than pre-created by an administrator.</p>
+</section>
+<hr class="docutils" />
+<section id="docker-networking-note">
+<h2>Docker networking note<a class="headerlink" href="#docker-networking-note" title="Permalink to this heading">#</a></h2>
+<p>There is a subtle Docker networking issue worth understanding. In <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">rust-api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">OIDC_ISSUER</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:8180</span><span class="w">              </span><span class="c1"># public URL (for iss claim)</span>
+<span class="w">    </span><span class="nt">OIDC_JWKS_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://nginx:80/oauth/v2/keys</span><span class="w">      </span><span class="c1"># internal URL (for key fetching)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">iss</span></code> claim in tokens issued by Zitadel contains <code class="docutils literal notranslate"><span class="pre">http://localhost:8180</span></code> — the public URL the client used when obtaining the token. The Rust API must validate <code class="docutils literal notranslate"><span class="pre">iss</span></code> against this same URL. But when running inside Docker, <code class="docutils literal notranslate"><span class="pre">localhost:8180</span></code> does not resolve to the Zitadel container — it resolves to the Rust container’s own loopback.</p>
+<p>The solution in this compose stack is to fetch keys through the internal nginx service (<code class="docutils literal notranslate"><span class="pre">nginx:80</span></code>) while validating the issuer against the public URL (<code class="docutils literal notranslate"><span class="pre">localhost:8180</span></code>). Nginx preserves the public host header that Zitadel expects, so the JWKS request works from inside Docker without changing the issuer claim. These two environment variables exist precisely to support this split.</p>
+<p>This is a common deployment nuance that OIDC tutorials often skip.</p>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<p>The system creates a player row on first login, inferring the role from Zitadel’s project-role claims or the email address. The player never consents to this — they authenticate with Zitadel and then the API creates a record about them.</p>
+<p>Is this a problem? What would you change if this system were used in a real classroom with real students? What would you keep?</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_api.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The API Layer: Rust and Axum</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06_validation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Answer Validation: The Judgment Call</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-rolling-your-own-auth">The problem with rolling your own auth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-oidc-provides">What OIDC provides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zitadel-setup">Zitadel setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-time-bootstrap">First-time bootstrap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oidc-clients-and-dev-users">OIDC clients and dev users</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#production-connectors">Production connectors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jwks-cache">The JWKS cache</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token-validation">Token validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-inference">Role inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#player-resolution">Player resolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-networking-note">Docker networking note</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

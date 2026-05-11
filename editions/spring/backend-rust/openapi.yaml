@@ -1,0 +1,699 @@
+openapi: "3.1.0"
+info:
+  title: Treasure Hunt API
+  version: "1.0.0"
+  description: |
+    Backend API for the Spring Edition Treasure Hunt — a Human-in-the-Loop system
+    where players solve clues validated by fuzzy matching, GPS, QR/NFC tokens, and AI.
+
+servers:
+  - url: http://localhost:8080
+    description: Local development
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OIDC JWT issued by Zitadel or another configured provider
+
+  schemas:
+    # ── Core models ────────────────────────────────────────────────────────────
+
+    Hunt:
+      type: object
+      required: [id, creator_id, title, status, created_at]
+      properties:
+        id:          { type: string, format: uuid }
+        creator_id:  { type: string, format: uuid }
+        title:       { type: string }
+        description: { type: string, nullable: true }
+        status:      { type: string, enum: [draft, active, archived] }
+        created_at:  { type: string, format: date-time }
+
+    Clue:
+      type: object
+      required: [id, hunt_id, sequence, title, body, answer_type, answer_value, answer_tolerance]
+      properties:
+        id:                         { type: string, format: uuid }
+        hunt_id:                    { type: string, format: uuid }
+        sequence:                   { type: integer }
+        title:                      { type: string }
+        body:                       { type: string }
+        media_url:                  { type: string, nullable: true }
+        answer_type:                { type: string, enum: [text, qr, nfc, gps, photo] }
+        answer_value:               { type: string }
+        answer_tolerance:           { type: number, format: double }
+        hint_unlock_after_minutes:  { type: integer }
+        hint_unlock_after_attempts: { type: integer }
+        created_at:                 { type: string, format: date-time }
+
+    ClueView:
+      type: object
+      description: Player-facing clue (answer_value and tolerance omitted)
+      required: [id, sequence, title, body, answer_type]
+      properties:
+        id:        { type: string, format: uuid }
+        sequence:  { type: integer }
+        title:     { type: string }
+        body:      { type: string }
+        media_url: { type: string, nullable: true }
+        answer_type: { type: string, enum: [text, qr, nfc, gps, photo] }
+
+    Hint:
+      type: object
+      required: [id, clue_id, sequence, body]
+      properties:
+        id:       { type: string, format: uuid }
+        clue_id:  { type: string, format: uuid }
+        sequence: { type: integer }
+        body:     { type: string }
+
+    HintView:
+      type: object
+      required: [sequence, body]
+      properties:
+        sequence: { type: integer }
+        body:     { type: string }
+
+    Session:
+      type: object
+      required: [id, hunt_id, player_id, status, started_at]
+      properties:
+        id:         { type: string, format: uuid }
+        hunt_id:    { type: string, format: uuid }
+        player_id:  { type: string, format: uuid }
+        status:     { type: string, enum: [active, completed] }
+        started_at: { type: string, format: date-time }
+        ended_at:   { type: string, format: date-time, nullable: true }
+
+    SessionStatus:
+      type: object
+      required: [session, progress]
+      properties:
+        session:  { $ref: "#/components/schemas/Session" }
+        progress:
+          type: object
+          properties:
+            clues_solved: { type: integer }
+            total_clues:  { type: integer }
+            current_sequence: { type: integer, nullable: true }
+
+    ValidationResponse:
+      type: object
+      required: [passed, score, feedback, hunt_complete]
+      properties:
+        passed:        { type: boolean }
+        score:         { type: number, format: double, minimum: 0, maximum: 1 }
+        feedback:      { type: string }
+        hunt_complete: { type: boolean }
+        next_clue:
+          nullable: true
+          type: object
+          properties:
+            sequence: { type: integer }
+            title:    { type: string }
+
+    Player:
+      type: object
+      required: [id, email, role]
+      properties:
+        id:    { type: string, format: uuid }
+        email: { type: string, format: email }
+        name:  { type: string, nullable: true }
+        role:  { type: string, enum: [player, creator, observer] }
+
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+
+paths:
+
+  # ── Auth ───────────────────────────────────────────────────────────────────
+
+  /me:
+    get:
+      summary: Current player profile
+      tags: [Auth]
+      responses:
+        "200":
+          description: Authenticated player
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  player: { $ref: "#/components/schemas/Player" }
+        "401":
+          description: Missing or invalid JWT
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  # ── Hunts (creator) ────────────────────────────────────────────────────────
+
+  /hunts:
+    get:
+      summary: List hunts visible to caller
+      tags: [Hunts]
+      responses:
+        "200":
+          description: List of hunts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hunts:
+                    type: array
+                    items: { $ref: "#/components/schemas/Hunt" }
+    post:
+      summary: Create a new hunt
+      tags: [Hunts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title]
+              properties:
+                title:       { type: string }
+                description: { type: string }
+      responses:
+        "200":
+          description: Created hunt
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hunt: { $ref: "#/components/schemas/Hunt" }
+        "403":
+          description: Not a creator
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /hunts/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: Get a hunt by ID
+      tags: [Hunts]
+      responses:
+        "200":
+          description: Hunt
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Hunt" }
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+    patch:
+      summary: Update hunt (title, description, status)
+      tags: [Hunts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:       { type: string }
+                description: { type: string }
+                status:      { type: string, enum: [draft, active, archived] }
+      responses:
+        "200":
+          description: Updated hunt
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Hunt" }
+        "403":
+          description: Not the hunt creator
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /hunts/{id}/clues:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: List all clues for a hunt
+      tags: [Hunts]
+      responses:
+        "200":
+          description: Clue list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  clues:
+                    type: array
+                    items: { $ref: "#/components/schemas/Clue" }
+
+  /hunts/{id}/clues/{seq}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+      - name: seq
+        in: path
+        required: true
+        schema: { type: integer }
+    put:
+      summary: Upsert a clue at sequence position
+      tags: [Hunts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, body, answer_type, answer_value]
+              properties:
+                title:                      { type: string }
+                body:                       { type: string }
+                media_url:                  { type: string, nullable: true }
+                answer_type:                { type: string, enum: [text, qr, nfc, gps, photo] }
+                answer_value:               { type: string }
+                answer_tolerance:           { type: number, format: double }
+                hint_unlock_after_minutes:  { type: integer }
+                hint_unlock_after_attempts: { type: integer }
+      responses:
+        "200":
+          description: Upserted clue
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  clue: { $ref: "#/components/schemas/Clue" }
+        "403":
+          description: Not the hunt creator
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /hunts/{id}/clues/{seq}/hints:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+      - name: seq
+        in: path
+        required: true
+        schema: { type: integer }
+    get:
+      summary: List all hints for a clue (creator/observer only)
+      tags: [Hunts]
+      responses:
+        "200":
+          description: Hints
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hints:
+                    type: array
+                    items: { $ref: "#/components/schemas/Hint" }
+        "403":
+          description: Not creator or observer
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /hunts/{id}/qr-sheet:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: Download printable QR sheet for all clues
+      tags: [Hunts]
+      responses:
+        "200":
+          description: HTML QR sheet
+          content:
+            text/html:
+              schema: { type: string }
+
+  /hunts/{id}/ai/generate-clue:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    post:
+      summary: AI-generate a clue body given a location and theme
+      tags: [Hunts, AI]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [location, theme]
+              properties:
+                location: { type: string, description: "Human-readable location name" }
+                theme:    { type: string, description: "Clue theme or style" }
+      responses:
+        "200":
+          description: Generated clue text
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body: { type: string }
+
+  /hunts/{id}/ai/difficulty:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    post:
+      summary: AI-estimate difficulty for a clue
+      tags: [Hunts, AI]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [clue_body, answer_value]
+              properties:
+                clue_body:    { type: string }
+                answer_value: { type: string }
+      responses:
+        "200":
+          description: Difficulty estimate
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  difficulty: { type: string, enum: [easy, medium, hard] }
+                  reasoning:  { type: string }
+
+  # ── Observer ───────────────────────────────────────────────────────────────
+
+  /hunts/{id}/observe:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: SSE stream of live hunt events (observer/creator only)
+      tags: [Observer]
+      responses:
+        "200":
+          description: Server-Sent Events stream
+          content:
+            text/event-stream:
+              schema: { type: string }
+        "403":
+          description: Insufficient role
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /hunts/{id}/sessions:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: List all sessions for a hunt (observer/creator only)
+      tags: [Observer]
+      responses:
+        "200":
+          description: Session list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessions:
+                    type: array
+                    items: { $ref: "#/components/schemas/Session" }
+
+  /sessions/{id}/nudge:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    post:
+      summary: Observer sends a nudge message to a player's session
+      tags: [Observer]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message: { type: string }
+      responses:
+        "200":
+          description: Nudge sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+
+  # ── Sessions (player) ─────────────────────────────────────────────────────
+
+  /sessions:
+    post:
+      summary: Start a new session for a hunt
+      tags: [Sessions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [hunt_id]
+              properties:
+                hunt_id: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Started session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session: { $ref: "#/components/schemas/Session" }
+        "404":
+          description: Hunt not found or not active
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /sessions/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: Get session status and progress
+      tags: [Sessions]
+      responses:
+        "200":
+          description: Session status
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SessionStatus" }
+        "403":
+          description: Not your session
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /sessions/{id}/clue:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: Get the current clue for a session
+      tags: [Sessions]
+      responses:
+        "200":
+          description: Current clue (answer details omitted)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  clue: { $ref: "#/components/schemas/ClueView" }
+        "404":
+          description: Hunt complete — no current clue
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /sessions/{id}/answer:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    post:
+      summary: Submit an answer for the current clue
+      tags: [Sessions]
+      description: |
+        Rate-limited to 10 attempts per player per clue per minute (when Redis is available).
+        Supports text, QR/NFC token, GPS coordinates, and photo (base64) submissions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [value]
+              properties:
+                value:      { type: string, description: "Text answer or QR/NFC token" }
+                lat:        { type: number, format: double, description: "GPS latitude" }
+                lon:        { type: number, format: double, description: "GPS longitude" }
+                photo_b64:  { type: string, description: "Base64-encoded photo (for photo clues)" }
+      responses:
+        "200":
+          description: Validation result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ValidationResponse" }
+        "400":
+          description: Rate limit exceeded or invalid request
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /sessions/{id}/hint:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    post:
+      summary: Request the next hint for the current clue
+      tags: [Sessions]
+      description: |
+        Returns the next sequential static hint when time/attempt thresholds are met.
+        Falls back to an AI-generated adaptive hint when static hints are exhausted.
+      responses:
+        "200":
+          description: Hint (static or adaptive)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [hint, source]
+                properties:
+                  hint:   { $ref: "#/components/schemas/HintView" }
+                  source: { type: string, enum: [static, adaptive] }
+        "400":
+          description: Hint not yet unlocked
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+        "404":
+          description: No more hints available
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /sessions/{id}/analysis:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    get:
+      summary: AI analysis report of a completed session (creator/observer only)
+      tags: [Sessions, AI]
+      responses:
+        "200":
+          description: Session analysis
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session_id: { type: string, format: uuid }
+                  report:     { type: string }
+        "403":
+          description: Not creator or observer
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+        "404":
+          description: No events found for this session
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  # ── Scan ──────────────────────────────────────────────────────────────────
+
+  /scan/{token}:
+    parameters:
+      - name: token
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      summary: Universal QR/NFC scan endpoint — resolves token to clue and redirects
+      tags: [Scan]
+      security: []
+      responses:
+        "302":
+          description: Redirect to relevant session clue URL
+        "404":
+          description: Token not found
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+tags:
+  - name: Auth
+    description: Identity and profile
+  - name: Hunts
+    description: Hunt management (creator role)
+  - name: Observer
+    description: Live monitoring (observer/creator role)
+  - name: Sessions
+    description: Player gameplay
+  - name: AI
+    description: AI-assisted generation, validation, and analysis
+  - name: Scan
+    description: QR/NFC token resolution

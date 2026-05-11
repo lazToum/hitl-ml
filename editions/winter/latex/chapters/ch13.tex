@@ -1,0 +1,179 @@
+% ============================================================================
+% CHAPTER 13: The Psychology of Human-AI Teams
+% Why the human in the loop is not a neutral input device
+% ============================================================================
+% Source: /markdown/ch13/Ch13_final.md
+% ============================================================================
+
+\begin{chapterquote}{The irony of reliable automation}
+The better the automation, the less prepared the human for the moment it fails.
+\end{chapterquote}
+
+% ============================================================================
+\section{The Night the Computers Went Silent}
+% ============================================================================
+
+At 2 hours and 10 minutes past midnight on June~1, 2009, Air France Flight~447 disappeared into the South Atlantic Ocean. All 228 people aboard were killed. It remains the deadliest aviation accident in Air France's history \autocite{bea2012af447}.
+
+The plane---an Airbus A330 equipped with some of the most sophisticated autopilot systems in the world---had flown into an area of severe turbulence over the Intertropical Convergence Zone. Ice crystals formed in the pitot tubes, the sensors that measure airspeed. The autopilot, suddenly unable to trust its airspeed data, did exactly what it was designed to do: it disengaged. It handed control to the pilots.
+
+The crew had, for the previous several hours, been managing a comfortable, mostly automated flight. Then, in the space of a few seconds, they were thrust into a rapidly deteriorating emergency situation with faulty and conflicting sensor data---a situation requiring immediate, accurate action on the aircraft's manual controls.
+
+What the flight data recorders revealed was devastating: the pilots were confused. One pilot pulled back on the stick, increasing the plane's angle of attack even as the aircraft stalled. The confusion lasted four minutes and twenty-some seconds, from autopilot disengagement to impact with the ocean.
+
+The BEA's conclusion was precise: the crew had not been sufficiently trained in high-altitude manual flight, and they had lost situational awareness during the period of automation. When the system handed control back to them, they were not ready for it.
+
+Air France~447 is not a story about bad pilots or bad technology. It is a story about what happens when the human is in the loop for so long without actually needing to exercise skill that the skill quietly atrophies---and then suddenly, catastrophically, the skill is required.
+
+% ============================================================================
+\section{The Paradox of Reliable Systems}
+% ============================================================================
+
+There is something counterintuitive at the heart of automation design: the better the automation, the more dangerous the gap when it fails.
+
+A poor autopilot that disengages frequently keeps pilots sharp. An excellent autopilot that handles 99.97\% of situations without intervention produces pilots who have far less practice with the remaining 0.03\%---precisely the moments when judgment is most critical.
+
+This is called \term{automation complacency}, and it has been documented in aviation, nuclear power, industrial process control, and AI-assisted medical diagnosis. The pattern is consistent: as system reliability increases, human operators become less vigilant, less practiced, and less prepared for the moments when the system fails \autocite{parasuraman2010complacency}.
+
+The paradox runs deeper than practice alone. When a system is highly reliable, there is a rational case for trusting it. If an AI flagging system has 98\% precision, a reasonable reviewer should be skeptical when their judgment conflicts with the AI's recommendation---it's sensible Bayesian updating. The problem is that this rational deference, taken too far, becomes \term{automation bias}.
+
+\begin{keyconcept}[Bainbridge's Irony of Automation \autocite{bainbridge1983ironies}]
+Designers assume that the human will reliably oversee the automated system. But automation removes the very practice that makes reliable oversight possible. The designers are correct that human operators are unreliable---but automation is part of the reason why.
+\end{keyconcept}
+
+% ============================================================================
+\section{Automation Bias: The Research Record}
+% ============================================================================
+
+The term was formalized by Linda Skitka and colleagues in 1999. Pilots shown automated recommendations became statistically less likely to notice when the automation was wrong---even when they had been explicitly told to apply independent judgment, and even when the errors were visible to an unbiased observer \autocite{skitka1999automation}.
+
+The finding has been replicated across dozens of studies and multiple domains. Medical residents shown an AI-generated differential diagnosis are less likely to consider diagnoses the AI omitted, even when their own history-taking revealed relevant clues. Radiologists reviewing AI-flagged scans spend more time on flagged areas and proportionally less time on unflagged areas---increasing the likelihood of missing pathology the AI didn't catch.
+
+What makes automation bias particularly insidious in HITL systems is that it works against the purpose of having a human in the loop. The whole point of human review is to catch cases the model gets wrong. Automation bias systematically reduces the probability that humans catch exactly those cases---the ones where the model is confident but incorrect.
+
+The mechanism: automation bias is not primarily about deference to authority, or cognitive laziness. Research by Parasuraman and Riley, who produced the foundational taxonomy of human-automation interaction, suggests the core mechanism is \term{attentional allocation}---the recommendation satisfies the brain's drive toward closure, reducing effortful processing of the case itself \autocite{parasuraman1997humans}. This means ``apply independent judgment'' instructions, without interface redesign, accomplish very little.
+
+% ============================================================================
+\section{Overtrust and Undertrust: Both Cost You}
+% ============================================================================
+
+Automation bias is a form of \term{overtrust}. But the psychological literature is equally clear that \term{undertrust} is a problem, and often an underappreciated one.
+
+Undertrust manifests as systematic distrust of algorithmic recommendations even when the algorithms are accurate: clinicians who treat AI flags as ``suggestions'' and override them at high rates even when the flags were correct; judges ideologically opposed to ``letting an algorithm decide'' who override risk predictions at rates statistical accuracy would not justify.
+
+Undertrust has real costs. If a screening algorithm correctly identifies high-risk cases and clinicians consistently override toward lower-risk assessments, the system's effective recall drops---undermining the whole purpose of AI augmentation.
+
+The optimal human-AI collaboration requires \term{calibrated trust}: trust that accurately tracks the system's actual performance domain by domain. Neither systematic over-reliance nor systematic under-reliance, but flexible, evidence-sensitive deference.
+
+Calibrated trust is hard to achieve and harder to maintain. It requires that reviewers have accurate mental models of what the AI is good at and what it isn't. It requires feedback loops that let reviewers learn when they're right to override and when they're wrong. And it requires an organizational culture that neither rewards blind deference nor treats algorithm skepticism as a virtue \autocite{dietvorst2015algorithm}.
+
+\begin{examplebox}[Algorithm Aversion]
+Dietvorst and colleagues (2015) found that seeing an algorithm err \emph{once} causes people to systematically avoid using it in the future---even when the algorithm still outperforms human judgment. The research label is ``algorithm aversion.'' In HITL contexts, reviewers regularly see the model's errors (that is why the cases are in the queue). Without deliberate feedback design, algorithm aversion is a predictable outcome.
+\end{examplebox}
+
+% ============================================================================
+\section{The Expertise Effect: Better in Some Ways, Worse in Others}
+% ============================================================================
+
+Domain experts make better HITL reviewers in several respects: they catch errors novices miss, recognize unusual presentations, and provide harder-to-fool audits of AI outputs.
+
+But expertise introduces its own vulnerabilities.
+
+Experts are more susceptible to \term{expectation confirmation}: they have strong prior beliefs about what they will find, and they process new evidence in light of those priors. An experienced radiologist who ``knows'' that a certain pattern correlates with benign disease may be less willing to register a finding that contradicts that expectation---even when an AI correctly flags it.
+
+Highly experienced reviewers have longer histories with their own intuitions. They have been right a lot. When AI recommendations conflict with expert intuition, the expert has more to defend and more history of being right. The resistance to AI suggestions that contradict expertise can be fierce.
+
+And experts are more susceptible to the \term{consistency trap}: strong expectations about what a decision ``should'' look like make them more skeptical of AI outputs that violate those expectations---even when the outputs are correct.
+
+This is not an argument against expert reviewers. It is an argument for designing HITL systems that account for expert psychology---presenting AI recommendations in ways that invite genuine evaluation rather than triggering confirmation or resistance.
+
+% ============================================================================
+\section{Fatigue and the Time-of-Day Effect}
+% ============================================================================
+
+Human judgment is not constant. It varies with time of day, length of shift, number of prior decisions, and emotional state---factors that most HITL evaluation frameworks entirely ignore.
+
+A 2011 study by Danziger and colleagues examined 1,112 judicial hearings. The probability of a favorable parole decision dropped from roughly 65\% at the start of each session to nearly zero toward the end, before recovering after breaks \autocite{danziger2011extraneous}. The judges were not consciously aware of this pattern.
+
+\begin{technote}[Danziger Study Caution]
+The causal mechanism behind the Danziger finding---whether it reflects decision fatigue, glucose depletion, or a statistical artifact of case ordering---has been contested in subsequent methodological work. The precise effect size should be treated cautiously. The directional finding (decision quality degrades over a session) is, however, well-supported by the broader human performance literature independent of this specific study.
+\end{technote}
+
+The finding points to something well-established in human performance research: decision quality declines under sustained cognitive load. Annotation quality, medical diagnosis accuracy, content moderation decisions, and financial review accuracy all follow this pattern. They are higher early in a work session and lower late \autocite{linder2014time}.
+
+\begin{cautionbox}[The Fatigue Blind Spot]
+A HITL system that is measured, calibrated, and staffed without accounting for time-of-day effects is ignoring a significant and predictable source of variance in its human component's performance. Routing the most difficult cases to reviewers at hour four of a shift is not equivalent to routing them at hour one. The two populations---same person, different time---can have measurably different error rates.
+\end{cautionbox}
+
+Practical implications: randomize case routing to prevent clustering of hard cases at shift end; build mandatory break schedules into the review workflow; use intra-batch agreement rates as a near-real-time proxy for reviewer fatigue; consider two-pass review for the highest-stakes decisions falling late in long shifts.
+
+% ============================================================================
+\section{Team Dynamics Without a Human Team}
+% ============================================================================
+
+Traditional organizational research on team performance was developed to understand groups of humans. Almost none of it applies cleanly when one team member is an algorithm.
+
+An algorithm does not experience psychological safety. It does not feel threatened by dissent. It does not have a bad day. It does not grow resentful of overrides. It does not build an informal theory of which reviewers are worth listening to.
+
+What this means in practice is that the ``team dynamics'' of a human-AI system are almost entirely determined by how the human relates to the AI---and those dynamics are heavily influenced by system design choices that organizations rarely treat as team management decisions.
+
+How confident does the AI appear? Systems presenting recommendations with high apparent confidence elicit more deference than systems that explicitly communicate uncertainty. The same model, the same accuracy, different framing, different behavior.
+
+Does the AI explain itself? Explainable AI can reduce automation bias by giving reviewers something to evaluate. But it can also increase automation bias if the explanations are plausible-sounding but wrong---providing post-hoc narrative that convinces reviewers the AI must be right.
+
+Does the reviewer get feedback on their overrides? Without feedback, there is no mechanism to calibrate trust. With feedback, reviewers can learn which domains their judgment beats the AI's and which it doesn't. This feedback is among the most powerful interventions available for producing calibrated trust.
+
+% ============================================================================
+\section{What HITL System Design Can Do About Human Psychology}
+\label{sec:psychology-design}
+% ============================================================================
+
+These psychological findings are not arguments for resignation. They are arguments for designing systems that support the kind of human engagement that actually produces the outcomes we want.
+
+\paragraph{Interface design for independent judgment.} Present the AI recommendation in a way that invites evaluation rather than closure. One tested approach: have reviewers complete their own initial assessment before the AI recommendation is revealed. This forces genuine processing uncorrupted by automation bias.
+
+\paragraph{Explicit uncertainty communication.} A system that displays ``85\% confidence'' gives reviewers something to reason about. A system that displays ``RECOMMENDED: APPROVE'' encourages closure. Calibrated uncertainty communication, introduced in Chapter~1 and formalized in Chapter~12, shapes human psychology as much as it does routing.
+
+\paragraph{Structured disagreement protocols.} For high-stakes decisions, require reviewers to document their reasoning when they override the AI, and require a second review when reviewer and AI disagree. This creates a context in which the human is genuinely doing the work the HITL design requires.
+
+\paragraph{Feedback on overrides.} If you want calibrated trust, give reviewers information about the accuracy of their overrides. Without feedback, trust cannot calibrate. With it, even experienced reviewers become more accurate about which overrides are worth making.
+
+\paragraph{Fatigue management.} Build mandatory break structures and randomized case routing into the system design. Do not let the hardest cases cluster at shift end. Track intra-batch agreement rates as an operational fatigue signal.
+
+\begin{trythis}
+The next time you use an AI-powered suggestion---autocomplete, a navigation recommendation, a grammar suggestion---pay attention to your own psychological response. Do you evaluate the suggestion independently before accepting it, or does the presence of a recommendation change your process? What would you have decided if no recommendation had appeared? This is automation bias in your own cognition, in real time.
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+    \item \term{Automation complacency}: The more reliable the system, the less prepared the human for the moment it fails
+    \item \term{Automation bias}: Humans shown an AI recommendation become less likely to catch the AI's errors---even when instructed to apply independent judgment
+    \item Overtrust and undertrust are both costly; calibrated trust requires feedback loops as a deliberate design element
+    \item The expertise effect: domain experts have higher discriminability but stronger prior-based resistance to disconfirming AI recommendations
+    \item Fatigue and time-of-day effects on decision quality are predictable and large; HITL designs that ignore them implicitly accept a major variance source
+    \item When one team member is an algorithm, human-AI dynamics are largely shaped by interface and system design choices
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Examples}
+
+\begin{description}
+    \item[Air France 447 (2009)] Highly reliable autopilot produced pilots unpracticed in manual flight; sensor failure disengaged automation in crisis; skill atrophy produced fatal confusion
+    \item[Skitka et al.\ (1999)] Experimental demonstration that automation bias persists under explicit independence instructions; the mechanism is pre-conscious attention allocation
+    \item[Radiologist AI studies] Attention shifts toward AI-flagged areas; proportionally less time on unflagged areas; higher miss rate for pathology AI didn't flag
+    \item[Danziger et al.\ (2011)] Judicial parole decisions fall from 65\% favorable early in session to nearly zero at end; recovers after breaks
+\end{description}
+
+\subsection*{Key Principles}
+
+\begin{itemize}
+    \item The human in the loop is not a neutral input device---psychology shapes performance in predictable, designable ways
+    \item Interface design choices (when the recommendation is revealed, how confidence is displayed, whether explanations are provided) dramatically affect automation bias
+    \item Calibrated trust is the goal; it requires feedback loops and cannot be achieved by instruction alone
+    \item HITL system design must incorporate the literature on human performance under automation, including fatigue effects and the paradox of reliable systems
+\end{itemize}

@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Étude de cas : Limen — Un humain dans la boucle de toute chose &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/fr/chapters/17_limen';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/fr/chapters/17_limen.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Étude de cas : Limen — Un humain dans la boucle de toute chose</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-probleme-avec-la-conception-traditionnelle-des-systemes-d-exploitation">Le problème avec la conception traditionnelle des systèmes d’exploitation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-au-seuil">Architecture au seuil</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-couche-d-evenements-wid">La couche d’événements : WID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-couche-de-perception-priorite-vocale">La couche de perception : Priorité vocale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-couche-d-intelligence-routage-multi-llm">La couche d’intelligence : Routage multi-LLM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-conception-de-l-interaction">La conception de l’interaction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#immediatete">Immédiateté</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intelligibilite">Intelligibilité</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coherence-et-derive">Cohérence et dérive</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limen-comme-systeme-hitl">Limen comme système HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-point-le-plus-profond">Le point le plus profond</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="etude-de-cas-limen-un-humain-dans-la-boucle-de-toute-chose">
+<h1>Étude de cas : Limen — Un humain dans la boucle de toute chose<a class="headerlink" href="#etude-de-cas-limen-un-humain-dans-la-boucle-de-toute-chose" title="Permalink to this heading">#</a></h1>
+<div class="important admonition">
+<p class="admonition-title">Note sur ce chapitre</p>
+<p>Ce chapitre est un <strong>essai de conception spéculatif</strong>, non une étude empirique ou une contribution soumise à évaluation par les pairs. Il décrit une architecture système envisagée — Limen, un système d’exploitation de bureau IA-natif prioritairement vocal — comme exemple travaillé de la façon dont les principes HITL des chapitres précédents pourraient se composer en un tout cohérent. Les affirmations ici sont des arguments de conception, non des résultats expérimentaux. Elles devraient être lues comme une justification de conception motivée, non comme des conclusions d’ingénierie validées.</p>
+</div>
+<p>Chaque chapitre de ce manuel a décrit le HITL ML comme une philosophie de conception : un ensemble de principes pour rendre l’implication humaine dans les systèmes d’apprentissage délibérée, efficiente et honnête. Ce chapitre décrit à quoi ressemble l’application de cette philosophie comme premier principe — non pas à un seul système, mais à un environnement opérationnel entier.</p>
+<p><strong>Limen</strong> est un système d’exploitation de bureau prioritairement vocal, IA-natif, construit sur la prémisse que l’humain est toujours dans la boucle, non comme une contrainte à optimiser, mais comme le principe organisateur autour duquel chaque sous-système est conçu. Le nom est choisi délibérément : <em>limen</em> est le mot latin pour seuil. En psychologie perceptuelle, le limen est la frontière entre ce qui est perçu et ce qui ne l’est pas. Pour un système d’exploitation, le limen est la frontière entre l’intention humaine et l’action de la machine.</p>
+<p>L’architecture décrite ici n’est pas propriétaire. C’est un ensemble de décisions de conception, dont chacune suit naturellement des principes HITL développés dans les chapitres précédents. L’objectif n’est pas de documenter un produit mais de montrer comment ces principes se composent — comment ils se renforcent mutuellement quand appliqués de manière cohérente, et quels types de systèmes deviennent possibles quand l’humain n’est pas une réflexion après coup.</p>
+<hr class="docutils" />
+<section id="le-probleme-avec-la-conception-traditionnelle-des-systemes-d-exploitation">
+<h2>Le problème avec la conception traditionnelle des systèmes d’exploitation<a class="headerlink" href="#le-probleme-avec-la-conception-traditionnelle-des-systemes-d-exploitation" title="Permalink to this heading">#</a></h2>
+<p>Un système d’exploitation conventionnel n’est pas conçu pour les humains. Il est conçu pour les programmes. L’humain est accommodé à travers une couche d’abstraction — une interface graphique, un explorateur de fichiers, un terminal — qui repose sur un substrat construit pour les processus, les adresses mémoire et les descripteurs de fichiers.</p>
+<p>Ce choix de conception est historiquement justifié. Quand les hypothèses qui l’ont produit ont été formulées, les ordinateurs étaient chers, les humains bon marché, et le goulot d’étranglement était le calcul. La bonne cible d’optimisation était la machine.</p>
+<p>Ces hypothèses ne tiennent plus. Le goulot d’étranglement, pour la plupart des utilisateurs dans la plupart des tâches, n’est pas le calcul. C’est l’attention humaine : le coût du changement de contexte, de la recherche du bon fichier, de la construction de la bonne requête, du souvenir d’où se trouvait quelque chose. La machine est rapide. L’humain est lent. L’interface devrait optimiser pour le côté humain de la boucle.</p>
+<p>Les systèmes d’exploitation conventionnels ne font pas cela. Ils sont optimisés pour les programmes, et le travail de l’humain est de parler le langage des programmes. Limen inverse cela. Les programmes parlent le langage de l’humain. L’humain est dans la boucle, et la boucle est conçue pour s’adapter à l’humain.</p>
+</section>
+<hr class="docutils" />
+<section id="architecture-au-seuil">
+<h2>Architecture au seuil<a class="headerlink" href="#architecture-au-seuil" title="Permalink to this heading">#</a></h2>
+<p>L’architecture de Limen est organisée autour d’un seul principe : <strong>chaque interaction est un événement</strong>, et chaque événement est une opportunité pour l’humain d’enseigner, de corriger ou de confirmer. Le système n’attend pas des sessions d’entraînement explicites. L’apprentissage est continu et ambiant.</p>
+<section id="la-couche-d-evenements-wid">
+<h3>La couche d’événements : WID<a class="headerlink" href="#la-couche-d-evenements-wid" title="Permalink to this heading">#</a></h3>
+<p>À la fondation se trouve <strong>WID</strong> (le système Waldiez ID, adapté pour l’architecture locale-d’abord de Limen) — un système de suivi d’événements conscient de la causalité qui enregistre non seulement ce qui s’est passé, mais ce qui l’a causé, et ce qu’il a à son tour causé.</p>
+<p>La journalisation conventionnelle demande : <em>que s’est-il passé ?</em> WID demande : <em>pourquoi est-ce arrivé, et qu’est-ce qui a suivi ?</em> Chaque événement porte une lignée causale — une chaîne depuis l’action humaine déclenchante à travers des états système intermédiaires jusqu’au résultat observé.</p>
+<p>Cela est important pour l’apprentissage HITL parce que cela résout le <strong>problème d’attribution de crédit</strong> au niveau de l’interaction. Quand un utilisateur corrige le comportement du système, WID peut identifier non seulement la sortie immédiate qui était erronée, mais la chaîne de décisions qui l’a produite. Les corrections peuvent être appliquées au bon niveau d’abstraction : la sortie, la règle de décision, ou le signal en amont.</p>
+<p>C’est l’équivalent au niveau du système d’exploitation de ce que le Chapitre 6 décrit pour le RLHF : la capacité de tracer un signal de récompense à travers une séquence de décisions. WID fournit ce traçage nativement, pour chaque interaction, sans exiger de l’utilisateur qu’il le comprenne.</p>
+<div class="note admonition">
+<p class="admonition-title">Le suivi causal d’événements comme infrastructure HITL</p>
+<p>La conception de WID reflète un principe plus large : l’infrastructure HITL devrait faciliter la question « pourquoi le système a-t-il fait cela ? » — pas seulement « qu’a-t-il fait ? » Sans traçage causal, les corrections réparent des symptômes. Avec lui, elles peuvent réparer des causes. La différence entre un correctif et une leçon.</p>
+</div>
+</section>
+<section id="la-couche-de-perception-priorite-vocale">
+<h3>La couche de perception : Priorité vocale<a class="headerlink" href="#la-couche-de-perception-priorite-vocale" title="Permalink to this heading">#</a></h3>
+<p>La modalité d’entrée principale de Limen est la voix, traitée localement à l’aide d’un pipeline d’inférence Whisper ONNX. Les raisons de ce choix méritent d’être explicitement énoncées :</p>
+<p><strong>La voix est le canal de sortie humain le plus naturel pour la plupart des gens.</strong> Elle ne nécessite ni formation, ni dextérité physique au-delà de la parole ordinaire, ni connaissance de l’organisation interne du système. Un utilisateur qui ne peut pas trouver un fichier dans une hiérarchie de répertoires peut décrire ce qu’il cherche.</p>
+<p><strong>Le traitement local préserve la vie privée.</strong> Les données vocales ne quittent pas le dispositif. Cela importe éthiquement — la voix est une donnée biométrique, et sa collecte à grande échelle par des fournisseurs cloud est un préjudice documenté — et pratiquement : le fonctionnement hors ligne signifie que le système reste fonctionnel sans connexion réseau.</p>
+<p><strong>La voix crée une boucle de retour naturelle.</strong> Quand le système répond, la réaction de l’utilisateur — continuer à parler, reformuler, dire « non, ce n’est pas ça » — est elle-même un signal. Limen traite ces réactions comme un retour HITL : des preuves sur la correction ou non de l’interprétation du système de l’énoncé précédent.</p>
+<p>La chaîne de repli est aussi importante que la modalité principale. Quand la voix échoue — dans un environnement bruyant, pour un utilisateur avec une déficience de la parole, pour une entrée bénéficiant de précision — Limen se dégrade gracieusement vers une interface clavier puis vers une interface textuelle structurée. Le Test de la grand-mère (voir le Chapitre 5) n’est pas un ajout d’accessibilité ; c’est une contrainte architecturale de première classe.</p>
+</section>
+<section id="la-couche-d-intelligence-routage-multi-llm">
+<h3>La couche d’intelligence : Routage multi-LLM<a class="headerlink" href="#la-couche-d-intelligence-routage-multi-llm" title="Permalink to this heading">#</a></h3>
+<p>Limen ne repose pas sur un seul modèle de langage. Il achemine les requêtes à travers un arbre de décision structuré basé sur le type de tâche, la latence requise, les exigences de confidentialité et la confiance :</p>
+<ol class="arabic simple">
+<li><p><strong>Modèle local petit</strong> (toujours en premier) : rapide, privé, gère les tâches routinières — « ouvrir le fichier que j’éditais hier », « mettre une minuterie », « quel temps fait-il »</p></li>
+<li><p><strong>Modèle local grand</strong> (quand la confiance du petit modèle est faible) : plus lent mais plus capable ; gère le raisonnement structuré, la génération de code, la récupération complexe</p></li>
+<li><p><strong>Modèle distant</strong> (quand le local échoue et que l’utilisateur a accordé la permission) : la sortie de secours ; géré de manière transparente avec une notification explicite de l’utilisateur</p></li>
+</ol>
+<p>Cette structure n’est pas nouvelle — c’est l’équivalent au moment de l’inférence de la stratégie de requête d’apprentissage actif décrite au Chapitre 4. À chaque étape, le système demande : mon modèle actuel est-il suffisant pour répondre à cette requête avec une confiance acceptable ? Si non, escalader. L’escalade est un coût (latence, vie privée, calcul) ; il est engagé seulement quand nécessaire.</p>
+<p>L’humain est dans la boucle à la frontière d’escalade. Un utilisateur qui a configuré Limen pour ne jamais escalader vers des modèles distants a pris une décision HITL — une décision que le système respecte et enregistre. Un utilisateur qui approuve une requête distante puis dit « ne me demande plus pour ce type de requête » a fourni une préférence qui met à jour la politique de routage.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="la-conception-de-l-interaction">
+<h2>La conception de l’interaction<a class="headerlink" href="#la-conception-de-l-interaction" title="Permalink to this heading">#</a></h2>
+<section id="immediatete">
+<h3>Immédiateté<a class="headerlink" href="#immediatete" title="Permalink to this heading">#</a></h3>
+<p>Limen est conçu pour l’immédiateté au sens que le Chapitre 5 définit : l’utilisateur perçoit l’effet de son retour. Quand l’utilisateur corrige une sortie du système, la correction est appliquée immédiatement et visiblement. Le modèle ne s’en va pas s’entraîner pendant vingt minutes. Il se met à jour dans la session courante.</p>
+<p>Cela nécessite l’utilisation d’architectures de modèles prenant en charge la mise à jour en ligne efficace — adaptateurs, ajustement de préfixe et génération augmentée par récupération plutôt qu’un affinement complet. Le compromis est explicite : les mises à jour en ligne sont plus bruitées que l’entraînement par lots. Limen accepte ce compromis parce que l’immédiateté est l’exigence principale : l’humain peut toujours confirmer, rejeter ou affiner la mise à jour.</p>
+</section>
+<section id="intelligibilite">
+<h3>Intelligibilité<a class="headerlink" href="#intelligibilite" title="Permalink to this heading">#</a></h3>
+<p>Un thème récurrent dans la littérature IML est l’<strong>exigence d’intelligibilité</strong> : les humains ne peuvent guider qu’un modèle qu’ils comprennent, au moins approximativement. Limen reflète cela dans l’interface : quand le système prend une décision, il explique, brièvement, pourquoi. Non pas une trace de raisonnement complète — cela submergerait la plupart des utilisateurs — mais un résumé en langage naturel du facteur clé : « J’ouvre le projet sur lequel vous avez le plus récemment travaillé — est-ce correct ? »</p>
+<p>Cette explication est aussi une question. Elle invite à la correction. Elle rend l’inférence du modèle visible pour que l’utilisateur puisse la rediriger si elle est erronée. L’explication n’est pas générée pour des raisons esthétiques ; c’est une infrastructure HITL fonctionnelle.</p>
+</section>
+<section id="coherence-et-derive">
+<h3>Cohérence et dérive<a class="headerlink" href="#coherence-et-derive" title="Permalink to this heading">#</a></h3>
+<p>Un problème qui se pose dans tout système interactif à long terme est la <strong>dérive comportementale</strong> : le comportement du système au temps <span class="math notranslate nohighlight">\(T+n\)</span> est subtilement différent de son comportement au temps <span class="math notranslate nohighlight">\(T\)</span>, d’une manière que ni l’utilisateur ni le système n’ont explicitement choisie. Les corrections s’accumulent. Les cas limites s’aggravent. Le modèle qui était aligné sur les préférences de l’utilisateur le mois dernier peut ne plus l’être aujourd’hui.</p>
+<p>Limen aborde cela à travers des vérifications de cohérence périodiques — l’équivalent au niveau du système d’exploitation de la technique de re-présentation décrite au Chapitre 13. Le système fait remonter des décisions historiques à l’utilisateur : « Il y a quelques semaines, vous m’avez demandé de faire X. Est-ce toujours ce que vous voudriez ? » Ces vérifications servent deux fonctions : elles détectent la dérive, et elles rappellent à l’utilisateur les préférences qu’il a peut-être oublié d’avoir spécifiées.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="limen-comme-systeme-hitl">
+<h2>Limen comme système HITL<a class="headerlink" href="#limen-comme-systeme-hitl" title="Permalink to this heading">#</a></h2>
+<p>En regardant l’architecture de Limen à travers le prisme de ce manuel, les décisions de conception se mappent directement sur les concepts développés dans chaque partie.</p>
+<p><strong>Partie I (Fondements) :</strong> Limen traite chaque interaction comme un événement d’interaction homme–machine. Il n’y a pas de « mode non-HITL » — le système apprend toujours, attribue toujours, attend toujours qu’un humain participe.</p>
+<p><strong>Partie II (Techniques fondamentales) :</strong> L’apprentissage actif se manifeste comme la chaîne d’escalade basée sur la confiance. L’apprentissage automatique interactif se manifeste dans le cycle de mise à jour en temps réel. L’annotation est implicite : chaque correction que l’utilisateur fait est une étiquette.</p>
+<p><strong>Partie III (Apprentissage à partir du retour humain) :</strong> L’apprentissage par préférences décrit au Chapitre 8 apparaît dans les mises à jour de la politique de routage. Quand un utilisateur préfère la réponse d’un modèle local à celle d’un modèle distant, cette préférence est enregistrée et se généralise. Le RLHF dans un OS personnel signifie que le modèle de récompense est privé, individuel et continuellement mis à jour.</p>
+<p><strong>Partie IV (Applications) :</strong> Limen est un environnement généraliste, mais sa conception est la plus visible dans les domaines où le jugement de l’humain est irremplaçable et le coût des erreurs est élevé — rédaction de documents, priorisation des tâches, travail créatif.</p>
+<p><strong>Partie V (Systèmes et pratique) :</strong> WID est la plateforme d’annotation de Limen. Elle est invisible pour l’utilisateur en fonctionnement normal, visible quand nécessaire pour le débogage ou la transparence. Les mécanismes de contrôle de qualité (vérifications de cohérence, seuils de confiance, journaux d’escalade) sont directement empruntés à la littérature sur la production participative.</p>
+<p><strong>Partie VI (Éthique) :</strong> La conception locale-d’abord et préservant la vie privée est un choix éthique, pas seulement technique. Les données de l’humain ne quittent pas son dispositif sans son consentement explicite. Le modèle qui apprend du comportement d’un utilisateur appartient à cet utilisateur.</p>
+</section>
+<hr class="docutils" />
+<section id="le-point-le-plus-profond">
+<h2>Le point le plus profond<a class="headerlink" href="#le-point-le-plus-profond" title="Permalink to this heading">#</a></h2>
+<p>Limen n’est pas un argumentaire produit. C’est un argument par construction.</p>
+<p>L’argument est le suivant : si vous prenez au sérieux les principes du HITL ML — si vous croyez que le retour humain est un signal à comprendre plutôt qu’un coût à minimiser, que l’humain est toujours dans la boucle même quand les concepteurs prétendent le contraire, que l’alignement est un processus continu plutôt qu’un événement ponctuel — alors vous finissez par construire quelque chose qui ressemble à Limen.</p>
+<p>Pas nécessairement Limen spécifiquement. La pile technologique spécifique (Tauri, Rust, Babylon.js, Whisper ONNX) est un choix parmi beaucoup. Mais l’architecture — suivi causal d’événements, traitement local-d’abord, dégradation gracieuse, apprentissage continu par préférences, transparence comme fonctionnalité de première classe — découle des principes.</p>
+<p>Le domaine du HITL ML a consacré une énergie considérable à décrire comment mettre les humains dans la boucle de modèles spécifiques et de tâches spécifiques. La prochaine question est de savoir si nous pouvons concevoir des <em>environnements</em> entiers autour des mêmes principes : des environnements où l’humain est toujours au centre, la machine est toujours l’apprenant, et la boucle est toujours ouverte.</p>
+<p>Limen est une réponse à cette question.</p>
+<p>Le seuil n’est pas quelque chose que vous franchissez et laissez derrière vous. C’est là où vous vivez.</p>
+<hr class="docutils" />
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Les principes IML sous-jacents à la conception de l’interaction de Limen sont développés au Chapitre 5. L’approche d’apprentissage par préférences derrière la politique de routage est formalisée au Chapitre 8. Le modèle de causalité de WID s’appuie sur la littérature d’attribution d’événements présentée au Chapitre 14. Le Test de la grand-mère, introduit au Chapitre 5, est la principale contrainte de conception d’interface de Limen.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/fr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-probleme-avec-la-conception-traditionnelle-des-systemes-d-exploitation">Le problème avec la conception traditionnelle des systèmes d’exploitation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-au-seuil">Architecture au seuil</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-couche-d-evenements-wid">La couche d’événements : WID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-couche-de-perception-priorite-vocale">La couche de perception : Priorité vocale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-couche-d-intelligence-routage-multi-llm">La couche d’intelligence : Routage multi-LLM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-conception-de-l-interaction">La conception de l’interaction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#immediatete">Immédiateté</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intelligibilite">Intelligibilité</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coherence-et-derive">Cohérence et dérive</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limen-comme-systeme-hitl">Limen comme système HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-point-le-plus-profond">Le point le plus profond</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

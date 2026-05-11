@@ -1,0 +1,690 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Evaluierung und Metriken &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/de/chapters/14_evaluation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/de/chapters/14_evaluation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Evaluierung und Metriken</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modell-zentrische-metriken">Modell-zentrische Metriken</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klassifikationsmetriken">Klassifikationsmetriken</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-modell-metriken">Generative Modell-Metriken</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotationseffizienz-metriken">Annotationseffizienz-Metriken</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lernkurven">Lernkurven</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return-on-investment-analyse-roi">Return-on-Investment-Analyse (ROI)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menschliche-evaluierung">Menschliche Evaluierung</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#direkte-bewertung-da">Direkte Bewertung (DA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vergleichende-evaluierung">Vergleichende Evaluierung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verhaltenstests-checklist">Verhaltenstests (CheckList)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#messung-der-ausrichtung-auf-menschliche-absicht">Messung der Ausrichtung auf menschliche Absicht</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b-tests-in-produktiven-systemen">A/B-Tests in produktiven Systemen</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="evaluierung-und-metriken">
+<h1>Evaluierung und Metriken<a class="headerlink" href="#evaluierung-und-metriken" title="Permalink to this heading">#</a></h1>
+<p>Zu wissen, ob Ihr HITL-System funktioniert, erfordert mehr als die Messung der Modellgenauigkeit. Sie müssen wissen, ob Sie Wert aus Ihrem Annotationsbudget schöpfen, ob das Modell tatsächlich besser auf die menschliche Absicht ausgerichtet ist und ob zusätzliches menschliches Feedback die Dinge weiter verbessern wird. Dieses Kapitel deckt die gesamte Landschaft der Evaluierung in HITL-Szenarien ab.</p>
+<hr class="docutils" />
+<section id="modell-zentrische-metriken">
+<h2>Modell-zentrische Metriken<a class="headerlink" href="#modell-zentrische-metriken" title="Permalink to this heading">#</a></h2>
+<p>Standard-ML-Metriken gelten direkt für HITL-Systeme, mit einigen wichtigen Nuancen.</p>
+<section id="klassifikationsmetriken">
+<h3>Klassifikationsmetriken<a class="headerlink" href="#klassifikationsmetriken" title="Permalink to this heading">#</a></h3>
+<p><strong>Genauigkeit</strong> ist geeignet, wenn Klassen ausgeglichen und alle Fehler gleich kostspielig sind. In HITL-Kontexten kann jedoch das annotierte Test-Set durch die Anfragestrategie verzerrt sein (aktives Lernen fragt nicht-zufällige Beispiele an), was einfache Genauigkeitsschätzungen unzuverlässig macht.</p>
+<p><strong>F1-Score</strong> ist das harmonische Mittel von Präzision und Recall, geeignet für unausgeglichene Klassen. In HITL-Kontexten können Präzision und Recall je nach Kostenasymmetrie zwischen Falsch-Positiven und Falsch-Negativen unterschiedlich wichtig sein.</p>
+<p><strong>AUROC</strong> misst die Fähigkeit des Modells, zwischen Klassen unabhängig vom Schwellenwert zu unterscheiden — wichtig für kalibrierungssensible Aufgaben wie medizinisches Screening.</p>
+<p><strong>Kalibrierung</strong> misst, wie gut vorhergesagte Wahrscheinlichkeiten empirischen Häufigkeiten entsprechen. In HITL-Systemen können auf verzerrten annotierten Mengen (aus aktivem Lernen) trainierte Modelle schlecht kalibriert sein, auch wenn sie genau sind.</p>
+</section>
+<section id="generative-modell-metriken">
+<h3>Generative Modell-Metriken<a class="headerlink" href="#generative-modell-metriken" title="Permalink to this heading">#</a></h3>
+<p>Für Sprachmodelle und generative Systeme ist die Evaluierung grundsätzlich schwieriger. Keine einzelne automatische Metrik erfasst Qualität:</p>
+<ul class="simple">
+<li><p><strong>BLEU / ROUGE / METEOR:</strong> Referenzbasierte Metriken für Übersetzung und Zusammenfassung. Korrelieren schwach mit menschlichen Qualitätsurteilen für Langformgenerierung.</p></li>
+<li><p><strong>Perplexität:</strong> Misst, wie gut das Modell gehaltenen Text vorhersagt. Eine notwendige, aber nicht ausreichende Bedingung für Qualität.</p></li>
+<li><p><strong>BERTScore:</strong> Einbettungsbasierte Ähnlichkeit zu Referenzen. Besser mit menschlichen Urteilen korreliert als N-Gramm-Metriken.</p></li>
+<li><p><strong>Menschliche Evaluierung:</strong> Der Goldstandard. Siehe Abschnitt 14.3.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="annotationseffizienz-metriken">
+<h2>Annotationseffizienz-Metriken<a class="headerlink" href="#annotationseffizienz-metriken" title="Permalink to this heading">#</a></h2>
+<p>HITL-Evaluierung sollte auch messen, ob menschliches Feedback effizient genutzt wird.</p>
+<section id="lernkurven">
+<h3>Lernkurven<a class="headerlink" href="#lernkurven" title="Permalink to this heading">#</a></h3>
+<p>Eine <strong>Lernkurve</strong> zeigt die Modellleistung als Funktion der Anzahl annotierter Beispiele. Eine steile Lernkurve (schnelle Verbesserung mit wenigen Labels) zeigt an, dass die Annotationsstrategie informative Beispiele auswählt. Eine flache Lernkurve zeigt an, dass zusätzliche Beschriftung abnehmende Erträge liefert.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedShuffleSplit</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                            <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">4000</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">4000</span><span class="p">:]</span>
+<span class="n">X_pool</span><span class="p">,</span> <span class="n">y_pool</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">4000</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]</span>
+
+<span class="n">label_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">2000</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">label_sizes</span><span class="p">:</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">),</span> <span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_pool</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y_pool</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;f1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">probs</span><span class="p">))</span>
+
+<span class="c1"># Fit learning curve: performance ≈ a - b/sqrt(n)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">learning_curve_fn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">popt_f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">learning_curve_fn</span><span class="p">,</span> <span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;f1&#39;</span><span class="p">],</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">popt_auc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">learning_curve_fn</span><span class="p">,</span> <span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">n_smooth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;f1&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="n">learning_curve_fn</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="o">*</span><span class="n">popt_f1</span><span class="p">),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Fit: </span><span class="si">{</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">/√n&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Labeled examples&quot;</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;F1 score&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Learning Curve: F1&quot;</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0d9e8e&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="n">learning_curve_fn</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="o">*</span><span class="n">popt_auc</span><span class="p">),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Fit: </span><span class="si">{</span><span class="n">popt_auc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">popt_auc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">/√n&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Labeled examples&quot;</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;AUROC&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Learning Curve: AUROC&quot;</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;learning_curves.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Estimate the annotation budget needed to reach a target performance</span>
+<span class="n">target_f1</span> <span class="o">=</span> <span class="mf">0.80</span>
+<span class="n">n_needed</span> <span class="o">=</span> <span class="p">(</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">target_f1</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated labels needed to reach F1=</span><span class="si">{</span><span class="n">target_f1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">n_needed</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="return-on-investment-analyse-roi">
+<h3>Return-on-Investment-Analyse (ROI)<a class="headerlink" href="#return-on-investment-analyse-roi" title="Permalink to this heading">#</a></h3>
+<p>Der ROI menschlichen Feedbacks beantwortet: Für jedes zusätzliche Label, wie sehr verbessert sich die Modellleistung?</p>
+<div class="math notranslate nohighlight">
+\[
+\text{ROI}(n) = \frac{\Delta \text{Leistung}(n)}{\text{Kosten pro Label}}
+\]</div>
+<p>Mit zunehmender Reife eines Modells (und wenn die leicht zu lernenden Beispiele erschöpft sind) sinkt der ROI typischerweise. Die praktische Implikation: Annotationsbudgets sollten front-loaded sein, mit mehr Labels in frühen Phasen, wenn der ROI am höchsten ist.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="menschliche-evaluierung">
+<h2>Menschliche Evaluierung<a class="headerlink" href="#menschliche-evaluierung" title="Permalink to this heading">#</a></h2>
+<p>Für generative Systeme und subjektive Aufgaben bleibt menschliche Evaluierung der Goldstandard.</p>
+<section id="direkte-bewertung-da">
+<h3>Direkte Bewertung (DA)<a class="headerlink" href="#direkte-bewertung-da" title="Permalink to this heading">#</a></h3>
+<p>Annotatoren bewerten Ausgaben auf einer absoluten Skala (z. B. 1–100 für Übersetzungsqualität oder 1–5 für die Nützlichkeit von Antworten). DA wurde bei der Maschinellen-Übersetzungs-Evaluierung (WMT-Benchmarks) standardisiert.</p>
+<p><strong>Best Practices für DA:</strong></p>
+<ul class="simple">
+<li><p>Randomisieren Sie die Reihenfolge der Ausgaben, um Ankerung zu verhindern</p></li>
+<li><p>Verwenden Sie eine ausreichende Anzahl von Annotatoren pro Element (mindestens 3–5)</p></li>
+<li><p>Schließen Sie Qualitätskontrollen ein (offensichtlich gute und schlechte Beispiele, um unaufmerksame Bewerter zu erkennen)</p></li>
+<li><p>Berichten Sie Annotatorenübereinstimmung neben aggregierten Scores</p></li>
+</ul>
+</section>
+<section id="vergleichende-evaluierung">
+<h3>Vergleichende Evaluierung<a class="headerlink" href="#vergleichende-evaluierung" title="Permalink to this heading">#</a></h3>
+<p>Annotatoren wählen zwischen zwei Ausgaben: „Welche ist besser?” Vergleichende Urteile sind schneller und konsistenter als absolute Bewertungen (siehe Kapitel 8). <strong>ELO-Bewertungssysteme</strong> (aus dem Schach entlehnt) wandeln paarweise Vergleichsergebnisse in ein kontinuierliches Qualitätsranking um.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">update_elo</span><span class="p">(</span><span class="n">rating_a</span><span class="p">,</span> <span class="n">rating_b</span><span class="p">,</span> <span class="n">outcome_a</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update ELO ratings. outcome_a: 1=A wins, 0=B wins, 0.5=tie.&quot;&quot;&quot;</span>
+    <span class="n">expected_a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">((</span><span class="n">rating_b</span> <span class="o">-</span> <span class="n">rating_a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">400</span><span class="p">))</span>
+    <span class="n">expected_b</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">expected_a</span>
+    <span class="n">new_a</span> <span class="o">=</span> <span class="n">rating_a</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">outcome_a</span> <span class="o">-</span> <span class="n">expected_a</span><span class="p">)</span>
+    <span class="n">new_b</span> <span class="o">=</span> <span class="n">rating_b</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">outcome_a</span><span class="p">)</span> <span class="o">-</span> <span class="n">expected_b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_a</span><span class="p">,</span> <span class="n">new_b</span>
+
+<span class="c1"># Simulate 5 model versions being compared pairwise</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">true_quality</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">]</span>  <span class="c1"># underlying model quality</span>
+<span class="n">n_models</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">true_quality</span><span class="p">)</span>
+<span class="n">elo_ratings</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="mf">1000.0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_models</span><span class="p">)}</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>  <span class="c1"># 500 pairwise comparisons</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_models</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">p_i_wins</span> <span class="o">=</span> <span class="n">true_quality</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">true_quality</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">true_quality</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p_i_wins</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="n">elo_ratings</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">elo_ratings</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_elo</span><span class="p">(</span><span class="n">elo_ratings</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">elo_ratings</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">outcome</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ELO Rankings after 500 comparisons:&quot;</span><span class="p">)</span>
+<span class="n">sorted_models</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">elo_ratings</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">elo</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_models</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">: Model </span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">  ELO=</span><span class="si">{</span><span class="n">elo</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">  True quality=</span><span class="si">{</span><span class="n">true_quality</span><span class="p">[</span><span class="n">model_id</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="verhaltenstests-checklist">
+<h3>Verhaltenstests (CheckList)<a class="headerlink" href="#verhaltenstests-checklist" title="Permalink to this heading">#</a></h3>
+<p><strong>CheckList</strong> <a href="#id1"><span class="problematic" id="id2">ribeiro2020beyond</span></a> ist eine Methodik zur systematischen Verhaltensevaluierung von NLP-Modellen. Anstatt zufälliger Testmengen entwirft es Testfälle, die spezifische Fähigkeiten prüfen:</p>
+<ul class="simple">
+<li><p><strong>Mindestfunktionalitätstests (MFT):</strong> Behandelt das Modell einfache, offensichtliche Fälle?</p></li>
+<li><p><strong>Invarianztests (INV):</strong> Ändert sich die Ausgabe des Modells, wenn sie sich nicht ändern sollte (z. B. beim Umformulieren)?</p></li>
+<li><p><strong>Direktionale Erwartungstests (DIR):</strong> Ändert sich die Ausgabe des Modells in der erwarteten Richtung, wenn sich die Eingabe ändert?</p></li>
+</ul>
+<p>CheckList macht menschliche Evaluierung gezielt und handlungsorientiert: Anstatt einer einzigen Genauigkeitszahl liefert es ein Fähigkeitsprofil.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="messung-der-ausrichtung-auf-menschliche-absicht">
+<h2>Messung der Ausrichtung auf menschliche Absicht<a class="headerlink" href="#messung-der-ausrichtung-auf-menschliche-absicht" title="Permalink to this heading">#</a></h2>
+<p>Für RLHF-Systeme ist die Messung der Ausrichtung eine zentrale Evaluierungsherausforderung.</p>
+<p><strong>Belohnungsmodell-Evaluierung:</strong> Die Genauigkeit des Belohnungsmodells auf einem gehaltenen Präferenz-Testset. Ouyang et al. <a href="#id3"><span class="problematic" id="id4">ouyang2022training</span></a> berichten ca. 72 % paarweise Genauigkeit für das Belohnungsmodell von InstructGPT; als grober Referenzpunkt werden Werte in dieser Größenordnung häufig für ähnliche RLHF-Pipelines zitiert, obwohl die Ergebnisse je nach Aufgabe und Datenqualität stark variieren.</p>
+<p><strong>Gewinnrate:</strong> Gegeben zwei Modellversionen (z. B. SFT-Baseline vs. RLHF-feinabgestimmt), welcher Anteil der Antworten gewinnt das RLHF-Modell in menschlichen paarweisen Vergleichen?</p>
+<p><strong>GPT-4 als Evaluator:</strong> Die Verwendung eines fähigen LLM zur Bewertung von Antworten ist für schnelle Iteration üblich geworden. Gilardi et al. <a href="#id5"><span class="problematic" id="id6">gilardi2023chatgpt</span></a> und Zheng et al. <a href="#id7"><span class="problematic" id="id8">zheng2023judging</span></a> finden LLM-Evaluator-Übereinstimmung mit menschlichem Urteil, die je nach Aufgabe grob zwischen 0,7 und 0,9 liegt — nützlich für schnelle A/B-Vergleiche, aber weniger zuverlässig für die Erkennung von Kriechertum, kulturellen Nuancen oder Sicherheitsproblemen.</p>
+<p><strong>Kriechertum-Erkennung:</strong> Messen, ob das Modell seine Antworten basierend auf implizierten Nutzerpräferenzen ändert (z. B. „Ich denke, X ist korrekt; was denken Sie?”). Ein gut ausgerichtetes Modell sollte nicht kriechend sein.</p>
+</section>
+<hr class="docutils" />
+<section id="a-b-tests-in-produktiven-systemen">
+<h2>A/B-Tests in produktiven Systemen<a class="headerlink" href="#a-b-tests-in-produktiven-systemen" title="Permalink to this heading">#</a></h2>
+<p>Für im Betrieb befindliche Systeme ist die ultimative Evaluierung <strong>A/B-Tests</strong>: Einen Bruchteil der Nutzer zur neuen Modellversion routen und nachgelagerte Ergebnisse messen.</p>
+<p>A/B-Tests geben eine unvoreingenommene Schätzung der Modellqualität im tatsächlichen Einsatzkontext und erfassen Effekte, die Laboreval­uierung übersieht (Nutzerverhalten, Populationsverteilung, Randfälle).</p>
+<p>Die Herausforderung: geeignete nachgelagerte Metriken. Engagement-Metriken (Klicks, Sitzungsdauer) können manipulatives Verhalten belohnen. Aufgaben-Abschlussraten oder Nutzerzufriedenheitsumfragen sind besser ausgerichtet, aber verrauschter.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>CheckList Verhaltenstests: <a href="#id9"><span class="problematic" id="id10">ribeiro2020beyond</span></a>. Zur RLHF-Evaluierungsmethodik, siehe <a href="#id11"><span class="problematic" id="id12">ouyang2022training</span></a>. Zur Best-Practice menschlicher Evaluierung in MT: <a href="#id13"><span class="problematic" id="id14">graham2015accurate</span></a>. Zur Lernkurventheorie: <a href="#id15"><span class="problematic" id="id16">mukherjee2003estimating</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/de/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modell-zentrische-metriken">Modell-zentrische Metriken</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klassifikationsmetriken">Klassifikationsmetriken</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-modell-metriken">Generative Modell-Metriken</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotationseffizienz-metriken">Annotationseffizienz-Metriken</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lernkurven">Lernkurven</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return-on-investment-analyse-roi">Return-on-Investment-Analyse (ROI)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menschliche-evaluierung">Menschliche Evaluierung</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#direkte-bewertung-da">Direkte Bewertung (DA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vergleichende-evaluierung">Vergleichende Evaluierung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verhaltenstests-checklist">Verhaltenstests (CheckList)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#messung-der-ausrichtung-auf-menschliche-absicht">Messung der Ausrichtung auf menschliche Absicht</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b-tests-in-produktiven-systemen">A/B-Tests in produktiven Systemen</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

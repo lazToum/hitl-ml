@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Koyon Aiki &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ha/chapters/04_active_learning';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ha/chapters/04_active_learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Koyon Aiki</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tsarin-koyon-aiki">Tsarin Koyon Aiki</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tushen-ka-ida">Tushen Ka’ida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dabarun-tambaya">Dabarun Tambaya</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#samfurin-rashin-tabbas">Samfurin Rashin Tabbas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tambaya-ta-kwamitin-qbc">Tambaya ta Kwamitin (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#canjin-samfuri-da-ake-tsammani">Canjin Samfuri da Ake Tsammani</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hanyoyin-core-set-geometrical">Hanyoyin Core-Set / Geometrical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kiyasin-rashin-tabbas-don-samfurin-zurfin">Ƙiyasin Rashin Tabbas don Samfurin Zurfin</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nau-in-rashin-tabbas-biyu">Nau’in Rashin Tabbas Biyu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mc-dropout">MC Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hain-gwiwa-mai-zurfi">Haɗin Gwiwa Mai Zurfi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zagayen-koyon-aiki-cikakke">Zagayen Koyon Aiki Cikakke</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matsalar-farawa-mai-sanyi">Matsalar Farawa Mai Sanyi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koyon-aiki-na-yanayin-jeri">Koyon Aiki na Yanayin Jeri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ma-aunin-dakatar">Ma’aunin Dakatar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lokacin-da-koyon-aiki-ke-aiki-da-lokacin-da-ba-aiki-ba">Lokacin da Koyon Aiki ke Aiki (da Lokacin da Ba Aiki Ba)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="koyon-aiki">
+<h1>Koyon Aiki<a class="headerlink" href="#koyon-aiki" title="Permalink to this heading">#</a></h1>
+<p>Bayanan da aka yi lakabi suna da tsada. Babban ra’ayin koyon aiki shine cewa <em>ba duk misalin da ba a yi lakabi ba yana da bayanai ɗaya ba</em> — samfuri zai iya inganta da sauri idan ya samu zaɓar waɗanne misalai za su tambaya game da su. Maimakon yin lakabi ga bayanai ta damari, tsarin koyon aiki yana tambaya oracle (galibi mai sanya lakabi ɗan adam) akan misalai mafi yiwuwar inganta samfuri.</p>
+<p>Wannan babi ya ƙunshi ka’idar da aikin koyon aiki: dabarun tambaya, tsarin samfuri, ma’aunin dakatar, da abubuwan da ke da amfani ga aikawa na gaske.</p>
+<hr class="docutils" />
+<section id="tsarin-koyon-aiki">
+<h2>Tsarin Koyon Aiki<a class="headerlink" href="#tsarin-koyon-aiki" title="Permalink to this heading">#</a></h2>
+<p>Tsarin <strong>koyon aiki bisa tafkin</strong> na yau da kullum ya ƙunshi:</p>
+<ul class="simple">
+<li><p><strong>Rukunin da aka yi lakabi</strong> <span class="math notranslate nohighlight">\(\mathcal{L} = \{(x_i, y_i)\}_{i=1}^n\)</span> — ƙarami a farko</p></li>
+<li><p><strong>Tafkin da ba a yi lakabi ba</strong> <span class="math notranslate nohighlight">\(\mathcal{U} = \{x_j\}_{j=1}^m\)</span> — galibi mafi girma fiye da <span class="math notranslate nohighlight">\(\mathcal{L}\)</span></p></li>
+<li><p><strong>Oracle</strong> <span class="math notranslate nohighlight">\(\mathcal{O}\)</span> wanda zai iya mayar da <span class="math notranslate nohighlight">\(y = \mathcal{O}(x)\)</span> don duk <span class="math notranslate nohighlight">\(x\)</span> da aka tambaya</p></li>
+<li><p><strong>Dabarun tambaya</strong> <span class="math notranslate nohighlight">\(\phi\)</span> wanda ke zaɓar tambayar gaba <span class="math notranslate nohighlight">\(x^* = \phi(\mathcal{L}, \mathcal{U}, f_\theta)\)</span></p></li>
+</ul>
+<p>Zagayen koyon aiki:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    1. Fara: L = ƙaramin saitin farko da aka yi lakabi, U = tafkin da ba a yi lakabi ba
+    2. Horar: f_θ ← train(L)
+    3. Tambaya: x* = argmax φ(x; f_θ) akan x ∈ U
+    4. Lakabi: y* = O(x*)
+    5. Sabunta: L ← L ∪ {(x*, y*)}, U ← U \ {x*}
+    → Maimaita daga 2 har sai kasafin kuɗi ya ƙare
+</pre></div>
+</div>
+<p>Manufar ita ce kaiwa ga ingancin samfuri da aka nufa ta amfani da kaɗan kaɗan tambayoyin oracle iya.</p>
+</section>
+<hr class="docutils" />
+<section id="tushen-ka-ida">
+<h2>Tushen Ka’ida<a class="headerlink" href="#tushen-ka-ida" title="Permalink to this heading">#</a></h2>
+<p>Tambayar yanayi ita ce: nawa koyon aiki zai iya taimaka? A mafi kyau, koyon aiki na iya cimma <em>raguwa mai tsanaki</em> a rikitarwan lakabi — kaiwa kuskure <span class="math notranslate nohighlight">\(\epsilon\)</span> tare da <span class="math notranslate nohighlight">\(O(\log(1/\epsilon))\)</span> lakabin maimakon <span class="math notranslate nohighlight">\(O(1/\epsilon)\)</span> da ake buƙata ta koyon wucin gadi, a ƙalla a yanayi mai yiwuwa tare da dabarun tambaya mai kyau <a href="#id1"><span class="problematic" id="id2">settles2009active</span></a>.</p>
+<p>A aiki, tabbaci ya fi wuya samu. <strong>Koyon aiki na agnostic</strong> <a href="#id3"><span class="problematic" id="id4">balcan2006agnostic</span></a> yana nuna cewa adana lakabi yana yiwuwa ko da lokacin da ra’ayin manufa ba cikin ajin hasashe ba, amma adana yana dogara sosai kan coefficient na rashin jituwa — auna yadda rukunin hasashe masu yiwuwa ke raguwa yayin da bayanai ke tara.</p>
+<p>Tasirin da ke da amfani na aiki: fa’idar koyon aiki ta fi girma lokacin da <strong>iyakar yanke shawara yana sauƙi kuma mai ƙullewa</strong> (don haka tambayoyin rashin tabbas da sauri suna kawar da hasashe mara daidai), kuma mafi ƙanƙanta lokacin da ajin hasashe yana da girma ko iyakar ta rikitarwa.</p>
+</section>
+<hr class="docutils" />
+<section id="dabarun-tambaya">
+<h2>Dabarun Tambaya<a class="headerlink" href="#dabarun-tambaya" title="Permalink to this heading">#</a></h2>
+<section id="samfurin-rashin-tabbas">
+<h3>Samfurin Rashin Tabbas<a class="headerlink" href="#samfurin-rashin-tabbas" title="Permalink to this heading">#</a></h3>
+<p>Mafi sauƙin kuma mafi amfani na dabarun: tambaya misali wanda samfuri ke <em>mafi rashin tabbas</em> game da shi <a href="#id5"><span class="problematic" id="id6">lewis1994sequential</span></a>.</p>
+<p><strong>Mafi ƙarancin amincewar</strong> yana tambaya misali wanda samfuri ke mafi ƙarancin amincewar a cikin hasashen farko:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left(1 - P_\theta(\hat{y} \mid x)\right)
+\]</div>
+<p><strong>Samfurin iyaka</strong> yana la’akari da tazara tsakanin manyan iya yiwuwar biyu da aka hasashe:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmin_{x \in \mathcal{U}} \left(P_\theta(\hat{y}_1 \mid x) - P_\theta(\hat{y}_2 \mid x)\right)
+\]</div>
+<p><strong>Samfurin entropy</strong> yana amfani da cikakkiyar rarrabawar da aka hasashe:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left( -\sum_{k=1}^K P_\theta(y_k \mid x) \log P_\theta(y_k \mid x) \right)
+\]</div>
+<p>Samfurin entropy shine mafi ƙa’ida daga cikin uku — yana la’akari da duk aji — kuma galibi yana inganta sauran akan matsaloli nau’i da yawa.</p>
+</section>
+<section id="tambaya-ta-kwamitin-qbc">
+<h3>Tambaya ta Kwamitin (QbC)<a class="headerlink" href="#tambaya-ta-kwamitin-qbc" title="Permalink to this heading">#</a></h3>
+<p>Horar da <strong>kwamitin</strong> na <span class="math notranslate nohighlight">\(C\)</span> samfurin (ta amfani da bagging, farawa daban-daban, ko tsarin daban-daban). Tambaya misali wanda kwamitin ke rashin jituwa game da shi sosai:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \; \text{disagreement}(\{f_c(x)\}_{c=1}^C)
+\]</div>
+<p>Ana iya auna rashin jituwa a matsayin <strong>entropy na zaɓi</strong> (entropy akan zaɓin rinjaye na kwamitin) ko <strong>KL divergence</strong> daga rarrabawar yarjejeniya.</p>
+<p>QbC yana ba da ƙiyasin rashin tabbas mafi kyau fiye da samfuri ɗaya amma yana buƙatar horar da samfurin da yawa, wanda yana da tsada ta ƙididdiga.</p>
+</section>
+<section id="canjin-samfuri-da-ake-tsammani">
+<h3>Canjin Samfuri da Ake Tsammani<a class="headerlink" href="#canjin-samfuri-da-ake-tsammani" title="Permalink to this heading">#</a></h3>
+<p>Tambaya misali wanda zai haifar da mafi girman canji ga samfuri na yanzu idan aka yi lakabi ga shi. Don samfurin bisa gradient, wannan ya dace da misali mai mafi girman iya ƙarfin gradient da ake tsammani <a href="#id7"><span class="problematic" id="id8">settles2008analysis</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \sum_{y \in \mathcal{Y}} P_\theta(y \mid x) \left\| \nabla_\theta \mathcal{L}(f_\theta(x), y) \right\|
+\]</div>
+<p>Wannan dabarun yana da ƙarfin ka’ida amma yana buƙatar ƙididdige gradient don kowane ɗan takara, yana mai da shi mai tsada don manyan samfurin.</p>
+</section>
+<section id="hanyoyin-core-set-geometrical">
+<h3>Hanyoyin Core-Set / Geometrical<a class="headerlink" href="#hanyoyin-core-set-geometrical" title="Permalink to this heading">#</a></h3>
+<p>Dabarun bisa rashin tabbas na iya kasancewa <strong>masu nuna son zuciya ga waɗanda ke waje</strong>: misali na musamman na iya zama mara tabbas sosai amma ba ya wakiltar rarrabawar bayanai. Hanyoyin Core-set suna magance wannan ta neman samfurin iri-iri da ke rufe sararin fasali.</p>
+<p>Algorithm <strong>k-center greedy</strong> <a href="#id9"><span class="problematic" id="id10">sener2018active</span></a> yana nemo mafi ƙarami na aya waɗanda suka sa kowane aya da ba a yi lakabi ba yana cikin <span class="math notranslate nohighlight">\(\delta\)</span> na aya ɗaya da aka tambaya akalla:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \min_{x' \in \mathcal{L}} d(x, x')
+\]</div>
+<p>watau, tambaya aya mafi nisa daga duk aya da aka yi lakabi a yanzu. Wannan yana ƙarfafa saitin lakabi mai faɗaɗawa.</p>
+</section>
+<section id="badge">
+<h3>BADGE<a class="headerlink" href="#badge" title="Permalink to this heading">#</a></h3>
+<p><strong>Koyon Aiki na Jeri ta Embeddings na Gradient Iri-Iri</strong> <a href="#id11"><span class="problematic" id="id12">ash2020deep</span></a> yana haɗa rashin tabbas da iri-iri: yana zaɓar jeri na misalai waɗanda embeddings na gradient (game da lakabi da aka hasashe) duka suna da girma (rashin tabbas) da iri-iri (suna rufe yankuna daban-daban na sararin gradient). Wannan yana ɗaya daga cikin dabarun zamani mafi gasa.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kiyasin-rashin-tabbas-don-samfurin-zurfin">
+<h2>Ƙiyasin Rashin Tabbas don Samfurin Zurfin<a class="headerlink" href="#kiyasin-rashin-tabbas-don-samfurin-zurfin" title="Permalink to this heading">#</a></h2>
+<p>Dabarun da ke sama suna ɗauka damar ƙwanso iya yiwuwar ƙididdigan da aka daidaita daga samfuri. Don sauƙin samfurin (Logistic regression, masu rarraba softmax), wannan yana da sauƙi. Don cibiyoyin jijiya mai zurfi, samun ƙiyasin rashin tabbas mai aminci yana buƙatar fasaha ƙari.</p>
+<section id="nau-in-rashin-tabbas-biyu">
+<h3>Nau’in Rashin Tabbas Biyu<a class="headerlink" href="#nau-in-rashin-tabbas-biyu" title="Permalink to this heading">#</a></h3>
+<p>Bayan Kendall da Gal <a href="#id13"><span class="problematic" id="id14">kendall2017uncertainties</span></a>, muna bambanta:</p>
+<p><strong>Rashin tabbas aleatoric</strong> (rashin tabbas na bayanai): hayaniya da ke cikin lura waɗanda ba za a rage ta hanyar tara bayani fiye da ba. Hoto mara bayyana yana da rashin tabbas na aleatoric — babu ƙari na horarwa daga rarrabawar ɗaya zai sa samfuri ya fi amincewar akan shi.</p>
+<p><strong>Rashin tabbas epistemic</strong> (rashin tabbas na samfuri): rashin tabbas saboda iyakancin bayanin horarwa ko samfuri da bai ga misalai makamancin haka ba. Rashin tabbas na epistemic <em>zai iya</em> ragewa ta hanyar yin lakabi ga bayani fiye da kima — kuma saboda haka shine adadin da ya dace don zaɓin tambaya na koyon aiki.</p>
+<p>Don koyon aiki, muna son tambaya misalai masu rashin tabbas epistemic mai ƙari, ba rashin tabbas aleatoric mai ƙari ba. Tambaya misali mai rikitarwa ta asali yana bata ƙoƙarin oracle: babu lakabi da za su bayar ya kasance daidai sosai.</p>
+</section>
+<section id="mc-dropout">
+<h3>MC Dropout<a class="headerlink" href="#mc-dropout" title="Permalink to this heading">#</a></h3>
+<p>Hanyar da ke da amfani ga ƙiyasin rashin tabbas epistemic don cibiyoyin jijiya ita ce <strong>MC Dropout</strong> <a href="#id15"><span class="problematic" id="id16">gal2016dropout</span></a>: yi amfani da dropout a lokacin inference kuma gudanar da <span class="math notranslate nohighlight">\(T\)</span> na gaba. Bambancin a cikin hasashe shine ƙiyasin rashin tabbas epistemic.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MCDropoutNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">p_drop</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run T stochastic forward passes with dropout active.</span>
+<span class="sd">    Returns mean prediction and epistemic uncertainty (predictive variance).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># keep dropout active during inference</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="p">])</span>  <span class="c1"># shape: (T, N, C)</span>
+    <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Epistemic uncertainty: mean of variances across passes</span>
+    <span class="n">epistemic</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Aleatoric uncertainty: entropy of mean prediction</span>
+    <span class="n">aleatoric</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">mean_pred</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean_pred</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean_pred</span><span class="p">,</span> <span class="n">epistemic</span><span class="p">,</span> <span class="n">aleatoric</span>
+
+<span class="c1"># Quick demonstration</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MCDropoutNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># In-distribution example (simulated)</span>
+<span class="n">x_familiar</span>   <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="c1"># Out-of-distribution example (far from training distribution)</span>
+<span class="n">x_unfamiliar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.0</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;In-distribution &quot;</span><span class="p">,</span> <span class="n">x_familiar</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Out-of-distribution&quot;</span><span class="p">,</span> <span class="n">x_unfamiliar</span><span class="p">)]:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">al</span> <span class="o">=</span> <span class="n">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> | epistemic: </span><span class="si">{</span><span class="n">ep</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | aleatoric: </span><span class="si">{</span><span class="n">al</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A cikin cibiyar jijiya da ba a horar da ita a sama, misalai biyu suna nuna rashin tabbas makamancin haka. Bayan horarwa, misali da ke waje da rarrabawar zai nuna rashin tabbas epistemic mai ƙari — samfuri bai koyi zana daidai don shigarwa nesa daga rarrabawar horarwa ba.</p>
+</section>
+<section id="hain-gwiwa-mai-zurfi">
+<h3>Haɗin Gwiwa Mai Zurfi<a class="headerlink" href="#hain-gwiwa-mai-zurfi" title="Permalink to this heading">#</a></h3>
+<p>Horar da <span class="math notranslate nohighlight">\(M\)</span> na samfurin da aka farawa ba tare da juna ba kuma matsakaici hasashensu yana ba da ƙiyasin rashin tabbas mafi sauƙi kuma galibi mafi aminci fiye da MC Dropout <a href="#id17"><span class="problematic" id="id18">lakshminarayanan2017simple</span></a>. Rashin jituwa tsakanin mambobin haɗin gwiwa shine alaman rashin tabbas epistemic.</p>
+<p>Don koyon aiki a sikeli, MC Dropout da haɗin gwiwa mai zurfi duka suna ƙara nauyi kwatankwacin <span class="math notranslate nohighlight">\(T\)</span> ko <span class="math notranslate nohighlight">\(M\)</span> hanyoyin gaba. A aiki, <span class="math notranslate nohighlight">\(T = 10\)</span>–<span class="math notranslate nohighlight">\(30\)</span> don MC Dropout ko <span class="math notranslate nohighlight">\(M = 5\)</span> mambobin haɗin gwiwa galibi ya isa wajen jera misalai ta rashin tabbas epistemic, ko da dai ƙimomi na cikakke ba su da daidaitawa.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="zagayen-koyon-aiki-cikakke">
+<h2>Zagayen Koyon Aiki Cikakke<a class="headerlink" href="#zagayen-koyon-aiki-cikakke" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Generate dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">1500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">1500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">1500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index of most uncertain sample (entropy).&quot;&quot;&quot;</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ent</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random baseline.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_queries</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">query_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">labeled_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_idx</span><span class="p">]</span>
+    <span class="n">accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_queries</span> <span class="o">//</span> <span class="n">query_batch</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">])</span>
+        <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+        <span class="c1"># Query</span>
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query_batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;entropy&#39;</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">labeled_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled_idx</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+            <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span>
+
+<span class="n">labels_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">30</span>  <span class="c1"># label counts at each step</span>
+
+<span class="n">accs_active</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+<span class="n">accs_random</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_active</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entropy sampling&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_random</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of labeled examples&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning vs. Random Sampling&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;active_learning_curve.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning reaches </span><span class="si">{</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random sampling reaches </span><span class="si">{</span><span class="n">accs_random</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning saves ~</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">accs_random</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">accs_random</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">accs_active</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels to match random&#39;s final accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="matsalar-farawa-mai-sanyi">
+<h2>Matsalar Farawa Mai Sanyi<a class="headerlink" href="#matsalar-farawa-mai-sanyi" title="Permalink to this heading">#</a></h2>
+<p>Koyon aiki yana buƙatar samfuri da aka horar don ƙididdiga aya da ba a yi lakabi ba — amma a farko, kana da kaɗan (ko ba shi) misalin da aka yi lakabi. Wannan shine <strong>matsalar farawa mai sanyi</strong>.</p>
+<p>Mafita masu amfani:</p>
+<ol class="arabic simple">
+<li><p><strong>Farawa ta damari:</strong> Yi lakabi ga ƙaramin saitin farko ta damari (misalai 20–100) kafin fara koyon aiki.</p></li>
+<li><p><strong>Farawa bisa clustering:</strong> Yi amfani da k-means akan tafkin da ba a yi lakabi ba; yi lakabi ga misali ɗaya daga kowane cluster. Wannan yana tabbatar da iri-iri a cikin saitin farko da aka yi lakabi.</p></li>
+<li><p><strong>Zaɓi bisa embedding:</strong> Yi amfani da encoder da aka horar a baya don ɓoye misalai; zaɓi iri-iri ta core-set.</p></li>
+</ol>
+<p>Don mafi yawan ayyuka, ɗan ƙaramin lakabin farko ta damari galibi ya isa don fara koyon aiki; adadin daidai yana dogara kan daidaito na aji, girman fasali, da rikitarwan samfuri.</p>
+</section>
+<hr class="docutils" />
+<section id="koyon-aiki-na-yanayin-jeri">
+<h2>Koyon Aiki na Yanayin Jeri<a class="headerlink" href="#koyon-aiki-na-yanayin-jeri" title="Permalink to this heading">#</a></h2>
+<p>A aiki, masu sanya lakabi suna aiki a jeri — yana da ƙarancin inganci don horar da kuma aikawa da sabon samfuri bayan kowane lakabi ɗaya. <strong>Koyon aiki na yanayin jeri</strong> yana zaɓar saitin <span class="math notranslate nohighlight">\(b\)</span> misalai don yi lakabi a lokaci ɗaya.</p>
+<p>Zaɓin mafi rashin tabbas <span class="math notranslate nohighlight">\(b\)</span> misalai kawai yana haifar da <strong>tsattsauran maimaitawa</strong>: misalin mara tabbas sosai suna tara tare (misali, misalai kusa da iyakar yanke shawara a yanki ɗaya). Dabarun jeri mafi kyau suna inganta duka rashin tabbas <em>da</em> iri-iri a cikin jeri.</p>
+<p><strong>Tsarin Determinantal Point Process (DPPs)</strong> suna ba da hanyar ƙa’ida don samfuri na jeri iri-iri: suna bayyana rarrabawa akan ƙananan saiti waɗanda ke hukunta abubuwa makamancin haka. Iya yiwuwar ƙaramin saiti <span class="math notranslate nohighlight">\(S\)</span> ƙarƙashin DPP ya dace da <span class="math notranslate nohighlight">\(\det(L_S)\)</span> inda <span class="math notranslate nohighlight">\(L\)</span> shine matrix na kernel da ke ɓoye kamancin.</p>
+</section>
+<hr class="docutils" />
+<section id="ma-aunin-dakatar">
+<h2>Ma’aunin Dakatar<a class="headerlink" href="#ma-aunin-dakatar" title="Permalink to this heading">#</a></h2>
+<p>Yaushe koyon aiki ya kamata ya tsaya? Ma’aunin yau da kullum:</p>
+<ul class="simple">
+<li><p><strong>Kasafin kuɗi ya ƙare:</strong> Mafi sauƙi — tsaya lokacin da kasafin kuɗin lakabi ya ƙare.</p></li>
+<li><p><strong>Kushewar aiki:</strong> Tsaya lokacin da daidaito na samfuri akan saitin tabbatarwa da aka ɗaure bai inganta fiye da <span class="math notranslate nohighlight">\(\delta\)</span> don <span class="math notranslate nohighlight">\(k\)</span> zagaye na jere ba.</p></li>
+<li><p><strong>Iyakar amincewar:</strong> Tsaya lokacin da kaɗan misalin da ba a yi lakabi ba suna da rashin tabbas a saman iyaka.</p></li>
+<li><p><strong>Raguwar ƙarin girma mai yiwuwa:</strong> Ƙiyasta ƙarin mafi yawa daga lakabi ƙari; tsaya lokacin da wannan ya faɗi ƙasa da iyaka <a href="#id19"><span class="problematic" id="id20">bloodgood2009method</span></a>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="lokacin-da-koyon-aiki-ke-aiki-da-lokacin-da-ba-aiki-ba">
+<h2>Lokacin da Koyon Aiki ke Aiki (da Lokacin da Ba Aiki Ba)<a class="headerlink" href="#lokacin-da-koyon-aiki-ke-aiki-da-lokacin-da-ba-aiki-ba" title="Permalink to this heading">#</a></h2>
+<p>Koyon aiki galibi yana aiki lokacin da:</p>
+<ul class="simple">
+<li><p>Lakabi yana da tsada kuma tafkin da ba a yi lakabi ba yana da girma</p></li>
+<li><p>Bayanai yana da tsari bayyananne samfuri zai iya amfani da shi don gano misalai masu bayanai</p></li>
+<li><p>Ajin samfuri ya dace da aiki</p></li>
+</ul>
+<p>Koyon aiki yana yin mara kyau lokacin da:</p>
+<ul class="simple">
+<li><p>Samfuri na farko ya yi mara kyau sosai (farawa mai sanyi) kuma ba zai iya jera misalai da ma’ana ba</p></li>
+<li><p>Dabarun tambaya yana zaɓar waɗanda ke waje ko misalin mislabeled (juriya na hayaniya yana da muhimmanci)</p></li>
+<li><p>Rarrabawar bayanai tana canzawa tsakanin tafkin da ba a yi lakabi ba da rarrabawar gwaji</p></li>
+</ul>
+<p>Damuwa ta aiki ta muhimmanci shine <strong>rashin daidaito na rarrabawa</strong>: koyon aiki galibi yana tambaya misalai kusa da iyakar yanke shawara, yana ƙirƙira saitin da aka yi lakabi mai nuna son zuciya wanda ba zai iya wakilta rarrabawar gwaji da kyau ba. Wannan na iya haifar da iyakar yanke shawara da aka horar da kyau amma ƙididdigan iya yiwuwar mara daidai.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Bita na asali shine <a href="#id21"><span class="problematic" id="id22">settles2009active</span></a>. Tushe na ka’ida (rikitarwan lakabi, iyakar agnostic): <a href="#id23"><span class="problematic" id="id24">balcan2006agnostic</span></a>. Don koyon aiki na musamman ga koyon zurfin, duba <a href="#id25"><span class="problematic" id="id26">ash2020deep</span></a> (BADGE) da <a href="#id27"><span class="problematic" id="id28">sener2018active</span></a> (core-set). Don kimantawa mai sukar lokacin da koyon aiki ke taimaka gaske, duba <a href="#id29"><span class="problematic" id="id30">lowell2019practical</span></a>. Akan rashin tabbas aleatoric da epistemic don samfurin mai zurfi, duba <a href="#id31"><span class="problematic" id="id32">kendall2017uncertainties</span></a>; don haɗin gwiwa mai zurfi a matsayin ƙiyasin rashin tabbas, duba <a href="#id33"><span class="problematic" id="id34">lakshminarayanan2017simple</span></a>; don MC Dropout a matsayin Bayesian inference na kusan, duba <a href="#id35"><span class="problematic" id="id36">gal2016dropout</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ha/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tsarin-koyon-aiki">Tsarin Koyon Aiki</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tushen-ka-ida">Tushen Ka’ida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dabarun-tambaya">Dabarun Tambaya</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#samfurin-rashin-tabbas">Samfurin Rashin Tabbas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tambaya-ta-kwamitin-qbc">Tambaya ta Kwamitin (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#canjin-samfuri-da-ake-tsammani">Canjin Samfuri da Ake Tsammani</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hanyoyin-core-set-geometrical">Hanyoyin Core-Set / Geometrical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kiyasin-rashin-tabbas-don-samfurin-zurfin">Ƙiyasin Rashin Tabbas don Samfurin Zurfin</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nau-in-rashin-tabbas-biyu">Nau’in Rashin Tabbas Biyu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mc-dropout">MC Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hain-gwiwa-mai-zurfi">Haɗin Gwiwa Mai Zurfi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zagayen-koyon-aiki-cikakke">Zagayen Koyon Aiki Cikakke</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matsalar-farawa-mai-sanyi">Matsalar Farawa Mai Sanyi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koyon-aiki-na-yanayin-jeri">Koyon Aiki na Yanayin Jeri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ma-aunin-dakatar">Ma’aunin Dakatar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lokacin-da-koyon-aiki-ke-aiki-da-lokacin-da-ba-aiki-ba">Lokacin da Koyon Aiki ke Aiki (da Lokacin da Ba Aiki Ba)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

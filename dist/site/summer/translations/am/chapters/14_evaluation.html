@@ -1,0 +1,690 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>ግምገማና መለኪያዎች &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/am/chapters/14_evaluation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/am/chapters/14_evaluation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ግምገማና መለኪያዎች</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ሞዴሉ-ተኮር መለኪያዎቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ምደባ መለኪያዎቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ፈጠራ ሞዴሉ መለኪያዎቹ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ትርጓሜ ቁጠባ መለኪያዎቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">ትምህርቱ ዕድሎቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roi">ኢንቨስትመንቱ ተቀምጦ (ROI) ትንተና</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ሰው ግምገማ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#da">ቀጥታ ምዘና (DA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ንጽጽር ግምገማ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checklist">ስነ-ምግባር ፈተና (CheckList)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ሰው ፈጣሪዎቻቸው ጋር ስምምነቱ ሚሄዱ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b">ሰፊ-ሆነው ሥርዓቶቹ ውስጥ A/B ምርምር</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>ግምገማና መለኪያዎች<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>HITL ሥርዓትዎ እያሠራ ስለ ሆነ ለ መረዳት ከ ሞዴሉ ትክክለኛነቱ ደምቡ ማወቅ አይበቃም። ከ ትርጓሜ ወጪዎ ዋጋ ስለ ሚያገኙ፣ ሞዴሉ ከ ሰው ፈጣሪዎቻቸው ጋር ስለ ሚስማማ ዕውነትዎ፣ እና ተጨማሪ ሰው ግብረ-መልስ ነገሮቹን ማሻሻሉ ስለ ሚቀጥሉ ሁሉ ማወቅ ያስፈልጋል። ይህ ምዕራፍ በ HITL አካባቢዎቹ ሁሉን-አቀፍ ግምገማ ሁኔታዎቹን ይዳስሳል።</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>ሞዴሉ-ተኮር መለኪያዎቹ<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>ደረጃ-ML መለኪያዎቹ ቀጥታ ወደ HITL ሥርዓቶቹ ይሠራሉ፣ ዋና ጠቀሜታዎቹን ጨምሮ።</p>
+<section id="id3">
+<h3>ምደባ መለኪያዎቹ<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p><strong>ትክክለኛነቱ</strong> ምድቦቹ ሚዛናዊ ሲሆኑ እና ሁሉም ስህተቶቹ ዋጋ ሲስተካከሉ ተስማሚ ነው። ነገር ግን HITL አካባቢዎቹ ውስጥ ምልክቱ የ ሙከራ ስብስቡ በ ጥያቄ ስልቱ ተዘናጋ ሊሆን ይችላል (Active Learning ያልዘፈቀደ ምሳሌዎቹን ይጠይቃል)፣ ይህ ቀላሉ ትክክለኛነቱ ትምናዎቹን ያልተዓማኝ ያደርጋቸዋል።</p>
+<p><strong>F1 ውጤቱ</strong> ትክክለኛነቱ እና ትዝብቱ ያለ ሃርሞኒካ ዘዴ ማካካሻ ሲሆን ያልሚዛናዊ ምድቦቹ ተስማሚ ነው። HITL አካባቢዎቹ ውስጥ ሁለቱ ትክክለኛነቱ እና ትዝብቱ ሐሰተኛ አዎንታዊ እና ሐሰተኛ አሉታዊ መካከሉ ዋጋ አዛሙነቱ ላይ ተመስርቶ ሊለያይ ይችላሉ።</p>
+<p><strong>AUROC</strong> ዐሰቀዮ ሳይወሰን የ ሞዴሉን ምድቦቹን ለ መለየት ችሎታ ይሄዳል — ለ ማርሽ ዋጋ-ቋሚ ተግባሮቹ ለ ሕክምና ምርምር ሁሉ አስፈላጊ ነው።</p>
+<p><strong>ስምምነቱ</strong> ትምናዎቹ ዕድሎቹ ከ ተጨባጭ ብዛቶቹ ጋር ምን ያህል ሚስማሙ ይሄዳል። HITL ሥርዓቶቹ ውስጥ ከ Active Learning ሳቢያ ባዕድ ምልክቱ ስብስቦቹ ላይ የሠለጠኑ ሞዴሎቹ ትክክለኛ ቢሆኑም ላይስማሙ ይችላሉ።</p>
+</section>
+<section id="id4">
+<h3>ፈጠራ ሞዴሉ መለኪያዎቹ<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>ለ ቋንቋ ሞዴሎቹ እና ፈጠራ ሥርዓቶቹ ግምገማ ሙሉ ለሙሉ ከባድ ነው። ምንም ነጠላ ራስ-ሰር መለኪያ ጥራቱን ሙሉ አይይዝም፦</p>
+<ul class="simple">
+<li><p><strong>BLEU / ROUGE / METEOR፦</strong> ለ ትርጉምና ማጠቃለያ ዋቢ-ላይ-ተደረጉ መለኪያዎቹ። ለ ረዥም-ቅርጽ ፈጠራ ሰው ጥራቱ ፍርዶቹን አቅልሰው ያስቀምጣሉ።</p></li>
+<li><p><strong>ቅድሚያ-ዕድሉ (Perplexity)፦</strong> ሞዴሉ ያልተያዘ ጽሑፍ ምን ያህል ሚተነብዩ ይሄዳል። ለ ጥራቱ አስፈላጊ ሁኔታ ነው ነገር ግን ሙሉ ሁኔታ አይደለም።</p></li>
+<li><p><strong>BERTScore፦</strong> ወደ ዋቢዎቹ ቅርጽ-ላይ-ተደረጉ ተመሳሳይነቱ። ከ n-gram መለኪያዎቹ ይልቅ ከ ሰው ፍርዶቹ ጋር ተሻለ ይስማማሉ።</p></li>
+<li><p><strong>ሰው ግምገማ፦</strong> ወርቅ-ደረጃ ደረጃ። ክፍል 14.3 ይመልከቱ።</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>ትርጓሜ ቁጠባ መለኪያዎቹ<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>HITL ግምገማ ሰው ግብረ-መልስ ቁጠባ ሁኔታ ጥቅም ስለ ሚገኝ ሊሄድ ያስፈልጋል።</p>
+<section id="id6">
+<h3>ትምህርቱ ዕድሎቹ<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p><strong>ትምህርቱ ዕድሉ</strong> ምልክቱ ምሳሌዎቹ ቁጥሩ ሚወሰን ሞዴሉ ምርታማነቱ ሞገዱ ያሳያሉ። ቀጥ ያለ ትምህርቱ ዕድሉ (ጥቂት ምልክቶቹ ጋር ፈጣን ማሻሻያ) የ ትርጓሜ ስልቱ ምሳሌ-ሞቻቸውን ምሳሌዎቹ ሚመርጥ ዕርዝምና ያሳያሉ። ጠፍጣፋ ትምህርቱ ዕድሉ ምልከታዎቹ ምርቶቻቸው ቀኑ ዳሰሳ ዕርዱ ምርቶቻቸው ያሳያሉ።</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedShuffleSplit</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                            <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">4000</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">4000</span><span class="p">:]</span>
+<span class="n">X_pool</span><span class="p">,</span> <span class="n">y_pool</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">4000</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]</span>
+
+<span class="n">label_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">2000</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">label_sizes</span><span class="p">:</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">),</span> <span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_pool</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y_pool</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;f1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">probs</span><span class="p">))</span>
+
+<span class="c1"># Fit learning curve: performance ≈ a - b/sqrt(n)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">learning_curve_fn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">popt_f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">learning_curve_fn</span><span class="p">,</span> <span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;f1&#39;</span><span class="p">],</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">popt_auc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">learning_curve_fn</span><span class="p">,</span> <span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">n_smooth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;f1&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="n">learning_curve_fn</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="o">*</span><span class="n">popt_f1</span><span class="p">),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Fit: </span><span class="si">{</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">/√n&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Labeled examples&quot;</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;F1 score&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Learning Curve: F1&quot;</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">label_sizes</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0d9e8e&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="n">learning_curve_fn</span><span class="p">(</span><span class="n">n_smooth</span><span class="p">,</span> <span class="o">*</span><span class="n">popt_auc</span><span class="p">),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Fit: </span><span class="si">{</span><span class="n">popt_auc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">popt_auc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">/√n&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Labeled examples&quot;</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;AUROC&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Learning Curve: AUROC&quot;</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;learning_curves.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Estimate the annotation budget needed to reach a target performance</span>
+<span class="n">target_f1</span> <span class="o">=</span> <span class="mf">0.80</span>
+<span class="n">n_needed</span> <span class="o">=</span> <span class="p">(</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">popt_f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">target_f1</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated labels needed to reach F1=</span><span class="si">{</span><span class="n">target_f1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">n_needed</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="roi">
+<h3>ኢንቨስትመንቱ ተቀምጦ (ROI) ትንተና<a class="headerlink" href="#roi" title="Permalink to this heading">#</a></h3>
+<p>ሰው ግብረ-መልስ ROI ምላሽ ሰጪ ነው፦ ለ እያንዳንዱ ተጨማሪ ምልክቱ፣ ሞዴሉ ምርታማነቱ ምን ያህል ይሻሻላሉ?</p>
+<div class="math notranslate nohighlight">
+\[
+\text{ROI}(n) = \frac{\Delta \text{performance}(n)}{\text{cost per label}}
+\]</div>
+<p>ሞዴሉ ሲዘምን (እና ቀላሉ-ለ-ትምህርቱ ምሳሌዎቹ ሲሟጠጡ)፣ ROI ብዙ ጊዜ ይቀንሳሉ። ተግባራዊ ፍቺው፦ የ ትርጓሜ ወጪዎቹ ቀደምት ደረጃዎቹ ላይ ROI ከፍተኛ ሲሆን በ ቀዳሚ ደረጃዎቹ ላይ ብዙ ምልክቶቹ ሊሰበሰቡ ይህ ቅድሚያ ሊሰጣቸው ይችላሉ።</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h2>ሰው ግምገማ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<p>ፈጠራ ሥርዓቶቹና ርዕሰ-ጉዳዮቹ ተግባሮቹ ለ ሰው ግምገማ ወርቅ-ደረጃ ሆኖ ይቀጥሉ።</p>
+<section id="da">
+<h3>ቀጥታ ምዘና (DA)<a class="headerlink" href="#da" title="Permalink to this heading">#</a></h3>
+<p>ምሳሌ ሰጪዎቹ ሥርዓቱ ምርቶቹን ፍጹም ሚዛን ላይ ይሚዘን (ለ ምሳሌ፣ ለ ትርጉም ጥራቱ 1–100፣ ወይም ለ ምላሽ ጠቃሚነቱ 1–5)። DA በ ማሽን ትርጉም ግምገማ (WMT ቤንች-ማርኮቹ) ደረጃ ተቀምጧል።</p>
+<p><strong>ለ DA ምርጥ ስርዓቶቹ፦</strong></p>
+<ul class="simple">
+<li><p>የ ምርቶቹን ቅደም ተከተሉ ቀደምት-ቦታ-አፍነትን ለ ማስቀረት ዘፈቀደ ያድርጉ</p></li>
+<li><p>ለ ነጥብ ምሳሌ ሰጪዎቹ (3–5 ቢያንስ) ቂልሙ ቁጥሩ ይጠቀሙ</p></li>
+<li><p>ጥራቱ ቁጥጥሮቹ ያካትቱ (ኩርፊያ ምሳሌ ሰጪዎቹን ለ መያዝ ግልጽ ጥሩ እና ጥፍ ምሳሌዎቹ)</p></li>
+<li><p>ጠቅላላ ውጤቶቹ ጎን ምሳሌ ሰጪዎቹ ስምምነቱ ሪፖርት ያድርጉ</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>ንጽጽር ግምገማ<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>ምሳሌ ሰጪዎቹ ሁለቱ ምርቶቹ መካከሉ ይምርጣሉ፦ “የትኛው ሻለ?” ንጽጽር ፍርዶቹ ከ ፍጹም ዋጋ አሰጣጡ ፈጣን እና ወጥ ናቸው (ምዕራፍ 8 ይምልከቱ)። <strong>ELO ዋጋ አሰጣጥ ሥርዓቶቹ</strong> (ከ ቼስ ተዋሰ) ጥንዱ ንጽጽሩ ውጤቶቹን ቀጣይ ጥራቱ ደረጃ አሰጣጥ ወደ ይቀይሩ።</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">update_elo</span><span class="p">(</span><span class="n">rating_a</span><span class="p">,</span> <span class="n">rating_b</span><span class="p">,</span> <span class="n">outcome_a</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update ELO ratings. outcome_a: 1=A wins, 0=B wins, 0.5=tie.&quot;&quot;&quot;</span>
+    <span class="n">expected_a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">((</span><span class="n">rating_b</span> <span class="o">-</span> <span class="n">rating_a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">400</span><span class="p">))</span>
+    <span class="n">expected_b</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">expected_a</span>
+    <span class="n">new_a</span> <span class="o">=</span> <span class="n">rating_a</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">outcome_a</span> <span class="o">-</span> <span class="n">expected_a</span><span class="p">)</span>
+    <span class="n">new_b</span> <span class="o">=</span> <span class="n">rating_b</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">outcome_a</span><span class="p">)</span> <span class="o">-</span> <span class="n">expected_b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_a</span><span class="p">,</span> <span class="n">new_b</span>
+
+<span class="c1"># Simulate 5 model versions being compared pairwise</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">true_quality</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">]</span>  <span class="c1"># underlying model quality</span>
+<span class="n">n_models</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">true_quality</span><span class="p">)</span>
+<span class="n">elo_ratings</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="mf">1000.0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_models</span><span class="p">)}</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>  <span class="c1"># 500 pairwise comparisons</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_models</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">p_i_wins</span> <span class="o">=</span> <span class="n">true_quality</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">true_quality</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">true_quality</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p_i_wins</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="n">elo_ratings</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">elo_ratings</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_elo</span><span class="p">(</span><span class="n">elo_ratings</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">elo_ratings</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">outcome</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ELO Rankings after 500 comparisons:&quot;</span><span class="p">)</span>
+<span class="n">sorted_models</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">elo_ratings</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">elo</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_models</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">: Model </span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">  ELO=</span><span class="si">{</span><span class="n">elo</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">  True quality=</span><span class="si">{</span><span class="n">true_quality</span><span class="p">[</span><span class="n">model_id</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="checklist">
+<h3>ስነ-ምግባር ፈተና (CheckList)<a class="headerlink" href="#checklist" title="Permalink to this heading">#</a></h3>
+<p><strong>CheckList</strong> <a href="#id9"><span class="problematic" id="id10">ribeiro2020beyond</span></a> NLP ሞዴሎቹ ሥርዓታዊ ስነ-ምግባር ግምገማ ዘዴ ነው። ዘፈቀደ ሙከራ ስብስቦቹ ፋንታ ልዩ ችሎታዎቹን የሚሄዱ ሙከራ ጉዳዮቹ ይዘጋጁ፦</p>
+<ul class="simple">
+<li><p><strong>ዝቅተኛ ሙሉ ሙከራዎቹ (MFT)፦</strong> ሞዴሉ ቀላሉ፣ ግልጽ ጉዳዮቹን ሊሸፍን ይቻላሉ?</p></li>
+<li><p><strong>ቋሚነት ሙከራዎቹ (INV)፦</strong> ሞዴሉ ምርቱ ሲቀር (ለ ምሳሌ፣ ሲደምሩ) ሊቀይር ያልሚፈልገው ሊቀይር ይቻላሉ?</p></li>
+<li><p><strong>ቅጣት ፍቺ ሙከራዎቹ (DIR)፦</strong> ሞዴሉ ምርቱ ምናልባት ሲቀር ሊቀይር ሚፈልጉ ቅጣቱ ሚቀይር ይቻላሉ?</p></li>
+</ul>
+<p>CheckList ሰው ግምገማ ታቅዶ እና ሊሠራ-የሚቻሉ ያደርጋሉ፦ ነጠላ ትክክለኛነቱ ቁጥሩ ፋንታ ችሎታ-ፕሮፋይሉ ያቀርባሉ።</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id11">
+<h2>ሰው ፈጣሪዎቻቸው ጋር ስምምነቱ ሚሄዱ<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<p>RLHF ሥርዓቶቹ ለ ስምምነቱ ሚሄዱ ዋና ግምገማ ፈተና ነው።</p>
+<p><strong>ዋጋ ሞዴሉ ግምገማ፦</strong> ዋጋ ሞዴሉ ትክክለኛነቱ ላይ ሙከራ ስምምነቱ ዋቢ ስብስቡ። Ouyang et al. <a href="#id12"><span class="problematic" id="id13">ouyang2022training</span></a> ለ InstructGPT ዋጋ ሞዴሉ ወደ 72% ጥንዱ ትክክለኛነቱ ሪፖርት ያደርጋሉ፤ ተመሳሳዩ RLHF ቧንቧ መስመሮቹ ለ ሰፊ ዋቢ ነጥብ ቁጥሮቹ ብዙ ጊዜ ይጠቀሱ ቢሆንም ውጤቶቹ ሰፊ ልዩነት አለቸው።</p>
+<p><strong>ሽልማቱ ዕድሉ፦</strong> ሁለቱ ሞዴሉ ስሪቶቹ (ለ ምሳሌ፣ SFT ቤዝ-ላይን vs. RLHF ዳቆ)፣ ሰው ጥንዱ ንጽጽሮቹ ውስጥ RLHF ሞዴሉ ምላሾቹ ምን ያህሉ ይሸነፋሉ?</p>
+<p><strong>GPT-4 ግምጋሚ ሆኖ፦</strong> ፈጣን ድጋሚ ለ ምላሾቹ ምርምር ሊቻሉ LLM ለ ምርምር ዘዴ ፓፑ ሆኗል። Gilardi et al. <a href="#id14"><span class="problematic" id="id15">gilardi2023chatgpt</span></a> እና Zheng et al. <a href="#id16"><span class="problematic" id="id17">zheng2023judging</span></a> LLM ምርምር ሰው ፍርዱ ጋር ስምምነቱ ከ 0.7 ወደ 0.9 ተፈጥሯዊ ለ ተግባሩ ሊደርሱ ያሳያሉ — ፈጣን A/B ንጽጽሩ ሁሉ ጥቅም አለ፣ ነገር ግን ቅደም ተከተሉ ስሜቱ፣ ባህላዊ ዝርዝሩ፣ ወይም ደህንነቱ ጉዳዮቹ ለ መያዝ ሊጠፋ ይቻላሉ።</p>
+<p><strong>ቅደም ተከተሉ ስሜቱ ምርምር፦</strong> ሞዴሉ ተዘዋዋሪ ተጠቃሚ ምርጫ ላይ ተደርጎ ምላሾቹ ሊቀይር ዕድሉ ሚሄዱ (ለ ምሳሌ፣ “X ትክክለኛ ነው ብዬ አስባለሁ፤ ምን ታስባለህ?”)። ሚስማሙ ሞዴሉ ቅደም ተከተሉ ስሜቱ ሊሆን አይፈለግም።</p>
+</section>
+<hr class="docutils" />
+<section id="a-b">
+<h2>ሰፊ-ሆነው ሥርዓቶቹ ውስጥ A/B ምርምር<a class="headerlink" href="#a-b" title="Permalink to this heading">#</a></h2>
+<p>ለ ምርቱ ሥርዓቶቹ ዋናው ግምገማ <strong>A/B ምርምር</strong> ነው፦ ተጠቃሚዎቹ አንድ ልክ ወደ አዲሱ ሞዴሉ ስሪቱ ይልኳቸው እና ዝቅተኛ ውጤቶቹ ይሄዱ።</p>
+<p>A/B ምርምር ሞዴሉ ጥራቱ ያልተሳሳተ ትምና ትምናዎቹ ሰፊ ሙከራ አካባቢዎቹ ውስጥ ይሰጣሉ፣ ቤተ ሙከራ ግምገማ ሚፈፀቱ ዕርዶቹ ይሸፍናሉ (ተጠቃሚ ምቾቱ፣ ሕዝቡ ስርጭቱ፣ ጫፍ ጉዳዮቹ)።</p>
+<p>ፈተናው፦ ተስማሚ ዝቅተኛ ውጤቶቹ። ተሳትፎ መለኪያዎቹ (ጠቅ ማድረጉ፣ ስብሰባ ርዝማኔ) ተንኮለኛ ምቾቱ ሊሸልሙ ይቻላሉ። ተግባሩ ማጠናቀቂያ ዕድሎቹ ወይም ተጠቃሚ ደስታ ዳሰሳዎቹ ለ ስምምነቱ ይሻሉ ነገር ግን ዶሞ ናቸው።</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>CheckList ስነ-ምግባር ምርምር፦ <a href="#id18"><span class="problematic" id="id19">ribeiro2020beyond</span></a>። ለ RLHF ግምገማ ዘዴ፣ <a href="#id20"><span class="problematic" id="id21">ouyang2022training</span></a> ይምልከቱ። ለ MT ሰው ግምገማ ምርጥ ስርዓቶቹ፦ <a href="#id22"><span class="problematic" id="id23">graham2015accurate</span></a>። ለ ትምህርቱ ዕድሉ ቲዎሪ፦ <a href="#id24"><span class="problematic" id="id25">mukherjee2003estimating</span></a>።</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/am/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ሞዴሉ-ተኮር መለኪያዎቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ምደባ መለኪያዎቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ፈጠራ ሞዴሉ መለኪያዎቹ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ትርጓሜ ቁጠባ መለኪያዎቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">ትምህርቱ ዕድሎቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roi">ኢንቨስትመንቱ ተቀምጦ (ROI) ትንተና</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ሰው ግምገማ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#da">ቀጥታ ምዘና (DA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ንጽጽር ግምገማ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checklist">ስነ-ምግባር ፈተና (CheckList)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ሰው ፈጣሪዎቻቸው ጋር ስምምነቱ ሚሄዱ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b">ሰፊ-ሆነው ሥርዓቶቹ ውስጥ A/B ምርምር</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

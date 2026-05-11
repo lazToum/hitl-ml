@@ -1,0 +1,24 @@
+/* Spring Edition — clean code-focused theme */
+:root {
+    --teal:   #0d9e8e;
+    --indigo: #2b3a8f;
+    --coral:  #e05c5c;
+    --text:   #1a2233;
+}
+
+.answer-box {
+    display: block;
+    min-height: 2.5rem;
+    border-bottom: 1px solid #ccc;
+    margin: 0.5rem 0;
+}
+
+/* Subtle code block enhancements */
+div.highlight pre {
+    border-left: 3px solid var(--teal);
+}
+
+/* Admonition colours */
+div.admonition.tip { border-left-color: var(--teal); }
+div.admonition.warning { border-left-color: var(--coral); }
+div.admonition.note { border-left-color: var(--indigo); }

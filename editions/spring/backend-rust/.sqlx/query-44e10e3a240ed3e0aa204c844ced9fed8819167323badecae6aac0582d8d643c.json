@@ -1,0 +1,40 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT ct.clue_id, c.hunt_id, c.sequence, c.title\n           FROM clue_tokens ct\n           JOIN clues c ON c.id = ct.clue_id\n           WHERE ct.token = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "clue_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "hunt_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "sequence",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "title",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "44e10e3a240ed3e0aa204c844ced9fed8819167323badecae6aac0582d8d643c"
+}

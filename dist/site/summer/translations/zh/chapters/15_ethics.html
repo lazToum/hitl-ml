@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>公平性、偏见与伦理 &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/zh/chapters/15_ethics';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/zh/chapters/15_ethics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>公平性、偏见与伦理</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">HITL系统中偏见的来源</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">标注者人口构成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">任务框架</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">平台效应</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">确认偏见与锚定偏见</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">HITL系统中的公平性</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">什么是公平性？</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">公平性感知的主动学习</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">标注者福利</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">幽灵工作问题</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">伦理实践</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">标注中的隐私问题</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#phi-pii">受保护健康信息（PHI）和个人可识别信息（PII）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">合成数据作为替代方案</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">对抗性标注与数据投毒</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">机构伦理</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irb">IRB与伦理审查</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">数据治理</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">透明度与问责制</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>公平性、偏见与伦理<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>人在回路系统继承了其中人类的能力与局限。标注者将知识、判断力和创造力带到工作中——但也带来了偏见、疲劳和他们自身生活的社会情境。我们在设计HITL系统时做出的选择——谁来标注、被问了什么、如何获得报酬，以及他们的工作被如何使用——其影响远超模型准确率指标。</p>
+<p>本章探讨HITL ML的伦理维度。</p>
+<hr class="docutils" />
+<section id="hitl">
+<h2>HITL系统中偏见的来源<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<section id="id2">
+<h3>标注者人口构成<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>标注不是中立的行为。标注者分配的标签反映了他们的视角、经历和文化情境。当标注者群体人口构成单一——通常正是这种情况，众包工作偏向年轻、男性和西方人——由此产生的数据集编码了这一群体的视角。</p>
+<p><strong>证据：</strong> NLP标注数据集的研究发现，标注者的人口特征能够预测他们对主观任务（毒性、情感、冒犯性）的标签选择。由以美国为主的众包工人标注的数据集，编码了不适用于其他地区的美国文化规范 <a href="#id3"><span class="problematic" id="id4">geva2019annotator</span></a>。</p>
+<p><strong>后果：</strong> 在此类数据上训练的模型，对与标注者群体相似的用户表现良好，对不相似的用户则表现较差，或存在偏见。</p>
+<p><strong>缓解措施：</strong> 刻意推进队伍多样化；分层标注（确保来自相关人口群体的标注者对相关任务做出贡献）；追踪标注者人口构成及其对标签分布的影响。</p>
+</section>
+<section id="id5">
+<h3>任务框架<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>问题的框架方式影响其所引发的答案。如果问标注者”这段文字是有毒的吗？”他们的回答可能与问”这段文字会伤害到被提及群体的成员吗？”不同。框架内嵌入了关于什么重要的假设。</p>
+<p><strong>示例：</strong> 社交媒体上”滥用性语言”的标注，根据标注者是否被展示了关于作者身份的情境信息而有显著差异。在孤立情境下看似具有威胁性的陈述，当提供情境时，可能被认可为被征用的语言或群体内部的幽默。</p>
+</section>
+<section id="id6">
+<h3>平台效应<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>平台和支付结构影响标注质量。按任务而非按小时付费的工人有快速工作的激励；这提高了吞吐量，但降低了质量。担心因低准确率被平台封禁的工人，可能会避免标记”不确定”而选择猜测，从而掩盖了真正的歧义。</p>
+</section>
+<section id="id7">
+<h3>确认偏见与锚定偏见<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>标注者受以下因素影响：</p>
+<ul class="simple">
+<li><p><strong>预标注：</strong> 呈现给标注者的模型预测，被接受的频率多于被拒绝，即使在错误时也是如此</p></li>
+<li><p><strong>顺序效应：</strong> 在不同情境下标注同一条目会产生不同答案</p></li>
+<li><p><strong>启动效应：</strong> 任务中的前一条目影响后续条目的标注方式</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h2>HITL系统中的公平性<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<section id="id9">
+<h3>什么是公平性？<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>机器学习中的公平性是一个有争议的概念，有多种形式定义，这些定义往往相互不兼容 <a href="#id10"><span class="problematic" id="id11">barocas2019fairness</span></a>。对HITL而言，最相关的维度是：</p>
+<p><strong>代表性：</strong> 训练数据是否代表了模型将影响的人口群体？</p>
+<p><strong>性能均等：</strong> 模型在不同人口群体中的表现是否相同？</p>
+<p><strong>标注一致性：</strong> 相同的行为是否被一致标注，无论谁在执行这些行为？（研究表明，当相同内容被归因于不同种族或性别群体时，有时会被不同地标注。）</p>
+</section>
+<section id="id12">
+<h3>公平性感知的主动学习<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>标准主动学习查询聚焦于模型不确定性，倾向于集中在多数类样本上。这可能加剧少数群体的性能差距。</p>
+<p><strong>公平性感知的查询策略</strong>用多样性或代表性约束来补充不确定性标准：</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left[ \lambda \cdot \text{不确定性}(x) + (1 - \lambda) \cdot \text{少数群体加分}(x) \right]
+\]</div>
+<p>设置 <span class="math notranslate nohighlight">\(\lambda &lt; 1\)</span> 确保查询策略不会完全忽视少数群体的代表性。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h2>标注者福利<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<section id="id14">
+<h3>幽灵工作问题<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>驱动机器学习的标注工作在很大程度上是不可见的。数据工人——常常在全球南方——以低薪酬、无福利的零工经济安排，在没有工作保障的情况下，为图像添加标签、转录语音和审核内容。Kate Crawford和Vladan Joler的”AI系统的解剖” <a href="#id15"><span class="problematic" id="id16">crawford2018anatomy</span></a> 以及Mary Gray和Siddharth Suri的”幽灵工作” <a href="#id17"><span class="problematic" id="id18">gray2019ghost</span></a> 记录了这种劳动的规模和不稳定性。</p>
+<p><strong>Amazon MTurk数据：</strong> 2018年对MTurk收入的系统性分析发现，有效时薪中位数约为2美元/小时——低于美国大多数州和许多高收入国家的最低工资 <a href="#id19"><span class="problematic" id="id20">hara2018data</span></a>。高收入国家以外的工人往往面临额外障碍：发布者经常将高薪任务限制在仅限美国的资质范围内，而竞争剩余开放任务的工人群体是全球性的，进一步压低了有效收入。</p>
+<p><strong>内容审核：</strong> 一种特别有害的标注工作形式——审核图形、暴力和令人不安的内容——已被与标注工人的创伤后应激障碍、抑郁症和焦虑症相关联 <a href="#id21"><span class="problematic" id="id22">newton2019trauma</span></a>。平台因心理健康支持不足和过度暴露限额而受到批评。</p>
+</section>
+<section id="id23">
+<h3>伦理实践<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h3>
+<p><strong>公平薪酬：</strong> 以不低于当地最低工资的标准向标注工人支付报酬。研究表明，更高的薪酬吸引了更高质量的工人，而不会按比例增加每个正确标签的成本。</p>
+<p><strong>工作可见性：</strong> 在出版物和产品文档中承认创建训练数据的劳动。</p>
+<p><strong>心理健康支持：</strong> 对于审核有害内容的工人，提供心理支持、轮岗安排和暴露限制。</p>
+<p><strong>工人代表：</strong> 使标注工人能够报告关切、请求指南澄清，并对不公平的质量评估提出异议。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id24">
+<h2>标注中的隐私问题<a class="headerlink" href="#id24" title="Permalink to this heading">#</a></h2>
+<section id="phi-pii">
+<h3>受保护健康信息（PHI）和个人可识别信息（PII）<a class="headerlink" href="#phi-pii" title="Permalink to this heading">#</a></h3>
+<p>标注任务通常涉及敏感个人数据。医疗标注项目可能使工人接触到患者记录；NLP项目可能使工人接触到私人通信；内容审核项目使工人接触到用户的个人披露。</p>
+<p>监管框架（HIPAA、GDPR）限制个人数据如何与标注者队伍共享。关键原则：</p>
+<ul class="simple">
+<li><p><strong>数据最小化：</strong> 只共享标注者完成任务所需的信息</p></li>
+<li><p><strong>去标识化：</strong> 在可能的情况下，在标注前删除PHI和PII</p></li>
+<li><p><strong>同意：</strong> 在标注真实用户数据时，确保适当的同意或合法依据</p></li>
+<li><p><strong>访问控制：</strong> 根据角色和权限限制哪些标注者可以访问敏感数据</p></li>
+</ul>
+</section>
+<section id="id25">
+<h3>合成数据作为替代方案<a class="headerlink" href="#id25" title="Permalink to this heading">#</a></h3>
+<p>对于真实数据带有隐私风险的任务，合成数据生成可以创建可用于标注的数据集，而不会暴露敏感信息。例如，对于临床NLP，合成的电子病历文本可以为去标识化模型提供真实的训练数据，而不会暴露真实的患者记录。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id26">
+<h2>对抗性标注与数据投毒<a class="headerlink" href="#id26" title="Permalink to this heading">#</a></h2>
+<p>HITL系统创造了一个攻击面：如果攻击者能够影响标注过程，他们就能影响模型的行为。</p>
+<p><strong>通过标注进行数据投毒：</strong> 能够访问标注者队伍的攻击者（例如，一个被破坏的众包工人账户）可以注入系统性错误标注的样本。在主动学习设置中，这特别有效，因为模型优先查询不确定样本——这可能正是攻击者的目标。</p>
+<p><strong>通过反馈进行奖励黑客攻击：</strong> 在RLHF中，持续给某些类型内容高分的标注者（或AI生成的标注）可以引导模型朝向该内容，无论其真实质量如何。</p>
+<p><strong>缓解措施：</strong> 每条数据使用多个独立标注者；对标注模式进行异常值检测；监控异常的一致或不一致情况；维护不能被标注者队伍影响的评估集。</p>
+</section>
+<hr class="docutils" />
+<section id="id27">
+<h2>机构伦理<a class="headerlink" href="#id27" title="Permalink to this heading">#</a></h2>
+<section id="irb">
+<h3>IRB与伦理审查<a class="headerlink" href="#irb" title="Permalink to this heading">#</a></h3>
+<p>涉及人类受试者（包括标注工人）的研究项目通常需要机构审查委员会（IRB）批准。收集关于工人信念、对敏感内容的反应或人口统计信息的标注项目，应在与其他人类受试者研究相同的伦理框架下进行审查。</p>
+</section>
+<section id="id28">
+<h3>数据治理<a class="headerlink" href="#id28" title="Permalink to this heading">#</a></h3>
+<p>组织应对以下方面制定清晰政策：</p>
+<ul class="simple">
+<li><p>哪些数据可以发送到外部标注，哪些必须在内部标注</p></li>
+<li><p>标注数据的保留期限及由谁保管</p></li>
+<li><p>谁有权访问标注及基于其训练的模型</p></li>
+<li><p>如何处理删除标注数据的请求（GDPR的被遗忘权）</p></li>
+</ul>
+</section>
+<section id="id29">
+<h3>透明度与问责制<a class="headerlink" href="#id29" title="Permalink to this heading">#</a></h3>
+<p>受机器学习系统影响的用户，对了解这些系统是如何构建的有正当利益。记录标注方法论——谁标注了数据、在什么条件下、遵循什么指南——是一种为用户、监管者和整个领域带来好处的问责形式。</p>
+<p><strong>数据集数据表</strong> <a href="#id30"><span class="problematic" id="id31">gebru2021datasheets</span></a> 为记录数据集来源、标注程序和已知局限性提供了结构化模板。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>算法公平性框架：<a href="#id32"><span class="problematic" id="id33">barocas2019fairness</span></a>。幽灵工作与平台劳动：Gray &amp; Suri（2019）。数据集数据表：<a href="#id34"><span class="problematic" id="id35">gebru2021datasheets</span></a>。内容审核工人福利：<a href="#id36"><span class="problematic" id="id37">newton2019trauma</span></a>。标注者人口构成与NLP数据集：<a href="#id38"><span class="problematic" id="id39">geva2019annotator</span></a>。</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/zh/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">HITL系统中偏见的来源</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">标注者人口构成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">任务框架</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">平台效应</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">确认偏见与锚定偏见</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">HITL系统中的公平性</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">什么是公平性？</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">公平性感知的主动学习</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">标注者福利</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">幽灵工作问题</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">伦理实践</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">标注中的隐私问题</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#phi-pii">受保护健康信息（PHI）和个人可识别信息（PII）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">合成数据作为替代方案</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">对抗性标注与数据投毒</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">机构伦理</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irb">IRB与伦理审查</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">数据治理</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">透明度与问责制</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

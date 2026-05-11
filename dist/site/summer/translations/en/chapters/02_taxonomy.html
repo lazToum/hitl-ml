@@ -1,0 +1,590 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>A Taxonomy of Human–Machine Interaction &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/en/chapters/02_taxonomy';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/en/chapters/02_taxonomy.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>A Taxonomy of Human–Machine Interaction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#levels-of-automation">Levels of Automation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-in-the-loop-hitl">Human-in-the-Loop (HITL)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-on-the-loop-hotl">Human-on-the-Loop (HOTL)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-in-command-hic">Human-in-Command (HIC)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-vs-passive-human-involvement">Active vs. Passive Human Involvement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-vs-multiple-annotators">Single vs. Multiple Annotators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-unified-framework">A Unified Framework</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="a-taxonomy-of-humanmachine-interaction">
+<h1>A Taxonomy of Human–Machine Interaction<a class="headerlink" href="#a-taxonomy-of-humanmachine-interaction" title="Permalink to this heading">#</a></h1>
+<p>A precise vocabulary is the prerequisite for clear thinking. The term “human-in-the-loop” is used loosely in practice — sometimes to mean that a human labels training data, sometimes that a human can override a model’s decision, and sometimes that a human is actively directing the learning process in real time. These are meaningfully different things.</p>
+<p>This chapter maps the landscape of human–machine interaction in ML, providing the conceptual vocabulary used throughout the rest of the handbook.</p>
+<hr class="docutils" />
+<section id="levels-of-automation">
+<h2>Levels of Automation<a class="headerlink" href="#levels-of-automation" title="Permalink to this heading">#</a></h2>
+<p>The most fundamental distinction is how actively the human is involved in the system’s decision-making. A well-known framework from automation theory <a href="#id1"><span class="problematic" id="id2">sheridan1992telerobotics</span></a> distinguishes ten levels, but for ML purposes three categories capture the important variation:</p>
+<section id="human-in-the-loop-hitl">
+<h3>Human-in-the-Loop (HITL)<a class="headerlink" href="#human-in-the-loop-hitl" title="Permalink to this heading">#</a></h3>
+<p>The human is an <em>active participant in the learning process</em>. Decisions — or at least, consequential decisions — require human input before they are finalized. The system cannot operate without ongoing human engagement.</p>
+<p><em>Examples:</em> An active learning system that queries a clinician before adding a case to training data. A data annotator labeling examples that are immediately used for model updates. An RLHF labeler comparing model outputs.</p>
+</section>
+<section id="human-on-the-loop-hotl">
+<h3>Human-on-the-Loop (HOTL)<a class="headerlink" href="#human-on-the-loop-hotl" title="Permalink to this heading">#</a></h3>
+<p>The system operates autonomously but a human monitors it and can intervene. The human is a <em>supervisor</em>, not a participant. Feedback may or may not flow back into training.</p>
+<p><em>Examples:</em> A content moderation system that flags posts automatically; a human reviewer samples and corrects a fraction of decisions. An autopilot that flies the plane but alerts the pilot to anomalies.</p>
+</section>
+<section id="human-in-command-hic">
+<h3>Human-in-Command (HIC)<a class="headerlink" href="#human-in-command-hic" title="Permalink to this heading">#</a></h3>
+<p>The human makes all decisions; the system provides <em>recommendations or information</em> but has no autonomy. This is the weakest form of ML deployment.</p>
+<p><em>Examples:</em> A diagnostic support system that shows a doctor the model’s probability estimate but leaves the final decision entirely to the physician.</p>
+<div class="tip admonition">
+<p class="admonition-title">Which level is right?</p>
+<p>The appropriate level of automation depends on the cost of errors, the reliability of the model, the expertise of available humans, and the latency constraints of the task. These factors change as a model matures — most systems start HITL and migrate toward HOTL as confidence grows.</p>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Raw data --&gt; Preprocessing --&gt; Features --&gt; Training --&gt; Evaluation --&gt; Deployment
+    ^              ^                           ^              ^              ^
+    |              |                           |              |              |
+ Collection    Annotation                  Active          Testing       Monitoring
+ feedback      &amp; labeling                 learning        feedback      &amp; correction
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stage</p></th>
+<th class="head"><p>Human role</p></th>
+<th class="head"><p>Chapter</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Collection</p></td>
+<td><p>Deciding what data to collect; sampling strategy</p></td>
+<td><p>3, 4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Annotation</p></td>
+<td><p>Assigning labels, structures, metadata</p></td>
+<td><p>3, 13</p></td>
+</tr>
+<tr class="row-even"><td><p>Training</p></td>
+<td><p>Active learning queries; online feedback</p></td>
+<td><p>4, 5, 6</p></td>
+</tr>
+<tr class="row-odd"><td><p>Evaluation</p></td>
+<td><p>Human evaluation of model outputs</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-even"><td><p>Deployment</p></td>
+<td><p>Monitoring, exception handling, corrections</p></td>
+<td><p>12, 14</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="active-vs-passive-human-involvement">
+<h2>Active vs. Passive Human Involvement<a class="headerlink" href="#active-vs-passive-human-involvement" title="Permalink to this heading">#</a></h2>
+<p>In <em>active</em> HITL, the system selects which data points to present to the human — asking questions strategically. In <em>passive</em> HITL, the human provides feedback on whatever data happens to arrive (e.g., data labeling batches assigned sequentially).</p>
+<p>Active involvement is more efficient because feedback is directed where it will most improve the model. Passive involvement is simpler to implement and manage.</p>
+<p>A related distinction is between <strong>batch</strong> and <strong>online</strong> feedback:</p>
+<ul class="simple">
+<li><p><strong>Batch:</strong> Humans label a large pool of examples; the model retrains. Repeat.</p></li>
+<li><p><strong>Online (streaming):</strong> Human feedback arrives continuously; the model updates incrementally.</p></li>
+</ul>
+<p>Batch workflows are the norm in industry (annotation projects followed by training runs). Online workflows are more natural for interactive systems and reinforcement learning settings.</p>
+</section>
+<hr class="docutils" />
+<section id="single-vs-multiple-annotators">
+<h2>Single vs. Multiple Annotators<a class="headerlink" href="#single-vs-multiple-annotators" title="Permalink to this heading">#</a></h2>
+<p>Most formal presentations of HITL assume a single, consistent annotator. In practice, annotation involves many people, and their judgments differ.</p>
+<p><strong>Aggregation</strong> combines multiple annotations into a single label, typically by majority vote or a statistical model (Chapter 13).</p>
+<p><strong>Disagreement as signal</strong> — some researchers argue that annotator disagreement is valuable information that should not be collapsed into a single “gold” label. Perspectivist approaches to NLP, for instance, preserve multiple annotations as soft labels that reflect the genuine ambiguity of the data <a href="#id3"><span class="problematic" id="id4">uma2021learning</span></a>.</p>
+</section>
+<hr class="docutils" />
+<section id="a-unified-framework">
+<h2>A Unified Framework<a class="headerlink" href="#a-unified-framework" title="Permalink to this heading">#</a></h2>
+<p>We can represent any HITL configuration with a five-tuple:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{HITL config} = (\text{level}, \text{modality}, \text{stage}, \text{frequency}, \text{annotators})
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><strong>level</strong> <span class="math notranslate nohighlight">\(\in\)</span> {HITL, HOTL, HIC}</p></li>
+<li><p><strong>modality</strong> <span class="math notranslate nohighlight">\(\in\)</span> {label, correction, demonstration, preference, NL, implicit}</p></li>
+<li><p><strong>stage</strong> <span class="math notranslate nohighlight">\(\in\)</span> {collection, annotation, training, evaluation, deployment}</p></li>
+<li><p><strong>frequency</strong> <span class="math notranslate nohighlight">\(\in\)</span> {batch, online}</p></li>
+<li><p><strong>annotators</strong> <span class="math notranslate nohighlight">\(\in \mathbb{N}^+\)</span> (number of annotators per item)</p></li>
+</ul>
+<p>This taxonomy lets us compare diverse HITL systems on the same axes and reason about the trade-offs between them. The rest of the handbook drills into specific cells of this space.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For an empirical study of how annotation decisions affect downstream model behavior, see <a href="#id5"><span class="problematic" id="id6">bender2021stochastic</span></a>. For a survey of interactive ML systems, see <a href="#id7"><span class="problematic" id="id8">amershi2014power</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/en/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#levels-of-automation">Levels of Automation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-in-the-loop-hitl">Human-in-the-Loop (HITL)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-on-the-loop-hotl">Human-on-the-Loop (HOTL)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-in-command-hic">Human-in-Command (HIC)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-vs-passive-human-involvement">Active vs. Passive Human Involvement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-vs-multiple-annotators">Single vs. Multiple Annotators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-unified-framework">A Unified Framework</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

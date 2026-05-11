@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>众包与质量控制 &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/zh/chapters/13_crowdsourcing';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/zh/chapters/13_crowdsourcing.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>众包与质量控制</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">众包平台</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">众包的任务设计</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">分解复杂任务</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">说明的重要性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">黄金标准问题</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">标签聚合的统计模型</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dawid-skene">Dawid-Skene模型</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mace">MACE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">冗余与聚合策略</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>众包与质量控制<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>当标注任务足够简单，非专家也能完成时，众包平台提供了以较低的每条成本访问大型按需标注者队伍的途径。从人群中构建高质量标注数据集需要精心的任务设计、策略性的冗余设置和严格的质量控制。</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>众包平台<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p><strong>Amazon Mechanical Turk（MTurk）</strong> 是最原始的众包市场，于2005年推出。工人（”Turkers”）完成发布者发布的微任务（HIT）。2018年的一项研究发现，Turkers的有效时薪中位数约为2美元/小时——远低于许多高收入国家的最低工资 <a href="#id3"><span class="problematic" id="id4">hara2018data</span></a>——这是第15章将讨论的伦理问题。MTurk最适合具有清晰、可验证标准的简单任务。</p>
+<p><strong>Prolific</strong> 是一个学术众包平台，执行最低薪酬标准（目前约为9英镑/小时，即约11美元/小时，如Prolific发布的指南所述），按人口统计特征筛选参与者，并维护一个已选择参与研究的工人群体。更适合社会科学研究和需要代表性的任务。</p>
+<p><strong>Appen</strong>（以及类似的Telus International、iMerit）提供托管标注队伍与质量管理，用于更复杂的任务和企业项目。</p>
+<p><strong>专业社区。</strong> 对于特定领域的任务，领域爱好者社区可以提供高质量的标注：用于天文学的Galaxy Zoo、用于鸟类物种的eBird、用于国际象棋局面标注的Chess Tempo。</p>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>众包的任务设计<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<section id="id6">
+<h3>分解复杂任务<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>复杂任务应分解为简单、定义明确的微任务。与其要求工人全面标注一份文档，不如每次只问他们一个专注的问题：”这个句子包含人名吗？”或”在1到5的分数上，这个翻译的清晰程度如何？”</p>
+<p><strong>分解的好处：</strong></p>
+<ul class="simple">
+<li><p>每个任务的认知需求降低 → 疲劳减少，质量提高</p></li>
+<li><p>每个微任务可以单独进行质量控制</p></li>
+<li><p>更易于审计和调试</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>说明的重要性<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>众包质量最重要的单一预测因素是说明质量。良好的任务说明：</p>
+<ul class="simple">
+<li><p>用一句话解释任务的<em>目的</em></p></li>
+<li><p>为每个类别提供清晰、无歧义的定义</p></li>
+<li><p>提供3至5个有效示例（特别是边缘案例）</p></li>
+<li><p>长度不超过工人实际会阅读的范围（简单任务少于300字）</p></li>
+</ul>
+<p>在扩大规模之前进行<strong>试点研究</strong>（10至50名工人，20至100个任务）。分析试点分歧；大多数分歧指向可以修复的说明歧义。</p>
+</section>
+<section id="id8">
+<h3>黄金标准问题<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>在任务批次中嵌入<strong>黄金标准问题</strong>——具有已知正确答案的任务。在黄金问题上低于阈值的工人将被从项目中移除。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">binom</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_gold_screening</span><span class="p">(</span><span class="n">n_workers</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gold_per_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                             <span class="n">p_good_worker</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">good_acc</span><span class="o">=</span><span class="mf">0.92</span><span class="p">,</span>
+                             <span class="n">bad_acc</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.70</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simulate quality screening via gold questions.</span>
+<span class="sd">    Returns: precision and recall of identifying bad workers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">worker_quality</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;bad&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n_workers</span><span class="p">,</span>
+                                 <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="n">p_good_worker</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_good_worker</span><span class="p">])</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tp&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;fp&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;tn&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;fn&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">worker_quality</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">good_acc</span> <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="s1">&#39;good&#39;</span> <span class="k">else</span> <span class="n">bad_acc</span>
+        <span class="n">n_correct</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">gold_per_batch</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span>
+        <span class="n">passed</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_correct</span> <span class="o">/</span> <span class="n">gold_per_batch</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="s1">&#39;bad&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">passed</span><span class="p">:</span>  <span class="n">results</span><span class="p">[</span><span class="s1">&#39;tp&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="s1">&#39;good&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">passed</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;fp&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="s1">&#39;bad&#39;</span> <span class="ow">and</span> <span class="n">passed</span><span class="p">:</span>      <span class="n">results</span><span class="p">[</span><span class="s1">&#39;fn&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="s1">&#39;good&#39;</span> <span class="ow">and</span> <span class="n">passed</span><span class="p">:</span>     <span class="n">results</span><span class="p">[</span><span class="s1">&#39;tn&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;tp&#39;</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;fp&#39;</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;fn&#39;</span><span class="p">]</span>
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">recall</span>    <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span>
+
+<span class="c1"># Vary gold question count</span>
+<span class="n">gold_counts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<span class="n">precisions</span><span class="p">,</span> <span class="n">recalls</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">gold_counts</span><span class="p">:</span>
+    <span class="n">p_list</span><span class="p">,</span> <span class="n">r_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">simulate_gold_screening</span><span class="p">(</span><span class="n">gold_per_batch</span><span class="o">=</span><span class="n">g</span><span class="p">)</span>
+        <span class="n">p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">precisions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">p_list</span><span class="p">))</span>
+    <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">r_list</span><span class="p">))</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gold_counts</span><span class="p">,</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Precision&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gold_counts</span><span class="p">,</span> <span class="n">recalls</span><span class="p">,</span>    <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0d9e8e&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recall&#39;</span><span class="p">,</span>    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Gold questions per batch&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Screening performance&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Worker Screening via Gold Standard Questions&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;gold_screening.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">p</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">simulate_gold_screening</span><span class="p">(</span><span class="n">gold_per_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5 gold questions: Precision=</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Recall=</span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">simulate_gold_screening</span><span class="p">(</span><span class="n">gold_per_batch</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;10 gold questions: Precision=</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Recall=</span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>标签聚合的统计模型<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>多数投票是自然的基线，但忽略了标注者准确率的差异。统计模型可以做得更好。</p>
+<section id="dawid-skene">
+<h3>Dawid-Skene模型<a class="headerlink" href="#dawid-skene" title="Permalink to this heading">#</a></h3>
+<p><strong>Dawid-Skene（DS）模型</strong> <a href="#id10"><span class="problematic" id="id11">dawid1979maximum</span></a> 联合估计：</p>
+<ul class="simple">
+<li><p>每个条目 <span class="math notranslate nohighlight">\(i\)</span> 的<strong>真实标签</strong> <span class="math notranslate nohighlight">\(z_i\)</span></p></li>
+<li><p>每位标注者 <span class="math notranslate nohighlight">\(j\)</span> 的<strong>混淆矩阵</strong> <span class="math notranslate nohighlight">\(\pi_j^{(k,l)}\)</span>：标注者 <span class="math notranslate nohighlight">\(j\)</span> 将真实类别为 <span class="math notranslate nohighlight">\(k\)</span> 的条目标注为类别 <span class="math notranslate nohighlight">\(l\)</span> 的概率</p></li>
+</ul>
+<p>EM算法迭代：</p>
+<ul class="simple">
+<li><p><strong>E步：</strong> 给定标注者混淆矩阵，计算每个真实标签的后验概率</p></li>
+<li><p><strong>M步：</strong> 给定条目标签估计，更新标注者混淆矩阵</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">softmax</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dawid_skene_em</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simplified Dawid-Skene EM for binary classification.</span>
+<span class="sd">    annotations: dict {item_idx: [(annotator_idx, label), ...]}</span>
+<span class="sd">    Returns: estimated true labels and annotator accuracies.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">annotations</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">n_items</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="n">annotators</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="n">a</span> <span class="k">for</span> <span class="n">anns</span> <span class="ow">in</span> <span class="n">annotations</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">anns</span><span class="p">})</span>
+    <span class="n">n_annotators</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">annotators</span><span class="p">)</span>
+    <span class="n">ann_idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">annotators</span><span class="p">)}</span>
+
+    <span class="c1"># Initialize: majority vote</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_items</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">))</span>  <span class="c1"># soft label estimates</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">annotations</span><span class="p">[</span><span class="n">item</span><span class="p">]:</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="c1"># Confusion matrices: shape (n_annotators, n_classes, n_classes)</span>
+    <span class="n">PI</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_annotators</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.5</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+        <span class="c1"># M-step: update confusion matrices</span>
+        <span class="n">PI</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_annotators</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1e-6</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ann</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">annotations</span><span class="p">[</span><span class="n">item</span><span class="p">]:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">ann_idx</span><span class="p">[</span><span class="n">ann</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
+                    <span class="n">PI</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+        <span class="n">PI</span> <span class="o">/=</span> <span class="n">PI</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># E-step: update soft label estimates</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_items</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+            <span class="n">log_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_classes</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ann</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">annotations</span><span class="p">[</span><span class="n">item</span><span class="p">]:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">ann_idx</span><span class="p">[</span><span class="n">ann</span><span class="p">]</span>
+                <span class="n">log_p</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">PI</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="p">:,</span> <span class="n">label</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">log_p</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">)},</span> <span class="n">PI</span>
+
+<span class="c1"># Simulate crowdsourcing scenario</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">N_ITEMS</span><span class="p">,</span> <span class="n">N_ANNOTATORS</span><span class="p">,</span> <span class="n">ANNS_PER_ITEM</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span>
+<span class="n">true_labels</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">N_ITEMS</span><span class="p">)</span>
+<span class="c1"># Annotator accuracies: 3 good (0.9), 4 medium (0.75), 3 noisy (0.6)</span>
+<span class="n">accuracies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.90</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.75</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.60</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+
+<span class="n">annotations</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITEMS</span><span class="p">):</span>
+    <span class="n">anns_for_item</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">chosen</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">N_ANNOTATORS</span><span class="p">,</span> <span class="n">ANNS_PER_ITEM</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracies</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">true_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">acc</span> <span class="k">else</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">true_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">anns_for_item</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">label</span><span class="p">)))</span>
+    <span class="n">annotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">anns_for_item</span>
+
+<span class="c1"># Run Dawid-Skene</span>
+<span class="n">soft_labels</span><span class="p">,</span> <span class="n">confusion</span> <span class="o">=</span> <span class="n">dawid_skene_em</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">ds_preds</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">soft_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITEMS</span><span class="p">)}</span>
+
+<span class="c1"># Compare with majority vote</span>
+<span class="n">mv_preds</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITEMS</span><span class="p">):</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">annotations</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="n">mv_preds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">votes</span><span class="p">)))</span>
+
+<span class="n">ds_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">ds_preds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">true_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITEMS</span><span class="p">)])</span>
+<span class="n">mv_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">mv_preds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">true_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ITEMS</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Majority vote accuracy:  </span><span class="si">{</span><span class="n">mv_acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dawid-Skene accuracy:    </span><span class="si">{</span><span class="n">ds_acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Estimated annotator accuracies (diagonal of confusion matrix):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ANNOTATORS</span><span class="p">):</span>
+    <span class="n">est_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">confusion</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Annotator </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">: estimated=</span><span class="si">{</span><span class="n">est_acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, true=</span><span class="si">{</span><span class="n">accuracies</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mace">
+<h3>MACE<a class="headerlink" href="#mace" title="Permalink to this heading">#</a></h3>
+<p><strong>MACE（多标注者能力估计）</strong> <a href="#id12"><span class="problematic" id="id13">hovy2013learning</span></a> 是另一种概率模型，它明确表示标注者的刷单行为（随机标注）与有效标注之间的区别。标注者要么提供有意义的标签（概率为 <span class="math notranslate nohighlight">\(1 - \text{spam}_j\)</span>），要么提供随机标签（概率为 <span class="math notranslate nohighlight">\(\text{spam}_j\)</span>）。这种两组分模型在众包场景中通常比Dawid-Skene具有更好的校准效果，特别是在一些标注者完全是刷单者的情况下。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id14">
+<h2>冗余与聚合策略<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
+<p>每条数据的最优标注者数量取决于任务难度和标注者质量：</p>
+<ul class="simple">
+<li><p><strong>容易任务且有技能的标注者：</strong> 每条数据1至2名标注者通常足够</p></li>
+<li><p><strong>中等难度任务且有经过培训的标注者：</strong> 3名标注者 + 多数投票</p></li>
+<li><p><strong>困难/主观任务且有众包工人：</strong> 5至7名标注者 + Dawid-Skene</p></li>
+</ul>
+<p>关键洞见：当标注者准确率较低时，冗余最有价值。对于准确率为 <span class="math notranslate nohighlight">\(p\)</span> 的标注者，<span class="math notranslate nohighlight">\(n\)</span> 名标注者多数投票的准确率为：</p>
+<div class="math notranslate nohighlight">
+\[
+P(\text{MV正确}) = \sum_{k &gt; n/2}^{n} \binom{n}{k} p^k (1-p)^{n-k}
+\]</div>
+<p>对于 <span class="math notranslate nohighlight">\(p = 0.70\)</span>，添加第三名标注者将多数投票准确率从70%提升至78%；对于 <span class="math notranslate nohighlight">\(p = 0.90\)</span>，第三名标注者带来的收益可以忽略不计（从90%提升至97%）。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Dawid-Skene模型：<a href="#id15"><span class="problematic" id="id16">dawid1979maximum</span></a>。MACE：<a href="#id17"><span class="problematic" id="id18">hovy2013learning</span></a>。关于NLP众包的全面综述：<a href="#id19"><span class="problematic" id="id20">snow2008cheap</span></a>。众包伦理与公平薪酬：参见第15章。</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/zh/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">众包平台</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">众包的任务设计</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">分解复杂任务</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">说明的重要性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">黄金标准问题</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">标签聚合的统计模型</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dawid-skene">Dawid-Skene模型</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mace">MACE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">冗余与聚合策略</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

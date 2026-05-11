@@ -1,0 +1,90 @@
+{
+	email {$ACME_EMAIL:admin@example.com}
+}
+
+# ── PhD landing page ──────────────────────────────────────────────────────────
+{$PHD_DOMAIN} {
+	encode gzip
+
+	# Cache PDFs and static assets aggressively
+	@assets path *.pdf *.css *.js *.woff2 *.woff *.png *.jpg *.svg *.ico
+	header @assets Cache-Control "public, max-age=604800, immutable"
+
+	# Serve .md files as plain text so browsers display them inline
+	@markdown path *.md
+	header @markdown Content-Type "text/plain; charset=utf-8"
+
+	# /index/files/ — authenticated browse of deployed site files
+	handle_path /index/files/* {
+		basicauth {
+			{$INDEX_USER} {$INDEX_PASS_HASH}
+		}
+		root * /srv/phd
+		file_server browse
+	}
+
+	# /index — curated overview page
+	handle /index* {
+		basicauth {
+			{$INDEX_USER} {$INDEX_PASS_HASH}
+		}
+		root * /srv/index
+		rewrite * /index.html
+		file_server
+	}
+
+	# /comic/api/ — agents comic backend
+	handle_path /comic/api/* {
+		reverse_proxy comic-api:8000
+	}
+
+	# /comic — agents comic SPA
+	handle /comic* {
+		uri strip_prefix /comic
+		root * /srv/comic
+		try_files {path} /index.html
+		file_server
+	}
+
+	# /reader — HITL summer reader (static, relative-path build)
+	handle /reader* {
+		uri strip_prefix /reader
+		root * /srv/reader
+		file_server
+	}
+
+	root * /srv/phd
+	file_server
+}
+
+# ── Spring treasure hunt ──────────────────────────────────────────────────────
+{$HUNT_DOMAIN} {
+	encode gzip
+
+	# Rust API — handle_path strips /api prefix before forwarding
+	handle_path /api/* {
+		reverse_proxy spring-api:8080
+	}
+
+	# React SPA — all other paths → index.html
+	handle {
+		root * /srv/hunt
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+# ── Zitadel OIDC + login UI ───────────────────────────────────────────────────
+{$AUTH_DOMAIN} {
+	encode gzip
+
+	# Next.js login UI
+	handle /ui/v2/login/* {
+		reverse_proxy login:3000
+	}
+
+	# Everything else: Zitadel core (console, OIDC endpoints, SAML, JWKS)
+	handle {
+		reverse_proxy zitadel:8180
+	}
+}

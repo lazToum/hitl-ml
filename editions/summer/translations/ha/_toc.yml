@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Gabatarwa"
+    chapters:
+      - file: front/declaration
+        title: "Sanarwar Asali"
+      - file: front/abstract
+        title: "Takaitaccen Bayani"
+      - file: front/acknowledgments
+        title: "Godiya"
+
+  - caption: "Kashi na Farko — Tushe da Ginshiƙai"
+    chapters:
+      - file: chapters/01_introduction
+        title: "Menene Koyon Injin da Dan Adam a Cikin Zagaye?"
+      - file: chapters/02_taxonomy
+        title: "Rarrabuwa ta Huldar Dan Adam da Injin"
+
+  - caption: "Kashi na Biyu — Dabarun Asali"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Bayanan Bayanai da Lakabi"
+      - file: chapters/04_active_learning
+        title: "Koyon Aiki"
+      - file: chapters/05_interactive_ml
+        title: "Koyon Injin Mai Mu'amala"
+
+  - caption: "Kashi na Uku — Koyo daga Ra'ayin Dan Adam"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Koyon Ta Karfafawa daga Ra'ayin Dan Adam"
+      - file: chapters/07_demonstrations
+        title: "Koyo daga Misalai"
+      - file: chapters/08_preferences
+        title: "Koyo daga Kwatancen da Jeri"
+
+  - caption: "Kashi na Hudu — Aikace-aikace"
+    chapters:
+      - file: chapters/09_nlp
+        title: "HITL a Sarrafa Harshen Yau da Kullum"
+      - file: chapters/10_vision
+        title: "HITL a Gane Hoto ta Kwamfuta"
+      - file: chapters/11_healthcare
+        title: "HITL a Kiwon Lafiya da Kimiyya"
+
+  - caption: "Kashi na Biyar — Tsarin Aiki da Aiwatarwa"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Dandamali da Kayan Aikin Lakabi"
+      - file: chapters/13_crowdsourcing
+        title: "Tarin Aiki da Kula da Inganci"
+      - file: chapters/14_evaluation
+        title: "Kimantawa da Ma'aunai"
+
+  - caption: "Kashi na Shida — Da'a da Makomar Fasaha"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Adalci, Nuna Bambanci, da Da'a"
+      - file: chapters/16_future
+        title: "Alkiblar Gaba"
+
+  - caption: "Bayan Littafi"
+    chapters:
+      - file: bibliography
+        title: "Jerin Nassoshi"
+      - file: chapters/17_limen
+        title: "Limen: Dan Adam a Cikin Zagaye na Komai"
+      - file: front/on_leaving
+        title: "Kan Tafiya"

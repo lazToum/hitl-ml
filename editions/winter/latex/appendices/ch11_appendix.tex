@@ -1,0 +1,247 @@
+% ============================================================================
+% TECHNICAL APPENDIX 11A: The Mathematics of Computer Vision
+% CNNs, object detection metrics, uncertainty, and active learning for images
+% ============================================================================
+% Source: /chapters/ch11/Ch11A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 11A: The Mathematics of Computer Vision}
+\addcontentsline{toc}{chapter}{Technical Appendix 11A: The Mathematics of Computer Vision}
+
+\begin{chapterquote}{Formal foundations for Chapter 11}
+Chapter~11 introduced how machines learn to see. This appendix provides the mathematical treatment of convolutional networks, the standard metrics for object detection, uncertainty estimation methods, and active learning strategies for reducing annotation cost.
+\end{chapterquote}
+
+% ============================================================================
+\section{Convolutional Neural Networks}
+% ============================================================================
+
+\subsection{The Convolution Operation}
+
+A convolutional layer applies a set of learned \term{filters} to an input feature map. For a 2D input $X \in \mathbb{R}^{H \times W}$ and a filter $K \in \mathbb{R}^{k \times k}$, the output at position $(i, j)$ is:
+
+\[
+Z[i, j] = \sum_{m=0}^{k-1} \sum_{n=0}^{k-1} X[i+m,\; j+n] \cdot K[m, n] + b
+\]
+
+For colour images with $C$ channels and $F$ filters, the full operation produces an output volume $Z \in \mathbb{R}^{H' \times W' \times F}$:
+
+\[
+Z[i, j, f] = \sum_{c=1}^{C} \sum_{m=0}^{k-1} \sum_{n=0}^{k-1}
+  X[i+m,\; j+n,\; c] \cdot K[m, n, c, f] + b_f
+\]
+
+The filter $K[m,n,c,f]$ learns a feature detector: for edge detection it responds to intensity gradients; for complex patterns it encodes whatever local structure discriminates between training classes.
+
+\subsection{Pooling and Spatial Hierarchy}
+
+Max pooling reduces spatial resolution while preserving the strongest local activations:
+
+\[
+\text{MaxPool}(Z)[i, j] = \max_{m \in [0,k),\; n \in [0,k)} Z[i \cdot s + m,\; j \cdot s + n]
+\]
+
+where $s$ is the stride. Stacking convolution--activation--pooling layers creates a \term{spatial hierarchy}: lower layers detect edges and textures; higher layers detect object parts and whole objects.
+
+\subsection{Residual Connections}
+
+\textcite{he2016deep} showed that very deep networks suffer from vanishing gradients and introduced \term{residual connections} that allow gradients to flow directly across layers:
+
+\[
+\mathbf{h}^{(l+1)} = F\bigl(\mathbf{h}^{(l)}\bigr) + \mathbf{h}^{(l)}
+\]
+
+where $F(\mathbf{h}^{(l)})$ is the learned residual. This enables networks 50--152 layers deep without training instability.
+
+% ============================================================================
+\section{Object Detection: IoU and mAP}
+% ============================================================================
+
+\subsection{Intersection over Union}
+
+Object detection requires localising objects via bounding boxes. The standard metric for localisation quality is \term{Intersection over Union} (IoU):
+
+\[
+\text{IoU}(B_\text{pred}, B_\text{gt}) =
+  \frac{\text{Area}(B_\text{pred} \cap B_\text{gt})}
+       {\text{Area}(B_\text{pred} \cup B_\text{gt})}
+\]
+
+For axis-aligned rectangles:
+
+\[
+x_\text{inter} = \max\bigl(0,\; \min(x_2^p, x_2^g) - \max(x_1^p, x_1^g)\bigr)
+\]
+\[
+\text{IoU} = \frac{x_\text{inter} \cdot y_\text{inter}}
+                  {\text{Area}(B_\text{pred}) + \text{Area}(B_\text{gt}) - x_\text{inter} \cdot y_\text{inter}}
+\]
+
+$\text{IoU} \in [0,1]$. The standard threshold for a ``correct detection'' is $\text{IoU} \geq 0.5$.
+
+\subsection{Mean Average Precision}
+
+For a detection system evaluated across $N$ classes, the standard metric is \term{mean Average Precision} (mAP):
+
+\[
+\text{mAP} = \frac{1}{N} \sum_{c=1}^{N} \text{AP}_c
+\]
+
+where $\text{AP}_c$ is the area under the precision--recall curve for class~$c$. A detected box is a \emph{true positive} if $\text{IoU} \geq \tau$ with a ground truth box of that class; otherwise a \emph{false positive}. Ground truth boxes not matched by any detection are \emph{false negatives}.
+
+\begin{cautionbox}[Long-Tail Class Performance]
+In real datasets, class distribution is heavily skewed. Standard mAP aggregates equally across all classes, masking poor performance on rare classes. For safety-critical systems, report per-class AP separately and monitor performance on underrepresented conditions.
+\end{cautionbox}
+
+% ============================================================================
+\section{Uncertainty Estimation in Vision}
+% ============================================================================
+
+\subsection{Monte Carlo Dropout}
+
+\textcite{gal2016dropout} showed that applying dropout at inference time approximates Bayesian inference over network weights. Making $T$ stochastic forward passes yields an ensemble of predictions:
+
+\begin{lstlisting}[style=python, caption={MC Dropout uncertainty estimation for vision}]
+import torch
+import torch.nn.functional as F
+
+def mc_dropout_predict(model, image, T=50):
+    model.train()  # Keep dropout active at inference
+    predictions = []
+    for _ in range(T):
+        with torch.no_grad():
+            logits = model(image)
+            probs  = F.softmax(logits, dim=-1)
+            predictions.append(probs)
+    predictions = torch.stack(predictions)  # (T, num_classes)
+    mean_pred   = predictions.mean(dim=0)
+    uncertainty = predictions.std(dim=0)
+    return mean_pred, uncertainty
+\end{lstlisting}
+
+\paragraph{Decomposing uncertainty.}
+
+\[
+\hat{\sigma}^2_\text{epistemic}  = \frac{1}{T-1}\sum_{t=1}^{T}\bigl(f_t(x) - \bar{f}(x)\bigr)^2
+\qquad
+\hat{\sigma}^2_\text{aleatoric} = \frac{1}{T}\sum_{t=1}^{T}\sigma_t^2(x)
+\]
+
+In medical imaging: epistemic uncertainty means the model has seen few training examples like this image (actionable — request a radiologist). Aleatoric uncertainty reflects inherent image ambiguity such as poor contrast (also worth flagging, but for different reasons).
+
+\subsection{Deep Ensembles}
+
+Train $M$ models with different random initialisations \autocite{lakshminarayanan2017simple}:
+
+\[
+\bar{p}(y \mid x) = \frac{1}{M}\sum_{m=1}^{M} p_m(y \mid x)
+\qquad
+\hat{\sigma}^2 = \frac{1}{M-1}\sum_{m=1}^{M}\bigl(p_m(y\mid x) - \bar{p}(y\mid x)\bigr)^2
+\]
+
+Deep ensembles produce better-calibrated uncertainties than MC Dropout but require $M$ times the training compute and storage.
+
+% ============================================================================
+\section{Confusion Matrix for Object Detection}
+% ============================================================================
+
+For object detection, the confusion matrix must account for missed detections (false negatives — objects present but not detected) and spurious detections (false positives — detections with no corresponding ground truth). An extended matrix for $N$ classes plus a ``background'' class has shape $(N+1) \times (N+1)$:
+
+\begin{itemize}
+    \item $\text{TP}_c$: objects of class $c$ correctly detected with correct label and $\text{IoU} \geq \tau$
+    \item $\text{Conf}(i \to j)$: objects of class $i$ detected as class $j$ (localisation correct, label wrong)
+    \item $\text{FN}_c$: objects of class $c$ present but not detected
+    \item $\text{FP}_c$: detections labelled as class $c$ with no corresponding ground truth
+\end{itemize}
+
+In medical imaging, FN (missed findings) carry far higher consequences than FP (unnecessary follow-up). This asymmetry justifies operating the system at a threshold that minimises FN rate, even at the cost of a higher FP rate.
+
+% ============================================================================
+\section{Active Learning for Image Annotation}
+% ============================================================================
+
+\subsection{Uncertainty Sampling}
+
+Given a pool of unlabelled images $\mathcal{U}$, select the image with highest predictive entropy:
+
+\[
+x^* = \arg\max_{x \in \mathcal{U}} \mathbb{H}\bigl[p(y \mid x)\bigr]
+    = -\sum_c p(y=c \mid x)\log p(y=c \mid x)
+\]
+
+Or using BALD (Bayesian Active Learning by Disagreement) \autocite{houlsby2011bald}, which selects images where uncertainty is epistemic (reducible with more data) rather than aleatoric:
+
+\[
+x^* = \arg\max_{x \in \mathcal{U}} \mathbb{I}[y;\, \theta \mid x, \mathcal{D}]
+    = \mathbb{H}[p(y\mid x)] - \mathbb{E}_\theta\bigl[\mathbb{H}[p(y\mid x,\theta)]\bigr]
+\]
+
+\subsection{Core-Set Selection}
+
+Select a set of images $S \subseteq \mathcal{U}$ that maximally covers the feature space:
+
+\[
+S^* = \arg\min_{|S|=n} \max_{x \in \mathcal{U}} \min_{s \in S} d(x, s)
+\]
+
+where $d(x,s)$ is cosine distance in penultimate-layer feature space. This ensures the annotation budget covers the diversity of the unlabelled pool rather than clustering around already-well-represented examples.
+
+\subsection{Active Learning Loop}
+
+\begin{lstlisting}[style=python, caption={Active learning loop for image annotation}]
+def active_learning_loop(model, labeled_pool, unlabeled_pool,
+                          annotation_budget, query_strategy):
+    while annotation_budget > 0:
+        model.fit(labeled_pool)
+        scores     = query_strategy.score(model, unlabeled_pool)
+        batch_size = min(BATCH_SIZE, annotation_budget)
+        to_annotate = select_top_k(unlabeled_pool, scores, batch_size)
+
+        # The HITL intervention: human annotation
+        new_labels = human_annotator.annotate(to_annotate)
+
+        labeled_pool.add(to_annotate, new_labels)
+        unlabeled_pool.remove(to_annotate)
+        annotation_budget -= batch_size
+        log_performance(model.evaluate(validation_set),
+                        len(labeled_pool))
+    return model, labeled_pool
+\end{lstlisting}
+
+The \texttt{human\_annotator.annotate()} call represents the HITL intervention. The quality of the final model depends on both the query strategy (selecting informative images) and the quality of the human annotation (correctly labelling them).
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[IoU Implementation]
+Implement IoU from scratch for axis-aligned bounding boxes. Test it on a case of perfect overlap (IoU = 1), no overlap (IoU = 0), and a partial case you compute by hand. Then implement mAP for a 3-class detector using a synthetic dataset.
+\end{Exercise}
+
+\begin{Exercise}[MC Dropout Uncertainty Decomposition]
+Using a pretrained image classifier with dropout layers:
+\begin{enumerate}
+    \item Generate in-distribution test images and OOD images (from a different dataset).
+    \item Run MC Dropout ($T = 50$ passes). Compute epistemic and aleatoric uncertainty separately.
+    \item Show that epistemic uncertainty is higher for OOD images.
+    \item Plot uncertainty maps as a function of model confidence.
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Active Learning for CIFAR-10]
+Implement an active learning loop on CIFAR-10:
+\begin{enumerate}
+    \item Start with 500 randomly labelled examples. Train a baseline CNN.
+    \item Compare random sampling, entropy sampling, and BALD as query strategies.
+    \item Plot model accuracy as a function of the number of labelled examples.
+    \item How many labelled examples does the best active learning strategy need to match the accuracy of 5{,}000 random labels?
+\end{enumerate}
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the mathematical foundations for understanding how machines see, how we measure their seeing, and how humans remain essential in the loop of teaching machines to see better, as introduced in Chapter~11.}

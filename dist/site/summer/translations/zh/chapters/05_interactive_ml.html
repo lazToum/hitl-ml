@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>交互式机器学习 &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/zh/chapters/05_interactive_ml';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/zh/chapters/05_interactive_ml.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>交互式机器学习</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">交互式机器学习的原则</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">与主动学习的比较</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">混合主动交互</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml">IML中的人类因素</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">实践中的IML反馈类型</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">样本级反馈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">特征级反馈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">模型级反馈</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#google-teachable-machine">案例研究：Google Teachable Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">实现一个简单的IML回路</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">祖母测试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">IML与基础模型</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>交互式机器学习<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>主动学习提出了一个聚焦的问题：在给定预算的情况下，应该标注哪些样本？交互式机器学习（IML）提出了一个更宏观的问题：我们如何设计人类与学习系统之间的<em>整个交互过程</em>，使其在生产力、体验和正确性上都达到最优？</p>
+<p>IML的特征在于人机反馈回路的<strong>即时性</strong>与<strong>直接性</strong>。传统机器学习中，人类移交数据并等待训练完成；IML使人类能够观察模型行为、提供反馈，并看到模型响应——通常在数秒内完成。</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>交互式机器学习的原则<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Amershi等人 <a href="#id3"><span class="problematic" id="id4">amershi2014power</span></a> 确定了IML的三个定义性特征：</p>
+<p><strong>1. 快速反馈：</strong> 模型更新速度足够快，使人类能够感知其反馈的效果。在极限情况下，模型更新实时发生。</p>
+<p><strong>2. 直接操控：</strong> 人类通过数据或模型的预测结果与模型交互——而非通过配置文件或超参数调整。</p>
+<p><strong>3. 迭代精化：</strong> 这个过程是真正的迭代：人类的下一步行动由模型当前的行为来决定，而模型当前的行为是由人类之前的行动塑造的。</p>
+<p>这创造了一个紧密的<strong>协同适应回路</strong>：人类和模型随时间推移相互响应而共同演变。人类学习模型的理解方式；模型学习人类关注的内容。</p>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>与主动学习的比较<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>IML和主动学习有很大重叠，但并不相同：</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>属性</p></th>
+<th class="head"><p>主动学习</p></th>
+<th class="head"><p>交互式机器学习</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>核心问题</p></td>
+<td><p>标注什么？</p></td>
+<td><p>如何交互？</p></td>
+</tr>
+<tr class="row-odd"><td><p>反馈延迟</p></td>
+<td><p>可以是批处理（数天）</p></td>
+<td><p>通常实时或近实时</p></td>
+</tr>
+<tr class="row-even"><td><p>模型更新频率</p></td>
+<td><p>每轮（批处理）</p></td>
+<td><p>每次交互（在线）</p></td>
+</tr>
+<tr class="row-odd"><td><p>人类主动性</p></td>
+<td><p>回答模型的问题</p></td>
+<td><p>可以主动教模型</p></td>
+</tr>
+<tr class="row-even"><td><p>界面设计</p></td>
+<td><p>次要考量</p></td>
+<td><p>核心考量</p></td>
+</tr>
+<tr class="row-odd"><td><p>人类认知负荷</p></td>
+<td><p>未被明确建模</p></td>
+<td><p>被明确考虑</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在主动学习中，机器主导交互。在IML中，人类也可以主动——提供示例、纠正或对模型行为中任何看起来最有问题的方面进行反馈。</p>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>混合主动交互<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p><strong>混合主动</strong>系统允许人类和机器在不同时刻各自主导 <a href="#id7"><span class="problematic" id="id8">allen1999mixed</span></a>。纯机器主导的系统提问，人类回答。纯人类主导的系统让人类决定一切。混合主动系统在两者之间取得平衡。</p>
+<p>在实践中，最好的IML系统结合了：</p>
+<ul class="simple">
+<li><p><strong>机器主动：</strong> “我对这些样本不确定——你能为它们添加标签吗？”</p></li>
+<li><p><strong>人类主动：</strong> “我注意到模型对这个类别始终预测错误——让我提供更多示例”</p></li>
+<li><p><strong>确认：</strong> 模型呈现其当前理解；人类确认或纠正</p></li>
+</ul>
+<p>良好的IML界面使模型的当前理解可见且可纠正。这是<strong>可解释性</strong>要求：人类只能引导他们至少能大致理解的模型。</p>
+</section>
+<hr class="docutils" />
+<section id="iml">
+<h2>IML中的人类因素<a class="headerlink" href="#iml" title="Permalink to this heading">#</a></h2>
+<p>IML将人类因素——认知负荷、疲劳、一致性和信任——直接带入学习回路。糟糕的IML设计会导致：</p>
+<p><strong>标注疲劳：</strong> 人类在会话延长时做出越来越快、越来越粗糙的决策。进入训练数据的错误。</p>
+<p><strong>锚定偏差：</strong> 人类过度依赖模型当前的建议。如果界面预先填写模型的预测，即使预测是错误的，标注者也不太可能纠正它——这是一种跨标注轮次累积的系统性标签噪声来源 <a href="#id9"><span class="problematic" id="id10">geva2019annotator</span></a>。预标注可以加快吞吐量 <a href="#id11"><span class="problematic" id="id12">lingren2014evaluating</span></a>，同时降低标注者发现模型错误的比率；在IML界面设计中，必须权衡这两种效应。</p>
+<p><strong>信任错误校准：</strong> 人类要么过度信任（接受错误的模型输出），要么信任不足（忽视正确的建议）。两种模式都会降低人机协作的价值。</p>
+<p><strong>会话一致性：</strong> 人类可能在不同时间对相同样本做出不同决策，特别是在长时间会话后。一致性检查（重新呈现早期样本）可以检测并纠正这一问题。</p>
+<p>良好的IML设计通过界面选择来缓解这些问题：明确呈现模型置信度、随机化显示顺序、限制会话时长，以及建立一致性检查机制。</p>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h2>实践中的IML反馈类型<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<section id="id14">
+<h3>样本级反馈<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>人类为特定样本提供标签或纠正。这是最常见的形式，与监督学习直接兼容。</p>
+</section>
+<section id="id15">
+<h3>特征级反馈<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>人类指出哪些特征是相关或不相关的。”模型应该关注’紧急’和’截止日期’这两个词来识别这个类别。”这比样本级反馈更具表达力，对某些任务而言也更高效。</p>
+<p><strong>TFIDF Interactive</strong>等类似系统允许标注者高亮文本文档中的相关词语。这些高亮被转化为对模型注意力的约束或附加监督信号。</p>
+</section>
+<section id="id16">
+<h3>模型级反馈<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<p>人类直接纠正模型对一类输入的行为：”每当输入包含[X]时，输出应该是[Y]。”这映射到后验正则化 <a href="#id17"><span class="problematic" id="id18">ganchev2010posterior</span></a> 或约束驱动学习等方法中的逻辑规则或约束。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="google-teachable-machine">
+<h2>案例研究：Google Teachable Machine<a class="headerlink" href="#google-teachable-machine" title="Permalink to this heading">#</a></h2>
+<p>Teachable Machine是一个易于使用的基于Web的IML系统，允许非技术用户在浏览器中训练图像分类器。用户可以：</p>
+<ol class="arabic simple">
+<li><p>使用网络摄像头录制每个类别的示例</p></li>
+<li><p>点击一次按钮即可训练模型（在浏览器中对MobileNet进行微调）</p></li>
+<li><p>立即查看模型对实时视频的预测结果</p></li>
+<li><p>为模型预测错误的类别添加更多示例</p></li>
+</ol>
+<p>这说明了IML的核心循环：提供示例 → 观察模型 → 识别失败 → 提供更有针对性的示例。实时反馈（模型输出实时更新，在现代硬件上通常能达到交互式帧率）使协同适应回路具有即时的直观感。</p>
+</section>
+<hr class="docutils" />
+<section id="id19">
+<h2>实现一个简单的IML回路<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleIMLSystem</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Minimal IML system that allows online feedback and displays</span>
+<span class="sd">    model state after each annotation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                   <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span> <span class="o">=</span> <span class="n">n_classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y_true</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Receive a single labeled example and update the model.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
+            <span class="n">X_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="p">)</span>
+            <span class="n">y_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span><span class="p">)</span>
+            <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_arr</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y_arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span>
+                                   <span class="n">classes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict_with_confidence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict label and return confidence.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">0.0</span>
+        <span class="n">x_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">probs</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">current_accuracy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span> <span class="o">==</span> <span class="n">y_val</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+
+<span class="c1"># Simulate an IML session</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">500</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="mi">400</span><span class="p">:],</span> <span class="n">y_all</span><span class="p">[</span><span class="mi">400</span><span class="p">:]</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">SimpleIMLSystem</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">accs</span><span class="p">,</span> <span class="n">confidences</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step | Labels | Accuracy | Example confidence&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="n">step</span><span class="p">],</span> <span class="n">y_all</span><span class="p">[</span><span class="n">step</span><span class="p">]</span>
+    <span class="n">pred</span><span class="p">,</span> <span class="n">conf</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">predict_with_confidence</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">current_accuracy</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">acc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> |  </span><span class="si">{</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">4d</span><span class="si">}</span><span class="s2">  |  </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   | </span><span class="si">{</span><span class="n">conf</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h2>祖母测试<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h2>
+<p>评估IML界面设计——以及更广泛地评估HITL系统设计——的一个有用启发式方法，是我们在此称之为<strong>祖母测试</strong>的方法（这是在本手册中作为设计约束首次提出的原创概念，而非对已有文献的引用）：</p>
+<blockquote>
+<div><p><em>一位出生于1930年的女性应能通过语音使用这个设备，在遇到困难时，能够优雅地切换到键盘或文本界面。</em></p>
+</div></blockquote>
+<p>这个测试的主要目的不是可访问性，尽管它也包含这层含义。它是关于<strong>为阻力而设计</strong>。如果一个系统需要用户对神经网络、训练循环或概率分布有心智模型才能有效使用，那么它就没有通过祖母测试。回路中的人类应该能够在不理解回路机器端的情况下参与其中。</p>
+<p>这对IML设计的含义是具体的：</p>
+<p><strong>语音优先的回退：</strong> 主要交互模式应该是自然语言或手势——而非参数滑块或置信度阈值。专家可能需要滑块；但每个人都应该能够说”那是错的”。</p>
+<p><strong>优雅降级：</strong> 当用户的首选模式失败或令其沮丧时，系统应提供替代方案——而非空白屏幕或错误消息。界面是学习系统的一部分；无法交互的用户无法教导系统。</p>
+<p><strong>可读的模型状态：</strong> 模型的当前理解应该以人类可理解的术语呈现。不是”置信度：0.73”，而是”我相当确定这是[X]，但我见过类似这样的例子两面都有。”不确定性应该以邀请纠正的语言来表达。</p>
+<p><strong>对模糊性的容忍：</strong> 一位93岁的用户和一位23岁的机器学习工程师会以不同的方式与同一系统互动。祖母测试问的是系统是否能容纳两者——不是通过检测用户年龄，而是通过设计能在各种专业水平和舒适程度下都有效的交互。</p>
+<p>随着机器学习系统从研究工具走向日常基础设施，这个测试变得尤为重要。放射科医生使用的医学影像助手、办事员使用的法律文档分类器、教师使用的教育反馈系统——每一个都涉及并未自愿成为AI训练师的回路中的人类。为他们而设计不是让步；这才是重点所在。</p>
+<div class="tip admonition">
+<p class="admonition-title">设计原则</p>
+<p>祖母测试是一种设计约束，而非目标受众。通过这个测试的系统对用户多样性更具鲁棒性，对专业知识差距更具包容性，对其期望于人类回路参与者的要求也更为诚实。如果一个系统在使用前需要解释，那么它就是在要求人类额外付出。这种付出应该以相称的收益来证明其正当性。</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id21">
+<h2>IML与基础模型<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h2>
+<p>现代IML越来越多地将<strong>预训练基础模型</strong> <a href="#id22"><span class="problematic" id="id23">bommasani2021opportunities</span></a> 作为基础。用户不再从头开始训练，而是通过少量交互示例对大型预训练模型进行微调。这可以大幅减少达到有用性能所需的样本数——在有利情况下，可能只需要5至50个示例而非数千个，这取决于预训练表示与目标任务的匹配程度 <a href="#id24"><span class="problematic" id="id25">bommasani2021opportunities</span></a>。</p>
+<p>实现这一点的技术包括：</p>
+<ul class="simple">
+<li><p><strong>少样本提示：</strong> 在大型语言模型的上下文窗口中提供示例</p></li>
+<li><p><strong>适配器微调：</strong> 更新小型适配器模块，同时冻结基础模型</p></li>
+<li><p><strong>参数高效微调（PEFT）：</strong> LoRA、前缀调整（prefix tuning）及类似方法，允许快速、低资源的更新</p></li>
+</ul>
+<p>基础模型改变了IML的动态：人类不再是从零开始教一个空白模型，而是<em>引导</em>一个已经知晓大量知识的模型。挑战从”如何提供足够的示例”转变为”如何精确指定我们希望与模型已有行为不同的地方”。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a href="#id26"><span class="problematic" id="id27">amershi2014power</span></a> 的综述仍是IML原则最佳概述。关于混合主动系统，请参见 <a href="#id28"><span class="problematic" id="id29">allen1999mixed</span></a>。关于标注中的锚定效应，请参见 <a href="#id30"><span class="problematic" id="id31">geva2019annotator</span></a> 和 <a href="#id32"><span class="problematic" id="id33">lingren2014evaluating</span></a>。</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/zh/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">交互式机器学习的原则</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">与主动学习的比较</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">混合主动交互</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml">IML中的人类因素</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">实践中的IML反馈类型</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">样本级反馈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">特征级反馈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">模型级反馈</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#google-teachable-machine">案例研究：Google Teachable Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">实现一个简单的IML回路</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">祖母测试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">IML与基础模型</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limen OS</title>
+  <meta name="description" content="A voice-first, AI-native desktop shell. Beautiful by default." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300&family=Inter:wght@300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+
+    .landing-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #07070f 0%, #110c1c 50%, #07070f 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ambient atmosphere */
+    .landing-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 18% 82%, rgba(245, 158, 11, 0.08) 0%, transparent 48%),
+        radial-gradient(ellipse at 82% 18%, rgba(236, 72, 153, 0.06) 0%, transparent 48%),
+        radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 65%);
+      animation: ambientPulse 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes ambientPulse {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+
+    /* calligraphy */
+    .calligraphy-container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      perspective: 600px;
+    }
+
+    .calligraphy-line {
+      font-family: 'Playfair Display', 'Cormorant Garamond', 'Times New Roman', serif;
+      letter-spacing: 0.15em;
+      margin: 0.25em 0;
+      position: relative;
+      display: block;
+    }
+
+    .calligraphy-line.title {
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      margin-bottom: 0.4em;
+      /* gradient text */
+      background: linear-gradient(90deg, #fbbf24 0%, #f97316 32%, #ec4899 68%, #f472b6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .calligraphy-line.subtitle {
+      font-size: clamp(0.85rem, 2vw, 1.2rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+    }
+
+    /* individual chars */
+    .char {
+      display: inline-block;
+      opacity: 0;
+      animation: charReveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    .calligraphy-line.title .char {
+      color: transparent; /* shows gradient from parent */
+    }
+
+    .calligraphy-line.subtitle .char {
+      color: rgba(245, 245, 240, 0.45);
+      text-shadow: none;
+    }
+
+    .char:not(.calligraphy-line.title .char):not(.calligraphy-line.subtitle .char) {
+      color: #f5f5f0;
+      text-shadow: 0 0 40px rgba(245, 245, 240, 0.3);
+    }
+
+    .char.space { width: 0.28em; }
+
+    @keyframes charReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(22px) rotateX(-45deg);
+        filter: blur(5px);
+      }
+      60% {
+        opacity: 0.85;
+        transform: translateY(-3px) rotateX(4deg);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+        filter: blur(0);
+      }
+    }
+
+    /* decorative line */
+    .decorative-line {
+      position: relative;
+      z-index: 10;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(251, 191, 36, 0.55) 30%,
+        rgba(236, 72, 153, 0.55) 70%,
+        transparent 100%);
+      margin: 1.8rem auto 0;
+      transition: width 1.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .decorative-line.visible {
+      width: min(320px, 62vw);
+    }
+
+    /* portal button */
+    .enter-portal {
+      position: relative;
+      z-index: 10;
+      margin-top: 2.6rem;
+      opacity: 0;
+      transform: translateY(32px);
+      animation: portalReveal 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-play-state: paused;
+    }
+
+    .enter-portal.visible {
+      animation-play-state: running;
+    }
+
+    @keyframes portalReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .portal-button {
+      position: relative;
+      padding: 1.05rem 3.2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(245, 245, 240, 0.8);
+      background: transparent;
+      border: 1px solid rgba(251, 191, 36, 0.28);
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .portal-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(236, 72, 153, 0.09));
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .portal-button::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.14) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .portal-button:hover {
+      border-color: rgba(251, 191, 36, 0.58);
+      color: #f5f5f0;
+      box-shadow:
+        0 0 28px rgba(245, 158, 11, 0.2),
+        0 0 55px rgba(236, 72, 153, 0.1),
+        inset 0 0 18px rgba(251, 191, 36, 0.05);
+    }
+
+    .portal-button:hover::before { opacity: 1; }
+    .portal-button:hover::after { width: 300%; height: 300%; }
+    .portal-button:active { transform: scale(0.97); }
+
+    .portal-button > span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .portal-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 120%; height: 200%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .portal-button:hover .portal-glow { opacity: 1; }
+
+    .portal-glow::before,
+    .portal-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(251, 191, 36, 0.12);
+      animation: portalRing 3s linear infinite;
+    }
+
+    .portal-glow::after { animation-delay: -1.5s; }
+
+    @keyframes portalRing {
+      0%   { transform: scale(0.8); opacity: 0; }
+      50%  { opacity: 0.5; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* skip hint */
+    .skip-hint {
+      position: absolute;
+      bottom: 1.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: rgba(245, 245, 240, 0.2);
+      opacity: 0;
+      animation: fadeIn 1s ease 3.5s forwards;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .skip-hint kbd {
+      display: inline-block;
+      padding: 0.18em 0.48em;
+      background: rgba(245, 245, 240, 0.07);
+      border-radius: 3px;
+      font-family: monospace;
+      margin: 0 0.2em;
+    }
+
+    /* exit */
+    .landing-container.exiting {
+      animation: pageExit 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes pageExit {
+      0%   { opacity: 1; transform: scale(1);   filter: blur(0); }
+      100% { opacity: 0; transform: scale(1.1); filter: blur(12px); }
+    }
+
+    /* particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: 1; }
+      100% { transform: translateY(-10vh)  rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="landing" class="landing-container">
+    <div id="particles"></div>
+    <div class="calligraphy-container">
+      <span id="line-0" class="calligraphy-line title"></span>
+      <span id="line-1" class="calligraphy-line subtitle"></span>
+    </div>
+    <div id="deco-line" class="decorative-line"></div>
+    <div id="enter-portal" class="enter-portal">
+      <button class="portal-button" id="portal-btn">
+        <span>Enter the Shell</span>
+        <div class="portal-glow"></div>
+      </button>
+    </div>
+    <div class="skip-hint">
+      Press <kbd>Enter</kbd> to continue &middot; <kbd>Esc</kbd> to skip animation
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var LINES = [
+      { text: 'Limen OS', lineClass: 'title',    delay: 500 },
+      { text: 'Xpriens',  lineClass: 'subtitle', delay: 0   },
+    ];
+    var CHAR_DELAY = 82; // ms per char
+    var DEST = 'https://io.limen-os.io';
+
+    // ── timing ──────────────────────────────────────────────────────────────
+    var timings = [];
+    var currentTime = 0;
+    LINES.forEach(function (line, i) {
+      var startTime = (i === 0) ? line.delay : currentTime;
+      var duration  = line.text.length * CHAR_DELAY;
+      currentTime   = startTime + duration + 320;
+      var charStartIndex = 0;
+      for (var j = 0; j < i; j++) charStartIndex += LINES[j].text.length;
+      timings.push({ startTime: startTime, charStartIndex: charStartIndex });
+    });
+
+    var totalChars = LINES.reduce(function (a, l) { return a + l.text.length; }, 0);
+
+    // ── particles ────────────────────────────────────────────────────────────
+    var pContainer = document.getElementById('particles');
+    var pColors = [
+      'rgba(245,245,240,0.28)',
+      'rgba(251,191,36,0.24)',
+      'rgba(236,72,153,0.18)',
+      'rgba(245,245,240,0.18)',
+      'rgba(249,115,22,0.2)',
+    ];
+    for (var k = 0; k < 22; k++) {
+      var p = document.createElement('div');
+      p.className = 'particle';
+      var left  = Math.random() * 100;
+      var dur   = 14 + Math.random() * 22;
+      var delay = Math.random() * 16;
+      var size  = 1 + Math.random() * 2.2;
+      var color = pColors[Math.floor(Math.random() * pColors.length)];
+      p.style.left            = left + '%';
+      p.style.width           = size + 'px';
+      p.style.height          = size + 'px';
+      p.style.animationDuration = dur + 's';
+      p.style.animationDelay  = delay + 's';
+      p.style.background      = color;
+      pContainer.appendChild(p);
+    }
+
+    // ── build char spans ─────────────────────────────────────────────────────
+    var charSpans = [];
+    LINES.forEach(function (line, lineIndex) {
+      var lineEl = document.getElementById('line-' + lineIndex);
+      var csi    = timings[lineIndex].charStartIndex;
+      line.text.split('').forEach(function (ch, ci) {
+        var span = document.createElement('span');
+        span.className = 'char' + (ch === ' ' ? ' space' : '');
+        span.style.animationDelay     = (ci * 0.03) + 's';
+        span.style.animationPlayState = 'paused';
+        span.style.opacity            = '0';
+        span.textContent = (ch === ' ') ? ' ' : ch;
+        lineEl.appendChild(span);
+        charSpans[csi + ci] = span;
+      });
+    });
+
+    function revealUpTo(count) {
+      for (var i = 0; i < count; i++) {
+        if (charSpans[i]) {
+          charSpans[i].style.animationPlayState = 'running';
+          charSpans[i].style.opacity = '';
+        }
+      }
+    }
+
+    // ── schedule reveals ─────────────────────────────────────────────────────
+    var timers = [];
+    LINES.forEach(function (line, lineIndex) {
+      var st  = timings[lineIndex].startTime;
+      var csi = timings[lineIndex].charStartIndex;
+      for (var i = 0; i < line.text.length; i++) {
+        (function (globalIdx) {
+          timers.push(setTimeout(function () {
+            revealUpTo(globalIdx + 1);
+          }, st + i * CHAR_DELAY));
+        }(csi + i));
+      }
+    });
+
+    var lastTiming = timings[timings.length - 1];
+    var lastLen    = LINES[LINES.length - 1].text.length;
+    var decoDelay  = lastTiming.startTime + lastLen * CHAR_DELAY + 520;
+
+    timers.push(setTimeout(function () {
+      document.getElementById('deco-line').classList.add('visible');
+    }, decoDelay));
+
+    timers.push(setTimeout(function () {
+      document.getElementById('enter-portal').classList.add('visible');
+    }, decoDelay + 850));
+
+    // ── exit ──────────────────────────────────────────────────────────────────
+    var isExiting = false;
+
+    function handleEnter() {
+      if (isExiting) return;
+      isExiting = true;
+      document.getElementById('landing').classList.add('exiting');
+      setTimeout(function () {
+        window.location.href = DEST;
+      }, 950);
+    }
+
+    // ── keyboard ─────────────────────────────────────────────────────────────
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleEnter();
+      } else if (e.key === 'Escape') {
+        timers.forEach(clearTimeout);
+        revealUpTo(totalChars);
+        document.getElementById('deco-line').classList.add('visible');
+        document.getElementById('enter-portal').classList.add('visible');
+      }
+    });
+
+    document.getElementById('portal-btn').addEventListener('click', handleEnter);
+  }());
+  </script>
+</body>
+</html>

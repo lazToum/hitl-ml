@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Etkileşimli Makine Öğrenmesi &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/tr/chapters/05_interactive_ml';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/tr/chapters/05_interactive_ml.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Etkileşimli Makine Öğrenmesi</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etkilesimli-makine-ogrenmesinin-ilkeleri">Etkileşimli Makine Öğrenmesinin İlkeleri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktif-ogrenme-ile-karsilastirma">Aktif Öğrenme ile Karşılaştırma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#karma-girisim-etkilesimi">Karma Girişim Etkileşimi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml-deki-insan-faktorleri">IML’deki İnsan Faktörleri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pratikte-iml-geri-bildirim-turleri">Pratikte IML Geri Bildirim Türleri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ornek-duzeyinde-geri-bildirim">Örnek Düzeyinde Geri Bildirim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ozellik-duzeyinde-geri-bildirim">Özellik Düzeyinde Geri Bildirim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-duzeyinde-geri-bildirim">Model Düzeyinde Geri Bildirim</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vaka-calismasi-google-teachable-machine">Vaka Çalışması: Google Teachable Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basit-bir-iml-dongusunun-uygulanmasi">Basit Bir IML Döngüsünün Uygulanması</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buyukanne-testi">Büyükanne Testi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml-ve-temel-modeller">IML ve Temel Modeller</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="etkilesimli-makine-ogrenmesi">
+<h1>Etkileşimli Makine Öğrenmesi<a class="headerlink" href="#etkilesimli-makine-ogrenmesi" title="Permalink to this heading">#</a></h1>
+<p>Aktif öğrenme odaklı bir soru sorar: bütçe göz önünde bulundurulduğunda hangi örnekler etiketlenmelidir? Etkileşimli Makine Öğrenmesi (IML) ise daha geniş bir soru sorar: bir insan ile bir öğrenme sistemi arasındaki <em>tüm etkileşimi</em> en üst düzeyde verimli, keyifli ve doğru biçimde nasıl tasarlayabiliriz?</p>
+<p>IML’i diğerlerinden ayıran, insan–model geri bildirim döngüsünün <strong>anlık</strong> ve <strong>doğrudan</strong> niteliğidir. Geleneksel makine öğrenmesinde insan veri teslim eder ve eğitimin bitmesini beklerken, IML insanlara model davranışını gözlemleme, geri bildirim sağlama ve modelin — çoğunlukla saniyeler içinde — tepki verdiğini görme olanağı tanır.</p>
+<hr class="docutils" />
+<section id="etkilesimli-makine-ogrenmesinin-ilkeleri">
+<h2>Etkileşimli Makine Öğrenmesinin İlkeleri<a class="headerlink" href="#etkilesimli-makine-ogrenmesinin-ilkeleri" title="Permalink to this heading">#</a></h2>
+<p>Amershi ve diğerleri <a href="#id1"><span class="problematic" id="id2">amershi2014power</span></a>, IML’nin üç belirleyici özelliğini saptamıştır:</p>
+<p><strong>1. Hızlı Geri Bildirim:</strong> Model, insanların geri bildirimlerinin etkisini algılayabilmesi için yeterince hızlı güncellenir. Limitde, model güncellemeleri gerçek zamanlı olarak gerçekleşir.</p>
+<p><strong>2. Doğrudan Müdahale:</strong> İnsan, modellerle veri ya da modelin tahminleri üzerinden etkileşim kurar — yapılandırma dosyaları veya hiper parametre ayarlaması yoluyla değil.</p>
+<p><strong>3. Yinelemeli İyileştirme:</strong> Süreç gerçek anlamda yinelemeli bir nitelik taşır: insanın sonraki eylemi, insanın önceki eylemlerinin şekillendirdiği modelin mevcut davranışıyla belirlenir.</p>
+<p>Bu durum, sıkı bir <strong>karşılıklı uyum döngüsü</strong> yaratır: hem insan hem de model zaman içinde birbirlerine yanıt olarak değişir. İnsan, modelin neyi anladığını öğrenir; model ise insanın ne önemsediğini.</p>
+</section>
+<hr class="docutils" />
+<section id="aktif-ogrenme-ile-karsilastirma">
+<h2>Aktif Öğrenme ile Karşılaştırma<a class="headerlink" href="#aktif-ogrenme-ile-karsilastirma" title="Permalink to this heading">#</a></h2>
+<p>IML ve aktif öğrenme önemli ölçüde örtüşür ancak özdeş değildir:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Özellik</p></th>
+<th class="head"><p>Aktif Öğrenme</p></th>
+<th class="head"><p>Etkileşimli ML</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Birincil soru</p></td>
+<td><p>Ne etiketlenmeli?</p></td>
+<td><p>Nasıl etkileşim kurulmalı?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Geri bildirim gecikmesi</p></td>
+<td><p>Toplu olabilir (günler)</p></td>
+<td><p>Genellikle gerçek zamanlı</p></td>
+</tr>
+<tr class="row-even"><td><p>Model güncelleme sıklığı</p></td>
+<td><p>Tur başına (toplu)</p></td>
+<td><p>Etkileşim başına (çevrimiçi)</p></td>
+</tr>
+<tr class="row-odd"><td><p>İnsan özerkliği</p></td>
+<td><p>Modelin sorularına yanıt verir</p></td>
+<td><p>Modeli proaktif olarak eğitebilir</p></td>
+</tr>
+<tr class="row-even"><td><p>Arayüz tasarımı</p></td>
+<td><p>İkincil endişe</p></td>
+<td><p>Merkezi endişe</p></td>
+</tr>
+<tr class="row-odd"><td><p>İnsanın bilişsel yükü</p></td>
+<td><p>Açıkça modellenmiyor</p></td>
+<td><p>Açıkça dikkate alınıyor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Aktif öğrenmede makine etkileşimi yönlendirir. IML’de insan da inisiyatif alabilir — modelin davranışının en sorunlu görünen yönü ne ise o konuda örnekler, düzeltmeler veya geri bildirim sağlayabilir.</p>
+</section>
+<hr class="docutils" />
+<section id="karma-girisim-etkilesimi">
+<h2>Karma Girişim Etkileşimi<a class="headerlink" href="#karma-girisim-etkilesimi" title="Permalink to this heading">#</a></h2>
+<p><strong>Karma girişim</strong> sistemleri, hem insanın hem de makinenin farklı anlarda öncü olmasına izin verir <a href="#id3"><span class="problematic" id="id4">allen1999mixed</span></a>. Tamamen makine yönlendirmeli bir sistem sorular sorar ve insan yanıtlar. Tamamen insan yönlendirmeli bir sistem her şeyi insanın belirlemesine izin verir. Karma girişim sistemleri her ikisini dengeler.</p>
+<p>Pratikte en iyi IML sistemleri şunları bir araya getirir:</p>
+<ul class="simple">
+<li><p><strong>Makine girişimi:</strong> “Bu örneklerden emin değilim — etiketleyebilir misiniz?”</p></li>
+<li><p><strong>İnsan girişimi:</strong> “Modelin bu kategori konusunda sürekli hata yaptığını fark ediyorum — daha fazla örnek sağlayayım”</p></li>
+<li><p><strong>Onaylama:</strong> Model mevcut anlayışını ortaya koyar; insan onaylar ya da düzeltir</p></li>
+</ul>
+<p>İyi IML arayüzleri, modelin mevcut anlayışını görünür ve düzeltilebilir kılar. Bu, <strong>anlaşılırlık</strong> gerekliliğidir: insanlar yalnızca en azından kabaca anladıkları bir modele rehberlik edebilir.</p>
+</section>
+<hr class="docutils" />
+<section id="iml-deki-insan-faktorleri">
+<h2>IML’deki İnsan Faktörleri<a class="headerlink" href="#iml-deki-insan-faktorleri" title="Permalink to this heading">#</a></h2>
+<p>IML, bilişsel yük, yorgunluk, tutarlılık ve güven gibi insan faktörlerini doğrudan öğrenme döngüsüne taşır. Kötü IML tasarımı şunlara yol açar:</p>
+<p><strong>Açıklama yorgunluğu:</strong> İnsanların oturumlar uzadıkça daha hızlı ve daha özensiz kararlar alması. Eğitim verilerine giren hatalar.</p>
+<p><strong>Çapalama önyargısı:</strong> İnsanların modelin mevcut önerilerine aşırı güvenmesi. Bir arayüz modelin tahminini önceden doldurursa, yanlış olduğunda bile açıklayıcıların düzeltme olasılığı azalır — bu, açıklama turları arasında birikerek güçlenen sistematik bir etiket gürültüsü kaynağıdır <a href="#id5"><span class="problematic" id="id6">geva2019annotator</span></a>. Ön açıklama verimi artırabilir <a href="#id7"><span class="problematic" id="id8">lingren2014evaluating</span></a> ve aynı zamanda açıklayıcıların model hatalarını yakalama oranını düşürebilir; bu iki etki IML arayüz tasarımında birbirlerine karşı tartılmalıdır.</p>
+<p><strong>Güven uyumsuzluğu:</strong> İnsanlar ya gereğinden fazla güvenir (yanlış model çıktılarını kabul eder) ya da gereğinden az güvenir (doğru önerileri görmezden gelir). Her iki örüntü de insan–model işbirliğinin değerini düşürür.</p>
+<p><strong>Oturum tutarlılığı:</strong> İnsanlar, özellikle uzun oturumların ardından, aynı örnek üzerinde farklı zamanlarda farklı kararlar verebilir. Tutarlılık kontrolleri (önceki örnekleri yeniden sunmak) bunu tespit edip düzeltebilir.</p>
+<p>İyi IML tasarımı bu sorunları arayüz seçimleriyle azaltır: model güvenini açıkça sunmak, görüntüleme sırasını rastgele belirlemek, oturum süresini sınırlamak ve tutarlılık kontrolleri yerleştirmek.</p>
+</section>
+<hr class="docutils" />
+<section id="pratikte-iml-geri-bildirim-turleri">
+<h2>Pratikte IML Geri Bildirim Türleri<a class="headerlink" href="#pratikte-iml-geri-bildirim-turleri" title="Permalink to this heading">#</a></h2>
+<section id="ornek-duzeyinde-geri-bildirim">
+<h3>Örnek Düzeyinde Geri Bildirim<a class="headerlink" href="#ornek-duzeyinde-geri-bildirim" title="Permalink to this heading">#</a></h3>
+<p>İnsan, belirli bir örnek için bir etiket veya düzeltme sağlar. Bu en yaygın biçimdir ve denetimli öğrenmeyle doğrudan uyumludur.</p>
+</section>
+<section id="ozellik-duzeyinde-geri-bildirim">
+<h3>Özellik Düzeyinde Geri Bildirim<a class="headerlink" href="#ozellik-duzeyinde-geri-bildirim" title="Permalink to this heading">#</a></h3>
+<p>İnsan hangi özelliklerin ilgili ya da ilgisiz olduğunu belirtir. “Model bu kategori için ‘acil’ ve ‘son teslim tarihi’ sözcüklerine dikkat etmeli.” Bu, örnek düzeyinde geri bildirimden daha ifadeli ve belirli görevler için daha verimli olabilir.</p>
+<p><strong>TFIDF Etkileşimli</strong> ve benzer sistemler, açıklayıcıların metin belgelerindeki ilgili sözcükleri vurgulamasına olanak tanır. Bu vurgulamalar, modelin dikkatine yönelik kısıtlamalara veya ek denetime dönüştürülür.</p>
+</section>
+<section id="model-duzeyinde-geri-bildirim">
+<h3>Model Düzeyinde Geri Bildirim<a class="headerlink" href="#model-duzeyinde-geri-bildirim" title="Permalink to this heading">#</a></h3>
+<p>İnsan, modelin bir girdi sınıfındaki davranışını doğrudan düzeltir: “[X] içerdiğinde çıktı [Y] olmalı.” Bu, Arka Plan Düzenlemesi <a href="#id9"><span class="problematic" id="id10">ganchev2010posterior</span></a> veya kısıt güdümlü öğrenme gibi yaklaşımlarda mantık kurallarına veya kısıtlamalara eşlenir.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="vaka-calismasi-google-teachable-machine">
+<h2>Vaka Çalışması: Google Teachable Machine<a class="headerlink" href="#vaka-calismasi-google-teachable-machine" title="Permalink to this heading">#</a></h2>
+<p>Teachable Machine, teknik olmayan kullanıcıların tarayıcıda görüntü sınıflandırıcıları eğitmesine olanak tanıyan erişilebilir bir web tabanlı IML sistemidir. Kullanıcı:</p>
+<ol class="arabic simple">
+<li><p>Web kamerasını kullanarak her sınıf için örnekler kaydeder</p></li>
+<li><p>Tek tıklamayla modeli eğitir (tarayıcıda bir MobileNet ince ayarı)</p></li>
+<li><p>Model tahminlerini canlı videoda anında görür</p></li>
+<li><p>Modelin hatalı olduğu sınıflar için daha fazla örnek ekler</p></li>
+</ol>
+<p>Bu, temel IML döngüsünü örnekler: örnek sağla → modeli gözlemle → başarısızlığı tespit et → daha hedefli örnekler sağla. Gerçek zamanlı geri bildirim (model çıktıları gerçek zamanlı, modern donanımda genellikle etkileşimli kare hızlarında güncellenir), karşılıklı uyum döngüsünü somut biçimde hissettiren bir anlıklık yaratır.</p>
+</section>
+<hr class="docutils" />
+<section id="basit-bir-iml-dongusunun-uygulanmasi">
+<h2>Basit Bir IML Döngüsünün Uygulanması<a class="headerlink" href="#basit-bir-iml-dongusunun-uygulanmasi" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleIMLSystem</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Minimal IML system that allows online feedback and displays</span>
+<span class="sd">    model state after each annotation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                   <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span> <span class="o">=</span> <span class="n">n_classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y_true</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Receive a single labeled example and update the model.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
+            <span class="n">X_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="p">)</span>
+            <span class="n">y_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span><span class="p">)</span>
+            <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_arr</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y_arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span>
+                                   <span class="n">classes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict_with_confidence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict label and return confidence.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">0.0</span>
+        <span class="n">x_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">probs</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">current_accuracy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span> <span class="o">==</span> <span class="n">y_val</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+
+<span class="c1"># Simulate an IML session</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">500</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="mi">400</span><span class="p">:],</span> <span class="n">y_all</span><span class="p">[</span><span class="mi">400</span><span class="p">:]</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">SimpleIMLSystem</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">accs</span><span class="p">,</span> <span class="n">confidences</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step | Labels | Accuracy | Example confidence&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="n">step</span><span class="p">],</span> <span class="n">y_all</span><span class="p">[</span><span class="n">step</span><span class="p">]</span>
+    <span class="n">pred</span><span class="p">,</span> <span class="n">conf</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">predict_with_confidence</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">current_accuracy</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">acc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> |  </span><span class="si">{</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">4d</span><span class="si">}</span><span class="s2">  |  </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   | </span><span class="si">{</span><span class="n">conf</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="buyukanne-testi">
+<h2>Büyükanne Testi<a class="headerlink" href="#buyukanne-testi" title="Permalink to this heading">#</a></h2>
+<p>IML arayüz tasarımını — ve daha genel olarak HITL sistem tasarımını — değerlendirmek için yararlı bir sezgisel yönteme <strong>Büyükanne Testi</strong> adını veriyoruz (bu kavram burada özgün bir tasarım kısıtı olarak ortaya atılmaktadır; önceki çalışmalara bir atıf değildir):</p>
+<blockquote>
+<div><p><em>1930 doğumlu bir kadın bu cihazı sesle kullanabilmeli ve hayal kırıklığına uğradığında klavye veya metin arayüzüne sorunsuz biçimde geçebilmelidir.</em></p>
+</div></blockquote>
+<p>Test öncelikle erişilebilirlikle ilgili değildir — her ne kadar o da olsa. <strong>Dirençli tasarım</strong> üzerinedir. Bir sistem, etkili biçimde kullanılabilmesi için sinir ağları, eğitim döngüleri veya olasılık dağılımlarına ilişkin zihinsel bir model gerektiriyorsa, Büyükanne Testini başaramamış demektir. Döngüdeki insan, döngünün makine tarafını anlamadan da katılabilmelidir.</p>
+<p>IML tasarımına yönelik çıkarımlar somuttur:</p>
+<p><strong>Ses öncelikli yedekleme:</strong> Birincil etkileşim kipi doğal dil veya jest olmalıdır — parametre kaydırıcıları ya da güven eşikleri değil. Uzmanlar kaydırıcı isteyebilir; herkes “bu yanlış” diyebilmelidir.</p>
+<p><strong>Zarif bozulma:</strong> Kullanıcının tercih ettiği kip başarısız olduğunda veya hayal kırıklığı yarattığında, sistem boş bir ekran veya hata iletisi değil, bir alternatif sunmalıdır. Arayüz öğrenme sisteminin bir parçasıdır; etkileşim kuramayan bir kullanıcı öğretemez.</p>
+<p><strong>Anlaşılır model durumu:</strong> Modelin mevcut anlayışı insan dilinde görünür olmalıdır. “Güven: 0,73” değil; “Bunun [X] olduğundan oldukça eminim, ancak bu türden örneklerin her iki yöne de gittiğini gördüm.” Belirsizlik, düzeltmeyi davet eden bir dilde iletilmelidir.</p>
+<p><strong>Belirsizliğe tolerans:</strong> 93 yaşındaki bir kullanıcı ile 23 yaşındaki bir makine öğrenmesi mühendisi aynı sistemle farklı biçimlerde etkileşim kuracaktır. Büyükanne Testi, sistemin her ikisine de uyum sağlayıp sağlayamadığını sorar — kullanıcının yaşını tespit ederek değil, geniş bir uzmanlık ve rahatlık yelpazesinde işe yarayan etkileşimler tasarlayarak.</p>
+<p>Test, makine öğrenmesi sistemleri araştırma araçlarından gündelik altyapıya taşındıkça özel bir önem kazanır. Radyologlar tarafından kullanılan bir tıbbi görüntüleme asistanı, kâtipler tarafından kullanılan bir hukuki belge sınıflandırıcısı, öğretmenler tarafından kullanılan bir eğitimsel geri bildirim sistemi — her biri AI eğitmeni olmak için başvurmamış döngüde insanları içerir. Onlar için tasarım yapmak bir taviz değildir; asıl amacın ta kendisidir.</p>
+<div class="tip admonition">
+<p class="admonition-title">Tasarım İlkesi</p>
+<p>Büyükanne Testi bir hedef demografi değil, bir tasarım kısıtıdır. Bu testi geçen sistemler, kullanıcı çeşitliliğine karşı daha dayanıklı, uzmanlık boşluklarına karşı daha hoşgörülü ve döngüdeki insanlardan neler beklediği konusunda daha dürüsttür. Bir sistem kullanımdan önce açıklama gerektiriyorsa, insandan ek çaba istiyor demektir. Bu çabanın orantılı bir fayda sağlaması gerekir.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="iml-ve-temel-modeller">
+<h2>IML ve Temel Modeller<a class="headerlink" href="#iml-ve-temel-modeller" title="Permalink to this heading">#</a></h2>
+<p>Modern IML giderek artan biçimde <strong>önceden eğitilmiş temel modelleri</strong> <a href="#id11"><span class="problematic" id="id12">bommasani2021opportunities</span></a> temel olarak kullanmaktadır. Sıfırdan eğitmek yerine kullanıcılar, az sayıda etkileşimli örnekle büyük bir önceden eğitilmiş modeli ince ayar yapar. Bu, yararlı performansa ulaşmak için gereken örnek sayısını önemli ölçüde azaltabilir — önceden eğitilmiş temsillerin hedef görevle ne kadar örtüştüğüne bağlı olarak, elverişli durumlarda binler yerine yalnızca 5–50 örnek yeterli olabilir <a href="#id13"><span class="problematic" id="id14">bommasani2021opportunities</span></a>.</p>
+<p>Bunu sağlayan teknikler şunlardır:</p>
+<ul class="simple">
+<li><p><strong>Az atışlı yönlendirme:</strong> Örnekleri büyük dil modelinin bağlam penceresinde sağlama</p></li>
+<li><p><strong>Adaptör ince ayarı:</strong> Taban modeli dondurarak küçük adaptör modülleri güncelleme</p></li>
+<li><p><strong>Parametreden Verimli İnce Ayar (PEFT):</strong> Hızlı, düşük kaynaklı güncellemelere olanak tanıyan LoRA, önek ayarı ve benzeri yöntemler</p></li>
+</ul>
+<p>Temel modeller IML dinamiğini değiştirir: insanlar artık boş bir modeli sıfırdan eğitmek yerine zaten çok şey bilen bir modeli <em>yönlendirmektedir</em>. Zorluk “yeterli örnek nasıl sağlanır”dan “modelin zaten yaptıklarından tam olarak ne farklı istiyoruz”a kayar.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a href="#id15"><span class="problematic" id="id16">amershi2014power</span></a> araştırması, IML ilkelerinin en iyi genel değerlendirmesi olmaya devam etmektedir. Karma girişim sistemleri için bkz. <a href="#id17"><span class="problematic" id="id18">allen1999mixed</span></a>. Açıklamada çapalama etkileri için bkz. <a href="#id19"><span class="problematic" id="id20">geva2019annotator</span></a> ve <a href="#id21"><span class="problematic" id="id22">lingren2014evaluating</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/tr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etkilesimli-makine-ogrenmesinin-ilkeleri">Etkileşimli Makine Öğrenmesinin İlkeleri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktif-ogrenme-ile-karsilastirma">Aktif Öğrenme ile Karşılaştırma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#karma-girisim-etkilesimi">Karma Girişim Etkileşimi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml-deki-insan-faktorleri">IML’deki İnsan Faktörleri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pratikte-iml-geri-bildirim-turleri">Pratikte IML Geri Bildirim Türleri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ornek-duzeyinde-geri-bildirim">Örnek Düzeyinde Geri Bildirim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ozellik-duzeyinde-geri-bildirim">Özellik Düzeyinde Geri Bildirim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-duzeyinde-geri-bildirim">Model Düzeyinde Geri Bildirim</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vaka-calismasi-google-teachable-machine">Vaka Çalışması: Google Teachable Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basit-bir-iml-dongusunun-uygulanmasi">Basit Bir IML Döngüsünün Uygulanması</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buyukanne-testi">Büyükanne Testi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml-ve-temel-modeller">IML ve Temel Modeller</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

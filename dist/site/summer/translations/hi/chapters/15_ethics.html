@@ -1,0 +1,606 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>निष्पक्षता, पूर्वाग्रह एवं नैतिकता &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/hi/chapters/15_ethics';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/hi/chapters/15_ethics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>निष्पक्षता, पूर्वाग्रह एवं नैतिकता</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">HITL प्रणालियों में पूर्वाग्रह के स्रोत</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">अनुलेखक जनसांख्यिकी</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">कार्य फ्रेमिंग</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">प्लेटफ़ॉर्म प्रभाव</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">HITL प्रणालियों में निष्पक्षता</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">निष्पक्षता क्या है?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">निष्पक्षता-जागरूक सक्रिय अधिगम</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">अनुलेखक कल्याण</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">भूत-कार्य समस्या</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">नैतिक प्रथाएँ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">अनुलेखन में गोपनीयता</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-health-information-phi-pii">Protected Health Information (PHI) और PII</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">प्रतिकूल अनुलेखन और डेटा विषाक्तता</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">संस्थागत नैतिकता</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">पारदर्शिता और जवाबदेही</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>निष्पक्षता, पूर्वाग्रह एवं नैतिकता<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>ह्यूमन-इन-द-लूप प्रणालियाँ उनमें उपस्थित मनुष्यों की क्षमताओं और सीमाओं दोनों को विरासत में पाती हैं। अनुलेखक अपने काम में ज्ञान, निर्णय, और रचनात्मकता लाते हैं — लेकिन पूर्वाग्रह, थकान, और अपने जीवन का सामाजिक संदर्भ भी। HITL प्रणालियों को डिज़ाइन करने में हम जो विकल्प चुनते हैं — कौन अनुलेखन करता है, उनसे क्या पूछा जाता है, उन्हें कैसे मुआवज़ा दिया जाता है, और उनके काम का उपयोग कैसे किया जाता है — के परिणाम हैं जो मॉडल सटीकता मेट्रिक्स से बहुत आगे जाते हैं।</p>
+<p>यह अध्याय HITL ML के नैतिक आयामों को संबोधित करता है।</p>
+<hr class="docutils" />
+<section id="hitl">
+<h2>HITL प्रणालियों में पूर्वाग्रह के स्रोत<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<section id="id2">
+<h3>अनुलेखक जनसांख्यिकी<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>अनुलेखन एक तटस्थ कार्य नहीं है। अनुलेखक अपने दृष्टिकोण, अनुभव, और सांस्कृतिक संदर्भों को दर्शाने वाले लेबल असाइन करते हैं। जब अनुलेखन कार्यबल जनसांख्यिकीय रूप से सजातीय हो — जैसा कि अक्सर होता है, क्राउडवर्क युवा, पुरुष, और पश्चिमी की ओर झुकता है — परिणामी डेटासेट उस समूह के दृष्टिकोणों को कूटबद्ध करता है।</p>
+<p><strong>साक्ष्य:</strong> NLP अनुलेखन डेटासेट के अध्ययनों में पाया गया है कि अनुलेखकों की जनसांख्यिकीय विशेषताएँ व्यक्तिपरक कार्यों के लिए उनके लेबल विकल्पों की भविष्यवाणी करती हैं <a href="#id3"><span class="problematic" id="id4">geva2019annotator</span></a>।</p>
+<p><strong>शमन:</strong> जानबूझकर कार्यबल विविधीकरण; स्तरीय अनुलेखन।</p>
+</section>
+<section id="id5">
+<h3>कार्य फ्रेमिंग<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>प्रश्न कैसे पूछा जाता है यह उत्तरों को प्रभावित करता है।</p>
+</section>
+<section id="id6">
+<h3>प्लेटफ़ॉर्म प्रभाव<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>प्लेटफ़ॉर्म और भुगतान संरचना अनुलेखन गुणवत्ता को प्रभावित करती है।</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h2>HITL प्रणालियों में निष्पक्षता<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<section id="id8">
+<h3>निष्पक्षता क्या है?<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>ML में निष्पक्षता एक विवादित अवधारणा है जिसकी एकाधिक औपचारिक परिभाषाएँ हैं जो अक्सर परस्पर असंगत होती हैं <a href="#id9"><span class="problematic" id="id10">barocas2019fairness</span></a>।</p>
+<p><strong>प्रतिनिधित्व:</strong> क्या प्रशिक्षण डेटा उन आबादी का प्रतिनिधित्व करता है जिन्हें मॉडल प्रभावित करेगा?</p>
+<p><strong>प्रदर्शन समानता:</strong> क्या मॉडल विभिन्न जनसांख्यिकीय समूहों में समान रूप से अच्छा प्रदर्शन करता है?</p>
+<p><strong>लेबलिंग संगति:</strong> क्या एक ही व्यवहार को समान रूप से लेबल किया जाता है चाहे वह कोई भी कर रहा हो?</p>
+</section>
+<section id="id11">
+<h3>निष्पक्षता-जागरूक सक्रिय अधिगम<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>मानक सक्रिय अधिगम क्वेरी मॉडल अनिश्चितता पर ध्यान केंद्रित करती हैं, जो बहुमत-वर्ग उदाहरणों की ओर केंद्रित होती हैं।</p>
+<p><strong>निष्पक्षता-जागरूक क्वेरी रणनीतियाँ:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left[ \lambda \cdot \text{uncertainty}(x) + (1 - \lambda) \cdot \text{minority\_group\_bonus}(x) \right]
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h2>अनुलेखक कल्याण<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<section id="id13">
+<h3>भूत-कार्य समस्या<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<p>ML को शक्ति देने वाला अनुलेखन कार्य काफी हद तक अदृश्य है। डेटा कार्यकर्ता — अक्सर ग्लोबल साउथ में — कम वेतन पर, बिना लाभ के, गिग-अर्थव्यवस्था व्यवस्था में काम करते हैं <a href="#id14"><span class="problematic" id="id15">crawford2018anatomy,gray2019ghost</span></a>।</p>
+<p><strong>Amazon MTurk सांख्यिकी:</strong> MTurk आय के 2018 के व्यवस्थित विश्लेषण में औसत प्रभावी प्रति घंटा वेतन लगभग $2/घंटा पाया गया <a href="#id16"><span class="problematic" id="id17">hara2018data</span></a>।</p>
+<p><strong>सामग्री मॉडरेशन:</strong> विशेष रूप से हानिकारक रूप का अनुलेखन कार्य — ग्राफिक, हिंसक, और परेशान करने वाली सामग्री की समीक्षा — PTSD, अवसाद, और चिंता से जुड़ा हुआ है <a href="#id18"><span class="problematic" id="id19">newton2019trauma</span></a>।</p>
+</section>
+<section id="id20">
+<h3>नैतिक प्रथाएँ<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h3>
+<p><strong>उचित वेतन:</strong> अनुलेखन कार्यकर्ताओं को स्थानीय न्यूनतम वेतन पर या उससे ऊपर भुगतान करें।</p>
+<p><strong>कार्य दृश्यता:</strong> प्रकाशनों और उत्पाद प्रलेखन में उस श्रम को स्वीकार करें जो प्रशिक्षण डेटा बनाता है।</p>
+<p><strong>मानसिक स्वास्थ्य समर्थन:</strong> हानिकारक सामग्री की समीक्षा करने वाले कार्यकर्ताओं के लिए मनोवैज्ञानिक समर्थन, रोटेशन अनुसूचियाँ, और एक्सपोज़र सीमाएँ प्रदान करें।</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id21">
+<h2>अनुलेखन में गोपनीयता<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h2>
+<section id="protected-health-information-phi-pii">
+<h3>Protected Health Information (PHI) और PII<a class="headerlink" href="#protected-health-information-phi-pii" title="Permalink to this heading">#</a></h3>
+<p>अनुलेखन कार्यों में अक्सर संवेदनशील व्यक्तिगत डेटा शामिल होता है।</p>
+<p>नियामक ढाँचे (HIPAA, GDPR) मुख्य सिद्धांत:</p>
+<ul class="simple">
+<li><p><strong>डेटा न्यूनीकरण:</strong> केवल वह जानकारी साझा करें जो अनुलेखकों को कार्य पूरा करने के लिए चाहिए</p></li>
+<li><p><strong>डी-पहचान:</strong> जहाँ संभव हो अनुलेखन से पहले PHI और PII हटाएँ</p></li>
+<li><p><strong>सहमति:</strong> जहाँ वास्तविक उपयोगकर्ता डेटा अनुलेखित किया जाता है, उचित सहमति सुनिश्चित करें</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h2>प्रतिकूल अनुलेखन और डेटा विषाक्तता<a class="headerlink" href="#id22" title="Permalink to this heading">#</a></h2>
+<p>HITL प्रणालियाँ एक हमले की सतह बनाती हैं: यदि कोई प्रतिकूल अनुलेखन प्रक्रिया को प्रभावित कर सकता है, तो वे मॉडल के व्यवहार को प्रभावित कर सकते हैं।</p>
+<p><strong>शमन:</strong> प्रति आइटम एकाधिक स्वतंत्र अनुलेखक; अनुलेखन पैटर्न पर आउटलायर पहचान; असामान्य सहमति या असहमति की निगरानी।</p>
+</section>
+<hr class="docutils" />
+<section id="id23">
+<h2>संस्थागत नैतिकता<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h2>
+<section id="id24">
+<h3>पारदर्शिता और जवाबदेही<a class="headerlink" href="#id24" title="Permalink to this heading">#</a></h3>
+<p>ML प्रणालियों से प्रभावित उपयोगकर्ताओं का यह समझने में एक वैध हित है कि वे प्रणालियाँ कैसे बनाई गई थीं।</p>
+<p><strong>डेटासेट के लिए डेटाशीट</strong> <a href="#id25"><span class="problematic" id="id26">gebru2021datasheets</span></a> डेटासेट उत्पत्ति, अनुलेखन प्रक्रियाओं, और ज्ञात सीमाओं के दस्तावेज़ीकरण के लिए एक संरचित टेम्पलेट प्रदान करता है।</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>एल्गोरिदमिक निष्पक्षता ढाँचा: <a href="#id27"><span class="problematic" id="id28">barocas2019fairness</span></a>। भूत कार्य और प्लेटफ़ॉर्म श्रम: Gray &amp; Suri (2019)। डेटासेट के लिए डेटाशीट: <a href="#id29"><span class="problematic" id="id30">gebru2021datasheets</span></a>। सामग्री मॉडरेशन कार्यकर्ता कल्याण: <a href="#id31"><span class="problematic" id="id32">newton2019trauma</span></a>। अनुलेखक जनसांख्यिकी और NLP डेटासेट: <a href="#id33"><span class="problematic" id="id34">geva2019annotator</span></a>।</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/hi/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">HITL प्रणालियों में पूर्वाग्रह के स्रोत</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">अनुलेखक जनसांख्यिकी</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">कार्य फ्रेमिंग</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">प्लेटफ़ॉर्म प्रभाव</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">HITL प्रणालियों में निष्पक्षता</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">निष्पक्षता क्या है?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">निष्पक्षता-जागरूक सक्रिय अधिगम</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">अनुलेखक कल्याण</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">भूत-कार्य समस्या</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">नैतिक प्रथाएँ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">अनुलेखन में गोपनीयता</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-health-information-phi-pii">Protected Health Information (PHI) और PII</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">प्रतिकूल अनुलेखन और डेटा विषाक्तता</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">संस्थागत नैतिकता</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">पारदर्शिता और जवाबदेही</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

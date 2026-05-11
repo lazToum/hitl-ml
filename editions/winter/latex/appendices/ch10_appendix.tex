@@ -1,0 +1,272 @@
+% ============================================================================
+% CHAPTER 10 TECHNICAL APPENDIX
+% The Mathematics of Language Models
+% ============================================================================
+% Source: /markdown/ch10/Ch10A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix: Chapter 10}
+\addcontentsline{toc}{chapter}{Technical Appendix: Chapter 10 --- The Mathematics of Language Models}
+\label{app:ch10}
+
+\begin{chapterquote}{on the mathematics of meaning}
+The surprising thing is not that attention works --- it's that it works so well that we still aren't sure why.
+\end{chapterquote}
+
+% ============================================================================
+\section*{A.10.1\quad Token Probability Distributions and Sampling}
+\addcontentsline{toc}{section}{A.10.1 Token Probability Distributions and Sampling}
+\label{sec:app10-tokens}
+% ============================================================================
+
+Language models don't generate words --- they generate \term{tokens}. A token is a sub-word unit, typically a word or a common word-fragment produced by Byte Pair Encoding (BPE) \autocite{sennrich2016bpe}. At each step, the model produces a probability distribution over the entire vocabulary --- typically 32{,}000--100{,}000 tokens.
+
+Formally, given a sequence of previous tokens $x_1, x_2, \ldots, x_t$, the model produces:
+
+\begin{equation}
+P(x_{t+1} \mid x_1, x_2, \ldots, x_t) = \text{softmax}(\mathbf{W}_o \cdot \mathbf{h}_t)
+\label{eq:lm-prob}
+\end{equation}
+
+where $\mathbf{h}_t$ is the final hidden-state vector and $\mathbf{W}_o$ is the output projection matrix. The softmax ensures probabilities sum to 1:
+
+\begin{equation}
+\text{softmax}(z_i) = \frac{e^{z_i}}{\displaystyle\sum_j e^{z_j}}
+\label{eq:softmax}
+\end{equation}
+
+\subsection*{Sampling Strategies}
+
+\paragraph{Temperature sampling} divides logits by temperature $T$ before softmax:
+\begin{equation}
+P_T(x_{t+1}) = \text{softmax}\!\left(\frac{\mathbf{z}}{T}\right)
+\label{eq:temperature}
+\end{equation}
+At $T < 1$, high-probability tokens dominate (conservative output); at $T > 1$, distribution flattens (more varied output).
+
+\paragraph{Top-$p$ (nucleus) sampling} \autocite{holtzman2020curious} selects the smallest set of tokens whose cumulative probability exceeds threshold $p$:
+\begin{equation}
+\mathcal{N}_p = \min S \subseteq V \;\text{ such that }\; \sum_{x \in S} P(x) \geq p
+\label{eq:nucleus}
+\end{equation}
+This adapts dynamically: a peaked distribution yields a small nucleus (confident model); a flat distribution yields a large nucleus (uncertain model).
+
+\begin{technote}[Hallucination and Sampling]
+A model's hallucination tendency is partly a sampling artifact. When the model is genuinely uncertain --- the correct token has, say, 15\% probability and the second-best has 12\% --- temperature and nucleus parameters determine whether this uncertainty is amplified or suppressed. The model has no internal mechanism to communicate ``I am sampling from a very flat distribution here; my output should be hedged.'' This is why calibration research matters.
+\end{technote}
+
+% ============================================================================
+\section*{A.10.2\quad The Attention Mechanism}
+\addcontentsline{toc}{section}{A.10.2 The Attention Mechanism}
+\label{sec:app10-attention}
+% ============================================================================
+
+The transformer's core operation is \term{scaled dot-product attention} \autocite{vaswani2017attention}:
+
+\begin{equation}
+\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right) V
+\label{eq:attention}
+\end{equation}
+
+where:
+\begin{itemize}[noitemsep]
+    \item $Q \in \mathbb{R}^{n \times d_k}$ --- \textbf{query} matrix (what we're looking for)
+    \item $K \in \mathbb{R}^{m \times d_k}$ --- \textbf{key} matrix (what's available to be looked up)
+    \item $V \in \mathbb{R}^{m \times d_v}$ --- \textbf{value} matrix (what gets returned)
+    \item $\sqrt{d_k}$ --- scaling factor preventing dot products from saturating the softmax
+\end{itemize}
+
+In \textbf{self-attention}, queries, keys, and values are all derived from the same input sequence $X \in \mathbb{R}^{n \times d_{\text{model}}}$:
+
+\begin{equation}
+Q = X W_Q, \quad K = X W_K, \quad V = X W_V
+\label{eq:qkv}
+\end{equation}
+
+where $W_Q, W_K, W_V \in \mathbb{R}^{d_{\text{model}} \times d_k}$ are learned projection matrices. The output $\text{softmax}(QK^\top/\sqrt{d_k})$ is the \textbf{attention weight matrix} $A \in \mathbb{R}^{n \times m}$, where $A_{ij}$ represents how strongly position $i$ attends to position $j$.
+
+\subsection*{Multi-Head Attention}
+
+\textbf{Multi-head attention} runs $h$ attention operations in parallel with different learned projections:
+
+\begin{align}
+\text{MultiHead}(Q, K, V) &= \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\, W_O \\
+\text{head}_i &= \text{Attention}(Q W_{Q_i},\; K W_{K_i},\; V W_{V_i})
+\label{eq:multihead}
+\end{align}
+
+Different heads learn to track different relationship types: coreference resolution, syntactic dependencies, semantic roles. The combination captures language structure at multiple levels simultaneously.
+
+\subsection*{Transformer Layer}
+
+Each transformer layer combines multi-head attention with a feed-forward network:
+
+\begin{align}
+\mathbf{h}' &= \text{LayerNorm}(\mathbf{x} + \text{MultiHead}(\mathbf{x})) \label{eq:tf-layer1} \\
+\mathbf{h}'' &= \text{LayerNorm}(\mathbf{h}' + \text{FFN}(\mathbf{h}')) \label{eq:tf-layer2}
+\end{align}
+
+where $\text{FFN}(\mathbf{x}) = \max(0, \mathbf{x}W_1 + b_1)W_2 + b_2$ is a position-wise MLP with ReLU activation. Modern LLMs stack tens to hundreds of such layers; the deepest layers capture the most abstract semantic properties.
+
+% ============================================================================
+\section*{A.10.3\quad RLHF Pipeline}
+\addcontentsline{toc}{section}{A.10.3 RLHF Pipeline}
+\label{sec:app10-rlhf}
+% ============================================================================
+
+\subsection*{Stage 1: Supervised Fine-Tuning (SFT)}
+
+Starting from a pretrained language model $\pi_{\text{PT}}$, collect high-quality human-written responses $y^*$ to prompts $x$, and fine-tune via maximum likelihood:
+
+\begin{equation}
+\mathcal{L}_{\text{SFT}} = -\mathbb{E}_{(x, y^*) \sim \mathcal{D}_{\text{SFT}}} \left[\log \pi_\theta(y^* \mid x)\right]
+\label{eq:sft}
+\end{equation}
+
+\subsection*{Stage 2: Reward Model Training}
+
+Collect preference data: for pairs of outputs $(y_w, y_l)$ shown to human raters, record $y_w \succ y_l$. Train reward model $r_\phi(x,y)$ using the Bradley-Terry pairwise preference model \autocite{christiano2017deep}:
+
+\begin{equation}
+P(y_w \succ y_l) = \sigma\!\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right)
+\label{eq:bradley-terry}
+\end{equation}
+
+Minimize negative log-likelihood of observed preferences:
+
+\begin{equation}
+\mathcal{L}_{\text{RM}} = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}_{\text{pref}}} \left[\log \sigma\!\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right)\right]
+\label{eq:rm-loss}
+\end{equation}
+
+\subsection*{Stage 3: RL Fine-Tuning via PPO}
+
+Fine-tune $\pi_{\text{SFT}}$ against the learned reward model using Proximal Policy Optimization \autocite{ouyang2022training}:
+
+\begin{equation}
+\max_\theta \;\mathbb{E}_{x \sim \mathcal{D},\; y \sim \pi_\theta(\cdot \mid x)} \!\left[r_\phi(x, y)\right] - \beta \cdot \operatorname{KL}\!\left[\pi_\theta(\cdot \mid x) \;\|\; \pi_{\text{SFT}}(\cdot \mid x)\right]
+\label{eq:rlhf-objective}
+\end{equation}
+
+The KL divergence term $\beta \cdot \operatorname{KL}[\pi_\theta \| \pi_{\text{SFT}}]$ is a crucial regularizer that prevents the fine-tuned model from drifting into degenerate behavior that exploits the reward model. The PPO clipped update is:
+
+\begin{equation}
+\mathcal{L}_{\text{PPO}} = \mathbb{E}_t\!\left[\min\!\left(r_t(\theta)\,\hat{A}_t,\;\operatorname{clip}(r_t(\theta), 1{-}\epsilon, 1{+}\epsilon)\,\hat{A}_t\right)\right]
+\label{eq:ppo}
+\end{equation}
+
+where $r_t(\theta) = \pi_\theta(y_t \mid x, y_{<t}) / \pi_{\text{old}}(y_t \mid x, y_{<t})$ is the probability ratio and $\hat{A}_t$ is the estimated advantage.
+
+% ============================================================================
+\section*{A.10.4\quad Direct Preference Optimization (DPO)}
+\addcontentsline{toc}{section}{A.10.4 Direct Preference Optimization}
+\label{sec:app10-dpo}
+% ============================================================================
+
+DPO \autocite{rafailov2023direct} achieves the same alignment goal as RLHF without a separate reward model.
+
+\textbf{Key insight:} The RLHF objective \eqref{eq:rlhf-objective} has a closed-form optimal solution:
+
+\begin{equation}
+\pi^*(y \mid x) = \frac{1}{Z(x)}\,\pi_{\text{ref}}(y \mid x)\,\exp\!\left(\frac{r(x,y)}{\beta}\right)
+\label{eq:dpo-optimal}
+\end{equation}
+
+Rearranging, the reward is expressible in terms of the optimal policy:
+
+\begin{equation}
+r(x, y) = \beta \log \frac{\pi^*(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)
+\label{eq:dpo-reward}
+\end{equation}
+
+Substituting into the Bradley-Terry preference probability (noting $\log Z(x)$ cancels):
+
+\begin{equation}
+P(y_w \succ y_l \mid x) = \sigma\!\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)
+\label{eq:dpo-preference}
+\end{equation}
+
+The DPO training objective directly maximizes the likelihood of observed preferences:
+
+\begin{equation}
+\mathcal{L}_{\text{DPO}}(\theta) = -\mathbb{E}_{(x,\, y_w,\, y_l)}\!\left[\log \sigma\!\left(
+  \beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)}
+  - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}
+\right)\right]
+\label{eq:dpo-loss}
+\end{equation}
+
+\textbf{Gradient interpretation:} The DPO gradient simultaneously increases $\pi_\theta(y_w \mid x)$ and decreases $\pi_\theta(y_l \mid x)$, weighted by how much the current model disagrees with the preference. The reference model $\pi_{\text{ref}}$ keeps the optimization anchored, preventing degenerate solutions where the model assigns near-zero probability to everything except winning responses.
+
+% ============================================================================
+\section*{A.10.5\quad Constitutional AI: Two-Phase Process}
+\addcontentsline{toc}{section}{A.10.5 Constitutional AI}
+\label{sec:app10-cai}
+% ============================================================================
+
+Constitutional AI (CAI) \autocite{bai2022constitutional} reduces dependence on human-labeled comparisons by using AI feedback guided by a written constitution of principles.
+
+\subsection*{Phase 1: Supervised Learning from AI Feedback (SL-CAF)}
+
+\begin{enumerate}
+    \item \textbf{Generate:} Sample outputs $y \sim \pi_0(\cdot \mid x)$ for adversarial ``red-team'' prompts $x$ designed to elicit harmful responses.
+    \item \textbf{Critique:} Prompt the model to critique its output against constitutional principle $c_i$:
+    \begin{equation}
+    \text{critique} = \pi_0(\,\cdot \mid x, y, c_i\,)
+    \label{eq:cai-critique}
+    \end{equation}
+    \item \textbf{Revise:} Prompt the model to revise based on the critique:
+    \begin{equation}
+    y' = \pi_0(\,\cdot \mid x, y, \text{critique}\,)
+    \label{eq:cai-revise}
+    \end{equation}
+    \item \textbf{Fine-tune:} Train $\pi_0$ on $(x, y')$ pairs to get $\pi_{\text{SL-CAF}}$.
+\end{enumerate}
+
+\subsection*{Phase 2: Reinforcement Learning from AI Feedback (RLAIF)}
+
+\begin{enumerate}
+    \item For each prompt, generate two outputs from $\pi_{\text{SL-CAF}}$.
+    \item Obtain AI preference labels: present the pair with constitutional principle $c_i$ to the model and elicit a preference:
+    \begin{equation}
+    P_{\text{AI}}(y_w \succ y_l \mid x)
+      = \pi_{\text{SL-CAF}}\!\bigl(\text{``A is better''} \mid x, y_1, y_2, c_i\bigr)
+    \label{eq:rlaif}
+    \end{equation}
+    \item Train reward model $r_\phi$ on AI preference labels using the Bradley-Terry objective \eqref{eq:rm-loss}.
+    \item Fine-tune $\pi_{\text{SL-CAF}}$ via PPO against $r_\phi$ using the objective \eqref{eq:rlhf-objective}.
+\end{enumerate}
+
+\begin{keyconcept}[The HITL Reconfiguration in CAI]
+In standard RLHF, humans are in the loop at the level of individual output comparisons. In CAI, humans are in the loop at the level of constitutional design. This shifts the human contribution from millions of individual judgments to a small number of carefully considered principles. The quality of the resulting model depends critically on the quality, completeness, and internal consistency of the constitution.
+\end{keyconcept}
+
+% ============================================================================
+\section*{A.10.6\quad Calibration Metrics for Language Models}
+\addcontentsline{toc}{section}{A.10.6 Calibration Metrics}
+\label{sec:app10-calibration}
+% ============================================================================
+
+A model is \term{calibrated} if its expressed confidence matches its empirical accuracy. For classification outputs, the canonical measure is \textbf{Expected Calibration Error (ECE)} \autocite{guo2017calibration}:
+
+\begin{equation}
+\text{ECE} = \sum_{b=1}^{B} \frac{|B_b|}{n}\,\left|\operatorname{acc}(B_b) - \operatorname{conf}(B_b)\right|
+\label{eq:ece}
+\end{equation}
+
+where predictions are grouped into $B$ bins by confidence level, $|B_b|$ is the number of predictions in bin $b$, $\operatorname{acc}(B_b)$ is the fraction of correct predictions in that bin, and $\operatorname{conf}(B_b)$ is the mean confidence.
+
+A perfectly calibrated model has $\text{ECE} = 0$: every confidence bin's accuracy exactly matches its stated confidence.
+
+For generative language models, calibration is harder to measure because outputs are sequences, not class probabilities. Active research areas include:
+
+\begin{itemize}
+    \item \textbf{Verbalized calibration:} Asking the model to state its confidence in percentage terms; measuring ECE on those verbalized estimates \autocite{kadavath2022language}
+    \item \textbf{Token-level probability calibration:} Measuring whether the probability assigned to the correct completion correlates with actual correctness frequency
+    \item \textbf{Semantic calibration:} Measuring calibration at the level of factual claims, not individual tokens
+\end{itemize}
+
+Research consistently shows that large language models are overconfident --- their verbalized confidence significantly exceeds their actual accuracy on factual queries, particularly in specialized domains like law, medicine, and science \autocite{magesh2024hallucination}.
+
+\bigskip
+\noindent\textit{These technical foundations underpin the practical \hitl design questions in Chapter~10: when to trust a language model's outputs, when to require human verification, and how to build systems that communicate their limitations honestly.}

@@ -1,0 +1,1344 @@
+% ============================================================================
+% CHAPTER 1 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch1/C1AM_updated.md (Solutions Guide)
+%         /markdown/ch1/Ch1AS_updated.md (Technical Exercise Solutions)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 1}
+\label{ch:solutions-ch01}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers enabling instructors to facilitate discussions with confidence and consistency.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Recognition Examples}
+
+\textbf{Prompt:} ``Give three examples of technology asking you for help. Why do you think it asks instead of just making a decision?''
+
+\paragraph{Sample Strong Answers.}
+
+\begin{enumerate}
+    \item \textbf{Banking app asking to confirm unusual purchases}
+        \begin{itemize}
+            \item \emph{Why:} High cost of false positives (blocking legitimate transactions) vs.\ low cost of asking
+            \item \emph{Uncertainty type:} Unusual pattern detection with high stakes
+            \item \emph{Framework dimension:} Stakes Calibration---financial impact justifies interruption
+        \end{itemize}
+
+    \item \textbf{Voice assistant saying ``I found this on the web''}
+        \begin{itemize}
+            \item \emph{Why:} Low confidence in ability to directly answer; safer to provide source than guess
+            \item \emph{Uncertainty type:} Knowledge boundary recognition
+            \item \emph{Framework dimension:} Uncertainty Detection---recognizes it doesn't ``know'' the answer
+        \end{itemize}
+
+    \item \textbf{Photo app asking ``Is this [person's name]?''}
+        \begin{itemize}
+            \item \emph{Why:} Facial recognition confidence below threshold; privacy implications of wrong tagging
+            \item \emph{Uncertainty type:} Aleatoric uncertainty due to image quality/angle
+            \item \emph{Framework dimension:} Intervention Design---simple yes/no reduces cognitive load
+        \end{itemize}
+\end{enumerate}
+
+\paragraph{Grading Criteria.}
+\begin{description}
+    \item[Excellent] Three clear examples with accurate analysis of why the system asks, references to framework dimensions
+    \item[Good] Three examples with basic understanding of uncertainty concepts
+    \item[Satisfactory] Three examples but limited analysis
+    \item[Needs Improvement] Fewer than three examples or misunderstands the concept
+\end{description}
+
+\subsubsection{Question 2: Netflix Analysis}
+
+\textbf{Prompt:} ``Netflix could easily keep playing episodes forever. Why doesn't it? What are the costs and benefits?''
+
+\paragraph{Model Answer.}
+
+\textbf{Costs of asking:}
+\begin{itemize}
+    \item User annoyance/interruption
+    \item Potential for users to stop watching when they would have continued
+    \item Development and maintenance of detection algorithms
+\end{itemize}
+
+\textbf{Benefits of asking:}
+\begin{itemize}
+    \item Bandwidth savings (significant operational cost)
+    \item Better user experience (don't lose place in series)
+    \item Reduced server load
+    \item More accurate viewing analytics
+    \item Regulatory compliance (data usage transparency)
+\end{itemize}
+
+\textbf{Framework Analysis:}
+\begin{itemize}
+    \item \textbf{Uncertainty Detection:} Netflix monitors engagement signals (interaction, time)
+    \item \textbf{Timing:} After 3 episodes or 90 minutes---rules-based, predictable
+    \item \textbf{Stakes Calibration:} Low stakes (minor annoyance) justify asking even when uncertain
+    \item \textbf{Intervention Design:} Simple yes/no---minimal cognitive load
+    \item \textbf{Feedback Integration:} User response informs future thresholds
+\end{itemize}
+
+\begin{keyconcept}[Why They Ask]
+Cost-benefit analysis shows savings outweigh interruption costs. The Stakes Calibration dimension tells us: when stakes are low and uncertainty is moderate, asking is almost always the right choice.
+\end{keyconcept}
+
+\paragraph{Student Misconceptions to Address.}
+\begin{itemize}
+    \item ``It's just about bandwidth'' (ignores user experience benefits)
+    \item ``They should detect activity differently'' (explain current detection limitations)
+    \item ``It's always annoying'' (help students recognize when they appreciate it)
+\end{itemize}
+
+\subsubsection{Question 3: Netflix vs.\ Nest Comparison}
+
+\textbf{Prompt:} ``Compare the Netflix `Are you still watching?' prompt to the Nest thermostat's Home/Away detection. One asks for help, one doesn't. What are the consequences of each approach?''
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Netflix vs.\ Nest: five-dimension comparison}
+\label{tab:netflix-nest-five-dim}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Aspect} & \textbf{Netflix} & \textbf{Nest Thermostat} \\
+\midrule
+Uncertainty Detection & Monitors engagement signals & Binary decision from sensors \\
+Intervention Design & Simple yes/no button & No intervention mechanism \\
+Timing & Clear rules (3 episodes/90 min) & Variable (30 min to 2 hours) \\
+Stakes Calibration & Low stakes, can afford to ask & Doesn't distinguish mild discomfort from pipes freezing \\
+Feedback Integration & Learns from responses & Limited---requires manual override \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Consequences.}
+
+\textbf{Netflix (asks):}
+\begin{itemize}
+    \item Occasional minor annoyance
+    \item Saves bandwidth when users are actually away
+    \item Users feel respected (``it asked instead of assuming'')
+    \item Rare failures (interrupts engaged user) are low-cost
+\end{itemize}
+
+\textbf{Nest (doesn't ask):}
+\begin{itemize}
+    \item Users wake up freezing: ``I woke up to a cold house because it thought I was away''
+    \item Forum complaints: ``Nest keeps saying I'm away when I'm home''
+    \item Trust erosion: Users disable ``smart'' features, defeating the purpose
+    \item High-cost failures when the system is wrong
+\end{itemize}
+
+\begin{keyconcept}[Key Insight]
+The system that asks is perceived as ``smarter'' even though it might seem less autonomous. The system that acts confidently without asking creates more user frustration.
+\end{keyconcept}
+
+\subsubsection{Question 4: Nest Thermostat Redesign}
+
+\textbf{Prompt:} ``If you were redesigning the Nest thermostat, when would you want it to ask the human for input versus making decisions automatically?''
+
+\paragraph{Sample Solution Framework.}
+
+\textbf{Automatic Decisions (High Confidence):}
+\begin{itemize}
+    \item Small temperature adjustments ($\pm 2$°F) within comfortable range
+    \item Schedule-based changes when pattern is well-established
+    \item Energy-saving mode during confirmed long absences (e.g., vacation mode)
+    \item Weather-based preemptive adjustments (heating before cold front)
+\end{itemize}
+
+\textbf{Ask for Input (Uncertainty Scenarios):}
+\begin{itemize}
+    \item First detection of ``Away'' after long presence period
+    \item Unusual occupancy patterns detected
+    \item Extreme outside temperature conditions (higher stakes)
+    \item Conflicting signals (motion but no phone, or phone but no motion)
+    \item First-time seasonal transitions
+    \item Manual override patterns suggest dissatisfaction
+\end{itemize}
+
+\paragraph{Implementation Strategy (Five-Dimension Framework).}
+
+\begin{lstlisting}[style=python, caption={Nest redesign decision logic}]
+def should_ask_or_act(presence_confidence, stakes, recent_overrides):
+    # Stakes Calibration
+    if extreme_weather():
+        required_confidence = 0.95  # High stakes = need high confidence
+    else:
+        required_confidence = 0.70  # Lower stakes = can act with less certainty
+
+    # Uncertainty Detection + Feedback Integration
+    if recent_overrides > 2:
+        required_confidence += 0.15  # User has been correcting us
+
+    # Intervention Decision
+    if presence_confidence > required_confidence:
+        return "act_automatically"
+    elif presence_confidence < (1 - required_confidence):
+        return "act_automatically"  # Very confident they're away
+    else:
+        return "ask_user"
+\end{lstlisting}
+
+\paragraph{Interface Design (Intervention Design dimension).}
+\begin{verbatim}
+Notification: "Haven't seen activity for 2 hours.
+Should I switch to energy-saving mode?
+[Yes, I'm out] [No, I'm home] [Ask me in 1 hour]"
+\end{verbatim}
+
+\subsection{Intermediate Level Solutions}
+
+\subsubsection{Framework Application: Uber Surge Pricing}
+
+\textbf{Prompt:} ``Apply the five-dimension framework to analyze Uber's surge pricing notifications.''
+
+\paragraph{Sample Strong Answer.}
+
+\begin{table}[htbp]
+\caption{Uber surge pricing: five-dimension analysis}
+\label{tab:uber-surge}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Analysis} \\
+\midrule
+Uncertainty Detection & 4/5 & System knows demand/supply imbalance with high confidence; uncertainty is in user's willingness to pay \\
+Intervention Design & 4/5 & Clear notification with exact multiplier, requires explicit acceptance (``Accept 2.3x surge'') \\
+Timing & 5/5 & Asks at exactly the right moment---before booking, when decision matters \\
+Stakes Calibration & 3/5 & Treats all rides similarly; doesn't distinguish urgent medical need from casual trip \\
+Feedback Integration & 4/5 & User acceptance/rejection directly affects future pricing algorithms \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Weakest Dimension:} Stakes Calibration. The system doesn't know \emph{why} you need a ride. A 3$\times$ surge for a bar-to-home trip is different from 3$\times$ surge for a hospital emergency.
+
+\textbf{Improvement Suggestion:} Allow users to indicate ``urgent'' rides that bypass surge (perhaps with post-ride verification) or at least provide context (``High demand due to rain'' helps users decide).
+
+\subsubsection{Design Question: AI Essay Grading}
+
+\textbf{Prompt:} ``Design the `asking for help' strategy for an AI system that helps teachers grade student essays.''
+
+\paragraph{Comprehensive Solution.}
+
+\textbf{Uncertainty Triggers (Uncertainty Detection):}
+\begin{enumerate}
+    \item \textbf{Content Analysis Uncertainty:}
+        \begin{itemize}
+            \item Unusual writing style for known student (possible plagiarism or growth)
+            \item Topic drift or unclear thesis
+            \item Creative/artistic responses to structured prompts
+            \item Potential plagiarism flags with low confidence
+        \end{itemize}
+
+    \item \textbf{Technical Quality Uncertainty:}
+        \begin{itemize}
+            \item Borderline grammar/spelling issues
+            \item Complex sentence structures difficult to parse
+            \item Non-standard English dialects or ESL patterns
+        \end{itemize}
+
+    \item \textbf{Subjective Assessment Uncertainty:}
+        \begin{itemize}
+            \item Responses near grade boundaries (B+/A- borderline)
+            \item Creative interpretations of assignment requirements
+            \item Evidence of exceptional insight that doesn't fit rubric
+        \end{itemize}
+\end{enumerate}
+
+\textbf{Human Intervention Strategy (Timing + Stakes Calibration):}
+\begin{verbatim}
+High Priority (Immediate Review):
+  - Potential academic integrity violations (high stakes)
+  - Grades >1 letter different from student's historical average
+  - Responses AI cannot categorize at all
+
+Medium Priority (Batch Review):
+  - Borderline grades (within 5 points of cutoff)
+  - Technical issues affecting readability
+  - Unusual but potentially valuable creative responses
+
+Low Priority (Optional Review):
+  - Random sample for calibration (maintains system accuracy)
+  - Review AI reasoning for transparent grading
+\end{verbatim}
+
+\textbf{Interface Design (Intervention Design):}
+\begin{itemize}
+    \item Show AI confidence scores to teacher
+    \item Highlight specific sentences/phrases causing uncertainty
+    \item Provide suggested grade \emph{ranges} rather than point values
+    \item Include links to similar essays for comparison
+    \item Offer ``quick confirm'' vs.\ ``full review'' options
+\end{itemize}
+
+\textbf{Feedback Integration:}
+\begin{itemize}
+    \item Teacher corrections update model understanding
+    \item Track which types of essays cause most uncertainty
+    \item Adjust confidence thresholds based on teacher override patterns
+\end{itemize}
+
+\subsection{Advanced Level Solutions}
+
+\subsubsection{Technical Implementation Question}
+
+\textbf{Prompt:} ``How would you implement an optimal intervention threshold for a medical diagnosis system?''
+
+\paragraph{Solution Framework.}
+
+\textbf{1. Data Collection:}
+\begin{lstlisting}[style=python, caption={Medical AI data collection setup}]
+training_data = {
+    'medical_images': preprocessed_scans,
+    'expert_diagnoses': ground_truth_labels,
+    'confidence_scores': model_uncertainty_estimates,
+    'human_review_outcomes': expert_corrections,
+    'cost_parameters': {
+        'false_positive_cost': delayed_treatment_cost,  # ~$200
+        'false_negative_cost': missed_diagnosis_cost,   # ~$50,000+
+        'human_review_cost': radiologist_time_cost      # ~$50
+    }
+}
+\end{lstlisting}
+
+\textbf{2. Stakes-Calibrated Threshold:}
+\begin{lstlisting}[style=python, caption={Optimal threshold calculation}]
+def calculate_optimal_threshold(costs):
+    """
+    Using the Stakes Calibration dimension:
+    theta* = C_FP / (C_FP + C_FN)
+
+    For medical diagnosis with high FN costs:
+    theta* = 200 / (200 + 50000) = 0.004
+
+    This is the positive-class decision threshold: classify as disease-present
+    (and send for treatment/follow-up) whenever P(disease) > 0.004.
+    Equivalently, only auto-dismiss as healthy when P(no disease) > 0.996,
+    i.e., when confidence in the negative class exceeds 99.6%.
+    In a HITL review zone: flag any case where P(no disease) < 99.6%.
+    """
+    threshold = costs['false_positive_cost'] / (
+        costs['false_positive_cost'] + costs['false_negative_cost']
+    )
+    return threshold
+\end{lstlisting}
+
+\textbf{3. Uncertainty Estimation:}
+\begin{lstlisting}[style=python, caption={Ensemble and MC Dropout uncertainty estimation}]
+def estimate_uncertainty(model, input_image, method='ensemble'):
+    if method == 'ensemble':
+        predictions = [model_i(input_image) for model_i in ensemble]
+        mean_pred = np.mean(predictions, axis=0)
+        uncertainty = np.std(predictions, axis=0)
+
+    elif method == 'mc_dropout':
+        predictions = []
+        for _ in range(n_samples):
+            model.train()  # Enable dropout
+            pred = model(input_image)
+            predictions.append(pred)
+
+        mean_pred = torch.mean(torch.stack(predictions), dim=0)
+        uncertainty = torch.std(torch.stack(predictions), dim=0)
+
+    return mean_pred, uncertainty
+\end{lstlisting}
+
+\textbf{4. Evaluation Metrics (Five-Dimension Assessment):}
+\begin{lstlisting}[style=python, caption={HITL system evaluation}]
+def evaluate_hitl_system(threshold, test_data):
+    metrics = {
+        # Uncertainty Detection quality
+        'calibration_error': expected_calibration_error(
+            confidences, accuracies),
+
+        # Intervention quality
+        'precision_intervention': (tp_interventions /
+            (tp_interventions + fp_interventions)),
+        'recall_intervention': (tp_interventions /
+            (tp_interventions + fn_interventions)),
+
+        # System-level performance
+        'system_accuracy': correct_predictions / total_predictions,
+
+        # Cost-effectiveness (Stakes Calibration)
+        'cost_effectiveness': total_benefit / total_cost,
+
+        # Human factors
+        'human_workload': interventions_per_hour,
+    }
+    return metrics
+\end{lstlisting}
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: HITL Detection Hunt---Solution Guide}
+
+\textbf{Setup:} Students find 5 examples of systems asking for human input.
+
+\paragraph{Sample Student Findings with Framework Analysis.}
+
+\subsubsection{Strong Example: Two-Factor Authentication}
+\begin{description}
+    \item[System] Banking/email login
+    \item[Uncertainty Detection] Unusual login location/device detected
+    \item[Intervention Design] Code sent via SMS, simple entry
+    \item[Timing] At moment of login attempt (synchronous)
+    \item[Stakes Calibration] High (security breach) justifies interruption
+    \item[Feedback Integration] Successful logins from new device update trust
+\end{description}
+
+\subsubsection{Strong Example: ``Did you mean?'' Search Suggestions}
+\begin{description}
+    \item[System] Google/search engines
+    \item[Uncertainty Detection] Typo probability calculated
+    \item[Intervention Design] Shows both original and suggestions (low commitment)
+    \item[Timing] After search, before results (perfect timing)
+    \item[Stakes Calibration] Low stakes, can afford to suggest
+    \item[Feedback Integration] Click on suggestion = confirmation
+\end{description}
+
+\paragraph{Framework Classification Exercise.}
+
+Have students sort their findings by weakest dimension:
+
+\begin{table}[htbp]
+\caption{Example systems sorted by weakest dimension}
+\label{tab:weakest-dimension}
+\centering
+\begin{tabular}{@{}p{4cm}p{3.5cm}p{4cm}@{}}
+\toprule
+\textbf{Example} & \textbf{Weakest Dimension} & \textbf{Why} \\
+\midrule
+Cookie consent banners & Timing & Asks before user engagement \\
+App permission requests & Stakes Calibration & Treats all permissions equally \\
+Voice assistant ``I don't understand'' & Intervention Design & Doesn't explain \emph{why} confused \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Activity 2: Nest Thermostat Redesign---Solution Guide}
+
+\textbf{Scenario:} Redesign Nest Home/Away detection using the five-dimension framework.
+
+\paragraph{Problem Analysis.}
+
+Current Nest fails on multiple dimensions:
+\begin{itemize}
+    \item \textbf{Uncertainty Detection:} Binary home/away, no confidence expression
+    \item \textbf{Intervention Design:} Never asks
+    \item \textbf{Stakes Calibration:} Doesn't adjust for weather conditions
+    \item \textbf{Feedback Integration:} Manual overrides don't improve future predictions
+\end{itemize}
+
+\paragraph{Redesign Solution.}
+
+\textbf{1. Uncertainty Detection Enhancement:}
+\begin{lstlisting}[style=python, caption={Improved presence confidence calculation}]
+def calculate_presence_confidence(signals):
+    confidence_score = 0.5  # Start neutral
+
+    if motion_detected_recently:
+        confidence_score += 0.3
+    if phone_in_geofence:
+        confidence_score += 0.25
+    if typical_home_time:
+        confidence_score += 0.15
+    if smart_device_activity:  # TV, lights, etc.
+        confidence_score += 0.1
+
+    return min(confidence_score, 1.0)
+\end{lstlisting}
+
+\textbf{2. Stakes-Adjusted Thresholds:}
+\begin{lstlisting}[style=python, caption={Stakes-adjusted presence threshold}]
+def get_threshold(weather, current_setting):
+    base_threshold = 0.7
+
+    # Higher stakes = need more confidence
+    if outside_temp < 32:  # Freezing
+        return 0.95
+    elif outside_temp > 90:  # Very hot
+        return 0.90
+    elif abs(outside_temp - current_setting) > 20:
+        return 0.85
+    else:
+        return base_threshold
+\end{lstlisting}
+
+\textbf{3. Intervention Design:}
+\begin{verbatim}
++------------------------------------------+
+|  Nest Home Status                        |
+|                                          |
+|  I haven't detected activity for         |
+|  2 hours. It's 28 degrees F outside.     |
+|                                          |
+|  Should I switch to Away mode?           |
+|                                          |
+|  [Yes, I'm out]  [No, I'm home]         |
+|  [Snooze 1 hour] [Don't ask today]      |
++------------------------------------------+
+\end{verbatim}
+
+\textbf{4. Feedback Integration:}
+\begin{lstlisting}[style=python, caption={Feedback integration for Nest redesign}]
+def update_model(user_response, context):
+    if response == "no_im_home":
+        # We were wrong - lower confidence in similar situations
+        adjust_presence_model(context, direction="more_conservative")
+
+    if response == "dont_ask_today":
+        # User is working from home - learn this pattern
+        learn_wfh_pattern(context.day_of_week)
+\end{lstlisting}
+
+\subsection{Activity 3: Cost-Benefit Analysis---Solution Guide}
+
+\textbf{Scenario:} Email spam filter intervention frequency.
+
+\paragraph{Given Parameters.}
+\begin{itemize}
+    \item Spam detection accuracy: 95\% without human intervention
+    \item Human review accuracy: 99\%
+    \item Cost of missed spam: \$2 (user time + annoyance)
+    \item Cost of blocked legitimate email: \$50 (business impact)
+    \item Cost of human review: \$0.10 per email
+    \item Spam rate: 40\%
+\end{itemize}
+
+\paragraph{Mathematical Solution.}
+
+\textbf{Without Human Review:}
+\[
+\text{Expected cost per email}
+= P(\text{spam}) \cdot P(\text{miss} \mid \text{spam}) \cdot C_{\text{miss}}
++ P(\lnot\text{spam}) \cdot P(\text{block} \mid \lnot\text{spam}) \cdot C_{\text{block}}
+\]
+\[
+= 0.40 \times 0.05 \times \$2 + 0.60 \times 0.05 \times \$50
+= \$0.04 + \$1.50 = \$1.54 \text{ per email}
+\]
+
+\textbf{With Optimal Human Review:}
+\begin{lstlisting}[style=python, caption={Optimal spam filter threshold calculation}]
+def calculate_optimal_threshold():
+    best_cost = float('inf')
+    best_threshold = 0
+
+    for review_rate in np.linspace(0, 1, 100):
+        # Assume we review emails where confidence is lowest
+        # Review improves accuracy to 99%
+
+        auto_cost = (1 - review_rate) * 1.54  # Unreviewed emails
+        review_cost = review_rate * (
+            0.01 * 0.40 * 2 +      # Reviewed, still miss spam
+            0.01 * 0.60 * 50 +     # Reviewed, still block legitimate
+            0.10                    # Review cost
+        )
+
+        total_cost = auto_cost + review_cost
+
+        if total_cost < best_cost:
+            best_cost = total_cost
+            best_threshold = review_rate
+
+    return best_threshold, best_cost
+
+# Result: Review ~30% of emails (lowest confidence ones)
+# Expected cost drops from $1.54 to ~$0.95 per email
+\end{lstlisting}
+
+\begin{keyconcept}[Key Insight]
+Stakes Calibration matters---the high cost of blocking legitimate email (\$50 vs.\ \$2 for spam) means we should be more aggressive about reviewing emails the system thinks are spam.
+\end{keyconcept}
+
+% ============================================================================
+\section{``Try This'' Exercise---Sample Student Responses}
+% ============================================================================
+
+\textbf{Assignment:} Count HITL moments over 24 hours.
+
+\paragraph{Sample Strong Response.}
+
+\begin{storyhook}
+``I counted 23 HITL moments in 24 hours. Here are the most interesting:
+
+\textbf{1. Bank app fraud alert} (morning coffee purchase at new location)
+\begin{itemize}
+    \item Timing: Perfect---immediate, while I still had context
+    \item Intervention: Simple ``Yes/No'' text response
+    \item Would improve: Tell me \emph{why} it flagged (was it the location or amount?)
+\end{itemize}
+
+\textbf{2. Google Maps ``Faster route available''} (during commute)
+\begin{itemize}
+    \item Timing: Good---offered alternative without forcing change
+    \item Stakes awareness: High traffic = more aggressive about suggesting
+    \item Weakness: Didn't explain \emph{how much} faster (2 min vs.\ 20 min matters)
+\end{itemize}
+
+\textbf{3. iPhone asking to update} (6th time this week)
+\begin{itemize}
+    \item Timing: TERRIBLE---asked during video call
+    \item Clear alert fatigue---I've started ignoring these
+    \item Framework failure: No Stakes Calibration (treats all moments equally)
+\end{itemize}
+
+\textbf{4. Nest thermostat switched to Away} (while I was reading quietly)
+\begin{itemize}
+    \item This is the example from the chapter! It DIDN'T ask.
+    \item I was home but hadn't walked past the sensor.
+    \item Came back to a 62°F house.
+\end{itemize}
+
+\textbf{Patterns I noticed:}
+\begin{itemize}
+    \item Systems that ask are generally more trustworthy
+    \item Financial apps have the best intervention timing
+    \item Smart home devices have the worst (or no) intervention design
+    \item The more a system asks unnecessarily, the more I ignore it
+\end{itemize}''
+\end{storyhook}
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions \& Answers}
+% ============================================================================
+
+\subsection{``Why don't they just make the AI better instead of asking humans?''}
+
+\textbf{Answer:} There are fundamental limits to what any system can know with certainty. Even perfect AI will encounter:
+\begin{itemize}
+    \item Situations not in training data (epistemic uncertainty)
+    \item Inherently random events (aleatoric uncertainty)
+    \item Changing environments and user preferences
+    \item Edge cases where stakes are too high for any uncertainty
+\end{itemize}
+
+\textbf{Framework connection:} The Uncertainty Detection dimension isn't about eliminating uncertainty---it's about \emph{recognizing} it. Even a perfect AI would still need to know when to ask.
+
+\subsection{``Isn't asking just an excuse for lazy programming?''}
+
+\textbf{Answer:} Actually the opposite---implementing good uncertainty quantification requires sophisticated engineering:
+\begin{itemize}
+    \item Confidence estimation algorithms
+    \item Calibration methods
+    \item User interface design (Intervention Design)
+    \item Cost-benefit optimization (Stakes Calibration)
+    \item A/B testing frameworks
+    \item Feedback integration systems
+\end{itemize}
+
+\textbf{Teaching moment:} Show the Technical Appendix complexity. Asking well is harder than not asking at all.
+
+\subsection{``How do you know when the human is wrong?''}
+
+\textbf{Answer:}
+\begin{itemize}
+    \item Humans aren't always right, but they're right about \emph{different things} than AI
+    \item Multiple human opinions can be aggregated
+    \item Domain expertise matters (radiologist vs.\ random person)
+    \item Systems can learn from patterns in human corrections (Feedback Integration)
+    \item The goal is better \emph{joint} performance, not perfect individual performance
+\end{itemize}
+
+\textbf{Framework connection:} The Feedback Integration dimension handles this---good systems learn from human responses over time, even when humans are occasionally wrong.
+
+\subsection{``Why did the Air Canada chatbot case matter legally?''}
+
+\textbf{Answer:}
+\begin{itemize}
+    \item Tribunal explicitly rejected the ``chatbot is a separate entity'' argument
+    \item Companies are responsible for ALL information on their website, including AI-generated content
+    \item Sets precedent: You can't blame your tools for your failures
+    \item Implies companies MUST build uncertainty detection into customer-facing AI
+\end{itemize}
+
+\begin{cautionbox}[Framework Connection]
+Air Canada's chatbot failed on Uncertainty Detection (didn't know it was wrong) AND Intervention Design (no escalation path). This wasn't just bad UX---it was legally liable.
+\end{cautionbox}
+
+% ============================================================================
+\section{Assessment Solution Keys}
+% ============================================================================
+
+\subsection{Framework Analysis Paper---Sample A-Grade Response}
+
+\textbf{Technology Analyzed:} Google Maps Navigation
+
+\begin{table}[htbp]
+\caption{Google Maps: five-dimension framework analysis (sample A-grade)}
+\label{tab:google-maps-analysis}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Evidence} \\
+\midrule
+Uncertainty Detection & 5/5 & Displays confidence in ETA as range (``15--22 min''), acknowledges traffic uncertainty \\
+Intervention Design & 4/5 & Offers alternatives clearly, but sometimes too many options overwhelm \\
+Timing & 5/5 & Re-routing suggestions come at decision points (intersections), not mid-highway \\
+Stakes Calibration & 3/5 & Doesn't distinguish ``running late for flight'' from ``casual drive'' \\
+Feedback Integration & 5/5 & User route choices improve future suggestions; traffic reports integrated \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Weakest Dimension Analysis.}
+
+Stakes Calibration is the weakest dimension. Google Maps treats all trips equally---a 5-minute delay is presented the same way whether I'm leisurely exploring or racing to catch a flight. This could be improved by:
+\begin{enumerate}
+    \item Allowing users to mark ``time-sensitive'' trips
+    \item Learning from calendar integration (meeting in 20 min = higher stakes)
+    \item Adjusting notification urgency based on buffer time
+\end{enumerate}
+
+\paragraph{Improvement Proposal.}
+
+Add a ``Priority Mode'' that:
+\begin{itemize}
+    \item Asks users to indicate urgency before starting navigation
+    \item Adjusts re-routing aggressiveness based on stakes
+    \item Provides proactive delay warnings for time-sensitive trips
+    \item Learns which trips are typically time-sensitive (work commute vs.\ weekend drive)
+\end{itemize}
+
+This would strengthen the Stakes Calibration dimension without sacrificing the strong Uncertainty Detection and Timing that already exist.
+
+% ============================================================================
+% TECHNICAL EXERCISE SOLUTIONS
+% ============================================================================
+
+\section{Technical Exercise Solutions}
+\label{sec:technical-exercise-solutions}
+
+\subsection{Exercise 1: Five-Dimension Framework Analysis}
+
+\textbf{Task:} Apply the five-dimension framework to analyze three systems from your daily life. For each system, rate each dimension (1--5) and identify the weakest dimension.
+
+\subsubsection{System 1: Spotify ``Discover Weekly'' Recommendations}
+
+\begin{table}[htbp]
+\caption{Spotify Discover Weekly: five-dimension analysis}
+\label{tab:spotify-analysis}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Evidence} \\
+\midrule
+Uncertainty Detection & 3/5 & Doesn't explicitly show confidence; mixes high and low confidence recommendations without distinction \\
+Intervention Design & 4/5 & Like/dislike buttons, ``Don't play this'' option, easy to skip \\
+Timing & 4/5 & Weekly refresh is predictable; doesn't interrupt current listening \\
+Stakes Calibration & 5/5 & Low stakes (just music), can afford to experiment \\
+Feedback Integration & 5/5 & Strong learning from likes, skips, and listening time \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Weakest Dimension:} Uncertainty Detection.
+
+\textbf{Analysis:} Spotify doesn't distinguish between ``I'm confident you'll love this'' and ``This is experimental.'' Users can't tell which recommendations are safe bets vs.\ explorations. Improvement: Add confidence indicators or separate ``Confident Picks'' from ``Experiments.''
+
+\subsubsection{System 2: iPhone Face ID Unlock}
+
+\begin{table}[htbp]
+\caption{iPhone Face ID: five-dimension analysis}
+\label{tab:faceid-analysis}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Evidence} \\
+\midrule
+Uncertainty Detection & 5/5 & Clear confidence threshold---either unlocks or doesn't \\
+Intervention Design & 4/5 & Falls back to passcode when uncertain; clear flow \\
+Timing & 5/5 & Instant attempt on wake, immediate fallback \\
+Stakes Calibration & 4/5 & Security-conscious (won't unlock if unsure), but treats all unlocks equally \\
+Feedback Integration & 4/5 & Learns face changes over time, but doesn't explain learning \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Weakest Dimension:} Stakes Calibration (marginal).
+
+\textbf{Analysis:} Face ID treats unlocking to check the time the same as unlocking to access a banking app. Could adjust confidence thresholds based on what is being accessed.
+
+\subsubsection{System 3: Gmail Smart Compose}
+
+\begin{table}[htbp]
+\caption{Gmail Smart Compose: five-dimension analysis}
+\label{tab:gmail-analysis}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Evidence} \\
+\midrule
+Uncertainty Detection & 4/5 & Only suggests when confident; grey text indicates suggestion \\
+Intervention Design & 5/5 & Tab to accept, ignore to reject---minimal friction \\
+Timing & 5/5 & Appears at natural pause points in typing \\
+Stakes Calibration & 2/5 & Doesn't know if email is to boss vs.\ friend \\
+Feedback Integration & 3/5 & Learns from accepts/rejects but slowly \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Weakest Dimension:} Stakes Calibration.
+
+\textbf{Analysis:} Smart Compose suggests casual completions (``Thanks!'' ``Sounds good!'') in professional contexts. Doesn't distinguish formal vs.\ informal emails. Could detect recipient (manager vs.\ friend) and adjust formality.
+
+\subsection{Exercise 2: Uncertainty Estimation Implementation}
+
+\textbf{Task:} Implement both Monte Carlo Dropout and Deep Ensembles for a simple classification task. Compare their uncertainty estimates and computational costs.
+
+\begin{lstlisting}[style=python, caption={Complete uncertainty estimation implementation}]
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+import time
+
+# ============================================
+# SETUP: Generate Dataset
+# ============================================
+
+X, y = make_classification(
+    n_samples=2000,
+    n_features=20,
+    n_classes=2,
+    n_informative=10,
+    n_redundant=5,
+    random_state=42
+)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+X_train = torch.FloatTensor(X_train)
+X_test = torch.FloatTensor(X_test)
+y_train = torch.LongTensor(y_train)
+y_test = torch.LongTensor(y_test)
+
+# ============================================
+# MODEL: Classifier with Dropout
+# ============================================
+
+class DropoutClassifier(nn.Module):
+    """
+    Simple classifier with dropout layers for MC Dropout
+    uncertainty estimation.
+    """
+    def __init__(self, input_dim, dropout_rate=0.2):
+        super(DropoutClassifier, self).__init__()
+        self.fc1 = nn.Linear(input_dim, 64)
+        self.fc2 = nn.Linear(64, 32)
+        self.fc3 = nn.Linear(32, 2)
+        self.dropout = nn.Dropout(dropout_rate)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = self.dropout(x)
+        x = F.relu(self.fc2(x))
+        x = self.dropout(x)
+        x = self.fc3(x)
+        return F.softmax(x, dim=1)
+
+# ============================================
+# METHOD 1: Monte Carlo Dropout
+# ============================================
+
+class MCDropoutPredictor:
+    """
+    Monte Carlo Dropout for uncertainty estimation.
+
+    Key insight: By keeping dropout enabled during inference and running
+    multiple forward passes, we get a distribution of predictions that
+    reflects model uncertainty.
+    """
+    def __init__(self, model, n_samples=100):
+        self.model = model
+        self.n_samples = n_samples
+
+    def predict_with_uncertainty(self, x):
+        """Run multiple forward passes with dropout enabled."""
+        self.model.train()  # Keep dropout active!
+        predictions = []
+
+        start_time = time.time()
+        with torch.no_grad():
+            for _ in range(self.n_samples):
+                pred = self.model(x)
+                predictions.append(pred.numpy())
+
+        predictions = np.array(predictions)
+        mean_pred = np.mean(predictions, axis=0)
+        uncertainty = np.std(predictions, axis=0)
+
+        inference_time = time.time() - start_time
+        return mean_pred, uncertainty, inference_time
+
+# ============================================
+# METHOD 2: Deep Ensembles
+# ============================================
+
+class DeepEnsemble:
+    """
+    Deep Ensemble for uncertainty estimation.
+
+    Key insight: Train multiple models with different initializations.
+    Disagreement between models indicates epistemic uncertainty.
+    """
+    def __init__(self, input_dim, n_models=5):
+        self.models = []
+        self.n_models = n_models
+
+        for i in range(n_models):
+            torch.manual_seed(i * 42)
+            model = DropoutClassifier(input_dim, dropout_rate=0.0)
+            self.models.append(model)
+
+    def train_ensemble(self, X_train, y_train, epochs=100, verbose=True):
+        for i, model in enumerate(self.models):
+            if verbose:
+                print(f"Training model {i+1}/{self.n_models}...")
+
+            optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+            criterion = nn.CrossEntropyLoss()
+
+            for epoch in range(epochs):
+                optimizer.zero_grad()
+                outputs = model(X_train)
+                loss = criterion(outputs, y_train)
+                loss.backward()
+                optimizer.step()
+
+    def predict_with_uncertainty(self, x):
+        predictions = []
+
+        start_time = time.time()
+        for model in self.models:
+            model.eval()
+            with torch.no_grad():
+                pred = model(x)
+                predictions.append(pred.numpy())
+
+        predictions = np.array(predictions)
+        mean_pred = np.mean(predictions, axis=0)
+        epistemic_uncertainty = np.std(predictions, axis=0)
+
+        inference_time = time.time() - start_time
+        return mean_pred, epistemic_uncertainty, inference_time
+
+# ============================================
+# TRAINING AND COMPARISON
+# ============================================
+
+# Train MC Dropout model
+mc_model = DropoutClassifier(X_train.shape[1])
+optimizer = torch.optim.Adam(mc_model.parameters(), lr=0.001)
+criterion = nn.CrossEntropyLoss()
+
+for epoch in range(100):
+    optimizer.zero_grad()
+    outputs = mc_model(X_train)
+    loss = criterion(outputs, y_train)
+    loss.backward()
+    optimizer.step()
+
+# Train Deep Ensemble
+ensemble = DeepEnsemble(X_train.shape[1], n_models=5)
+ensemble.train_ensemble(X_train, y_train, epochs=100)
+
+# ============================================
+# EVALUATION AND COMPARISON
+# ============================================
+
+mc_dropout = MCDropoutPredictor(mc_model, n_samples=100)
+mc_pred, mc_unc, mc_time = mc_dropout.predict_with_uncertainty(X_test)
+
+ens_pred, ens_unc, ens_time = ensemble.predict_with_uncertainty(X_test)
+
+mc_accuracy = np.mean(np.argmax(mc_pred, axis=1) == y_test.numpy())
+ens_accuracy = np.mean(np.argmax(ens_pred, axis=1) == y_test.numpy())
+
+print(f"{'Metric':<30} {'MC Dropout':<15} {'Deep Ensemble':<15}")
+print("-" * 60)
+print(f"{'Accuracy':<30} {mc_accuracy:.4f}{'':10} {ens_accuracy:.4f}")
+print(f"{'Mean Uncertainty':<30} {np.mean(mc_unc):.4f}{'':10} {np.mean(ens_unc):.4f}")
+print(f"{'Inference Time (s)':<30} {mc_time:.4f}{'':10} {ens_time:.4f}")
+\end{lstlisting}
+
+\begin{keyconcept}[Key Findings]
+\begin{enumerate}
+    \item Deep Ensemble typically achieves higher accuracy (model averaging)
+    \item Both methods show higher uncertainty for incorrect predictions (good calibration)
+    \item MC Dropout is slower at inference (100 passes vs.\ 5)
+    \item For HITL: Set threshold, e.g., flag for review if uncertainty $> 0.25$
+\end{enumerate}
+\end{keyconcept}
+
+\subsection{Exercise 3: A/B Testing Framework for Threshold Optimization}
+
+\textbf{Task:} Design an A/B testing framework for optimizing human intervention thresholds.
+
+\begin{lstlisting}[style=python, caption={Content moderation A/B testing framework}]
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+class ContentModerationABTest:
+    """
+    A/B testing framework for content moderation thresholds.
+
+    Demonstrates all five dimensions:
+    1. Uncertainty Detection: AI toxicity scores
+    2. Intervention Design: Human review queue
+    3. Timing: Real-time moderation
+    4. Stakes Calibration: Cost parameters
+    5. Feedback Integration: Learning optimal threshold
+    """
+
+    def __init__(self):
+        self.human_accuracy = 0.95
+
+    def generate_content(self, n_samples=10000):
+        """Generate synthetic content with toxicity scores."""
+        true_labels = np.random.binomial(1, 0.15, n_samples)  # 15% toxic
+
+        ai_scores = np.where(
+            true_labels == 1,
+            np.random.beta(8, 2, n_samples),
+            np.random.beta(2, 8, n_samples)
+        )
+        ai_scores = np.clip(
+            ai_scores + np.random.normal(0, 0.08, n_samples), 0, 1)
+
+        return pd.DataFrame({
+            'ai_score': ai_scores,
+            'true_label': true_labels
+        })
+
+    def moderate(self, df, threshold):
+        """Apply moderation with given threshold."""
+        results = df.copy()
+
+        # Human review for uncertain cases
+        results['needs_review'] = (
+            (results['ai_score'] > threshold) &
+            (results['ai_score'] < (1 - threshold))
+        )
+
+        # AI-only decisions
+        ai_only = ~results['needs_review']
+        results.loc[ai_only, 'decision'] = (
+            results.loc[ai_only, 'ai_score'] > 0.5).astype(int)
+
+        # Human decisions (95% accurate)
+        human = results['needs_review']
+        n_human = human.sum()
+        correct = np.random.binomial(1, self.human_accuracy, n_human)
+        results.loc[human, 'decision'] = np.where(
+            correct,
+            results.loc[human, 'true_label'],
+            1 - results.loc[human, 'true_label']
+        )
+
+        return results
+
+    def calculate_metrics(self, results):
+        """Calculate performance and cost metrics."""
+        n = len(results)
+        accuracy = (results['decision'] == results['true_label']).mean()
+
+        tp = ((results['decision'] == 1) & (results['true_label'] == 1)).sum()
+        fp = ((results['decision'] == 1) & (results['true_label'] == 0)).sum()
+        fn = ((results['decision'] == 0) & (results['true_label'] == 1)).sum()
+
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+        recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+        review_rate = results['needs_review'].mean()
+
+        # Cost analysis (Stakes Calibration)
+        daily_volume = 100000
+        daily_cost = (
+            review_rate * daily_volume * 0.50 +     # $0.50 per review
+            (fn / n) * daily_volume * 100.00 +      # $100 per missed toxic
+            (fp / n) * daily_volume * 5.00          # $5 per false positive
+        )
+
+        return {
+            'accuracy': accuracy,
+            'precision': precision,
+            'recall': recall,
+            'review_rate': review_rate,
+            'daily_cost': daily_cost
+        }
+
+    def run_test(self, threshold_a, threshold_b, n_samples=20000):
+        """Run A/B test comparing two thresholds."""
+        data_a = self.generate_content(n_samples)
+        data_b = self.generate_content(n_samples)
+
+        results_a = self.moderate(data_a, threshold_a)
+        results_b = self.moderate(data_b, threshold_b)
+
+        metrics_a = self.calculate_metrics(results_a)
+        metrics_b = self.calculate_metrics(results_b)
+
+        # Statistical test
+        acc_a = (results_a['decision'] == results_a['true_label']).sum()
+        acc_b = (results_b['decision'] == results_b['true_label']).sum()
+
+        p_a, p_b = acc_a/n_samples, acc_b/n_samples
+        p_pool = (acc_a + acc_b) / (2 * n_samples)
+        se = np.sqrt(p_pool * (1-p_pool) * (2/n_samples))
+        z = (p_b - p_a) / se if se > 0 else 0
+        p_value = 2 * (1 - stats.norm.cdf(abs(z)))
+
+        cost_diff = metrics_a['daily_cost'] - metrics_b['daily_cost']
+        if p_value < 0.05 and (p_b - p_a) > 0.01:
+            print(f"Recommendation: Use threshold B (higher accuracy)")
+        elif cost_diff > 1000:
+            print(f"Recommendation: Consider B (${cost_diff:,.0f}/day savings)")
+        else:
+            print("Recommendation: No clear winner, continue testing")
+
+# Run demonstration
+ab_test = ContentModerationABTest()
+ab_test.run_test(0.25, 0.35)
+ab_test.run_test(0.35, 0.45)
+\end{lstlisting}
+
+\subsection{Exercise 5: Nest Thermostat Redesign---Complete Solution}
+
+\textbf{Task:} Redesign the Nest thermostat Home/Away detection using the five-dimension framework.
+
+\begin{lstlisting}[style=python, caption={Complete ImprovedNestController implementation}]
+from dataclasses import dataclass
+from typing import Literal, Optional
+from datetime import datetime, timedelta
+import numpy as np
+
+@dataclass
+class PresenceSignals:
+    motion_detected: bool
+    time_since_motion: timedelta
+    phone_in_geofence: bool
+    phone_confidence: float
+    smart_device_activity: bool
+    typical_home_time: bool
+    recent_manual_override: bool
+
+@dataclass
+class EnvironmentContext:
+    outside_temp: float
+    current_setpoint: float
+    weather_forecast: str
+
+@dataclass
+class PresenceResult:
+    status: Literal['HOME', 'AWAY', 'ASK_USER']
+    confidence: float
+    reasoning: str
+
+
+class ImprovedNestController:
+    """Redesigned Nest with five-dimension framework."""
+
+    def __init__(self):
+        self.false_away_count = 0
+
+    # DIMENSION 1: Uncertainty Detection
+    def calculate_presence_probability(
+            self, signals: PresenceSignals) -> tuple:
+        probability = 0.5
+        confidence = 0.5
+
+        if signals.motion_detected:
+            probability += 0.35
+            confidence += 0.2
+        elif signals.time_since_motion < timedelta(minutes=30):
+            probability += 0.15
+        elif signals.time_since_motion > timedelta(hours=2):
+            probability -= 0.35
+            confidence += 0.15
+
+        if signals.phone_in_geofence:
+            probability += 0.30 * signals.phone_confidence
+            confidence += 0.15 * signals.phone_confidence
+        elif signals.phone_confidence > 0.8:
+            probability -= 0.30
+            confidence += 0.15
+
+        if signals.smart_device_activity:
+            probability += 0.15
+        if signals.typical_home_time:
+            probability += 0.10
+        if signals.recent_manual_override:
+            confidence -= 0.2
+        if self.false_away_count > 3:
+            probability += 0.1
+            confidence -= 0.1
+
+        return np.clip(probability, 0, 1), np.clip(confidence, 0.2, 1)
+
+    # DIMENSION 4: Stakes Calibration
+    def calculate_stakes(self, context: EnvironmentContext) -> str:
+        if context.outside_temp < 35 or context.outside_temp > 95:
+            return 'high'
+        elif abs(context.outside_temp - context.current_setpoint) > 25:
+            return 'high'
+        elif abs(context.outside_temp - context.current_setpoint) > 15:
+            return 'medium'
+        return 'low'
+
+    def get_threshold(self, stakes: str) -> float:
+        return {'low': 0.70, 'medium': 0.85, 'high': 0.95}[stakes]
+
+    # DIMENSION 2: Intervention Design
+    def create_prompt(
+            self, prob: float, context: EnvironmentContext) -> dict:
+        weather_note = ""
+        if context.outside_temp < 40:
+            weather_note = f"It's {context.outside_temp}F outside."
+        elif context.outside_temp > 85:
+            weather_note = f"It's {context.outside_temp}F outside."
+
+        return {
+            'title': "Home Status Check",
+            'message': f"Haven't detected activity. {weather_note}",
+            'options': ["I'm home", "I'm out", "Ask later",
+                        "Don't ask today"]
+        }
+
+    # MAIN DECISION LOGIC (Dimensions 1 + 3 + 4)
+    def determine_presence(
+            self, signals: PresenceSignals,
+            context: EnvironmentContext) -> PresenceResult:
+        probability, confidence = self.calculate_presence_probability(
+            signals)
+        stakes = self.calculate_stakes(context)
+        threshold = self.get_threshold(stakes)
+
+        if probability > threshold:
+            return PresenceResult(
+                'HOME', probability,
+                f"High confidence home. Stakes: {stakes}")
+        elif probability < (1 - threshold):
+            return PresenceResult(
+                'AWAY', 1-probability,
+                f"High confidence away. Stakes: {stakes}")
+        else:
+            return PresenceResult(
+                'ASK_USER', confidence,
+                f"Uncertain. Stakes: {stakes}. Asking user.")
+
+    # DIMENSION 5: Feedback Integration
+    def process_feedback(self, prediction: str, response: str):
+        if prediction == 'AWAY' and response == "I'm home":
+            self.false_away_count += 1
+            print("Learning: Was wrong. Now more conservative.")
+
+
+# Demonstration
+def demo():
+    controller = ImprovedNestController()
+
+    signals = PresenceSignals(
+        motion_detected=False,
+        time_since_motion=timedelta(hours=1),
+        phone_in_geofence=False,
+        phone_confidence=0.6,
+        smart_device_activity=False,
+        typical_home_time=True,
+        recent_manual_override=False
+    )
+    context = EnvironmentContext(
+        outside_temp=28,
+        current_setpoint=70,
+        weather_forecast='extreme_cold'
+    )
+
+    result = controller.determine_presence(signals, context)
+    print(f"Status: {result.status}")
+    print(f"Confidence: {result.confidence:.0%}")
+    print(f"Reasoning: {result.reasoning}")
+
+    if result.status == 'ASK_USER':
+        prompt = controller.create_prompt(result.confidence, context)
+        print(f"\nNotification: {prompt['message']}")
+        print(f"Options: {prompt['options']}")
+
+demo()
+\end{lstlisting}
+
+\paragraph{Expected Output.}
+\begin{lstlisting}[language={}, caption={Expected output from demo()}]
+Status: ASK_USER
+Confidence: 45%
+Reasoning: Uncertain. Stakes: high. Asking user.
+
+Notification: Haven't detected activity. It's 28F outside.
+Options: ["I'm home", "I'm out", "Ask later", "Don't ask today"]
+\end{lstlisting}
+
+% ============================================================================
+\section{Key Takeaways}
+% ============================================================================
+
+\subsection{Five-Dimension Framework Summary}
+
+\begin{table}[htbp]
+\caption{Five-dimension framework: implementation patterns}
+\label{tab:framework-patterns}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{8cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Implementation Pattern} \\
+\midrule
+Uncertainty Detection & \code{confidence = model.predict\_uncertainty(x)} \\
+Intervention Design & Clear prompt + multiple response options \\
+Timing & \code{delay = base\_delay * stakes\_multiplier} \\
+Stakes Calibration & \code{threshold = cost\_FP / (cost\_FP + cost\_FN)} \\
+Feedback Integration & \code{model.update(user\_correction)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{General HITL Decision Pattern}
+
+\begin{lstlisting}[style=python, caption={General HITL decision pattern}]
+def should_intervene(confidence, stakes):
+    threshold = get_threshold(stakes)
+
+    if confidence > threshold:
+        return "act_automatically"
+    elif confidence < (1 - threshold):
+        return "act_automatically_opposite"
+    else:
+        return "ask_human"
+\end{lstlisting}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{These solutions demonstrate practical application of HITL principles from Chapter~1 and Technical Appendix~1A. All answers are framework-aligned to provide instructors with confidence in facilitating discussions, consistency in grading across sections, and depth to handle advanced student questions.}

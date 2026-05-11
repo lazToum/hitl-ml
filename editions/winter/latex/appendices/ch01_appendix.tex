@@ -1,0 +1,668 @@
+% ============================================================================
+% TECHNICAL APPENDIX 1A: Uncertainty Quantification in HITL Systems
+% Formal foundations for the examples in Chapter 1
+% ============================================================================
+% Source: /markdown/ch1/Ch1A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 1A: Uncertainty Quantification in Human-in-the-Loop Systems}
+\addcontentsline{toc}{chapter}{Technical Appendix 1A: Uncertainty Quantification}
+
+\begin{chapterquote}{Formal foundations for the examples in Chapter 1}
+The examples in Chapter 1 can be formalized using uncertainty quantification theory and decision-theoretic frameworks.
+\end{chapterquote}
+
+% ============================================================================
+\section{Mathematical Framework for Uncertainty-Driven Human Intervention}
+% ============================================================================
+
+\subsection{Basic Uncertainty Taxonomy}
+
+Following \textcite{kendall2017uncertainties}, we distinguish between two fundamental types of uncertainty in machine learning systems:
+
+\paragraph{Aleatoric Uncertainty (Data Uncertainty).}
+\begin{itemize}
+    \item Captures inherent noise in observations
+    \item Cannot be reduced by collecting more data
+    \item Mathematically: $\sigma^2_{\text{aleatoric}} = \mathbb{E}\bigl[\|y - f(x)\|^2\bigr]$
+\end{itemize}
+
+\paragraph{Epistemic Uncertainty (Model Uncertainty).}
+\begin{itemize}
+    \item Captures uncertainty about the model parameters
+    \item Can be reduced with more training data
+    \item Mathematically: $\sigma^2_{\text{epistemic}} = \mathbb{E}\bigl[\|f(x) - \mathbb{E}[f(x)]\|^2\bigr]$
+\end{itemize}
+
+\subsection{Decision-Theoretic Framework for Human Intervention}
+
+Let $H$ be a human intervention action and $M$ be a machine-only action. The optimal decision rule is:
+
+\[
+\text{Action} = \begin{cases}
+H & \text{if } EU(H) > EU(M) \\
+M & \text{if } EU(M) \geq EU(H)
+\end{cases}
+\]
+
+Where $EU(\cdot)$ represents expected utility incorporating:
+\begin{itemize}
+    \item \textbf{Accuracy costs}: $C_{\text{error}} \times P(\text{error} \mid \text{action})$
+    \item \textbf{Human costs}: $C_{\text{human}} \times \mathbf{1}[\text{action} = H]$
+    \item \textbf{Time costs}: $C_{\text{time}} \times T(\text{action})$
+\end{itemize}
+
+\subsection{Confidence Threshold Optimization}
+
+The Netflix ``Are you still watching?'' example demonstrates optimal threshold selection. Let:
+\begin{itemize}
+    \item $p$ = probability user is still actively watching
+    \item $C_{\text{stream}}$ = cost of unnecessary streaming
+    \item $C_{\text{interrupt}}$ = cost of interrupting an engaged user
+\end{itemize}
+
+Optimal intervention threshold:
+\[
+p^* = \frac{C_{\text{interrupt}}}{C_{\text{interrupt}} + C_{\text{stream}}}
+\]
+
+\subsection{The Three Failure Modes}
+
+Building on Chapter~1's discussion, we can formally characterize three failure modes:
+
+\paragraph{Over-Asking (Alert Fatigue).}
+\begin{lstlisting}[language={}, caption={Over-asking failure mode}]
+Failure when: threshold_ask << p*
+Result: Excessive interventions, user ignores system
+Metric: High intervention rate, low intervention precision
+\end{lstlisting}
+
+\paragraph{Under-Asking (Dangerous Overconfidence).}
+\begin{lstlisting}[language={}, caption={Under-asking failure mode}]
+Failure when: threshold_ask >> p*
+Result: Autonomous action despite high uncertainty
+Metric: High error rate on autonomous decisions
+\end{lstlisting}
+
+\paragraph{Asking Badly (the Nest Problem).}
+\begin{lstlisting}[language={}, caption={Asking badly failure mode}]
+Failure when: System detects uncertainty but acts without communication
+Result: Silent errors, user loses trust in "smart" features
+Metric: High feature-disable rate, poor user satisfaction
+\end{lstlisting}
+
+% ============================================================================
+\section{Uncertainty Estimation Methods in Practice}
+% ============================================================================
+
+\subsection{Bayesian Neural Networks}
+
+For epistemic uncertainty estimation, systems can implement variational inference.
+
+\paragraph{Variational Posterior Approximation.}
+\[
+q_\theta(w) \approx p(w \mid \mathcal{D}) \qquad \text{where } \theta = \{\mu, \sigma\} \text{ are variational parameters}
+\]
+
+\paragraph{Predictive Uncertainty.}
+\[
+p(y^* \mid x^*, \mathcal{D}) = \int p(y^* \mid x^*, w)\, q_\theta(w)\, dw
+\]
+
+Monte Carlo approximation through dropout \autocite{gal2016dropout}:
+
+\begin{lstlisting}[style=python, caption={MC Dropout uncertainty estimation}]
+def predict_with_uncertainty(model, x, n_samples=100):
+    predictions = []
+    for _ in range(n_samples):
+        model.train()  # Enable dropout
+        pred = model(x)
+        predictions.append(pred)
+
+    mean = torch.mean(torch.stack(predictions), dim=0)
+    uncertainty = torch.std(torch.stack(predictions), dim=0)
+    return mean, uncertainty
+\end{lstlisting}
+
+\subsection{Ensemble Methods}
+
+Alternative approach for uncertainty quantification.
+
+\paragraph{Deep Ensembles \autocite{lakshminarayanan2017simple}.}
+\[
+\mu_{\text{ensemble}} = \frac{1}{M} \sum_{i=1}^{M} \mu_i
+\qquad
+\sigma^2_{\text{ensemble}} = \frac{1}{M} \sum_{i=1}^{M} \bigl[\sigma^2_i + \mu^2_i\bigr] - \mu^2_{\text{ensemble}}
+\]
+
+\paragraph{Advantages.}
+\begin{itemize}
+    \item No architectural changes required
+    \item Better calibration than single models
+    \item Captures both aleatoric and epistemic uncertainty
+\end{itemize}
+
+\subsection{Calibration Assessment}
+
+Critical for determining when to invoke human intervention. Poor calibration can lead to:
+\begin{itemize}
+    \item \textbf{Over-reliance}: Low reported uncertainty for incorrect predictions
+    \item \textbf{Under-reliance}: High reported uncertainty for correct predictions
+\end{itemize}
+
+\paragraph{Reliability Diagram Construction.}
+\begin{enumerate}
+    \item Bin predictions by confidence level
+    \item Calculate accuracy within each bin
+    \item Plot confidence vs.\ accuracy
+    \item Perfect calibration: diagonal line
+\end{enumerate}
+
+\paragraph{Expected Calibration Error (ECE).}
+\[
+\text{ECE} = \sum_{m} \frac{n_m}{n} \bigl|\text{acc}(m) - \text{conf}(m)\bigr|
+\]
+where $m$ indexes confidence bins \autocite{guo2017calibration}.
+
+% ============================================================================
+\section{Real-World Implementation Challenges}
+% ============================================================================
+
+\subsection{Active Learning Query Strategies}
+
+The ``asking for help'' examples from Chapter~1 relate to the active learning literature \autocite{settles2009active}.
+
+\paragraph{Uncertainty Sampling.}
+\[
+x^* = \operatorname{argmax}\, H\bigl(p(y \mid x)\bigr) \quad \text{(maximum entropy)}
+\]
+
+\paragraph{Query by Committee.}
+\[
+x^* = \operatorname{argmax}\, \text{Disagreement}(\text{Committee},\, x)
+\]
+
+\paragraph{Expected Error Reduction.}
+\[
+x^* = \operatorname{argmin} \sum_{y} p(y \mid x)\, \text{Loss}_{\text{expected}}(\text{model}_{\text{new}},\, y)
+\]
+
+\subsection{Cost-Sensitive Learning}
+
+Real systems must balance multiple costs.
+
+\paragraph{Multi-objective Optimization.}
+\[
+\min_{\theta}\; \alpha \cdot \text{Error\_rate} + \beta \cdot \text{Human\_cost} + \gamma \cdot \text{Latency}
+\]
+subject to safety constraints.
+
+\begin{examplebox}[Example: Medical AI System]
+\begin{itemize}
+    \item \textbf{Error\_rate}: False negative rate for critical conditions
+    \item \textbf{Human\_cost}: Radiologist review time
+    \item \textbf{Latency}: Time to diagnosis
+    \item \textbf{Safety\_constraint}: False negative rate $< \varepsilon$
+\end{itemize}
+\end{examplebox}
+
+\subsection{Interface Design Considerations}
+
+\paragraph{Information-Theoretic Approach to Query Presentation.}
+
+Optimal query should maximize information gain:
+\[
+\text{Query}^* = \operatorname{argmax}\, I\bigl(Y;\, H_{\text{response}} \mid \text{Query},\, X\bigr)
+\]
+where $I(\cdot;\cdot)$ is mutual information between true label $Y$ and human response $H_{\text{response}}$.
+
+\paragraph{Cognitive Load Modeling.}
+
+Human response quality degrades with complexity:
+\[
+P(\text{correct\_response}) = f\!\bigl(\text{Query\_complexity},\,
+  \text{Context},\, \text{User\_expertise}\bigr)
+\]
+
+% ============================================================================
+\section{Evaluation Metrics for HITL Systems}
+% ============================================================================
+
+\subsection{System-Level Metrics}
+
+\paragraph{Human--AI Team Performance.}
+\begin{itemize}
+    \item \textbf{Complementarity}: H-AI performance $>$ $\max$(H, AI)
+    \item \textbf{Synergy}: H-AI performance $>$ H $+$ AI $-$ baseline
+\end{itemize}
+
+\paragraph{Efficiency Metrics.}
+\begin{itemize}
+    \item \textbf{Query Efficiency}: Performance gain per human query
+    \item \textbf{Cost-Benefit Ratio}: (Performance\_improvement $\times$ Value) $\div$ Human\_cost
+    \item \textbf{Learning Rate}: Improvement in AI performance over time with human feedback
+\end{itemize}
+
+\subsection{Uncertainty Quality Metrics}
+
+\paragraph{Uncertainty Calibration.}
+\begin{itemize}
+    \item \textbf{Reliability}: Correspondence between confidence and accuracy
+    \item \textbf{Sharpness}: Concentration of predictive distributions
+    \item \textbf{Resolution}: Ability to discriminate between correct and incorrect predictions
+\end{itemize}
+
+\paragraph{Intervention Quality.}
+\begin{itemize}
+    \item \textbf{Precision}: Fraction of interventions that were necessary
+    \item \textbf{Recall}: Fraction of necessary interventions that occurred
+    \item \textbf{F1-Score}: Harmonic mean of precision and recall for interventions
+\end{itemize}
+
+\subsection{Human Factors Metrics}
+
+\paragraph{User Experience.}
+\begin{itemize}
+    \item \textbf{Cognitive Load}: Measured via task completion time, error rates
+    \item \textbf{Trust Calibration}: Appropriate reliance on system recommendations
+    \item \textbf{Learning Effect}: Improvement in human performance over time
+\end{itemize}
+
+\paragraph{Workload Distribution.}
+\begin{itemize}
+    \item \textbf{Task Allocation Efficiency}: Optimal distribution between human and AI
+    \item \textbf{Context Switching Cost}: Overhead of human interventions
+    \item \textbf{Sustained Attention}: Human performance degradation over time
+\end{itemize}
+
+\subsection{Feature Adoption Metrics}
+
+\begin{keyconcept}[Critical for ``Asking Badly'' Detection]
+\begin{itemize}
+    \item \textbf{Feature Disable Rate}: Percentage of users who turn off ``smart'' features
+    \item \textbf{Manual Override Rate}: How often users contradict system decisions
+    \item \textbf{Silent Error Rate}: Errors that go unnoticed by users (hard to measure, critical)
+\end{itemize}
+\end{keyconcept}
+
+% ============================================================================
+\section{Case Study: Netflix's Engagement Detection (Success Case)}
+% ============================================================================
+
+\subsection{Problem Formulation}
+
+\paragraph{State Variables.}
+\begin{itemize}
+    \item $t$: Current viewing time
+    \item $u$: User interaction history
+    \item $c$: Content type and metadata
+    \item $h$: Historical viewing patterns
+\end{itemize}
+
+\paragraph{Decision Problem.}
+
+Determine optimal intervention time $T^*$ to minimize:
+\begin{align*}
+\text{Cost} &= \alpha \cdot P(\text{user\_absent} \mid t) \cdot \text{StreamingCost}(t) \\
+            &\quad + \beta \cdot P(\text{user\_present} \mid t) \cdot \text{InterruptionCost}
+\end{align*}
+
+\subsection{Implementation Approach}
+
+\paragraph{Feature Engineering.}
+\begin{lstlisting}[style=python, caption={Netflix engagement features}]
+features = [
+    'time_since_last_interaction',
+    'hour_of_day',
+    'day_of_week',
+    'content_type',
+    'episode_number',
+    'user_binge_history',
+    'device_type',
+    'viewing_session_length'
+]
+\end{lstlisting}
+
+\paragraph{Model Architecture.}
+\begin{itemize}
+    \item \textbf{Recurrent Neural Network}: Captures temporal dependencies
+    \item \textbf{Attention Mechanism}: Weights recent vs.\ historical behavior
+    \item \textbf{Uncertainty Estimation}: Bayesian layers for confidence intervals
+\end{itemize}
+
+\paragraph{Threshold Optimization.}
+
+A/B testing framework to optimize intervention timing:
+\begin{lstlisting}[language={}, caption={Netflix A/B testing framework}]
+Group A: threshold = t_1
+Group B: threshold = t_2
+Measure: User satisfaction, bandwidth costs, re-engagement rates
+\end{lstlisting}
+
+\subsection{Results and Analysis}
+
+\begin{keyconcept}[Performance Metrics]
+\begin{itemize}
+    \item \textbf{Bandwidth Reduction}: 15--20\% decrease in unnecessary streaming
+    \item \textbf{User Satisfaction}: No significant decrease in engagement scores
+    \item \textbf{False Positive Rate}: ${<}5\%$ interruptions of active users
+    \item \textbf{False Negative Rate}: ${<}8\%$ continued streaming to absent users
+\end{itemize}
+\end{keyconcept}
+
+\subsection{Why Netflix Succeeds}
+
+\begin{examplebox}[Key Design Decisions]
+\begin{enumerate}
+    \item \textbf{Explicit Communication}: Pauses and asks rather than acting silently
+    \item \textbf{Low-Stakes Failure}: Wrong interruption costs seconds, not hours
+    \item \textbf{Easy Recovery}: One button press resumes viewing
+    \item \textbf{Transparent Logic}: Users understand the 3-episode/90-minute rule
+\end{enumerate}
+\end{examplebox}
+
+% ============================================================================
+\section{Case Study: Nest Thermostat Home/Away Assist (Failure Case)}
+% ============================================================================
+
+\subsection{Problem Formulation}
+
+\paragraph{State Variables.}
+\begin{itemize}
+    \item $m$: Motion sensor readings (binary per room)
+    \item $g$: GPS location of registered phones
+    \item $t$: Time since last detected activity
+    \item $s$: Historical occupancy schedule
+    \item $w$: Outside weather conditions
+\end{itemize}
+
+\paragraph{Decision Problem.}
+
+Determine occupancy state $O \in \{\text{Home},\, \text{Away}\}$ to optimize:
+\[
+\text{Cost} = \alpha \cdot P(\text{Away} \mid O{=}\text{Home}) \cdot \text{ComfortCost}
+            + \beta \cdot P(\text{Home} \mid O{=}\text{Away}) \cdot \text{EnergyCost}
+\]
+
+\subsection{The Technical Challenge}
+
+\begin{lstlisting}[style=python, caption={Sensor limitations of the Nest thermostat}]
+# Motion sensors have significant blind spots
+motion_coverage = {
+    'living_room': 0.7,  # 70% of room visible
+    'hallway': 0.9,
+    'bedroom': 0.0,      # No sensor
+    'home_office': 0.0   # No sensor
+}
+
+# Phone GPS is imprecise and battery-intensive
+gps_accuracy = {
+    'outdoor': '+-10m',
+    'indoor': '+-50m',   # Often unusable
+    'basement': None     # No signal
+}
+\end{lstlisting}
+
+\paragraph{Uncertainty Sources (mostly epistemic).}
+\begin{enumerate}
+    \item \textbf{Partial Observability}: Cannot see entire home
+    \item \textbf{Sensor Noise}: Motion detected $\neq$ human present (pets, HVAC)
+    \item \textbf{Behavior Shift}: Work-from-home breaks historical patterns
+    \item \textbf{Multi-Occupant Ambiguity}: One phone leaving $\neq$ home empty
+\end{enumerate}
+
+\subsection{Where the Design Fails}
+
+The core problem is acting on uncertainty without communication. Compare the two systems:
+
+\begin{lstlisting}[style=python, caption={Actual Nest logic (simplified) vs.\ Netflix logic}]
+# ACTUAL NEST LOGIC (simplified)
+def nest_decide(confidence_away, threshold=0.6):
+    if confidence_away > threshold:
+        switch_to_away()  # Silent action!
+    else:
+        stay_home()
+    # No notification, no confirmation, no user input
+
+# NETFLIX LOGIC
+def netflix_decide(confidence_absent, threshold=0.7):
+    if confidence_absent > threshold:
+        pause_and_ask()  # Explicit question!
+    else:
+        continue_playing()
+\end{lstlisting}
+
+\begin{cautionbox}[Key Difference]
+Netflix treats threshold-crossing as a trigger for \emph{asking}. Nest treats it as a trigger for \emph{acting}.
+\end{cautionbox}
+
+\subsection{Quantifying the Failure}
+
+\begin{technote}[Hypothetical Metrics Based on User Forum Analysis]
+\begin{itemize}
+    \item \textbf{Feature Disable Rate}: ${\sim}30\%$ of users disable Home/Away Assist
+    \item \textbf{False Positive Rate (Away when Home)}: ${\sim}15$--$25\%$ of mode switches
+    \item \textbf{Recovery Time}: Average 2+ hours before user notices and corrects
+    \item \textbf{User Satisfaction}: Low (extensive forum complaints)
+\end{itemize}
+\end{technote}
+
+\paragraph{Cost Asymmetry Problem.}
+\begin{lstlisting}[style=python, caption={Misaligned cost models}]
+# Nest's implicit cost model
+C_comfort = minor  # System treats this as low cost
+C_energy = major   # System prioritizes energy savings
+
+# User's actual cost model
+C_comfort = major  # Users hate being cold/hot at home
+C_energy = minor   # Small savings not worth discomfort
+\end{lstlisting}
+
+\subsection{Improved Design (Technical Specification)}
+
+\paragraph{Tiered Response Based on Confidence.}
+
+\begin{lstlisting}[style=python, caption={Improved Nest decision logic with tiered responses}]
+def improved_nest_decide(confidence_away, stakes='normal'):
+    # Adjust threshold based on stakes
+    if stakes == 'extreme_weather':
+        thresholds = {'act': 0.98, 'notify': 0.90, 'ask': 0.70}
+    else:
+        thresholds = {'act': 0.95, 'notify': 0.80, 'ask': 0.60}
+
+    if confidence_away > thresholds['act']:
+        switch_to_away()
+        send_notification("Switched to Away mode")
+    elif confidence_away > thresholds['notify']:
+        switch_to_away()
+        send_notification("Switched to Away. Tap if you're home.")
+    elif confidence_away > thresholds['ask']:
+        send_notification("No activity detected. Switch to Away?",
+                         options=["Yes", "No", "Ask later"])
+        # Wait for response before acting
+    else:
+        stay_home()  # Not confident enough to act or ask
+\end{lstlisting}
+
+\paragraph{Feedback Integration.}
+\begin{lstlisting}[style=python, caption={ImprovedNestLearner with feedback integration}]
+class ImprovedNestLearner:
+    def __init__(self):
+        self.false_positive_count = 0
+        self.false_negative_count = 0
+        self.user_patterns = {}
+
+    def update_from_correction(self, predicted, actual, context):
+        if predicted == 'Away' and actual == 'Home':
+            self.false_positive_count += 1
+            # Increase threshold for this time/day
+            self.user_patterns[context['day_hour']] = 'likely_home'
+
+        # Adjust thresholds based on error history
+        if self.false_positive_count > 5:
+            self.ask_threshold *= 1.1  # Be more conservative
+\end{lstlisting}
+
+\subsection{Lessons for HITL System Design}
+
+\begin{table}[htbp]
+\caption{Netflix vs.\ Nest: Design principle comparison}
+\label{tab:netflix-nest-comparison}
+\centering
+\begin{tabular}{@{}lp{3.5cm}p{3.5cm}p{3cm}@{}}
+\toprule
+\textbf{Principle} & \textbf{Netflix} & \textbf{Nest} & \textbf{Recommendation} \\
+\midrule
+Uncertainty $\to$ Action & Pause and ask & Act silently & Ask before acting \\
+Error Recovery & Instant (one button) & Delayed (hours) & Make recovery trivial \\
+Transparency & Clear rules (3 eps/90 min) & Opaque algorithm & Explain reasoning \\
+Learning Visible & Implicit but fast & Hidden and slow & Show what system learned \\
+Stakes Matching & Low stakes, casual ask & High stakes, no ask & Match urgency to impact \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Extensions and Future Directions}
+% ============================================================================
+
+\subsection{Meta-Learning for Intervention Decisions}
+
+Train meta-models that learn when human intervention is most valuable:
+\[
+p\bigl(\text{intervention\_value} \mid \text{task\_features},\,
+       \text{model\_state},\, \text{human\_expertise}\bigr)
+\]
+
+\subsection{Multi-Modal Uncertainty Fusion}
+
+Combining uncertainty estimates across different modalities:
+\[
+\sigma^2_{\text{total}} = \sum_{i} w_i \cdot \sigma^2_i + \lambda \cdot \text{Disagreement}(\text{modalities})
+\]
+
+\subsection{Personalized Uncertainty Thresholds}
+
+User-specific calibration based on:
+\begin{itemize}
+    \item \textbf{Risk Tolerance}: Individual comfort with system autonomy
+    \item \textbf{Expertise Level}: Domain knowledge affects optimal intervention frequency
+    \item \textbf{Context}: Task criticality influences threshold settings
+\end{itemize}
+
+\subsection{Communication-Aware HITL Design}
+
+New research direction inspired by the Netflix vs.\ Nest comparison:
+\[
+\min\; \mathbb{E}[\text{Cost}] + \lambda \cdot \text{Communication\_Cost}
+\]
+subject to:
+\[
+\text{User\_Trust} \geq \tau, \qquad \text{Feature\_Disable\_Rate} \leq \varepsilon
+\]
+
+Where Communication\_Cost includes notification frequency, query complexity, and response burden.
+
+% ============================================================================
+\section{Discussion Questions for Academic Use}
+% ============================================================================
+
+\subsection{Theoretical Questions}
+\begin{enumerate}
+    \item How do the uncertainty types (aleatoric vs.\ epistemic) map to different intervention strategies?
+    \item What are the theoretical limits of uncertainty quantification in deep learning models?
+    \item How can we formally prove the optimality of human intervention thresholds?
+    \item How should the decision framework change when the cost of ``silent action'' exceeds the cost of ``asking''?
+\end{enumerate}
+
+\subsection{Practical Questions}
+\begin{enumerate}
+    \item How do you design A/B tests for HITL systems where human learning affects outcomes?
+    \item What are the ethical implications of uncertainty-based decision systems in high-stakes domains?
+    \item How do you account for human cognitive biases in uncertainty-driven interfaces?
+    \item What metrics would detect a ``Nest-style'' failure (asking badly) before users disable the feature?
+\end{enumerate}
+
+\subsection{Research Directions}
+\begin{enumerate}
+    \item Can we develop uncertainty-aware active learning that considers human expertise levels?
+    \item How do we optimize for long-term human-AI team performance vs.\ short-term metrics?
+    \item What new uncertainty quantification methods are needed for multimodal AI systems?
+    \item How can systems learn to predict when users will disable ``smart'' features, and preemptively improve?
+\end{enumerate}
+
+% ============================================================================
+\section{Recommended Readings}
+% ============================================================================
+
+\subsection{Foundational Papers}
+\begin{itemize}
+    \item \textcite{kendall2017uncertainties} --- What uncertainties do we need in Bayesian deep learning for computer vision? \emph{NIPS}.
+    \item \textcite{settles2009active} --- Active learning literature survey. \emph{Computer Sciences Technical Report}.
+    \item \textcite{gal2016dropout} --- Dropout as a Bayesian approximation. \emph{ICML}.
+\end{itemize}
+
+\subsection{Recent Advances}
+\begin{itemize}
+    \item Mosqueira-Rey et al.\ (2023) --- Human-in-the-loop machine learning: a state of the art. \emph{Artificial Intelligence Review}.
+    \item \textcite{lakshminarayanan2017simple} --- Simple and scalable predictive uncertainty estimation. \emph{NIPS}.
+\end{itemize}
+
+\subsection{Application Areas}
+\begin{itemize}
+    \item Medical AI: \textcite{begoli2019uncertainty} --- The need for uncertainty quantification in machine-assisted medical decision making. \emph{Nature Machine Intelligence}.
+    \item Autonomous Systems: Michelmore et al.\ (2020) --- Uncertainty quantification with statistical guarantees in end-to-end autonomous driving control. \emph{ICRA}.
+\end{itemize}
+
+\subsection{Smart Home \& IoT}
+\begin{itemize}
+    \item Yang \& Newman (2013) --- Learning from a learning thermostat: lessons for intelligent systems for the home. \emph{UbiComp}.
+    \item Brush et al.\ (2011) --- Home automation in the wild: challenges and opportunities. \emph{CHI}.
+\end{itemize}
+
+% ============================================================================
+\section{Exercises and Assignments}
+% ============================================================================
+
+\begin{Exercise}[Uncertainty Estimation Implementation]
+Implement both Monte Carlo Dropout and Deep Ensembles for a simple classification task. Compare their uncertainty estimates and computational costs.
+\end{Exercise}
+
+\begin{Exercise}[Threshold Optimization]
+Design an A/B testing framework for optimizing human intervention thresholds in a content moderation system.
+\end{Exercise}
+
+\begin{Exercise}[Calibration Assessment]
+Evaluate the calibration of a pre-trained neural network using reliability diagrams and ECE. Propose and implement a calibration improvement method.
+\end{Exercise}
+
+\begin{Exercise}[Nest Thermostat Redesign]
+Using the decision-theoretic framework from Section~1.2, design an improved Home/Away Assist system that:
+\begin{itemize}
+    \item Explicitly models the cost asymmetry between comfort and energy
+    \item Implements tiered responses based on confidence levels
+    \item Includes a notification/confirmation system
+    \item Learns from user corrections
+\end{itemize}
+Provide pseudocode and a decision flow diagram.
+\end{Exercise}
+
+\begin{Exercise}[System Design Assignment]
+Design a complete HITL system for a domain of your choice. Include:
+\begin{itemize}
+    \item Uncertainty quantification method
+    \item Human intervention triggers
+    \item Interface design for human queries
+    \item Evaluation metrics
+    \item Cost-benefit analysis
+    \item Analysis of potential ``asking badly'' failure modes and mitigations
+\end{itemize}
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This technical appendix provides the mathematical foundations and implementation details for the concepts introduced in Chapter~1. It enables the main chapter to remain accessible while ensuring academic rigor for advanced readers. The contrasting case studies of Netflix (success) and Nest (failure) illustrate how the same underlying framework can lead to very different outcomes depending on design decisions.}

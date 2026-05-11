@@ -1,0 +1,339 @@
+% ============================================================================
+% CHAPTER 5 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch5/C5AM_updated.md (Solutions Guide)
+%         /markdown/ch5/Ch5AS_updated.md (Technical Exercise Solutions)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 5}
+\label{ch:solutions-ch05}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers enabling instructors to facilitate discussions on HITL intervention design with confidence and consistency.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Recognition --- How Question Wording Changed Your Answer}
+
+\textbf{Prompt:} ``Give two examples from your own experience where how you were asked a question changed how you answered it.''
+
+\paragraph{Model Answer.}
+
+Strong responses identify specific episodes where the phrasing of a question changed what the respondent searched for or reported. Two examples:
+
+\textbf{Example 1:} ``Do you have any questions?'' vs.\ ``What's one thing that's still unclear?'' The first invites ``no'' (requires identifying that something is unclear, then identifying what, then judging whether it merits a question). The second activates a specific search for a recent moment of confusion. The second phrasing consistently produces genuine reflection while the first produces silence.
+
+\textbf{Example 2:} A doctor asking ``Are you in pain?'' vs.\ ``On a scale of 1--10, how much does this hurt today compared to yesterday?'' The first question activates a general judgment. The second activates episodic comparison (yesterday vs.\ today) and forces a numerical estimate that is actionable for the physician.
+
+\paragraph{What the answer should articulate:}
+\begin{itemize}
+    \item The phrasing change affected what the respondent searched for in memory
+    \item Specific, concrete framings activate episodic memory; abstract framings activate general assessment
+    \item General assessment produces less useful information for the system that asked the question
+\end{itemize}
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[A-grade] Provides two specific examples; articulates the memory-activation mechanism; connects to the chapter's argument that question format determines information value: ``The question `What's unclear?' activates a search of recent confusion, while `Any questions?' just asks for a general evaluation --- the first mines specific knowledge I actually have.''
+
+    \item[B-grade] Two relevant examples; correct direction (different framings produce different searches); may not articulate the mechanism.
+
+    \item[C-grade] One example or vague examples; may describe ``asking better questions'' without identifying the cognitive mechanism.
+\end{description}
+
+\subsubsection{Question 2: Banking App Notification T-F-F Analysis}
+
+\textbf{Prompt:} ``A mobile banking app sends: `Unusual activity detected. Open the app to review.' Apply the T-F-F framework.''
+
+\paragraph{Model Answer.}
+
+\textbf{Timing (poor):} The notification gives no indication of when the ``unusual activity'' occurred. The user may have received it hours after the event. Context is stale. Even if sent immediately, it contains no date/time anchor, so the user cannot place it in their memory of the day.
+
+\textbf{Frequency (poor):} The generic phrasing ``unusual activity'' gives no signal of urgency or severity. If the app sends many such notifications, users learn to dismiss them --- they are not differentiated enough to break through habituated dismissal.
+
+\textbf{Format (poor):} The message provides no actionable specifics. The user cannot evaluate whether action is needed without opening the app and navigating to the flagged item. This requires 3--4 steps before the user can even assess whether a response is needed. By the time the user reaches the specific transaction, they have expended cognitive load on navigation rather than on their genuine memory search.
+
+\textbf{Trust-attention-response:} Trust is eroded by generic phrasing (looks like every other notification); attention requires opening the app (extra cognitive steps); response is low-quality because the user arrives at the question without context.
+
+\subsubsection{Question 3: Banking Notification Redesign}
+
+\textbf{Prompt:} ``Redesign the banking notification to be better on all three dimensions.''
+
+\paragraph{Model Answer.}
+
+\textbf{Redesigned notification:} ``Did you make a \$127.43 purchase at GameStop on Friday at 6:15 PM? Reply YES to confirm or NO to freeze your card.''
+
+\begin{itemize}
+    \item \textbf{Timing:} Sent within 60 seconds of the transaction while the user still has context.
+    \item \textbf{Frequency:} Only triggered by statistically anomalous transactions (unusual merchant category, unusual time, unusual amount relative to user history) --- not every purchase.
+    \item \textbf{Format:} Merchant name + exact amount + day/time anchors episodic memory. Binary YES/NO response requires one action. Consequence of ``NO'' stated (card freeze), giving the user confidence that their response changes something.
+\end{itemize}
+
+\textbf{Trust:} Specific content signals careful system monitoring. \textbf{Attention:} Sent while user is likely still in a spending mindset. \textbf{Response:} One-tap reply with clear stakes.
+
+\subsubsection{Question 4: Push 2FA vs.\ Number Matching}
+
+\textbf{Prompt:} ``Compare push notifications (tap to approve) vs.\ number matching for 2FA.''
+
+\paragraph{Model Answer.}
+
+\textbf{Push notifications (tap to approve) --- the failure:}
+Push notifications fail on the response dimension. The approval action requires no information from the user that couldn't be provided by an attacker. The MFA fatigue attack exploits exactly this: sending many push notifications until a frustrated user approves one. The response (a tap) carries no signal of genuine knowledge.
+
+\textbf{Number matching --- why it works:}
+The user must read a number displayed on their legitimate login screen and confirm that the number shown in the push notification matches. This requires:
+\begin{itemize}
+    \item Active engagement with information the attacker cannot have (the number on the user's real screen)
+    \item A moment of genuine cognition that interrupts reflexive approval
+    \item Comparison of two pieces of information from two sources
+\end{itemize}
+
+\textbf{Triangle comparison:}
+\begin{itemize}
+    \item \textbf{Timing:} Both sent at login moment (good --- context is high for both)
+    \item \textbf{Frequency:} Both fire only at login (good --- not fatiguing)
+    \item \textbf{Format:} Push requires no genuine knowledge; number matching requires genuine comparison
+\end{itemize}
+
+The difference is entirely in format, and the format difference is functionally decisive. Both systems detect the same event; only one reliably confirms that the user is who they claim to be.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 5: Alert Fatigue in Clinical Settings}
+
+\textbf{Prompt:} ``500 alerts per doctor per day, 95\% overridden. Diagnose and propose three interventions.''
+
+\paragraph{Model Answer.}
+
+\textbf{Diagnosis:}
+
+\textbf{Trust failure (primary):} The 95\% override rate reveals that doctors have learned the system's precision is very low --- approximately 5\% of alerts are actionable. A 5\% precision system has an effective signal value near zero; the effort of evaluating each alert exceeds the expected information gain. The rational response for a busy clinician is to develop a dismissal heuristic.
+
+\textbf{Attention failure:} 500 alerts is approximately one alert every 57 seconds of an 8-hour shift. This is not an interruption pattern --- it is a continuous noise floor that degrades all cognitive work.
+
+\textbf{Response failure:} For 95\% of alerts, any response is equally correct (override or comply). The format of alerts that carry low information doesn't distinguish itself from the 5\% that matter.
+
+\textbf{Three interventions:}
+
+\begin{enumerate}
+    \item \textbf{Precision triage:} Audit all fired alerts. Eliminate categories with less than 20\% actionability rate. Cutting the alert rate in half at constant precision increases effective signal value and rebuilds trust.
+
+    \item \textbf{Adaptive thresholds:} Raise alert thresholds for common low-risk interactions; lower them for rare high-risk combinations. Use historical override data to recalibrate which alerts matter.
+
+    \item \textbf{Batching + contextual presentation:} Defer non-urgent alerts to natural workflow breaks (post-patient, pre-documentation). Present them in context (patient history, current medications, specific reason this interaction is flagged) so the physician can evaluate efficiently rather than reorienting from scratch.
+\end{enumerate}
+
+\subsubsection{Question 6: Information Value of Specific vs.\ Generic Alerts}
+
+\textbf{Prompt:} ``Why is the specific fraud alert better even though both ask the same underlying question?''
+
+\paragraph{Model Answer.}
+
+From Appendix~5A, the information value of a human response depends on entropy reduction:
+\[
+\text{IG}(H; Y \mid X) = H(Y \mid X) - H(Y \mid H, X)
+\]
+
+\textbf{Generic alert:} The human has no new information to bring. Their response $H$ is based on a general sense of whether recent transactions have been unusual --- essentially a coin flip relative to the underlying question. Information gain approaches zero. The system learns nothing useful.
+
+\textbf{Specific alert:} The human can directly check their episodic memory of that morning. Their response $H$ is based on genuine specific knowledge:
+\begin{itemize}
+    \item ``YES'' = strong evidence the transaction was legitimate
+    \item ``NO'' = strong evidence of fraud
+\end{itemize}
+Information gain is high because the human's response is based on information the system does not have access to.
+
+\textbf{Why specificity matters:} The specific question activates the right memory at the right level of specificity. ``Did you buy coffee at Starbucks this morning at 9:14 AM?'' does not require effort --- the answer is immediately available from episodic memory. The generic question requires effort to generate an answer because it asks for a general assessment where no single memory is the right activation.
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 7: Content Moderation Platform Design}
+
+\textbf{Prompt:} ``Using all five dimensions of the HITL framework, design a complete intervention system for a content moderation platform with 200 moderators and 50,000 pieces of flagged content per day.''
+
+\paragraph{Model Answer.}
+
+\textbf{Uncertainty Detection (Dimension~1):}
+Multi-label classifier returning calibrated probability scores across violation categories. Route cases with maximum label score in [0.35, 0.75] to human review. Use separate OOD detection for content types unseen in training.
+
+\textbf{Intervention Design (Dimension~2):}
+Interface presents content in full context (thread, account history, prior violations). Category schema is granular (12 categories with sub-labels) but presented progressively --- reviewer sees broad category first, then refines. Explanation field for all non-obvious decisions. Time display (elapsed, not countdown) to prevent throughput pressure artifacts.
+
+\textbf{Timing (Dimension~3):}
+High-stakes categories (CSAM, imminent incitement) routed immediately regardless of confidence. Other categories batched into reviewer queues respecting daily case limits per reviewer. No notification outside working hours.
+
+\textbf{Stakes Calibration (Dimension~4):}
+Case severity score routes high-stakes uncertain cases to senior reviewers or two-reviewer panels. High-confidence auto-removes are sampled for audit (2\% random, plus any appealed items).
+
+\textbf{Feedback Integration (Dimension~5):}
+Reviewer decisions accumulate as training labels. Weekly batch retraining on agreed-upon cases (inter-annotator agreement $>0.7$). Monthly calibration check. Reviewer feedback (flagging ambiguous cases or guideline gaps) routed to policy team.
+
+\textbf{Cognitive load management:}
+150 cases/reviewer/day hard limit with breaks at 50-case intervals. Rotation across content categories to prevent habituation. Peer review panel for highest-difficulty ambiguous cases.
+
+\subsubsection{Question 8: Experiment Design for Alert Format Information Value}
+
+\textbf{Prompt:} ``Design an experiment to measure the information value of different fraud alert formats.''
+
+\paragraph{Model Answer.}
+
+\textbf{Participants:} 200 bank account holders, randomly assigned to one of four alert format conditions.
+
+\textbf{Conditions:}
+\begin{description}
+    \item[A] Generic (``Unusual activity detected'')
+    \item[B] Semi-specific (``A \$127 purchase may need review'')
+    \item[C] Full specific (``Did you make this \$127.43 purchase at GameStop on Friday at 6:15 PM?'')
+    \item[D] Full specific + consequence (``\ldots Reply YES to confirm or NO to freeze your card'')
+\end{description}
+
+\textbf{Procedure:} All participants receive 20 alerts over 4 weeks --- 10 for real transactions (positive ground truth), 10 for simulated fraudulent transactions (negative ground truth).
+
+\textbf{Measures:}
+\begin{enumerate}
+    \item Response rate (attention)
+    \item Accuracy of YES/NO response vs.\ ground truth (response quality)
+    \item Response time (cognitive load proxy)
+    \item Trust calibration: post-study survey ``How much do you trust fraud alerts from your bank?''
+\end{enumerate}
+
+\textbf{Quantifying information quality:}
+$\text{Information quality} = \sum_i \text{IG}(H_i; Y_i)$ approximated as accuracy above chance.
+
+\textbf{Confounds to control:}
+\begin{itemize}
+    \item Time of day (attention availability)
+    \item Amount of transaction (salience effect)
+    \item Prior fraud experience (trust prior)
+    \item Device type (mobile vs.\ desktop affects ease of response)
+\end{itemize}
+
+\textbf{Expected results:} Conditions C and D should show substantially higher accuracy and response rates. The marginal gain from D over C tests whether stating consequences matters beyond the informational content.
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Alert Triage --- Rankings and Explanations}
+
+\paragraph{Expected ranking (best to worst):} 2, 5, 3, 4, 6, 1.
+
+\textbf{Alert 2} (``Did you make this \$237.00 purchase\ldots Reply YES or NO'') ranks first: good on all T-F-F dimensions. Binary reply with consequential framing.
+
+\textbf{Alert 5} (phone call) ranks second despite bad attention management because the format is rich: a live agent with context who can answer follow-up questions. The format compensates partially for the attention-management problem.
+
+\textbf{Alert 3} (push notification: tap to approve) ranks third: good timing (sent at login moment), bad format (no information content in the response).
+
+\textbf{Alert 4} (email 6 hours later) ranks fourth: both timing and format fail, but the delivery mechanism (email) at least creates a record.
+
+\textbf{Alert 6} (in-app banner: review 14 items) ranks fifth: batching multiple alerts creates cognitive overhead; no individual item context.
+
+\textbf{Alert 1} (``Your account requires your attention'') ranks last: fails on all dimensions; the most generic possible framing.
+
+\subsection{Activity 2: HITL Intervention Redesign --- Sample Solutions}
+
+\paragraph{Scenario A: Premium credit card fraud.}
+
+\textbf{Trigger:} Transaction $>$ \$500 in new geographic location + merchant category not in 90-day history.
+
+\textbf{Notification:} ``Did you make a \$1,247 purchase at [Hotel Name], Helsinki, at 11:43 PM local time (3:43 PM your time)? This is unusual for your account. Reply YES/NO or call [number] from your registered phone.''
+
+\textbf{Timing:} Within 2 minutes of transaction (before authorization is complete if possible).
+
+\textbf{Frequency:} Maximum 2 per day; high-confidence domestic transactions not flagged.
+
+\textbf{Feedback integration:} YES responses train the model that this customer-merchant-location pattern is legitimate; NO responses trigger fraud investigation queue.
+
+\paragraph{Scenario D: Medical documentation AI.}
+
+\textbf{Trigger:} Drug dosage in transcript exceeds 2$\sigma$ from typical for this drug category.
+
+\textbf{Notification:} Inline flag in documentation interface: ``[Drug name]: transcript says 200 mg/kg --- typical range for [indication] is 0.5--2 mg/kg. Please verify.'' Required acknowledgment before signing.
+
+\textbf{Timing:} Shown immediately within the documentation flow, before the physician signs the note.
+
+\textbf{Feedback integration:} Physician correction or confirmation updates the model's understanding of typical dosing for this specific physician/specialty context.
+
+% ============================================================================
+\section{Grading Notes}
+% ============================================================================
+
+\paragraph{Grade Band A.} Students apply T-F-F and trust-attention-response consistently and specifically; their system designs include all three levers with justification; they connect question format to information value explicitly; they understand that feedback integration is not optional. Redesigned alerts are specific, actionable, and timely.
+
+\paragraph{Grade Band B.} Students apply T-F-F correctly; identify trust vs.\ attention vs.\ response failures; propose reasonable improvements. May miss the information-theoretic dimension of format design. System designs are coherent but may lack detail on feedback integration.
+
+\paragraph{Grade Band C.} Students can name the three levers and apply them loosely; may treat all alert failures as ``confusing'' without distinguishing the specific failure type; may propose improvements that address format but not timing or frequency. Likely treat feedback integration as a UX feature rather than a core ML pipeline requirement.
+
+% ============================================================================
+\section{Technical Exercise Solutions (Appendix 5A)}
+% ============================================================================
+
+\subsection{Exercise 5A.1: Dynamic Trust Decay Model}
+
+\paragraph{Core model:} If $T_t$ is the user's trust in the alert system at time $t$:
+\[
+T_{t+1} = T_t + \alpha \cdot \mathbf{1}[\text{alert actionable}] - \beta \cdot \mathbf{1}[\text{alert not actionable}]
+\]
+where $\beta > \alpha$ (trust decays faster than it builds).
+
+\paragraph{Key result:} For a system with precision $p$ (fraction of alerts that are actionable):
+\[
+\text{Steady-state trust} = T^* = \frac{\alpha \cdot p}{\alpha \cdot p + \beta \cdot (1-p)}
+\]
+
+For $T^* > 0.5$ (the minimum for active engagement): $p > \beta / (\alpha + \beta)$.
+
+\textbf{Interpretation:} If $\beta = 2\alpha$ (trust decays twice as fast as it builds), the minimum precision for maintained engagement is $p > 0.67$. A system with 5\% actionable alerts (like the clinical example) approaches $T^* \approx 0$. The math formalizes why high-alert-volume clinical systems with low precision produce universal disengagement.
+
+\subsection{Exercise 5A.2: Optimal Query Design via Mutual Information}
+
+\paragraph{Core result:} The information gain from a human response $H$ to question $Q$ about transaction $Y$:
+\[
+\text{IG}(Q) = H(Y) - H(Y \mid H)
+\]
+
+\paragraph{For the generic question} ``Was this transaction unusual?'': The user's response $H$ is essentially independent of $Y$ (they have no specific information to draw on). $H(Y \mid H) \approx H(Y)$. $\text{IG} \approx 0$.
+
+\paragraph{For the specific question} ``Did you make this \$127.43 purchase at GameStop on Friday?'': The user's response $H$ is a near-perfect observation of $Y$ (they know whether they made this purchase). $H(Y \mid H) \approx 0$. $\text{IG} \approx H(Y)$.
+
+\textbf{Design principle:} Maximize information gain by formulating questions that activate specific, reliable human knowledge rather than general assessment.
+
+\subsection{Exercise 5A.3: RL Formulation for Dynamic HITL Policy}
+
+\paragraph{Why a fixed-rule policy is suboptimal:}
+
+A fixed policy (always alert if score $> \tau$) does not account for:
+\begin{itemize}
+    \item \textbf{User state:} Trust level, time of day, current task context --- all affect response quality
+    \item \textbf{System state:} Current drift level, recent accuracy --- affect whether the ask is informative
+    \item \textbf{History:} Recent alert density --- affects whether adding another alert increases or decreases total information obtained
+\end{itemize}
+
+\textbf{MDP formulation:}
+\begin{itemize}
+    \item \textbf{State} $s_t$: (user trust level, current alert density, model confidence, time-of-day)
+    \item \textbf{Actions}: Alert now / Defer alert / Batch with next N alerts
+    \item \textbf{Reward}: Information gained from response (1 if response is actionable, 0 if not) minus alert cost ($\beta$ if not actionable)
+    \item \textbf{Policy}: $\pi(s_t) = \text{argmax}_a Q(s_t, a)$
+\end{itemize}
+
+\textbf{Data needed to learn the policy:}
+\begin{itemize}
+    \item Historical alert/response pairs with labels (did the alert lead to a correct identification?)
+    \item User engagement metrics (response rate, response time, accuracy vs.\ ground truth)
+    \item Trust proxy signals (app open rate, alert acknowledgment rate)
+\end{itemize}
+
+\paragraph{Key insight:} The optimal policy lowers the alert threshold for users with high trust and high current context (just made a transaction, alert is relevant) and raises it for users with low trust or in low-context situations (sleeping, in meetings). This is precisely the personalization that static threshold rules cannot achieve.

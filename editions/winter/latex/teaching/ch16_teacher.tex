@@ -1,0 +1,371 @@
+% ============================================================================
+% CHAPTER 16 TEACHER'S MANUAL
+% Complete instructional guide for HITL in audio, time-series, scientific
+% discovery, and physical systems
+% ============================================================================
+% Source: /markdown/ch16/Ch16T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 16}
+\label{ch:teacher-ch16}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching HITL beyond text and images using \emph{Beyond Text and Images}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Identify the four HITL domains covered in Chapter~16 and name key examples in each
+    \item Explain the prosody gap in speech-based HITL and its significance for crisis applications
+    \item Define the triage challenge in time-series HITL: the 0.1\% problem
+    \item Describe AlphaFold's pLDDT scores as a HITL uncertainty interface
+    \item Explain shared autonomy as a HITL design philosophy
+    \item Define co-adaptation and explain why it matters for HITL system design
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply the Five Dimensions framework to a novel domain not covered in Chapter~16
+    \item Analyze the cost-asymmetry implications of physical-world HITL vs.\ digital-domain HITL
+    \item Design an escalation protocol for a described time-series monitoring system
+    \item Compare the HITL design requirements of static vs.\ streaming data
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Argue why physical-world consequences change HITL design requirements
+    \item Design a HITL protocol for a domain that combines multiple modalities
+    \item Evaluate the co-adaptation concept and its implications for system design and ethics
+    \item Identify where the Five Dimensions framework applies cleanly vs.\ requires adaptation across the four domains
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--15:} Full HITL fundamentals; this chapter is a stress test for the framework
+    \item \textbf{Basic familiarity with audio signal processing:} Optional but helpful
+    \item \textbf{No programming prerequisites} for the conceptual treatment
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Near-final chapter] Best positioned after students have internalized core HITL principles and are ready to apply them in non-standard domains
+    \item[Framework stress test] Use this chapter to find the limits of the Five Dimensions framework; where it breaks down is itself instructive
+    \item[Standalone (limited)] Can be used as a standalone reading for specialized courses on robotics, IoT, or scientific AI
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Prosody Gap}
+
+The Marcus opening story is specifically designed to surface a concept that is non-obvious: the gap between what a model can be trained on and what a human expert perceives.
+
+\begin{keyconcept}[The Prosody Gap]
+Modern NLP models are very good at analyzing the semantic content of speech --- what was said. They are much worse at the prosodic and paralinguistic features --- hesitations, flat affect, tremor, the pause that transforms ``okay'' from agreement to capitulation. In mental health applications, the model's uncertainty is not the only relevant signal: there may be cases where the model is confident (the words are fine) but the human expert would not be.
+\end{keyconcept}
+
+\begin{technote}[Teaching Tip]
+Play audio examples where the words say one thing and the voice says another. Any good actor can demonstrate flat affect, tremor, or the pause that transforms ``okay'' from agreement to concession. Students recognize immediately why a text-only model would miss this. This doesn't require real crisis recordings --- use theatrical or expressive speech examples.
+\end{technote}
+
+\subsection{The 0.1\% Problem}
+
+The industrial IoT section introduces a central challenge in time-series HITL: when the signal-to-noise ratio is extremely low, how do you preserve human attention for the signal?
+
+The framing of ``6 million data points, 12 anomalies per month'' resonates viscerally. Ask students: ``If you were the operator, what would your attention strategy be?'' The answer naturally derives the HITL motivation: the model's job is pre-filtering; the human's job is handling edge cases.
+
+\begin{cautionbox}[Alert Fatigue at the Extreme]
+The ICU alarm story (700 alarms per patient per day, 72--99\% false positive rate) is among the most extreme documented cases of alert fatigue. This is useful as an existence proof: systems can fail entirely in the alert fatigue direction while their individual components (sensors) work perfectly. Alert fatigue is not a software bug --- it is a design failure at the system level.
+\end{cautionbox}
+
+\subsection{Co-Adaptation}
+
+The prosthetics section introduces a concept that transforms how students think about HITL: both the human and the system adapt over time. Neither is static.
+
+This is philosophically significant because it challenges the implicit model in much HITL discourse, which treats the human as a fixed component the AI system must serve. Co-adaptation suggests a more dynamic model: the human-AI system as a whole is learning.
+
+\begin{keyconcept}[Co-Adaptation]
+In prosthetics and BCIs, co-adaptation describes the mutual adaptation of human and AI system over time: the user adapts to the model, and the model adapts to the user. Over time, a skilled BCI user and a well-designed model converge on a shared language. This is the most intimate form of human-AI collaboration we have yet developed --- and it is also the most visible instance of a process that occurs in all HITL systems, albeit more slowly and less obviously.
+\end{keyconcept}
+
+\textbf{Teaching question:} ``Is co-adaptation desirable?'' The answer is nuanced. If a user adapts to compensate for a system's limitations, is that a success (the system works) or a failure (the burden shifted to the human)? The best answer involves measuring task performance from the user's goal, not the system's design.
+
+\subsection{Multimodal Disagreement as Uncertainty Signal}
+
+Chapter~16 introduces a design principle that extends beyond any single domain: in multimodal systems, model disagreement between modalities is often more informative than single-model confidence.
+
+In the Marcus story: text model says low-risk, audio model would say high-risk. The disagreement between models is itself a signal of uncertainty even when neither individual model is uncertain. This principle generalizes to any system integrating multiple data streams (sensor fusion, multimodal AI, time-series + contextual data).
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\begin{table}[htbp]
+\caption{50-minute lecture plan for Chapter~16}
+\label{tab:lecture-plan-ch16}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{3.5cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:07 & Opening: Marcus story (cold, no framing) & None \\
+0:07--0:19 & Audio/speech domain: prosody gap + transcription bias + crisis detection & Audio prosody examples \\
+0:19--0:31 & Time-series domain: 0.1\% problem + ICU alarms + earthquake warning & Alert fatigue diagram \\
+0:31--0:41 & Scientific discovery: AlphaFold + Bayesian optimization & pLDDT confidence schematic \\
+0:41--0:50 & Physical systems: shared autonomy + co-adaptation + wrap-up & Shared autonomy diagram \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Opening: The Marcus Story (7 minutes)}
+
+Tell the story cold, before any framing. A trained crisis counselor named Marcus was monitoring call quality when he noticed something odd. The AI had assigned a low-risk score. The transcript looked fine. But Marcus played the audio. The voice was not the voice of someone who was fine.
+
+\begin{trythis}
+\textbf{Ask:} ``What did the model fail to detect? What did Marcus detect that the model didn't?''\\[0.5em]
+\textbf{Reveal:} This is the prosody gap. Build to the broader principle: in multimodal situations, the model's uncertainty is not the only relevant uncertainty. Sometimes the model is confident but about the wrong thing.
+\end{trythis}
+
+\subsubsection{Part 1: Audio and Speech (12 minutes)}
+
+\begin{itemize}
+    \item \textbf{Prosody gap:} The channel carries information (speaker identity, emotional state, health status, engagement, confidence, fatigue) that transcripts strip away. This is not a limitation of current models --- it is a structural gap between what the model was trained on and what the human expert perceives.
+
+    \item \textbf{Transcription bias:} Correcting ``gonna'' to ``going to'' is annotation failure, not improvement. Dialect preservation vs.\ error correction must be explicitly separated in annotation guidelines. Systematic dialect bias in transcription has material consequences in legal and medical contexts.
+
+    \item \textbf{Crisis detection design:} The Marcus solution is a parallel prosody model whose disagreement with the semantic model triggers human review. Model-to-model disagreement as uncertainty signal.
+\end{itemize}
+
+\subsubsection{Part 2: Time-Series and Sensor Data (12 minutes)}
+
+\begin{itemize}
+    \item \textbf{The 0.1\% problem:} 6 million data points per week; 12 genuine anomalies per month. The human's job is to handle the 12, not to watch the 6 million. The model's job is triage.
+
+    \item \textbf{ICU alarm crisis:} 700 alarms per patient per day at 72--99\% false positive rate. Nurses stop hearing the alarms. The one genuine alarm sounds like the other 699. Stakes Calibration failure at the system level.
+
+    \item \textbf{Earthquake early warning:} Human role is system-level oversight (monitoring for false alerts, system failures), not case-by-case review. As systems become faster and more autonomous, this oversight role becomes the dominant HITL model.
+\end{itemize}
+
+\subsubsection{Part 3: Scientific Discovery (10 minutes)}
+
+\begin{itemize}
+    \item \textbf{AlphaFold:} pLDDT scores as the HITL interface. Regions with high pLDDT ($>$90): generally reliable. Regions with low pLDDT ($<$50): may be genuinely disordered \emph{or} the model guessing. The human researcher must decide which.
+
+    \item \textbf{Bayesian optimization:} Human provides experimental outcomes; model suggests next experiment. Human judgment about data quality (contaminated sample, equipment failure) is part of the feedback signal.
+
+    \item \textbf{Key principle:} In scientific HITL, the model's job is to narrow the hypothesis space; the human's job is to select which hypotheses to test. The human is not reviewing the model's outputs --- the human is \emph{designing the experiments} that generate the model's training data.
+\end{itemize}
+
+\subsubsection{Part 4: Physical Systems and Wrap-Up (9 minutes)}
+
+\begin{itemize}
+    \item \textbf{Shared autonomy:} The robot handles low-level motor control; the human handles high-level task planning. The boundary shifts based on task difficulty, model confidence, and communication latency. Uncertainty-driven handoff: act autonomously when confident about human intent; ask when uncertain.
+
+    \item \textbf{Co-adaptation:} The user adapts to the model; the model adapts to the user. Over time, the human-AI system as a whole converges on better performance. This is the most visible instance of a dynamic that occurs in all HITL systems.
+
+    \item \textbf{Physical consequences:} A misclassified email can be recovered from. A robot arm moving in the wrong direction may not be recoverable. Physical-world HITL shifts the cost-asymmetry calculation dramatically toward caution.
+\end{itemize}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Comparative Five Dimensions Analysis (15 min).}
+Groups analyze the Five Dimensions for two of the four domains and compare. Where does the framework apply cleanly? Where does it strain? What does this reveal about the framework's limits?
+
+\paragraph{Add: Domain Design Challenge (10 min).}
+Pose a new domain not covered in the chapter (drone traffic management, autonomous surgical systems, climate sensor networks). Groups sketch a HITL design and identify the key challenge.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Prosody Gap:} ``A customer service AI analyzes the words of customer complaints to determine urgency. What is it missing? What would a human customer service representative notice that the AI might not? How would you design a HITL system that addresses this?''\\
+    \textit{Target: Missing: tone of voice, pacing, vocal strain, emotional cues in prosody. Human hears distress, urgency, fear. Design: parallel audio analysis model; escalation triggered by semantic-prosodic disagreement; train on prosodic features not just transcript content.}
+
+    \item \textbf{The 0.1\% Problem:} ``Explain the trade-off in industrial alarm systems. Why can't you alert the human about everything? Why can't you trust the AI to handle everything? What does this tell you about the purpose of HITL in high-volume monitoring?''\\
+    \textit{Target: Everything: alert fatigue; human cannot sustain attention to 6 million datapoints. AI only: model misses the edge cases requiring genuine judgment. HITL purpose: triage (model) + judgment (human) = neither can do alone what both can do together.}
+
+    \item \textbf{Physical Consequences:} ``A self-driving car and an email spam filter are both AI systems that make automated decisions. How are their HITL design requirements different? What specifically changes when consequences are physical?''\\
+    \textit{Target: Speed constraint (car acts in milliseconds); reversibility (deleting an email vs.\ collision); stakes asymmetry (spam is annoying; crash is fatal); co-location of human and consequences; regulatory requirements.}
+
+    \item \textbf{Scientific Discovery:} ``How is AlphaFold's use in protein structure prediction an example of HITL design? What is the AI's role? What is the human's role? Where is the uncertainty interface?''\\
+    \textit{Target: AI predicts structure, provides pLDDT confidence per residue. Human decides which predicted structures to validate experimentally, interpreting low-confidence regions. pLDDT is the uncertainty interface. Human's role: hypothesis selection and experimental design.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Multimodal Disagreement:} ``Design a HITL escalation protocol for a system that monitors video, audio, and physiological sensors simultaneously. How should you handle cases where the sensors disagree?''\\
+    \textit{Target: Disagreement between modalities is itself an uncertainty signal. Protocol: single-modality confidence triggers auto-classification; multi-modality agreement increases confidence; multi-modality disagreement escalates to human regardless of individual confidence scores.}
+
+    \item \textbf{Streaming vs.\ Static:} ``Explain three specific ways HITL design requirements differ between a text classification model and an industrial sensor monitoring system.''\\
+    \textit{Target: (1) Evaluation: static model can use held-out test set; streaming system needs continuous monitoring. (2) Intervention window: text classification has no time pressure; sensor monitoring may have seconds. (3) Human role: text: case-by-case review; sensor: system-level oversight and calibration.}
+
+    \item \textbf{Shared Autonomy:} ``Apply the shared autonomy framework to another domain not mentioned in the chapter. What does `the robot handles low-level, human handles high-level' translate to in your domain?''\\
+    \textit{Accept any domain with well-reasoned analysis. Examples: surgical robotics (robot handles precision fine motor; surgeon handles incision strategy); drone delivery (drone handles flight control; human handles address verification and edge cases); automated trading (algorithm handles execution; human handles strategy and risk management).}
+
+    \item \textbf{Co-Adaptation:} ``A medical professional uses an AI-assisted diagnostic system every day for two years. Describe what changes you would expect in: (a) the AI's model, (b) the professional's diagnostic behavior, (c) the performance of the combined system. Is this desirable?''\\
+    \textit{Target: AI: updated on new confirmed cases; improved on seen case types, possibly narrowed on unseen ones. Professional: may adapt workflows around AI; may reduce practice on cases AI handles well (automation complacency risk); may develop expertise in interpreting AI outputs. System: generally improves, but with risk of co-adaptation narrowing both components' range of effective operation. Desirability: yes if performance improves; concern if co-adaptation creates brittleness to novel cases.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Framework Stress Test:} ``The Five Dimensions framework was developed primarily with text classification and image labeling in mind. Identify one dimension that applies cleanly to all four domains in Chapter~16, one that requires modification, and one that requires the most adaptation. Defend your choices.''
+
+    \item \textbf{ICU Alarm System Design:} ``Design a patient monitoring system for a 20-bed ICU that achieves: (a) fewer than 5 alarms per nurse per hour, (b) less than 1\% critical event miss rate, (c) actionability rate above 60\%. What ML methods would you use? How would you validate performance before deployment?''
+
+    \item \textbf{BCI Ethics:} ``In a motor BCI, the human's neural signals are directly in the feedback loop. The human cannot always `opt out'; feedback is implicit rather than explicit; and co-adaptation may change the user's neural patterns over time. What specific ethical obligations does this create for BCI designers?''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Prosody Detection Exercise (15 minutes)}
+
+\textbf{Setup:} Prepare 5--8 short audio clips (30--60 seconds each) using text-to-speech tools set to different prosodic styles, or theatrical voice recordings from a drama department.
+
+\textbf{Design:} For each clip, provide the transcript but not the audio first. Ask students to assess risk level from words alone. Then play the audio. Do assessments change?
+
+\textbf{Debrief:}
+\begin{itemize}
+    \item Which cases changed assessment after hearing the audio?
+    \item What specific prosodic features drove the change?
+    \item How would you design a model to capture those features?
+\end{itemize}
+
+\subsection{Activity 2: Five Dimensions Framework Stress Test (20 minutes)}
+
+\textbf{Setup:} Groups of 3--4. Each group applies the Five Dimensions framework to one of the four Chapter~16 domains.
+
+\textbf{Task:}
+\begin{enumerate}
+    \item Apply each dimension to your domain
+    \item Identify which dimension is most stretched (requires the most modification)
+    \item Propose a specific adaptation or additional dimension your domain requires
+\end{enumerate}
+
+\textbf{Debrief:} Which dimensions are most universal? Which reveal the most about the framework's original domain assumptions?
+
+\subsection{Activity 3: ICU Alarm Reduction Design Challenge (20 minutes)}
+
+\textbf{Setup:} Small groups given a simulated 24-hour ICU alarm log with alarm category, timestamp, patient ID, patient vitals, nurse response, and outcome.
+
+\textbf{Task:} Propose a triage model that reduces alarm volume to under 10 actionable alarms per nurse per hour while maintaining $<$1\% critical event miss rate. Specify:
+\begin{enumerate}
+    \item What features would the model use?
+    \item How would you define ``actionable'' in training labels?
+    \item What threshold would you set?
+    \item How would you validate before deployment?
+\end{enumerate}
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``The Five Dimensions Framework Applies Identically Everywhere''}
+
+\paragraph{Student thinking:} ``We can just use the same checklist for every HITL system.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The Five Dimensions is a framework for organizing thinking, not a uniform recipe
+    \item Timing has fundamentally different implications for real-time physical systems vs.\ asynchronous text review
+    \item Feedback Integration in scientific discovery means ``human decides which experiments to run''; in content moderation it means ``human corrects individual labels''
+    \item The framework's value is in asking the right questions in each domain, not in producing identical answers
+\end{itemize}
+
+\subsection{Misconception 2: ``Physical-World HITL Is Just Regular HITL With Higher Stakes''}
+
+\paragraph{Student thinking:} ``The principles are the same; physical systems just have higher costs for errors.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Higher stakes change design requirements structurally, not just quantitatively
+    \item Reversibility differs: a wrong classification can be corrected; a robot arm's collision cannot be uncollided
+    \item Time constraints differ: human review is asynchronous in text; in physical systems, intervention windows are measured in seconds
+    \item Co-adaptation is more intimate and potentially more consequential in physical systems
+\end{itemize}
+
+\subsection{Misconception 3: ``More Alarms Means Better Patient Safety''}
+
+\paragraph{Student thinking:} ``If sensors detect something, you should always alert the human. Missing an alert is worse than too many.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Alert fatigue is documented to cause exactly the missed critical events that more alarms are intended to prevent
+    \item The ICU alarm research shows that systems with $>$50\% false positive rates cause nurses to habituate and miss real events
+    \item The optimal system is not the most sensitive system but the most specific actionable system
+    \item Stakes Calibration requires that alarms represent cases that genuinely require human judgment, not every detectable deviation from a parameter range
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Domain Extension Paper (500--750 words)}
+
+\textbf{Prompt:} Apply the HITL framework to a domain not covered in Chapter~16 (examples: autonomous drones in search and rescue, AI-assisted translation in real-time diplomatic settings, automated environmental monitoring). Analyze:
+\begin{enumerate}
+    \item What data type(s) does the system process?
+    \item What is the human's role (case-by-case review, oversight, experimental design, or other)?
+    \item Which Five Dimensions are most critical for this domain?
+    \item What design challenge is unique to this domain compared to text/image HITL?
+\end{enumerate}
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Domain characterization (20\%):} Accurate, specific description of data type and decision context
+    \item \textbf{Human role identification (25\%):} Correct identification of where and how humans add value
+    \item \textbf{Five Dimensions application (30\%):} Specific, well-reasoned application to this domain
+    \item \textbf{Unique challenge identification (25\%):} Identifies something genuinely new, not just restates chapter content
+\end{itemize}
+
+\subsection{Option 2: Multimodal HITL Design}
+
+\textbf{Prompt:} Design a complete HITL protocol for a system that integrates at least two data modalities (audio + text, video + sensor, etc.). Specify: how each modality is processed, how model disagreement between modalities is handled, what triggers human escalation, and what the human sees when a case is escalated.
+
+\subsection{Option 3: Discussion Post --- Co-Adaptation Ethics}
+
+\textbf{Post (200 words):} ``Co-adaptation in BCI systems may change the user's neural patterns over time. Who owns those changes? What obligations do BCI designers have to users who have co-adapted to a system that is then discontinued?''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~1:} Alert fatigue (the central example is the ICU alarm crisis at its most extreme)
+    \item \textbf{Chapter~11:} Computer vision HITL --- autonomous vehicles in Chapter~11 are extended to physical systems here
+    \item \textbf{Chapter~13:} Automation complacency in physical systems (co-adaptation can produce complacency as well as improvement)
+    \item \textbf{Chapter~15:} Annotation failure in transcription (dialect bias) applies directly to the audio section
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item Chapter~16 is near the book's conclusion; it anticipates the forward-looking chapters on AI governance and the future of human-AI collaboration
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~16 is both a stress test and an expansion. The Five Dimensions framework, developed primarily in the context of text classification and image review, must stretch to accommodate audio, time-series, scientific discovery, and physical-world systems. Where it stretches well, it confirms the framework's underlying generality. Where it reveals limitations, it points toward the next generation of HITL design thinking --- for systems that are faster, more embodied, and more tightly coupled to physical consequences than the systems the framework was originally designed to analyze.}

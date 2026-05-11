@@ -1,0 +1,461 @@
+% ============================================================================
+% CHAPTER 7 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch7/C7AM_updated.md (Solutions Guide)
+%         /markdown/ch7/Ch7AS_updated.md (Technical Exercise Solutions)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 7}
+\label{ch:solutions-ch07}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers enabling instructors to facilitate discussions on annotation science, inter-annotator agreement, and label quality with confidence and consistency.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Framing Comparison}
+
+\textbf{Prompt:} ``Team~A: `Is this offensive?' vs.\ Team~B: `Would this post make a member of the target group feel unsafe?' How do label distributions differ? Which framing produces higher kappa?''
+
+\paragraph{Model Answer.}
+
+\textbf{Predicted label distribution differences:}
+
+Team~A (``offensive'') anchors annotators on their personal reaction. This produces:
+\begin{itemize}
+    \item Higher variance in thresholds (everyone has different personal offense sensitivity)
+    \item More positive labels (individual offense thresholds are typically lower than ``reasonable person'' thresholds)
+    \item Label rates that track annotator demographics more strongly
+\end{itemize}
+
+Team~B (``reasonable person'' or ``target group member'') anchors annotators on a shared hypothetical standard. This produces:
+\begin{itemize}
+    \item Lower variance in thresholds (the hypothetical standard moderates individual variation)
+    \item Fewer positive labels (the shared standard invokes social consensus rather than individual reaction)
+    \item More consistent labels across annotator demographics
+\end{itemize}
+
+\textbf{Which produces higher kappa?} Team~B, for most tasks. The ``member of the target group'' framing reduces $\sigma^2_\theta$ (threshold variance across annotators), which directly reduces disagreement and increases kappa. Published studies consistently find kappa gains of 0.05--0.15 when moving from personal-reaction to target-group framings.
+
+\textbf{Caveat:} The ``reasonable person'' or ``target group member'' standard has its own limitation: it implicitly represents the perspective of whoever is imagined as the reference individual. For tasks where the target group is specific and well-defined, naming them explicitly produces better results than abstract ``reasonable person'' standards.
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[Excellent] Predicts both distribution direction and kappa direction with reasoning grounded in threshold variance; identifies the caveat about what ``reasonable person'' implicitly assumes; connects to HITL design implications.
+
+    \item[Good] Correct direction for kappa; basic reasoning about reduced variance.
+
+    \item[Satisfactory] Recognizes the framings differ without specifying direction of the effect.
+
+    \item[Needs improvement] No substantive comparison between the two framings.
+\end{description}
+
+\subsubsection{Question 2: Spam Filter Accuracy vs.\ Kappa}
+
+\textbf{Prompt:} ``Compare two spam filters on accuracy.''
+
+\paragraph{Worked Computation.}
+
+\textbf{Filter 1 (label everything legitimate):}
+\begin{itemize}
+    \item 90 legitimate emails, all correctly labeled
+    \item 10 spam emails, all incorrectly labeled as legitimate
+    \item Accuracy: $90/100 = 90\%$
+    \item Kappa: $\kappa = 0$ (agreement no better than chance; making no genuine discriminations)
+\end{itemize}
+
+\textbf{Filter 2 (more careful):}
+\begin{itemize}
+    \item 80/90 legitimate correctly labeled as legitimate; 8/10 spam correctly labeled as spam
+    \item Total correct: $80 + 8 = 88$; Accuracy: $88\%$
+    \item Kappa: $>0$ (making genuine discriminations above chance)
+\end{itemize}
+
+\textbf{Filter 2 is better despite lower accuracy.} It is doing something useful (catching spam), while Filter 1 is doing nothing useful (just saying ``everything is fine'').
+
+\textbf{Why accuracy doesn't tell you:} Filter 1's 90\% accuracy is almost entirely from the base rate. Cohen's kappa was designed precisely to solve this problem: it corrects for expected chance agreement, making it impossible to achieve high kappa by exploiting class imbalance.
+
+\subsubsection{Question 3: Demographics and Annotation}
+
+\textbf{Prompt:} ``A San Francisco-based annotation team (predominantly 25--35 year old Americans) builds a global content moderation system. What categories might they over- or under-label?''
+
+\paragraph{Model Answer.}
+
+\textbf{Categories likely over-labeled as harmful:}
+\begin{itemize}
+    \item Content using African American Vernacular English (AAVE) that appears aggressive out of context but is neutral or positive within its speech community
+    \item Content in non-standard dialects that superficially resembles standard markers of aggression
+    \item Cultural religious or political expressions unfamiliar to the annotator pool
+\end{itemize}
+
+\textbf{Categories likely under-labeled as harmful:}
+\begin{itemize}
+    \item Passive-aggressive harassment patterns that are culturally specific but familiar to the targeted community
+    \item Harassment using coded language, dogwhistles, or symbols that the annotator pool doesn't recognize
+    \item Formal, politely phrased content that is nonetheless harmful in its cultural context
+\end{itemize}
+
+\textbf{Design improvements:}
+\begin{itemize}
+    \item Demographically matched annotator pools for content targeting specific communities
+    \item Cultural consultants for content categories where the team has no lived experience
+    \item Calibration sessions specifically on difficult-for-this-pool categories
+    \item Regular audits of label distributions by content type and target community
+\end{itemize}
+
+\subsubsection{Question 4: ImageNet Critique}
+
+\textbf{Prompt:} ``Was ImageNet's encoding of cultural stereotypes a failure of the annotation process?''
+
+\paragraph{Model Answer.}
+
+\textbf{Not a failure in the traditional sense.} The labels were accurate to the annotator pool's experience. No individual annotation decision was ``wrong'' by any internal standard.
+
+\textbf{A structural failure.} The annotation process faithfully captured the annotator pool's cultural perspective without recognizing that perspective as culturally specific. The assumption that one annotator pool's categorizations were universal was the error.
+
+\textbf{How it could have been done differently:}
+\begin{itemize}
+    \item Diverse global annotator pool with demographic diversity targets
+    \item Explicit annotation of cultural context alongside the label (``category as understood in context X'')
+    \item Inter-annotator agreement reporting by annotator demographic group
+    \item Formal statement in the dataset documentation of whose perspective is represented
+\end{itemize}
+
+\textbf{Broader lesson:} The act of collecting a dataset encodes whose world the AI will learn to model. This is not a technical problem with a technical fix --- it is a representational problem requiring deliberate attention to whose knowledge is being captured.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Kappa Computation Problem}
+
+\textbf{Given annotation matrix (Activity 1):}
+
+\begin{table}[htbp]
+\caption{Annotation matrix for kappa computation}
+\label{tab:kappa-compute-ch07}
+\centering
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & \textbf{Ann~2: T} & \textbf{Ann~2: N} \\
+\midrule
+\textbf{Ann~1: T} & 12 & 8 \\
+\textbf{Ann~1: N} & 5 & 25 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Complete Solution.}
+
+$N = 50$
+
+\textbf{Step 1: Observed agreement.}
+\[
+P_o = (12 + 25)/50 = 37/50 = 0.74
+\]
+
+\textbf{Step 2: Expected chance agreement.}
+
+Row marginals (Annotator~1): T: $20/50 = 0.40$; N: $30/50 = 0.60$
+
+Column marginals (Annotator~2): T: $17/50 = 0.34$; N: $33/50 = 0.66$
+
+\[
+P_e = (0.40 \times 0.34) + (0.60 \times 0.66) = 0.136 + 0.396 = 0.532
+\]
+
+\textbf{Step 3: Kappa.}
+\[
+\kappa = \frac{P_o - P_e}{1 - P_e} = \frac{0.74 - 0.532}{1 - 0.532} = \frac{0.208}{0.468} = 0.444
+\]
+
+\textbf{Step 4: Interpretation.} Moderate agreement (Landis-Koch scale). Approximately 44\% of the non-chance agreement was achieved.
+
+\textbf{Step 5: 95\% Confidence Interval.}
+\[
+\text{Var}(\kappa) = \frac{P_o(1-P_o)}{N(1-P_e)^2} = \frac{0.74 \times 0.26}{50 \times (0.468)^2} = \frac{0.1924}{10.95} = 0.01758
+\]
+\[
+\text{SE}(\kappa) = \sqrt{0.01758} \approx 0.133
+\]
+\[
+\text{CI}: 0.444 \pm 1.96 \times 0.133 = [0.183, 0.705]
+\]
+
+\textbf{Decision:} The kappa of 0.44 is moderate, and the confidence interval is wide. Before proceeding:
+\begin{enumerate}
+    \item Conduct a calibration session to identify \emph{where} the disagreements occur
+    \item Determine if disagreement is on genuinely ambiguous items (task ambiguity) or clear items (quality failure)
+    \item For high-stakes tasks (content moderation affecting user accounts), $\kappa = 0.44$ is likely insufficient; target $\geq 0.60$
+    \item For exploratory analysis, may be acceptable with documented limitations
+\end{enumerate}
+
+\begin{keyconcept}[Common Computation Errors]
+\begin{itemize}
+    \item Using raw counts rather than proportions for $P_e$ --- produces $P_e > 1.0$ (impossible)
+    \item Using row marginals from both annotators as if they are the same annotator
+    \item Interpreting $\kappa = 0.44$ as ``44\% agreement'' (it is ``44\% of possible non-chance agreement achieved'')
+\end{itemize}
+\end{keyconcept}
+
+\subsubsection{Annotation Project Design: Fake vs.\ Authentic Reviews}
+
+\paragraph{Sample Strong Guideline Structure.}
+
+\textbf{POSITIVE (Authentic) indicators:}
+\begin{enumerate}
+    \item Specific product details only a real user would know (``the third button from the left is hard to press'')
+    \item Temporal references consistent with purchase timing (``bought for Christmas, used every day since'')
+    \item Mixed sentiment --- real users typically find both pros and cons
+    \item Plausible use case described in detail
+\end{enumerate}
+
+\textbf{NEGATIVE (Fake) indicators:}
+\begin{enumerate}
+    \item Excessive generic praise with no specific details
+    \item Language inconsistent with the product category's typical buyer
+    \item Account with only 5-star reviews, all posted in short windows
+    \item Identical or near-identical language to other reviews for the same product
+\end{enumerate}
+
+\textbf{Borderline cases with resolution rules:}
+\begin{enumerate}
+    \item \textit{Brief but specific:} ``Works great. Batteries last 3 weeks.'' $\to$ Classify as AUTHENTIC (specificity present even if brief)
+    \item \textit{Detailed but suspicious timing:} Very detailed review posted same day as purchase $\to$ Classify as UNCERTAIN; flag for secondary review
+\end{enumerate}
+
+\textbf{Key framing issue to address:} ``Fake'' is ambiguous --- (a) paid by manufacturer, (b) written by the seller, (c) not based on real product experience. The guideline must choose one definition or create multiple labels.
+
+\textbf{Expected kappa:} Target $\geq 0.65$. After calibration, 0.70 is achievable on clear cases; the 15\% borderline rate will pull aggregate kappa to 0.62--0.68.
+
+\subsubsection{Disagreement Analysis: kappa = 0.42 After Two Revisions}
+
+\paragraph{Model Answer.}
+
+\textbf{Possible explanations:}
+
+\begin{enumerate}
+    \item \textbf{Persistent quality failure:} Annotators are not applying the guidelines consistently despite calibration. Possible causes: guidelines are still ambiguous on key cases; annotators differ in background knowledge; some annotators have not internalized the calibration.
+
+    \item \textbf{Genuine task ambiguity:} The hate speech categories do not cleanly partition the actual content. Some content is genuinely ambiguous in ways that no guideline revision can resolve.
+\end{enumerate}
+
+\textbf{How to distinguish:}
+\begin{itemize}
+    \item Locate the items where disagreement concentrates. If it is spread across many items, likely quality failure. If it concentrates on a specific subset, likely task ambiguity for that subset.
+    \item Bring annotators together face-to-face for discussion of specific disagreed items. If they converge to agreement through discussion, it was quality failure (shared criteria exist but weren't applied). If they maintain genuine disagreement even after discussion, it is task ambiguity.
+    \item Check inter-annotator agreement within demographic subgroups. If within-group agreement is much higher than cross-group agreement, demographic perspective is a major driver.
+\end{itemize}
+
+\textbf{What to do in each case:}
+
+\textit{Quality failure:} Additional calibration; clearer examples; annotator replacement for persistent outliers; smaller session sizes.
+
+\textit{Task ambiguity:} Distribute the ambiguity: train on label distributions rather than majority vote; flag items with $<0.60$ kappa as genuinely uncertain; create a separate ``ambiguous'' category; report kappa separately for clear vs.\ borderline items.
+
+\subsubsection{Crowdsourcing Trade-Off: Expert vs.\ Crowd}
+
+\paragraph{Model Answer.}
+
+\textbf{Expert approach:} \$5/comment $\times$ budget \$10,000 = \textbf{2,000 comments} at kappa = 0.78.
+
+\textbf{Crowdworker approach with 3-annotator majority vote:}
+\begin{itemize}
+    \item Cost per comment: $3 \times \$0.05 = \$0.15$
+    \item Coverage: $\$10,000 / \$0.15 = 66,667$ comments
+    \item Base kappa per annotator: 0.52
+    \item Effective kappa with 3-annotator majority vote: approximately 0.65--0.70 (majority voting on independent noisy annotators improves effective agreement)
+\end{itemize}
+
+\textbf{Trade-off summary:}
+
+\begin{table}[htbp]
+\caption{Expert vs.\ crowd annotation trade-off}
+\label{tab:expert-crowd-ch07}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{2.5cm}p{2.5cm}p{3cm}@{}}
+\toprule
+\textbf{Approach} & \textbf{Coverage} & \textbf{Effective $\kappa$} & \textbf{Best For} \\
+\midrule
+Expert (solo) & 2,000 & 0.78 & High-stakes, domain-specific \\
+Crowd (3-annotator) & 66,667 & $\sim$0.67 & Volume, coverage, clear tasks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Decision factors:} If the downstream model needs rare-category coverage (rare hate speech patterns), crowd coverage may be more valuable. If the downstream model needs high-precision labels for high-stakes decisions, expert quality is worth the coverage tradeoff.
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Label Distribution Training}
+
+\textbf{When distribution training outperforms majority vote:}
+\begin{itemize}
+    \item When items with high annotator disagreement appear at inference time (calibration benefit: model correctly uncertain on uncertain inputs)
+    \item When downstream use cases require uncertainty estimates (medical, legal applications)
+    \item When annotator pool is diverse and disagreements reflect genuine ambiguity rather than noise
+    \item When the tail of the label distribution contains information (1/5 annotators flagging may indicate legitimate minority concern)
+\end{itemize}
+
+\textbf{When majority vote is better:}
+\begin{itemize}
+    \item When annotator pool is small and disagreements are dominated by individual noise
+    \item When the task has a single correct answer (NER, factual QA) and disagreements are errors
+    \item When the downstream model must output a binary decision and soft labels produce calibration artifacts
+\end{itemize}
+
+\textbf{Empirical test design:}
+\begin{enumerate}
+    \item Hold-out set with 500 items and gold standard labels (from expert review of resolved disagreements)
+    \item Train two models: one on majority vote labels, one on label distributions (soft-label cross-entropy loss)
+    \item Compare on gold standard accuracy AND calibration (ECE) for the high-disagreement subset
+    \item Expected result: distribution model shows better ECE on high-disagreement items even if aggregate accuracy is similar
+\end{enumerate}
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Kappa Calculation --- Grading Guide}
+
+\paragraph{Correct computation (see Section~\ref{ch:solutions-ch07} above).}
+\begin{itemize}
+    \item $P_o = 0.74$ ✓
+    \item $P_e = 0.532$ ✓ (students frequently miscalculate this; check that they use marginal proportions, not counts)
+    \item $\kappa = 0.444$ ✓
+    \item CI: $[0.183, 0.705]$ ✓ (accept small rounding errors)
+\end{itemize}
+
+\paragraph{Common errors.}
+\begin{enumerate}
+    \item Using raw counts rather than proportions for $P_e$ --- produces $P_e > 1.0$ (impossible)
+    \item Using row marginals from both annotators as if they are the same annotator
+    \item Interpreting $\kappa = 0.44$ as ``44\% agreement'' (it is ``44\% of possible non-chance agreement achieved'')
+\end{enumerate}
+
+\paragraph{Grading.}
+\begin{itemize}
+    \item \textbf{Full credit:} Correct $P_o$, $P_e$, $\kappa$, correct interpretation, meaningful decision recommendation
+    \item \textbf{Partial credit:} Correct formula application with one arithmetic error; correct interpretation
+    \item \textbf{No credit:} Confuses kappa with raw agreement; cannot apply formula
+\end{itemize}
+
+\subsection{Activity 2: Guideline Exchange --- Evaluation Criteria}
+
+\paragraph{Strong guideline characteristics.}
+\begin{itemize}
+    \item Categories are defined with necessary and sufficient conditions, not just examples
+    \item Borderline cases are anticipated and resolved explicitly
+    \item The framing question specifies whose perspective the annotator should adopt
+    \item Instructions are achievable without additional background knowledge
+\end{itemize}
+
+\paragraph{Common quality issues.}
+\begin{itemize}
+    \item Guidelines that only give positive examples (no guidance on the negative space)
+    \item Guidelines that assume cultural knowledge (``you'll know it when you see it'')
+    \item Overly prescriptive guidelines that create artificial agreement on genuinely ambiguous items
+\end{itemize}
+
+\paragraph{Kappa benchmark for exchange activity.}
+\begin{itemize}
+    \item Expect kappa 0.40--0.65 for most student-written guidelines on a 10-item test
+    \item Kappa below 0.40 usually indicates a fundamental ambiguity in the guideline definition
+    \item Each pair should identify one change to their guideline that would have prevented the top disagreement
+\end{itemize}
+
+\subsection{Activity 3: Demographic Blind Spot --- Expected Patterns}
+
+\paragraph{Typical label distributions.}
+
+\textbf{AAVE items:} Typically over-flagged by non-AAVE speakers. The items most likely to produce false positives are those using reclaimed terms, in-group signifiers, or performative expressions of intensity that sound threatening to out-group readers but are positive or neutral in context.
+
+\textbf{Formally polite harmful items:} Typically under-flagged. Content that uses polite register, avoids explicit slurs, or couches harassment in hypothetical or question form is less likely to be caught by annotators who process tone and register as proxies for harmfulness.
+
+\paragraph{Debrief key points.}
+\begin{itemize}
+    \item The pattern is systematic, not random --- it reveals a shared blind spot in the room
+    \item Both types of error (over-labeling AAVE, under-labeling polite harassment) have real-world consequences
+    \item Neither can be fixed by better guidelines alone: fixing AAVE over-labeling requires AAVE speakers in the pool; fixing formal-register under-labeling requires annotators with experience of coded harassment
+    \item This is the chapter's central argument made visceral: the annotator pool shapes the labels, and the labels shape the model
+\end{itemize}
+
+% ============================================================================
+\section{Technical Exercise Solutions (Appendix 7A)}
+% ============================================================================
+
+\subsection{Exercise 7A.1: Fleiss' Kappa for Multiple Annotators}
+
+\paragraph{When to use Fleiss' kappa vs.\ Cohen's kappa:}
+\begin{itemize}
+    \item \textbf{Cohen's kappa}: exactly 2 annotators, same annotators for all items
+    \item \textbf{Fleiss' kappa}: any number of annotators $\geq 2$; does not require the same annotators for each item (crowdsourcing use case)
+\end{itemize}
+
+\paragraph{Fleiss' kappa formula:}
+\[
+\kappa_F = \frac{\bar{P} - \bar{P}_e}{1 - \bar{P}_e}
+\]
+
+where:
+\[
+\bar{P} = \frac{1}{N \cdot n(n-1)} \sum_{i=1}^{N} \sum_{k=1}^{K} n_{ik}(n_{ik} - 1)
+\]
+\[
+\bar{P}_e = \sum_{k=1}^{K} p_k^2
+\]
+with $p_k$ = proportion of all ratings assigned to category $k$.
+
+\paragraph{Interpreting Fleiss' kappa in practice:} Same Landis-Koch scale applies. For crowdsourcing scenarios with 3-5 annotators per item, a Fleiss' kappa of 0.55--0.65 on subjective tasks is typically acceptable for downstream model training, with lower-agreement items handled as per the task ambiguity protocol.
+
+\subsection{Exercise 7A.2: Dawid-Skene Implementation}
+
+\paragraph{Key intuitions.}
+\begin{itemize}
+    \item Dawid-Skene estimates annotator reliability from observed agreement patterns
+    \item Each annotator $r$ has a confusion matrix $\pi^r_{jl}$ (probability they label category $j$ as category $l$)
+    \item The true labels are latent variables estimated jointly with annotator quality
+    \item EM algorithm alternates: estimate true labels (E-step) and annotator quality parameters (M-step)
+\end{itemize}
+
+\paragraph{When Dawid-Skene $\neq$ Majority Vote.}
+Dawid-Skene and majority voting diverge most when:
+\begin{itemize}
+    \item Annotator pool has high variance in quality (some annotators systematically biased)
+    \item Items have high prior probability of one class (class imbalance interacts with annotator bias)
+    \item Subset of annotators tends to agree with each other but disagree with the rest (clique structure)
+\end{itemize}
+
+\paragraph{Empirical evidence needed to choose:} Run both methods and compare to a gold standard subset (items with verified labels). If Dawid-Skene improves accuracy on the gold standard subset, it is capturing genuine annotator quality variation that majority voting misses.
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``Couldn't we just have AI annotate the data?''}
+Using AI to generate labels for AI training creates a closed loop that amplifies whatever biases and errors are in the original model. This is the concern about ``model collapse'' --- when models are trained on AI-generated data, performance degrades over generations. For initial training data, human annotation from real human judgments is required. AI can assist annotation (pre-labeling for human review) but cannot replace the human foundation.
+
+\paragraph{``If annotators always disagree, why bother?''}
+Low agreement is not uniform across items. Annotators typically agree strongly on clear cases and disagree on genuinely difficult ones. The goal is not perfect overall agreement, but to: (a) reach sufficient agreement on clear cases to train on them; (b) identify the hard cases that need special treatment (more annotators, expert review, explicit uncertainty labeling); and (c) document the disagreement so downstream users understand the limits of the training data.
+
+\paragraph{``Is it unethical to pay annotators \$0.05/label on Mechanical Turk?''}
+This is a genuine ethical issue in the field. Mechanical Turk piece rates often translate to below-minimum-wage earnings when annotation time is properly accounted for. Many researchers and companies are moving toward minimum-wage-floor payment models. The ethical dimension of annotation labor --- who does it, under what conditions, for what pay --- is increasingly recognized as part of responsible AI development practice. This question connects to the broader question of whose labor produces AI systems and what obligation the beneficiaries of that labor have.
+
+\paragraph{``What is the right kappa for production annotation?''}
+There is no universal answer. Guidelines:
+\begin{itemize}
+    \item Binary classification, high-stakes: target $\geq 0.70$; below 0.60 is a warning sign
+    \item Multi-class, subjective (e.g., emotion classification): $\geq 0.55$ may be acceptable
+    \item Named entity recognition, factual: $\geq 0.80$ is standard
+    \item Set your own target based on downstream model requirements; document your reasoning
+\end{itemize}

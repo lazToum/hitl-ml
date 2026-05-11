@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>یادگیری ماشین با حلقه انسانی چیست؟ &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/fa/chapters/01_introduction';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/fa/chapters/01_introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>یادگیری ماشین با حلقه انسانی چیست؟</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">پارادوکس اتوماسیون</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">تعریف یادگیری ماشین با حلقه انسانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">مروری بر تاریخ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">سامانه‌های خبره و مهندسی دانش (دهه ۱۳۴۰–۱۳۶۰ شمسی / ۱۹۶۰–۱۹۸۰ میلادی)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">چرخش آماری (دهه ۱۳۶۰–۱۳۸۰ شمسی / ۱۹۸۰–۲۰۰۰ میلادی)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">دوران یادگیری عمیق (دهه ۱۳۹۰ شمسی تاکنون / ۲۰۱۰ تاکنون)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">چرا HITL؟ استدلال برای قضاوت انسانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۱. حس مشترک و دانش جهانی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۲. تکیه‌گاه معنایی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۳. هم‌راستایی ارزشی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۴. انعطاف‌پذیری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۵. پاسخگویی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">حلقه بازخورد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">HITL چه نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">اقتصاد بازخورد انسانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">مروری بر راهنما</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>یادگیری ماشین با حلقه انسانی چیست؟<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>ماشینی که می‌تواند از تجربه بیاموزد… اما تنها اگر تجربیات درستی به آن بدهید.
+– برگرفته از آلن تورینگ</p>
+</div></blockquote>
+<section id="id2">
+<h2>پارادوکس اتوماسیون<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>هر موج جدید اتوماسیون تقاضاهای جدیدی بر توجه انسانی ایجاد می‌کند. وقتی شرکت‌های هوانوردی خلبان خودکار را معرفی کردند، خلبانان به ناظر تبدیل شدند — نه مسئول کنترل لحظه‌به‌لحظه، بلکه مسئول کار دشوارتر دانستن <em>چه زمانی</em> باید کنترل را به دست بگیرند. وقتی سوپرمارکت‌ها صندوق‌های خودپرداز معرفی کردند، کشف کردند که این سامانه‌ها به نظارت انسانی بیشتری در هر تراکنش نسبت به صندوقداران سنتی نیاز دارند، نه کمتر. و وقتی یادگیری ماشین شروع به تصمیم‌گیری در مقیاس کرد — در پزشکی، مالی، استخدام، و اعتدال محتوا — تقاضای هنگفت و مستمری برای قضاوت انسانی ایجاد کرد.</p>
+<p>این <strong>پارادوکس اتوماسیون</strong> <a href="#id3"><span class="problematic" id="id4">bainbridge1983ironies</span></a> است: هرچه یک سامانه خودکار توانمندتر می‌شود، شکست‌هایش پیامدهای بزرگ‌تری دارند، و بنابراین نظارت انسانی قوی ضروری‌تر می‌شود. یادگیری ماشین هم از این قاعده مستثنی نیست.</p>
+<p>یادگیری ماشین با حلقه انسانی (HITL ML) حوزه‌ای است که این پارادوکس را جدی می‌گیرد و آن را از همان ابتدا در طراحی سامانه‌ها می‌گنجاند. به‌جای آنکه مشارکت انسانی را داربستی موقتی بداند که بالاخره برداشته می‌شود، HITL ML تعامل انسان-ماشین را یک <em>ویژگی</em> می‌بیند — منبعی از سیگنال، تصحیح، و راهنمایی که می‌تواند مدل‌ها را دقیق‌تر، بیشتر هم‌راستا با ارزش‌های انسانی، و قابل‌اعتمادتر کند.</p>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>تعریف یادگیری ماشین با حلقه انسانی<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>تعریف واحد توافق‌شده‌ای برای HITL ML وجود ندارد، و این اصطلاح به چند شیوه هم‌پوشان در ادبیات به کار می‌رود. در این راهنما تعریف گسترده اما دقیقی اتخاذ می‌کنیم:</p>
+<div class="important admonition">
+<p class="admonition-title">تعریف</p>
+<p><strong>یادگیری ماشین با حلقه انسانی</strong> به هر سامانه یا روش یادگیری ماشینی اشاره دارد که در آن بازخورد انسانی به شیوه‌ای <em>آگاهانه، ساختارمند و مستمر</em> در فرآیند یادگیری گنجانده شود — نه تنها در لحظه ایجاد مجموعه‌داده، بلکه در طول آموزش، ارزیابی، و استقرار.</p>
+</div>
+<p>این تعریف سه بند کلیدی دارد:</p>
+<p><strong>آگاهانه.</strong> HITL به تأثیر تصادفی انسانی (مثلاً این واقعیت که داده آموزشی در اصل توسط انسان‌ها ایجاد شده) اشاره ندارد. به سامانه‌هایی اشاره دارد که به‌صراحت طراحی شده‌اند تا بازخورد انسانی را درخواست کنند، بگنجانند، و از آن بهره‌مند شوند.</p>
+<p><strong>ساختارمند.</strong> بازخورد فرم تعریف‌شده‌ای دارد — یک برچسب، یک تصحیح، یک قضاوت ترجیح، یک نمایش — و نقش تعریف‌شده‌ای در الگوریتم یادگیری.</p>
+<p><strong>مستمر.</strong> حلقه بازخورد در طول زمان ادامه می‌یابد و به سامانه اجازه می‌دهد با مواجهه با موقعیت‌های جدید، اشتباه‌ها، و راهنمایی انسانی، بهبود یابد.</p>
+<p>این تعریف شامل خطوط لوله حاشیه‌نویسی کلاسیک، یادگیری فعال، یادگیری ماشین تعاملی، RLHF، و یادگیری تقلیدی می‌شود. جمع‌آوری داده غیرفعال و یادگیری نظارت‌شده خالصاً برون‌خط را (هرچند مرز مبهم است، که در فصل ۲ بحث خواهیم کرد) مستثنی می‌کند.</p>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>مروری بر تاریخ<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<section id="id7">
+<h3>سامانه‌های خبره و مهندسی دانش (دهه ۱۳۴۰–۱۳۶۰ شمسی / ۱۹۶۰–۱۹۸۰ میلادی)<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>اولین سامانه‌های هوش مصنوعی تقریباً کاملاً با حلقه انسانی بودند: مهندسان دانش ماه‌ها با متخصصان حوزه نشستند و با دقت قوانین را در سامانه‌های خبره مانند MYCIN و DENDRAL رمزگذاری کردند. هر قطعه دانش به‌صراحت توسط انسان ارائه شده بود. ماشین مجری بود؛ انسان دانای کل.</p>
+<p>این سامانه‌ها در حوزه‌های محدود به‌طرز شگفت‌انگیزی خوب کار می‌کردند اما شکننده بودند — نمی‌توانستند فراتر از قوانین دست‌ساختشان تعمیم دهند و نگهداری‌شان گران بود.</p>
+</section>
+<section id="id8">
+<h3>چرخش آماری (دهه ۱۳۶۰–۱۳۸۰ شمسی / ۱۹۸۰–۲۰۰۰ میلادی)<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>چرخش به یادگیری ماشین آماری در دهه‌های ۱۹۸۰ و ۱۹۹۰ ماهیت مشارکت انسانی را تغییر داد. به‌جای رمزگذاری دانش به‌صورت قوانین، انسان‌ها اکنون <em>نمونه‌ها</em> ارائه می‌دادند — مجموعه‌داده‌های برچسب‌زده که به مدل‌ها اجازه می‌داد الگوها را استنتاج کنند. نقش انسانی به حاشیه‌نویس تبدیل شد: برچسب‌زدن اسناد، برچسب‌زدن تصاویر، رونویسی گفتار.</p>
+<p>این یک قدم بزرگ رو به جلو بود، اما یک گلوگاه جدید ایجاد کرد: <strong>داده برچسب‌زده گران است</strong>. پژوهشگران شروع کردند بپرسند چگونه می‌توان از تلاش برچسب‌زنی انسانی بیشترین استفاده را کرد. این سؤال <strong>یادگیری فعال</strong> را متولد کرد، که اولین بار در اوایل دهه ۱۹۹۰ رسمی شد <a href="#id9"><span class="problematic" id="id10">cohn1994improving</span></a>.</p>
+</section>
+<section id="id11">
+<h3>دوران یادگیری عمیق (دهه ۱۳۹۰ شمسی تاکنون / ۲۰۱۰ تاکنون)<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>انقلاب یادگیری عمیق رژیم جدیدی ایجاد کرد: مدل‌هایی با میلیاردها پارامتر که می‌توانند توابع فوق‌العاده پیچیده از داده بیاموزند — اما به مجموعه‌داده‌های برچسب‌زده عظیم متناسب نیاز دارند. ImageNet (۱۴ میلیون تصویر برچسب‌زده) و پروژه‌های حاشیه‌نویسی بزرگ‌مقیاس بعدی هم توان و هم هزینه مقیاس را نشان دادند.</p>
+<p>در همین حال، استقرار یادگیری ماشین در مقیاس مشکلات جدیدی آشکار کرد: مدل‌هایی که به‌طور میانگین دقیق بودند اما به‌طور سیستماتیک برای گروه‌های خاصی اشتباه می‌کردند، که واقعیت‌ها را با اطمینان تخیل می‌کردند، که برای سنجه‌های قابل اندازه‌گیری بهینه می‌شدند نه ارزش‌های انسانی. این شکست‌ها اشکال جدیدی از مشارکت انسانی را برانگیخت: نه فقط برچسب‌زدن، بلکه <em>هم‌راستایی</em> — پروژه‌ای که مدل‌ها را به رفتار آن‌گونه که انسان‌ها واقعاً می‌خواهند وادار می‌کند.</p>
+<p>واضح‌ترین بیان این کار HITL متمرکز بر هم‌راستایی، <strong>یادگیری تقویتی از بازخورد انسانی (RLHF)</strong> <a href="#id12"><span class="problematic" id="id13">christiano2017deep</span></a> است، که ستون فقرات سامانه‌هایی مانند InstructGPT <a href="#id14"><span class="problematic" id="id15">ouyang2022training</span></a> و قابلیت‌های دنبال‌کردن دستورالعمل مدل‌های زبانی مدرن شد.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hitl">
+<h2>چرا HITL؟ استدلال برای قضاوت انسانی<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<p>چه چیزی قضاوت انسانی را به‌اندازه‌ای ارزشمند می‌کند که در سامانه‌های یادگیری ماشین گنجانده شود؟ چند ویژگی:</p>
+<section id="id16">
+<h3>۱. حس مشترک و دانش جهانی<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<p>انسان‌ها دانش پس‌زمینه گسترده‌ای به هر وظیفه‌ای می‌آورند. وقتی یک رادیولوژیست اشعه ایکس را برچسب می‌زند، بر سال‌ها آموزش، درکی از آناتومی، و دانش ضمنی درباره اینکه بیماری‌ها چطور به نظر می‌رسند تکیه می‌کند — دانشی که به‌طور فوق‌العاده‌ای سخت است که به‌طور کامل تعریف شود یا تنها از داده به دست آید.</p>
+</section>
+<section id="id17">
+<h3>۲. تکیه‌گاه معنایی<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p>برچسب‌ها به این دلیل معنادارند که انسان‌ها می‌دانند چه معنایی دارند. مفهوم «گربه» در ImageNet به یک مفهوم مبهم اشاره دارد که انسان‌ها به‌طور شهودی تشخیص می‌دهند اما هیچ تعریف رسمی‌ای آن را به‌طور کامل در بر نمی‌گیرد. مدل‌ها امتداد برچسب را یاد می‌گیرند (کدام تصاویر به آن نگاشته می‌شوند) اما ممکن است خودِ مفهوم را یاد نگیرند، که منجر به شکست در موارد لبه‌ای می‌شود که هر انسانی درست کنترل می‌کرد.</p>
+</section>
+<section id="id18">
+<h3>۳. هم‌راستایی ارزشی<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<p>انسان‌ها ترجیحات، ارزش‌ها، و قضاوت‌های اخلاقی دارند که مدل‌های یادگیری ماشین نمی‌توانند تنها از داده استخراج کنند. اینکه یک متن «مفید» است یا «مضر» سؤال کاملاً تجربی نیست — به ارزش‌های انسانی بستگی دارد که در افراد و زمینه‌ها متفاوت است. HITL مکانیزم اصلی است که از طریق آن این ارزش‌ها می‌توانند به سامانه‌های یادگیری ماشین منتقل شوند.</p>
+</section>
+<section id="id19">
+<h3>۴. انعطاف‌پذیری<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
+<p>قضاوت انسانی می‌تواند بدون بازآموزی به موقعیت‌های جدید سازگار شود. مدلی که روی داده تاریخی آموزش دیده ممکن است وقتی جهان تغییر می‌کند به شکست فاجعه‌بار دچار شود؛ انسان می‌تواند تازگی را تشخیص داده و به‌طور مناسب پاسخ دهد.</p>
+</section>
+<section id="id20">
+<h3>۵. پاسخگویی<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h3>
+<p>در حوزه‌های پرخطر — پزشکی، حقوق، مالی — تصمیمات باید در برابر انسان‌ها پاسخگو باشند. سامانه‌های HITL این پاسخگویی را از طریق نگه‌داشتن انسان‌ها در موقعیتی که می‌توانند رفتار ماشین را درک، تأیید، و لغو کنند، قابل‌اجرا می‌سازند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id21">
+<h2>حلقه بازخورد<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h2>
+<p>ساختار اصلی HITL ML یک حلقه بازخورد بین یک مدل و یک یا چند انسان است:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+---------------------------------------------+
+|                                             |
+|   مدل پیش‌بینی می‌کند / درخواست می‌کند     |
+|   ----------------------------------&gt;       |
+|                                   انسان    |
+|   انسان بازخورد می‌دهد           &lt;-------- |
+|   ----------------------------------        |
+|                                             |
+|   مدل بر اساس بازخورد به‌روز می‌شود        |
+|                                             |
++---------------------------------------------+
+</pre></div>
+</div>
+<p>ماهیت بازخورد در پارادایم‌های مختلف HITL بسیار متفاوت است:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>نوع بازخورد</p></th>
+<th class="head"><p>نمونه</p></th>
+<th class="head"><p>پارادایم اصلی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>برچسب کلاس</p></td>
+<td><p>«این ایمیل اسپم است»</p></td>
+<td><p>یادگیری نظارت‌شده</p></td>
+</tr>
+<tr class="row-odd"><td><p>تصحیح</p></td>
+<td><p>«موجودیت باید ORG باشد نه PER»</p></td>
+<td><p>یادگیری فعال/تعاملی</p></td>
+</tr>
+<tr class="row-even"><td><p>ترجیح</p></td>
+<td><p>«پاسخ A بهتر از B است»</p></td>
+<td><p>RLHF / رتبه‌بندی</p></td>
+</tr>
+<tr class="row-odd"><td><p>نمایش</p></td>
+<td><p>نشان‌دادن نحوه گرفتن شیء به ربات</p></td>
+<td><p>یادگیری تقلیدی</p></td>
+</tr>
+<tr class="row-even"><td><p>زبان طبیعی</p></td>
+<td><p>«در پاسخ‌هایت مختصرتر باش»</p></td>
+<td><p>تنظیم دستورالعمل</p></td>
+</tr>
+<tr class="row-odd"><td><p>سیگنال ضمنی</p></td>
+<td><p>کاربر کلیک کرد / نکرد</p></td>
+<td><p>بازخورد ضمنی</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h2>HITL چه نیست<a class="headerlink" href="#id22" title="Permalink to this heading">#</a></h2>
+<p>ارزش دارد درباره آنچه از <em>تعریف ما خارج</em> است دقیق باشیم.</p>
+<p><strong>HITL همان استقرار با حلقه انسانی نیست</strong> (گاهی «انسان روی حلقه» نامیده می‌شود)، جایی که انسان‌ها تصمیمات خودکار را نظارت می‌کنند و می‌توانند آن‌ها را لغو کنند اما تصحیحات را به آموزش بازنمی‌گردانند. این تمایز را در فصل ۲ بحث خواهیم کرد.</p>
+<p><strong>HITL صرفاً نظارت ضعیف نیست.</strong> سامانه‌های برچسب‌زنی برنامه‌نویسانه مانند Snorkel از توابع برچسب‌زنی (که اغلب قوانین انسانی هستند) برای تولید برچسب‌های پرسروصدا در مقیاس استفاده می‌کنند. این نوعی ورودی انسانی ساختارمند است، اما بازخورد به آن شکل تکراری که HITL معمولاً ضمنش می‌کند نیست.</p>
+<p><strong>HITL صرفاً استفاده از داده برچسب‌زده نیست.</strong> هر مدل یادگیری نظارت‌شده از داده برچسب‌زده انسانی استفاده می‌کند. HITL به‌طور خاص به سامانه‌هایی اشاره دارد که در آن‌ها بازخورد انسانی بخشی <em>فعال و تکراری</em> از فرآیند یادگیری است.</p>
+</section>
+<hr class="docutils" />
+<section id="id23">
+<h2>اقتصاد بازخورد انسانی<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h2>
+<p>بازخورد انسانی ارزشمند اما پرهزینه است. حاشیه‌نویسی یک تصویر پزشکی می‌تواند از ده تا صدها دلار به ازای هر تصویر هزینه داشته باشد وقتی توسط یک متخصص انجام شود، بسته به زیرتخصص و پیچیدگی وظیفه <a href="#id24"><span class="problematic" id="id25">monarch2021human</span></a>. برچسب‌های کارگران جمعی در بسترهایی مثل Amazon Mechanical Turk می‌توانند ۰.۰۱ تا ۰.۱۰ دلار به ازای هر مورد <a href="#id26"><span class="problematic" id="id27">hara2018data</span></a> با کیفیت پایین‌تر هزینه داشته باشند. چالش اساسی HITL ML <strong>به حداکثر رساندن ارزش هر واحد بازخورد انسانی</strong> است.</p>
+<p>این به سؤال یگانه‌ای می‌رسد که در سراسر این راهنما نخ راهنماست:</p>
+<div class="tip admonition">
+<p class="admonition-title">سؤال محوری HITL ML</p>
+<p><em>با توجه به بودجه ثابتی از وقت و توجه انسانی، چگونه باید تصمیم بگیریم از چه چیزی بپرسیم، چه زمانی بپرسیم، و چگونه پاسخ‌ها را در آموزش مدل بگنجانیم؟</em></p>
+</div>
+<p>پاسخ به این سؤال به حوزه، نوع بازخورد، هزینه حاشیه‌نویسی، خطر اشتباه، و وضعیت فعلی مدل بستگی دارد — به همین دلیل است که HITL ML یک رشته غنی و هنوز در حال تکامل است.</p>
+</section>
+<hr class="docutils" />
+<section id="id28">
+<h2>مروری بر راهنما<a class="headerlink" href="#id28" title="Permalink to this heading">#</a></h2>
+<p>بقیه این راهنما به این صورت ساختار دارد. <strong>بخش دوم</strong> سه ستون کلاسیک HITL را پوشش می‌دهد: حاشیه‌نویسی، یادگیری فعال، و یادگیری ماشین تعاملی. <strong>بخش سوم</strong> به پارادایم‌های جدیدتر یادگیری از بازخورد می‌پردازد — RLHF، یادگیری تقلیدی، و یادگیری از ترجیحات — که در هوش مصنوعی مدرن محوری شده‌اند. <strong>بخش چهارم</strong> HITL را از منظر حوزه‌های کاربردی خاص بررسی می‌کند. <strong>بخش پنجم</strong> دیدگاه متخصص را درباره بسترها، برون‌سپاری جمعی، و ارزیابی می‌گیرد. <strong>بخش ششم</strong> به اخلاق می‌پردازد و به آینده نگاه می‌کند.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>برای مروری متمرکز بر متخصصان از این حوزه، ببینید <a href="#id29"><span class="problematic" id="id30">monarch2021human</span></a>. برای مقاله بنیادی یادگیری فعال که بیشتر رفتار رسمی HITL را آغاز کرد، ببینید <a href="#id31"><span class="problematic" id="id32">settles2009active</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/fa/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">پارادوکس اتوماسیون</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">تعریف یادگیری ماشین با حلقه انسانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">مروری بر تاریخ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">سامانه‌های خبره و مهندسی دانش (دهه ۱۳۴۰–۱۳۶۰ شمسی / ۱۹۶۰–۱۹۸۰ میلادی)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">چرخش آماری (دهه ۱۳۶۰–۱۳۸۰ شمسی / ۱۹۸۰–۲۰۰۰ میلادی)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">دوران یادگیری عمیق (دهه ۱۳۹۰ شمسی تاکنون / ۲۰۱۰ تاکنون)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">چرا HITL؟ استدلال برای قضاوت انسانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۱. حس مشترک و دانش جهانی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۲. تکیه‌گاه معنایی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۳. هم‌راستایی ارزشی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۴. انعطاف‌پذیری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۵. پاسخگویی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">حلقه بازخورد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">HITL چه نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">اقتصاد بازخورد انسانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">مروری بر راهنما</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

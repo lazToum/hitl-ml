@@ -1,0 +1,354 @@
+% ============================================================================
+% TECHNICAL APPENDIX 13A: Signal Detection Theory and Human Reviewer Behavior
+% Formal model of human reviewer psychology in HITL systems
+% ============================================================================
+% Source: /markdown/ch13/Ch13A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 13A: Signal Detection Theory and Human Reviewer Behavior}
+\addcontentsline{toc}{chapter}{Technical Appendix 13A: Signal Detection Theory}
+
+\begin{chapterquote}{Formal foundations for Chapter 13}
+Signal Detection Theory provides a formal decomposition of human reviewer performance into discriminability and response bias, predicting when and how automation affects each.
+\end{chapterquote}
+
+% ============================================================================
+\section{Signal Detection Theory: The Formal Framework}
+% ============================================================================
+
+\subsection{Why SDT?}
+
+Standard accuracy metrics treat reviewer errors as random noise. SDT provides a richer decomposition separating two fundamentally different aspects of performance:
+
+\begin{enumerate}
+    \item \textbf{Discriminability} ($d'$): How well can the reviewer distinguish positive (signal) from negative (noise) cases? This reflects cognitive ability.
+    \item \textbf{Response bias} ($c$ or $\beta$): Where has the reviewer set their threshold? This reflects implicit weighting of false alarms versus misses, shaped by instructions, incentives, and automation feedback.
+\end{enumerate}
+
+A reviewer with high $d'$ and miscalibrated $c$ produces different errors from a reviewer with moderate $d'$ and well-calibrated $c$. Standard accuracy metrics cannot distinguish them. SDT can.
+
+\subsection{The Basic Model}
+
+In SDT, each reviewed case generates a decision variable $X$. For positive (signal) cases, $X$ is drawn from $\mathcal{N}(\mu_S, \sigma^2)$; for negative (noise) cases, from $\mathcal{N}(0, \sigma^2)$.
+
+By convention, $\mu_N = 0$, $\sigma = 1$, and $\mu_S = d' > 0$.
+
+The reviewer compares $X$ to criterion $c$:
+\[
+\text{Response} = \begin{cases} \text{``positive''} & \text{if } X > c \\ \text{``negative''} & \text{if } X \leq c \end{cases}
+\]
+
+\subsection{The Four Outcomes and Their Probabilities}
+
+\begin{table}[htbp]
+\centering
+\caption{SDT outcome matrix}
+\label{tab:sdt-outcomes}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & \textbf{``Positive'' Response} & \textbf{``Negative'' Response} \\
+\midrule
+\textbf{Signal present} & Hit (TP): $P(H) = \Phi(d' - c)$ & Miss (FN): $1 - P(H)$ \\
+\textbf{Signal absent} & False Alarm (FP): $P(FA) = \Phi(-c)$ & Correct Rejection: $1 - P(FA)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Computing $d'$ and $c$}
+
+\[
+d' = z(P(H)) - z(P(FA))
+\]
+
+where $z(\cdot) = \Phi^{-1}(\cdot)$ is the inverse standard normal CDF.
+
+\[
+c = -\tfrac{1}{2}\bigl[z(P(H)) + z(P(FA))\bigr]
+\]
+
+\begin{examplebox}[Content Moderation Example]
+A moderator correctly flags 80\% of policy violations ($P(H) = 0.80$) and incorrectly flags 15\% of compliant posts ($P(FA) = 0.15$):
+\[
+d' = z(0.80) - z(0.15) = 0.842 - (-1.036) = 1.878
+\]
+\[
+c = -\tfrac{1}{2}[0.842 + (-1.036)] = 0.097
+\]
+Slight conservative bias ($c > 0$).
+\end{examplebox}
+
+\paragraph{Interpreting $c$.}
+\begin{itemize}
+    \item $c = 0$: Unbiased criterion
+    \item $c > 0$: Conservative bias---reviewer requires strong evidence to flag
+    \item $c < 0$: Liberal bias---reviewer flags at low evidence
+\end{itemize}
+
+% ============================================================================
+\section{SDT Formally Predicts Automation Bias}
+% ============================================================================
+
+\subsection{The Effect of an Automated Recommendation on Criterion}
+
+When a reviewer is shown an automated recommendation, it shifts their effective criterion $c$:
+\[
+c_{\text{with-auto}} = c_0 - \delta_{\text{auto}}
+\]
+where $\delta_{\text{auto}} > 0$ is the criterion shift induced by the recommendation. The reviewer becomes more liberal when automation says ``flag'' and more conservative when automation says ``pass.''
+
+This criterion shift produces automation bias: hit rate increases when automation correctly recommends ``flag'' (beneficial), but miss rate also increases when automation incorrectly recommends ``pass'' on a true positive (harmful). Automation bias is primarily a \emph{criterion effect}, not a discriminability effect.
+
+\subsection{Empirical Support}
+
+Studies by Skitka et al.\ (1999) and Goddard et al.\ (2012) found that hit rates for signals the automation correctly flagged increased substantially with automation, while miss rates for signals the automation incorrectly passed also increased substantially. $d'$ estimates changed modestly---consistent with criterion shift, not discriminability loss, as the primary mechanism \autocite{skitka1999automation, goddard2012automation}.
+
+\subsection{Optimal Criterion for HITL Routing}
+
+Let $p^*$ be the prevalence of positive cases in the human review queue. The cost-optimal unbiased criterion:
+\[
+c^* = \frac{d'}{2} - \frac{1}{d'} \ln\left(\frac{p^* \cdot C_{FN}}{(1-p^*) \cdot C_{FP}}\right)
+\]
+where $C_{FN}$ and $C_{FP}$ are the costs of misses and false alarms.
+
+\begin{technote}[Base Rate Enrichment in HITL Queues]
+In a HITL system, routing has already changed $p^*$ relative to the population base rate. If the base rate is 5\% and the model routes uncertain cases, the queue prevalence may be 20--40\%. Reviewers who implicitly use the base-rate prior rather than the queue-enriched prior will have miscalibrated criteria. Explicitly informing reviewers of the queue base rate is a low-cost, high-impact intervention.
+\end{technote}
+
+% ============================================================================
+\section{The ROC Curve and HITL Design}
+% ============================================================================
+
+\subsection{The Receiver Operating Characteristic}
+
+The ROC curve traces (false alarm rate, hit rate) pairs as $c$ varies. For the Gaussian equal-variance model:
+\[
+P(H) = \Phi\bigl(d' + \Phi^{-1}(P(FA))\bigr)
+\]
+
+The area under the ROC curve (AUC) is a criterion-independent discriminability summary:
+\[
+\text{AUC} = \Phi(d'/\sqrt{2})
+\]
+
+\subsection{Optimal Operating Point}
+
+The optimal operating point maximizes:
+\[
+\text{Benefit} = p^* \cdot C_{FN} \cdot P(H) - (1-p^*) \cdot C_{FP} \cdot P(FA)
+\]
+
+The slope of the ROC curve at the optimal point:
+\[
+\text{slope}^* = \frac{(1-p^*) \cdot C_{FP}}{p^* \cdot C_{FN}}
+\]
+
+Automation bias shifts the operating point away from $\text{slope}^*$ toward the automation's recommended response, degrading overall system benefit whenever the automation is wrong.
+
+% ============================================================================
+\section{Vigilance Decrement Models}
+% ============================================================================
+
+\subsection{The Vigilance Problem}
+
+Vigilance---sustained attention to detect infrequent signals---declines over time. This is among the most robust findings in human performance psychology, established by Mackworth (1948) and replicated hundreds of times.
+
+Three parameters govern vigilance decrement:
+\begin{enumerate}
+    \item \textbf{Event rate}: More frequent signals maintain vigilance better
+    \item \textbf{Signal-noise ratio}: Harder discriminations decrement faster
+    \item \textbf{Knowledge of results}: Feedback maintains vigilance
+\end{enumerate}
+
+\subsection{SDT Representation of Vigilance Decrement}
+
+Vigilance decrement manifests in SDT as a decline in $d'$ over time---the opposite of automation bias, which is primarily a criterion effect.
+
+\[
+d'(t) = d'_0 \cdot e^{-\lambda t}
+\]
+
+Empirical estimates: $\lambda$ ranges from 0.01 to 0.05 per minute for demanding tasks, implying meaningful discriminability loss within 20--40 minutes.
+
+\subsection{Combined Effects}
+
+Automation bias and vigilance decrement compound. A reviewer 90 minutes into a shift, reviewing AI-recommended decisions, experiences:
+\begin{itemize}
+    \item \textbf{Reduced $d'$} (vigilance decrement): Less capable of distinguishing signal from noise
+    \item \textbf{Criterion shift toward automation} (automation bias): More reliant on AI recommendation
+\end{itemize}
+
+Both effects increase miss rate on cases where the automation is wrong. Their joint effect on miss rate is approximately multiplicative.
+
+% ============================================================================
+\section{Formal Model of Calibrated Trust}
+% ============================================================================
+
+\subsection{The Optimal Trust Model}
+
+Let $\tau \in [0,1]$ be the reviewer's trust level. The reviewer's effective decision:
+\[
+D_{\text{reviewer}} = (1-\tau)\, D_{\text{human}} + \tau\, D_{\text{automation}}
+\]
+
+Expected accuracy of the human-AI team:
+\[
+P(\text{correct}) = \tau \cdot P_A + (1-\tau) \cdot P_H + f(\tau) \cdot P_C
+\]
+
+where $P_A$ = automation accuracy, $P_H$ = human accuracy, $P_C$ = complementarity (probability exactly one is correct), and $f(\tau)$ captures the team synergy term.
+
+\subsection{Optimal Trust Level}
+
+\[
+\tau^* = \frac{P_A - P_C/2}{P_A + P_H - P_C}
+\]
+
+\begin{keyconcept}[When Is Deference Optimal?]
+When $P_A > P_H$, the optimal trust level $\tau^* > 0.5$ (lean toward automation). Some automation bias is \emph{optimal} given cost structure. The problem is not deference per se, but deference uncalibrated to actual relative accuracy---which requires feedback to achieve and maintain.
+\end{keyconcept}
+
+% ============================================================================
+\section{Measurement Implications for HITL Practitioners}
+% ============================================================================
+
+\subsection{Extracting SDT Parameters from Production Data}
+
+\begin{lstlisting}[style=python, caption={SDT parameter extraction from HITL logs}]
+import numpy as np
+from scipy.stats import norm
+
+def compute_sdt_params(hits, total_signal, false_alarms, total_noise):
+    """
+    Compute d' and criterion c from production HITL data.
+
+    Parameters:
+    -----------
+    hits: int - number of signal cases correctly flagged
+    total_signal: int - total actual positive cases
+    false_alarms: int - noise cases incorrectly flagged
+    total_noise: int - total actual negative cases
+    """
+    # Apply log-linear correction for extreme rates
+    pH = (hits + 0.5) / (total_signal + 1)
+    pFA = (false_alarms + 0.5) / (total_noise + 1)
+
+    d_prime = norm.ppf(pH) - norm.ppf(pFA)
+    c = -0.5 * (norm.ppf(pH) + norm.ppf(pFA))
+    auc = norm.cdf(d_prime / np.sqrt(2))
+
+    return {'d_prime': d_prime, 'c': c, 'auc': auc,
+            'hit_rate': pH, 'fa_rate': pFA}
+\end{lstlisting}
+
+\subsection{Detecting Automation Bias via SDT}
+
+Compare $c$ estimates in two conditions:
+\begin{itemize}
+    \item \textbf{Condition A}: AI recommendation visible (standard production)
+    \item \textbf{Condition B}: AI recommendation hidden (blind review sample)
+\end{itemize}
+
+Automation bias is operationally defined as $c_A \neq c_B$. Specifically: $c_A < c_B$ on AI-flagged cases (criterion shift toward liberal), $c_A > c_B$ on AI-passed cases (criterion shift toward conservative).
+
+\begin{lstlisting}[style=python, caption={Automated bias monitoring in production}]
+def detect_automation_bias(condition_a_data, condition_b_data):
+    """
+    Compare SDT parameters between AI-visible and blind-review conditions.
+
+    Returns bias magnitude (delta_c) and significance test.
+    """
+    params_a = compute_sdt_params(**condition_a_data)
+    params_b = compute_sdt_params(**condition_b_data)
+
+    delta_c = params_a['c'] - params_b['c']
+    delta_dprime = params_a['d_prime'] - params_b['d_prime']
+
+    return {
+        'automation_bias_criterion_shift': delta_c,
+        'discriminability_change': delta_dprime,
+        'bias_direction': 'liberal' if delta_c < 0 else 'conservative',
+        'mechanism': 'criterion_shift' if abs(delta_c) > abs(delta_dprime)
+                     else 'discriminability_change'
+    }
+\end{lstlisting}
+
+\subsection{Sequential Design to Counteract Automation Bias}
+
+SDT provides a prescription: anchor criterion independently before the automation recommendation induces a shift.
+
+\begin{lstlisting}[style=python, caption={Sequential design decision flow}]
+# Sequential design: human-first assessment
+def sequential_review_protocol(case):
+    """
+    Implement sequential design to reduce automation bias.
+    """
+    # Step 1: Present case, collect human assessment
+    human_assessment = present_case_get_assessment(case)
+    record_initial_decision(human_assessment)
+
+    # Step 2: Reveal AI recommendation
+    ai_recommendation = get_ai_recommendation(case)
+    display_ai_recommendation(ai_recommendation, human_assessment)
+
+    # Step 3: Allow override with documented rationale
+    if human_assessment != ai_recommendation:
+        rationale = require_disagreement_rationale()
+        final_decision = present_with_rationale_requirement(
+            human_assessment, ai_recommendation, rationale
+        )
+    else:
+        final_decision = human_assessment
+
+    return final_decision
+\end{lstlisting}
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[Computing $d'$ and $c$]
+A medical AI review system records: hit rate = 0.88, false alarm rate = 0.22.
+\begin{enumerate}[(a)]
+    \item Compute $d'$ and $c$.
+    \item Is the reviewer biased conservative or liberal? Interpret in medical imaging context.
+    \item If the cost of a missed anomaly is $10\times$ the cost of a false alarm and queue base rate is 5\%, compute the optimal $c^*$.
+    \item Compare observed $c$ to optimal $c^*$. What does this tell us about how to communicate the base rate to reviewers?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Automation Bias via SDT]
+Baseline (no AI): $P(H) = 0.75$, $P(FA) = 0.18$. AI-assisted: hit rate = 0.85 when AI flags; miss rate increases to 0.32 when AI passes.
+\begin{enumerate}[(a)]
+    \item Compute $d'$ and $c$ for the baseline condition.
+    \item Characterize how criterion $c$ has changed in the AI-assisted condition.
+    \item Is $d'$ the primary driver of the change, or is criterion shift? What does this imply for intervention design?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Vigilance Decrement]
+A reviewer starts a 4-hour shift with $d'_0 = 2.1$ and $\lambda = 0.012$ per minute.
+\begin{enumerate}[(a)]
+    \item Compute $d'$ at $t = 30, 60, 90, 120$ minutes.
+    \item Compute AUC at each time point.
+    \item If misses cost $5\times$ more than false alarms and queue prevalence is 12\%, compute optimal $c^*$ at each time point. How does the optimal operating point shift?
+    \item Design a production monitoring protocol that would detect this decay in near real-time.
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Optimal Trust Level]
+A loan review system has: automation accuracy 87\%, human accuracy 78\%, human is correct 60\% of the time when they disagree.
+\begin{enumerate}[(a)]
+    \item Estimate $P(\text{complementary})$.
+    \item Compute $\tau^*$.
+    \item Interpret: should reviewers defer to automation, use their own judgment, or use a mixed strategy? At what level?
+    \item Propose two interface design interventions that would help reviewers achieve $\tau^*$.
+\end{enumerate}
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the formal SDT framework underlying Chapter~13's psychological discussion. The key insight---that automation bias is a criterion effect, not a discriminability effect---has direct design implications: interventions must target criterion anchoring before automation recommendations are presented, not simply instruct reviewers to apply independent judgment.}

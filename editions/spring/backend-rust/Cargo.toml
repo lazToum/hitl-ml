@@ -1,0 +1,71 @@
+[package]
+name    = "treasure-hunt"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "server"
+path = "src/main.rs"
+
+[dependencies]
+# Web framework
+axum          = { version = "0.7", features = ["ws", "multipart", "macros"] }
+axum-extra    = { version = "0.9", features = ["typed-header"] }
+tower         = "0.4"
+tower-http    = { version = "0.5", features = ["cors", "trace", "fs"] }
+
+# Async runtime
+tokio         = { version = "1", features = ["full"] }
+tokio-stream  = "0.1"
+futures       = "0.3"
+
+# Database
+sqlx = { version = "0.7", features = [
+    "runtime-tokio-rustls",
+    "postgres",
+    "uuid",
+    "chrono",
+    "json",
+] }
+
+# Serialization
+serde         = { version = "1", features = ["derive"] }
+serde_json    = "1"
+
+# IDs & time
+uuid          = { version = "1", features = ["v4", "serde"] }
+chrono        = { version = "0.4", features = ["serde"] }
+
+# Auth
+jsonwebtoken  = "9"
+
+# HTTP client (calls Python AI service)
+reqwest       = { version = "0.12", features = ["json"] }
+
+# QR code generation
+qrcode        = "0.14"
+image         = "0.25"
+
+# Answer validation
+strsim        = "0.11"   # fuzzy string similarity
+haversine     = "0.2"    # GPS distance
+
+# Redis (rate limiting; optional — app starts without it)
+redis         = { version = "0.25", features = ["tokio-comp", "connection-manager"] }
+
+# Error handling
+anyhow        = "1"
+thiserror     = "1"
+
+# Config & logging
+dotenvy       = "0.15"
+tracing       = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Misc
+base64        = "0.22"
+rand          = "0.8"
+
+[profile.release]
+opt-level = 3
+lto       = true

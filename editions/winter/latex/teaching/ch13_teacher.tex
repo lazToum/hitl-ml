@@ -1,0 +1,365 @@
+% ============================================================================
+% CHAPTER 13 TEACHER'S MANUAL
+% Complete instructional guide for the psychology of human-AI teams
+% ============================================================================
+% Source: /markdown/ch13/Ch13T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 13}
+\label{ch:teacher-ch13}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching human psychology in HITL systems using \emph{The Psychology of Human-AI Teams}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Define automation bias, automation complacency, overtrust, and undertrust
+    \item Explain Bainbridge's irony of automation (the paradox of reliable systems)
+    \item Describe the expertise effect on human-AI interaction --- both its benefits and its vulnerabilities
+    \item Identify time-of-day and fatigue effects on human reviewer performance
+    \item Define algorithm aversion and explain the conditions under which it appears
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply Signal Detection Theory concepts to analyze reviewer behavior patterns
+    \item Distinguish between criterion shifts (automation bias) and discriminability changes (genuine performance change)
+    \item Identify which psychological vulnerability is most likely at play in a given HITL scenario
+    \item Propose specific interface design changes that would counteract automation bias for a described system
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a HITL system that structurally accounts for automation bias, fatigue, and the expertise effect
+    \item Evaluate the psychological assumptions embedded in an existing HITL design
+    \item Propose a measurement plan to detect when automation bias or vigilance decrement is degrading reviewer performance
+    \item Argue for or against specific HITL design choices given psychological evidence
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--12:} Full HITL fundamentals including the Five Dimensions framework and measurement
+    \item \textbf{Chapter~12:} Measurement framework --- Signal Detection Theory connects to precision/recall/F1
+    \item \textbf{Psychology:} Basic familiarity with concepts like cognitive bias is helpful but not required
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Mid-to-Late Course (Weeks 10--12)] Best positioned after measurement (Chapter~12) so students can connect psychological vulnerabilities to measurable outcomes
+    \item[Standalone] Works as a standalone reading for psychology, HCI, or organizational behavior courses
+    \item[Design Course] Pairs with Intervention Design (Chapter~5) for a complete human factors unit
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Three Failure Modes of Human-AI Psychology}
+
+\begin{table}[htbp]
+\caption{Three psychological failure modes in HITL systems}
+\label{tab:psych-failure-modes}
+\centering
+\begin{tabular}{@{}p{3cm}p{3cm}p{3cm}p{3.5cm}@{}}
+\toprule
+\textbf{Failure Mode} & \textbf{Mechanism} & \textbf{Detection} & \textbf{Design Counter} \\
+\midrule
+Automation bias & Criterion shift toward AI recommendation & Blind review comparison & Sequential design; explicit uncertainty display \\
+Automation complacency & Vigilance decrement; skill atrophy & Reaction time increase; error rate in simulation & Regular manual practice; mandatory breaks \\
+Calibration mismatch & Over- or under-trust relative to actual AI accuracy & Override accuracy tracking & Feedback on overrides; performance feedback \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Air France 447 as a Central Case}
+
+The opening story has multiple pedagogical layers.
+
+\begin{description}
+    \item[Layer 1 (factual)] Pilots were present but unpracticed; when automation disengaged in an emergency, they made errors they might not have made had they been regularly flying manually.
+    \item[Layer 2 (psychological)] This illustrates automation complacency --- not malice or incompetence, but skill atrophy under reliable automation.
+    \item[Layer 3 (systemic)] The same design philosophy that made the A330 autopilot excellent --- reliable enough to handle the vast majority of situations without human intervention --- made the human-automation handoff at the critical moment maximally dangerous.
+\end{description}
+
+\begin{cautionbox}[Teaching Caution]
+Do not frame the Air France 447 story as a story of pilot failure. The BEA report did not, and students who hear it that way miss the structural lesson entirely. Frame it explicitly as: reliable automation + inadequate preparation for automation failure = catastrophic vulnerability at the handoff moment.
+\end{cautionbox}
+
+\subsection{The Expertise Paradox}
+
+Students often assume ``get better reviewers'' is the solution to automation bias problems. Address this directly and carefully.
+
+\begin{keyconcept}[The Expertise Paradox]
+Experts have higher discriminability ($d'$ in Signal Detection Theory terms) --- they genuinely perform better at distinguishing signal from noise. But experts have stronger priors, more resistance to AI recommendations that contradict intuition, more to defend in conflicts with AI, and more susceptibility to the consistency trap (strong expectations about what a decision ``should'' look like). Expert reviewers need \emph{different} interface designs from novices, not simply more instructions to apply independent judgment.
+\end{keyconcept}
+
+\subsection{Why Instructions Don't Work for Automation Bias}
+
+This is counterintuitive and important. Instructions targeting conscious intention (``apply independent judgment'') cannot counteract automation bias because the bias operates at the level of attentional allocation --- a process that occurs before conscious deliberation. Skitka et al.\ (1999) explicitly tested this: even with instructions and incentives to apply independent judgment, automation bias persisted. The solution is interface design, not training.
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\begin{table}[htbp]
+\caption{50-minute lecture plan for Chapter~13}
+\label{tab:lecture-plan-ch13}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{3.5cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:07 & Air France 447: full story, no framing yet & Timeline slide \\
+0:07--0:17 & Paradox of reliable systems: Bainbridge's irony & Reliability-vulnerability diagram \\
+0:17--0:27 & Automation bias: mechanism, research, design counters & Radiology example; Skitka finding \\
+0:27--0:35 & Overtrust vs.\ undertrust; calibrated trust; algorithm aversion & Trust calibration diagram \\
+0:35--0:45 & Expertise effect; fatigue and time-of-day & Expert paradox table; judicial parole data \\
+0:45--0:50 & Design implications + wrap-up & Five Dimensions connection \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Opening: Air France 447 (7 minutes)}
+
+Present the story with full human context. Emphasize:
+\begin{itemize}
+    \item The pilots were experienced professionals
+    \item The Airbus A330 was one of the most sophisticated aircraft in the world
+    \item The automation worked correctly --- it disengaged because it was designed to
+    \item The four-and-a-half minutes from disengagement to impact were catastrophic not because the pilots were incompetent but because they had not needed to fly manually at high altitude for a very long time
+\end{itemize}
+
+\begin{trythis}
+\textbf{Before the reveal:} ``What do you think happened?'' Most students will say pilot error. After the reveal: ``Was it pilot error, or was it system design error? Can you have one without the other?'' This is the central tension.
+\end{trythis}
+
+\subsubsection{Part 1: The Paradox of Reliable Systems (10 minutes)}
+
+The paradox: better automation creates more dangerous failure. Reliable automation removes the practice that makes reliable oversight possible.
+
+\begin{itemize}
+    \item Automation complacency: documented in aviation, nuclear power, industrial process control, AI-assisted medical diagnosis. The pattern is consistent across domains.
+    \item The rational case for deference: if a system is 98\% precise, a reviewer should be skeptical when their judgment conflicts with the system's recommendation. This is sensible Bayesian updating. Taken too far, it becomes automation bias.
+    \item Bainbridge's irony: designers assume the human will reliably oversee the automated system. But automation removes the very practice that makes reliable oversight possible.
+\end{itemize}
+
+\subsubsection{Part 2: Automation Bias (10 minutes)}
+
+\begin{itemize}
+    \item Skitka et al.\ (1999): pilots with automated recommendations were statistically less likely to notice when the automation was wrong, even when explicitly told to apply independent judgment.
+    \item Mechanism: attentional allocation. The recommendation satisfies the brain's drive toward closure, reducing effortful processing of the case itself. This happens before conscious deliberation.
+    \item Medical finding: radiologists reviewing AI-flagged scans spend proportionally less time on unflagged areas --- increasing the probability of missing pathology the AI didn't catch.
+    \item Design counter: sequential presentation (human assessment before AI recommendation); explicit uncertainty display (make the AI's uncertainty as prominent as its conclusions); forced generation of reasons before viewing recommendation.
+\end{itemize}
+
+\subsubsection{Part 3: Overtrust and Undertrust (8 minutes)}
+
+\begin{itemize}
+    \item Automation bias is overtrust. But undertrust is equally real and often underappreciated.
+    \item Algorithm aversion: seeing the algorithm err once causes systematic avoidance even when the algorithm still outperforms human judgment. In HITL contexts, reviewers regularly see model errors --- that is why the cases are in the queue. Algorithm aversion is a predictable outcome without deliberate feedback design.
+    \item Calibrated trust: accurately tracks system performance domain by domain. Neither systematic over-reliance nor systematic under-reliance. Hard to achieve, requires feedback loops.
+\end{itemize}
+
+\subsubsection{Part 4: Expertise Effect and Fatigue (10 minutes)}
+
+\begin{itemize}
+    \item Expertise benefits: catch errors novices miss; recognize unusual presentations; harder-to-fool audits.
+    \item Expertise vulnerabilities: expectation confirmation (strong priors); consistency trap (stronger expectations about what a decision should look like); more resistance when AI contradicts intuition.
+    \item Fatigue: Danziger et al.\ judicial parole study --- probability of favorable decision drops from 65\% to near 0\% over a session, recovering after breaks. Decision quality varies with sustained cognitive load in all high-stakes review contexts.
+    \item Time-of-day effect: annotation quality, medical diagnosis accuracy, and content moderation decisions all follow this pattern --- higher early in a session, lower late.
+\end{itemize}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Signal Detection Theory Mini-Lecture (15 min).}
+Introduce $d'$ (discriminability) and criterion $c$. Automation bias is a criterion shift toward the AI's recommendation. Automation complacency is a decline in $d'$ over time. Calibrated trust is having appropriate $d'$ for the domain.
+
+\paragraph{Add: Interface Design Workshop (10 min).}
+Given a described HITL system, students propose a redesign of the reviewer interface to reduce automation bias. See Activity~2.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Automation Paradox:} ``Give a personal example of a technology that has eroded an underlying skill you used to have. How does this parallel the Air France 447 story?''\\
+    \textit{Target: GPS and spatial navigation; calculators and mental arithmetic; autocorrect and spelling. Connection to AF447: skill eroded specifically because automation was so reliable; erosion was rational; created brittleness when automation failed.}
+
+    \item \textbf{Why Instructions Don't Work:} ``Telling reviewers to `apply independent judgment' doesn't counteract automation bias. Why not? What would actually work?''\\
+    \textit{Target: Automation bias operates at attentional allocation (before conscious deliberation). Instructions target conscious deliberation. Actual solutions: sequential design (human assessment before AI recommendation); forced reasons generation; uncertainty display.}
+
+    \item \textbf{Fatigue Design:} ``A content moderation team reviews 200 cases per day per reviewer, working 8-hour shifts. Given what you know about fatigue effects, propose one design change that would reduce fatigue-related quality degradation without reducing total throughput.''\\
+    \textit{Target: Mandatory 15-minute break every 90 minutes; schedule hardest/most harmful content in first half of shift; rotate content categories; inject easy cases at shift end to maintain calibration.}
+
+    \item \textbf{Algorithm Aversion:} ``A radiology AI makes a high-profile misdiagnosis that is widely reported in the hospital. Six months later, the AI's performance data shows it has not changed. But override rates by radiologists have doubled. Is this rational behavior?''\\
+    \textit{Target: The algorithm aversion finding (Dietvorst et al.\ 2015): seeing the algorithm err once causes systematic avoidance even when performance hasn't changed. The behavior is understandable but not rational from a performance-optimization standpoint.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Automation Bias in Context:} ``Design an interface for a loan underwriting AI that minimizes automation bias while still giving reviewers the AI's recommendation and confidence score.''\\
+    \textit{Target: Sequential design (reviewer completes initial assessment and documents reasons before AI recommendation appears); show confidence distribution not just point estimate; make high-uncertainty indicator visually prominent.}
+
+    \item \textbf{Expertise Trade-off:} ``You are staffing a HITL system for rare disease diagnosis. You have access to two types of reviewers: 20 general practitioners and 3 specialist physicians. Design a two-tier review system that captures the benefits of expert judgment while mitigating the consistency trap vulnerability.''\\
+    \textit{Target: Tier 1 (GPs): initial review of all cases, flag potential rare presentations without specialist knowledge anchor. Tier 2 (specialists): review flagged cases, plus random sample of GP-cleared cases as quality control. Sequential design: tier 2 does not see tier 1's recommendation initially.}
+
+    \item \textbf{Calibrated Trust Design:} ``A HITL system has been deployed for 6 months. How would you determine whether reviewers are overtrusting, undertrusting, or appropriately calibrated with the AI? What data would you need?''\\
+    \textit{Target: Track override rate by AI confidence decile; track override accuracy (when reviewers override, are they right?); compare reviewer accuracy on cases where they agreed with AI vs.\ disagreed. Calibrated: high accuracy in both agree and disagree conditions, override rate inversely correlated with AI confidence.}
+
+    \item \textbf{Vigilance Scheduling:} ``A nuclear plant uses AI to monitor sensor readings for anomalies, routing genuine anomalies to a human operator for verification. Propose a work schedule and interface design for the human operator that minimizes vigilance decrement.''\\
+    \textit{Target: Shift duration $\leq 4$ hours for high-attention monitoring; mandatory 15-minute breaks every 90 minutes; active engagement tasks (not passive watching); inject known anomalies (sentinels) into the queue to keep operators calibrated; vary the inter-arrival time of alerts to prevent adaptation.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{System Design with Psychology:} ``Design a complete HITL hiring system that accounts for automation bias, algorithm aversion, the expertise effect, and fatigue. Specify interface design, reviewer selection, work scheduling, and how you would measure whether psychological vulnerabilities are affecting decisions.''
+
+    \item \textbf{SDT Application:} ``Using Signal Detection Theory, explain the difference between automation bias (a criterion shift) and genuine reviewer expertise improvement (a $d'$ increase). How would you distinguish between the two empirically, and why does the distinction matter for HITL design?''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Automation Bias Demonstration (15 minutes)}
+
+\textbf{Setup:} Prepare a set of 10 ambiguous images (can be X-ray-like or simple pattern recognition tasks) where the correct answer is genuinely unclear.
+
+\textbf{Two groups:} Group A sees only the images (no AI recommendation). Group B sees the images with a fabricated ``AI confidence score'' (set to the wrong answer with 85\% confidence on half the cases).
+
+\textbf{Task:} Each student classifies each image.
+
+\textbf{Debrief:} Compare Group A and Group B accuracy on the cases where the ``AI'' was wrong. If automation bias is present, Group B should have lower accuracy on those cases despite seeing the same images.
+
+\begin{technote}[Ethical Note]
+Debrief fully after the exercise. Explain that the AI confidence scores were fabricated. Discuss why the exercise was designed with deception, and whether the educational value justifies it.
+\end{technote}
+
+\subsection{Activity 2: Interface Redesign Workshop (20 minutes)}
+
+\textbf{Setup:} Small groups. Each group receives a description of a HITL reviewer interface.
+
+\textbf{Current interface:} A reviewer sees a fraud transaction with the model's recommendation (FRAUD or LEGITIMATE) and confidence score displayed prominently at the top. Below the recommendation is the transaction detail.
+
+\textbf{Task:} Redesign this interface to minimize automation bias while preserving the information value of the AI's assessment. Sketch the new interface and explain each design decision.
+
+\paragraph{Strong design elements to look for.}
+\begin{itemize}
+    \item AI recommendation appears below the transaction detail (not before)
+    \item Reviewer completes initial assessment before AI recommendation is revealed
+    \item AI uncertainty is displayed as prominently as the recommendation
+    \item Requires reviewer to document reasoning before seeing AI output
+\end{itemize}
+
+\subsection{Activity 3: Vigilance Simulation (15 minutes)}
+
+\textbf{Setup:} A simulated monitoring task where students watch a stream of events (can be done with a simple slide sequence) and click when they see a specific target pattern.
+
+\textbf{Design:} The target pattern appears rarely (1 in 20). Run for 10 minutes.
+
+\textbf{Debrief:} What was the miss rate? Did it increase over time? How does this experience inform HITL design for low-signal-density monitoring tasks?
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``Automation Bias Is Laziness''}
+
+\paragraph{Student thinking:} ``Reviewers who defer to the AI are just not trying hard enough.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The Skitka et al.\ finding: automation bias persisted even with explicit instructions, training, and incentives to apply independent judgment
+    \item Automation bias operates at the level of attentional allocation, before conscious deliberation
+    \item It is a rational response to a reliable system: if the AI is usually right, updating toward its recommendation is Bayesian
+    \item The problem is in the system design, not the individual reviewer
+\end{itemize}
+
+\subsection{Misconception 2: ``Expert Reviewers Solve the Problem''}
+
+\paragraph{Student thinking:} ``Get better reviewers --- experts who know their field and won't be fooled by the AI.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Experts are better ($d'$ is higher) but also more susceptible to the consistency trap and expectation confirmation
+    \item Experts have more to defend when AI contradicts their intuition --- resistance, not superior independence
+    \item Expert reviewers need different interface designs from novices, not just more instructions
+    \item The optimal design for expert reviewers respects their expertise while structurally preventing anchoring
+\end{itemize}
+
+\subsection{Misconception 3: ``Air France 447 Was Pilot Error''}
+
+\paragraph{Student thinking:} ``The pilots should have been better trained or reacted faster.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The BEA did not conclude this; it specifically noted that the design philosophy of the autopilot removed the conditions for maintaining the skills the failure required
+    \item ``Pilot error'' is a category that often obscures system design choices; the real question is why the pilots were in this position
+    \item Better training is a mitigation, not a root cause solution --- the structural problem is that reliable automation produces unpracticed supervisors
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Psychological Vulnerability Analysis (500--750 words)}
+
+\textbf{Prompt:} Identify a real HITL system (content moderation, medical AI, hiring tools, or another domain). Analyze which of the three psychological failure modes (automation bias, complacency, calibration mismatch) is most likely to affect reviewers in this system. Propose two specific design changes to mitigate the vulnerability.
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Failure mode identification (25\%):} Correct identification with evidence from system design
+    \item \textbf{Mechanism explanation (30\%):} Accurate psychological mechanism, not just ``reviewers might trust the AI too much''
+    \item \textbf{Design proposals (35\%):} Specific, mechanistically motivated (the design change addresses the mechanism, not just the symptom)
+    \item \textbf{Measurement plan (10\%):} How would you detect whether the mitigation is working?
+\end{itemize}
+
+\subsection{Option 2: Interface Redesign Project}
+
+\textbf{Task:} Take a specific described HITL interface (provided by instructor or chosen by student). Document its current design. Identify which psychological vulnerabilities it is most susceptible to. Design an improved interface with specific explanations of how each design choice addresses a specific vulnerability.
+
+\subsection{Option 3: Discussion Post --- The Paradox}
+
+\textbf{Post (200 words):} ``Bainbridge's irony says that reliable automation removes the conditions for reliable human oversight. Is the solution to make automation less reliable? Or is there another way out of the paradox?''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~1:} Alert fatigue is a form of vigilance decrement and calibration mismatch
+    \item \textbf{Chapter~5:} Intervention Design --- this chapter provides the psychological foundation for why Intervention Design matters
+    \item \textbf{Chapter~12:} Measurement --- reviewer agreement rate and override accuracy are the measures that detect automation bias and calibration mismatch
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~15:} Failure modes --- reviewer failure is one of the four failure modes; this chapter explains the psychological mechanisms behind it
+    \item \textbf{Chapter~16:} Beyond text and images --- in physical-world HITL (prosthetics, industrial control), the human adaptation component is especially prominent
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~13 is the human factors chapter the book has been building toward since the first alarm fatigue example in Chapter~1. Its central contribution is making clear that HITL systems have two active components, not one: the AI system and the human reviewer. Both are subject to systematic failure modes. Designing for the human component requires the same rigor as designing for the AI component --- including measurement, testing, and iterative improvement.}

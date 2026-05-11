@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>الإشراف البشري في الرعاية الصحية والعلوم &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ar/chapters/11_healthcare';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ar/chapters/11_healthcare.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>الإشراف البشري في الرعاية الصحية والعلوم</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">تحليل الصور الطبية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">متطلبات المُوصِّف الخبير</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">تباين القراءة بين أطباء الأشعة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">التعلم النشط للحالات النادرة</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">توصيف اللغات الطبيعية السريرية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2">i2b2 / n2c2 كنموذج</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">الاعتبارات التنظيمية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">توصيف البيانات العلمية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#galaxy-zoo">الفلك: Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">الجينوميات: تصنيف الإمراضية</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">المناخ وعلوم الأرض</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">علم الأعصاب: علم التوصيل العصبي</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">إدارة المُوصِّفين المتخصصين</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">خط أنابيب التعلم النشط لـ HITL في التصوير الطبي</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>الإشراف البشري في الرعاية الصحية والعلوم<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>تُمثِّل الرعاية الصحية والعلوم مجالَين يكون فيهما HITL ML الأكثر أهميةً والأكثر جدلاً. المخاطر عالية: التشخيص المُفوَّت للسرطان أو الهدف الدوائي المعيب له تكلفة بشرية حقيقية. يتطلب التوصيف خبرةً نادرة ومُكلفة. تُقيِّد المتطلبات التنظيمية ما تستطيع النماذج فعله وكيف يجب التحقق من صحتها. وخلافاً لمعالجة اللغات الطبيعية، حيث مشكلة التوصيف جزئياً مشكلة بناء اجتماعي، كثيراً ما توجد هنا حقيقة موضوعية حقيقية — الورم موجود أو لا يوجد — وإن كان لا يستطيع أي مراقب فردي تحديده بشكل موثوق.</p>
+<p>الإطار السائد في التغطية الإعلامية الشعبية هو “الذكاء الاصطناعي مقابل الإنسان”: هل سيحل الذكاء الاصطناعي محل أطباء الأشعة؟ هذا الإطار خاطئ بطريقة ذات أهمية. السؤال الحقيقي هو أي شكل من أشكال التعاون بين الإنسان والذكاء الاصطناعي يُنتج نتائج أفضل مما يُنتجه أيٌّ منهما بمفرده، وكيف يُبنى الأنظمة التي تُمكِّن ذلك التعاون بدلاً من تعطيله.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>تحليل الصور الطبية<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>التصوير الطبي — الأشعة السينية والتصوير المقطعي والتصوير بالرنين المغناطيسي، وعلم الأمراض (شرائح الأنسجة)، والأمراض الجلدية، وطب العيون — هو المجال الذي تقدَّم فيه الذكاء الاصطناعي الطبي بأسرع ما يكون.</p>
+<section id="id3">
+<h3>متطلبات المُوصِّف الخبير<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>يستلزم توصيف الصور الطبية عادةً أطباءً ذوي تدريب متخصص في تخصص فرعي بعينه. هذا يجعل التوصيف:</p>
+<ul class="simple">
+<li><p><strong>بطيئاً:</strong> الوقت المتاح للمتخصصين محدود؛ التوصيف يتنافس مع الواجبات السريرية</p></li>
+<li><p><strong>مُكلفاً:</strong> تتراوح التكاليف بين عشرات إلى مئات الدولارات للحالة المُوصَّفة، بحسب التخصص الفرعي والطريقة والتعقيد</p></li>
+<li><p><strong>متغيراً:</strong> حتى المتخصصون يختلفون، خاصةً في الحالات الحدية — وهو واقع يُعامَل في الغالب كمشكلة لكنه في الحقيقة مُفيد</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>تباين القراءة بين أطباء الأشعة<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>تباين القراءة موثَّق جيداً في علم الأشعة. لتفسير الأشعة الصدرية، الخلاف بين القراء جوهري — في دراسة CheXNet، سمَّى أربعة أطباء أشعة مجموعة اختبار كشف الالتهاب الرئوي ذاتها بدرجات F1 تمتد على مدى نحو 12 نقطة مئوية <a href="#id5"><span class="problematic" id="id6">rajpurkar2017chexnet</span></a>، عاكسةً شكاً تشخيصياً حقيقياً في الحالات الحدية. لكشف العقيدات على التصوير المقطعي للرئة، يمكن أن يكون التباين داخل القارئ (القارئ ذاته، الحالة ذاتها، يوم مختلف) كبيراً كالتباين بين القراء.</p>
+<p>هذا التباين ليس مجرد ضجيج — بل يعكس شكاً تشخيصياً حقيقياً. النماذج المُدرَّبة على توصيفات طبيب أشعة واحد قد تتعلم التحيزات الخاصة بذلك الطبيب لا علم الأمراض الكامن.</p>
+<div class="note admonition">
+<p class="admonition-title">جدل CheXNet كدرس لـ HITL</p>
+<p>حين ادَّعى Rajpurkar وآخرون أن نموذجهم CheXNet “تجاوز أداء طبيب الأشعة” في كشف الالتهاب الرئوي، طعن مجتمع الأشعة فوراً في الادعاء <a href="#id7"><span class="problematic" id="id8">yu2022assessing</span></a>. كان جزء من الجدل حول مجموعة الاختبار المحددة ومقارنة أطباء الأشعة. لكن المسألة الأعمق كانت منهجية: استخدم خط الأساس “لأداء طبيب الأشعة” قراءً منفردين تحت ضغط الوقت، بينما تشمل أشعة طب الأشعة السريرية عادةً استشارةً ومقارنةً بصور سابقة والوصول إلى السياق السريري — وهو ما لم يكن متاحاً للنموذج.</p>
+<p>الدرس ليس أن النموذج كان جيداً أو رديئاً، بل أن <strong>مقارنات الأداء تستلزم تحديد إعداد HITL</strong>. نموذج يتفوق على طبيب أشعة منفرد يقرأ بدون سياق قد يكون أقل دقةً من طبيب أشعة يستخدم مخرج النموذج كرأي ثانٍ. هذان نظامان مختلفان بأنماط خطأ مختلفة، وتجميعهما بطرق مختلفة.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">التسميات الناعمة في الطب</p>
+<p>انتقلت مشاريع الذكاء الاصطناعي الطبي عدة إلى استخدام <strong>التسميات الناعمة</strong> التي تعكس توزيع آراء الخبراء بدلاً من تسمية “معيار ذهبي” واحدة. صورة أشعة سينية مُسمَّاة بـ 60% التهاب رئوي / 40% انخماص رئوي من قِبَل لجنة أطباء أشعة تحمل معلومات أكثر من اختيار ثنائي مُجبَر. تُظهر النماذج المُدرَّبة على هذه التوزيعات معايرةً أفضل وتحديداً أكثر ملاءمةً للشك — وهذا الشك ذو دلالة سريرية، إذ يُخبر الطبيب متى يستشير لا ماذا يعتقد النموذج فحسب.</p>
+</div>
+</section>
+<section id="id9">
+<h3>التعلم النشط للحالات النادرة<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>التعلم النشط قيّم بصفة خاصة للأمراض النادرة والحالات المرضية النادرة، حيث حتى مجموعة غير مُسمَّاة كبيرة تحتوي على عدد صغير فحسب من الحالات الإيجابية. أخذ العينات العشوائي القياسي سيُضيِّع وقت الخبراء في تسمية حالات سلبية في معظمها.</p>
+<p>التعلم النشط القائم على الشك يختار طبيعياً الحالات الحدية حيث يكون النموذج غير متأكد — والتي تميل للحالات الإيجابية والسلبيات الحدية في الأمراض النادرة. يُركِّز هذا وقت المتخصص حيث هو الأكثر قيمة. التدريب غير المتوازن على الفئات (مع <code class="docutils literal notranslate"><span class="pre">class_weight='balanced'</span></code> أو ما شابه) والاختيار القائم على الشك هو ممارسة قياسية لمهام كشف الحالات النادرة.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id10">
+<h2>توصيف اللغات الطبيعية السريرية<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<p>تحتوي السجلات الصحية الإلكترونية (EHRs) على ثروة هائلة من النصوص السريرية: ملاحظات الأطباء وملخصات الخروج وتقارير الأشعة وتقارير علم الأمراض. استخراج المعلومات المنظمة من هذا النص يتطلب معالجة لغات طبيعية — ومعالجة لغات طبيعية عالية الجودة تتطلب بيانات تدريب مُوصَّفة.</p>
+<p><strong>مهام توصيف اللغات الطبيعية السريرية الشائعة:</strong></p>
+<ul class="simple">
+<li><p><strong>NER السريري:</strong> تحديد الأدوية والجرعات والتشخيصات والإجراءات والأعراض في النصوص</p></li>
+<li><p><strong>كشف النفي:</strong> “لا دليل على التهاب رئوي” مقابل “التهاب رئوي مؤكد” — تمييز حاسم صعب المفاجأة</p></li>
+<li><p><strong>الاستدلال الزمني:</strong> التمييز بين الحالات الحالية والتاريخ (“تاريخ احتشاء عضلة القلب، جاء بألم صدري”)</p></li>
+<li><p><strong>إزالة التعريف:</strong> إزالة المعلومات الصحية المحمية (PHI) لتمكين مشاركة البيانات</p></li>
+</ul>
+<p><strong>إزالة التعريف من PHI</strong> هي مهمة توصيف ومتطلب حوكمة بيانات في آنٍ واحد. بموجب HIPAA (الولايات المتحدة) وGDPR (الاتحاد الأوروبي)، لا يمكن مشاركة البيانات الصحية دون إزالة أو إخفاء هوية المريض. أدوات إزالة التعريف الآلية موجودة لكنها غير مثالية؛ مراجعة المخرجات الآلية من قبل البشر هي الممارسة القياسية، وملف المخاطر غير متماثل: الإيجابيات الكاذبة الفائتة (PHI الفائتة) تُنشئ تعرضاً قانونياً، مما يجعل العتبات المحافظة ضرورية.</p>
+<section id="i2b2-n2c2">
+<h3>i2b2 / n2c2 كنموذج<a class="headerlink" href="#i2b2-n2c2" title="Permalink to this heading">#</a></h3>
+<p>مبادرات المهام المشتركة لـ i2b2 (معلوماتية تكامل البيولوجيا وجانب السرير) وخلفها n2c2 (التحديات السريرية الوطنية للغة الطبيعية) أصدرت سلسلة من مجموعات بيانات معالجة اللغات الطبيعية السريرية المُوصَّفة من قبل خبراء. تُوضِّح هذه الإمكانات والتكلفة معاً: عادةً ما تشمل جهود التوصيف فرقاً من خبراء المجال السريري العاملين على مدى عدة أشهر، يُوصِّفون مئات الوثائق لكل تحدٍّ. حفَّزت مجموعات بيانات n2c2 تقدماً سريعاً بالضبط لأنها حلّت مشكلة حوكمة مشاركة البيانات (إزالة التعريف + الاتفاقيات المؤسسية)، لا مشكلة التوصيف وحسب.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id11">
+<h2>الاعتبارات التنظيمية<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<p>الذكاء الاصطناعي الطبي خاضع للرقابة التنظيمية في معظم الولايات القضائية.</p>
+<p><strong>FDA (الولايات المتحدة):</strong> البرمجيات المعتمدة على الذكاء الاصطناعي/التعلم الآلي كأجهزة طبية (SaMD) تتطلب موافقة ما قبل التسويق أو التخليص. تؤكد خطة عمل FDA للذكاء الاصطناعي/التعلم الآلي لعام 2021 على <strong>خطط التحكم في التغيير المحددة مسبقاً</strong> — توثيق كيفية تحديث النموذج وكيف ستُتحقَّق من تلك التحديثات قبل النشر. نموذج يتعلم باستمرار من التغذية الراجعة السريرية هو، ضمن هذا الإطار، جهاز مختلف بعد كل تحديث وقد يستلزم إعادة التحقق منه.</p>
+<p><strong>علامة CE (أوروبا):</strong> يجب أن تمتثل الأجهزة الطبية بما فيها أنظمة الذكاء الاصطناعي للائحة الأجهزة الطبية (MDR). تتطلب MDR التقييم السريري ومراقبة ما بعد السوق وتوثيق البيانات المستخدمة للتدريب والتحقق من الصحة.</p>
+<p><strong>الانعكاس الرئيسي لـ HITL:</strong> تتطلب الأطر التنظيمية توثيقاً واضحاً لعمليات التوصيف ومؤهلات المُوصِّفين وموثوقية المقيِّمين وأي تغييرات في بيانات التدريب. هذا ليس عبئاً بيروقراطياً — إنه مسار التدقيق الذي يُتيح للطبيب فهم بيانات التدريب التي أنتجت السلوك الحالي للنموذج، وهو مطلوب قانونياً. خطوط أنابيب HITL التي تعامل التوصيف كعملية فرعية غير رسمية تخلق مخاطر تنظيمية لا تظهر عادةً إلا في أسوأ اللحظات.</p>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h2>توصيف البيانات العلمية<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>إلى جانب الرعاية الصحية، يضطلع HITL ML بدور متنامٍ وغير مُقدَّر حق قدره في البحث العلمي، حيث يمزج تحدي التوصيف في الغالب بين الخبرة المجالية والنطاق.</p>
+<section id="galaxy-zoo">
+<h3>الفلك: Galaxy Zoo<a class="headerlink" href="#galaxy-zoo" title="Permalink to this heading">#</a></h3>
+<p>وظَّف Galaxy Zoo <a href="#id13"><span class="problematic" id="id14">lintott2008galaxy</span></a> علماء المواطنين في التصنيف الشكلي للمجرات من مسح سلون الرقمي للسماء. جمع المشروع الأصلي أكثر من 40 مليون تصنيف من أكثر من 100,000 متطوع، مُثبِتاً جدوى الاستعانة بالحشود واسعة النطاق في تصنيف الصور العلمية حين يمكن تحليل المهمة إلى أسئلة بسيطة يمكن الإجابة عنها دون تدريب متخصص (“هل هذه المجرة ناعمة أم ذات ميزات؟”).</p>
+<p>أفضت تجربة Galaxy Zoo إلى نتيجتَين منهجيتَين مهمتَين. أولاً، كان التوافق بين علماء المواطنين وعلماء الفلك المحترفين عالياً للحالات الواضحة ويتباين منهجياً في الحالات الهامشية — وهي بالضبط الحالات التي يهم فيها التمييز علمياً. الحل لم يكن التخلي عن بيانات علم المواطنين في الحالات الهامشية بل معاملة توزيع استجابات المتطوعين كتسمية ناعمة تُشفِّر الغموض الشكلي الحقيقي. ثانياً، تفوَّق المُصنِّف المُدرَّب على تسميات Galaxy Zoo على النماذج المُدرَّبة لاستنساخ تسميات أي خبير واحد، لأن توزيع الحشود التقط شكاً بصرياً حقيقياً طوى الاختيار المُجبَر لخبير واحد.</p>
+</section>
+<section id="id15">
+<h3>الجينوميات: تصنيف الإمراضية<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>توصيف المتغيرات الجينومية — تحديد ما إذا كان المتغير مُمرِضاً أو حميداً أو ذا أهمية غير مؤكدة — مشكلة حكم خبير ولغة طبيعية عالية المخاطر. تُجمِّع قواعد بيانات المتغيرات السريرية كـ ClinVar تفسيرات خبراء من مختبرات مُقدِّمة متعددة، والخلاف بين المختبرات شائع. يُستخدم التعلم النشط لتحديد أولويات المتغيرات التي تتطلب مراجعة خبير كاملة (بحث في الأدبيات، وتقييم الأدلة الوظيفية) مقابل تلك التي يمكن تصنيفها تلقائياً بالأدلة الحالية. النتيجة خط أنابيب هجين حيث تتمّ معالجة معظم المتغيرات بمنطق آلي، ومجموعة فرعية تستلزم مراجعة خبير، وتُشار إلى الحالات الأصعب للتوافق بين مختبرات متعددة.</p>
+</section>
+<section id="id16">
+<h3>المناخ وعلوم الأرض<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<p>توصيف صور الأقمار الاصطناعية لتغير استخدام الأراضي وإزالة الغابات ومدى الأنهار الجليدية ومسارات العواصف يشمل خبراء الاستشعار عن بُعد وبصورة متزايدة منصات علم المواطنين. التحدي الرئيسي لـ HITL في هذا المجال زمني: التسميات المُنجزة اليوم قد تُصبح قديمة مع تغير العالم، والتحقق الميداني (المسوحات الميدانية) مُكلف ومُقيَّد لوجستياً. التعلم النشط الذي يُعطي الأولوية للصور التي يتعارض فيها تنبؤ النموذج مع الأولويات الفيزيائية (مثل التنبؤ بإزالة الغابات في منطقة معروفة بالحماية) هو طريقة عملية لتوجيه موارد التحقق الميداني الشحيحة.</p>
+</section>
+<section id="id17">
+<h3>علم الأعصاب: علم التوصيل العصبي<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p>إعادة بناء الدوائر العصبية من صور المجهر الإلكتروني — علم التوصيل العصبي — يتطلب توصيفاً على مستوى البكسل لأغشية الخلايا العصبية عبر أحجام صورة هائلة. حوَّل مشروع Eyewire هذه المهمة إلى لعبة، مُشرِكاً عشرات الآلاف من اللاعبين في تتبع الخلايا العصبية عبر أحجام صور ثلاثية الأبعاد. حلَّ تصميم ألعاب مشكلة HITL محددة: المهمة تتطلب انتباهاً مستداماً واستدلالاً مكانياً عبر جلسات طويلة، مما يتسبب في تراجع الجودة في التوصيف التقليدي. تجزئة المهمة إلى أجزاء لعبة ذات ميكانيكيات اجتماعية حافظت على انخراط المُوصِّف وجودته على نطاقات لا يستطيع التوصيف المحترف تحقيقها.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h2>إدارة المُوصِّفين المتخصصين<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<p>حين يتطلب التوصيف خبرةً نادرة، لا تنطبق مناهج الاستعانة بالحشود المعتادة (الفصل الثالث عشر).</p>
+<p><strong>التوتر الجوهري</strong> هو أن الأشخاص القادرين على إنتاج أعلى جودة في التوصيف هم أيضاً الأشخاص الأكثر ثمناً ووقتاً والأكثر تقييداً. ينبغي تقييم كل قرار تصميمي في خط أنابيب التوصيف المتخصص وفق السؤال: هل هذا يجعل الاستخدام الأفضل لوقت الخبير النادر؟</p>
+<p><strong>ما يعنيه هذا في الممارسة:</strong></p>
+<ul class="simple">
+<li><p><strong>التوصيف المسبق بقوة.</strong> استخدام مُوصِّفين من مستوى أدنى أو نماذج آلية أو أنظمة قائمة على القواعد لإنشاء مرشحين يراجعها المتخصص ويُصحِّحها بدلاً من إنشاء من الصفر. حكم المتخصص هو عنق الزجاجة؛ إطعامهم توصيفاً مسبقاً للتصحيح أسرع من طلب التوصيف من شاشة فارغة، شريطة أن يكون الجودة الكافية بحيث التصحيح أسرع من البداية من جديد.</p></li>
+<li><p><strong>التصميم للانتباه المتخصص لا الإنتاجية.</strong> واجهات التوصيف المُحسَّنة للإنتاجية العالية (قرارات ثنائية سريعة، اختصارات لوحة المفاتيح، عرض مُدمَّج) مناسبة للاستعانة بالحشود. التوصيف المتخصص كثيراً ما يستفيد من واجهات أغنى: المقارنة جنباً إلى جنب مع الحالات السابقة، وسهولة الوصول إلى المواد المرجعية، وحقول ثقة التوصيف، والقدرة على تمييز حالة للنقاش. هذا يُبطئ التوصيفات الفردية لكنه يُحسِّن الجودة ويُقلِّل الحاجة إلى إعادة التوصيف.</p></li>
+<li><p><strong>تتبع أنماط المُوصِّف الفردي صراحةً.</strong> مع مجموعة صغيرة من المتخصصين، ممكن ومهم تتبع معدل اتفاق كل مُوصِّف مع اللجنة، وتمييز الحالات التي تبدو غير متسقة مع تاريخهم الخاص، ومناقشتها في جلسات معايرة منتظمة. هذا ليس مراقبةً — إنه عملية الجودة ذاتها التي تستخدمها الطب السريري لمراجعة الأداء، والمتخصصون يستجيبون عادةً بشكل جيد حين يُصاغ كتحسين جودة مشترك لا تقييم.</p></li>
+<li><p><strong>تصميم الجلسة مهم.</strong> التوصيف الطبي مُتطلِّب معرفياً. تُشير الأدلة من علم الأشعة وعلم الأمراض إلى ارتفاع معدلات الخطأ بصورة ملحوظة بعد نحو 90 دقيقة من القراءة المتواصلة، وأن استراحات قصيرة حتى لبضع دقائق يمكن أن تُستعيد الانتباه جزئياً. واجهات التوصيف التي تفرض مطالبات الاستراحة (دون إمكانية رفضها) هي قرار تصميمي HITL بسيط ذو تأثير حقيقي على الجودة.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="hitl">
+<h2>خط أنابيب التعلم النشط لـ HITL في التصوير الطبي<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Simulate a rare-pathology detection task</span>
+<span class="c1"># 8% positive class (e.g., rare pathology)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_informative</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">],</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">4000</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">4000</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">4000</span><span class="p">:]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training set positive prevalence: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_medical_al</span><span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+    <span class="n">labeled</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled</span><span class="p">]</span>
+    <span class="n">aucs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_initial</span> <span class="o">+</span> <span class="n">budget</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">aucs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;uncertainty&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">entropy</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unlabeled</span><span class="p">))</span>
+
+        <span class="n">labeled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aucs</span><span class="p">)</span>
+
+<span class="n">aucs_al</span>  <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;uncertainty&#39;</span><span class="p">)</span>
+<span class="n">aucs_rnd</span> <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+<span class="n">label_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aucs_al</span><span class="p">))</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">50</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_al</span><span class="p">,</span>  <span class="s1">&#39;o-&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertainty AL&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_rnd</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Expert labels obtained&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;AUROC&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning for Rare Pathology Detection&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;medical_al.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Show how AL preferentially selects positive examples</span>
+<span class="c1"># by checking which class the queried examples belong to</span>
+<span class="n">n_init</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">labeled_al</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_init</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">labeled_rnd</span> <span class="o">=</span> <span class="n">labeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">unlabeled_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_al</span><span class="p">]</span>
+<span class="n">unlabeled_rnd</span> <span class="o">=</span> <span class="n">unlabeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">])</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_al</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">top50_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">unlabeled_al</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">entropy</span><span class="p">)[</span><span class="o">-</span><span class="mi">50</span><span class="p">:]]</span>
+<span class="n">top50_rnd</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unlabeled_rnd</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">pos_rate_al</span>  <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_al</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">pos_rate_rnd</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_rnd</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Positive rate in next 50 queries:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Uncertainty AL: </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">  (base rate: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Random:         </span><span class="si">{</span><span class="n">pos_rate_rnd</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AL queries </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="o">/</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">x more positives than random&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>استعانة Galaxy Zoo بالحشود: <a href="#id19"><span class="problematic" id="id20">lintott2008galaxy</span></a>. أداء طبيب الأشعة في CheXNet: <a href="#id21"><span class="problematic" id="id22">rajpurkar2017chexnet</span></a>. جودة الأشعة والتشخيص بمساعدة الذكاء الاصطناعي: <a href="#id23"><span class="problematic" id="id24">yu2022assessing</span></a>. منهجية توصيف اللغات الطبيعية السريرية: <a href="#id25"><span class="problematic" id="id26">pustejovsky2012natural</span></a>. لإرشادات خطة عمل FDA للذكاء الاصطناعي/التعلم الآلي، راجع وثائق FDA المنشورة (2021).</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ar/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">تحليل الصور الطبية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">متطلبات المُوصِّف الخبير</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">تباين القراءة بين أطباء الأشعة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">التعلم النشط للحالات النادرة</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">توصيف اللغات الطبيعية السريرية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2">i2b2 / n2c2 كنموذج</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">الاعتبارات التنظيمية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">توصيف البيانات العلمية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#galaxy-zoo">الفلك: Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">الجينوميات: تصنيف الإمراضية</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">المناخ وعلوم الأرض</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">علم الأعصاب: علم التوصيل العصبي</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">إدارة المُوصِّفين المتخصصين</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">خط أنابيب التعلم النشط لـ HITL في التصوير الطبي</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

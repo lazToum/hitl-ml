@@ -1,0 +1,783 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Uwekaji Maelezo na Ulabelishaji wa Data &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/sw/chapters/03_annotation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/sw/chapters/03_annotation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Uwekaji Maelezo na Ulabelishaji wa Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aina-za-uwekaji-maelezo">Aina za Uwekaji Maelezo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uainishaji">Uainishaji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-lebo-kwa-mfululizo">Uwekaji Lebo kwa Mfululizo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-maelezo-wa-vipande-na-mahusiano">Uwekaji Maelezo wa Vipande na Mahusiano</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sanduku-za-mipaka-na-ugunduzi-wa-vitu">Sanduku za Mipaka na Ugunduzi wa Vitu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ugawanyiko">Ugawanyiko</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unukuzi-na-utafsiri">Unukuzi na Utafsiri</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mwongozo-wa-uwekaji-maelezo">Mwongozo wa Uwekaji Maelezo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kupima-ubora-wa-uwekaji-maelezo-makubaliano-ya-wawekaji-maelezo">Kupima Ubora wa Uwekaji Maelezo: Makubaliano ya Wawekaji Maelezo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kappa-ya-cohen">Kappa ya Cohen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kappa-ya-fleiss">Kappa ya Fleiss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha-ya-krippendorff">Alpha ya Krippendorff</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kushughulikia-kutokubaliana">Kushughulikia Kutokubaliana</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kura-ya-wingi">Kura ya Wingi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upigaji-kura-wa-uzito">Upigaji Kura wa Uzito</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lebo-laini">Lebo Laini</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usuluhishi">Usuluhishi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mifano-ya-takwimu">Mifano ya Takwimu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kelele-za-lebo-na-athari-zake">Kelele za Lebo na Athari Zake</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gharama-ya-uwekaji-maelezo-na-kiwango-cha-uzalishaji">Gharama ya Uwekaji Maelezo na Kiwango cha Uzalishaji</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="uwekaji-maelezo-na-ulabelishaji-wa-data">
+<h1>Uwekaji Maelezo na Ulabelishaji wa Data<a class="headerlink" href="#uwekaji-maelezo-na-ulabelishaji-wa-data" title="Permalink to this heading">#</a></h1>
+<p>Uwekaji maelezo wa data ni aina ya kawaida zaidi ya ushiriki wa binadamu katika ML. Kabla mfano haujaweza kujifunza, mtu lazima auambie majibu sahihi ni nini — na mtu huyo kawaida ni binadamu. Sura hii inashughulikia nadharia na mazoezi ya uwekaji maelezo: kinachofanya uwekaji maelezo kuwa mgumu, jinsi ya kubuni kazi za uwekaji maelezo, jinsi ya kupima ubora, na jinsi ya kushughulikia kutokubaliana.</p>
+<hr class="docutils" />
+<section id="aina-za-uwekaji-maelezo">
+<h2>Aina za Uwekaji Maelezo<a class="headerlink" href="#aina-za-uwekaji-maelezo" title="Permalink to this heading">#</a></h2>
+<p>Kazi za uwekaji maelezo zinatofautiana sana katika muundo, ugumu, na gharama. Aina kuu ni pamoja na:</p>
+<section id="uainishaji">
+<h3>Uainishaji<a class="headerlink" href="#uainishaji" title="Permalink to this heading">#</a></h3>
+<p>Mweka maelezo humweka kila kipengele katika moja ya kategoria <span class="math notranslate nohighlight">\(K\)</span> zilizofafanuliwa awali. Hii ndiyo kazi rahisi zaidi ya uwekaji maelezo kiakili, lakini kubuni mpango mzuri wa kategoria (<em>uainishaji</em>) kunaweza kuwa gumu kushangaza.</p>
+<p><strong>Uainishaji wa binary</strong> (je, picha hii ni paka?) ni kesi rahisi zaidi. <strong>Uainishaji wa darasa nyingi</strong> (ni spishi gani ya mnyama huyu?) unahitaji wawekaji maelezo kuchagua chaguo moja kutoka kwa orodha. Uwekaji maelezo wa <strong>lebo nyingi</strong> (mada zipi zinahusika katika makala hii?) huruhusu lebo nyingi kwa wakati mmoja.</p>
+</section>
+<section id="uwekaji-lebo-kwa-mfululizo">
+<h3>Uwekaji Lebo kwa Mfululizo<a class="headerlink" href="#uwekaji-lebo-kwa-mfululizo" title="Permalink to this heading">#</a></h3>
+<p>Kila tokeni katika mfululizo hupokea lebo. Utambuzi wa Maneno Maalum (NER) ni mfano wa kawaida — wawekaji maelezo huweka alama kwenye vipande vya maandishi kama MTU, SHIRIKA, MAHALI, n.k. Uwekaji maelezo kawaida hufanywa kwa kutumia mpango wa uwekaji lebo wa BIO (Mwanzo-Ndani-Nje) au BIOES:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  B-ORG    O           B-ORG    O     O      O
+</pre></div>
+</div>
+</section>
+<section id="uwekaji-maelezo-wa-vipande-na-mahusiano">
+<h3>Uwekaji Maelezo wa Vipande na Mahusiano<a class="headerlink" href="#uwekaji-maelezo-wa-vipande-na-mahusiano" title="Permalink to this heading">#</a></h3>
+<p>Zaidi ya kuweka lebo kwenye tokeni moja moja, wawekaji maelezo wanaweza kuhitajika:</p>
+<ul class="simple">
+<li><p>Kutambua vipande (maneno mengi ya pamoja) na kutoa aina</p></li>
+<li><p>Kuweka alama kwenye <em>mahusiano</em> kati ya vipande (“Apple” ILINUNUA “Shazam”)</p></li>
+<li><p>Kuweka maelezo kwenye minyororo ya rejeleo (matajio yote ya kitengo kimoja)</p></li>
+</ul>
+<p>Kazi hizi zinahitaji nguvu za kiakili na zina makubaliano ya chini ya wawekaji maelezo.</p>
+</section>
+<section id="sanduku-za-mipaka-na-ugunduzi-wa-vitu">
+<h3>Sanduku za Mipaka na Ugunduzi wa Vitu<a class="headerlink" href="#sanduku-za-mipaka-na-ugunduzi-wa-vitu" title="Permalink to this heading">#</a></h3>
+<p>Wawekaji maelezo huchora mstatili karibu na vitu katika picha na kutoa lebo ya kategoria kwa kila sanduku. Usahihi wa mahali unahusika: sanduku dogo sana linapoteza muktadha; sanduku kubwa sana linajumuisha mandhari ya nyuma. Zana za kisasa za uwekaji maelezo huhesabu makutano-juu-ya-muungano (IoU) na maelezo ya marejeleo ili kupata matatizo ya ubora.</p>
+</section>
+<section id="ugawanyiko">
+<h3>Ugawanyiko<a class="headerlink" href="#ugawanyiko" title="Permalink to this heading">#</a></h3>
+<p>Uwekaji maelezo wa kiwango cha pikseli: kila pikseli imepangwa kwenye darasa (ugawanyiko wa kisemantiki) au kwa kitengo maalum cha kitu (ugawanyiko wa kitengo). Ugawanyiko wa ubora wa juu ni kati ya aina za uwekaji maelezo zenye gharama kubwa zaidi, na gharama zinaanzia makumi hadi zaidi ya dola mia moja kwa picha kwa matukio magumu kulingana na uwanja na msaada wa zana.</p>
+</section>
+<section id="unukuzi-na-utafsiri">
+<h3>Unukuzi na Utafsiri<a class="headerlink" href="#unukuzi-na-utafsiri" title="Permalink to this heading">#</a></h3>
+<p>Sauti → maandishi (data ya mafunzo ya ASR), maandishi ya mkono → maandishi (data ya OCR), au lugha chanzo → lugha lengwa (data ya MT). Kazi hizi zinahitaji utaalamu wa lugha na haziwezi kufanywa kwa uaminifu na wawekaji maelezo wasio na mafunzo.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mwongozo-wa-uwekaji-maelezo">
+<h2>Mwongozo wa Uwekaji Maelezo<a class="headerlink" href="#mwongozo-wa-uwekaji-maelezo" title="Permalink to this heading">#</a></h2>
+<p>Kipengele kimoja muhimu zaidi kinachoweza kuamua ubora wa uwekaji maelezo ni ubora wa <strong>mwongozo wa uwekaji maelezo</strong>: maelekezo yaliyoandikwa ambayo wawekaji maelezo wanafuata.</p>
+<p>Mwongozo mzuri:</p>
+<ul class="simple">
+<li><p>Unaeleza lengo la kazi na kueleza <em>kwa nini</em> lebo ina umuhimu</p></li>
+<li><p>Unatoa ufafanuzi wazi kwa kila kategoria na mifano chanya na hasi</p></li>
+<li><p>Unashughulikia waziwazi hali za mipaka za kawaida na ngumu</p></li>
+<li><p>Unabainisha kufanya nini wakati wa wasiwasi (k.m., weka alama “ruka” dhidi ya chaguo la kulazimishwa)</p></li>
+<li><p>Unajumuisha mifano iliyofanyiwa kazi ya uwekaji maelezo kamili</p></li>
+</ul>
+<p>Mwongozo mbaya unategemea wawekaji maelezo “kutumia akili ya kawaida” kwa hali za mipaka — ambayo husababisha maamuzi yasiyo ya uthabiti yanayopunguza ubora wa mfano na kuongeza kutokubaliana kwa wawekaji maelezo.</p>
+<div class="note admonition">
+<p class="admonition-title">Maendeleo ya mwongozo ni ya mzunguko</p>
+<p>Usitarajie kuandika mwongozo kamili tangu mwanzo. Fanya raundi ndogo ya majaribio ya uwekaji maelezo, changanua kutokubaliana, na sasisha mwongozo. Rudia. Mwongozo ulioendelezwa vizuri kawaida hupitia mzunguko wa marekebisho 3–5 kabla ya kutulia.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="kupima-ubora-wa-uwekaji-maelezo-makubaliano-ya-wawekaji-maelezo">
+<h2>Kupima Ubora wa Uwekaji Maelezo: Makubaliano ya Wawekaji Maelezo<a class="headerlink" href="#kupima-ubora-wa-uwekaji-maelezo-makubaliano-ya-wawekaji-maelezo" title="Permalink to this heading">#</a></h2>
+<p>Wawekaji maelezo wengi wanapoweka lebo kwa data sawa, makubaliano yao yanaweza kupimwa. Makubaliano ya juu yanaonyesha kazi imefafanuliwa vizuri na wawekaji maelezo waliielewa. Makubaliano ya chini yanaonyesha utata katika kazi, mwongozo, au data yenyewe.</p>
+<section id="kappa-ya-cohen">
+<h3>Kappa ya Cohen<a class="headerlink" href="#kappa-ya-cohen" title="Permalink to this heading">#</a></h3>
+<p>Kwa wawekaji maelezo wawili wanaoweka lebo kwa data katika kategoria <span class="math notranslate nohighlight">\(K\)</span>, <strong>kappa ya Cohen</strong> <a href="#id1"><span class="problematic" id="id2">cohen1960coefficient</span></a> inarekebisha makubaliano yanayoonekana kwa nafasi:</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa = \frac{P_o - P_e}{1 - P_e}
+\]</div>
+<p>ambapo <span class="math notranslate nohighlight">\(P_o\)</span> ni makubaliano ya sehemu yanayoonekana na <span class="math notranslate nohighlight">\(P_e\)</span> ni uwezekano wa makubaliano kwa nafasi (imehesabiwa kutoka kwa usambazaji wa lebo za pembeni).</p>
+<p><span class="math notranslate nohighlight">\(\kappa = 1\)</span> inamaanisha makubaliano kamili; <span class="math notranslate nohighlight">\(\kappa = 0\)</span> inamaanisha makubaliano si bora kuliko nafasi; <span class="math notranslate nohighlight">\(\kappa &lt; 0\)</span> inamaanisha kutokubaliana kwa kimfumo.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Upeo wa <span class="math notranslate nohighlight">\(\kappa\)</span></p></th>
+<th class="head"><p>Tafsiri</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(&lt; 0\)</span></p></td>
+<td><p>Chini ya nafasi</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0.0 - 0.20\)</span></p></td>
+<td><p>Ndogo</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0.21 - 0.40\)</span></p></td>
+<td><p>Ya wastani</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0.41 - 0.60\)</span></p></td>
+<td><p>Ya kati</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0.61 - 0.80\)</span></p></td>
+<td><p>Kubwa</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0.81 - 1.00\)</span></p></td>
+<td><p>Karibu kamili</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="kappa-ya-fleiss">
+<h3>Kappa ya Fleiss<a class="headerlink" href="#kappa-ya-fleiss" title="Permalink to this heading">#</a></h3>
+<p>Inapanua kappa ya Cohen kwa <span class="math notranslate nohighlight">\(M &gt; 2\)</span> wawekaji maelezo. Kila mweka maelezo huweka lebo kwa kila kipengele kwa kujitegemea; formula inajumuisha kati ya wawekaji maelezo:</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_F = \frac{\bar{P} - \bar{P}_e}{1 - \bar{P}_e}
+\]</div>
+<p>ambapo <span class="math notranslate nohighlight">\(\bar{P}\)</span> ni wastani wa makubaliano ya jozi kati ya jozi zote za wawekaji maelezo, na <span class="math notranslate nohighlight">\(\bar{P}_e\)</span> ni makubaliano yanayotarajiwa chini ya mgawanyiko wa nasibu.</p>
+</section>
+<section id="alpha-ya-krippendorff">
+<h3>Alpha ya Krippendorff<a class="headerlink" href="#alpha-ya-krippendorff" title="Permalink to this heading">#</a></h3>
+<p>Kipimo cha jumla zaidi, kinachosaidia idadi yoyote ya wawekaji maelezo, aina yoyote ya kipimo (nomino, mpangilio, nafasi, uwiano), na data inayokosekana <a href="#id3"><span class="problematic" id="id4">krippendorff2011computing</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha = 1 - \frac{D_o}{D_e}
+\]</div>
+<p>ambapo <span class="math notranslate nohighlight">\(D_o\)</span> ni kutokubaliana kunakoonekana na <span class="math notranslate nohighlight">\(D_e\)</span> ni kutokubaliana kunakotarajiwa. Alpha ya Krippendorff kwa ujumla inapendelewa katika kazi za kitaaluma kwa sababu ya unyumbufu wake.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">cohen_kappa_score</span>
+
+<span class="c1"># Simulate two annotators labeling 200 items into 3 categories</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">true_labels</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># Annotator 1: mostly agrees with ground truth</span>
+<span class="n">ann1</span> <span class="o">=</span> <span class="n">true_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">flip_mask</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.15</span>
+<span class="n">ann1</span><span class="p">[</span><span class="n">flip_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flip_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># Annotator 2: less consistent</span>
+<span class="n">ann2</span> <span class="o">=</span> <span class="n">true_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">flip_mask2</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.30</span>
+<span class="n">ann2</span><span class="p">[</span><span class="n">flip_mask2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flip_mask2</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="n">kappa_12</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann1</span><span class="p">,</span> <span class="n">ann2</span><span class="p">)</span>
+<span class="n">kappa_1true</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann1</span><span class="p">,</span> <span class="n">true_labels</span><span class="p">)</span>
+<span class="n">kappa_2true</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann2</span><span class="p">,</span> <span class="n">true_labels</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann1 vs ann2):   </span><span class="si">{</span><span class="n">kappa_12</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann1 vs truth):  </span><span class="si">{</span><span class="n">kappa_1true</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann2 vs truth):  </span><span class="si">{</span><span class="n">kappa_2true</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kushughulikia-kutokubaliana">
+<h2>Kushughulikia Kutokubaliana<a class="headerlink" href="#kushughulikia-kutokubaliana" title="Permalink to this heading">#</a></h2>
+<p>Wawekaji maelezo wanapokosoa, kuna mikakati kadhaa:</p>
+<section id="kura-ya-wingi">
+<h3>Kura ya Wingi<a class="headerlink" href="#kura-ya-wingi" title="Permalink to this heading">#</a></h3>
+<p>Lebo ya kawaida zaidi inachukuliwa kama kiwango cha dhahabu. Rahisi na imara wakati idadi ya wawekaji maelezo kwa kipengele ni ya ajabu. Inashindwa wakati kikundi kidogo cha wawekaji maelezo ni sahihi zaidi kwa kimfumo.</p>
+</section>
+<section id="upigaji-kura-wa-uzito">
+<h3>Upigaji Kura wa Uzito<a class="headerlink" href="#upigaji-kura-wa-uzito" title="Permalink to this heading">#</a></h3>
+<p>Wawekaji maelezo wanapewa uzito kulingana na usahihi wao uliokadirika (unaotokana na makubaliano na kiwango cha dhahabu au wawekaji maelezo wengine). Wawekaji maelezo sahihi zaidi wana ushawishi zaidi.</p>
+</section>
+<section id="lebo-laini">
+<h3>Lebo Laini<a class="headerlink" href="#lebo-laini" title="Permalink to this heading">#</a></h3>
+<p>Badala ya kupiga chini maelezo hadi lebo moja, hifadhi usambazaji. Kama 3 kati ya wawekaji maelezo 5 walisema “chanya” na 2 walisema “wastani,” iwakilishe kama <span class="math notranslate nohighlight">\((p_\text{chanya}, p_\text{wastani}, p_\text{hasi}) = (0.6, 0.4, 0.0)\)</span>. Mafunzo kwenye lebo laini yanaboresha urekebishaji.</p>
+</section>
+<section id="usuluhishi">
+<h3>Usuluhishi<a class="headerlink" href="#usuluhishi" title="Permalink to this heading">#</a></h3>
+<p>Mweka maelezo mwandamizi au mtaalamu wa uwanja anasuluhisha kutokubaliana. Kiwango cha dhahabu lakini ghali; kawaida huhifadhiwa kwa maeneo yenye hatari kubwa.</p>
+</section>
+<section id="mifano-ya-takwimu">
+<h3>Mifano ya Takwimu<a class="headerlink" href="#mifano-ya-takwimu" title="Permalink to this heading">#</a></h3>
+<p>Mbinu za kisasa zaidi zinaiga uwezo wa wawekaji maelezo kwa uwezekano. Mfano wa <strong>Dawid-Skene</strong> <a href="#id5"><span class="problematic" id="id6">dawid1979maximum</span></a> unakadiri wakati mmoja matrices za mkanganyiko za wawekaji maelezo na lebo za kweli za kipengele kupitia EM. Angalia Sura ya 13 kwa maelezo zaidi.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kelele-za-lebo-na-athari-zake">
+<h2>Kelele za Lebo na Athari Zake<a class="headerlink" href="#kelele-za-lebo-na-athari-zake" title="Permalink to this heading">#</a></h2>
+<p>Uwekaji maelezo wa kweli una kelele. Athari za kelele za lebo kwenye mafunzo ya mfano zinategemea aina ya kelele:</p>
+<ul class="simple">
+<li><p><strong>Kelele za nasibu</strong> (lebo zinazogeuzwa bila mpangilio) zinapunguza utendaji lakini mifano ina ustahimilivu wa kushangaza kwa viwango vya wastani (hadi ~20% kwa kazi nyingi).</p></li>
+<li><p><strong>Kelele za kimfumo/za adui</strong> (lebo zisizo sahihi kwa njia maalum) ni za kudhuru zaidi na ngumu kugundua.</p></li>
+<li><p><strong>Kelele za masharti ya darasa</strong> (makosa yanayowezekana zaidi kwa madarasa fulani) yanabagua mpaka wa uamuzi wa mfano.</p></li>
+</ul>
+<p>Kanuni ya vitendo ya kawaida: na mifano <span class="math notranslate nohighlight">\(n\)</span> ya mafunzo na sehemu <span class="math notranslate nohighlight">\(\epsilon\)</span> ya lebo zilizoharibiwa, utendaji wa mfano unapungua takriban kama vile una mifano <span class="math notranslate nohighlight">\((1 - 2\epsilon)^2 n\)</span> safi <a href="#id7"><span class="problematic" id="id8">natarajan2013learning</span></a>. Kwa <span class="math notranslate nohighlight">\(\epsilon = 0.2\)</span>, hii inafanana na kupoteza 36% ya data yako.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">noise_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">mean_accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">noise_levels</span><span class="p">:</span>
+    <span class="n">y_noisy</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">flip</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">eps</span>
+    <span class="n">y_noisy</span><span class="p">[</span><span class="n">flip</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">y_noisy</span><span class="p">[</span><span class="n">flip</span><span class="p">]</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y_noisy</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">mean_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noise_levels</span><span class="p">,</span> <span class="n">mean_accs</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Label noise rate (ε)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cross-validated accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Effect of Label Noise on Model Performance&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;20% noise&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;label_noise_effect.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Accuracy at 0% noise:  </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy at 20% noise: </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0.45</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">14</span><span class="p">)]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy at 40% noise: </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="gharama-ya-uwekaji-maelezo-na-kiwango-cha-uzalishaji">
+<h2>Gharama ya Uwekaji Maelezo na Kiwango cha Uzalishaji<a class="headerlink" href="#gharama-ya-uwekaji-maelezo-na-kiwango-cha-uzalishaji" title="Permalink to this heading">#</a></h2>
+<p>Kuelewa uchumi wa uwekaji maelezo ni muhimu kwa mipango ya mradi.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aina ya kazi</p></th>
+<th class="head"><p>Kiwango cha kawaida cha uzalishaji</p></th>
+<th class="head"><p>Gharama kwa kipengele (mtaalamu)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Uainishaji wa binary wa picha</p></td>
+<td><p>200–500/saa</p></td>
+<td><p>$0.02–0.10</p></td>
+</tr>
+<tr class="row-odd"><td><p>NER (maandishi mafupi)</p></td>
+<td><p>Vipengele 50–150/saa</p></td>
+<td><p>$0.10–0.50</p></td>
+</tr>
+<tr class="row-even"><td><p>Uchimbaji wa mahusiano</p></td>
+<td><p>Vipengele 20–60/saa</p></td>
+<td><p>$0.30–1.50</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ugawanyiko wa picha ya kimatibabu</p></td>
+<td><p>Vipengele 5–30/saa</p></td>
+<td><p>$10–100</p></td>
+</tr>
+<tr class="row-even"><td><p>Uwekaji maelezo wa video</p></td>
+<td><p>Dakika 5–20 za video/saa</p></td>
+<td><p>$20–200</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Takwimu hizi ni makadirio ya takriban ya mpangilio wa ukubwa na zinatofautiana sana kulingana na utaalamu wa uwanja unaohitajika, ubora wa zana ya uwekaji maelezo, uwazi wa mwongozo, na uzoefu wa mweka maelezo. Zinapaswa kuchukuliwa kama za mwanga, si kama za amri.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Chaguo za zana za uwekaji maelezo zimeshughulikiwa katika Sura ya 12. Mifano ya takwimu kwa uwekaji maelezo wa ushirikiano wa umma (Dawid-Skene, MACE) imeshughulikiwa katika Sura ya 13.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/sw/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aina-za-uwekaji-maelezo">Aina za Uwekaji Maelezo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uainishaji">Uainishaji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-lebo-kwa-mfululizo">Uwekaji Lebo kwa Mfululizo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uwekaji-maelezo-wa-vipande-na-mahusiano">Uwekaji Maelezo wa Vipande na Mahusiano</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sanduku-za-mipaka-na-ugunduzi-wa-vitu">Sanduku za Mipaka na Ugunduzi wa Vitu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ugawanyiko">Ugawanyiko</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unukuzi-na-utafsiri">Unukuzi na Utafsiri</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mwongozo-wa-uwekaji-maelezo">Mwongozo wa Uwekaji Maelezo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kupima-ubora-wa-uwekaji-maelezo-makubaliano-ya-wawekaji-maelezo">Kupima Ubora wa Uwekaji Maelezo: Makubaliano ya Wawekaji Maelezo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kappa-ya-cohen">Kappa ya Cohen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kappa-ya-fleiss">Kappa ya Fleiss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha-ya-krippendorff">Alpha ya Krippendorff</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kushughulikia-kutokubaliana">Kushughulikia Kutokubaliana</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kura-ya-wingi">Kura ya Wingi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upigaji-kura-wa-uzito">Upigaji Kura wa Uzito</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lebo-laini">Lebo Laini</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usuluhishi">Usuluhishi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mifano-ya-takwimu">Mifano ya Takwimu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kelele-za-lebo-na-athari-zake">Kelele za Lebo na Athari Zake</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gharama-ya-uwekaji-maelezo-na-kiwango-cha-uzalishaji">Gharama ya Uwekaji Maelezo na Kiwango cha Uzalishaji</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

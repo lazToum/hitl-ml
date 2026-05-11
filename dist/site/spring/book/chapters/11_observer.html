@@ -1,0 +1,671 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Watching in Real Time &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/11_observer';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="QR, NFC, and Physical Anchors" href="12_physical.html" />
+    <link rel="prev" title="The Player’s Perspective" href="10_player.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/11_observer.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Watching in Real Time</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observer-role">The observer role</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-websocket-architecture">The WebSocket architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observer-endpoint">The observer endpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-list-rest">Session list (REST)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#events-and-the-nudge">Events and the nudge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#event-types">Event types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-buffer-and-filter">Pause, buffer, and filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-session-analysis-modal">AI session analysis modal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stat-pills">Stat pills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observer-as-hitl-actor">The observer as HITL actor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="watching-in-real-time">
+<h1>Watching in Real Time<a class="headerlink" href="#watching-in-real-time" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>A system you cannot observe is a system you cannot improve. A system you can observe but cannot act on is just surveillance.</p>
+<p class="attribution">—Chapter 11</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> You are an observer watching a live hunt. You can see that six players are stuck on clue 3 simultaneously. You cannot intervene. What does it feel like? What should the system let you do?</p>
+<p><strong>2.</strong> Real-time monitoring creates the temptation to intervene in every problem. But intervening has costs: it removes challenge, it breaks immersion, it creates unequal experiences. When should an observer act, and when should they watch?</p>
+<p><strong>3.</strong> A WebSocket connection holds server resources for as long as it is open. An observer who leaves their browser tab open for 8 hours ties up a connection. How do you design for this?</p>
+<p><strong>4.</strong> Pausing the live feed does not pause the underlying events — it just stops the UI from rendering them. When the observer resumes, buffered events flood in all at once. Is this the right model? What are the alternatives, and what does each one hide?</p>
+<p><strong>5.</strong> The AI session analysis modal summarises a completed player session. The observer sees an AI interpretation of data the player generated. The player never sees this summary. Is this ethically different from a teacher reading a student’s exam paper? Why or why not?</p>
+</section>
+<hr class="docutils" />
+<section id="the-observer-role">
+<h2>The observer role<a class="headerlink" href="#the-observer-role" title="Permalink to this heading">#</a></h2>
+<p>The observer is the third human in the loop. They watch live sessions without participating. Possible observers include:</p>
+<ul class="simple">
+<li><p>The creator, monitoring their own hunt during a live run</p></li>
+<li><p>A teacher, watching students complete a classroom exercise</p></li>
+<li><p>A researcher, studying group behavior in real time</p></li>
+<li><p>A game master, able to send nudge messages to struggling players</p></li>
+</ul>
+<p>The observer dashboard is a React page that subscribes to a WebSocket stream of events for a given hunt. Its sidebar shows the current session snapshot: player, current clue, total clues, elapsed time, and completion state. Attempts and hints are visible through event payloads in the live feed rather than as columns in the session cards.</p>
+</section>
+<hr class="docutils" />
+<section id="the-websocket-architecture">
+<h2>The WebSocket architecture<a class="headerlink" href="#the-websocket-architecture" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">WsBroadcaster</span></code> (<code class="docutils literal notranslate"><span class="pre">services/ws_broadcaster.rs</span></code>) is the pub/sub mechanism:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">WsBroadcaster</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">channels</span><span class="p">:</span><span class="w"> </span><span class="nc">Mutex</span><span class="o">&lt;</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Uuid</span><span class="p">,</span><span class="w"> </span><span class="n">broadcast</span><span class="p">::</span><span class="n">Sender</span><span class="o">&lt;</span><span class="n">WsEvent</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>One broadcast channel per hunt. The channel is created lazily on first subscription. When an event occurs — an answer submission, a hint request, a session start — the event logger publishes to the channel. Every observer subscribed to that hunt receives the event.</p>
+<p>The channel capacity is 128 events. If a subscriber falls behind (slow network, browser tab backgrounded), it will miss events beyond the buffer. The <code class="docutils literal notranslate"><span class="pre">tokio::broadcast</span></code> channel drops lagged receivers silently. Observers see a live stream, not a guaranteed delivery queue.</p>
+</section>
+<hr class="docutils" />
+<section id="the-observer-endpoint">
+<h2>The observer endpoint<a class="headerlink" href="#the-observer-endpoint" title="Permalink to this heading">#</a></h2>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// routes/observer.rs</span>
+
+<span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">observe</span><span class="p">(</span>
+<span class="w">    </span><span class="n">auth</span><span class="p">:</span><span class="w"> </span><span class="nc">AuthUser</span><span class="p">,</span>
+<span class="w">    </span><span class="n">State</span><span class="p">(</span><span class="n">state</span><span class="p">):</span><span class="w"> </span><span class="nc">State</span><span class="o">&lt;</span><span class="n">AppState</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Path</span><span class="p">(</span><span class="n">hunt_id</span><span class="p">):</span><span class="w"> </span><span class="nc">Path</span><span class="o">&lt;</span><span class="n">Uuid</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="nc">WebSocketUpgrade</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">impl</span><span class="w"> </span><span class="n">IntoResponse</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="n">is_staff</span><span class="p">(</span><span class="o">&amp;</span><span class="n">auth</span><span class="p">.</span><span class="n">role</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">StatusCode</span><span class="p">::</span><span class="n">FORBIDDEN</span><span class="p">.</span><span class="n">into_response</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">can_access_hunt</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">auth</span><span class="p">,</span><span class="w"> </span><span class="n">hunt_id</span><span class="p">).</span><span class="k">await</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">StatusCode</span><span class="p">::</span><span class="n">FORBIDDEN</span><span class="p">.</span><span class="n">into_response</span><span class="p">(),</span>
+<span class="w">        </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">into_response</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">ws</span><span class="p">.</span><span class="n">on_upgrade</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="n">socket</span><span class="o">|</span><span class="w"> </span><span class="n">handle_ws</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">hunt_id</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="n">into_response</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The endpoint checks that the caller is staff, checks hunt access, upgrades the HTTP connection to WebSocket, subscribes to the hunt’s broadcast channel, and forwards events as they arrive. The broadcaster uses <code class="docutils literal notranslate"><span class="pre">tokio::broadcast</span></code>, so if an observer falls behind they can miss events beyond the channel buffer. The observer might see incomplete data without knowing it.</p>
+</section>
+<hr class="docutils" />
+<section id="session-list-rest">
+<h2>Session list (REST)<a class="headerlink" href="#session-list-rest" title="Permalink to this heading">#</a></h2>
+<p>In addition to the live stream, observers can fetch the current snapshot of all sessions for a hunt:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">list_sessions</span><span class="p">(</span>
+<span class="w">    </span><span class="n">auth</span><span class="p">:</span><span class="w"> </span><span class="nc">AuthUser</span><span class="p">,</span>
+<span class="w">    </span><span class="n">State</span><span class="p">(</span><span class="n">state</span><span class="p">):</span><span class="w"> </span><span class="nc">State</span><span class="o">&lt;</span><span class="n">AppState</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Path</span><span class="p">(</span><span class="n">hunt_id</span><span class="p">):</span><span class="w"> </span><span class="nc">Path</span><span class="o">&lt;</span><span class="n">Uuid</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Json</span><span class="o">&lt;</span><span class="n">serde_json</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// role check</span>
+<span class="w">    </span><span class="c1">// fetch player, current clue sequence, total clues, start and completion timestamps</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is used on dashboard load (before the WebSocket connects) and as a fallback if the WebSocket drops. The observer dashboard combines both: initial state from REST, live updates from WebSocket.</p>
+</section>
+<hr class="docutils" />
+<section id="events-and-the-nudge">
+<h2>Events and the nudge<a class="headerlink" href="#events-and-the-nudge" title="Permalink to this heading">#</a></h2>
+<p>The most interactive observer feature is the nudge: an observer can send a short message attached to a specific player session. In the current implementation, that message is logged as an <code class="docutils literal notranslate"><span class="pre">observer_nudge</span></code> event and broadcast to observer dashboards. There is not yet a player-side subscription that displays it as a banner in the mobile app.</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">nudge</span><span class="p">(</span>
+<span class="w">    </span><span class="n">auth</span><span class="p">:</span><span class="w"> </span><span class="nc">AuthUser</span><span class="p">,</span>
+<span class="w">    </span><span class="n">State</span><span class="p">(</span><span class="n">state</span><span class="p">):</span><span class="w"> </span><span class="nc">State</span><span class="o">&lt;</span><span class="n">AppState</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Path</span><span class="p">(</span><span class="n">session_id</span><span class="p">):</span><span class="w"> </span><span class="nc">Path</span><span class="o">&lt;</span><span class="n">Uuid</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Json</span><span class="p">(</span><span class="n">body</span><span class="p">):</span><span class="w"> </span><span class="nc">Json</span><span class="o">&lt;</span><span class="n">serde_json</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Json</span><span class="o">&lt;</span><span class="n">serde_json</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="n">is_staff</span><span class="p">(</span><span class="o">&amp;</span><span class="n">auth</span><span class="p">.</span><span class="n">role</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">AppError</span><span class="p">::</span><span class="n">Forbidden</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">hunt_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hunt_for_session</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">).</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="n">can_access_hunt</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">auth</span><span class="p">,</span><span class="w"> </span><span class="n">hunt_id</span><span class="p">).</span><span class="k">await</span><span class="o">?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">AppError</span><span class="p">::</span><span class="n">Forbidden</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">body</span><span class="p">[</span><span class="s">&quot;message&quot;</span><span class="p">].</span><span class="n">as_str</span><span class="p">().</span><span class="n">unwrap_or</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">to_owned</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">AppError</span><span class="p">::</span><span class="n">BadRequest</span><span class="p">(</span><span class="s">&quot;message is required&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EventLogger</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">.</span><span class="n">db</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">state</span><span class="p">.</span><span class="n">broadcaster</span><span class="p">);</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+<span class="w">        </span><span class="n">session_id</span><span class="p">,</span>
+<span class="w">        </span><span class="n">hunt_id</span><span class="p">,</span>
+<span class="w">        </span><span class="nb">None</span><span class="p">,</span>
+<span class="w">        </span><span class="n">types</span><span class="p">::</span><span class="n">OBSERVER_NUDGE</span><span class="p">,</span>
+<span class="w">        </span><span class="n">json</span><span class="o">!</span><span class="p">({</span><span class="w"> </span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="nc">message</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sent_by&quot;</span><span class="p">:</span><span class="w"> </span><span class="nc">auth</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">    </span><span class="p">).</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Json</span><span class="p">(</span><span class="n">json</span><span class="o">!</span><span class="p">({</span><span class="w"> </span><span class="s">&quot;sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="nc">true</span><span class="w"> </span><span class="p">})))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The nudge is stored in the event log and broadcast to the hunt channel for observers. It does not change session state, does not count as a hint, and does not currently reach the player’s phone. That makes it useful as a monitoring annotation today and a human-to-human intervention only after a player event channel is added.</p>
+<p>That distinction matters. A UI button labeled “Send nudge” suggests communication; the code currently implements durable observer-side signal.</p>
+</section>
+<hr class="docutils" />
+<section id="event-types">
+<h2>Event types<a class="headerlink" href="#event-types" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">models/event.rs</span></code> defines the event taxonomy:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CLUE_VIEWED</span><span class="p">:</span><span class="w">       </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clue_viewed&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">SESSION_STARTED</span><span class="p">:</span><span class="w">    </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;session_started&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ANSWER_ATTEMPTED</span><span class="p">:</span><span class="w">   </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;answer_attempted&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ANSWER_CORRECT</span><span class="p">:</span><span class="w">     </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;answer_correct&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">HINT_REQUESTED</span><span class="p">:</span><span class="w">     </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hint_requested&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">HINT_VIEWED</span><span class="p">:</span><span class="w">        </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hint_viewed&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">OBSERVER_NUDGE</span><span class="p">:</span><span class="w">     </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;observer_nudge&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QR_SCANNED</span><span class="p">:</span><span class="w">         </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;qr_scanned&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">NFC_TAPPED</span><span class="p">:</span><span class="w">         </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nfc_tapped&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">LOCATION_CHECKED</span><span class="p">:</span><span class="w">   </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;location_checked&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">SESSION_COMPLETED</span><span class="p">:</span><span class="w">  </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;session_completed&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Not all event types are currently logged. <code class="docutils literal notranslate"><span class="pre">HINT_VIEWED</span></code> and <code class="docutils literal notranslate"><span class="pre">LOCATION_CHECKED</span></code> are defined but unused — they mark the intended scope of the event log, not its current state. There is no separate <code class="docutils literal notranslate"><span class="pre">answer_wrong</span></code> event; wrong answers are represented as <code class="docutils literal notranslate"><span class="pre">answer_attempted</span></code> with a payload containing <code class="docutils literal notranslate"><span class="pre">passed:</span> <span class="pre">false</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="pause-buffer-and-filter">
+<h2>Pause, buffer, and filter<a class="headerlink" href="#pause-buffer-and-filter" title="Permalink to this heading">#</a></h2>
+<p>The live event feed has two controls that change the observer’s relationship to the real-time stream: a pause button and a filter bar.</p>
+<p>When the observer clicks <strong>Pause</strong>, incoming WebSocket events are diverted into a buffer rather than rendered immediately. A yellow badge shows the buffer depth — how many events are waiting. This is useful when the observer is mid-analysis and does not want the feed scrolling away from the event they are examining. When they resume, the buffer flushes into the feed in one operation.</p>
+<p>The <strong>filter bar</strong> restricts the rendered feed to a single event type: correct answers, answer attempts, hint requests, session starts, or all events. The filter operates on the in-memory event array, not on the WebSocket subscription — every event type continues to arrive; the filter only affects what is displayed. This means switching filters does not require any server round-trip, but it also means the observer cannot reduce server-side load by filtering.</p>
+<p>These two controls interact in a non-obvious way. If the observer pauses with filter set to “Hints,” the buffer accumulates all event types. When they resume and switch to “All events,” they will see the backlog of hints mixed with all other buffered events. The buffer does not respect the filter that was active when the pause began.</p>
+</section>
+<hr class="docutils" />
+<section id="ai-session-analysis-modal">
+<h2>AI session analysis modal<a class="headerlink" href="#ai-session-analysis-modal" title="Permalink to this heading">#</a></h2>
+<p>When a player completes a session, their row in the sidebar gains an “Analysis” button. Clicking it opens a modal that calls the Rust API (<code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/sessions/:id/analysis</span></code>). The Rust handler checks staff access, gathers the session events, then calls the Python AI sidecar’s <code class="docutils literal notranslate"><span class="pre">/analyze-session</span></code> endpoint. The result is a narrative summary of the session: how long each clue took, where the player struggled, which hints were most frequently needed, and an overall difficulty assessment.</p>
+<p>The modal is implemented as <code class="docutils literal notranslate"><span class="pre">AnalysisModal.tsx</span></code>. It fetches the analysis on open and renders the returned report line by line with lightweight formatting. It does not stream tokens and does not use a markdown renderer. The analysis is generated fresh each time — it is not cached, which means two observers opening the same session analysis will each trigger a separate AI call.</p>
+<p>This is the observer’s most powerful tool, and the one with the greatest interpretive risk. The AI summary is a compression of the event log into natural language. It will sound authoritative. It may be wrong. An observer who reads “the player found clue 4 straightforward” is reading a model’s inference from timing and attempt data, not a statement the player ever made. The system does not flag this distinction to the observer.</p>
+</section>
+<hr class="docutils" />
+<section id="stat-pills">
+<h2>Stat pills<a class="headerlink" href="#stat-pills" title="Permalink to this heading">#</a></h2>
+<p>The sidebar header shows three aggregate statistics at all times: <strong>Total</strong> (all sessions for this hunt), <strong>Active</strong> (sessions not yet completed), and <strong>Done %</strong> (completion rate). These are computed client-side from the REST snapshot that refreshes every 10 seconds — they are not derived from the WebSocket stream.</p>
+<p>The stat pills are small, but they encode a particular theory of what an observer cares about: throughput, active load, and completion rate. An observer who cares about stuck players, average time per clue, or hint usage rate has no equivalent summary — they must infer it from the event feed.</p>
+</section>
+<hr class="docutils" />
+<section id="the-observer-as-hitl-actor">
+<h2>The observer as HITL actor<a class="headerlink" href="#the-observer-as-hitl-actor" title="Permalink to this heading">#</a></h2>
+<p>The observer occupies an unusual position in the HITL framework. They are not training the model. They are not labeling data. They are watching, and occasionally intervening.</p>
+<p>In human factors terms, the observer is performing <strong>supervisory control</strong>: monitoring an automated system and taking manual action only when needed. This is cognitively demanding. Studies of air traffic controllers, nuclear plant operators, and ICU nurses all show that supervisory controllers tend to under-intervene (miss problems) or over-intervene (disrupt functioning systems) because the rhythm of normal operation is hard to distinguish from early-stage problems.</p>
+<p>The observer dashboard shows who is where, who has finished, and the live event stream of attempts, hints, starts, completions, and nudges. It does not show whether a player is frustrated or just thinking. It does not show whether they are stuck on the answer or stuck finding the location. The observer makes inferences from incomplete data and decides whether to nudge.</p>
+<p>This is a faithful representation of most real monitoring tasks.</p>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<p>The observer can see everything. The player can see nothing about the observer. The creator sets the rules. The AI generates suggestions.</p>
+<p>Draw the information flows in this system as a directed graph. Who sends information to whom? Where are the feedback loops? Where is information collected but never returned to the person who generated it?</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="10_player.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Player’s Perspective</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="12_physical.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">QR, NFC, and Physical Anchors</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observer-role">The observer role</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-websocket-architecture">The WebSocket architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observer-endpoint">The observer endpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-list-rest">Session list (REST)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#events-and-the-nudge">Events and the nudge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#event-types">Event types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-buffer-and-filter">Pause, buffer, and filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-session-analysis-modal">AI session analysis modal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stat-pills">Stat pills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-observer-as-hitl-actor">The observer as HITL actor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

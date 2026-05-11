@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Creator’s Perspective &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/09_creator';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Player’s Perspective" href="10_player.html" />
+    <link rel="prev" title="AI in the Loop: The Python Sidecar" href="08_ai.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/09_creator.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Creator’s Perspective</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-creator-dashboard">The creator dashboard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hunt-creation-flow">Hunt creation flow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-clue-editor">The clue editor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reactflow-clue-editor">ReactFlow clue editor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gps-map-picker">GPS map picker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-qr-sheet">The QR sheet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-and-discovery">Sharing and discovery</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creator-as-annotator">Creator as annotator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-creator-s-perspective">
+<h1>The Creator’s Perspective<a class="headerlink" href="#the-creator-s-perspective" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>The annotator sees the world through the categories you gave them. Design the categories carefully.</p>
+<p class="attribution">—Chapter 9</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> You are designing a form for creating clues. What fields do you show by default, and what do you hide behind “Advanced”? What does that choice reveal about your assumptions about creators?</p>
+<p><strong>2.</strong> A creator who uses the AI generator for every clue is different from a creator who writes every clue by hand. Should the system track this? Should it be disclosed to players?</p>
+<p><strong>3.</strong> A live hunt with 50 active sessions. The creator notices clue 4 is causing widespread confusion and wants to fix the wording. Should the system allow edits to live clues? If yes, what happens to the 20 players currently on clue 4?</p>
+<p><strong>4.</strong> The clue editor now shows clues as a visual flow graph. How does the visual metaphor change how creators think about hunt design? Does seeing the sequence as a connected graph reveal structural properties — dead ends, bottlenecks — that a list view would hide?</p>
+<p><strong>5.</strong> When a creator picks GPS coordinates by clicking a map rather than typing lat/lon, what cognitive load have you reduced? What might you have hidden? Could the precision of the click introduce systematic error that typed coordinates would not?</p>
+</section>
+<hr class="docutils" />
+<section id="the-creator-dashboard">
+<h2>The creator dashboard<a class="headerlink" href="#the-creator-dashboard" title="Permalink to this heading">#</a></h2>
+<p>The web dashboard (<code class="docutils literal notranslate"><span class="pre">web/src/pages/CreatorDashboard/</span></code>) serves creators. It is a React application that provides:</p>
+<ul class="simple">
+<li><p>Hunt management: create, edit, activate, archive</p></li>
+<li><p>Clue editor: write clues, set answer types and tolerances, manage hints</p></li>
+<li><p>AI assistance: generate clue drafts, estimate difficulty</p></li>
+<li><p>QR sheet: generate and print QR codes for all clues in a hunt</p></li>
+</ul>
+<p>The dashboard communicates with the Rust API through <code class="docutils literal notranslate"><span class="pre">web/src/services/api.ts</span></code>. Authentication uses <code class="docutils literal notranslate"><span class="pre">oidc-client-ts</span></code> — the creator logs in via Zitadel and the browser stores the token.</p>
+</section>
+<hr class="docutils" />
+<section id="hunt-creation-flow">
+<h2>Hunt creation flow<a class="headerlink" href="#hunt-creation-flow" title="Permalink to this heading">#</a></h2>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// web/src/pages/CreatorDashboard/index.tsx</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">CreatorDashboard</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">hunts</span><span class="p">,</span><span class="w"> </span><span class="nx">refetch</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useQuery</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">queryKey</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;hunts&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">queryFn</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">api</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/hunts&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">data</span><span class="p">),</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">createHunt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useMutation</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">mutationFn</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">CreateHuntRequest</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span>
+<span class="w">            </span><span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/hunts&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">data</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">onSuccess</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">refetch</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>React Query manages server state — fetching, caching, and invalidating hunt lists. When a new hunt is created, the list automatically refreshes.</p>
+<p>The Rust <code class="docutils literal notranslate"><span class="pre">CreateHunt</span></code> model accepts title, description, and optional start/end times. The current dashboard create button sends only <code class="docutils literal notranslate"><span class="pre">title:</span> <span class="pre">&quot;Untitled</span> <span class="pre">Hunt&quot;</span></code> and an empty description. The status starts as <code class="docutils literal notranslate"><span class="pre">draft</span></code>, but activation is currently just a status update; the API does not enforce “must have at least one clue” before a hunt becomes active.</p>
+</section>
+<hr class="docutils" />
+<section id="the-clue-editor">
+<h2>The clue editor<a class="headerlink" href="#the-clue-editor" title="Permalink to this heading">#</a></h2>
+<p>The clue editor (<code class="docutils literal notranslate"><span class="pre">ClueEditor.tsx</span></code>) is the most complex component. It manages:</p>
+<ul class="simple">
+<li><p>The clue’s content (title and body; the API model also has <code class="docutils literal notranslate"><span class="pre">media_url</span></code>, but the current dashboard does not expose it)</p></li>
+<li><p>The answer configuration (type, value, tolerance)</p></li>
+<li><p>The hint list (up to N hints in sequence)</p></li>
+<li><p>The AI assistance panel (generate or estimate)</p></li>
+</ul>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">ClueEditor</span><span class="p">({</span><span class="w"> </span><span class="nx">huntId</span><span class="p">,</span><span class="w"> </span><span class="nx">sequence</span><span class="p">,</span><span class="w"> </span><span class="nx">onSave</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="nx">ClueEditorProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">form</span><span class="p">,</span><span class="w"> </span><span class="nx">setForm</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">&lt;</span><span class="nt">ClueFormState</span><span class="p">&gt;(</span><span class="nx">defaultClueForm</span><span class="p">());</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">aiLoading</span><span class="p">,</span><span class="w"> </span><span class="nx">setAiLoading</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">generateWithAI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">setAiLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`/hunts/</span><span class="si">${</span><span class="nx">huntId</span><span class="si">}</span><span class="sb">/ai/generate-clue`</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="kt">form.body</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;a mystery location&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">answer</span><span class="o">:</span><span class="w">      </span><span class="kt">form.answerValue</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;unknown&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">difficulty</span><span class="o">:</span><span class="w">  </span><span class="kt">3</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">num_hints</span><span class="o">:</span><span class="w">   </span><span class="kt">3</span><span class="p">,</span>
+<span class="w">            </span><span class="p">});</span>
+<span class="w">            </span><span class="c1">// Pre-fill form with AI output</span>
+<span class="w">            </span><span class="nx">setForm</span><span class="p">(</span><span class="nx">f</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">                </span><span class="p">...</span><span class="nx">f</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">title</span><span class="o">:</span><span class="w">           </span><span class="kt">result.data.title</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">body</span><span class="o">:</span><span class="w">            </span><span class="kt">result.data.body</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">hints</span><span class="o">:</span><span class="w">           </span><span class="kt">result.data.hints</span><span class="p">,</span>
+<span class="w">            </span><span class="p">}));</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">setAiLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">save</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">api</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="sb">`/hunts/</span><span class="si">${</span><span class="nx">huntId</span><span class="si">}</span><span class="sb">/clues/</span><span class="si">${</span><span class="nx">form</span><span class="p">.</span><span class="nx">sequence</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span><span class="w"> </span><span class="nx">form</span><span class="p">)</span>
+<span class="w">           </span><span class="p">.</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">onSave</span><span class="p">());</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The AI generation fills part of the form but does not save. The creator sees the AI output in the same fields they would use to write a clue manually. In the current implementation it fills title, clue text, and hints only; the answer value and tolerance remain creator-supplied. The “AI was here” is not stored — a generated clue and a hand-written clue look identical in the database.</p>
+<p>This is a transparency gap. If post-hoc analysis wanted to compare AI-assisted clues to hand-written ones, it could not. Adding an <code class="docutils literal notranslate"><span class="pre">ai_generated:</span> <span class="pre">bool</span></code> column to the clues table would cost almost nothing and enable that analysis.</p>
+</section>
+<hr class="docutils" />
+<section id="reactflow-clue-editor">
+<h2>ReactFlow clue editor<a class="headerlink" href="#reactflow-clue-editor" title="Permalink to this heading">#</a></h2>
+<p>The clue list inside a hunt is no longer a plain ordered list. It is rendered as an interactive flow graph using <code class="docutils literal notranslate"><span class="pre">&#64;xyflow/react</span></code> (ReactFlow). Each clue becomes a node; animated directed edges connect them in sequence order. Creators can drag nodes to visually rearrange the layout, and the graph updates the underlying sequence order automatically.</p>
+<p>This changes the authoring experience in a subtle but important way. A list suggests a queue — you add items at the bottom and work top to bottom. A flow graph suggests a narrative: there is a beginning, a path, and an end. Creators who see their hunt as a graph tend to notice structural problems earlier — a clue that branches nowhere, a sequence where three hard clues stack consecutively, a bottleneck node that everything feeds through.</p>
+<p>From a HITL perspective, the graph is also a form of implicit labeling. When a creator drags clue 7 to follow immediately after clue 2, they are encoding a sequencing judgment. That judgment could be studied: do certain orderings correlate with higher completion rates? The visual editor makes that data richer without adding any explicit annotation step.</p>
+</section>
+<hr class="docutils" />
+<section id="gps-map-picker">
+<h2>GPS map picker<a class="headerlink" href="#gps-map-picker" title="Permalink to this heading">#</a></h2>
+<p>GPS clues require the creator to specify the target coordinates — the point a player must physically reach. The original interface provided two text fields: <code class="docutils literal notranslate"><span class="pre">latitude</span></code> and <code class="docutils literal notranslate"><span class="pre">longitude</span></code>. The current interface replaces these with an interactive Leaflet map (<code class="docutils literal notranslate"><span class="pre">GpsPickerMap.tsx</span></code>): the creator pans and clicks to place a pin, and the lat/lon fields populate automatically from the click coordinates.</p>
+<p>The map picker lowers the barrier to entry dramatically. A creator who does not know the coordinates of the footbridge in the park can find it on the map, click it, and move on. The cognitive task shifts from “look up the coordinates” to “find the location on a map,” which is more natural for non-technical creators.</p>
+<p>The tradeoff is precision. A click on a map at the default zoom level has a radius of roughly 5–15 metres. A creator who types <code class="docutils literal notranslate"><span class="pre">51.50729,</span> <span class="pre">-0.12776</span></code> is making a different kind of claim than one who clicks approximately there. The tolerance slider compensates for some of this, but the source of imprecision is now in the creator’s workflow rather than in the environment.</p>
+</section>
+<hr class="docutils" />
+<section id="the-qr-sheet">
+<h2>The QR sheet<a class="headerlink" href="#the-qr-sheet" title="Permalink to this heading">#</a></h2>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// web/src/pages/CreatorDashboard/QrSheet.tsx</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">QrSheet</span><span class="p">({</span><span class="w"> </span><span class="nx">huntId</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">huntId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useQuery</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">queryKey</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;qr-sheet&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">huntId</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">queryFn</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">api</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="sb">`/hunts/</span><span class="si">${</span><span class="nx">huntId</span><span class="si">}</span><span class="sb">/qr-sheet`</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">data</span><span class="p">),</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;qr-sheet&quot;</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">{</span><span class="nx">data</span><span class="o">?</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">clue</span><span class="o">:</span><span class="w"> </span><span class="kt">ClueQr</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">                </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">clue</span><span class="p">.</span><span class="nx">sequence</span><span class="p">}</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;qr-card&quot;</span><span class="p">&gt;</span>
+<span class="w">                    </span><span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;{</span><span class="nx">clue</span><span class="p">.</span><span class="nx">sequence</span><span class="p">}.</span><span class="w"> </span><span class="p">{</span><span class="nx">clue</span><span class="p">.</span><span class="nx">title</span><span class="p">}&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="w">                    </span><span class="p">&lt;</span><span class="nt">img</span>
+<span class="w">                        </span><span class="na">src</span><span class="o">=</span><span class="p">{</span><span class="sb">`data:image/png;base64,</span><span class="si">${</span><span class="nx">clue</span><span class="p">.</span><span class="nx">png_b64</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span>
+<span class="w">                        </span><span class="na">alt</span><span class="o">=</span><span class="p">{</span><span class="sb">`QR for clue </span><span class="si">${</span><span class="nx">clue</span><span class="p">.</span><span class="nx">sequence</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span>
+<span class="w">                    </span><span class="p">/&gt;</span>
+<span class="w">                    </span><span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;{</span><span class="nx">clue</span><span class="p">.</span><span class="nx">token</span><span class="p">}&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
+<span class="w">                </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">))}</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The QR sheet fetches pre-rendered QR code images from the Rust API (base64-encoded PNGs, generated by <code class="docutils literal notranslate"><span class="pre">services/qr_generator.rs</span></code>). The creator can print this page — one QR card per clue — and place the printed codes at their physical locations.</p>
+<p>This is the bridge between the digital and physical worlds. The token embedded in each QR code is the same token in <code class="docutils literal notranslate"><span class="pre">clue_tokens</span></code>. Printing and placing the codes is entirely offline — no internet needed at the hunt location.</p>
+</section>
+<hr class="docutils" />
+<section id="sharing-and-discovery">
+<h2>Sharing and discovery<a class="headerlink" href="#sharing-and-discovery" title="Permalink to this heading">#</a></h2>
+<p>Once a hunt is active, the creator can share it via a one-click copy button in the dashboard topbar. The button writes the join URL (<code class="docutils literal notranslate"><span class="pre">/join?hunt=&lt;id&gt;</span></code>) to the clipboard. Players who receive the link land directly on the join flow without needing to know the UUID manually.</p>
+<p>Active hunts also appear on the <code class="docutils literal notranslate"><span class="pre">/discover</span></code> page — a public, unauthenticated page listing hunts that are currently accepting players. This removes the need for the creator to actively distribute links; interested players can find the hunt on their own. The tension here is intentional: some hunts are designed for specific groups and should not be publicly discoverable. The system currently makes all active hunts discoverable, which is an implicit policy choice the creator cannot override.</p>
+</section>
+<hr class="docutils" />
+<section id="creator-as-annotator">
+<h2>Creator as annotator<a class="headerlink" href="#creator-as-annotator" title="Permalink to this heading">#</a></h2>
+<p>From a HITL perspective, the creator is performing a labeling task: they are encoding their judgment about what counts as a correct answer, how hard a clue is, and what hint should be offered when.</p>
+<p>Everything they enter into the clue editor is a label. The <code class="docutils literal notranslate"><span class="pre">answer_value</span></code> is the ground truth. The <code class="docutils literal notranslate"><span class="pre">answer_tolerance</span></code> is a claim about how similar an answer must be to the ground truth to count. The hints are annotations about the solution path.</p>
+<p>These labels are created once and applied to every player who runs the hunt. A creator who writes a vague clue creates a bad experience for all players. A creator who sets too tight a tolerance creates frustration. A creator who writes excellent progressive hints creates a better experience regardless of the AI.</p>
+<p>The system cannot enforce label quality. It can only surface the signal: player performance data, after the hunt, tells you which labels were good and which were not.</p>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<p>The creator dashboard makes the hunt creation process feel like filling out a form. But creating a good treasure hunt is a creative act — it requires imagining the player’s experience from a location they haven’t been to yet.</p>
+<p>What does a form-based interface do to creative tasks? Does it constrain thinking to the fields provided? Does it help by making the task more concrete? Would a different interface — freeform text, map-based, conversation with AI — produce different hunts?</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08_ai.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">AI in the Loop: The Python Sidecar</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="10_player.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Player’s Perspective</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-creator-dashboard">The creator dashboard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hunt-creation-flow">Hunt creation flow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-clue-editor">The clue editor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reactflow-clue-editor">ReactFlow clue editor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gps-map-picker">GPS map picker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-qr-sheet">The QR sheet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-and-discovery">Sharing and discovery</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creator-as-annotator">Creator as annotator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

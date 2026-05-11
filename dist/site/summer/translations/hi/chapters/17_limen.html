@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>लाइमेन: प्रत्येक लूप में एक मानव &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/hi/chapters/17_limen';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/hi/chapters/17_limen.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>लाइमेन: प्रत्येक लूप में एक मानव</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#os">पारंपरिक OS डिज़ाइन के साथ समस्या</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">दहलीज़ पर आर्किटेक्चर</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wid">घटना परत: WID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">धारणा परत: वॉयस-फर्स्ट</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">इंटेलिजेंस परत: मल्टी-LLM रूटिंग</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">अंतःक्रिया डिज़ाइन</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">तात्कालिकता</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">बुद्धिमत्ता</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">संगति और बहाव</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-limen">HITL प्रणाली के रूप में Limen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">गहरी बात</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>लाइमेन: प्रत्येक लूप में एक मानव<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<div class="important admonition">
+<p class="admonition-title">इस अध्याय के विषय में नोट</p>
+<p>यह अध्याय एक <strong>सट्टा डिज़ाइन निबंध</strong> है, न कि एक अनुभवजन्य अध्ययन या सहकर्मी-समीक्षित योगदान। यह एक कल्पित प्रणाली आर्किटेक्चर का वर्णन करता है — Limen, एक वॉयस-फर्स्ट AI-नेटिव डेस्कटॉप OS — एक काम किए गए उदाहरण के रूप में कि पूर्ववर्ती अध्यायों से HITL सिद्धांत एक सुसंगत पूरे में कैसे संयोजित हो सकते हैं। यहाँ के दावे डिज़ाइन तर्क हैं, प्रयोगात्मक परिणाम नहीं। इन्हें प्रेरित डिज़ाइन औचित्य के रूप में पढ़ा जाना चाहिए, न कि मान्य इंजीनियरिंग निष्कर्षों के रूप में।</p>
+</div>
+<p>इस पुस्तक के प्रत्येक अध्याय ने HITL ML को एक डिज़ाइन दर्शन के रूप में वर्णित किया है: मानव भागीदारी को अधिगम प्रणालियों में जानबूझकर, कुशल, और ईमानदार बनाने के लिए सिद्धांतों का एक सेट। यह अध्याय वर्णन करता है कि उस दर्शन को एक प्रथम सिद्धांत के रूप में लागू करने पर क्या होता है — न केवल एकल प्रणाली पर, बल्कि पूरे ऑपरेटिंग वातावरण पर।</p>
+<p><strong>Limen</strong> एक वॉयस-फर्स्ट, AI-नेटिव डेस्कटॉप ऑपरेटिंग सिस्टम है जो इस आधार पर बना है कि मानव हमेशा लूप में है, न एक बाधा के रूप में जिसे दूर किया जाना है, बल्कि उस आयोजन सिद्धांत के रूप में जिसके चारों ओर प्रत्येक उपप्रणाली डिज़ाइन की गई है। नाम जानबूझकर चुना गया है: <em>limen</em> “दहलीज़” के लिए लैटिन शब्द है। अवधारणात्मक मनोविज्ञान में, limen वह सीमा है जो जो माना जाता है और जो नहीं माना जाता उसके बीच है। एक ऑपरेटिंग सिस्टम के लिए, limen मानव इरादे और मशीन क्रिया के बीच की सीमा है।</p>
+<hr class="docutils" />
+<section id="os">
+<h2>पारंपरिक OS डिज़ाइन के साथ समस्या<a class="headerlink" href="#os" title="Permalink to this heading">#</a></h2>
+<p>एक पारंपरिक ऑपरेटिंग सिस्टम मनुष्यों के लिए डिज़ाइन नहीं किया गया है। यह कार्यक्रमों के लिए डिज़ाइन किया गया है। मानव को अमूर्तता की एक परत के माध्यम से समायोजित किया जाता है — एक ग्राफिकल इंटरफ़ेस, एक फ़ाइल ब्राउज़र, एक टर्मिनल — जो प्रक्रियाओं, मेमोरी पतों, और फ़ाइल डिस्क्रिप्टर के लिए निर्मित एक सब्सट्रेट के ऊपर बैठता है।</p>
+<p>वे धारणाएँ अब मान्य नहीं हैं। अधिकांश कार्यों के लिए अधिकांश उपयोगकर्ताओं के लिए बाधा कंप्यूट नहीं है। यह मानव ध्यान है: संदर्भ-स्विचिंग की लागत, सही फ़ाइल खोजने की, सही क्वेरी बनाने की। Limen इसे उलट देता है। प्रोग्राम मानव की भाषा बोलते हैं।</p>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h2>दहलीज़ पर आर्किटेक्चर<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Limen का आर्किटेक्चर एक एकल सिद्धांत के चारों ओर संगठित है: <strong>प्रत्येक अंतःक्रिया एक घटना है</strong>, और प्रत्येक घटना मानव के सिखाने, सुधारने, या पुष्टि करने का अवसर है।</p>
+<section id="wid">
+<h3>घटना परत: WID<a class="headerlink" href="#wid" title="Permalink to this heading">#</a></h3>
+<p>आधार पर <strong>WID</strong> (Waldiez ID प्रणाली, Limen के लोकल-फर्स्ट आर्किटेक्चर के लिए अनुकूलित) है — एक कारणता-जागरूक घटना ट्रैकिंग प्रणाली जो न केवल यह रिकॉर्ड करती है कि क्या हुआ, बल्कि यह भी कि इसका क्या कारण था, और इसने क्या कारण बनाया।</p>
+<p>पारंपरिक लॉगिंग पूछती है: <em>क्या हुआ?</em> WID पूछता है: <em>यह क्यों हुआ, और इसके बाद क्या हुआ?</em></p>
+<div class="note admonition">
+<p class="admonition-title">HITL अवसंरचना के रूप में कारण घटना ट्रैकिंग</p>
+<p>WID का डिज़ाइन एक व्यापक सिद्धांत को दर्शाता है: HITL अवसंरचना को “प्रणाली ने यह क्यों किया?” यह पूछना आसान बनाना चाहिए — न केवल “इसने क्या किया?” सुधार लक्षणों को ठीक करते हैं। कारण के साथ, वे कारणों को ठीक कर सकते हैं।</p>
+</div>
+</section>
+<section id="id3">
+<h3>धारणा परत: वॉयस-फर्स्ट<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Limen का प्राथमिक इनपुट तौर-तरीका वॉयस है, जिसे Whisper ONNX अनुमान पाइपलाइन का उपयोग करके स्थानीय रूप से संसाधित किया जाता है।</p>
+<p><strong>वॉयस सबसे प्राकृतिक मानव आउटपुट चैनल है</strong> अधिकांश लोगों के लिए। इसके लिए कोई प्रशिक्षण, कोई शारीरिक निपुणता, और कोई प्रणाली के आंतरिक संगठन का ज्ञान नहीं चाहिए।</p>
+<p><strong>स्थानीय प्रसंस्करण गोपनीयता को संरक्षित करता है।</strong> वॉयस डेटा डिवाइस नहीं छोड़ता।</p>
+<p><strong>वॉयस एक प्राकृतिक प्रतिक्रिया लूप बनाता है।</strong> जब प्रणाली प्रतिक्रिया देती है, उपयोगकर्ता की प्रतिक्रिया — बोलना जारी रखना, पुनः वाक्यांश बनाना, “नहीं, यह सही नहीं है” कहना — स्वयं एक संकेत है।</p>
+<p>फॉलबैक श्रृंखला उतनी ही महत्त्वपूर्ण है जितनी प्राथमिक तौर-तरीका। दादी परीक्षण (अध्याय 5 देखें) एक सुगमता के बाद का विचार नहीं है; यह एक प्रथम-वर्ग आर्किटेक्चरल बाधा है।</p>
+</section>
+<section id="llm">
+<h3>इंटेलिजेंस परत: मल्टी-LLM रूटिंग<a class="headerlink" href="#llm" title="Permalink to this heading">#</a></h3>
+<p>Limen एक एकल भाषा मॉडल पर निर्भर नहीं करता। यह कार्य प्रकार, आवश्यक विलंबता, गोपनीयता आवश्यकताओं, और विश्वास के आधार पर एक संरचित निर्णय वृक्ष के माध्यम से अनुरोध रूट करता है:</p>
+<ol class="arabic simple">
+<li><p><strong>स्थानीय छोटा मॉडल</strong> (हमेशा पहले): तेज़, निजी, नियमित कार्यों को संभालता है</p></li>
+<li><p><strong>स्थानीय बड़ा मॉडल</strong> (जब छोटे मॉडल का विश्वास कम हो): धीमा लेकिन अधिक सक्षम</p></li>
+<li><p><strong>रिमोट मॉडल</strong> (जब स्थानीय विफल हो और उपयोगकर्ता ने अनुमति दी हो): एग्ज़िट हैच</p></li>
+</ol>
+<p>यह संरचना नई नहीं है — यह अध्याय 4 में वर्णित सक्रिय अधिगम क्वेरी रणनीति का अनुमान-समय समतुल्य है।</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>अंतःक्रिया डिज़ाइन<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<section id="id5">
+<h3>तात्कालिकता<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>Limen को उस अर्थ में तात्कालिकता के लिए डिज़ाइन किया गया है जैसा अध्याय 5 परिभाषित करता है: उपयोगकर्ता अपनी प्रतिक्रिया का प्रभाव अनुभव करता है।</p>
+</section>
+<section id="id6">
+<h3>बुद्धिमत्ता<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>एक आवर्ती विषय जो IML साहित्य में है वह है <strong>बुद्धिमत्ता आवश्यकता</strong>: मनुष्य केवल उस मॉडल का मार्गदर्शन कर सकते हैं जिसे वे कम से कम लगभग समझते हैं। Limen इसे इंटरफ़ेस में सतह पर लाता है: जब प्रणाली कोई निर्णय करती है, तो यह संक्षेप में बताती है क्यों। “मैं वह परियोजना खोल रहा हूँ जिस पर आपने सबसे हाल ही में काम किया — क्या यह सही है?”</p>
+</section>
+<section id="id7">
+<h3>संगति और बहाव<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>एक दीर्घकालिक इंटरैक्टिव प्रणाली में उत्पन्न होने वाली समस्या <strong>व्यवहार बहाव</strong> है। Limen आवधिक संगति जाँच के माध्यम से इसे संबोधित करता है। प्रणाली ऐतिहासिक निर्णयों को उपयोगकर्ता के सामने लाती है: “कुछ हफ्ते पहले, आपने मुझसे X करने के लिए कहा था। क्या आप अभी भी यही चाहेंगे?”</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hitl-limen">
+<h2>HITL प्रणाली के रूप में Limen<a class="headerlink" href="#hitl-limen" title="Permalink to this heading">#</a></h2>
+<p>इस पुस्तक के लेंस से Limen के आर्किटेक्चर को देखते हुए, डिज़ाइन निर्णय प्रत्यक्ष रूप से प्रत्येक भाग में विकसित अवधारणाओं पर मानचित्रित होते हैं।</p>
+<p><strong>भाग I (नींव):</strong> Limen प्रत्येक अंतःक्रिया को एक मानव–मशीन अंतःक्रिया घटना मानता है।</p>
+<p><strong>भाग II (मूल तकनीकें):</strong> सक्रिय अधिगम विश्वास-आधारित एस्केलेशन चेन के रूप में प्रकट होता है। इंटरैक्टिव ML वास्तविक-समय अपडेट चक्र में प्रकट होता है।</p>
+<p><strong>भाग III (मानव प्रतिक्रिया से अधिगम):</strong> अध्याय 8 में वर्णित वरीयता अधिगम रूटिंग नीति अपडेट में दिखाई देता है।</p>
+<p><strong>भाग VI (नैतिकता):</strong> लोकल-फर्स्ट, गोपनीयता-संरक्षण डिज़ाइन एक नैतिक विकल्प है, न केवल एक तकनीकी।</p>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h2>गहरी बात<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<p>Limen एक उत्पाद पिच नहीं है। यह निर्माण द्वारा एक तर्क है।</p>
+<p>तर्क यह है: यदि आप HITL ML के सिद्धांतों को गंभीरता से लेते हैं — यदि आप मानते हैं कि मानव प्रतिक्रिया एक समझे जाने वाला संकेत है न कि न्यूनतम की जाने वाली लागत, कि मानव हमेशा लूप में है भले ही डिज़ाइनर अन्यथा नाटक करते हों, कि संरेखण एक बार की घटना के बजाय एक चल रही प्रक्रिया है — तो आप कुछ ऐसा बनाते हैं जो Limen जैसा दिखता है।</p>
+<p>HITL ML के क्षेत्र ने विशिष्ट मॉडलों और विशिष्ट कार्यों के लूप में मनुष्यों को कैसे डालें इसका वर्णन करने में काफी ऊर्जा खर्च की है। अगला प्रश्न यह है कि क्या हम उन्हीं सिद्धांतों के आसपास पूरे <em>वातावरण</em> को डिज़ाइन कर सकते हैं।</p>
+<p>Limen उस प्रश्न का एक उत्तर है।</p>
+<p>दहलीज़ कुछ ऐसी नहीं है जिसे आप पार करते हैं और पीछे छोड़ देते हैं। यह वह जगह है जहाँ आप रहते हैं।</p>
+<hr class="docutils" />
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Limen के अंतःक्रिया डिज़ाइन के अंतर्गत IML सिद्धांत अध्याय 5 में विकसित हैं। रूटिंग नीति के पीछे वरीयता अधिगम दृष्टिकोण अध्याय 8 में औपचारिक है। WID का कारणता मॉडल अध्याय 14 में सर्वेक्षण किए गए घटना एट्रिब्यूशन साहित्य पर आधारित है। दादी परीक्षण, अध्याय 5 में पेश किया गया, Limen की प्राथमिक इंटरफ़ेस डिज़ाइन बाधा है।</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/hi/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#os">पारंपरिक OS डिज़ाइन के साथ समस्या</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">दहलीज़ पर आर्किटेक्चर</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wid">घटना परत: WID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">धारणा परत: वॉयस-फर्स्ट</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">इंटेलिजेंस परत: मल्टी-LLM रूटिंग</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">अंतःक्रिया डिज़ाइन</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">तात्कालिकता</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">बुद्धिमत्ता</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">संगति और बहाव</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-limen">HITL प्रणाली के रूप में Limen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">गहरी बात</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

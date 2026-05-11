@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>ንቁ ትምህርት &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/am/chapters/04_active_learning';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/am/chapters/04_active_learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ንቁ ትምህርት</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ንቁ ትምህርቱ አዋቅሩ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ቲዎሪያዊ መሠረቶቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ጥያቄ ስልቶቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">እርግጠኛ ሳይሆን ናሙናው</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qbc">ኮሚቴ ሁሉ ጥያቄ (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">የሚጠበቀው ሞዴሉ ለውጡ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ዋናው-ስብስቡ / ጂዎሜትሪካዊ አቀራረቦቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">ጥልቅ ሞዴሎቹ ሁሉ እርግጠኛ ሳይሆን ምናምን</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">ሁለቱ ዓይነቶቹ እርግጠኛ ሳይሆን</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mc">MC ድሮፕዓውት</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">ጥልቅ ስብስቦቹ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">ሙሉ ንቁ ትምህርቱ ቀለበቱ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">ቀዝቃዛ ጅምሩ ችግሩ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">ቡድን ዓይነቱ ንቁ ትምህርቱ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">ማቆሚያ ምልክቶቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">ንቁ ትምህርቱ ሲሠራ (እና ሲሠራ)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>ንቁ ትምህርት<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>የሚለጠፈ ውሂቡ ዋጋ አለ። ንቁ ትምህርቱ ዋናው ሃሳቡ <em>ሁሉ ሳይለጠፉ ምሳሌዎቹ ዋናቱ ተመሳሳይ አይደሉ</em> — ሞዴሉ ምን ምሳሌዎቹ ሊጠይቁ ሊምርጡ ቢቻሉ ቶሎ ሊሻሻሉ ይዟሉ። ምናምን ሆኖ ውሂቡ ሊለጥፉ ሳይሄዱ፣ ንቁ ትምህርቱ ሥርዓቱ ሞዴሉ ሁሉ ሊሻሻሉ ሁሉ ምሳሌዎቹ ሁሉ ዐዋቂ (ብዙ ጊዜ ሰው ትርጓሜ ሰጪ) ሊጠይቁ ይዟሉ።</p>
+<p>ይህ ምዕራፍ ንቁ ትምህርቱ ቲዎሪና ሥራ ይሸፍናሉ፦ ጥያቄ ስልቶቹ፣ ናሙናው ማዕቀፎቹ፣ ማቆሚያ ምልክቶቹ፣ እና ዕውነተኛ ሰፊ ሥራ ሁሉ ተጨባጭ ሁኔታዎቹ።</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>ንቁ ትምህርቱ አዋቅሩ<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>ምናምን <strong>ዝርዝሩ-ሁሉ ንቁ ትምህርቱ</strong> ሁኔታ ያካትታሉ፦</p>
+<ul class="simple">
+<li><p><strong>የሚለጠፈ ስብስቡ</strong> <span class="math notranslate nohighlight">\(\mathcal{L} = \{(x_i, y_i)\}_{i=1}^n\)</span> — ቀደምቱ አነስ</p></li>
+<li><p><strong>ሳይለጠፉ ዝርዝሩ</strong> <span class="math notranslate nohighlight">\(\mathcal{U} = \{x_j\}_{j=1}^m\)</span> — ብዙ ጊዜ <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> ሁሉ ሰፊ</p></li>
+<li><p><strong>ዐዋቂ</strong> <span class="math notranslate nohighlight">\(\mathcal{O}\)</span> ማናቸውም የሚጠይቁ <span class="math notranslate nohighlight">\(x\)</span> ሁሉ <span class="math notranslate nohighlight">\(y = \mathcal{O}(x)\)</span> ሊሰጡ ይዟሉ</p></li>
+<li><p><strong>ጥያቄ ስልቱ</strong> <span class="math notranslate nohighlight">\(\phi\)</span> ቀጣዩ ጥያቄ <span class="math notranslate nohighlight">\(x^* = \phi(\mathcal{L}, \mathcal{U}, f_\theta)\)</span> ሊምርጡ ይዟሉ</p></li>
+</ul>
+<p>ንቁ ትምህርቱ ቀለበቱ፦</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    1. ጀምሩ: L = አነስ ሆኖ የሚለጠፉ ዘር ስብስቡ, U = ሳይለጠፉ ዝርዝሩ
+    2. ሰልጥን: f_θ ← train(L)
+    3. ጠይቅ: x* = argmax φ(x; f_θ) over x ∈ U
+    4. ለጥፍ: y* = O(x*)
+    5. ዘምን: L ← L ∪ {(x*, y*)}, U ← U \ {x*}
+    → ከ2 ደጋግሙ በጀቱ ሙሉ ሲሆን
+</pre></div>
+</div>
+<p>ዓላማው ሁሉ ዐዋቂ ጥያቄዎቹ ሊቀንሱ ተሞርኩዞ ዒላማ ሞዴሉ ጥራቱ ሊደርሱ ነው።</p>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>ቲዎሪያዊ መሠረቶቹ<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>ዕውን ጥያቄ ይነሳሉ፦ ንቁ ትምህርቱ ምን ያህሉ ሊረዱ ይዟሉ? ሁሉ ጥሩ ሁኔታ ንቁ ትምህርቱ <em>ሂሳዊ</em> ቁጥሩ ቀንሶ ሊደርሱ ይዟሉ — <span class="math notranslate nohighlight">\(O(\log(1/\epsilon))\)</span> መለያዎቹ ሁሉ ስህተቱ <span class="math notranslate nohighlight">\(\epsilon\)</span> ሊደርሱ ምናምን ትምህርቱ ሚፈልገው <span class="math notranslate nohighlight">\(O(1/\epsilon)\)</span> ሳይሆን፣ ቢያንስ ጥሩ ጥያቄ ስልቱ ሁሉ ሊደርሱ ዶሜይን ሁሉ <a href="#id4"><span class="problematic" id="id5">settles2009active</span></a>።</p>
+<p>ሥራ ላይ ዋስትናዎቹ ሊያገኙ ቸር ነው። <strong>ምናምን ንቁ ትምህርቱ</strong> <a href="#id6"><span class="problematic" id="id7">balcan2006agnostic</span></a> ዒላማ ሃሳቡ ሂፖቴሲስ ምድቡ ውስጥ ሳይሆን ሳለ ሳይቀሩ መለያ ቁጠባዎቹ ሊደርሱ ይዟሉ ሁሉ ይዟሉ ግን ቁጠባዎቹ አለመስማማቱ ቅዋሜ ላይ ሰፊ ይወሰናሉ — ውሂቡ ሲሰበሰቡ ሊደርሱ ምናምን ሂፖቴሲሶቹ ቡድኑ ምን ያህሉ ቶሎ ሊቀንሱ ቁጥሩ።</p>
+<p>ዋናው ተጨባጭ ምሳሌ፦ ንቁ ትምህርቱ ጥቅሙ <strong>ወሳኔ ድንበሩ ቀላሉ እና ተሰብሳቢ</strong> ሲሆን (ስለዚህ እርግጠኛ ሳይሆን ጥያቄዎቹ ስህተቱ ሂፖቴሲሶቹ ቶሎ ሊያስወጡ ይዟሉ) ሰፊ ነው፣ ሂፖቴሲስ ምድቡ ትልቅ ወይም ድንበሩ ቸር ሲሆን ዝቅ ያለ ነው።</p>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h2>ጥያቄ ስልቶቹ<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<section id="id9">
+<h3>እርግጠኛ ሳይሆን ናሙናው<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>ቀላሉ እና ሰፊ ጥቅም ላይ ሚውሉ ስልቱ፦ ሞዴሉ <em>ሁሉ ዝቅ ያለ እርግጠኛ ሆኖ</em> ያለ ምሳሌ ሊጠይቁ <a href="#id10"><span class="problematic" id="id11">lewis1994sequential</span></a>።</p>
+<p><strong>ዝቅ ያለ እምነቱ</strong> ሞዴሉ ዋናው ትንቢቱ ሁሉ ዝቅ ያለ እምነቱ ያለ ምሳሌ ሊጠይቁ ይዟሉ፦</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left(1 - P_\theta(\hat{y} \mid x)\right)
+\]</div>
+<p><strong>ድንበሩ ናሙናው</strong> ሁለቱ ትንቢቶቹ ሁሉ ምናምን ሁሉ ልዩነቱ ሊያስቡ ይዟሉ፦</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmin_{x \in \mathcal{U}} \left(P_\theta(\hat{y}_1 \mid x) - P_\theta(\hat{y}_2 \mid x)\right)
+\]</div>
+<p><strong>ኤንትሮፒ ናሙናው</strong> ሙሉ ትንቢቱ ስርጭቱ ሊጠቀሙ ይዟሉ፦</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left( -\sum_{k=1}^K P_\theta(y_k \mid x) \log P_\theta(y_k \mid x) \right)
+\]</div>
+<p>ኤንትሮፒ ናሙናው ሦስቱ ሁሉ ሁሉ ምድቦቹ ሁሉ ሊያስቡ ሁሉ ሁሉ ዋናቱ ናቸው — ብዙ ምድቦቹ ሥራ ሁሉ ሌሎቹ ሁሉ ሰፊ ሊሻሻሉ ይዟሉ።</p>
+</section>
+<section id="qbc">
+<h3>ኮሚቴ ሁሉ ጥያቄ (QbC)<a class="headerlink" href="#qbc" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(C\)</span> ሞዴሎቹ <strong>ኮሚቴ</strong> ሊሰለጥኑ (ባጊንግ፣ ልዩ ጅምሮቹ፣ ወይም ልዩ አርኪቴክቸሮቹ ጥቅም ላይ ሲያውሉ)። ኮሚቴው ሁሉ ዝቅ ያለ ስምምነቱ ያለ ምሳሌ ሊጠይቁ ይዟሉ፦</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \; \text{disagreement}(\{f_c(x)\}_{c=1}^C)
+\]</div>
+<p>አለመስማማቱ <strong>ድምፅ ኤንትሮፒ</strong> (ኮሚቴው ብዙ ድምፆቹ ሁሉ ኤንትሮፒ) ወይም ምሳሌ ስርጭቱ ሁሉ <strong>KL ልዩ ርቀቱ</strong> ሆኖ ሊለካ ይዟሉ።</p>
+<p>QbC አንድ ሞዴሉ ሁሉ ሊሻሻሉ እርግጠኛ ሳይሆን ምናምን ሊሰጡ ነገር ግን ብዙ ሞዴሎቹ ሊሰለጥኑ ሃሳባዊ ወጪ ሰፊ ነው።</p>
+</section>
+<section id="id12">
+<h3>የሚጠበቀው ሞዴሉ ለውጡ<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>ሊለጠፉ ቢሆን ሁሉ ሞዴሉ ሁሉ ሰፊ ለውጡ ሊፈጥሩ ያለ ምሳሌ ሊጠይቁ ይዟሉ። ግሬዲዬንቱ ሞዴሎቹ ሁሉ ይህ ሁሉ ሰፊ የሚጠበቀው ግሬዲዬንቱ ዐቢይ ምሳሌ ጋር ሊስማሙ ይዟሉ <a href="#id13"><span class="problematic" id="id14">settles2008analysis</span></a>፦</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \sum_{y \in \mathcal{Y}} P_\theta(y \mid x) \left\| \nabla_\theta \mathcal{L}(f_\theta(x), y) \right\|
+\]</div>
+<p>ይህ ስልቱ ጠንካራ ቲዎሪያዊ ምሳሌ አለ ነገር ግን ለእያንዳንዱ እጩ ምሳሌ ሁሉ ሊሰሉ ሰፊ ሞዴሎቹ ሁሉ ዋጋ ሰፊ ነው።</p>
+</section>
+<section id="id15">
+<h3>ዋናው-ስብስቡ / ጂዎሜትሪካዊ አቀራረቦቹ<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>እርግጠኛ ሳይሆን ስልቶቹ <strong>ወጪ ሁሉ ዘምን ያለ</strong> ሊሆኑ ይዟሉ፦ ያልተለምዶ ምሳሌ ሰፊ እርግጠኛ ሳይሆን ሊሆን ይዟሉ ግን ውሂቡ ስርጭቱ ምሳሌ ሊሆን አይዟሉ። ዋናው-ስብስቡ ዘዴዎቹ ባሕሪ ቦታ ሊሸፍኑ ልዩ ናሙናው ሊፈልጉ ይህን ሊፈቱ ይዟሉ።</p>
+<p><strong>k-ማዕከሉ ሁሉ ጉርሻ</strong> ቀመሩ <a href="#id16"><span class="problematic" id="id17">sener2018active</span></a> ሁሉ ሳይለጠፉ ነጥቦቹ ቢያንስ አንዱ የሚጠይቁ ነጥቡ ሁሉ <span class="math notranslate nohighlight">\(\delta\)</span> ውስጥ ሁሉ ያቃርቡ ሁሉ ሁሉ ዝቅ ያለ ስብስቡ ሊያገኙ ይዟሉ፦</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \min_{x' \in \mathcal{L}} d(x, x')
+\]</div>
+<p>ማናቸውም ሁሉ ሚለጠፉ ነጥቡ ሁሉ ዝቅ ያለ ነጥቡ ጠይቁ ማለት ነው። ይህ ጥሩ ሆኖ ሰፊ ትርጓሜዎቹ ስብስቡ ሊፈጥሩ ያበረታታሉ።</p>
+</section>
+<section id="badge">
+<h3>BADGE<a class="headerlink" href="#badge" title="Permalink to this heading">#</a></h3>
+<p><strong>ልዩ ግሬዲዬንቱ ምሥጢሮቹ ሁሉ ቡድን ንቁ ትምህርቱ</strong> <a href="#id18"><span class="problematic" id="id19">ash2020deep</span></a> እርግጠኛ ሳይሆን ናሙናውን እና ልዩነቱን ሊያዋሃዱ ይዟሉ፦ (የሚጠበቀው መለያ ሁሉ) ግሬዲዬንቱ ምሥጢሮቻቸው ሁሉ ምሳሌዎቹ ቡድኑ ሊምርጡ ሁሉ ዐቢይ (እርግጠኛ ሳይሆን) እና ልዩ (ግሬዲዬንቱ ቦታ ልዩ ቦታዎቹ ሸፍኖ) ሁሉ ናቸው። ይህ ዘመናዊ ሁሉ ሰፊ ተወዳዳሪ ስልቶቹ አንዱ ነው።</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h2>ጥልቅ ሞዴሎቹ ሁሉ እርግጠኛ ሳይሆን ምናምን<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h2>
+<p>ሁሉ ስልቶቹ ሞዴሉ ሁሉ ምናምን ምናምን ውጤቶቹ ሊደርሱ ያሳያሉ። ቀላሉ ሞዴሎቹ (ሎጂስቲካዊ ሬግሬሽን፣ ሶፍትማክስ ምደቦቹ) ሁሉ ይህ ቀላሉ ነው። ጥልቅ ኔትዎርኮቹ ሁሉ ሊታመን ሊሆኑ እርግጠኛ ሳይሆን ምናምን ሊፈልጉ ተጨማሪ ዘዴ ይፈልጋሉ።</p>
+<section id="id21">
+<h3>ሁለቱ ዓይነቶቹ እርግጠኛ ሳይሆን<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h3>
+<p>ኬንዳሉ እና ጋሉን <a href="#id22"><span class="problematic" id="id23">kendall2017uncertainties</span></a> ሁሉ ተከታዮ ይዟሉ፦</p>
+<p><strong>አሌዓቲካዊ እርግጠኛ ሳይሆን</strong> (ውሂቡ እርግጠኛ ሳይሆን)፦ ቁጥቃጤ ሙሉ ያሉ ምልከታዎቹ ሁሉ ውሂቡ ሊሰበሰቡ ሊቀንሱ የማይቻሉ ዕውነተኛ ሁኔታ። ብዥ ምስሉ አሌዓቲካዊ ሁኔታ ነው — ያው ስርጭቱ ሁሉ ሰፊ ሆኖ ተጨማሪ ስልጠናቸው ውሂቡ ሞዴሉ ሁሉ ሁሉ ዝቅ ያለ ምናምን ሊሆን አያደርጋቸውም።</p>
+<p><strong>ኤፒስቴሚካዊ እርግጠኛ ሳይሆን</strong> (ሞዴሉ እርግጠኛ ሳይሆን)፦ ተወሰን ስልጠናቸው ውሂቡ ወይም ሞዴሉ ሰለ ምሳሌዎቹ ሳያዩ ምክንያቱ እርግጠኛ ሳይሆን። ኤፒስቴሚካዊ እርግጠኛ ሳይሆን ሙሉ ውሂቡ ሊሰቡ <em>ሊቀንሱ ይዟሉ</em> — ስለዚህ ንቁ ትምህርቱ ጥያቄ ምርጫ ሁሉ ዋናቱ ዐቅ ነው።</p>
+<p>ንቁ ትምህርቱ ሁሉ፣ ሰፊ ኤፒስቴሚካዊ ሁሉ ሚያሉ ምሳሌዎቹ ሊጠይቁ እንፈልጋለን፣ ሰፊ አሌዓቲካዊ ሳይሆን። ሙሉ ብዥ ምሳሌ ሊጠይቁ ዐዋቂው ጥረቱ ሊባክን ይዟሉ፦ ሊሰጡ ምንም መለያ ሙሉ ትክክለኛ አይደለም።</p>
+</section>
+<section id="mc">
+<h3>MC ድሮፕዓውት<a class="headerlink" href="#mc" title="Permalink to this heading">#</a></h3>
+<p>ኒውራል ኔትዎርኮቹ ሁሉ ኤፒስቴሚካዊ እርግጠኛ ሳይሆን ምናምን ሁሉ ተጨባጭ አቀራረቡ <strong>MC ድሮፕዓውት</strong> <a href="#id24"><span class="problematic" id="id25">gal2016dropout</span></a> ነው፦ ምናምን ሰዓቱ ሁሉ ድሮፕዓውት ሊጠቀሙ እና <span class="math notranslate nohighlight">\(T\)</span> ፊት-ሂደቶቹ ሊሮጡ ይዟሉ። ትንቢቶቹ ሁሉ ልዩነቱ ኤፒስቴሚካዊ እርግጠኛ ሳይሆን ምናምን ነው።</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MCDropoutNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">p_drop</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run T stochastic forward passes with dropout active.</span>
+<span class="sd">    Returns mean prediction and epistemic uncertainty (predictive variance).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># keep dropout active during inference</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="p">])</span>  <span class="c1"># shape: (T, N, C)</span>
+    <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Epistemic uncertainty: mean of variances across passes</span>
+    <span class="n">epistemic</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Aleatoric uncertainty: entropy of mean prediction</span>
+    <span class="n">aleatoric</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">mean_pred</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean_pred</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean_pred</span><span class="p">,</span> <span class="n">epistemic</span><span class="p">,</span> <span class="n">aleatoric</span>
+
+<span class="c1"># Quick demonstration</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MCDropoutNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># In-distribution example (simulated)</span>
+<span class="n">x_familiar</span>   <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="c1"># Out-of-distribution example (far from training distribution)</span>
+<span class="n">x_unfamiliar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.0</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;In-distribution &quot;</span><span class="p">,</span> <span class="n">x_familiar</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Out-of-distribution&quot;</span><span class="p">,</span> <span class="n">x_unfamiliar</span><span class="p">)]:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">al</span> <span class="o">=</span> <span class="n">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> | epistemic: </span><span class="si">{</span><span class="n">ep</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | aleatoric: </span><span class="si">{</span><span class="n">al</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ሁሉ ሁሉ ሰለጠኑ ኔትዎርኩ ሁሉ ሁለቱ ምሳሌዎቹ ተመሳሳይ እርግጠኛ ሳይሆን ሊያሳዩ ይዟሉ። ሰልጥኖ ከዚያ፣ ውጪ-ስርጭቱ ምሳሌ ሰፊ ኤፒስቴሚካዊ እርግጠኛ ሳይሆን ሊያሳዩ ይዟሉ — ሞዴሉ ስልጠናቸው ስርጭቱ ሁሉ ዙሪያ ሁሉ ምልክቶቹ ሁሉ ሊታመን ሊሆን አልቻሉም።</p>
+</section>
+<section id="id26">
+<h3>ጥልቅ ስብስቦቹ<a class="headerlink" href="#id26" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(M\)</span> ዕጥፍ ዕጥፍ ሊጀምሩ ሞዴሎቹ ሰልጥኖ ትንቢቶቻቸው አማካዩ MC ድሮፕዓውት ሁሉ ቀላሉ እና ብዙ ጊዜ ሊታመን ሊሆን እርግጠኛ ሳይሆን ምናምን ሊሰጡ ይዟሉ <a href="#id27"><span class="problematic" id="id28">lakshminarayanan2017simple</span></a>። ስብስቡ አካላት ሁሉ አለመስማማቱ ኤፒስቴሚካዊ እርግጠኛ ሳይሆን ምልክቱ ነው።</p>
+<p>ሰፊ ንቁ ትምህርቱ ሁሉ MC ድሮፕዓውቱ እና ጥልቅ ስብስቦቹ <span class="math notranslate nohighlight">\(T\)</span> ወይም <span class="math notranslate nohighlight">\(M\)</span> ፊት-ሂደቶቹ ሁሉ ምናምን ሰፊ ጨምሩ ያበረታቱ ይዟሉ። ሥራ ላይ <span class="math notranslate nohighlight">\(T = 10\)</span>–<span class="math notranslate nohighlight">\(30\)</span> MC ድሮፕዓውቱ ወይም <span class="math notranslate nohighlight">\(M = 5\)</span> ስብስቡ አካላት ምናምን ምናምን ዋጋ ጥሩ ሰለሆነ ሳለ ሳይቀሩ ምሳሌዎቹ ኤፒስቴሚካዊ እርግጠኛ ሳይሆን ሁሉ ደረጃ ሊሰጡ ሰፊ ይቻላሉ።</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id29">
+<h2>ሙሉ ንቁ ትምህርቱ ቀለበቱ<a class="headerlink" href="#id29" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Generate dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">1500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">1500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">1500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index of most uncertain sample (entropy).&quot;&quot;&quot;</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ent</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random baseline.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_queries</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">query_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">labeled_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_idx</span><span class="p">]</span>
+    <span class="n">accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_queries</span> <span class="o">//</span> <span class="n">query_batch</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">])</span>
+        <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+        <span class="c1"># Query</span>
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query_batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;entropy&#39;</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">labeled_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled_idx</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+            <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span>
+
+<span class="n">labels_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">30</span>  <span class="c1"># label counts at each step</span>
+
+<span class="n">accs_active</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+<span class="n">accs_random</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_active</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entropy sampling&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_random</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of labeled examples&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning vs. Random Sampling&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;active_learning_curve.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning reaches </span><span class="si">{</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random sampling reaches </span><span class="si">{</span><span class="n">accs_random</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning saves ~</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">accs_random</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">accs_random</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">accs_active</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels to match random&#39;s final accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id30">
+<h2>ቀዝቃዛ ጅምሩ ችግሩ<a class="headerlink" href="#id30" title="Permalink to this heading">#</a></h2>
+<p>ንቁ ትምህርቱ ሳይለጠፉ ነጥቦቹ ሊሰጡ ሰለጠነ ሞዴሉ ይፈልጋሉ — ግን ጅምሩ ሁሉ፣ ምንም (ወይም ጣቢያ ትንሽ) ሚለጠፉ ምሳሌዎቹ ሌለዎ ይዟሉ። ይህ <strong>ቀዝቃዛ ጅምሩ ችግሩ</strong> ነው።</p>
+<p>ተጨባጭ ፍቱ ናቸው፦</p>
+<ol class="arabic simple">
+<li><p><strong>ምናምን ጅምሩ፦</strong> ንቁ ትምህርቱ ሲጀምሩ ከምን አነስ ምናምን ዘር ስብስቡ (20–100 ምሳሌዎቹ) ሊለጥፉ።</p></li>
+<li><p><strong>ስብስቡ-ሁሉ ጅምሩ፦</strong> ሳይለጠፉ ዝርዝሩ ሁሉ k-ኢናን ሊጠቀሙ፤ ከእያንዳንዱ ስብስቡ አንዱ ምሳሌ ሊለጥፉ። ይህ ሁሉ ሙሉ ያለ ሊለጠፉ ዝርዝሩ ሁሉ ልዩነቱ ሊያረጋግጡ ይዟሉ።</p></li>
+<li><p><strong>ምሥጢሩ-ሁሉ ምርጫ፦</strong> ምሳሌዎቹ ሊሸፍኑ ቀደምቱ ሰለጠነ ምሳሌ ኮደሩ ሊጠቀሙ፤ ዋናው-ስብስቡ ሁሉ ልዩ ንዑስ ስብስቡ ሊምርጡ።</p></li>
+</ol>
+<p>ሁሉ ሥራዎቹ ሁሉ ጥቂቱ አስርዎቹ ምናምን ዘር መለያዎቹ ሁሉ ንቁ ትምህርቱ ሊጀምሩ ሰፊ ናቸው፤ ዕውን ቁጥሩ ምድቡ ሚዛኑ፣ ባሕሪ ዐቢይ ቁጥሩ፣ እና ሞዴሉ ቸርነቱ ሁሉ ይወሰናሉ።</p>
+</section>
+<hr class="docutils" />
+<section id="id31">
+<h2>ቡድን ዓይነቱ ንቁ ትምህርቱ<a class="headerlink" href="#id31" title="Permalink to this heading">#</a></h2>
+<p>ሥራ ላይ ትርጓሜ ሰጪዎቹ ቡድን ሆኖ ሠሩ — ሁሉ አንዱ መለያ ሁሉ አዲስ ሞዴሉ ሊሰለጥኑ ሊሰፍሩ ቀናቱ ነው። <strong>ቡድን ዓይነቱ ንቁ ትምህርቱ</strong> <span class="math notranslate nohighlight">\(b\)</span> ምሳሌዎቹ ስብስቡ ሁሉ ተደራቢ ሆኖ ሊምርጡ ይዟሉ።</p>
+<p>ዋናቱ <span class="math notranslate nohighlight">\(b\)</span> ሁሉ ዝቅ ያለ እርግጠኛ ሳይሆን ምሳሌዎቹ ሊምርጡ <strong>ድፍደፋ</strong> ይወስዳሉ፦ ሰፊ እርግጠኛ ሳይሆን ምሳሌዎቹ ሁሉ ሊሰበሰቡ ይዟሉ (ሰለምሳሌ ያው ቦታ ወሳኔ ድንበሩ ዙሪያ ምሳሌዎቹ)። ጥሩ ቡድን ስልቶቹ ቡድኑ ሁሉ እርግጠኛ ሳይሆን <em>እና</em> ልዩነቱ ሁሉ ሊሻሻሉ ይዟሉ።</p>
+<p><strong>ዲቴርሚናንታዊ ነጥቡ ሂደቶቹ (DPPs)</strong> ልዩ ቡድኖቹ ሊቀምሩ ዋናቱ ዘዴ ሰጡ፦ ተመሳሳይ ዕቃዎቹ ሊቀጡ ንዑስ ስብስቦቹ ሁሉ ስርጭቱ ሊዘረዝሩ ይዟሉ። ንዑስ ስብስቡ <span class="math notranslate nohighlight">\(S\)</span> ሁሉ DPP ምናምን <span class="math notranslate nohighlight">\(\det(L_S)\)</span> ሁሉ ምጥጥን ነው ሲሆን <span class="math notranslate nohighlight">\(L\)</span> ተመሳሳይነቱ ሊያሳይ ዋናቱ ማትሪኩ ነው።</p>
+</section>
+<hr class="docutils" />
+<section id="id32">
+<h2>ማቆሚያ ምልክቶቹ<a class="headerlink" href="#id32" title="Permalink to this heading">#</a></h2>
+<p>ንቁ ትምህርቱ መቼ ሊቆሙ? ብዙ ምልክቶቹ አሉ፦</p>
+<ul class="simple">
+<li><p><strong>በጀቱ ሙሉ ሆነ፦</strong> ቀላሉ — ትርጓሜ በጀቱ ሙሉ ሲሆን ሊቆሙ።</p></li>
+<li><p><strong>ቀልጣፋነቱ ድረ-ሆነ፦</strong> ዋጠ ያለ ምርመራ ስብስቡ ሁሉ ሞዴሉ ትክክለኛነቱ <span class="math notranslate nohighlight">\(k\)</span> ቀጣዩ ዙሮቹ ሁሉ <span class="math notranslate nohighlight">\(\delta\)</span> ሙሉ ሊሻሻሉ ሳይሄዱ ሲቆሙ።</p></li>
+<li><p><strong>ምናምን ድረሱ፦</strong> ሳይለጠፉ ምሳሌዎቹ ሙሉ ምናምን ሁሉ ድረሱ ሁሉ ሁሉ ዝቅ ያለ ምጥጥን ሲቆሙ።</p></li>
+<li><p><strong>ሙሉ ኪሳራ ቀነሰ፦</strong> ተጨማሪ መለያዎቹ ሁሉ ሙሉ ሊፈጥሩ ጥቅሙ ምናምን ሊዛሰቡ፤ ይህ ድረሱ ሁሉ ሲቆሙ <a href="#id33"><span class="problematic" id="id34">bloodgood2009method</span></a>።</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id35">
+<h2>ንቁ ትምህርቱ ሲሠራ (እና ሲሠራ)<a class="headerlink" href="#id35" title="Permalink to this heading">#</a></h2>
+<p>ንቁ ትምህርቱ ብዙ ጊዜ ጥሩ ሠራ ሲሆን፦</p>
+<ul class="simple">
+<li><p>ትርጓሜ ዋጋ አለ እናም ሳይለጠፉ ዝርዝሩ ትልቅ ነው</p></li>
+<li><p>ውሂቡ ሙሉ ቅርጸቱ ሞዴሉ ሁሉ ዋናቱ ምሳሌዎቹ ሊለዩ ሊጠቀሙ ይዟሉ</p></li>
+<li><p>ሞዴሉ ምድቡ ሥራ ሁሉ ተገቢ ነው</p></li>
+</ul>
+<p>ንቁ ትምህርቱ ጥሩ ሠርቶ ሊወድቁ ሲሆን፦</p>
+<ul class="simple">
+<li><p>ዋናው ሞዴሉ ጣቢያ ጥሩ ነው (ቀዝቃዛ ጅምሩ) እናም ምሳሌዎቹ ዋናቱ ሁሉ ሊደረጉ አይዟሉ</p></li>
+<li><p>ጥያቄ ስልቱ ወጪ ወይም ሁኔታ ያለ ምሳሌዎቹ ሊምርጡ ይዟሉ (ሁኔታ ጠቃሚነቱ ዋናቱ ነው)</p></li>
+<li><p>ሳይለጠፉ ዝርዝሩ እና ፈተናቸው ስርጭቱ መካከሉ ውሂቡ ስርጭቱ ሊቀየሩ ይዟሉ</p></li>
+</ul>
+<p>ዋናቱ ተጨባጭ ሁኔታ <strong>ስርጭቱ አለ-ሰምምነቱ</strong> ነው፦ ንቁ ትምህርቱ ወሳኔ ድንበሩ ዙሪያ ምሳሌዎቹ ሊጠይቁ ዝቅ ያለ ፈተናቸው ስርጭቱ ጥሩ ሊያሳዩ ሊሆን ያልኖሩ ሚለጠፉ ስብስቡ ፈጥሮ ይሄዳሉ። ይህ ጥሩ ሰለጠነ ወሳኔ ድንበሮቹ ፈጥሮ ሊሄዳሉ ነገር ግን ጥሩ ምናምን ሳይሆን።</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>ዋናቱ ዳሰሳ <a href="#id36"><span class="problematic" id="id37">settles2009active</span></a> ነው። ቲዎሪያዊ መሠረቶቹ (መለያ ቸርነቱ፣ ምናምን ድንበሮቹ)፦ <a href="#id38"><span class="problematic" id="id39">balcan2006agnostic</span></a>። ጥልቅ ትምህርቱ ልዩ ንቁ ትምህርቱ ሁሉ <a href="#id40"><span class="problematic" id="id41">ash2020deep</span></a> (BADGE) እና <a href="#id42"><span class="problematic" id="id43">sener2018active</span></a> (ዋናው-ስብስቡ) ይመልከቱ። ንቁ ትምህርቱ ዕውን ሲረዳ ሙሉ ቁጥጥር ምዘናቸው ሁሉ <a href="#id44"><span class="problematic" id="id45">lowell2019practical</span></a> ይመልከቱ። ጥልቅ ሞዴሎቹ ሁሉ አሌዓቲካዊ ወ. ኤፒስቴሚካዊ እርግጠኛ ሳይሆን <a href="#id46"><span class="problematic" id="id47">kendall2017uncertainties</span></a> ይመልከቱ፤ ጥልቅ ስብስቦቹ ሁሉ <a href="#id48"><span class="problematic" id="id49">lakshminarayanan2017simple</span></a>፤ MC ድሮፕዓውቱ ምናምን ቤይዝያን ምናምን ሁሉ <a href="#id50"><span class="problematic" id="id51">gal2016dropout</span></a> ይመልከቱ።</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/am/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ንቁ ትምህርቱ አዋቅሩ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ቲዎሪያዊ መሠረቶቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ጥያቄ ስልቶቹ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">እርግጠኛ ሳይሆን ናሙናው</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qbc">ኮሚቴ ሁሉ ጥያቄ (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">የሚጠበቀው ሞዴሉ ለውጡ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ዋናው-ስብስቡ / ጂዎሜትሪካዊ አቀራረቦቹ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">ጥልቅ ሞዴሎቹ ሁሉ እርግጠኛ ሳይሆን ምናምን</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">ሁለቱ ዓይነቶቹ እርግጠኛ ሳይሆን</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mc">MC ድሮፕዓውት</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">ጥልቅ ስብስቦቹ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">ሙሉ ንቁ ትምህርቱ ቀለበቱ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">ቀዝቃዛ ጅምሩ ችግሩ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">ቡድን ዓይነቱ ንቁ ትምህርቱ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">ማቆሚያ ምልክቶቹ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">ንቁ ትምህርቱ ሲሠራ (እና ሲሠራ)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

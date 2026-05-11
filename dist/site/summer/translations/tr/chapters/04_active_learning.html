@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Aktif Öğrenme &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/tr/chapters/04_active_learning';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/tr/chapters/04_active_learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aktif Öğrenme</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktif-ogrenme-kurulumu">Aktif Öğrenme Kurulumu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kuramsal-temeller">Kuramsal Temeller</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorgu-stratejileri">Sorgu Stratejileri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#belirsizlik-orneklemesi">Belirsizlik Örneklemesi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#komite-sorgulama-qbc">Komite Sorgulama (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beklenen-model-degisimi">Beklenen Model Değişimi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cekirdek-kume-geometrik-yaklasimlar">Çekirdek Küme / Geometrik Yaklaşımlar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derin-modeller-icin-belirsizlik-tahmini">Derin Modeller için Belirsizlik Tahmini</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iki-tur-belirsizlik">İki Tür Belirsizlik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-hata-birakma">Monte Carlo Hata Bırakma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derin-topluluklar">Derin Topluluklar</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tam-bir-aktif-ogrenme-dongusu">Tam Bir Aktif Öğrenme Döngüsü</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soguk-baslangic-problemi">Soğuk Başlangıç Problemi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toplu-modda-aktif-ogrenme">Toplu Modda Aktif Öğrenme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#durdurma-olcutleri">Durdurma Ölçütleri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktif-ogrenmenin-ise-yaradigi-ve-yaramadigi-durumlar">Aktif Öğrenmenin İşe Yaradığı (ve Yaramadığı) Durumlar</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aktif-ogrenme">
+<h1>Aktif Öğrenme<a class="headerlink" href="#aktif-ogrenme" title="Permalink to this heading">#</a></h1>
+<p>Etiketli veri pahalıdır. Aktif öğrenmenin temel kavrayışı şudur: <em>tüm etiketsiz örnekler eşit ölçüde bilgilendirici değildir</em> — bir model, hangi örnekleri soracağını seçme hakkı verildiğinde daha hızlı gelişebilir. Aktif öğrenme sistemi, veriyi rastgele etiketlemek yerine modeli en çok iyileştirecek örnekler üzerinde bir kehanet (genellikle insan açıklayıcı) sorgular.</p>
+<p>Bu bölüm aktif öğrenmenin teorisini ve pratiğini kapsar: sorgu stratejileri, örnekleme çerçeveleri, durdurma ölçütleri ve gerçek dağıtımlar için pratik değerlendirmeler.</p>
+<hr class="docutils" />
+<section id="aktif-ogrenme-kurulumu">
+<h2>Aktif Öğrenme Kurulumu<a class="headerlink" href="#aktif-ogrenme-kurulumu" title="Permalink to this heading">#</a></h2>
+<p>Standart <strong>havuz tabanlı aktif öğrenme</strong> ortamı şunları içerir:</p>
+<ul class="simple">
+<li><p>Başlangıçta küçük olan bir <strong>etiketli küme</strong> <span class="math notranslate nohighlight">\(\mathcal{L} = \{(x_i, y_i)\}_{i=1}^n\)</span></p></li>
+<li><p>Genellikle <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>’den çok daha büyük bir <strong>etiketsiz havuz</strong> <span class="math notranslate nohighlight">\(\mathcal{U} = \{x_j\}_{j=1}^m\)</span></p></li>
+<li><p>Sorgulanan herhangi bir <span class="math notranslate nohighlight">\(x\)</span> için <span class="math notranslate nohighlight">\(y = \mathcal{O}(x)\)</span> döndürebilen bir <strong>kehanet</strong> <span class="math notranslate nohighlight">\(\mathcal{O}\)</span></p></li>
+<li><p>Sonraki sorguyu <span class="math notranslate nohighlight">\(x^* = \phi(\mathcal{L}, \mathcal{U}, f_\theta)\)</span> olarak seçen bir <strong>sorgu stratejisi</strong> <span class="math notranslate nohighlight">\(\phi\)</span></p></li>
+</ul>
+<p>Aktif öğrenme döngüsü:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    1. Başlatma: L = küçük etiketli tohum kümesi, U = etiketsiz havuz
+    2. Eğitim: f_θ ← train(L)
+    3. Sorgu: x* = argmax φ(x; f_θ), x ∈ U üzerinde
+    4. Etiketleme: y* = O(x*)
+    5. Güncelleme: L ← L ∪ {(x*, y*)}, U ← U \ {x*}
+    → Bütçe tükenene kadar 2&#39;den tekrarla
+</pre></div>
+</div>
+<p>Amaç, olabildiğince az kehanet sorgusu kullanarak hedef model kalitesine ulaşmaktır.</p>
+</section>
+<hr class="docutils" />
+<section id="kuramsal-temeller">
+<h2>Kuramsal Temeller<a class="headerlink" href="#kuramsal-temeller" title="Permalink to this heading">#</a></h2>
+<p>Doğal bir soru şudur: aktif öğrenme ne kadar yardımcı olabilir? En iyi senaryoda, gerçekleştirilmiş ortamlarda iyi bir sorgu stratejisiyle pasif öğrenmenin gerektirdiği <span class="math notranslate nohighlight">\(O(1/\epsilon)\)</span>’dan çok daha az, <span class="math notranslate nohighlight">\(O(\log(1/\epsilon))\)</span> etiketle hata <span class="math notranslate nohighlight">\(\epsilon\)</span>’a ulaşarak <em>üstel</em> etiket karmaşıklığı azalmaları sağlanabilir <a href="#id1"><span class="problematic" id="id2">settles2009active</span></a>.</p>
+<p>Pratikte garantiler elde etmek daha güçtür. <strong>Agnostik aktif öğrenme</strong> <a href="#id3"><span class="problematic" id="id4">balcan2006agnostic</span></a>, hedef kavramın hipotez sınıfında olmadığı durumlarda dahi etiket tasarruflarının mümkün olduğunu göstermektedir; ancak tasarruflar, veri birikmesiyle olası hipotezler kümesinin ne kadar hızlı küçüldüğünü ölçen anlaşmazlık katsayısına güçlü biçimde bağlıdır.</p>
+<p>Temel pratik çıkarım: aktif öğrenmenin avantajı, <strong>karar sınırı basit ve yoğunlaşmış</strong> olduğunda (belirsizlik sorguları yanlış hipotezleri hızla eleyebildiğinden) en büyük, hipotez sınıfı büyük veya sınır karmaşık olduğunda ise en küçüktür.</p>
+</section>
+<hr class="docutils" />
+<section id="sorgu-stratejileri">
+<h2>Sorgu Stratejileri<a class="headerlink" href="#sorgu-stratejileri" title="Permalink to this heading">#</a></h2>
+<section id="belirsizlik-orneklemesi">
+<h3>Belirsizlik Örneklemesi<a class="headerlink" href="#belirsizlik-orneklemesi" title="Permalink to this heading">#</a></h3>
+<p>En basit ve en yaygın kullanılan strateji: modelin en çok <em>belirsiz</em> olduğu örneği sorgula <a href="#id5"><span class="problematic" id="id6">lewis1994sequential</span></a>.</p>
+<p><strong>En düşük güven</strong> örneklemesi, modelin en üst tahminine en az güvendiği örneği sorgular:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left(1 - P_\theta(\hat{y} \mid x)\right)
+\]</div>
+<p><strong>Marjin örneklemesi</strong>, ilk iki tahmin olasılığı arasındaki farkı dikkate alır:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmin_{x \in \mathcal{U}} \left(P_\theta(\hat{y}_1 \mid x) - P_\theta(\hat{y}_2 \mid x)\right)
+\]</div>
+<p><strong>Entropi örneklemesi</strong>, tahmin edilen tam dağılımı kullanır:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left( -\sum_{k=1}^K P_\theta(y_k \mid x) \log P_\theta(y_k \mid x) \right)
+\]</div>
+<p>Entropi örneklemesi üçü arasında en sağlam temellere sahip olanıdır — tüm sınıfları dikkate alır — ve çok sınıflı problemlerde diğerlerinden genellikle daha iyi performans gösterir.</p>
+</section>
+<section id="komite-sorgulama-qbc">
+<h3>Komite Sorgulama (QbC)<a class="headerlink" href="#komite-sorgulama-qbc" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(C\)</span> modelden oluşan bir <strong>komite</strong> eğitilir (torbalama, farklı başlangıç değerleri veya farklı mimariler kullanılarak). Komitenin en çok anlaşmazlığa düştüğü örnek sorgulanır:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \; \text{anlaşmazlık}(\{f_c(x)\}_{c=1}^C)
+\]</div>
+<p>Anlaşmazlık, <strong>oy entropisi</strong> (komitenin çoğunluk oyları üzerinden entropi) veya fikir birliği dağılımından <strong>KL ıraksaması</strong> olarak ölçülebilir.</p>
+<p>QbC, tekil bir modele kıyasla daha iyi belirsizlik tahminleri sağlar ancak birden fazla modelin eğitimini gerektirir; bu da hesaplama açısından pahalıdır.</p>
+</section>
+<section id="beklenen-model-degisimi">
+<h3>Beklenen Model Değişimi<a class="headerlink" href="#beklenen-model-degisimi" title="Permalink to this heading">#</a></h3>
+<p>Etiketlenmiş olsaydı mevcut modeli en çok değiştirecek örneği sorgula. Gradyan tabanlı modeller için bu, en büyük beklenen gradyan büyüklüğüne sahip örneğe karşılık gelir <a href="#id7"><span class="problematic" id="id8">settles2008analysis</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \sum_{y \in \mathcal{Y}} P_\theta(y \mid x) \left\| \nabla_\theta \mathcal{L}(f_\theta(x), y) \right\|
+\]</div>
+<p>Bu stratejinin güçlü kuramsal gerekçesi vardır, ancak her aday için gradyan hesaplamayı gerektirdiğinden büyük modeller için pahalıdır.</p>
+</section>
+<section id="cekirdek-kume-geometrik-yaklasimlar">
+<h3>Çekirdek Küme / Geometrik Yaklaşımlar<a class="headerlink" href="#cekirdek-kume-geometrik-yaklasimlar" title="Permalink to this heading">#</a></h3>
+<p>Belirsizlik tabanlı stratejiler <strong>aykırı değerlere yönelim gösterebilir</strong>: sıradışı bir örnek yüksek belirsizlikte olabilir ancak veri dağılımını temsil etmeyebilir. Çekirdek küme yöntemleri, özellik uzayını kapsayan çeşitlendirilmiş bir örnek arayarak bunu ele alır.</p>
+<p><strong>k-merkezli açgözlü</strong> algoritma <a href="#id9"><span class="problematic" id="id10">sener2018active</span></a>, her etiketsiz noktanın en az bir sorgulanan noktanın <span class="math notranslate nohighlight">\(\delta\)</span> yakınında olduğu en küçük nokta kümesini bulur:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \min_{x' \in \mathcal{L}} d(x, x')
+\]</div>
+<p>Yani, mevcut herhangi bir etiketli noktadan en uzak noktayı sorgula. Bu, açıklamaların iyi yayılmış bir küme oluşturmasını teşvik eder.</p>
+</section>
+<section id="badge">
+<h3>BADGE<a class="headerlink" href="#badge" title="Permalink to this heading">#</a></h3>
+<p><strong>Çeşitli Gradyan Gömmeleri Yoluyla Toplu Aktif Öğrenme (BADGE)</strong> <a href="#id11"><span class="problematic" id="id12">ash2020deep</span></a>, belirsizlik ve çeşitliliği bir araya getirir: tahmin edilen etikete göre gradyan gömmeleri hem büyüklük (belirsiz) hem de çeşitlilik (gradyan uzayının farklı bölgelerini kapsama) açısından olumlu olan örnekleri seçer. Bu, en rekabetçi modern stratejilerden biridir.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="derin-modeller-icin-belirsizlik-tahmini">
+<h2>Derin Modeller için Belirsizlik Tahmini<a class="headerlink" href="#derin-modeller-icin-belirsizlik-tahmini" title="Permalink to this heading">#</a></h2>
+<p>Yukarıdaki stratejiler, modelden kalibre edilmiş olasılık çıktılarına erişim varsayar. Basit modeller (lojistik regresyon, softmax sınıflandırıcılar) için bu basittir. Derin ağlar için güvenilir belirsizlik tahminleri elde etmek ek teknik gerektirir.</p>
+<section id="iki-tur-belirsizlik">
+<h3>İki Tür Belirsizlik<a class="headerlink" href="#iki-tur-belirsizlik" title="Permalink to this heading">#</a></h3>
+<p>Kendall ve Gal <a href="#id13"><span class="problematic" id="id14">kendall2017uncertainties</span></a>’ın çerçevesini izleyerek şu ayrımı yapıyoruz:</p>
+<p><strong>Aleatonik belirsizlik</strong> (veri belirsizliği): daha fazla veri toplayarak azaltılamayan gözlemlerdeki doğal gürültü. Bulanık bir görüntü aleatonik belirsizliğe sahiptir — aynı dağılımdan ek eğitim verisi, modelin bu görüntü üzerinde daha güvenli olmasını sağlamayacaktır.</p>
+<p><strong>Epistemik belirsizlik</strong> (model belirsizliği): sınırlı eğitim verisinden ya da benzer örnekler görmemiş bir modelden kaynaklanan belirsizlik. Epistemik belirsizlik daha fazla veri etiketlenerek <em>azaltılabilir</em> — dolayısıyla aktif öğrenme sorgu seçimi için ilgili nicelik budur.</p>
+<p>Aktif öğrenme için yüksek epistemik belirsizliğe sahip örnekleri sorgulamak isteriz; yüksek aleatonik belirsizliğe sahip olanları değil. Temelden belirsiz bir örneği sorgulamak kehanet çabasını boşa harcar: sağladıkları etiket açıkça doğru olmayacaktır.</p>
+</section>
+<section id="monte-carlo-hata-birakma">
+<h3>Monte Carlo Hata Bırakma<a class="headerlink" href="#monte-carlo-hata-birakma" title="Permalink to this heading">#</a></h3>
+<p>Sinir ağları için epistemik belirsizlik tahminine pratik bir yaklaşım <strong>MC Hata Bırakma (MC Dropout)</strong> <a href="#id15"><span class="problematic" id="id16">gal2016dropout</span></a>’tur: çıkarım sırasında hata bırakmayı uygula ve <span class="math notranslate nohighlight">\(T\)</span> ileri geçiş çalıştır. Tahminler arasındaki varyans, epistemik belirsizliğin bir tahminidir.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MCDropoutNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">p_drop</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run T stochastic forward passes with dropout active.</span>
+<span class="sd">    Returns mean prediction and epistemic uncertainty (predictive variance).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># keep dropout active during inference</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="p">])</span>  <span class="c1"># shape: (T, N, C)</span>
+    <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Epistemic uncertainty: mean of variances across passes</span>
+    <span class="n">epistemic</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Aleatoric uncertainty: entropy of mean prediction</span>
+    <span class="n">aleatoric</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">mean_pred</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean_pred</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean_pred</span><span class="p">,</span> <span class="n">epistemic</span><span class="p">,</span> <span class="n">aleatoric</span>
+
+<span class="c1"># Quick demonstration</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MCDropoutNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># In-distribution example (simulated)</span>
+<span class="n">x_familiar</span>   <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="c1"># Out-of-distribution example (far from training distribution)</span>
+<span class="n">x_unfamiliar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.0</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;In-distribution &quot;</span><span class="p">,</span> <span class="n">x_familiar</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Out-of-distribution&quot;</span><span class="p">,</span> <span class="n">x_unfamiliar</span><span class="p">)]:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">al</span> <span class="o">=</span> <span class="n">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> | epistemic: </span><span class="si">{</span><span class="n">ep</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | aleatoric: </span><span class="si">{</span><span class="n">al</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Yukarıdaki eğitimsiz ağda, her iki örnek de benzer belirsizlik gösterir. Eğitimden sonra, dağılım dışı örnek daha yüksek epistemik belirsizlik sergileyecektir — model, eğitim dağılımından uzak girdiler için güvenilir bir eşleme öğrenmemiştir.</p>
+</section>
+<section id="derin-topluluklar">
+<h3>Derin Topluluklar<a class="headerlink" href="#derin-topluluklar" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(M\)</span> bağımsız olarak başlatılmış model eğitip tahminlerinin ortalamasını almak, MC Hata Bırakmadan daha basit ve çoğu zaman daha güvenilir bir belirsizlik tahmini sağlar <a href="#id17"><span class="problematic" id="id18">lakshminarayanan2017simple</span></a>. Topluluk üyeleri arasındaki anlaşmazlık, epistemik belirsizlik sinyalidir.</p>
+<p>Ölçekli aktif öğrenmede, hem MC Hata Bırakma hem de derin topluluklar <span class="math notranslate nohighlight">\(T\)</span> veya <span class="math notranslate nohighlight">\(M\)</span> ileri geçişiyle orantılı ek yük getirir. Pratikte, mutlak değerler iyi kalibre edilmiş olmasa bile örnekleri epistemik belirsizliğe göre sıralamak için genellikle MC Hata Bırakma için <span class="math notranslate nohighlight">\(T = 10\)</span>–<span class="math notranslate nohighlight">\(30\)</span> veya <span class="math notranslate nohighlight">\(M = 5\)</span> topluluk üyesi yeterlidir.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tam-bir-aktif-ogrenme-dongusu">
+<h2>Tam Bir Aktif Öğrenme Döngüsü<a class="headerlink" href="#tam-bir-aktif-ogrenme-dongusu" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Generate dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">1500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">1500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">1500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index of most uncertain sample (entropy).&quot;&quot;&quot;</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ent</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random baseline.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_queries</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">query_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">labeled_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_idx</span><span class="p">]</span>
+    <span class="n">accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_queries</span> <span class="o">//</span> <span class="n">query_batch</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">])</span>
+        <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+        <span class="c1"># Query</span>
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query_batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;entropy&#39;</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">labeled_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled_idx</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+            <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span>
+
+<span class="n">labels_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">30</span>  <span class="c1"># label counts at each step</span>
+
+<span class="n">accs_active</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+<span class="n">accs_random</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_active</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entropy sampling&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_random</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of labeled examples&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning vs. Random Sampling&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;active_learning_curve.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning reaches </span><span class="si">{</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random sampling reaches </span><span class="si">{</span><span class="n">accs_random</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning saves ~</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">accs_random</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">accs_random</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">accs_active</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels to match random&#39;s final accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="soguk-baslangic-problemi">
+<h2>Soğuk Başlangıç Problemi<a class="headerlink" href="#soguk-baslangic-problemi" title="Permalink to this heading">#</a></h2>
+<p>Aktif öğrenme, etiketsiz noktaları puanlamak için eğitilmiş bir model gerektirir — ancak başlangıçta hiç (ya da çok az) etiketli örnek yoktur. Bu, <strong>soğuk başlangıç problemidir</strong>.</p>
+<p>Pratik çözümler:</p>
+<ol class="arabic simple">
+<li><p><strong>Rastgele başlatma:</strong> Aktif öğrenmeye başlamadan önce küçük bir rastgele tohum kümesi (20–100 örnek) etiketle.</p></li>
+<li><p><strong>Kümeleme tabanlı başlatma:</strong> Etiketsiz havuz üzerinde k-means uygula; her kümeden bir örnek etiketle. Bu, başlangıç etiketli kümesinde çeşitliliği güvence altına alır.</p></li>
+<li><p><strong>Gömme tabanlı seçim:</strong> Örnekleri gömmek için önceden eğitilmiş bir kodlayıcı kullan; çekirdek küme yöntemiyle çeşitlendirilmiş bir alt küme seç.</p></li>
+</ol>
+<p>Çoğu görev için birkaç düzine rastgele tohum etiket, aktif öğrenmeyi başlatmak için genellikle yeterlidir; kesin sayı, sınıf dengesine, özellik boyutsallığına ve model karmaşıklığına bağlıdır.</p>
+</section>
+<hr class="docutils" />
+<section id="toplu-modda-aktif-ogrenme">
+<h2>Toplu Modda Aktif Öğrenme<a class="headerlink" href="#toplu-modda-aktif-ogrenme" title="Permalink to this heading">#</a></h2>
+<p>Pratikte açıklayıcılar toplu iş şeklinde çalışır — her tekil etiket sonrasında yeni bir model eğitip dağıtmak verimsizdir. <strong>Toplu modda aktif öğrenme</strong>, aynı anda etiketlenecek <span class="math notranslate nohighlight">\(b\)</span> örnek kümesi seçer.</p>
+<p>En belirsiz <span class="math notranslate nohighlight">\(b\)</span> örneği naif biçimde seçmek <strong>fazlalığa</strong> yol açar: yüksek belirsizlikteki örnekler bir arada kümelenir (örneğin aynı bölgede karar sınırına yakın örnekler). Daha iyi toplu stratejiler, hem belirsizliği hem de toplu içindeki çeşitliliği optimize eder.</p>
+<p><strong>Determinantal Nokta Süreçleri (DPP’ler)</strong>, çeşitlendirilmiş toplu örnekler seçmenin prensipli bir yolunu sunar: benzer öğeleri cezalandıran alt kümeler üzerinde bir dağılım tanımlar. <span class="math notranslate nohighlight">\(S\)</span> alt kümesinin bir DPP altındaki olasılığı, benzerliği kodlayan bir çekirdek matrisi olan <span class="math notranslate nohighlight">\(L\)</span>’de <span class="math notranslate nohighlight">\(\det(L_S)\)</span> ile orantılıdır.</p>
+</section>
+<hr class="docutils" />
+<section id="durdurma-olcutleri">
+<h2>Durdurma Ölçütleri<a class="headerlink" href="#durdurma-olcutleri" title="Permalink to this heading">#</a></h2>
+<p>Aktif öğrenme ne zaman durmalıdır? Yaygın ölçütler:</p>
+<ul class="simple">
+<li><p><strong>Bütçe tükendi:</strong> En basiti — açıklama bütçesi bittiğinde dur.</p></li>
+<li><p><strong>Performans platoya ulaştı:</strong> Tutulmuş bir doğrulama kümesindeki model doğruluğu art arda <span class="math notranslate nohighlight">\(k\)</span> turda <span class="math notranslate nohighlight">\(\delta\)</span>’dan fazla iyileşmediğinde dur.</p></li>
+<li><p><strong>Güven eşiği:</strong> Etiketsiz örneklerin belirli bir oranından azının belirsizliği eşiğin üzerinde olduğunda dur.</p></li>
+<li><p><strong>Azami kayıp azalması:</strong> Ek etiketlerden elde edilebilecek azami kazanımı tahmin et; bu bir eşiğin altına düştüğünde dur <a href="#id19"><span class="problematic" id="id20">bloodgood2009method</span></a>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="aktif-ogrenmenin-ise-yaradigi-ve-yaramadigi-durumlar">
+<h2>Aktif Öğrenmenin İşe Yaradığı (ve Yaramadığı) Durumlar<a class="headerlink" href="#aktif-ogrenmenin-ise-yaradigi-ve-yaramadigi-durumlar" title="Permalink to this heading">#</a></h2>
+<p>Aktif öğrenme şu durumlarda iyi çalışır:</p>
+<ul class="simple">
+<li><p>Etiketleme pahalıdır ve etiketsiz havuz büyüktür</p></li>
+<li><p>Verinin, modelin bilgilendirici örnekleri belirlemekte yararlanabileceği net bir yapısı vardır</p></li>
+<li><p>Model sınıfı göreve uygundur</p></li>
+</ul>
+<p>Aktif öğrenme şu durumlarda kötü performans gösterir:</p>
+<ul class="simple">
+<li><p>Başlangıç modeli çok zayıftır (soğuk başlangıç) ve örnekleri anlamlı biçimde sıralayamaz</p></li>
+<li><p>Sorgu stratejisi aykırı değerler veya yanlış etiketlenmiş örnekler seçer (gürültü sağlamlığı önem taşır)</p></li>
+<li><p>Etiketsiz havuz ile test dağılımı arasında veri dağılımı kayması vardır</p></li>
+</ul>
+<p>Önemli bir pratik endişe <strong>dağılım uyumsuzluğudur</strong>: aktif öğrenme, karar sınırına yakın örnekleri sorgulama eğilimindedir; bu durum, test dağılımını iyi temsil etmeyebilecek önyargılı bir etiketli küme oluşturur. Bu, iyi eğitilmiş karar sınırlarına ancak kötü kalibrasyona yol açabilir.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Temel araştırma şu kaynaktır: <a href="#id21"><span class="problematic" id="id22">settles2009active</span></a>. Kuramsal temeller (etiket karmaşıklığı, agnostik sınırlar): <a href="#id23"><span class="problematic" id="id24">balcan2006agnostic</span></a>. Derin öğrenmeye özgü aktif öğrenme için bkz. <a href="#id25"><span class="problematic" id="id26">ash2020deep</span></a> (BADGE) ve <a href="#id27"><span class="problematic" id="id28">sener2018active</span></a> (çekirdek küme). Aktif öğrenmenin ne zaman gerçekten işe yaradığına ilişkin eleştirel bir değerlendirme için bkz. <a href="#id29"><span class="problematic" id="id30">lowell2019practical</span></a>. Derin modeller için aleatonik ve epistemik belirsizlik üzerine bkz. <a href="#id31"><span class="problematic" id="id32">kendall2017uncertainties</span></a>; belirsizlik tahmincisi olarak derin topluluklar için bkz. <a href="#id33"><span class="problematic" id="id34">lakshminarayanan2017simple</span></a>; yaklaşık Bayesci çıkarım olarak MC Hata Bırakma için bkz. <a href="#id35"><span class="problematic" id="id36">gal2016dropout</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/tr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktif-ogrenme-kurulumu">Aktif Öğrenme Kurulumu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kuramsal-temeller">Kuramsal Temeller</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorgu-stratejileri">Sorgu Stratejileri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#belirsizlik-orneklemesi">Belirsizlik Örneklemesi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#komite-sorgulama-qbc">Komite Sorgulama (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beklenen-model-degisimi">Beklenen Model Değişimi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cekirdek-kume-geometrik-yaklasimlar">Çekirdek Küme / Geometrik Yaklaşımlar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derin-modeller-icin-belirsizlik-tahmini">Derin Modeller için Belirsizlik Tahmini</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iki-tur-belirsizlik">İki Tür Belirsizlik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-hata-birakma">Monte Carlo Hata Bırakma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derin-topluluklar">Derin Topluluklar</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tam-bir-aktif-ogrenme-dongusu">Tam Bir Aktif Öğrenme Döngüsü</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soguk-baslangic-problemi">Soğuk Başlangıç Problemi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toplu-modda-aktif-ogrenme">Toplu Modda Aktif Öğrenme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#durdurma-olcutleri">Durdurma Ölçütleri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktif-ogrenmenin-ise-yaradigi-ve-yaramadigi-durumlar">Aktif Öğrenmenin İşe Yaradığı (ve Yaramadığı) Durumlar</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>L’humain dans la boucle en santé et en sciences &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/fr/chapters/11_healthcare';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/fr/chapters/11_healthcare.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>L’humain dans la boucle en santé et en sciences</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyse-d-images-medicales">Analyse d’images médicales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exigences-en-matiere-d-annotateurs-experts">Exigences en matière d’annotateurs experts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variabilite-inter-radiologues">Variabilité inter-radiologues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apprentissage-actif-pour-les-maladies-rares">Apprentissage actif pour les maladies rares</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-de-tal-clinique">Annotation de TAL clinique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2-comme-modele">i2b2 / n2c2 comme modèle</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-reglementaires">Considérations réglementaires</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-de-donnees-scientifiques">Annotation de données scientifiques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astronomie-galaxy-zoo">Astronomie : Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genomique-classification-de-la-pathogenicite">Génomique : Classification de la pathogénicité</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climat-et-sciences-de-la-terre">Climat et sciences de la Terre</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neurosciences-la-connectomique">Neurosciences : La connectomique</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gerer-les-annotateurs-specialistes">Gérer les annotateurs spécialistes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-pipeline-hitl-d-apprentissage-actif-pour-l-imagerie-medicale">Un pipeline HITL d’apprentissage actif pour l’imagerie médicale</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="l-humain-dans-la-boucle-en-sante-et-en-sciences">
+<h1>L’humain dans la boucle en santé et en sciences<a class="headerlink" href="#l-humain-dans-la-boucle-en-sante-et-en-sciences" title="Permalink to this heading">#</a></h1>
+<p>La santé et les sciences représentent deux des domaines où le HITL ML est le plus important et le plus débattu. Les enjeux sont élevés : un cancer manqué ou une cible médicamenteuse erronée a un coût humain réel. L’annotation nécessite une expertise rare et coûteuse. Les exigences réglementaires contraignent ce que les modèles peuvent faire et comment ils doivent être validés. Et contrairement au TAL, où le problème d’annotation est en partie une construction sociale, il existe ici souvent une vérité de terrain réelle — une tumeur est présente ou elle ne l’est pas — même si aucun observateur individuel ne peut la déterminer de manière fiable.</p>
+<p>La présentation dominante dans la couverture populaire est « l’IA contre l’humain » : l’IA remplacera-t-elle les radiologues ? Cette présentation est erronée d’une façon qui importe. La vraie question est quelle forme de collaboration humain-IA produit de meilleurs résultats que l’un ou l’autre seul, et comment construire des systèmes qui permettent cette collaboration plutôt que de la perturber.</p>
+<hr class="docutils" />
+<section id="analyse-d-images-medicales">
+<h2>Analyse d’images médicales<a class="headerlink" href="#analyse-d-images-medicales" title="Permalink to this heading">#</a></h2>
+<p>L’imagerie médicale — radiologie (rayons X, scanner, IRM), pathologie (lames de tissu), dermatologie, ophtalmologie — est le domaine où l’IA médicale a progressé le plus rapidement.</p>
+<section id="exigences-en-matiere-d-annotateurs-experts">
+<h3>Exigences en matière d’annotateurs experts<a class="headerlink" href="#exigences-en-matiere-d-annotateurs-experts" title="Permalink to this heading">#</a></h3>
+<p>L’annotation d’images médicales nécessite généralement des médecins avec une formation spécialisée dans une sous-spécialité. Cela rend l’annotation :</p>
+<ul class="simple">
+<li><p><strong>Lente :</strong> Les spécialistes ont du temps limité ; l’annotation entre en concurrence avec les obligations cliniques</p></li>
+<li><p><strong>Coûteuse :</strong> Les coûts vont de plusieurs dizaines à plusieurs centaines de dollars par cas annoté, selon la sous-spécialité, la modalité et la complexité de la tâche</p></li>
+<li><p><strong>Variable :</strong> Même les spécialistes ne sont pas d’accord, en particulier sur les cas limites — un fait souvent traité comme un problème mais qui est en réalité informatif</p></li>
+</ul>
+</section>
+<section id="variabilite-inter-radiologues">
+<h3>Variabilité inter-radiologues<a class="headerlink" href="#variabilite-inter-radiologues" title="Permalink to this heading">#</a></h3>
+<p>La variabilité entre lecteurs est bien documentée en radiologie. Pour l’interprétation des radiographies thoraciques, le désaccord entre lecteurs est substantiel — dans l’étude CheXNet, quatre radiologues ont étiqueté le même ensemble de test de détection de pneumonie avec des scores F1 couvrant environ 12 points de pourcentage <a href="#id1"><span class="problematic" id="id2">rajpurkar2017chexnet</span></a>, reflétant une incertitude diagnostique réelle sur les cas limites. Pour la détection de nodules en scanner pulmonaire, la variabilité intra-lecteur (même lecteur, même cas, jour différent) peut être aussi grande que la variabilité inter-lecteur.</p>
+<p>Cette variabilité n’est pas simplement du bruit — elle reflète une incertitude diagnostique réelle. Les modèles entraînés sur les annotations d’un seul radiologue peuvent apprendre les biais spécifiques de ce médecin plutôt que la pathologie sous-jacente.</p>
+<div class="note admonition">
+<p class="admonition-title">La controverse CheXNet comme leçon HITL</p>
+<p>Quand Rajpurkar et al. ont prétendu que leur modèle CheXNet « dépassait les performances des radiologues » en détection de pneumonie, la prétention a immédiatement été contestée par la communauté radiologique <a href="#id3"><span class="problematic" id="id4">yu2022assessing</span></a>. Une partie de la controverse portait sur l’ensemble de test spécifique et la comparaison avec les radiologues. Mais un problème plus profond était méthodologique : la référence de « performance des radiologues » utilisait des lecteurs individuels sous pression de temps, tandis que la radiologie clinique implique typiquement la consultation, la comparaison avec les images antérieures et l’accès au contexte clinique — rien de tout cela n’était disponible pour le modèle.</p>
+<p>La leçon n’est pas que le modèle était bon ou mauvais, mais que <strong>les comparaisons de performance nécessitent de spécifier la configuration HITL</strong>. Un modèle qui surpasse un radiologue individuel lisant à froid peut toujours être moins précis qu’un radiologue utilisant la sortie du modèle comme second avis. Ce sont des systèmes différents avec des modes d’erreur différents, et leur agrégation diffère.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Étiquettes souples en médecine</p>
+<p>Plusieurs projets d’IA médicale ont adopté des <strong>étiquettes souples</strong> qui reflètent la distribution des opinions d’experts plutôt qu’une seule étiquette « de référence ». Une radiographie thoracique étiquetée comme 60 % pneumonie / 40 % atélectasie par un panel de radiologues porte plus d’information qu’un choix binaire forcé. Les modèles entraînés sur de telles distributions montrent une meilleure calibration et une quantification d’incertitude plus appropriée — et cette incertitude est cliniquement significative, car elle dit au clinicien quand consulter, pas seulement ce que le modèle pense.</p>
+</div>
+</section>
+<section id="apprentissage-actif-pour-les-maladies-rares">
+<h3>Apprentissage actif pour les maladies rares<a class="headerlink" href="#apprentissage-actif-pour-les-maladies-rares" title="Permalink to this heading">#</a></h3>
+<p>L’apprentissage actif est particulièrement précieux pour les maladies rares et les pathologies rares, où même un grand pool non étiqueté ne contient qu’un petit nombre de cas positifs. L’échantillonnage aléatoire standard gaspillerait le temps des experts à étiqueter principalement des cas négatifs.</p>
+<p>L’apprentissage actif basé sur l’incertitude sélectionne naturellement les cas limites où le modèle est incertain — qui, pour les conditions rares, tendent à être les cas positifs et les négatifs limites. Cela concentre le temps des spécialistes là où il est le plus précieux. La combinaison de l’entraînement déséquilibré en classes (avec <code class="docutils literal notranslate"><span class="pre">class_weight='balanced'</span></code> ou similaire) et de la sélection basée sur l’incertitude est une pratique standard pour les tâches de détection de pathologies rares.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="annotation-de-tal-clinique">
+<h2>Annotation de TAL clinique<a class="headerlink" href="#annotation-de-tal-clinique" title="Permalink to this heading">#</a></h2>
+<p>Les dossiers médicaux électroniques (DME) contiennent une richesse énorme de textes narratifs cliniques : notes des médecins, résumés de sortie, rapports radiologiques, rapports anatomopathologiques. L’extraction d’informations structurées à partir de ces textes nécessite le TAL — et un TAL de haute qualité nécessite des données d’entraînement annotées.</p>
+<p><strong>Tâches d’annotation de TAL clinique courantes :</strong></p>
+<ul class="simple">
+<li><p><strong>NER clinique :</strong> Identifier les médicaments, les dosages, les diagnostics, les procédures et les symptômes dans le texte</p></li>
+<li><p><strong>Détection de négation :</strong> « Aucune preuve de pneumonie » vs. « Pneumonie confirmée » — une distinction critique qui est étonnamment difficile</p></li>
+<li><p><strong>Raisonnement temporel :</strong> Distinguer les conditions actuelles des antécédents (« antécédents d’IM, présenté avec douleur thoracique »)</p></li>
+<li><p><strong>Dé-identification :</strong> Supprimer les Informations de Santé Protégées (ISP) pour permettre le partage des données</p></li>
+</ul>
+<p><strong>La dé-identification des ISP</strong> est à la fois une tâche d’annotation et une exigence de gouvernance des données. En vertu de HIPAA (États-Unis) et du RGPD (UE), les données de santé ne peuvent pas être partagées sans suppression ou anonymisation des identifiants de patients. Des outils de dé-identification automatisés existent mais sont imparfaits ; la révision humaine des sorties automatisées est une pratique standard, et le profil de risque est asymétrique : les faux négatifs (ISP manquées) créent une exposition légale, rendant des seuils conservateurs nécessaires.</p>
+<section id="i2b2-n2c2-comme-modele">
+<h3>i2b2 / n2c2 comme modèle<a class="headerlink" href="#i2b2-n2c2-comme-modele" title="Permalink to this heading">#</a></h3>
+<p>Les initiatives de tâches partagées i2b2 (Informatics for Integrating Biology and the Bedside) et leurs successeurs n2c2 (National NLP Clinical Challenges) ont publié une série de jeux de données de TAL clinique annotés par des experts. Ceux-ci illustrent à la fois le potentiel et le coût : les efforts d’annotation impliquent généralement des équipes d’experts du domaine clinique travaillant sur plusieurs mois, annotant des centaines de documents par défi. Les jeux de données n2c2 ont catalysé des progrès rapides précisément parce qu’ils ont résolu le problème de gouvernance du partage de données (dé-identification + accords institutionnels), pas seulement le problème d’annotation.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="considerations-reglementaires">
+<h2>Considérations réglementaires<a class="headerlink" href="#considerations-reglementaires" title="Permalink to this heading">#</a></h2>
+<p>L’IA médicale est soumise à une surveillance réglementaire dans la plupart des juridictions.</p>
+<p><strong>FDA (États-Unis) :</strong> Les logiciels comme dispositif médical (SaMD) basés sur l’IA/ML nécessitent une approbation ou une autorisation préalable à la mise sur le marché. Le Plan d’action IA/ML de la FDA de 2021 met l’accent sur des <strong>plans de contrôle des changements prédéterminés</strong> — documentant comment le modèle sera mis à jour et comment ces mises à jour seront validées avant le déploiement. Un modèle qui apprend en continu à partir du retour clinique est, dans ce cadre, un dispositif différent après chaque mise à jour et peut nécessiter une revalidation.</p>
+<p><strong>Marquage CE (Europe) :</strong> Les dispositifs médicaux incluant les systèmes d’IA doivent se conformer au Règlement sur les Dispositifs Médicaux (MDR). Le MDR exige une évaluation clinique, une surveillance post-commercialisation et la documentation des données utilisées pour l’entraînement et la validation.</p>
+<p><strong>Implication HITL clé :</strong> Les cadres réglementaires exigent une documentation claire des processus d’annotation, des qualifications des annotateurs, de la fiabilité inter-évaluateurs et de tout changement aux données d’entraînement. Ce n’est pas de la paperasserie — c’est la piste d’audit qui permet à un clinicien de comprendre quelles données d’entraînement ont produit le comportement actuel du modèle, et c’est légalement requis. Les pipelines HITL qui traitent l’annotation comme un sous-processus informel créent un risque réglementaire qui devient généralement visible au pire moment.</p>
+</section>
+<hr class="docutils" />
+<section id="annotation-de-donnees-scientifiques">
+<h2>Annotation de données scientifiques<a class="headerlink" href="#annotation-de-donnees-scientifiques" title="Permalink to this heading">#</a></h2>
+<p>Au-delà de la santé, le HITL ML joue un rôle croissant et sous-estimé dans la recherche scientifique, où le défi d’annotation mêle souvent expertise du domaine et échelle.</p>
+<section id="astronomie-galaxy-zoo">
+<h3>Astronomie : Galaxy Zoo<a class="headerlink" href="#astronomie-galaxy-zoo" title="Permalink to this heading">#</a></h3>
+<p>Galaxy Zoo <a href="#id5"><span class="problematic" id="id6">lintott2008galaxy</span></a> a externalisé la classification morphologique des galaxies du Sloan Digital Sky Survey à des scientifiques citoyens. Le projet original a collecté plus de 40 millions de classifications de plus de 100 000 bénévoles, démontrant que la classification d’images scientifiques à grande échelle est réalisable quand la tâche peut être décomposée en questions simples répondables sans formation spécialisée (« Cette galaxie est-elle lisse ou présente-t-elle des structures ? »).</p>
+<p>L’expérience Galaxy Zoo a produit deux résultats méthodologiques importants. Premièrement, l’accord entre scientifiques citoyens et astronomes professionnels était élevé pour les cas clairs et divergeait systématiquement sur les cas limites — précisément les cas où la distinction importe scientifiquement. La solution n’était pas d’écarter les données des sciences citoyennes sur les cas limites mais de traiter la distribution des réponses des bénévoles comme une étiquette souple encodant une ambiguïté morphologique réelle. Deuxièmement, le classificateur entraîné sur les étiquettes de Galaxy Zoo surpassait les modèles entraînés pour reproduire les étiquettes de n’importe quel expert unique, parce que la distribution de la foule capturait une réelle incertitude visuelle que le choix forcé d’un expert unique effondrait.</p>
+</section>
+<section id="genomique-classification-de-la-pathogenicite">
+<h3>Génomique : Classification de la pathogénicité<a class="headerlink" href="#genomique-classification-de-la-pathogenicite" title="Permalink to this heading">#</a></h3>
+<p>L’annotation des variants génomiques — décider si un variant est pathogène, bénin ou de signification incertaine — est un problème à enjeux élevés de TAL et de jugement d’expert. Les bases de données cliniques de variants comme ClinVar agrègent des interprétations d’experts de plusieurs laboratoires soumetteurs, et le désaccord entre laboratoires est courant. L’apprentissage actif est utilisé pour prioriser quels variants nécessitent une révision experte complète (recherche bibliographique, évaluation des preuves fonctionnelles) par rapport à ceux pouvant être auto-classifiés par des preuves existantes. Le résultat est un pipeline hybride où la plupart des variants sont gérés par une logique automatisée, un sous-ensemble nécessite une révision experte, et les cas les plus difficiles sont signalés pour un consensus multi-laboratoires.</p>
+</section>
+<section id="climat-et-sciences-de-la-terre">
+<h3>Climat et sciences de la Terre<a class="headerlink" href="#climat-et-sciences-de-la-terre" title="Permalink to this heading">#</a></h3>
+<p>L’étiquetage d’images satellites pour le changement d’utilisation des terres, la déforestation, l’étendue des glaciers et les trajectoires des tempêtes implique des experts en télédétection et, de plus en plus, des plateformes de sciences citoyennes. Le principal défi HITL dans ce domaine est temporel : les étiquettes faites aujourd’hui peuvent devenir obsolètes à mesure que le monde change, et la vérification de la vérité terrain (enquêtes de terrain) est coûteuse et logistiquement contrainte. L’apprentissage actif qui priorise les images où la prédiction du modèle est en désaccord avec des a priori physiques (par exemple, prédire la déforestation dans une région connue pour être protégée) est une façon pratique de diriger de rares ressources de vérification de terrain.</p>
+</section>
+<section id="neurosciences-la-connectomique">
+<h3>Neurosciences : La connectomique<a class="headerlink" href="#neurosciences-la-connectomique" title="Permalink to this heading">#</a></h3>
+<p>La reconstruction des circuits neuronaux à partir d’images de microscopie électronique — la connectomique — nécessite une annotation au niveau des pixels des membranes neuronales à travers d’énormes piles d’images. Le projet Eyewire a gamifié cette tâche, engageant des dizaines de milliers de joueurs dans le traçage de neurones à travers des volumes d’images 3D. La conception de la gamification a résolu un problème HITL spécifique : la tâche nécessite une attention soutenue et un raisonnement spatial sur de longues sessions, ce qui entraîne une dégradation de la qualité dans l’annotation traditionnelle. Décomposer la tâche en segments de jeu avec des mécanismes sociaux a maintenu l’engagement et la qualité des annotateurs à des échelles que l’annotation professionnelle ne peut pas atteindre.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="gerer-les-annotateurs-specialistes">
+<h2>Gérer les annotateurs spécialistes<a class="headerlink" href="#gerer-les-annotateurs-specialistes" title="Permalink to this heading">#</a></h2>
+<p>Quand l’annotation nécessite une expertise rare, les approches habituelles de production participative (Chapitre 13) ne s’appliquent pas.</p>
+<p><strong>La tension fondamentale</strong> est que les personnes capables de produire les annotations de la plus haute qualité sont aussi celles dont le temps est le plus précieux et le plus contraint. Chaque décision de conception dans un pipeline d’annotation spécialisée devrait être évaluée par rapport à la question : est-ce que cela fait le meilleur usage du temps rare des experts ?</p>
+<p><strong>Ce que cela signifie en pratique :</strong></p>
+<ul class="simple">
+<li><p><strong>Pré-annoter agressivement.</strong> Utiliser des annotateurs de niveau inférieur, des modèles automatisés ou des systèmes basés sur des règles pour générer des candidats que le spécialiste révise et corrige plutôt que de créer à partir de zéro. Le jugement du spécialiste est le goulot d’étranglement ; lui fournir une pré-annotation à corriger est plus rapide que de lui demander d’annoter à partir d’un écran vide, à condition que la qualité de la pré-annotation soit suffisante pour que la correction ne soit pas plus lente que de recommencer.</p></li>
+<li><p><strong>Concevoir pour l’attention des experts, non le débit.</strong> Les interfaces d’annotation optimisées pour un débit élevé (décisions binaires rapides, raccourcis clavier, affichage minimal) sont appropriées pour la production participative. L’annotation spécialisée bénéficie souvent d’interfaces plus riches : comparaison côte à côte avec des cas antérieurs, accès facile aux matériaux de référence, champs de confiance d’annotation, et possibilité de signaler un cas pour discussion. Cela ralentit les annotations individuelles mais améliore la qualité et réduit le besoin de ré-annotation.</p></li>
+<li><p><strong>Suivre explicitement les schémas d’annotateurs individuels.</strong> Avec un petit pool de spécialistes, il est faisable et important de suivre le taux d’accord de chaque annotateur avec le panel, de signaler les cas qui semblent incohérents avec leur propre historique et d’en discuter lors de sessions de calibration régulières. Ce n’est pas de la surveillance — c’est le même processus de qualité que la médecine clinique utilise pour les évaluations de performance, et les spécialistes répondent généralement bien quand il est présenté comme une amélioration qualitative partagée plutôt que comme une évaluation.</p></li>
+<li><p><strong>La conception de session est importante.</strong> L’annotation médicale est cognitivement exigeante. Les preuves de la radiologie et de la pathologie suggèrent que les taux d’erreur augmentent de manière mesurable après environ 90 minutes de lecture continue, et que des pauses de quelques minutes seulement peuvent partiellement restaurer l’attention. Les interfaces d’annotation qui imposent des invites de pause (sans possibilité de les ignorer) sont une décision de conception HITL simple avec un impact réel sur la qualité.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="un-pipeline-hitl-d-apprentissage-actif-pour-l-imagerie-medicale">
+<h2>Un pipeline HITL d’apprentissage actif pour l’imagerie médicale<a class="headerlink" href="#un-pipeline-hitl-d-apprentissage-actif-pour-l-imagerie-medicale" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Simulate a rare-pathology detection task</span>
+<span class="c1"># 8% positive class (e.g., rare pathology)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_informative</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">],</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">4000</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">4000</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">4000</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">4000</span><span class="p">:]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training set positive prevalence: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_medical_al</span><span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+    <span class="n">labeled</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled</span><span class="p">]</span>
+    <span class="n">aucs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_initial</span> <span class="o">+</span> <span class="n">budget</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">aucs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;uncertainty&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">entropy</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unlabeled</span><span class="p">))</span>
+
+        <span class="n">labeled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aucs</span><span class="p">)</span>
+
+<span class="n">aucs_al</span>  <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;uncertainty&#39;</span><span class="p">)</span>
+<span class="n">aucs_rnd</span> <span class="o">=</span> <span class="n">run_medical_al</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+<span class="n">label_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aucs_al</span><span class="p">))</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">50</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_al</span><span class="p">,</span>  <span class="s1">&#39;o-&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertainty AL&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">aucs_rnd</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Expert labels obtained&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;AUROC&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning for Rare Pathology Detection&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;medical_al.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Show how AL preferentially selects positive examples</span>
+<span class="c1"># by checking which class the queried examples belong to</span>
+<span class="n">n_init</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">labeled_al</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_init</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">labeled_rnd</span> <span class="o">=</span> <span class="n">labeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">unlabeled_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_al</span><span class="p">]</span>
+<span class="n">unlabeled_rnd</span> <span class="o">=</span> <span class="n">unlabeled_al</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_al</span><span class="p">])</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_al</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">top50_al</span>  <span class="o">=</span> <span class="p">[</span><span class="n">unlabeled_al</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">entropy</span><span class="p">)[</span><span class="o">-</span><span class="mi">50</span><span class="p">:]]</span>
+<span class="n">top50_rnd</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unlabeled_rnd</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">pos_rate_al</span>  <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_al</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">pos_rate_rnd</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">top50_rnd</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Positive rate in next 50 queries:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Uncertainty AL: </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">  (base rate: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Random:         </span><span class="si">{</span><span class="n">pos_rate_rnd</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AL queries </span><span class="si">{</span><span class="n">pos_rate_al</span><span class="o">/</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">x more positives than random&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Production participative Galaxy Zoo : <a href="#id7"><span class="problematic" id="id8">lintott2008galaxy</span></a>. Performances des radiologues CheXNet : <a href="#id9"><span class="problematic" id="id10">rajpurkar2017chexnet</span></a>. Qualité des radiographies et diagnostic assisté par IA : <a href="#id11"><span class="problematic" id="id12">yu2022assessing</span></a>. Méthodologie d’annotation de TAL clinique : <a href="#id13"><span class="problematic" id="id14">pustejovsky2012natural</span></a>. Pour le plan d’action IA/ML de la FDA, consulter la documentation publiée par la FDA (2021).</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/fr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyse-d-images-medicales">Analyse d’images médicales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exigences-en-matiere-d-annotateurs-experts">Exigences en matière d’annotateurs experts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variabilite-inter-radiologues">Variabilité inter-radiologues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apprentissage-actif-pour-les-maladies-rares">Apprentissage actif pour les maladies rares</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-de-tal-clinique">Annotation de TAL clinique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i2b2-n2c2-comme-modele">i2b2 / n2c2 comme modèle</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-reglementaires">Considérations réglementaires</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation-de-donnees-scientifiques">Annotation de données scientifiques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astronomie-galaxy-zoo">Astronomie : Galaxy Zoo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genomique-classification-de-la-pathogenicite">Génomique : Classification de la pathogénicité</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climat-et-sciences-de-la-terre">Climat et sciences de la Terre</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neurosciences-la-connectomique">Neurosciences : La connectomique</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gerer-les-annotateurs-specialistes">Gérer les annotateurs spécialistes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-pipeline-hitl-d-apprentissage-actif-pour-l-imagerie-medicale">Un pipeline HITL d’apprentissage actif pour l’imagerie médicale</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

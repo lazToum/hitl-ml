@@ -1,0 +1,405 @@
+% ============================================================================
+% CHAPTER 9 TEACHER'S MANUAL
+% Complete instructional guide for teaching HITL tooling and annotation platforms
+% ============================================================================
+% Source: /markdown/ch9/Ch9_final.md (derived from main chapter text)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 9}
+\label{ch:teacher-ch09}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching HITL tooling and annotation platforms using \emph{Tools Anyone Can Use}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Name the major open-source annotation platforms and their primary use cases
+    \item Describe the core capabilities that every annotation tool must provide
+    \item Distinguish between crowdsourced and expert annotation and their respective trade-offs
+    \item Explain when to use cloud-managed annotation services vs.\ self-hosted tools
+    \item Define the build vs.\ buy decision criteria for HITL tooling
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Select an appropriate annotation platform for a described task and justify the choice
+    \item Analyze a described annotation scenario and identify which trade-offs are most critical
+    \item Apply the crowdsource vs.\ expert criteria to a new domain
+    \item Evaluate a described annotation workflow for structural weaknesses
+    \item Connect annotation tool capabilities to the seven-component HITL architecture from Chapter~8
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a complete annotation workflow for a specific ML task
+    \item Propose a build vs.\ buy decision with justification for a described organizational context
+    \item Critique a described annotation platform choice for a given use case
+    \item Evaluate the practical path from zero to working annotation pipeline
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapter 8}: Seven-component HITL architecture (annotation tools implement Components 4 and 5)
+    \item \textbf{Chapter 7}: Inter-annotator agreement concepts (platforms measure this automatically)
+    \item \textbf{Optional}: Basic familiarity with cloud services (AWS, GCP, Azure) helpful for cloud platform discussion
+\end{itemize}
+
+\subsection{Course Positioning}
+\begin{description}
+    \item[Applied ML / Practitioner Course] Chapter 9 is central; plan hands-on lab sessions with actual platforms
+    \item[Survey Course] Cover the conceptual landscape (open-source vs.\ cloud, crowdsource vs.\ expert) without platform-specific depth
+    \item[Advanced Technical Course] Focus on the feedback integration challenge and active learning integration; the basic platform survey can be assigned as reading
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Annotation Tool Landscape}
+
+\begin{table}[htbp]
+\caption{Annotation platform landscape overview}
+\label{tab:platform-landscape}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{1.8cm}p{2cm}p{4.5cm}@{}}
+\toprule
+\textbf{Platform} & \textbf{Type} & \textbf{Primary Use} & \textbf{Best For} \\
+\midrule
+Label Studio & Open-source & Multi-modal & Research, privacy-sensitive, technical teams \\
+Argilla & Open-source & NLP / LLM & NLP annotation, RLHF data collection \\
+CVAT & Open-source & Computer vision & Image/video annotation, object detection \\
+Prodigy & Commercial & NLP + active learning & Fast NLP annotation with active learning \\
+Scale AI & Enterprise & Managed workforce & Large-scale, high-stakes, managed quality \\
+SageMaker GT & Cloud & AWS ML integration & AWS-native ML pipelines \\
+Labelbox & Enterprise & Complex workflows & Multi-step annotation, video, quality assurance \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The Crowdsource vs.\ Expert Decision Tree}
+
+\begin{keyconcept}[Core Decision Principle]
+Use the task itself to determine who should label it. Objectively determinable tasks (``does this image contain a dog?'') can use crowdsourcing. Subjectively determinable tasks requiring domain judgment (``does this symptom suggest diagnosis X?'') require experts. For tasks in between: crowd for initial filtering, experts for ambiguous cases.
+\end{keyconcept}
+
+\begin{table}[htbp]
+\caption{Crowdsource vs.\ expert annotation trade-offs}
+\label{tab:crowd-vs-expert}
+\centering
+\begin{tabular}{@{}p{3cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Factor} & \textbf{Crowdsourcing} & \textbf{Expert Labeling} \\
+\midrule
+Scale & High (thousands of workers) & Low (limited experts) \\
+Speed & Fast & Slow \\
+Cost & Low per label & High per label \\
+Quality (simple tasks) & Good & Excellent \\
+Quality (hard tasks) & Poor (noise clusters at hard cases) & Good \\
+Bias risk & Random noise + demographic gaps & Systematic expert viewpoint \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The Build vs.\ Buy Matrix}
+
+\begin{table}[htbp]
+\caption{Build vs.\ buy decision criteria}
+\label{tab:build-vs-buy}
+\centering
+\begin{tabular}{@{}p{5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Factor} & \textbf{Buy} & \textbf{Build} \\
+\midrule
+Task fits standard template & Yes & No \\
+Need scale quickly & Yes & No \\
+Privacy requirements prevent cloud & No & Yes \\
+Workflow requirements are stable & Yes & No \\
+Have engineering capacity & Optional & Required \\
+Need deep ML pipeline integration & No & Yes \\
+Long-term product vision & No & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening Hook (8 minutes): The Label Studio Moment}
+
+\paragraph{Story setup.}
+Tell the Label Studio story: a solo developer builds a tool expecting ML researchers at well-funded labs to use it. Instead, it fills with non-profits annotating satellite images of deforestation, hospital systems annotating medical records, news organizations classifying articles.
+
+\begin{keyconcept}[Central Insight]
+The engineering sophistication required to build a HITL system from scratch has dropped dramatically over the past decade. The question ``what tool should I use?'' now has real answers that don't require a large ML infrastructure team.
+\end{keyconcept}
+
+\subsubsection{Part 1 (10 minutes): What Annotation Tools Actually Do}
+
+Walk through the core capabilities:
+\begin{enumerate}
+    \item Present data items to reviewers
+    \item Capture structured judgments
+    \item Store and export labels for training
+    \item Manage workflow (who reviews what, quality control)
+\end{enumerate}
+
+Then: advanced capabilities that separate good tools from basic ones:
+\begin{itemize}
+    \item Agreement tracking (connects to Chapter~7 concepts)
+    \item Active learning queues (connects to Chapter~8 Component 5)
+    \item Model-assisted annotation (pre-label, human corrects)
+    \item Analytics dashboards
+\end{itemize}
+
+\subsubsection{Part 2 (12 minutes): The Platform Landscape}
+
+Walk through the landscape using the table. Emphasize:
+\begin{itemize}
+    \item Open-source vs.\ cloud-managed is primarily a privacy and control decision, not a capability decision
+    \item Label Studio is the most broadly useful starting point for most teams
+    \item Argilla is the right choice for anything LLM-adjacent
+    \item CVAT is computer vision specific
+    \item Scale AI is the right choice when you need managed annotator workforce
+\end{itemize}
+
+\begin{trythis}
+Quick exercise: ``Given this task description, which platform would you use and why?'' Present 3 scenarios. Students vote; discuss disagreements.
+\end{trythis}
+
+\subsubsection{Part 3 (10 minutes): Crowdsource vs.\ Expert}
+
+This is the most consequential practical decision and the most commonly gotten wrong.
+
+Key point: ``noise in training data is not random; it clusters around the hard cases that require domain judgment. These are often the most important cases.''
+
+Discuss the two-stage approach for tasks in the middle: crowd for initial filtering, experts for ambiguous cases.
+
+\subsubsection{Part 4 (10 minutes): Build vs.\ Buy and Getting Started}
+
+The build vs.\ buy decision. Key insight: ``Most organizations end up using an off-the-shelf annotation tool as the user interface layer while building custom integration with their ML infrastructure for routing, feedback, and monitoring. The annotation UX is not where the architectural moat is. The feedback integration layer is.''
+
+Practical getting-started path:
+\begin{enumerate}
+    \item Define the task precisely (write annotation guidelines before picking a tool)
+    \item Collect 100--200 examples and label them yourself
+    \item Set up Label Studio or Argilla; have a second person use it without help
+    \item Fix the parts they can't figure out
+    \item Scale up
+\end{enumerate}
+
+\subsection{Lab Session (75--90 minutes)}
+
+\subsubsection{Hands-On: Label Studio Setup (30 minutes)}
+
+\textbf{Prerequisites:} Students need Python 3.8+ and pip installed.
+
+\paragraph{Setup instructions.}
+\begin{lstlisting}[style=python, caption={Label Studio quickstart}, label={lst:label-studio-setup}]
+# Install Label Studio
+pip install label-studio
+
+# Launch the server
+label-studio start
+
+# Navigate to http://localhost:8080
+# Create an account, then a new project
+\end{lstlisting}
+
+\textbf{Task:} Annotate 20 short sentences for sentiment (Positive / Negative / Neutral).
+
+\textbf{Debrief questions:}
+\begin{itemize}
+    \item Where did you hesitate? (These are your hard cases)
+    \item How long did each label take? (This is your throughput estimate)
+    \item What would you change about the interface?
+\end{itemize}
+
+\subsubsection{Hands-On: Inter-Annotator Agreement (20 minutes)}
+
+Have two students annotate the same 20 sentences independently. Calculate Cohen's kappa.
+
+\paragraph{Discuss:}
+\begin{itemize}
+    \item What kappa did you get? (Typical range for sentiment: 0.5--0.8)
+    \item Which sentences caused disagreement?
+    \item How would you revise the annotation guidelines to improve agreement?
+\end{itemize}
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Tool Selection}: ``You work for a non-profit annotating satellite images to identify deforestation. You have three volunteers with basic computer skills and no ML background. Which annotation platform would you choose and why?''
+
+    \item \textbf{Crowdsource vs.\ Expert}: ``A startup wants to classify legal contract clauses as standard, negotiable, or unusual. They're considering using Amazon Mechanical Turk for cost efficiency. What is the risk of this approach, and when would it be appropriate?''
+
+    \item \textbf{Core Capabilities}: ``An annotation tool that only stores labels without tracking annotator agreement is missing an important feature. What failure does this create in a HITL system?''
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item \textbf{Architecture Connection}: ``Describe where the annotation platform fits in the seven-component HITL architecture from Chapter~8. Which components does it implement, and which does it leave to you to build?''
+
+    \item \textbf{Active Learning Integration}: ``Label Studio's community edition doesn't integrate active learning queues out of the box. Describe the additional engineering required to implement active learning with Label Studio. What would you build vs.\ buy?''
+
+    \item \textbf{Dialect Bias}: ``A transcription system's reviewers are ``correcting'' dialectal speech to match standard written English. Why is this an annotation failure, not an improvement? How would you design annotation guidelines to prevent it?''
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \setcounter{enumi}{6}
+    \item \textbf{Full Workflow Design}: ``Design a complete annotation workflow for a medical imaging task: radiologists labeling chest X-rays for potential pneumonia. Include: platform choice, workforce strategy, inter-annotator agreement handling, quality controls, and active learning integration. Justify each choice.''
+
+    \item \textbf{Vendor Lock-in}: ``An organization has been using Labelbox for two years. Their annotation data is stored in Labelbox's format. They want to switch to a self-hosted solution for privacy reasons. What are the risks, and how should they have designed their initial setup to minimize lock-in?''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities \& Exercises}
+% ============================================================================
+
+\subsection{Activity 1: Platform Comparison (20 minutes)}
+
+\textbf{Setup:} Groups of 3--4 students, each group assigned a different platform.
+
+\textbf{Task:} Research your assigned platform and prepare a 3-minute pitch to the class.
+
+\paragraph{Platforms to assign:}
+\begin{itemize}
+    \item Label Studio
+    \item Argilla
+    \item CVAT
+    \item Prodigy
+    \item Scale AI (enterprise perspective)
+\end{itemize}
+
+\paragraph{Pitch structure:}
+\begin{enumerate}
+    \item What type of tasks is it best for?
+    \item What are its two strongest features?
+    \item What is its most significant limitation?
+    \item What type of organization should use it?
+\end{enumerate}
+
+\subsection{Activity 2: Annotation Guideline Writing (25 minutes)}
+
+\textbf{Setup:} Individual or pairs.
+
+\textbf{Context:} You're designing a sentiment annotation task for social media posts about a technology product.
+
+\textbf{Task:} Write annotation guidelines that would achieve Cohen's kappa $\geq 0.7$.
+
+\paragraph{Guidelines must address:}
+\begin{itemize}
+    \item Definition of each label (Positive / Negative / Neutral / Mixed)
+    \item At least 3 examples of each label
+    \item How to handle sarcasm and irony
+    \item How to handle posts about competitors
+    \item What to do when you're genuinely unsure
+\end{itemize}
+
+\textbf{Debrief:} Exchange guidelines with another student/group. Try to label 10 test cases using their guidelines. Discuss where the guidelines were unclear.
+
+\subsection{Activity 3: Build vs.\ Buy Decision Workshop (20 minutes)}
+
+\textbf{Setup:} Small groups receive one of these scenarios.
+
+\paragraph{Scenario 1:} A hospital system needs to annotate radiology reports for a clinical NLP project. Privacy regulations prevent cloud hosting. They have one data scientist and three radiologists available.
+
+\paragraph{Scenario 2:} A large e-commerce company needs to label 5 million product images for category classification. They need results in 6 weeks. They have a large data engineering team.
+
+\paragraph{Scenario 3:} A research university wants to annotate 10,000 historical newspaper articles for sentiment and named entities. Budget: \$5,000. Team: two graduate students.
+
+\paragraph{Deliverable:} Platform recommendation + build vs.\ buy decision + 3 key risks identified.
+
+% ============================================================================
+\section{Assessment Strategies}
+% ============================================================================
+
+\subsection{Formative Assessment}
+
+\paragraph{Exit Ticket.}
+``Name the tool you would use for each of these three tasks, and give one reason for each choice: (1) image object detection annotation; (2) LLM output evaluation; (3) named entity recognition for medical text.''
+
+\paragraph{Quick Check.}
+``True or False: Using crowdsourcing for a medical diagnosis annotation task is usually appropriate. Explain.'' (Answer: False --- hard cases that require domain judgment produce noisy labels from non-experts.)
+
+\subsection{Summative Assessment Options}
+
+\subsubsection{Option 1: Workflow Design Report (500--750 words)}
+
+\textbf{Prompt:} ``Design a complete annotation workflow for a task of your choice. Include: (a) task definition and annotation guidelines, (b) platform selection with justification, (c) workforce strategy, (d) quality control approach, (e) how annotation connects to model training. Identify two risks in your design.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Task Definition (20\%)}: Clear annotation guidelines that would achieve reasonable agreement
+    \item \textbf{Platform Choice (25\%)}: Appropriate platform with correct justification
+    \item \textbf{Workforce Strategy (25\%)}: Correct crowd vs.\ expert decision with reasoning
+    \item \textbf{Quality Control (15\%)}: Specific quality checks, not just ``we will check quality''
+    \item \textbf{Risk Identification (15\%)}: Specific, plausible risks connected to the design choices
+\end{itemize}
+
+\subsubsection{Option 2: Technical Lab Report}
+
+\textbf{Task:} Complete the Label Studio setup lab. Label 100 examples of a dataset of your choice. Calculate inter-annotator agreement with a partner. Write a 500-word report analyzing your agreement results and proposing annotation guideline improvements.
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``More annotators always means better data''}
+
+\paragraph{Correction.}
+More annotators reduces random noise but amplifies systematic bias if all annotators share the same blind spots. For specialized tasks, one expert with careful quality control outperforms fifty crowdworkers. The quality ceiling is set by the annotation guidelines and annotator expertise, not headcount.
+
+\subsection{Misconception 2: ``The annotation platform is the hard part''}
+
+\paragraph{Correction.}
+The annotation interface is the easy part. The hard part is the feedback integration pipeline that connects annotations to model training, the monitoring that ensures label quality over time, and the active learning logic that prioritizes the right cases for review. The platform is a component, not a system.
+
+\subsection{Misconception 3: ``We can fix bad annotation guidelines later''}
+
+\paragraph{Correction.}
+Annotation is expensive and time-consuming. Annotating with bad guidelines and then re-annotating is double the cost. Worse: if the model has already been trained on bad labels, you may not know how much of its learned behavior reflects guideline errors. Write clear annotation guidelines before collecting any labels.
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter 7}: Inter-annotator agreement (Cohen's kappa, Krippendorff's alpha) is measured by annotation platforms automatically
+    \item \textbf{Chapter 8}: Components 4 (Interface) and 5 (Feedback Integration) are implemented by annotation platforms
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter 12}: Measurement chapter will revisit annotation quality as a measurable system dimension
+    \item \textbf{Chapter 17}: Active learning chapter will revisit active learning integration in annotation workflows
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~9 is the practical tooling chapter of the book. Students who will build HITL systems need the hands-on lab session above. Students in survey or theory courses need the conceptual landscape but can skip platform-specific details. The most important conceptual takeaway is the hierarchy: annotation guidelines $\rightarrow$ annotator selection $\rightarrow$ platform --- in that order of importance.}

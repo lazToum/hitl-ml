@@ -1,0 +1,238 @@
+%
+%% !TEX program = lualatex
+% ============================================================================
+% HUMAN IN THE LOOP: WHY THE SMARTEST MACHINES STILL NEED US
+% Professional Publishing-Ready LaTeX Setup
+% ============================================================================
+%
+% This template is designed for:
+% - Print-ready PDF output (6x9 inch trim size, standard for trade paperbacks)
+% - E-book/screen reading version
+% - Academic/thesis adaptation
+%
+% Compile with: XeLaTeX or LuaLaTeX (for professional font support)
+% ============================================================================
+
+\documentclass[
+11pt,                    % Base font size (10pt, 11pt, or 12pt)
+twoside,                 % Different margins for left/right pages
+openright,               % Chapters start on right-hand pages
+headinclude,             % Include header in type area calculation
+footinclude=false,       % Don't include footer in type area
+BCOR=12mm,               % Binding correction (adjust for print)
+DIV=12,                  % Type area division (higher = more text per page)
+numbers=noenddot,        % No dot after section numbers
+bibliography=totoc,      % Bibliography in table of contents
+listof=totoc,            % List of figures/tables in TOC
+]{scrbook}
+
+\newcommand{\bookauthor}{Lazaros Toumanidis}
+
+\usepackage{lipsum}
+
+% ============================================================================
+% EDITION FLAGS - Uncomment ONE of these
+% ============================================================================
+\newif\ifprintedition
+\newif\ifebookedition
+\newif\ifthesisedition
+
+\printeditiontrue          % For print publication
+%\ebookeditiontrue         % For e-book/screen reading
+%\thesiseditiontrue        % For academic thesis submission
+
+% ============================================================================
+% METADATA
+% ============================================================================
+\title{Human in the Loop}
+\subtitle{Misunderstood}
+\author{\bookauthor}
+\date{\today}
+
+\input{preamble}
+
+% ============================================================================
+% BEGIN DOCUMENT
+% ============================================================================
+\begin{document}
+	
+	% ----------------------------------------------------------------------------
+	% FRONT MATTER
+	% ----------------------------------------------------------------------------
+	\frontmatter
+	
+	% Half-title page
+	\thispagestyle{empty}
+	\vspace*{\stretch{1}}
+	\begin{center}
+		{\huge Human in the Loop}
+	\end{center}
+	\vspace*{\stretch{3}}
+	\cleardoublepage
+	
+	% Title page
+	\thispagestyle{empty}
+	\input{frontmatter/titlepage}
+	\cleardoublepage
+	
+	% Copyright page
+	\thispagestyle{empty}
+	\input{copyright}
+	\cleardoublepage
+	
+	% Table of Contents
+	\tableofcontents
+	\cleardoublepage
+	
+	% Preface (optional)
+	\input{frontmatter/preface}
+	
+	% Acknowledgments (optional)
+	\chapter{Acknowledgments}
+	\input{frontmatter/acknowledgments}
+	
+	% ----------------------------------------------------------------------------
+	% MAIN MATTER
+	% ----------------------------------------------------------------------------
+	\mainmatter
+	
+	% ============================================================================
+	% PART I: WHEN MACHINES ASK FOR HELP
+	% ============================================================================
+	\part{When Machines Ask for Help}
+	\partepigraph{The smartest systems aren't the ones that never make mistakes---they're the ones that know when they might be making a mistake.}{Chapter 1}
+
+	\chapter{The Computers That Ask for Help}
+	\label{ch:computers-ask}
+	\input{chapters/ch01}
+	\input{appendices/ch01_appendix}
+
+	\chapter{When Smart Systems Get Confused}
+	\label{ch:confused}
+	\input{chapters/ch02}
+	\input{appendices/ch02_appendix}
+
+	\chapter{How Computers Learn (The Simple Version)}
+	\label{ch:learning}
+	\input{chapters/ch03}
+	\input{appendices/ch03_appendix}
+
+	\chapter{From Confusion to Decision}
+	\label{ch:decision}
+	\input{chapters/ch04}
+	\input{appendices/ch04_appendix}
+
+	\chapter{The Art of Asking for Help (Without Being Annoying)}
+	\label{ch:asking}
+	\input{chapters/ch05}
+	\input{appendices/ch05_appendix}
+
+	% ============================================================================
+	% PART II: THE HUMAN SIDE OF THE LOOP
+	% ============================================================================
+	\part{The Human Side of the Loop}
+	\partepigraph{A HITL system is only as good as its worst interface.}{Chapter 6}
+
+	\chapter{Interfaces That Make Humans Smarter}
+	\label{ch:interfaces}
+	\input{chapters/ch06}
+	\input{appendices/ch06_appendix}
+
+	\chapter{Getting Good Information from People}
+	\label{ch:annotation}
+	\input{chapters/ch07}
+	\input{appendices/ch07_appendix}
+
+	\chapter{The Blueprint for Smart Helper Systems}
+	\label{ch:blueprint}
+	\input{chapters/ch08}
+	\input{appendices/ch08_appendix}
+
+	\chapter{Tools Anyone Can Use}
+	\label{ch:tools}
+	\input{chapters/ch09}
+	\input{appendices/ch09_appendix}
+
+	% ============================================================================
+	% PART III: TEACHING MACHINES TO PERCEIVE
+	% ============================================================================
+	\part{Teaching Machines to Perceive}
+	\partepigraph{Language is uniquely hard for computers---and the difficulty is a gift, because it keeps the human in the loop.}{Chapter 10}
+
+	\chapter{Teaching Computers to Understand Language}
+	\label{ch:language}
+	\input{chapters/ch10}
+	\input{appendices/ch10_appendix}
+
+	\chapter{Teaching Computers to See}
+	\label{ch:vision}
+	\input{chapters/ch11}
+	\input{appendices/ch11_appendix}
+
+	\chapter{Measuring Success}
+	\label{ch:measuring}
+	\input{chapters/ch12}
+	\input{appendices/ch12_appendix}
+
+	% ============================================================================
+	% PART IV: THE HUMAN FACTOR
+	% ============================================================================
+	\part{The Human Factor}
+	\partepigraph{The human is not a neutral input device.}{Chapter 13}
+
+	\chapter{The Psychology of Human-AI Teams}
+	\label{ch:psychology}
+	\input{chapters/ch13}
+	\input{appendices/ch13_appendix}
+
+	\chapter{Building Fair and Ethical Systems}
+	\label{ch:ethics}
+	\input{chapters/ch14}
+	\input{appendices/ch14_appendix}
+
+	\chapter{When Things Go Wrong (And How to Fix Them)}
+	\label{ch:failures}
+	\input{chapters/ch15}
+	\input{appendices/ch15_appendix}
+
+	% ============================================================================
+	% PART V: BEYOND AND AHEAD
+	% ============================================================================
+	\part{Beyond and Ahead}
+	\partepigraph{The future won't be about machines that never need help. It will be about machines that are smart enough to know exactly when they do.}{Chapter 17}
+
+	\chapter{Beyond Text and Images}
+	\label{ch:beyond}
+	\input{chapters/ch16}
+	\input{appendices/ch16_appendix}
+
+	\chapter{Almost-Autonomous: When AI Learns to Ask Better Questions}
+	\label{ch:autonomous}
+	\input{chapters/ch17}
+	\input{appendices/ch17_appendix}
+
+	\chapter{Your Role in This Future}
+	\label{ch:future}
+	\input{chapters/ch18}
+	\input{appendices/ch18_appendix}
+	
+	% ----------------------------------------------------------------------------
+	% BACK MATTER
+	% ----------------------------------------------------------------------------
+	\backmatter
+	
+	% Bibliography
+	\printbibliography[heading=bibintoc]
+	
+	% Glossary
+	\chapter{Glossary}
+	\input{backmatter/glossary}
+	
+	% Index
+	\printindex
+	
+	% About the Author
+	\chapter{About the Author}
+	\input{backmatter/about}
+	
+\end{document}

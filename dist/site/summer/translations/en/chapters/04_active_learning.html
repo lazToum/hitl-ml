@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Active Learning &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/en/chapters/04_active_learning';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/en/chapters/04_active_learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Active Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-active-learning-setup">The Active Learning Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-foundations">Theoretical Foundations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#query-strategies">Query Strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-sampling">Uncertainty Sampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#query-by-committee-qbc">Query by Committee (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-model-change">Expected Model Change</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-set-geometric-approaches">Core-Set / Geometric Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-estimation-for-deep-models">Uncertainty Estimation for Deep Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-kinds-of-uncertainty">Two Kinds of Uncertainty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-dropout">Monte Carlo Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-ensembles">Deep Ensembles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-full-active-learning-loop">A Full Active Learning Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cold-start-problem">The Cold Start Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-mode-active-learning">Batch-Mode Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-criteria">Stopping Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-active-learning-works-and-when-it-doesn-t">When Active Learning Works (and When It Doesn’t)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="active-learning">
+<h1>Active Learning<a class="headerlink" href="#active-learning" title="Permalink to this heading">#</a></h1>
+<p>Labeled data is expensive. The core insight of active learning is that <em>not all unlabeled examples are equally informative</em> — a model can improve faster if it gets to choose which examples to ask about. Rather than labeling data randomly, an active learning system queries an oracle (usually a human annotator) on the examples most likely to improve the model.</p>
+<p>This chapter covers the theory and practice of active learning: query strategies, sampling frameworks, stopping criteria, and practical considerations for real deployments.</p>
+<hr class="docutils" />
+<section id="the-active-learning-setup">
+<h2>The Active Learning Setup<a class="headerlink" href="#the-active-learning-setup" title="Permalink to this heading">#</a></h2>
+<p>The standard <strong>pool-based active learning</strong> setting involves:</p>
+<ul class="simple">
+<li><p>A <strong>labeled set</strong> <span class="math notranslate nohighlight">\(\mathcal{L} = \{(x_i, y_i)\}_{i=1}^n\)</span> — initially small</p></li>
+<li><p>An <strong>unlabeled pool</strong> <span class="math notranslate nohighlight">\(\mathcal{U} = \{x_j\}_{j=1}^m\)</span> — typically much larger than <span class="math notranslate nohighlight">\(\mathcal{L}\)</span></p></li>
+<li><p>An <strong>oracle</strong> <span class="math notranslate nohighlight">\(\mathcal{O}\)</span> that can return <span class="math notranslate nohighlight">\(y = \mathcal{O}(x)\)</span> for any queried <span class="math notranslate nohighlight">\(x\)</span></p></li>
+<li><p>A <strong>query strategy</strong> <span class="math notranslate nohighlight">\(\phi\)</span> that selects the next query <span class="math notranslate nohighlight">\(x^* = \phi(\mathcal{L}, \mathcal{U}, f_\theta)\)</span></p></li>
+</ul>
+<p>The active learning loop:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    1. Initialize: L = small labeled seed set, U = unlabeled pool
+    2. Train: f_θ ← train(L)
+    3. Query: x* = argmax φ(x; f_θ) over x ∈ U
+    4. Label: y* = O(x*)
+    5. Update: L ← L ∪ {(x*, y*)}, U ← U \ {x*}
+    → Repeat from 2 until budget exhausted
+</pre></div>
+</div>
+<p>The goal is to reach a target model quality using as few oracle queries as possible.</p>
+</section>
+<hr class="docutils" />
+<section id="theoretical-foundations">
+<h2>Theoretical Foundations<a class="headerlink" href="#theoretical-foundations" title="Permalink to this heading">#</a></h2>
+<p>A natural question is: how much can active learning help? In the best case, active learning can achieve <em>exponential</em> reductions in label complexity — reaching error <span class="math notranslate nohighlight">\(\epsilon\)</span> with <span class="math notranslate nohighlight">\(O(\log(1/\epsilon))\)</span> labels rather than the <span class="math notranslate nohighlight">\(O(1/\epsilon)\)</span> needed by passive learning, at least in realizable settings with a good query strategy <a href="#id1"><span class="problematic" id="id2">settles2009active</span></a>.</p>
+<p>In practice, guarantees are harder to obtain. <strong>Agnostic active learning</strong> <a href="#id3"><span class="problematic" id="id4">balcan2006agnostic</span></a> shows that label savings are possible even when the target concept is not in the hypothesis class, but the savings depend strongly on the disagreement coefficient — a measure of how quickly the set of plausible hypotheses shrinks as data accumulates.</p>
+<p>The key practical implication: active learning’s advantage is largest when the <strong>decision boundary is simple and concentrated</strong> (so uncertainty queries quickly eliminate wrong hypotheses), and smallest when the hypothesis class is large or the boundary is complex.</p>
+</section>
+<hr class="docutils" />
+<section id="query-strategies">
+<h2>Query Strategies<a class="headerlink" href="#query-strategies" title="Permalink to this heading">#</a></h2>
+<section id="uncertainty-sampling">
+<h3>Uncertainty Sampling<a class="headerlink" href="#uncertainty-sampling" title="Permalink to this heading">#</a></h3>
+<p>The simplest and most widely used strategy: query the example on which the model is <em>most uncertain</em> <a href="#id5"><span class="problematic" id="id6">lewis1994sequential</span></a>.</p>
+<p><strong>Least confidence</strong> queries the example for which the model is least confident in its top prediction:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left(1 - P_\theta(\hat{y} \mid x)\right)
+\]</div>
+<p><strong>Margin sampling</strong> considers the gap between the top two predicted probabilities:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmin_{x \in \mathcal{U}} \left(P_\theta(\hat{y}_1 \mid x) - P_\theta(\hat{y}_2 \mid x)\right)
+\]</div>
+<p><strong>Entropy sampling</strong> uses the full predicted distribution:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left( -\sum_{k=1}^K P_\theta(y_k \mid x) \log P_\theta(y_k \mid x) \right)
+\]</div>
+<p>Entropy sampling is the most principled of the three — it considers all classes — and generally outperforms the others on multiclass problems.</p>
+</section>
+<section id="query-by-committee-qbc">
+<h3>Query by Committee (QbC)<a class="headerlink" href="#query-by-committee-qbc" title="Permalink to this heading">#</a></h3>
+<p>Train a <strong>committee</strong> of <span class="math notranslate nohighlight">\(C\)</span> models (using bagging, different initializations, or different architectures). Query the example on which the committee disagrees most:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \; \text{disagreement}(\{f_c(x)\}_{c=1}^C)
+\]</div>
+<p>Disagreement can be measured as <strong>vote entropy</strong> (entropy over the committee’s majority votes) or <strong>KL divergence</strong> from the consensus distribution.</p>
+<p>QbC provides better uncertainty estimates than a single model but requires training multiple models, which is computationally expensive.</p>
+</section>
+<section id="expected-model-change">
+<h3>Expected Model Change<a class="headerlink" href="#expected-model-change" title="Permalink to this heading">#</a></h3>
+<p>Query the example that would cause the greatest change to the current model if labeled. For gradient-based models, this corresponds to the example with the greatest expected gradient magnitude <a href="#id7"><span class="problematic" id="id8">settles2008analysis</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \sum_{y \in \mathcal{Y}} P_\theta(y \mid x) \left\| \nabla_\theta \mathcal{L}(f_\theta(x), y) \right\|
+\]</div>
+<p>This strategy has strong theoretical motivation but requires computing gradients for each candidate, making it expensive for large models.</p>
+</section>
+<section id="core-set-geometric-approaches">
+<h3>Core-Set / Geometric Approaches<a class="headerlink" href="#core-set-geometric-approaches" title="Permalink to this heading">#</a></h3>
+<p>Uncertainty-based strategies can be <strong>biased toward outliers</strong>: an unusual example may be highly uncertain but not representative of the data distribution. Core-set methods address this by seeking a diverse sample that covers the feature space.</p>
+<p>The <strong>k-center greedy</strong> algorithm <a href="#id9"><span class="problematic" id="id10">sener2018active</span></a> finds the smallest set of points such that every unlabeled point is within <span class="math notranslate nohighlight">\(\delta\)</span> of at least one queried point:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \min_{x' \in \mathcal{L}} d(x, x')
+\]</div>
+<p>i.e., query the point farthest from any currently labeled point. This encourages a well-spread set of annotations.</p>
+</section>
+<section id="badge">
+<h3>BADGE<a class="headerlink" href="#badge" title="Permalink to this heading">#</a></h3>
+<p><strong>Batch Active learning by Diverse Gradient Embeddings</strong> <a href="#id11"><span class="problematic" id="id12">ash2020deep</span></a> combines uncertainty and diversity: it selects a batch of examples whose gradient embeddings (with respect to the predicted label) are both large in magnitude (uncertain) and diverse (covering different regions of the gradient space). This is one of the most competitive modern strategies.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="uncertainty-estimation-for-deep-models">
+<h2>Uncertainty Estimation for Deep Models<a class="headerlink" href="#uncertainty-estimation-for-deep-models" title="Permalink to this heading">#</a></h2>
+<p>The strategies above assume access to calibrated probability outputs from the model. For simple models (logistic regression, softmax classifiers), this is straightforward. For deep networks, getting reliable uncertainty estimates requires additional technique.</p>
+<section id="two-kinds-of-uncertainty">
+<h3>Two Kinds of Uncertainty<a class="headerlink" href="#two-kinds-of-uncertainty" title="Permalink to this heading">#</a></h3>
+<p>Following Kendall and Gal <a href="#id13"><span class="problematic" id="id14">kendall2017uncertainties</span></a>, we distinguish:</p>
+<p><strong>Aleatoric uncertainty</strong> (data uncertainty): inherent noise in the observations that cannot be reduced by collecting more data. A blurry image is aleatorically uncertain — no amount of additional training data from the same distribution will make the model more confident on it.</p>
+<p><strong>Epistemic uncertainty</strong> (model uncertainty): uncertainty due to limited training data or a model that has not seen similar examples. Epistemic uncertainty <em>can</em> be reduced by labeling more data — and is therefore the relevant quantity for active learning query selection.</p>
+<p>For active learning, we want to query examples with high epistemic uncertainty, not high aleatoric uncertainty. Querying a fundamentally ambiguous example wastes the oracle’s effort: no label they provide will be clearly correct.</p>
+</section>
+<section id="monte-carlo-dropout">
+<h3>Monte Carlo Dropout<a class="headerlink" href="#monte-carlo-dropout" title="Permalink to this heading">#</a></h3>
+<p>A practical approach to epistemic uncertainty estimation for neural networks is <strong>MC Dropout</strong> <a href="#id15"><span class="problematic" id="id16">gal2016dropout</span></a>: apply dropout at inference time and run <span class="math notranslate nohighlight">\(T\)</span> forward passes. The variance across predictions is an estimate of epistemic uncertainty.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MCDropoutNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">p_drop</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run T stochastic forward passes with dropout active.</span>
+<span class="sd">    Returns mean prediction and epistemic uncertainty (predictive variance).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># keep dropout active during inference</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="p">])</span>  <span class="c1"># shape: (T, N, C)</span>
+    <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Epistemic uncertainty: mean of variances across passes</span>
+    <span class="n">epistemic</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Aleatoric uncertainty: entropy of mean prediction</span>
+    <span class="n">aleatoric</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">mean_pred</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean_pred</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean_pred</span><span class="p">,</span> <span class="n">epistemic</span><span class="p">,</span> <span class="n">aleatoric</span>
+
+<span class="c1"># Quick demonstration</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MCDropoutNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># In-distribution example (simulated)</span>
+<span class="n">x_familiar</span>   <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="c1"># Out-of-distribution example (far from training distribution)</span>
+<span class="n">x_unfamiliar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.0</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;In-distribution &quot;</span><span class="p">,</span> <span class="n">x_familiar</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Out-of-distribution&quot;</span><span class="p">,</span> <span class="n">x_unfamiliar</span><span class="p">)]:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">al</span> <span class="o">=</span> <span class="n">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> | epistemic: </span><span class="si">{</span><span class="n">ep</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | aleatoric: </span><span class="si">{</span><span class="n">al</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the untrained network above, both examples show similar uncertainty. After training, the out-of-distribution example will show higher epistemic uncertainty — the model has not learned a reliable mapping for inputs far from the training distribution.</p>
+</section>
+<section id="deep-ensembles">
+<h3>Deep Ensembles<a class="headerlink" href="#deep-ensembles" title="Permalink to this heading">#</a></h3>
+<p>Training <span class="math notranslate nohighlight">\(M\)</span> independently initialized models and averaging their predictions provides a simpler and often more reliable uncertainty estimate than MC Dropout <a href="#id17"><span class="problematic" id="id18">lakshminarayanan2017simple</span></a>. The disagreement between ensemble members is the epistemic uncertainty signal.</p>
+<p>For active learning at scale, both MC Dropout and deep ensembles add overhead proportional to <span class="math notranslate nohighlight">\(T\)</span> or <span class="math notranslate nohighlight">\(M\)</span> forward passes. In practice, <span class="math notranslate nohighlight">\(T = 10\)</span>–<span class="math notranslate nohighlight">\(30\)</span> for MC Dropout or <span class="math notranslate nohighlight">\(M = 5\)</span> ensemble members is often sufficient to rank examples by epistemic uncertainty, even if the absolute values are not well-calibrated.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="a-full-active-learning-loop">
+<h2>A Full Active Learning Loop<a class="headerlink" href="#a-full-active-learning-loop" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Generate dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">1500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">1500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">1500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index of most uncertain sample (entropy).&quot;&quot;&quot;</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ent</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random baseline.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_queries</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">query_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">labeled_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_idx</span><span class="p">]</span>
+    <span class="n">accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_queries</span> <span class="o">//</span> <span class="n">query_batch</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">])</span>
+        <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+        <span class="c1"># Query</span>
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query_batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;entropy&#39;</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">labeled_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled_idx</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+            <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span>
+
+<span class="n">labels_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">30</span>  <span class="c1"># label counts at each step</span>
+
+<span class="n">accs_active</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+<span class="n">accs_random</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_active</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entropy sampling&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_random</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of labeled examples&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning vs. Random Sampling&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;active_learning_curve.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning reaches </span><span class="si">{</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random sampling reaches </span><span class="si">{</span><span class="n">accs_random</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning saves ~</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">accs_random</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">accs_random</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">accs_active</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels to match random&#39;s final accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="the-cold-start-problem">
+<h2>The Cold Start Problem<a class="headerlink" href="#the-cold-start-problem" title="Permalink to this heading">#</a></h2>
+<p>Active learning requires a trained model to score unlabeled points — but at the beginning, you have no (or very few) labeled examples. This is the <strong>cold start problem</strong>.</p>
+<p>Practical solutions:</p>
+<ol class="arabic simple">
+<li><p><strong>Random initialization:</strong> Label a small random seed set (20–100 examples) before starting active learning.</p></li>
+<li><p><strong>Clustering-based initialization:</strong> Use k-means on the unlabeled pool; label one example from each cluster. This ensures diversity in the initial labeled set.</p></li>
+<li><p><strong>Embedding-based selection:</strong> Use a pre-trained encoder to embed examples; select a diverse subset via core-set.</p></li>
+</ol>
+<p>For most tasks, a few dozen random seed labels are typically sufficient to get active learning started; the exact number depends on class balance, feature dimensionality, and model complexity.</p>
+</section>
+<hr class="docutils" />
+<section id="batch-mode-active-learning">
+<h2>Batch-Mode Active Learning<a class="headerlink" href="#batch-mode-active-learning" title="Permalink to this heading">#</a></h2>
+<p>In practice, annotators work in batches — it is inefficient to train and deploy a new model after each single label. <strong>Batch-mode active learning</strong> selects a set of <span class="math notranslate nohighlight">\(b\)</span> examples to label simultaneously.</p>
+<p>Naively selecting the top-<span class="math notranslate nohighlight">\(b\)</span> most uncertain examples leads to <strong>redundancy</strong>: highly uncertain examples tend to cluster together (e.g., examples near the decision boundary in the same region). Better batch strategies optimize for both uncertainty <em>and</em> diversity within the batch.</p>
+<p><strong>Determinantal Point Processes (DPPs)</strong> provide a principled way to sample diverse batches: they define a distribution over subsets that penalizes similar items. The probability of a subset <span class="math notranslate nohighlight">\(S\)</span> under a DPP is proportional to <span class="math notranslate nohighlight">\(\det(L_S)\)</span> where <span class="math notranslate nohighlight">\(L\)</span> is a kernel matrix encoding similarity.</p>
+</section>
+<hr class="docutils" />
+<section id="stopping-criteria">
+<h2>Stopping Criteria<a class="headerlink" href="#stopping-criteria" title="Permalink to this heading">#</a></h2>
+<p>When should active learning stop? Common criteria:</p>
+<ul class="simple">
+<li><p><strong>Budget exhausted:</strong> Simplest — stop when the annotation budget runs out.</p></li>
+<li><p><strong>Performance plateau:</strong> Stop when model accuracy on a held-out validation set has not improved by more than <span class="math notranslate nohighlight">\(\delta\)</span> for <span class="math notranslate nohighlight">\(k\)</span> consecutive rounds.</p></li>
+<li><p><strong>Confidence threshold:</strong> Stop when fewer than some fraction of unlabeled examples have uncertainty above a threshold.</p></li>
+<li><p><strong>Maximum loss reduction:</strong> Estimate the maximum possible gain from additional labels; stop when this falls below a threshold <a href="#id19"><span class="problematic" id="id20">bloodgood2009method</span></a>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="when-active-learning-works-and-when-it-doesn-t">
+<h2>When Active Learning Works (and When It Doesn’t)<a class="headerlink" href="#when-active-learning-works-and-when-it-doesn-t" title="Permalink to this heading">#</a></h2>
+<p>Active learning tends to work well when:</p>
+<ul class="simple">
+<li><p>Labeling is expensive and the unlabeled pool is large</p></li>
+<li><p>The data has clear structure the model can exploit to identify informative examples</p></li>
+<li><p>The model class is appropriate for the task</p></li>
+</ul>
+<p>Active learning performs poorly when:</p>
+<ul class="simple">
+<li><p>The initial model is very poor (cold start) and cannot meaningfully rank examples</p></li>
+<li><p>The query strategy selects outliers or mislabeled examples (noise robustness matters)</p></li>
+<li><p>The data distribution shifts between the unlabeled pool and the test distribution</p></li>
+</ul>
+<p>A key practical concern is <strong>distribution mismatch</strong>: active learning tends to query examples near the decision boundary, creating a biased labeled set that may not represent the test distribution well. This can lead to well-trained decision boundaries but poor calibration.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The foundational survey is <a href="#id21"><span class="problematic" id="id22">settles2009active</span></a>. Theoretical foundations (label complexity, agnostic bounds): <a href="#id23"><span class="problematic" id="id24">balcan2006agnostic</span></a>. For deep learning-specific active learning, see <a href="#id25"><span class="problematic" id="id26">ash2020deep</span></a> (BADGE) and <a href="#id27"><span class="problematic" id="id28">sener2018active</span></a> (core-set). For a critical evaluation of when active learning actually helps, see <a href="#id29"><span class="problematic" id="id30">lowell2019practical</span></a>. On aleatoric vs. epistemic uncertainty for deep models, see <a href="#id31"><span class="problematic" id="id32">kendall2017uncertainties</span></a>; for deep ensembles as uncertainty estimators, see <a href="#id33"><span class="problematic" id="id34">lakshminarayanan2017simple</span></a>; for MC Dropout as approximate Bayesian inference, see <a href="#id35"><span class="problematic" id="id36">gal2016dropout</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/en/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-active-learning-setup">The Active Learning Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-foundations">Theoretical Foundations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#query-strategies">Query Strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-sampling">Uncertainty Sampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#query-by-committee-qbc">Query by Committee (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-model-change">Expected Model Change</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-set-geometric-approaches">Core-Set / Geometric Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-estimation-for-deep-models">Uncertainty Estimation for Deep Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-kinds-of-uncertainty">Two Kinds of Uncertainty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-dropout">Monte Carlo Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-ensembles">Deep Ensembles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-full-active-learning-loop">A Full Active Learning Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cold-start-problem">The Cold Start Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-mode-active-learning">Batch-Mode Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-criteria">Stopping Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-active-learning-works-and-when-it-doesn-t">When Active Learning Works (and When It Doesn’t)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

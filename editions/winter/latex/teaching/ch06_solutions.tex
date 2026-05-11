@@ -1,0 +1,382 @@
+% ============================================================================
+% CHAPTER 6 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch6/C6AM_updated.md (Solutions Guide)
+%         /markdown/ch6/Ch6AS_updated.md (Technical Exercise Solutions)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 6}
+\label{ch:solutions-ch06}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers enabling instructors to facilitate discussions on interface design, automation bias, and XAI with confidence and consistency.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: COMPAS Interface Design}
+
+\textbf{Prompt:} ``What information would a judge need to evaluate whether a COMPAS risk score is reliable? What would a good interface look like?''
+
+\paragraph{Model Answer.}
+
+\textbf{Information a judge needs:}
+\begin{enumerate}
+    \item \textbf{Feature transparency:} Which inputs drove the score? Age, prior record, neighborhood, demographics?
+    \item \textbf{Uncertainty bounds:} A confidence interval, not a single score --- is this $67 \pm 5$ or $67 \pm 25$?
+    \item \textbf{Base rate context:} What does this score mean? ``High risk'' relative to what baseline population?
+    \item \textbf{Validation data:} How accurate is this model on the specific demographic group and offense type before the court?
+    \item \textbf{Documented failure modes:} Known situations where the model performs poorly
+\end{enumerate}
+
+\textbf{Good interface elements:}
+\begin{itemize}
+    \item Present score as a range, not a point: ``This defendant's risk score falls in the 60--75 range (upper third)''
+    \item Show top three features that drove the score
+    \item Plain-language accuracy statement: ``This score correctly predicted recidivism in 65\% of similar cases in the validation dataset''
+    \item Structured acknowledgment: ``This score is one input, not a recommendation''
+    \item One-click documentation of weight given to the score
+\end{itemize}
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[Excellent] Addresses both transparency and uncertainty; proposes specific interface elements; considers the judge's workflow and cognitive load; identifies that the interface should preserve independent judgment.
+
+    \item[Good] Covers either transparency or uncertainty thoroughly; proposes at least some interface elements.
+
+    \item[Satisfactory] Names information needs without translating to interface design.
+
+    \item[Needs improvement] Simply argues against algorithmic scoring without engaging with the design question.
+\end{description}
+
+\paragraph{Common student errors.}
+\begin{itemize}
+    \item Proposing to eliminate the tool entirely (misses the design question)
+    \item Proposing a wall of text explanation (misses cognitive load constraints)
+    \item Suggesting the judge simply ``not rely on it'' (doesn't address that the information still anchors judgment even when nominally ignored)
+\end{itemize}
+
+\subsubsection{Question 2: Automation Bias Mechanism}
+
+\textbf{Prompt:} ``The Vanderbilt study found AI assistance caused radiologists to miss cancers they caught without AI. How is this possible?''
+
+\paragraph{Model Answer.}
+
+\textbf{The mechanism --- anchor-adjustment:}
+
+When a radiologist sees the AI recommendation before or while reviewing the scan, it functions as a cognitive anchor. The radiologist's judgment then adjusts from that anchor rather than reasoning from first principles. If the AI's false-negative recommendation (``low malignancy probability'') is plausible, the radiologist's adjustment away from the anchor is insufficient.
+
+\textbf{Key conditions that make this more likely:}
+\begin{itemize}
+    \item AI presents high confidence (a ``8\% malignancy'' score in green text is persuasive)
+    \item Reviewer is fatigued (the adjustment coefficient $\alpha$ degrades with fatigue)
+    \item The AI error is plausible (genuinely ambiguous cases are easiest for AI errors to pass)
+\end{itemize}
+
+\textbf{What a better interface would have done:}
+\begin{itemize}
+    \item Required the radiologist to record their independent finding before showing AI output
+    \item Flagged uncertain cases visually as requiring independent judgment
+    \item Presented the AI as a second opinion, not a prior assessment
+\end{itemize}
+
+The radiologists were not being careless. They were responding to an authoritative-seeming recommendation in the same way humans respond to expert second opinions. This is a cognitive architecture response, not a character failure.
+
+\subsubsection{Question 3: Click Economics}
+
+\textbf{Prompt:} ``400 posts per day, 14 vs.\ 5 seconds mechanical overhead. What is the effect? Does it matter?''
+
+\paragraph{Model Answer.}
+
+\textbf{Quantitative analysis:}
+
+Time saved per post: $14 - 5 = 9$ seconds\\
+Total mechanical time saved per session: $400 \times 9 = 3{,}600$ seconds = 60 minutes
+
+At 47 seconds per post with 14-second overhead:
+\begin{itemize}
+    \item Judgment time per post: $47 - 14 = 33$ seconds
+    \item Total judgment time: $400 \times 33 = 13{,}200$ seconds
+\end{itemize}
+
+At 47 seconds per post with 5-second overhead:
+\begin{itemize}
+    \item Judgment time per post: $47 - 5 = 42$ seconds (+27\%)
+    \item \textbf{OR} same judgment quality per post, complete 540 posts in the same time (+35\% throughput)
+\end{itemize}
+
+\textbf{Three reasons it matters:}
+\begin{enumerate}
+    \item \textbf{Throughput:} 35\% more reviews in the same time directly reduces moderation backlog.
+    \item \textbf{Quality degradation timing:} Using the cognitive fatigue model, quality drops below acceptable threshold later in the session when mechanical overhead is lower.
+    \item \textbf{Legal exposure:} Content moderation errors have real-world consequences; interface-driven quality degradation produces evidence of systemic failure in regulatory audits.
+\end{enumerate}
+
+\begin{keyconcept}[Grading Note]
+Full credit requires the quantitative calculation plus at least one non-quantitative argument (cognitive quality argument or legal/regulatory argument). ``Yes it matters because more time is freed'' is insufficient without the calculation.
+\end{keyconcept}
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Framework Application: COMPAS Five-Dimension Analysis}
+
+\textbf{Prompt:} ``Apply the five-dimension framework to COMPAS. Identify the weakest dimension. Propose a specific interface change.''
+
+\paragraph{Complete Framework Analysis.}
+
+\begin{table}[htbp]
+\caption{Five-dimension framework applied to COMPAS}
+\label{tab:compas-five-dim}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Assessment} \\
+\midrule
+Uncertainty Detection & 1/5 & No uncertainty communicated; score is a point estimate with no confidence interval or validation accuracy displayed \\
+Intervention Design & 1/5 & No intervention mechanism; score is presented as information, not as a prompt for judgment; no structured way to document reliance or disagreement \\
+Timing & 3/5 & Provided at pre-sentencing (appropriate moment); judge has time to consult other information \\
+Stakes Calibration & 2/5 & Stakes are explicitly high (liberty), but interface treats the score as routine rather than requiring special scrutiny \\
+Feedback Integration & 1/5 & No feedback mechanism; judicial outcomes not systematically fed back to model developer; no way for judge to report model error \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Weakest dimensions:} Uncertainty Detection, Intervention Design, and Feedback Integration all receive 1/5.
+
+\paragraph{Highest-impact improvement:} Uncertainty Detection. Adding a confidence interval and validation accuracy for the specific demographic group would immediately change how judges interpret the score.
+
+\paragraph{Specific interface change.}
+Replace ``Risk Score: 7'' with:
+\begin{quote}
+\textit{Estimated Recidivism Risk: Moderate-High}\\
+\textit{Score range for this case: 63--74 (percentile of similar defendants)}\\
+\textit{Model accuracy for this demographic/offense type: 64\% (validation data, 2019--2022)}\\
+\textit{This score is one input among many. Document your weighting below.}\\
+$[\;\;]$ Relied heavily $\quad[\;\;]$ Weighted equally $\quad[\;\;]$ Gave little weight $\quad[\;\;]$ Disregarded
+\end{quote}
+
+\paragraph{Grading criteria.}
+\begin{itemize}
+    \item \textbf{Excellent:} All five dimensions analyzed with specific evidence; weakest dimension identified with justification; improvement is specific, implementable, and addresses the identified failure
+    \item \textbf{Good:} All dimensions addressed; weakness identified; improvement proposed
+    \item \textbf{Satisfactory:} Most dimensions covered; weakness identified without strong justification
+    \item \textbf{Needs improvement:} Framework applied superficially; no specific improvement
+\end{itemize}
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Safety Case Analysis: The Declining Hospital}
+
+\textbf{Prompt:} ``Write a technical post-mortem for the hospital whose accuracy declined after AI deployment.''
+
+\paragraph{Sample Strong Answer.}
+
+\textbf{Post-Mortem Report: Declining Hospital --- AI Deployment}
+
+\textbf{What happened:} Diagnostic accuracy for AI-not-flagged cases declined by a statistically significant margin after AI deployment. Flagged-case accuracy improved, consistent with the AI correctly identifying high-priority cases. The overall decline reflects degraded accuracy on the cases the AI gave low priority.
+
+\textbf{Root cause: AI-first interface with high-confidence displays.}
+
+The interface showed AI flags before radiologists began their independent review. When the AI did not flag a case, radiologists treated this as a negative second opinion and allocated less review time and attention. Cases the AI missed received reduced human scrutiny --- a compounding failure: AI error $\times$ reduced human attention.
+
+\textbf{Contributing cause: No parallel reading workflow.} Unlike the MGH stroke protocol (parallel reading, human judgment recorded first), this hospital deployed the AI as a primary triage tool. Radiologists were effectively reviewing the AI's work rather than the scan itself.
+
+\textbf{Contributing cause: No monitoring during deployment.} The hospital had no ongoing metrics for performance on non-flagged cases. This is a logging gap: when the system did not flag, nothing was logged that could reveal the performance degradation.
+
+\textbf{What should have been monitored:}
+\begin{itemize}
+    \item Sensitivity separately for AI-flagged and AI-not-flagged cases
+    \item Review time per case by AI flag status
+    \item Radiologist override rate (divergence from AI recommendation)
+    \item Quality on non-flagged cases over time (comparison to pre-deployment baseline)
+\end{itemize}
+
+\textbf{Remediation:}
+\begin{enumerate}
+    \item Implement parallel reading protocol (human assessment recorded before AI display)
+    \item Add monitoring for non-flagged case accuracy
+    \item Require independent assessment for all cases, not just AI-flagged ones
+    \item Quarterly review of flagged vs.\ non-flagged accuracy trends
+\end{enumerate}
+
+\paragraph{Grading criteria.}
+\begin{itemize}
+    \item \textbf{Excellent:} Identifies AI-first interface as root cause; names compounding failure mechanism; proposes specific monitoring metrics and remediation
+    \item \textbf{Good:} Correct root cause; some monitoring metrics
+    \item \textbf{Satisfactory:} Identifies the interface was likely the problem without mechanistic explanation
+    \item \textbf{Needs improvement:} Blames the AI model rather than the interface design
+\end{itemize}
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: AI-First vs.\ Human-First --- Analysis Guide}
+
+\textbf{Expected patterns in student data:}
+
+\textbf{AI-first condition (Condition B):}
+\begin{itemize}
+    \item High agreement between student final judgment and AI recommendation (80--95\%)
+    \item When AI is wrong, students follow it at high rates (60--75\%)
+    \item Revision direction strongly toward AI recommendation
+\end{itemize}
+
+\textbf{Human-first condition (Condition A):}
+\begin{itemize}
+    \item Lower AI-student agreement (reflects genuine uncertainty)
+    \item When AI and student disagree, student is more likely to investigate
+    \item Revision direction mixed; students revise toward whichever assessment is better supported
+\end{itemize}
+
+\textbf{Expected automation bias coefficient values:}
+\begin{itemize}
+    \item Condition B: $\alpha \approx 0.3$--$0.5$ (followed AI substantially)
+    \item Condition A: $\alpha \approx 0.7$--$0.9$ (maintained independent judgment)
+\end{itemize}
+
+\paragraph{Debrief key points.}
+\begin{itemize}
+    \item The magnitude of the difference between conditions is typically surprising to students
+    \item Both groups had equal intelligence and equal access to the images
+    \item The variable was information sequencing, not capability --- this is the precise mechanism documented in the radiology studies
+\end{itemize}
+
+\subsection{Activity 2: Interface Audit --- Scoring Guide}
+
+\paragraph{Strong audit characteristics.}
+\begin{itemize}
+    \item Specific evidence for each dimension rating, not just opinion
+    \item Recognition that 1-click agree / 5-click disagree is a design choice with measurable consequences
+    \item Proposed fix is genuinely implementable (not ``make it better'')
+    \item Considers cognitive load implications of the fix
+\end{itemize}
+
+\paragraph{Common student mistakes.}
+\begin{itemize}
+    \item Rating all dimensions 3/5 without differentiation
+    \item Proposing fixes that add complexity rather than reducing it
+    \item Missing the disagree-facilitation issue (rarely noticed without prompting)
+\end{itemize}
+
+\paragraph{Sample model audit (streaming service recommendation interface).}
+
+\begin{table}[htbp]
+\caption{Sample interface audit: streaming recommendation system}
+\label{tab:audit-sample-ch06}
+\centering
+\begin{tabular}{@{}p{4cm}p{1.5cm}p{6cm}@{}}
+\toprule
+\textbf{Principle} & \textbf{Rating} & \textbf{Evidence} \\
+\midrule
+AI/human job separation & 2/5 & AI recommendation appears immediately when browsing; no opportunity to form independent preference \\
+Uncertainty as information & 1/5 & Recommendations show no confidence or reasoning \\
+Independent judgment preserved & 2/5 & Recommendations dominate the interface; original content catalog requires deliberate navigation \\
+Disagreement easy & 3/5 & ``Not interested'' button is 1 click; ``Don't recommend from this source'' requires 2 clicks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Weakest dimension:} Uncertainty communication.
+
+\textbf{Proposed fix:} Show recommendation confidence and the top reason (``Based on 3 films you rated highly in this director's catalog''). One sentence. Does not require a new screen or additional clicks.
+
+\subsection{Activity 3: XAI Comprehension --- Expected Results}
+
+\begin{table}[htbp]
+\caption{Expected XAI comprehension scores by format}
+\label{tab:xai-comprehension-ch06}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{3cm}p{3cm}p{3cm}@{}}
+\toprule
+\textbf{Format} & \textbf{Q1: What AI saw} & \textbf{Q2: Where AI may err} & \textbf{Q3: Can you verify?} \\
+\midrule
+Probability score & Low & Very low & Very low \\
+SHAP bar chart & High (if literate), Low (if not) & Moderate & Moderate (experts), Low (non-experts) \\
+Plain-language rationale & High across all & High & High \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Discussion point.} The SHAP chart requires data literacy as a prerequisite for utility. In most deployed HITL systems, reviewers will not have this literacy. Interface designers must design for actual reviewers, not ideal reviewers.
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``Shouldn't AI just handle all the easy cases and only send hard ones to humans?''}
+This is essentially correct and describes a well-designed HITL system. The chapter's point is that the \emph{interface} for the hard cases that reach the human matters enormously. Correct routing + bad interface $\neq$ good HITL system. Even if you route correctly, the human reviewer can be made better or worse by what they see.
+
+\paragraph{``Isn't automation bias just a risk of AI? Humans are biased too.''}
+Yes, humans have independent biases. The automation bias concern is specific: AI can \emph{amplify} existing biases or introduce new systematic errors when the interface suppresses independent judgment. A radiologist's existing bias might be corrected by careful independent review. If the AI shares that bias (trained on biased data) and the interface suppresses independent review, the bias is amplified. HITL with a bad interface can make bias worse than either the human or the AI alone.
+
+\paragraph{``What if the AI is so accurate that we should just follow it?''}
+Accuracy figures are averages. No AI is equally accurate across all subgroups, case types, and edge conditions. The cases where AI accuracy is highest are exactly where human review is least necessary. The cases where human review adds the most value are where AI accuracy is uncertain --- and those are precisely the cases where automation bias is most dangerous. An interface designed to suppress independent judgment is most harmful exactly where independent judgment matters most.
+
+% ============================================================================
+\section{Technical Exercise Solutions (Appendix 6A)}
+% ============================================================================
+
+\subsection{Automation Bias Anchor-Adjustment Model}
+
+\paragraph{The formal model.}
+
+Let $J_0$ be the reviewer's independent judgment and $A$ be the AI recommendation. The final judgment is:
+\[
+J_f = A + \alpha(J_0 - A)
+\]
+where $\alpha \in [0, 1]$ is the adjustment coefficient. At $\alpha = 1$: complete independence maintained. At $\alpha = 0$: complete adoption of AI recommendation.
+
+\paragraph{Fatigue effect.} The adjustment coefficient degrades with session length $t$ (hours):
+\[
+\alpha(t) = \alpha_0 \cdot e^{-\lambda_\alpha t}
+\]
+At $\alpha_0 = 0.7$, $\lambda_\alpha = 0.15$: After 4 hours, $\alpha(4) = 0.7 \cdot e^{-0.6} \approx 0.38$.
+
+\paragraph{Interface mechanics effect.} Reducing mechanical overhead from 14 to 5 seconds per item:
+\begin{itemize}
+    \item Less total cognitive load depletion per session
+    \item Higher available germane load per item
+    \item $\alpha$ stays higher for longer: quality degradation threshold reached later
+\end{itemize}
+
+At 400 items per session, 14-second overhead: quality drops below $\alpha = 0.5$ threshold at approximately item 139. At 5-second overhead (same total session time): the threshold is reached later because less total cognitive load has been expended on mechanics.
+
+\subsection{Explanation Utility Measurement}
+
+\paragraph{Human Utility score for XAI method $X$:}
+\[
+\text{HU}(X) = \mathbb{E}[\text{Accuracy with } X] - \mathbb{E}[\text{Accuracy without } X]
+\]
+
+\paragraph{Expected values from the literature:}
+\begin{table}[htbp]
+\caption{Expected Human Utility by XAI method and user expertise}
+\label{tab:human-utility-ch06}
+\centering
+\begin{tabular}{@{}p{4cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Method} & \textbf{Expert HU} & \textbf{Non-expert HU} \\
+\midrule
+Probability score only & Slightly negative & Negative \\
+SHAP feature importance & Moderate positive & Slightly negative \\
+Grad-CAM highlighting & Positive & Slightly positive \\
+Plain-language rationale & Positive & Positive \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Why probability score alone is negative:} It anchors the reviewer toward the AI recommendation without providing any information to evaluate that recommendation. The net effect is automation bias without the compensating benefit of useful explanation.
+
+\paragraph{Why SHAP is negative for non-experts:} Non-experts often misread SHAP plots (e.g., confusing feature importance magnitude with direction of effect). The effort of processing the chart depletes cognitive capacity without improving decision quality.

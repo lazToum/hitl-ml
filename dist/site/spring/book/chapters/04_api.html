@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The API Layer: Rust and Axum &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/04_api';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Identity in the Loop: OIDC and Roles" href="05_auth.html" />
+    <link rel="prev" title="Designing for Humans: The Schema" href="03_schema.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/04_api.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The API Layer: Rust and Axum</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rust">Why Rust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appstate">AppState</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-handling">Error handling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sqlx-and-compile-time-safety">sqlx and compile-time safety</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-route-tree">The route tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-api-layer-rust-and-axum">
+<h1>The API Layer: Rust and Axum<a class="headerlink" href="#the-api-layer-rust-and-axum" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>A type error at compile time is a design conversation. A type error at runtime is an incident.</p>
+<p class="attribution">—Chapter 4</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> Why would you choose Rust for a web API that mostly queries a database? What does Rust give you that Python or Go don’t? What does it cost?</p>
+<p><strong>2.</strong> A web framework that makes “impossible states unrepresentable” is a different class of tool than one that makes them “unlikely.” Can you think of an invariant in the treasure hunt system that the Rust type system enforces for free?</p>
+<p><strong>3.</strong> Compile-time SQL query checking sounds appealing. But it means your code can only build if a database is running — or you have pre-cached the schema. What does that tradeoff look like in CI? In a laptop without internet?</p>
+</section>
+<hr class="docutils" />
+<section id="why-rust">
+<h2>Why Rust<a class="headerlink" href="#why-rust" title="Permalink to this heading">#</a></h2>
+<p>Rust is not the obvious choice for a web API. Python, Go, or Node would compile faster, require less ceremony, and be familiar to more readers.</p>
+<p>We chose Rust for three reasons relevant to this edition:</p>
+<p><strong>Memory safety without garbage collection.</strong> The Axum server can handle thousands of concurrent WebSocket connections without pausing for GC. For the observer dashboard — which holds open connections for every live session — this matters.</p>
+<p><strong>Fearless concurrency.</strong> The <code class="docutils literal notranslate"><span class="pre">WsBroadcaster</span></code> holds a <code class="docutils literal notranslate"><span class="pre">Mutex&lt;HashMap&gt;</span></code> of broadcast channels. In Rust, the compiler ensures this is used correctly: you cannot forget to lock, cannot hold the lock across an await point, cannot accidentally share a <code class="docutils literal notranslate"><span class="pre">!Send</span></code> type across threads. These guarantees are enforced at compile time.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">sqlx</span></code> compile-time query validation.</strong> When you write <code class="docutils literal notranslate"><span class="pre">sqlx::query_as!(Player,</span> <span class="pre">&quot;SELECT</span> <span class="pre">*</span> <span class="pre">FROM</span> <span class="pre">players</span> <span class="pre">WHERE</span> <span class="pre">id</span> <span class="pre">=</span> <span class="pre">$1&quot;,</span> <span class="pre">id)</span></code>, the compiler verifies at build time that the query is valid SQL, that <code class="docutils literal notranslate"><span class="pre">$1</span></code> has the right type, and that the returned columns match the <code class="docutils literal notranslate"><span class="pre">Player</span></code> struct. This is a remarkable property: your SQL cannot drift from your schema without a build failure.</p>
+<p>The cost is real: longer compile times, a steeper learning curve, and more ceremony around ownership. For a book example, that is a reasonable tradeoff — readers who work through the Rust chapters learn something they cannot learn from a FastAPI tutorial.</p>
+</section>
+<hr class="docutils" />
+<section id="project-structure">
+<h2>Project structure<a class="headerlink" href="#project-structure" title="Permalink to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>backend-rust/src/
+├── main.rs               # Server startup, router mounting
+├── config.rs             # Env-var driven Config struct
+├── state.rs              # AppState: shared handles
+├── error.rs              # AppError enum → HTTP responses
+├── db/mod.rs             # Pool initialization
+├── middleware/
+│   ├── mod.rs
+│   └── auth.rs           # JwksCache + AuthUser extractor
+├── models/               # Plain data types (no DB logic)
+│   ├── clue.rs
+│   ├── hunt.rs
+│   ├── player.rs
+│   ├── session.rs
+│   └── event.rs
+├── routes/               # HTTP handlers (thin, delegate to services)
+│   ├── mod.rs            # Router wiring
+│   ├── auth.rs
+│   ├── hunts.rs
+│   ├── sessions.rs
+│   ├── observer.rs
+│   └── scan.rs
+└── services/             # Business logic
+    ├── hunt_engine.rs
+    ├── session_manager.rs
+    ├── clue_validator.rs
+    ├── hint_engine.rs
+    ├── event_logger.rs
+    ├── ai_client.rs
+    ├── qr_generator.rs
+    └── ws_broadcaster.rs
+</pre></div>
+</div>
+<p>The split between <code class="docutils literal notranslate"><span class="pre">routes/</span></code> and <code class="docutils literal notranslate"><span class="pre">services/</span></code> is intentional. Handlers parse HTTP — extract path params, deserialize bodies, check auth, return JSON. Services contain logic — database queries, business rules, side effects. A handler for submitting an answer looks like:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">submit_answer</span><span class="p">(</span>
+<span class="w">    </span><span class="n">auth</span><span class="p">:</span><span class="w"> </span><span class="nc">AuthUser</span><span class="p">,</span>
+<span class="w">    </span><span class="n">State</span><span class="p">(</span><span class="n">state</span><span class="p">):</span><span class="w"> </span><span class="nc">State</span><span class="o">&lt;</span><span class="n">AppState</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Path</span><span class="p">(</span><span class="n">session_id</span><span class="p">):</span><span class="w"> </span><span class="nc">Path</span><span class="o">&lt;</span><span class="n">Uuid</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Json</span><span class="p">(</span><span class="n">req</span><span class="p">):</span><span class="w"> </span><span class="nc">Json</span><span class="o">&lt;</span><span class="n">SubmitAnswer</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Json</span><span class="o">&lt;</span><span class="n">AnswerResult</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">sessions</span><span class="p">::</span><span class="n">submit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">auth</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">).</span><span class="k">await</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The handler does three things: authenticate, extract, delegate. All real work happens in <code class="docutils literal notranslate"><span class="pre">sessions::submit</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="appstate">
+<h2>AppState<a class="headerlink" href="#appstate" title="Permalink to this heading">#</a></h2>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="cp">#[derive(Clone)]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">AppState</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">db</span><span class="p">:</span><span class="w">          </span><span class="nc">PgPool</span><span class="p">,</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">config</span><span class="p">:</span><span class="w">      </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="n">Config</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">jwks</span><span class="p">:</span><span class="w">        </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="n">JwksCache</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">broadcaster</span><span class="p">:</span><span class="w"> </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="n">WsBroadcaster</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">ai</span><span class="p">:</span><span class="w">          </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="n">AiClient</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">redis</span><span class="p">:</span><span class="w">       </span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">ConnectionManager</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">AppState</span></code> is the shared context injected into every handler via Axum’s <code class="docutils literal notranslate"><span class="pre">State</span></code> extractor. It is <code class="docutils literal notranslate"><span class="pre">Clone</span></code> because Axum clones it for each request. The expensive things — database pool, JWKS cache, WebSocket broadcaster — are behind <code class="docutils literal notranslate"><span class="pre">Arc</span></code>, so cloning is cheap.</p>
+<p>Redis is optional in <code class="docutils literal notranslate"><span class="pre">AppState</span></code>. Startup attempts to connect to it; if the connection fails, the API logs a warning and continues with <code class="docutils literal notranslate"><span class="pre">redis:</span> <span class="pre">None</span></code>. When Redis is available, answer submissions use it for a per-player, per-clue rate limit of 10 attempts per minute. It is not yet used for session caching or background jobs.</p>
+</section>
+<hr class="docutils" />
+<section id="error-handling">
+<h2>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">#</a></h2>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="cp">#[derive(Debug, thiserror::Error)]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">AppError</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cp">#[error(</span><span class="s">&quot;not found: {0}&quot;</span><span class="cp">)]</span>
+<span class="w">    </span><span class="n">NotFound</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
+<span class="w">    </span><span class="cp">#[error(</span><span class="s">&quot;bad request: {0}&quot;</span><span class="cp">)]</span>
+<span class="w">    </span><span class="n">BadRequest</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
+<span class="w">    </span><span class="cp">#[error(</span><span class="s">&quot;unauthorized&quot;</span><span class="cp">)]</span>
+<span class="w">    </span><span class="n">Unauthorized</span><span class="p">,</span>
+<span class="w">    </span><span class="cp">#[error(</span><span class="s">&quot;forbidden&quot;</span><span class="cp">)]</span>
+<span class="w">    </span><span class="n">Forbidden</span><span class="p">,</span>
+<span class="w">    </span><span class="cp">#[error(</span><span class="s">&quot;internal error&quot;</span><span class="cp">)]</span>
+<span class="w">    </span><span class="n">Internal</span><span class="p">(</span><span class="cp">#[from]</span><span class="w"> </span><span class="n">anyhow</span><span class="p">::</span><span class="n">Error</span><span class="p">),</span>
+<span class="w">    </span><span class="cp">#[error(</span><span class="s">&quot;database error&quot;</span><span class="cp">)]</span>
+<span class="w">    </span><span class="n">Db</span><span class="p">(</span><span class="cp">#[from]</span><span class="w"> </span><span class="n">sqlx</span><span class="p">::</span><span class="n">Error</span><span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Every service function returns <code class="docutils literal notranslate"><span class="pre">Result&lt;T&gt;</span></code> where the error is <code class="docutils literal notranslate"><span class="pre">AppError</span></code>. The <code class="docutils literal notranslate"><span class="pre">IntoResponse</span></code> implementation on <code class="docutils literal notranslate"><span class="pre">AppError</span></code> maps each variant to an HTTP status code and a JSON body:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">impl</span><span class="w"> </span><span class="n">IntoResponse</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">AppError</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">into_response</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Response</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="o">&amp;</span><span class="bp">self</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">AppError</span><span class="p">::</span><span class="n">NotFound</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">StatusCode</span><span class="p">::</span><span class="n">NOT_FOUND</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">clone</span><span class="p">()),</span>
+<span class="w">            </span><span class="n">AppError</span><span class="p">::</span><span class="n">BadRequest</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">StatusCode</span><span class="p">::</span><span class="n">BAD_REQUEST</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">clone</span><span class="p">()),</span>
+<span class="w">            </span><span class="n">AppError</span><span class="p">::</span><span class="n">Unauthorized</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">StatusCode</span><span class="p">::</span><span class="n">UNAUTHORIZED</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;unauthorized&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()),</span>
+<span class="w">            </span><span class="n">AppError</span><span class="p">::</span><span class="n">Forbidden</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">StatusCode</span><span class="p">::</span><span class="n">FORBIDDEN</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;forbidden&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()),</span>
+<span class="w">            </span><span class="n">AppError</span><span class="p">::</span><span class="n">Internal</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">AppError</span><span class="p">::</span><span class="n">Db</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">                </span><span class="p">(</span><span class="n">StatusCode</span><span class="p">::</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;internal server error&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()),</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">        </span><span class="p">(</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">Json</span><span class="p">(</span><span class="n">json</span><span class="o">!</span><span class="p">({</span><span class="w"> </span><span class="s">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="nc">message</span><span class="w"> </span><span class="p">}))).</span><span class="n">into_response</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Database errors and internal errors both become 500s with a generic message — the specific error is logged but not returned to clients. This is a security decision: internal error details can leak schema information or stack traces.</p>
+</section>
+<hr class="docutils" />
+<section id="sqlx-and-compile-time-safety">
+<h2>sqlx and compile-time safety<a class="headerlink" href="#sqlx-and-compile-time-safety" title="Permalink to this heading">#</a></h2>
+<p>The most distinctive feature of the Rust backend is <code class="docutils literal notranslate"><span class="pre">sqlx</span></code>’s compile-time query checking.</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">PgPool</span><span class="p">,</span><span class="w"> </span><span class="n">hunt_id</span><span class="p">:</span><span class="w"> </span><span class="nc">Uuid</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Hunt</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">sqlx</span><span class="p">::</span><span class="n">query_as</span><span class="o">!</span><span class="p">(</span><span class="n">Hunt</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;SELECT * FROM hunts WHERE id = $1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">hunt_id</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">fetch_one</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="k">await</span>
+<span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">_</span><span class="o">|</span><span class="w"> </span><span class="n">AppError</span><span class="p">::</span><span class="n">NotFound</span><span class="p">(</span><span class="s">&quot;hunt not found&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When this compiles, <code class="docutils literal notranslate"><span class="pre">sqlx</span></code> has verified:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hunts</span></code> table exists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$1</span></code> is a UUID-compatible type</p></li>
+<li><p>Every column in <code class="docutils literal notranslate"><span class="pre">hunts</span></code> has a corresponding field in the <code class="docutils literal notranslate"><span class="pre">Hunt</span></code> struct with a compatible type</p></li>
+</ul>
+<p>If you rename a column in the schema and forget to update the Rust model, the build fails. If you write invalid SQL, the build fails. This is not runtime type checking with descriptive error messages — it is compile-time prevention.</p>
+<p>The mechanism requires either a live database at build time, or a pre-generated cache in <code class="docutils literal notranslate"><span class="pre">.sqlx/</span></code>. This project ships the cache. After any schema change, regenerate it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>postgres<span class="w"> </span>-d
+<span class="nv">DATABASE_URL</span><span class="o">=</span>postgres://hunt:hunt_secret@localhost:5432/treasure_hunt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cargo<span class="w"> </span>sqlx<span class="w"> </span>prepare
+</pre></div>
+</div>
+<p>Then set <code class="docutils literal notranslate"><span class="pre">SQLX_OFFLINE=true</span></code> in <code class="docutils literal notranslate"><span class="pre">.env</span></code> and commit the updated <code class="docutils literal notranslate"><span class="pre">.sqlx/</span></code> directory. The cache is safe to commit — it contains type metadata, not data.</p>
+</section>
+<hr class="docutils" />
+<section id="the-route-tree">
+<h2>The route tree<a class="headerlink" href="#the-route-tree" title="Permalink to this heading">#</a></h2>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// Auth</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/me&quot;</span><span class="p">,</span><span class="w">                              </span><span class="n">get</span><span class="p">(</span><span class="n">auth</span><span class="p">::</span><span class="n">me</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// Hunts (creator)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts&quot;</span><span class="p">,</span><span class="w">                           </span><span class="n">post</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">create</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">list</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id&quot;</span><span class="p">,</span><span class="w">                       </span><span class="n">get</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">get</span><span class="p">).</span><span class="n">patch</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">update</span><span class="p">).</span><span class="n">delete</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">delete</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/clues&quot;</span><span class="p">,</span><span class="w">                 </span><span class="n">get</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">list_clues</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/clues/:seq&quot;</span><span class="p">,</span><span class="w">            </span><span class="n">put</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">upsert_clue</span><span class="p">).</span><span class="n">delete</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">delete_clue</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/clues/:seq/hints&quot;</span><span class="p">,</span><span class="w">      </span><span class="n">get</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">list_hints</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/qr-sheet&quot;</span><span class="p">,</span><span class="w">              </span><span class="n">get</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">qr_sheet</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/ai/generate-clue&quot;</span><span class="p">,</span><span class="w">      </span><span class="n">post</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">ai_generate_clue</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/ai/difficulty&quot;</span><span class="p">,</span><span class="w">         </span><span class="n">post</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">ai_estimate_difficulty</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// Observer</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/observe&quot;</span><span class="p">,</span><span class="w">               </span><span class="n">get</span><span class="p">(</span><span class="n">observer</span><span class="p">::</span><span class="n">observe</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/hunts/:id/sessions&quot;</span><span class="p">,</span><span class="w">              </span><span class="n">get</span><span class="p">(</span><span class="n">observer</span><span class="p">::</span><span class="n">list_sessions</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// Sessions (player)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/sessions&quot;</span><span class="p">,</span><span class="w">                        </span><span class="n">post</span><span class="p">(</span><span class="n">sessions</span><span class="p">::</span><span class="n">start</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/sessions/:id&quot;</span><span class="p">,</span><span class="w">                    </span><span class="n">get</span><span class="p">(</span><span class="n">sessions</span><span class="p">::</span><span class="n">status</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/sessions/:id/clue&quot;</span><span class="p">,</span><span class="w">               </span><span class="n">get</span><span class="p">(</span><span class="n">sessions</span><span class="p">::</span><span class="n">current_clue</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/sessions/:id/answer&quot;</span><span class="p">,</span><span class="w">             </span><span class="n">post</span><span class="p">(</span><span class="n">sessions</span><span class="p">::</span><span class="n">submit_answer</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/sessions/:id/hint&quot;</span><span class="p">,</span><span class="w">               </span><span class="n">post</span><span class="p">(</span><span class="n">sessions</span><span class="p">::</span><span class="n">request_hint</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/sessions/:id/nudge&quot;</span><span class="p">,</span><span class="w">              </span><span class="n">post</span><span class="p">(</span><span class="n">observer</span><span class="p">::</span><span class="n">nudge</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/sessions/:id/analysis&quot;</span><span class="p">,</span><span class="w">           </span><span class="n">get</span><span class="p">(</span><span class="n">sessions</span><span class="p">::</span><span class="n">analyze_session</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// QR/NFC scan</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/scan/:token&quot;</span><span class="p">,</span><span class="w">                     </span><span class="n">get</span><span class="p">(</span><span class="n">scan</span><span class="p">::</span><span class="n">scan</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// Public (no auth)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/public/hunts&quot;</span><span class="p">,</span><span class="w">                    </span><span class="n">get</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">public_list</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">&quot;/public/hunts/:id/clues&quot;</span><span class="p">,</span><span class="w">          </span><span class="n">get</span><span class="p">(</span><span class="n">hunts</span><span class="p">::</span><span class="n">public_list_clues</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Most application routes require authentication because their handlers take <code class="docutils literal notranslate"><span class="pre">auth:</span> <span class="pre">AuthUser</span></code>. The <code class="docutils literal notranslate"><span class="pre">/public/hunts</span></code> endpoints are the exception: they are intentionally unauthenticated so the discovery page can list active hunts before login. The scan route is encoded into QR/NFC tags, but the current handler still takes <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code>; scanned URLs therefore work from the authenticated app flow and will not behave as an anonymous spectator endpoint without an authorization token.</p>
+<p>Route-level authorization — checking that the authenticated user has the right role — happens in the handler or service, not at the router level. A player who calls <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/hunts</span></code> will get through authentication but be rejected by the hunt creation handler once it checks their role.</p>
+<div class="note admonition">
+<p class="admonition-title">Authorization is not authentication</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AuthUser</span></code> extractor only checks “is this a valid token from a user we know?” It does not check “is this user allowed to do what they are trying to do?” Authorization — role checks, ownership checks — is the handler’s responsibility. This separation is deliberate: it keeps the middleware simple and puts authorization logic where the domain context is available.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<p>Rust’s type system prevents certain classes of bugs. But there is a class of bugs it does not prevent: wrong business logic that is type-correct.</p>
+<p>A function that decrements <code class="docutils literal notranslate"><span class="pre">attempts</span></code> instead of incrementing it compiles fine. A query that fetches sessions from the wrong hunt compiles fine. A hint unlock condition that uses <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> compiles fine.</p>
+<p>What would prevent those bugs? What would it take to test them? And is the confidence that compile-time checking gives you a useful property, or does it create a false sense of security about the things it does not check?</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_schema.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Designing for Humans: The Schema</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_auth.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Identity in the Loop: OIDC and Roles</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rust">Why Rust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appstate">AppState</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-handling">Error handling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sqlx-and-compile-time-safety">sqlx and compile-time safety</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-route-tree">The route tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

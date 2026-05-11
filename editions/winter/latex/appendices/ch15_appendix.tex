@@ -1,0 +1,250 @@
+% ============================================================================
+% CHAPTER 15 APPENDIX: Error Analysis Frameworks for HITL Systems
+% Technical tools for diagnosing, measuring, and debugging failures
+% ============================================================================
+% Source: /markdown/ch15/Ch15A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix: Chapter 15}
+\addcontentsline{toc}{chapter}{Technical Appendix: Chapter 15 --- Error Analysis Frameworks}
+\label{app:ch15}
+
+% ============================================================================
+\section*{A15.1 Calibration Analysis}
+% ============================================================================
+
+Standard \ml evaluation---accuracy, precision, recall, F1, AUC---measures aggregate model performance. In \hitl systems, aggregate metrics are necessary but not sufficient. A model with 95\% accuracy may have systematic failure modes invisible in aggregate statistics.
+
+\subsection*{Cost-Asymmetric Threshold Design}
+
+In \hitl systems, the asymmetry between false positive and false negative costs is critical for threshold design. For a binary classifier, the optimal threshold under asymmetric costs is:
+
+\begin{equation}
+\theta^* = \frac{C_{FP}}{C_{FP} + C_{FN}}
+\label{eq:optimal-threshold}
+\end{equation}
+
+where $C_{FP}$ is the cost of a false positive, $C_{FN}$ is the cost of a false negative, and $s(x) = P(y{=}1 \mid x)$ is the model's \emph{calibrated posterior probability}.
+
+\begin{technote}[When class priors matter]
+This threshold applies when $s(x)$ is a well-calibrated posterior. If the model instead outputs a likelihood ratio or an uncalibrated score, multiply by the class prior ratio: $\tau^* = C_{FP}\,P(y{=}0)\,/\,[C_{FP}\,P(y{=}0) + C_{FN}\,P(y{=}1)]$. For calibrated deep classifiers the two are equivalent after accounting for the prior.
+\end{technote}
+
+For a cancer screening system with $C_{FP} = \$200$ (unnecessary biopsy) and $C_{FN} = \$50{,}000$ (missed diagnosis):
+\[
+\theta^* = \frac{200}{200 + 50{,}000} \approx 0.004
+\]
+
+This means the system should auto-decide negative only when it is more than 99.6\% confident---and should route to human review otherwise. The aggressively low threshold reflects the severe asymmetry: missing a cancer costs 250$\times$ more than a false alarm.
+
+\subsection*{Expected Calibration Error}
+
+A well-calibrated model's confidence scores match empirical accuracy: a model that says ``90\% confident'' should be correct about 90\% of the time. The standard scalar metric is \term{Expected Calibration Error} (ECE):
+
+\begin{equation}
+ECE = \sum_{b=1}^{B} \frac{|B_b|}{n} \left| \text{acc}(B_b) - \text{conf}(B_b) \right|
+\label{eq:ece-ch15}
+\end{equation}
+
+where $B_b$ is a bucket of predictions grouped by confidence, $\text{acc}(B_b)$ is empirical accuracy in that bucket, and $\text{conf}(B_b)$ is mean confidence \autocite{guo2017calibration}.
+
+\begin{technote}[Calibration as a HITL Prerequisite]
+If a model is systematically overconfident, its uncertainty estimates cannot be trusted to trigger human review at the right times. ECE $< 0.05$ is generally acceptable for \hitl routing; ECE $> 0.10$ requires recalibration (temperature scaling or isotonic regression) before the model's confidence can be used for routing decisions.
+\end{technote}
+
+% ============================================================================
+\section*{A15.2 Slice-Based Evaluation}
+% ============================================================================
+
+The most powerful technique for detecting systematic failures is \term{slice-based evaluation}: instead of computing one aggregate metric, compute metrics separately for meaningful subpopulations.
+
+\subsection*{Defining Slices}
+
+Slices should be defined based on domain knowledge:
+\begin{itemize}
+    \item \textbf{Demographics:} Age, gender, race/ethnicity, geographic region, language
+    \item \textbf{Domain-specific attributes:} In medical \ai, disease severity, imaging equipment type, institution; in lending, transaction amount, merchant category, account tenure
+    \item \textbf{Temporal attributes:} Time of day, day of week, season, year
+    \item \textbf{Input characteristics:} Text length, image quality, transaction amount
+\end{itemize}
+
+\subsection*{Automated Slice Discovery}
+
+Single-dimensional slicing misses intersectional failures. A model may perform well on each individual attribute while failing on combinations. \term{Slice finder} methods \autocite{chung2019slicefinder} and the Domino approach \autocite{eyuboglu2022domino} use clustering and decision-tree-based methods to automatically identify subpopulations where model performance is poor.
+
+\begin{lstlisting}[style=python, caption={Slice-based evaluation core implementation}]
+def compute_slice_metrics(df, slice_col, target_col, pred_col,
+                          min_slice_size=50):
+    baseline_acc = accuracy_score(df[target_col], df[pred_col])
+    results = []
+
+    for val in df[slice_col].unique():
+        slice_df = df[df[slice_col] == val]
+        if len(slice_df) < min_slice_size:
+            continue
+
+        acc = accuracy_score(slice_df[target_col], slice_df[pred_col])
+
+        results.append({
+            'slice_val': str(val),
+            'n': len(slice_df),
+            'accuracy': acc,
+            'gap_from_baseline': acc - baseline_acc
+        })
+
+    return pd.DataFrame(results).sort_values('gap_from_baseline')
+\end{lstlisting}
+
+% ============================================================================
+\section*{A15.3 Behavioral Testing: The CheckList Methodology}
+% ============================================================================
+
+The CheckList methodology \autocite{ribeiro2020checklist} adapts software testing principles to \ml models. Instead of asking ``what is this model's aggregate accuracy?'' it asks ``does this model satisfy specific behavioral invariances?''
+
+\subsection*{Three Test Types}
+
+\paragraph{Minimum Functionality Tests (MFT).} Does the model handle basic, obvious cases correctly?
+
+\paragraph{Invariance Tests (INV).} Does the model's output remain stable when inputs are changed in ways that should not affect the output? Example for content moderation: \textit{sentiment toward a topic should not change when the demographic group mentioned in the text is changed to an equivalent group.}
+
+\paragraph{Directional Tests (DIR).} Does the model's output change appropriately when inputs are changed in ways that should affect the output? Example: \textit{adding explicit negation (``I do not recommend this'') should decrease positive sentiment score.}
+
+\subsection*{CheckList for Annotation Quality Diagnosis}
+
+CheckList can be applied to test annotation consistency rather than model behavior. For the annotation failure hypothesis (political speech artifact):
+
+\begin{lstlisting}[style=python, caption={Annotation invariance testing}]
+def annotation_invariance_test(annotation_sample, group_pairs):
+    """
+    Test whether annotations are consistent across equivalent
+    content mentioning different demographic or political groups.
+
+    group_pairs: list of (group_a, group_b) strings to substitute
+    """
+    consistency_results = []
+
+    for text_template in annotation_sample.templates:
+        labels_by_group = {}
+
+        for group_a, group_b in group_pairs:
+            text_a = text_template.replace('[GROUP]', group_a)
+            text_b = text_template.replace('[GROUP]', group_b)
+
+            labels_a = annotation_sample.get_labels(text_a)
+            labels_b = annotation_sample.get_labels(text_b)
+
+            kappa = cohen_kappa_score(labels_a, labels_b)
+            consistency_results.append({
+                'template': text_template,
+                'group_a': group_a,
+                'group_b': group_b,
+                'consistency_kappa': kappa,
+                'flag': kappa < 0.6
+            })
+
+    return pd.DataFrame(consistency_results)
+\end{lstlisting}
+
+% ============================================================================
+\section*{A15.4 Data Debugging with Influence Functions}
+% ============================================================================
+
+When a systematic model failure is identified, \term{influence functions} \autocite{koh2017influence} provide a principled method for tracing it to specific training examples.
+
+\subsection*{The Influence Function Formula}
+
+The influence function estimates the change in model parameters if a single training example were removed:
+
+\begin{equation}
+\mathcal{I}(z, z_{test}) = -\nabla_\theta \mathcal{L}(z_{test}, \hat{\theta})^T H_{\hat{\theta}}^{-1} \nabla_\theta \mathcal{L}(z, \hat{\theta})
+\label{eq:influence}
+\end{equation}
+
+where $z$ is a training example, $z_{test}$ is the test example of interest, $\hat{\theta}$ are the trained parameters, and $H_{\hat{\theta}}$ is the Hessian of the training loss.
+
+Positive influence ($\mathcal{I} > 0$) means upweighting this training example increases the model's loss on the test point---it is a \textit{harmful} example that supports the model's current (potentially incorrect) prediction. Negative influence means upweighting it would reduce test loss, improving accuracy on similar cases.
+
+\subsection*{Practical Application: Label Noise Detection}
+
+A simpler application in annotation-failure scenarios is high-loss training example identification:
+
+\begin{lstlisting}[style=python, caption={Label noise detection via training loss}]
+def detect_potential_mislabels(model, X_train, y_train,
+                               threshold_percentile=95):
+    """
+    Training examples with anomalously high loss are candidates
+    for mislabeling. Return for human re-review.
+    """
+    preds = model.predict_proba(X_train)
+
+    losses = -np.array([
+        y_train[i] * np.log(preds[i, 1] + 1e-10) +
+        (1 - y_train[i]) * np.log(preds[i, 0] + 1e-10)
+        for i in range(len(y_train))
+    ])
+
+    threshold = np.percentile(losses, threshold_percentile)
+    suspicious_indices = np.where(losses > threshold)[0]
+
+    return {
+        'suspicious_indices': suspicious_indices,
+        'n_suspicious': len(suspicious_indices),
+        'fraction_suspicious': len(suspicious_indices) / len(y_train)
+    }
+\end{lstlisting}
+
+% ============================================================================
+\section*{A15.5 Inter-Annotator Agreement Metrics}
+% ============================================================================
+
+For annotation failure diagnosis, the key measurement is inter-annotator agreement.
+
+\paragraph{Cohen's Kappa} (two annotators, categorical labels):
+\begin{equation}
+\kappa = \frac{p_o - p_e}{1 - p_e}
+\label{eq:cohens-kappa}
+\end{equation}
+
+where $p_o$ is observed agreement and $p_e$ is expected agreement by chance.
+
+\paragraph{Fleiss' Kappa} (more than two annotators):
+\begin{equation}
+\kappa_F = \frac{\bar{P} - \bar{P}_e}{1 - \bar{P}_e}
+\end{equation}
+
+\paragraph{Krippendorff's Alpha} (most flexible; handles missing data and ordinal scales):
+\begin{equation}
+\alpha = 1 - \frac{D_o}{D_e}
+\end{equation}
+
+\begin{table}[h]
+\centering
+\caption{Kappa Interpretation Guidelines for HITL Annotation Quality}
+\label{tab:kappa-interpretation}
+\begin{tabular}{lll}
+\toprule
+\textbf{Kappa Range} & \textbf{Interpretation} & \textbf{HITL Action} \\
+\midrule
+$\geq 0.80$ & Good & Proceed with training \\
+$0.60$--$0.80$ & Acceptable & Review guidelines for ambiguous cases \\
+$0.40$--$0.60$ & Marginal & Revise guidelines; additional annotator training \\
+$< 0.40$ & Poor & Halt training; redesign annotation process \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section*{A15.6 The HITL Debugging Workflow}
+% ============================================================================
+
+The four tools above are most powerful when used in sequence:
+
+\begin{enumerate}
+    \item \textbf{Calibration analysis} $\to$ Are the model's confidence scores trustworthy? If not, uncertainty detection is broken at the source.
+    \item \textbf{Slice-based evaluation} $\to$ Are there subpopulations with systematically lower performance? If so, model failure or annotation failure.
+    \item \textbf{CheckList behavioral tests} $\to$ Are there specific invariances that fail? If so, likely annotation failure with demographic or contextual bias.
+    \item \textbf{Influence functions / label noise detection} $\to$ Which specific training examples are responsible? Prioritize for relabeling.
+    \item \textbf{Inter-annotator agreement analysis} $\to$ Is the labeling process itself reliable? If not, the entire feedback loop is suspect.
+\end{enumerate}
+
+This workflow should be run at initial deployment, after every model update, monthly as a routine check, and immediately upon any external complaint about systematic failures.

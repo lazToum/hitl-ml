@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Предварительные материалы"
+    chapters:
+      - file: front/declaration
+        title: "Декларация об оригинальности"
+      - file: front/abstract
+        title: "Аннотация"
+      - file: front/acknowledgments
+        title: "Благодарности"
+
+  - caption: "Часть I — Основы"
+    chapters:
+      - file: chapters/01_introduction
+        title: "Что такое машинное обучение с участием человека?"
+      - file: chapters/02_taxonomy
+        title: "Таксономия взаимодействия человека и машины"
+
+  - caption: "Часть II — Базовые методы"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Аннотирование и разметка данных"
+      - file: chapters/04_active_learning
+        title: "Активное обучение"
+      - file: chapters/05_interactive_ml
+        title: "Интерактивное машинное обучение"
+
+  - caption: "Часть III — Обучение на основе обратной связи от человека"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Обучение с подкреплением на основе обратной связи от человека"
+      - file: chapters/07_demonstrations
+        title: "Обучение на основе демонстраций"
+      - file: chapters/08_preferences
+        title: "Обучение на основе сравнений и ранжирований"
+
+  - caption: "Часть IV — Приложения"
+    chapters:
+      - file: chapters/09_nlp
+        title: "HITL в обработке естественного языка"
+      - file: chapters/10_vision
+        title: "HITL в компьютерном зрении"
+      - file: chapters/11_healthcare
+        title: "HITL в здравоохранении и науке"
+
+  - caption: "Часть V — Системы и практика"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Платформы и инструменты аннотирования"
+      - file: chapters/13_crowdsourcing
+        title: "Краудсорсинг и контроль качества"
+      - file: chapters/14_evaluation
+        title: "Оценка и метрики"
+
+  - caption: "Часть VI — Этика и перспективы"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Справедливость, смещение и этика"
+      - file: chapters/16_future
+        title: "Перспективы развития"
+
+  - caption: "Дополнительные материалы"
+    chapters:
+      - file: bibliography
+        title: "Библиография"
+      - file: chapters/17_limen
+        title: "Limen: человек в петле всего"
+      - file: front/on_leaving
+        title: "Об уходе"

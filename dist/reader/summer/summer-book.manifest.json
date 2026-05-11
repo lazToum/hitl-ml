@@ -1,0 +1,128 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Human in the Loop: Misunderstood",
+    "subtitle": "Summer Edition — Online Reading"
+  },
+  "chapters": [
+    {
+      "id": "01_introduction",
+      "index": 0,
+      "title": "What Is HITL ML?",
+      "mdPath": "chapters/01_introduction.md",
+      "estimatedReadMinutes": 12
+    },
+    {
+      "id": "02_taxonomy",
+      "index": 1,
+      "title": "A Taxonomy of Human–Machine Interaction",
+      "mdPath": "chapters/02_taxonomy.md",
+      "estimatedReadMinutes": 14
+    },
+    {
+      "id": "03_annotation",
+      "index": 2,
+      "title": "Data Annotation and Labeling",
+      "mdPath": "chapters/03_annotation.md",
+      "estimatedReadMinutes": 16
+    },
+    {
+      "id": "04_active_learning",
+      "index": 3,
+      "title": "Active Learning",
+      "mdPath": "chapters/04_active_learning.md",
+      "estimatedReadMinutes": 15
+    },
+    {
+      "id": "05_interactive_ml",
+      "index": 4,
+      "title": "Interactive Machine Learning",
+      "mdPath": "chapters/05_interactive_ml.md",
+      "estimatedReadMinutes": 13
+    },
+    {
+      "id": "06_rlhf",
+      "index": 5,
+      "title": "Reinforcement Learning from Human Feedback",
+      "mdPath": "chapters/06_rlhf.md",
+      "estimatedReadMinutes": 18
+    },
+    {
+      "id": "07_demonstrations",
+      "index": 6,
+      "title": "Learning from Demonstrations",
+      "mdPath": "chapters/07_demonstrations.md",
+      "estimatedReadMinutes": 14
+    },
+    {
+      "id": "08_preferences",
+      "index": 7,
+      "title": "Learning from Comparisons and Rankings",
+      "mdPath": "chapters/08_preferences.md",
+      "estimatedReadMinutes": 13
+    },
+    {
+      "id": "09_nlp",
+      "index": 8,
+      "title": "HITL in Natural Language Processing",
+      "mdPath": "chapters/09_nlp.md",
+      "estimatedReadMinutes": 15
+    },
+    {
+      "id": "10_vision",
+      "index": 9,
+      "title": "HITL in Computer Vision",
+      "mdPath": "chapters/10_vision.md",
+      "estimatedReadMinutes": 14
+    },
+    {
+      "id": "11_healthcare",
+      "index": 10,
+      "title": "HITL in Healthcare and Science",
+      "mdPath": "chapters/11_healthcare.md",
+      "estimatedReadMinutes": 16
+    },
+    {
+      "id": "12_platforms",
+      "index": 11,
+      "title": "Annotation Platforms and Tooling",
+      "mdPath": "chapters/12_platforms.md",
+      "estimatedReadMinutes": 12
+    },
+    {
+      "id": "13_crowdsourcing",
+      "index": 12,
+      "title": "Crowdsourcing and Quality Control",
+      "mdPath": "chapters/13_crowdsourcing.md",
+      "estimatedReadMinutes": 15
+    },
+    {
+      "id": "14_evaluation",
+      "index": 13,
+      "title": "Evaluation and Metrics",
+      "mdPath": "chapters/14_evaluation.md",
+      "estimatedReadMinutes": 13
+    },
+    {
+      "id": "15_ethics",
+      "index": 14,
+      "title": "Fairness, Bias, and Ethics",
+      "mdPath": "chapters/15_ethics.md",
+      "estimatedReadMinutes": 14
+    },
+    {
+      "id": "16_future",
+      "index": 15,
+      "title": "Future Directions",
+      "mdPath": "chapters/16_future.md",
+      "estimatedReadMinutes": 11
+    },
+    {
+      "id": "17_limen",
+      "index": 16,
+      "title": "Limen: A Human in the Loop of Everything",
+      "mdPath": "chapters/17_limen.md",
+      "estimatedReadMinutes": 10
+    }
+  ]
+}

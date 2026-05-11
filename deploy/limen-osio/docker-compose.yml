@@ -1,0 +1,86 @@
+# limen-os.io production deployment
+#
+# Serves:
+#   ${LANDING_DOMAIN}  — limen-os.io landing page (static)
+#   ${SHELL_DOMAIN}    — io.limen-os.io shell web app (Bun serve.ts)
+#
+# Pre-requisites on the VM:
+#   1. Clone / rsync the repo to ~/p/main/limen-os
+#   2. Build the shell SPA locally:
+#        cd limen-os/apps/shell && bun run build
+#        rsync -av limen-os/apps/shell/dist/ vm:~/p/main/limen-os/apps/shell/dist/
+#      Or just rsync everything and build on the VM:
+#        vagrant rsync  (or: rsync -av --exclude target/ ...)
+#   3. Copy .env.example → .env and fill in secrets
+#   4. docker compose up -d --build
+
+services:
+
+  # ── Edge proxy: SSL termination + routing ─────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./index:/srv/index:ro
+      - ../../dist/site:/srv/site:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      LANDING_DOMAIN: ${LANDING_DOMAIN}
+      SHELL_DOMAIN:   ${SHELL_DOMAIN}
+      ACME_EMAIL:     ${ACME_EMAIL}
+      INDEX_USER:     ${INDEX_USER:-admin}
+      INDEX_PASS_HASH: ${INDEX_PASS_HASH}
+    networks: [public, internal]
+    restart: unless-stopped
+
+  # ── Limen OS shell server (Bun serve.ts) ──────────────────────────────────
+  # Handles: SPA serving, HA proxy, WebSockets (MQTT, companion, JupyterLab,
+  #          code-server, ttyd), auth sessions, search, filesystem API.
+  limen-serve:
+    build:
+      context: ../../limen-os
+      dockerfile: Dockerfile.serve
+    environment:
+      PORT:                 "1420"
+      HOST:                 "0.0.0.0"
+      LIMEN_AUTH_USER:      ${LIMEN_AUTH_USER:-limen}
+      LIMEN_AUTH_PASS:      ${LIMEN_AUTH_PASS}
+      HA_ORIGIN:            ${HA_ORIGIN:-http://home-assistant:8123}
+      HA_AGENT_SECRET:      ${HA_AGENT_SECRET:-}
+      ANTHROPIC_API_KEY:    ${ANTHROPIC_API_KEY:-}
+      TAVILY_API_KEY:       ${TAVILY_API_KEY:-}
+      BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:-}
+      LIMEN_MQTT_USER:      ${LIMEN_MQTT_USER:-}
+      LIMEN_MQTT_PASS:      ${LIMEN_MQTT_PASS:-}
+      VITE_MQTT_WS_PORT:    ${VITE_MQTT_WS_PORT:-1884}
+      JUPYTER_PORT:         ${JUPYTER_PORT:-8888}
+      CODE_SERVER_PORT:     ${CODE_SERVER_PORT:-8080}
+    networks: [internal]
+    restart: unless-stopped
+
+  # ── Home Assistant Container ───────────────────────────────────────────────
+  # Accessible inside the shell via the /ha/ proxy in limen-serve.
+  # For device/mDNS discovery, switch to network_mode: host and remove networks.
+  home-assistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    volumes:
+      - ha_config:/config
+    environment:
+      TZ: ${TZ:-Europe/Athens}
+    networks: [internal]
+    restart: unless-stopped
+
+networks:
+  public:
+  internal:
+    internal: true
+
+volumes:
+  caddy_data:
+  caddy_config:
+  ha_config:

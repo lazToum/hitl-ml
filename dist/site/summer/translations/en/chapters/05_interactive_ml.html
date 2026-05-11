@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Interactive Machine Learning &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/en/chapters/05_interactive_ml';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/en/chapters/05_interactive_ml.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Interactive Machine Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principles-of-interactive-machine-learning">Principles of Interactive Machine Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-active-learning">Comparison with Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-initiative-interaction">Mixed-Initiative Interaction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-factors-in-iml">Human Factors in IML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-iml-feedback-types-in-practice">The IML Feedback Types in Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-level-feedback">Example-Level Feedback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-level-feedback">Feature-Level Feedback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-level-feedback">Model-Level Feedback</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-google-teachable-machine">Case Study: Google Teachable Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-simple-iml-loop">Implementing a Simple IML Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-grandmother-test">The Grandmother Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml-and-foundation-models">IML and Foundation Models</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="interactive-machine-learning">
+<h1>Interactive Machine Learning<a class="headerlink" href="#interactive-machine-learning" title="Permalink to this heading">#</a></h1>
+<p>Active learning asks a focused question: given a budget, which examples should I label? Interactive Machine Learning (IML) asks a broader question: how can we design the <em>entire interaction</em> between a human and a learning system to be maximally productive, enjoyable, and correct?</p>
+<p>IML is distinguished by the <strong>immediacy</strong> and <strong>directness</strong> of the human–model feedback loop. Where traditional ML involves a human handing off data and waiting for training to complete, IML enables humans to observe model behavior, provide feedback, and see the model respond — often within seconds.</p>
+<hr class="docutils" />
+<section id="principles-of-interactive-machine-learning">
+<h2>Principles of Interactive Machine Learning<a class="headerlink" href="#principles-of-interactive-machine-learning" title="Permalink to this heading">#</a></h2>
+<p>Amershi et al. <a href="#id1"><span class="problematic" id="id2">amershi2014power</span></a> identify three defining characteristics of IML:</p>
+<p><strong>1. Rapid Feedback:</strong> The model updates quickly enough for humans to perceive the effect of their feedback. In the limit, model updates happen in real time.</p>
+<p><strong>2. Direct Manipulation:</strong> The human interacts with the model through the data or through the model’s predictions — not through configuration files or hyperparameter tuning.</p>
+<p><strong>3. Iterative Refinement:</strong> The process is genuinely iterative: the human’s next action is informed by the model’s current behavior, which was shaped by the human’s previous actions.</p>
+<p>This creates a tight <strong>co-adaptive loop</strong>: both the human and the model change over time in response to each other. The human learns what the model understands; the model learns what the human cares about.</p>
+</section>
+<hr class="docutils" />
+<section id="comparison-with-active-learning">
+<h2>Comparison with Active Learning<a class="headerlink" href="#comparison-with-active-learning" title="Permalink to this heading">#</a></h2>
+<p>IML and active learning overlap considerably but are not identical:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Active Learning</p></th>
+<th class="head"><p>Interactive ML</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Primary question</p></td>
+<td><p>What to label?</p></td>
+<td><p>How to interact?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Feedback latency</p></td>
+<td><p>Can be batch (days)</p></td>
+<td><p>Typically real-time or near-real</p></td>
+</tr>
+<tr class="row-even"><td><p>Model update frequency</p></td>
+<td><p>Per round (batch)</p></td>
+<td><p>Per interaction (online)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Human agency</p></td>
+<td><p>Answers model’s questions</p></td>
+<td><p>Can proactively teach model</p></td>
+</tr>
+<tr class="row-even"><td><p>Interface design</p></td>
+<td><p>Secondary concern</p></td>
+<td><p>Central concern</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cognitive load of human</p></td>
+<td><p>Not explicitly modeled</p></td>
+<td><p>Explicitly considered</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In active learning, the machine directs the interaction. In IML, the human can also take the initiative — providing examples, corrections, or feedback on whatever aspect of model behavior seems most problematic.</p>
+</section>
+<hr class="docutils" />
+<section id="mixed-initiative-interaction">
+<h2>Mixed-Initiative Interaction<a class="headerlink" href="#mixed-initiative-interaction" title="Permalink to this heading">#</a></h2>
+<p><strong>Mixed-initiative</strong> systems allow both the human and the machine to take the lead at different moments <a href="#id3"><span class="problematic" id="id4">allen1999mixed</span></a>. A purely machine-directed system asks questions and the human answers. A purely human-directed system lets the human decide everything. Mixed-initiative systems balance both.</p>
+<p>In practice, the best IML systems combine:</p>
+<ul class="simple">
+<li><p><strong>Machine initiative:</strong> “I’m unsure about these examples — can you label them?”</p></li>
+<li><p><strong>Human initiative:</strong> “I notice the model is consistently wrong about this category — let me provide more examples”</p></li>
+<li><p><strong>Confirmation:</strong> The model surfaces its current understanding; the human confirms or corrects</p></li>
+</ul>
+<p>Good IML interfaces make the model’s current understanding visible and correctable. This is the <strong>intelligibility</strong> requirement: humans can only guide a model they understand, at least approximately.</p>
+</section>
+<hr class="docutils" />
+<section id="human-factors-in-iml">
+<h2>Human Factors in IML<a class="headerlink" href="#human-factors-in-iml" title="Permalink to this heading">#</a></h2>
+<p>IML brings human factors — cognitive load, fatigue, consistency, and trust — directly into the learning loop. Poor IML design leads to:</p>
+<p><strong>Annotation fatigue:</strong> Humans making faster, sloppier decisions as sessions lengthen. Errors that enter the training data.</p>
+<p><strong>Anchoring bias:</strong> Humans over-relying on the model’s current suggestions. If an interface pre-fills the model’s prediction, annotators are less likely to correct it even when it is wrong — a systematic source of label noise that compounds across annotation rounds <a href="#id5"><span class="problematic" id="id6">geva2019annotator</span></a>. Pre-annotation can speed throughput <a href="#id7"><span class="problematic" id="id8">lingren2014evaluating</span></a> while simultaneously reducing the rate at which annotators catch model errors; these two effects must be weighed against each other in IML interface design.</p>
+<p><strong>Trust miscalibration:</strong> Humans either over-trust (accepting wrong model outputs) or under-trust (ignoring correct suggestions). Both patterns reduce the value of the human–model collaboration.</p>
+<p><strong>Session consistency:</strong> Humans may make different decisions on the same example at different times, especially after long sessions. Consistency checks (re-presenting earlier examples) can detect and correct this.</p>
+<p>Good IML design mitigates these issues through interface choices: presenting model confidence explicitly, randomizing display order, limiting session length, and building in consistency checks.</p>
+</section>
+<hr class="docutils" />
+<section id="the-iml-feedback-types-in-practice">
+<h2>The IML Feedback Types in Practice<a class="headerlink" href="#the-iml-feedback-types-in-practice" title="Permalink to this heading">#</a></h2>
+<section id="example-level-feedback">
+<h3>Example-Level Feedback<a class="headerlink" href="#example-level-feedback" title="Permalink to this heading">#</a></h3>
+<p>The human provides a label or correction for a specific example. This is the most common form and is directly compatible with supervised learning.</p>
+</section>
+<section id="feature-level-feedback">
+<h3>Feature-Level Feedback<a class="headerlink" href="#feature-level-feedback" title="Permalink to this heading">#</a></h3>
+<p>The human indicates which features are relevant or irrelevant. “The model should pay attention to the words ‘urgent’ and ‘deadline’ for this category.” This is more expressive than example-level feedback and can be more efficient for certain tasks.</p>
+<p><strong>TFIDF Interactive</strong> and similar systems allow annotators to highlight relevant words in text documents. These highlights are converted into constraints or additional supervision on the model’s attention.</p>
+</section>
+<section id="model-level-feedback">
+<h3>Model-Level Feedback<a class="headerlink" href="#model-level-feedback" title="Permalink to this heading">#</a></h3>
+<p>The human directly corrects the model’s behavior on a class of inputs: “Whenever the input contains [X], the output should be [Y].” This maps to logic rules or constraints in approaches like Posterior Regularization <a href="#id9"><span class="problematic" id="id10">ganchev2010posterior</span></a> or constraint-driven learning.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="case-study-google-teachable-machine">
+<h2>Case Study: Google Teachable Machine<a class="headerlink" href="#case-study-google-teachable-machine" title="Permalink to this heading">#</a></h2>
+<p>Teachable Machine is an accessible web-based IML system that lets non-technical users train image classifiers in the browser. The user:</p>
+<ol class="arabic simple">
+<li><p>Records examples of each class using their webcam</p></li>
+<li><p>Trains the model with a single click (fine-tuning a MobileNet in the browser)</p></li>
+<li><p>Immediately sees the model’s predictions on live video</p></li>
+<li><p>Adds more examples for classes where the model is wrong</p></li>
+</ol>
+<p>This illustrates the core IML loop: provide examples → observe model → identify failure → provide more targeted examples. The real-time feedback (model outputs update in real time, typically at interactive frame rates on modern hardware) makes the co-adaptation loop viscerally immediate.</p>
+</section>
+<hr class="docutils" />
+<section id="implementing-a-simple-iml-loop">
+<h2>Implementing a Simple IML Loop<a class="headerlink" href="#implementing-a-simple-iml-loop" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleIMLSystem</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Minimal IML system that allows online feedback and displays</span>
+<span class="sd">    model state after each annotation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                   <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span> <span class="o">=</span> <span class="n">n_classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y_true</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Receive a single labeled example and update the model.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
+            <span class="n">X_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_seen</span><span class="p">)</span>
+            <span class="n">y_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_seen</span><span class="p">)</span>
+            <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_arr</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y_arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span>
+                                   <span class="n">classes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict_with_confidence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict label and return confidence.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">0.0</span>
+        <span class="n">x_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">probs</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">current_accuracy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span> <span class="o">==</span> <span class="n">y_val</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+
+<span class="c1"># Simulate an IML session</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">500</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="mi">400</span><span class="p">:],</span> <span class="n">y_all</span><span class="p">[</span><span class="mi">400</span><span class="p">:]</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">SimpleIMLSystem</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">accs</span><span class="p">,</span> <span class="n">confidences</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step | Labels | Accuracy | Example confidence&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="n">step</span><span class="p">],</span> <span class="n">y_all</span><span class="p">[</span><span class="n">step</span><span class="p">]</span>
+    <span class="n">pred</span><span class="p">,</span> <span class="n">conf</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">predict_with_confidence</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">current_accuracy</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">acc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> |  </span><span class="si">{</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">4d</span><span class="si">}</span><span class="s2">  |  </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   | </span><span class="si">{</span><span class="n">conf</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="the-grandmother-test">
+<h2>The Grandmother Test<a class="headerlink" href="#the-grandmother-test" title="Permalink to this heading">#</a></h2>
+<p>One useful heuristic for evaluating IML interface design — and HITL system design more broadly — is what we will call the <strong>Grandmother Test</strong> (an original coinage introduced here as a design constraint, not as a reference to prior work):</p>
+<blockquote>
+<div><p><em>A woman born in 1930 should be able to use this device by voice, and if frustrated, gracefully fall back to keyboard or text interface.</em></p>
+</div></blockquote>
+<p>The test is not primarily about accessibility, though it is that too. It is about <strong>designing for friction</strong>. If a system requires a mental model of neural networks, training loops, or probability distributions to use effectively, it has failed the Grandmother Test. The human in the loop should be able to participate without understanding the machine side of the loop.</p>
+<p>The implications for IML design are concrete:</p>
+<p><strong>Voice-first fallback:</strong> The primary interaction modality should be natural language or gesture — not parameter sliders or confidence thresholds. Experts may want sliders; everyone should be able to say “that’s wrong.”</p>
+<p><strong>Graceful degradation:</strong> When the user’s preferred modality fails or frustrates, the system should offer an alternative — not a blank screen or an error message. The interface is part of the learning system; a user who cannot interact cannot teach.</p>
+<p><strong>Legible model state:</strong> The model’s current understanding should be visible in human terms. Not “confidence: 0.73” but “I’m fairly sure this is [X], but I’ve seen examples like this go both ways.” Uncertainty should be communicated in language that invites correction.</p>
+<p><strong>Tolerance for ambiguity:</strong> A 93-year-old user and a 23-year-old ML engineer will interact differently with the same system. The Grandmother Test asks whether the system can accommodate both — not by detecting the user’s age, but by designing interactions that work across a range of expertise and comfort.</p>
+<p>The test takes on special importance as ML systems move from research tools to everyday infrastructure. A medical imaging assistant used by radiologists, a legal document classifier used by clerks, an educational feedback system used by teachers — each involves humans-in-the-loop who did not sign up to be AI trainers. Designing for them is not a concession; it is the point.</p>
+<div class="tip admonition">
+<p class="admonition-title">Design Principle</p>
+<p>The Grandmother Test is a design constraint, not a target demographic. Systems that pass it are more robust to user diversity, more forgiving of expertise gaps, and more honest about what they expect from humans-in-the-loop. If a system requires explanation before use, it is asking the human to do extra work. That work should be justified by proportionate benefit.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="iml-and-foundation-models">
+<h2>IML and Foundation Models<a class="headerlink" href="#iml-and-foundation-models" title="Permalink to this heading">#</a></h2>
+<p>Modern IML increasingly leverages <strong>pre-trained foundation models</strong> <a href="#id11"><span class="problematic" id="id12">bommasani2021opportunities</span></a> as the base. Instead of training from scratch, users fine-tune a large pre-trained model with a small number of interactive examples. This can dramatically reduce the number of examples needed to reach useful performance — in favourable cases, as few as 5–50 examples rather than thousands, depending on how well the pre-trained representations match the target task <a href="#id13"><span class="problematic" id="id14">bommasani2021opportunities</span></a>.</p>
+<p>Techniques enabling this include:</p>
+<ul class="simple">
+<li><p><strong>Few-shot prompting:</strong> Providing examples in the LLM’s context window</p></li>
+<li><p><strong>Adapter fine-tuning:</strong> Updating small adapter modules while freezing the base model</p></li>
+<li><p><strong>Parameter-efficient fine-tuning (PEFT):</strong> LoRA, prefix tuning, and similar methods that allow fast, low-resource updates</p></li>
+</ul>
+<p>Foundation models change the IML dynamic: humans are no longer teaching a blank-slate model from scratch but <em>steering</em> a model that already knows a great deal. The challenge shifts from “how to provide enough examples” to “how to specify exactly what we want differently from what the model already does.”</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The survey by <a href="#id15"><span class="problematic" id="id16">amershi2014power</span></a> remains the best overview of IML principles. For mixed-initiative systems specifically, see <a href="#id17"><span class="problematic" id="id18">allen1999mixed</span></a>. For anchoring effects in annotation, see <a href="#id19"><span class="problematic" id="id20">geva2019annotator</span></a> and <a href="#id21"><span class="problematic" id="id22">lingren2014evaluating</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/en/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principles-of-interactive-machine-learning">Principles of Interactive Machine Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-active-learning">Comparison with Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-initiative-interaction">Mixed-Initiative Interaction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-factors-in-iml">Human Factors in IML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-iml-feedback-types-in-practice">The IML Feedback Types in Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-level-feedback">Example-Level Feedback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-level-feedback">Feature-Level Feedback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-level-feedback">Model-Level Feedback</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-google-teachable-machine">Case Study: Google Teachable Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-simple-iml-loop">Implementing a Simple IML Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-grandmother-test">The Grandmother Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iml-and-foundation-models">IML and Foundation Models</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,290 @@
+% ============================================================================
+% CHAPTER 12 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch12/C12AM_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 12}
+\label{ch:solutions-ch12}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers on HITL measurement, Goodhart's Law, and evaluation design.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Class Imbalance and Accuracy}
+
+\textbf{Prompt:} ``A fraud detection system applied to a dataset where 1\% of transactions are fraudulent reports 99\% accuracy. It flags zero transactions for review. What's wrong, and what metric would catch the problem?''
+
+\paragraph{Model Answer.}
+
+The system labels every transaction ``legitimate.'' On a 99:1 dataset (99\% legitimate), this achieves 99\% accuracy while catching zero fraud. It is a completely useless fraud detector.
+
+\paragraph{What metric catches the problem.}
+
+\begin{itemize}
+    \item \textbf{Recall:} $\frac{\text{True Positives}}{\text{True Positives + False Negatives}} = \frac{0}{0 + \text{all fraud}} = 0\%$. A fraud detector with 0\% recall catches nothing. This metric immediately exposes the failure.
+    \item \textbf{Precision:} Undefined (no positive predictions), which should itself be a red flag.
+    \item \textbf{F1:} 0 (because recall is 0), even though accuracy is 99\%.
+\end{itemize}
+
+\paragraph{The HITL implication.}
+
+A system with 0\% recall routes nothing to human reviewers --- which might appear to be an efficiency win. Without recall tracking, this could look like a system that is both accurate and efficient. The 400-reviews-per-hour case has a structural parallel: a metric that looks good while the system is failing in the dimension that matters.
+
+\paragraph{Grade Bands.}
+
+\begin{description}
+    \item[A-grade] Explains mechanism (all-negative labeling), calculates recall = 0\%, explains why recall is the right metric, and connects to the HITL routing implication.
+    \item[B-grade] Identifies recall as the right metric and explains why accuracy is misleading.
+    \item[C-grade] Notes that the system is wrong but is imprecise about which metric reveals the problem.
+\end{description}
+
+\subsubsection{Question 2: Goodhart Identification}
+
+\textbf{Prompt:} ``A content moderation team is evaluated on the percentage of cases resolved within 24 hours. Six months later, they are hitting 95\% same-day resolution. What are two possible explanations?''
+
+\paragraph{Model Answer.}
+
+\textbf{Good explanation:} The team improved their tooling, guidelines, or training, genuinely enabling faster resolution without sacrificing quality. More experienced reviewers make decisions faster; better category definitions reduce deliberation time on borderline cases.
+
+\textbf{Goodhart explanation:} The team learned to close cases without full review to meet the 24-hour deadline. Hard cases that require additional research or escalation --- which take longer --- are resolved quickly with a surface-level decision. The throughput looks excellent; the quality on hard cases has degraded. Alternatively, borderline cases that should be escalated to a supervisor (which takes time) are being resolved without escalation to avoid missing the 24-hour window.
+
+\paragraph{How you would distinguish between the two.}
+
+Audit a random sample of resolved cases, evaluated by a senior reviewer without knowledge of the original decision. If quality has held, the explanation is genuine improvement. If quality has dropped, especially on cases that were closed within the last few hours of the 24-hour window, the explanation is Goodhart.
+
+\paragraph{The broader lesson.}
+
+The 24-hour resolution metric is measuring \emph{speed}, but the organization wants it as a proxy for \emph{responsiveness}. The implicit assumption is that faster resolution = better responsiveness. Goodhart's Law predicts that optimizing the proxy (speed) will decouple it from what it was meant to represent (quality-resolved responsiveness).
+
+\subsubsection{Question 3: Pathway Error Rate Interpretation}
+
+\textbf{Prompt:} ``A HITL fraud detection system auto-processes 90\% of transactions at 98\% accuracy and sends 10\% to human reviewers. Human-reviewed cases show 85\% accuracy. Is this a problem?''
+
+\paragraph{Model Answer.}
+
+Not necessarily --- it requires interpretation in context.
+
+\paragraph{Why the gap is expected.}
+
+Human-reviewed cases are specifically the ones the model was uncertain about. By design, the hard cases go to humans. Lower accuracy on hard cases compared to easy cases is expected and does not indicate a system problem on its own.
+
+\paragraph{When it would be a problem.}
+
+\begin{enumerate}
+    \item \textbf{If 85\% is lower than human baseline on these cases without AI assistance.} If a human reviewer without any AI recommendation would achieve 90\% on these cases, then the AI's involvement (automation bias, anchor effects) is degrading the human's performance.
+
+    \item \textbf{If the gap is increasing over time.} A widening gap between auto-processed and human-reviewed accuracy suggests the model is routing increasingly uncertain cases to humans while becoming more confident (and possibly overconfident) on auto-processed cases.
+
+    \item \textbf{If humans are not adding value on top of the model's recommendation.} If humans consistently agree with the model and the 85\% is largely the model's accuracy, the human is not providing independent judgment --- they are rubber-stamping. The real question is what accuracy the model alone would achieve on those cases.
+\end{enumerate}
+
+\paragraph{The right measurement approach.}
+
+Track override rate (how often humans change the model's recommendation), and track accuracy on overrides separately. High override accuracy (humans often correct the model's errors) is a sign the HITL is working. Low override accuracy (humans rarely improve on the model) suggests automation bias or unnecessary routing.
+
+\subsubsection{Question 4: First-Month Priority Measurements}
+
+\paragraph{Model Answer.}
+
+\paragraph{Priority 1: Model accuracy on production data.}
+
+The model was validated in testing; production data may differ. Distributional shift (different patient demographics, imaging equipment, clinical protocols) can degrade accuracy unexpectedly. Track accuracy, precision, and recall on a held-out sample of cases where ground truth is available (e.g., cases with confirmed diagnoses).
+
+\paragraph{Priority 2: Human workload and throughput.}
+
+In the first month, the system design's workload assumptions are untested against real production volume. Track: cases per reviewer per day, average time per case, cases resolved per shift hour. If reviewers are overwhelmed immediately, alert fatigue and quality degradation begin within weeks.
+
+\paragraph{Why these two over the others.}
+
+Model accuracy and human workload are the two failure modes most likely to appear in the first month and most likely to cascade if not caught early. The other five dimensions are important for sustained monitoring but typically require more time to show meaningful signal.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Goodhart at Three Levels: 400-Reviews Case}
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Goodhart mechanisms in the 400-reviews-per-hour case}
+\label{tab:goodhart-400}
+\centering
+\begin{tabular}{@{}p{3cm}p{4.5cm}p{5cm}@{}}
+\toprule
+\textbf{Level} & \textbf{Mechanism} & \textbf{Outcome} \\
+\midrule
+Reviewer & Throughput metric rewards speed; reviewers learn to approve with minimal attention & Borderline cases approved without careful judgment; ground truth labels corrupted \\
+Organization & Throughput headline reported as success; no additional quality metrics tracked & Problem invisible for months; organization celebrates degradation \\
+Model & Model trains on rubber-stamped approvals; learns that borderline cases are legitimate & Routing threshold drifts; fewer borderline cases flagged; problem compounds \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{How the three levels reinforced each other.}
+
+The reviewer-level gaming provided false positives (legitimate-appearing approvals of borderline cases) to the training data. The organization-level metric acceptance removed pressure to investigate. The model-level drift lowered the frequency with which reviewers saw hard cases, making the individual rubber-stamping decision even easier to rationalize.
+
+\paragraph{Why this took months to surface.}
+
+Aggregate accuracy remained acceptable (most auto-approved cases were genuinely fine). The degradation was concentrated in a specific category (borderline cases) that never appeared in aggregate metrics. Only when a journalist investigated the counterfeit problem did the failure become visible --- by which point the model had been trained for months on corrupted feedback.
+
+\subsubsection{The Divergence Trap Explained}
+
+\paragraph{Model Answer.}
+
+\paragraph{In plain language.}
+
+As a HITL system improves, the model gets better at the cases it has seen many times and routes them automatically. The cases it routes to humans become progressively more unusual, more context-dependent, and harder. The model then trains on increasingly narrow feedback --- only the hard, unusual cases that humans reviewed. Over time, the model's effective coverage narrows: it handles easy cases autonomously and pushes hard cases to humans. If the human review queue becomes overwhelmed, or if reviewers lose calibration from never seeing easy cases, the system becomes brittle when the case distribution shifts.
+
+\paragraph{Why it happens even with good intentions.}
+
+No one is gaming a metric. The model is improving rationally on feedback. Reviewers are handling the cases they're given. The problem is structural: selective learning from feedback that is concentrated in the unusual regions of the input space.
+
+\paragraph{Detection before crisis.}
+
+\begin{enumerate}
+    \item Track model calibration on a \textbf{held-out random sample}, not just cases from the review queue. The random sample captures the easy cases too.
+    \item Track the \textbf{confidence score distribution on auto-approved cases} over time. If it is drifting toward higher confidence and the case mix is unchanged, the model is becoming overconfident on common cases.
+    \item \textbf{Inject known-easy cases into the human review queue} periodically. Track reviewer accuracy on these. Declining accuracy on easy cases signals calibration drift.
+\end{enumerate}
+
+\subsubsection{A/B Test Design for Routing Threshold}
+
+\paragraph{Model Answer.}
+
+\paragraph{Setup.}
+
+\begin{description}
+    \item[Hypothesis] Lowering the confidence threshold by 5 percentage points (routing more cases to human review) will improve the model's accuracy on a held-out test set after 60 days, and the improvement will justify the increase in reviewer time.
+    \item[Treatment] Routing threshold = current threshold minus 5 percentage points (more cases to human review)
+    \item[Control] Current routing threshold
+    \item[Assignment] Random assignment at the case level, not the time level (to avoid confounds from weekly variation in case distribution)
+\end{description}
+
+\paragraph{Primary outcome metric.}
+
+Model accuracy on a held-out test set (evaluated at 30 days and 60 days) that was annotated by senior reviewers before the experiment began and is not used in training during the experiment.
+
+\paragraph{Secondary metrics.}
+
+Reviewer workload (cases per reviewer per day), cost per decision (total reviewer-hours / cases processed), and reviewer agreement rate on treatment vs.\ control cases.
+
+\paragraph{Decision criterion.}
+
+The treatment is preferred if: (1) model accuracy improvement on held-out test set is statistically significant and $\geq 1$ percentage point, AND (2) reviewer workload increase is $\leq 20\%$.
+
+\paragraph{Anti-Goodhart provision.}
+
+Do not communicate to reviewers which cases are in the treatment vs.\ control group. Do not track individual reviewer performance during the experiment period. Evaluate outcomes on held-out test set annotated independently.
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Multi-Level Anti-Goodhart Architecture}
+
+\paragraph{Model Answer Framework.}
+
+A strong answer should specify metrics at each level and explain explicitly how each resists the most obvious gaming strategy.
+
+\paragraph{Reviewer-level metrics.}
+
+\begin{itemize}
+    \item \textbf{Override accuracy:} When reviewers change the model's recommendation, how often are they right? (Verified against future ground truth.) Resists gaming: difficult to fake ``being right when you override.''
+    \item \textbf{Sentinel case accuracy:} Track performance on known-ground-truth cases injected into the queue (unknown to reviewers). Resists gaming: reviewers don't know which cases are sentinels.
+    \item \textbf{Agreement rate with other reviewers on shared cases:} Low agreement is a warning signal, not a performance target. Avoids the problem of rewarding agreement with the model.
+\end{itemize}
+
+\paragraph{Organization-level metrics.}
+
+\begin{itemize}
+    \item \textbf{Random-sample audit accuracy:} Quarterly, sample 200 cases from all pathways (auto-processed and human-reviewed), evaluated by senior reviewers without knowledge of original decisions. This cannot be gamed by front-line reviewers because it evaluates cases they already decided.
+    \item \textbf{Model improvement rate:} Is the model getting better on the held-out test set over successive training cycles? If not, the feedback loop is broken.
+    \item \textbf{Pathway drift:} Is the percentage of cases auto-processed increasing? If so, is there evidence this is because the model is genuinely better or because the threshold was lowered without quality validation?
+\end{itemize}
+
+\paragraph{Model-level metrics.}
+
+\begin{itemize}
+    \item \textbf{Calibration on held-out test set:} ECE tracked quarterly. Calibration drift is a signal of distribution shift or feedback loop corruption.
+    \item \textbf{Slice-based performance:} Track accuracy by subpopulation and category. Aggregate accuracy can improve while specific important subcategories degrade.
+\end{itemize}
+
+\paragraph{Quarterly audit process.}
+
+Sample 200 cases (stratified by pathway, case category, and confidence decile) from the previous quarter. Senior reviewer panel (2+ reviewers, blinded to original decision) evaluates each case. Compare to original decisions. Compute override rate by category. Any category with $>$15\% senior override rate triggers an investigation.
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Confusion Matrix Drill --- Answers}
+
+For the example matrix (900 true negatives, 80 true positives, 10 false positives, 10 false negatives):
+
+\begin{table}[htbp]
+\caption{Confusion matrix drill expected results}
+\label{tab:confusion-drill}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Metric} & \textbf{Formula} & \textbf{Result} \\
+\midrule
+Accuracy & $(900 + 80) / 1000$ & 98.0\% \\
+Precision & $80 / (80 + 10)$ & 88.9\% \\
+Recall & $80 / (80 + 10)$ & 88.9\% \\
+F1 & $2 \times (0.889 \times 0.889) / (0.889 + 0.889)$ & 88.9\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Note on the symmetric result.}
+
+In this specific example, precision and recall are equal by construction (same number of false positives and false negatives). This rarely happens in practice. The instructor should note this explicitly: in real fraud detection, false negatives (missed fraud) typically have much higher costs than false positives (blocked legitimate transactions), which means the system should be calibrated to favor high recall over high precision.
+
+\paragraph{Threshold change implication.}
+
+Lowering the classification threshold to improve recall: flags more cases (increasing true positives and false positives), decreasing precision. The HITL implication: more cases in the human review queue, but the queue has higher signal content (more true positives) even though it also has more noise (more false positives). At some threshold, the queue volume overwhelms reviewer capacity and quality degrades.
+
+\subsection{Activity 2: Goodhart Identification Game --- Answer Key}
+
+\begin{description}
+    \item[Scenario A (loan approval, ``percentage of AI recommendations accepted'')] Reviewer-level Goodhart. Metric rewards agreement with the AI, which is the opposite of independent judgment. Replacement: track accuracy on overrides against eventual loan performance.
+
+    \item[Scenario B (medical triage, ``average time per case'')] Reviewer-level Goodhart (rush through cases). Organization-level: reports average, missing bimodal distribution (most cases fast, hard cases very fast = skipped). Replacement: track time distribution (not average), flag cases in bottom 5th percentile of time for audit.
+
+    \item[Scenario C (content moderation, ``percentage of content flagged per day'')] Model-level + organization-level Goodhart. If the target is a percentage, the system can hit it by lowering precision (more false positives) or failing to detect new content categories. Replacement: track flagging rate by content category; audit random sample of auto-approved content.
+
+    \item[Scenario D (fraud detection, ``false positive rate'')] Organization-level Goodhart. Optimizing false positive rate (reducing blocked legitimate transactions) creates pressure to raise the fraud detection threshold, which reduces recall (missed fraud). Replacement: track false positive rate AND recall simultaneously; accept no change to one without measuring the other.
+\end{description}
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``Can you just track all seven dimensions all the time?''}
+In principle yes; in practice, tracking seven dimensions continuously creates its own measurement burden and its own Goodhart risks (metrics become targets become gamed). The practical approach is: track the two or three most critical dimensions continuously, track others quarterly, and maintain a random-sample audit capability that can assess any dimension independently of the regular metrics.
+
+\paragraph{``What counts as a `significant' drop in reviewer agreement to trigger an alarm?''}
+A common heuristic: if reviewer agreement on borderline cases drops more than 10 percentage points below the historical baseline, investigate. But the right threshold depends on the stakes of the application and the baseline agreement level. For medical diagnosis, even a 5 percentage-point drop is worth investigating. For spam filtering, a 15 percentage-point drop might be the threshold.
+
+\paragraph{``Isn't the divergence trap just a training data diversity problem?''}
+Partially. The divergence trap is specifically a consequence of \emph{selective} learning from the human review queue, which concentrates training signal in the unusual cases. More training data diversity helps, but the mechanism also suggests a specific countermeasure: deliberately routing some easy, clearly resolved cases into the review queue to provide strong, diverse training signal even as the model improves.
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~12 solutions converge on a single insight: good measurement requires measuring multiple things simultaneously, maintaining some metrics that are hard to game (random-sample audits evaluated by blinded senior reviewers), and never letting a single headline metric represent system health. The 400-reviews-per-hour case is not a story about bad people --- it is a story about what happens when the measurement architecture makes failure invisible.}

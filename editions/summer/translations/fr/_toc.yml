@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Préliminaires"
+    chapters:
+      - file: front/declaration
+        title: "Déclaration d'originalité"
+      - file: front/abstract
+        title: "Résumé"
+      - file: front/acknowledgments
+        title: "Remerciements"
+
+  - caption: "Partie I — Fondements"
+    chapters:
+      - file: chapters/01_introduction
+        title: "Qu'est-ce que l'apprentissage automatique avec l'humain dans la boucle ?"
+      - file: chapters/02_taxonomy
+        title: "Une taxonomie de l'interaction homme–machine"
+
+  - caption: "Partie II — Techniques fondamentales"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Annotation et étiquetage des données"
+      - file: chapters/04_active_learning
+        title: "Apprentissage actif"
+      - file: chapters/05_interactive_ml
+        title: "Apprentissage automatique interactif"
+
+  - caption: "Partie III — Apprentissage à partir des retours humains"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Apprentissage par renforcement à partir des retours humains"
+      - file: chapters/07_demonstrations
+        title: "Apprentissage par démonstration"
+      - file: chapters/08_preferences
+        title: "Apprentissage à partir de comparaisons et de classements"
+
+  - caption: "Partie IV — Applications"
+    chapters:
+      - file: chapters/09_nlp
+        title: "L'humain dans la boucle en traitement automatique des langues"
+      - file: chapters/10_vision
+        title: "L'humain dans la boucle en vision par ordinateur"
+      - file: chapters/11_healthcare
+        title: "L'humain dans la boucle en santé et en sciences"
+
+  - caption: "Partie V — Systèmes et pratique"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Plateformes et outils d'annotation"
+      - file: chapters/13_crowdsourcing
+        title: "Production participative et contrôle qualité"
+      - file: chapters/14_evaluation
+        title: "Évaluation et métriques"
+
+  - caption: "Partie VI — Éthique et horizons"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Équité, biais et éthique"
+      - file: chapters/16_future
+        title: "Perspectives et directions futures"
+
+  - caption: "Annexes"
+    chapters:
+      - file: bibliography
+        title: "Bibliographie"
+      - file: chapters/17_limen
+        title: "Limen : un humain dans la boucle de toute chose"
+      - file: front/on_leaving
+        title: "Sur le départ"

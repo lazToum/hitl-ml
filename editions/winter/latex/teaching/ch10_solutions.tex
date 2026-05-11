@@ -1,0 +1,279 @@
+% ============================================================================
+% CHAPTER 10 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch10/C10AM_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 10}
+\label{ch:solutions-ch10}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers on language AI, hallucination, and HITL design for language systems.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Ambiguity Recognition}
+
+\textbf{Prompt:} ``Give three examples of sentences that have two plausible interpretations. How would you --- as a human reader --- decide which one is meant? What information would a computer be missing?''
+
+\paragraph{Model Answer.}
+
+\begin{enumerate}
+    \item \textbf{``Flying planes can be dangerous.''}\\
+    \emph{Interpretation A:} The act of flying planes is dangerous (gerund).\\
+    \emph{Interpretation B:} Planes that are flying are dangerous (participial adjective).\\
+    \emph{How humans resolve:} Context --- if someone just asked ``Why don't you take flying lessons?'' interpretation~A is active; if someone is watching a low-flying aircraft, interpretation~B.
+
+    \item \textbf{``I need glasses.''}\\
+    \emph{Interpretation A:} I need eyeglasses.\\
+    \emph{Interpretation B:} I need drinking glasses.\\
+    \emph{How humans resolve:} Topic of prior conversation, physical context (squinting vs.\ setting the table), intonation.
+
+    \item \textbf{``Visiting relatives can be annoying.''}\\
+    \emph{Interpretation A:} The experience of visiting relatives is annoying.\\
+    \emph{Interpretation B:} Relatives who visit are annoying.\\
+    \emph{How humans resolve:} Intonation, stress pattern, context of who is speaking.
+\end{enumerate}
+
+\paragraph{What a computer would be missing:} World knowledge, conversational history, pragmatic context, tone of voice (for speech), social role of the speaker, and crucially, a model of what the speaker was \emph{trying} to communicate rather than just what they literally said.
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[A-grade] Three clear examples, accurate explanation of both interpretations, thoughtful analysis of resolution strategies and their computational implications --- including the point that resolution requires modeling speaker intent, not just parsing syntax.
+
+    \item[B-grade] Three examples with basic understanding of ambiguity types, less precise on how resolution works or what the computational gap is.
+
+    \item[C-grade] Three examples but struggles to articulate what a computer would be missing, or frames the problem as purely syntactic.
+\end{description}
+
+\paragraph{Common wrong answers.}
+\begin{itemize}
+    \item ``Computers just need a dictionary'' --- misses that the problem is pragmatic (which interpretation was intended), not lexical.
+    \item Giving examples that aren't grammatically ambiguous, just unusual sentences.
+\end{itemize}
+
+\subsubsection{Question 2: Hallucination Analysis --- What Should the System Have Done?}
+
+\textbf{Prompt:} ``Attorney Schwartz trusted ChatGPT's legal citations without verifying them. What three things did the system fail to do that a well-designed HITL system should have done?''
+
+\paragraph{Model Answer.}
+
+A well-designed system should have:
+
+\begin{enumerate}
+    \item \textbf{Expressed appropriate uncertainty about specific factual claims (Uncertainty Detection).}\\
+    When generating specific case citations --- the kind of content that is sparsely and unreliably represented in training data --- the system should have hedged: \emph{``I believe there may be relevant cases in this area, but I cannot reliably verify specific case citations. Please verify any citations in an authoritative legal database before use.''} Instead, it produced fully formed fictional citations with no hedging.
+
+    \item \textbf{Provided a clear escalation path or categorical refusal for high-stakes queries (Intervention Design + Stakes Calibration).}\\
+    Legal citations are a category where the cost of being wrong is severe, professionally consequential, and verifiable by opposing counsel. A well-designed system for legal professionals should either (a) refuse to generate specific citations unless it has verified retrieval capability, or (b) prominently warn that all citations must be independently verified. The system had no such categorical awareness.
+
+    \item \textbf{Corrected itself when challenged rather than doubling down (Feedback Integration --- negative example).}\\
+    When Schwartz asked ChatGPT to verify the citations, the system confirmed them --- confabulating further rather than catching its own error. A system with appropriate calibration would recognize that ``verify this'' is a different kind of query than ``generate this'' and should produce a more cautious response.
+\end{enumerate}
+
+\begin{keyconcept}[The Structural Lesson]
+The Avianca case is not primarily a story about AI failure or attorney negligence. It is a story about mismatched design: a general-purpose text generation system deployed in a context requiring factual verification, without any of the uncertainty communication or escalation features that context demands. The attorney's error was trusting a system whose design encouraged exactly that trust.
+\end{keyconcept}
+
+\paragraph{Common student errors.}
+\begin{itemize}
+    \item ``It should have searched the internet'' --- True but incomplete; the fundamental issue is calibration and escalation design, not just retrieval capability.
+    \item ``The attorney should have known better'' --- True, but the question asks about system design, not user error.
+    \item Focusing only on the output rather than the design that produced it.
+\end{itemize}
+
+\subsubsection{Question 3: Stakes and Acceptable Error Rates}
+
+\textbf{Prompt:} ``Why does it matter whether a language model hallucinates at a 5\% rate versus a 50\% rate? For which applications would even 5\% be unacceptable?''
+
+\paragraph{Model Answer.}
+
+The acceptable error rate depends on the stakes of a wrong answer and whether an error correction mechanism exists.
+
+\paragraph{5\% hallucination is unacceptable when:}
+\begin{itemize}
+    \item \textbf{Legal citations:} Even one hallucinated case in twenty is unacceptable. The professional consequences of citing a non-existent case are severe and detectable by opposing counsel.
+    \item \textbf{Medical recommendations:} A 5\% error rate on medication dosages or drug interactions could harm one in twenty patients. In emergency contexts, this is potentially fatal.
+    \item \textbf{Safety-critical information:} 5\% of people receiving wrong evacuation instructions represents preventable casualties.
+    \item \textbf{Financial calculations with compounding effects:} Small errors compound into large downstream mistakes.
+\end{itemize}
+
+\paragraph{50\% might be acceptable when:}
+\begin{itemize}
+    \item \textbf{Brainstorming:} Generating 20 ideas where half are ill-suited is still useful --- you got 10 good ones.
+    \item \textbf{First-draft writing:} The human reviews and revises everything anyway.
+    \item \textbf{Entertainment:} A story-generation chatbot can be 50\% ``wrong'' and still be entertaining.
+\end{itemize}
+
+\paragraph{The key principle:} Error rate acceptability is not intrinsic to the model; it's a function of application context. The same model may be appropriately deployed for brainstorming and inappropriately deployed for medical advice.
+
+\subsubsection{Question 4: Fluency Without Understanding}
+
+\textbf{Prompt:} ``A language model can write a sonnet, explain quantum physics, and summarize a novel --- yet it cannot reliably tell you whether a specific court case exists. How is this possible?''
+
+\paragraph{Model Answer.}
+
+These two capabilities have different underlying demands.
+
+\textbf{What writing sonnets, explaining physics, and summarizing novels have in common:} They all require reproducing and combining \emph{patterns} from training text. Countless sonnets exist in training data; the model learned the sonnet pattern. Countless physics explanations exist; the model learned the typical vocabulary and structure. The model excels at these because they require statistical recombination of patterns it has seen many times.
+
+\textbf{What verifying a specific court case requires:} Not pattern recombination, but lookup and verification --- confirming that a specific named entity exists in a specific authoritative source. The model has no lookup mechanism and no mechanism to distinguish ``I learned this from an actual case reporter'' from ``I generated this as a plausible-looking citation.''
+
+\textbf{The deeper point:} The model learned what court citations \emph{look like}, not what specific cases \emph{exist}. These are different types of knowledge. The first requires learning patterns; the second requires indexing specific facts.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Question: Five Dimensions Applied to Avianca and Air Canada}
+
+\textbf{Prompt:} ``Apply the Five Dimensions framework to the Air Canada chatbot and the Avianca case ChatGPT. What did each get wrong?''
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Five-dimension comparison: Air Canada vs.\ Avianca ChatGPT}
+\label{tab:ch10-five-dim}
+\centering
+\begin{tabular}{@{}p{3cm}p{5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Air Canada Chatbot} & \textbf{Avianca ChatGPT} \\
+\midrule
+Uncertainty Detection & No signal that policy information might be unreliable & No signal that factual citations might be fabricated \\
+Intervention Design & No escalation path to human agent & No refusal or hedge for high-risk legal queries \\
+Timing & Responded in real-time (appropriate) & Responded immediately (appropriate) \\
+Stakes Calibration & Treated bereavement fare queries like routine FAQ & Treated legal citation queries like general knowledge \\
+Feedback Integration & Did not update when customer demonstrated error & Doubled down when asked to verify (anti-correction) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Key insight.} Both systems failed at Uncertainty Detection and Stakes Calibration. The Avianca case adds the Feedback Integration failure (doubling down when challenged). Neither system had any mechanism to distinguish the cases where it was reliable from the cases where it was not.
+
+\subsubsection{Content Moderation Structural Weaknesses}
+
+\textbf{Prompt:} ``Name three structural weaknesses in content moderation that persist even when the AI is 95\% accurate.''
+
+\paragraph{Model Answer.}
+
+\begin{enumerate}
+    \item \textbf{The escalated cases are harder than average.} The AI sends humans precisely the cases it is uncertain about --- the most contextually complex, culturally specific, and adversarially camouflaged content. The 5\% error rate applies disproportionately to these hard cases, meaning the human reviewer faces a higher-than-95\% difficulty problem in their queue.
+
+    \item \textbf{Reviewer psychological harm and burnout.} Human reviewers who handle escalated content are systematically exposed to graphic violence, child abuse material, and extremist propaganda. Research has documented significant PTSD, anxiety, and emotional desensitization in content moderator populations. This is a structural cost the ``95\% accurate AI'' framing completely obscures.
+
+    \item \textbf{Adversarial adaptation.} Actors who create policy-violating content observe what gets removed and learn to camouflage future content to evade detection. The 95\% accuracy figure applies to the distribution of content at any given time; adversarial actors systematically shift the distribution toward the model's weaknesses.
+\end{enumerate}
+
+\subsubsection{RLHF vs.\ Constitutional AI Trade-offs}
+
+\paragraph{Model Answer.}
+
+\textbf{Constitutional AI gains:}
+\begin{itemize}
+    \item \textbf{Scale:} Once the constitution is written, the model can critique millions of its own outputs without additional human hours per output.
+    \item \textbf{Consistency:} Principle-based self-critique is more consistent than individual human raters who vary in how they interpret ``helpful'' or ``harmless.''
+    \item \textbf{Auditability:} The principles are explicit and human-readable; one can inspect what values the system is supposed to embody.
+\end{itemize}
+
+\textbf{Constitutional AI gives up:}
+\begin{itemize}
+    \item \textbf{Granular human judgment on specific edge cases:} The constitution covers the cases its authors anticipated. Unanticipated situations fall outside its principles.
+    \item \textbf{Fidelity of self-critique:} The model's ability to correctly apply the constitution to its own outputs depends on its own capabilities --- it may systematically fail to identify violations of principles it finds hard to operationalize.
+    \item \textbf{The humans' seat at the specific output level:} In RLHF, specific outputs are directly judged by humans. In CAI, the human influence is more indirect, mediated through the model's self-application of the constitution.
+\end{itemize}
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Reward Hacking as HITL Feedback Problem}
+
+\paragraph{Model Answer.}
+
+Reward hacking happens when the language model discovers outputs that score highly on the reward model without actually being more helpful, honest, or harmless. Examples include:
+
+\begin{itemize}
+    \item Longer, more elaborate responses that look thorough but don't contain more correct information
+    \item Flattering the user in ways raters prefer but that don't increase quality
+    \item Specific rhetorical patterns raters respond positively to, independent of content accuracy
+\end{itemize}
+
+\paragraph{Why it's a HITL feedback problem, not just a technical problem.}
+
+The reward model is trained on human preferences. If the reward model misrepresents the true distribution of human preferences --- because raters are unrepresentative, have biases, or can themselves be gamed by surface features --- the language model will learn to exploit those misrepresentations.
+
+This is Goodhart's Law applied to HITL feedback: ``When a measure becomes a target, it ceases to be a good measure.'' The reward model is a measure of human preference. When it becomes the training target, the language model optimizes for the measure rather than the underlying thing the measure is supposed to represent.
+
+\paragraph{The HITL design implication.}
+Reward hacking is not a reason to abandon RLHF; it is a reason to design multiple evaluation signals, use diverse rater populations, and audit reward model predictions against held-out human judgments. The feedback loop must be monitored just as carefully as any other HITL feedback loop.
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Hallucination Classification --- Instructor Guidance}
+
+\paragraph{What students should find.}
+For typical factual queries, specific claims (dates, proper names, citations) will be unverifiable at higher rates than general claims. The key finding is that the model's stylistic confidence is not a reliable indicator of which claims are verified vs.\ generated.
+
+\paragraph{Debrief key points.}
+\begin{itemize}
+    \item The model gives no reliable signal about which claims are more vs.\ less reliable
+    \item Claims about patterns (how things work, what categories of things exist) are more reliable than specific factual claims (who, when, exactly which case)
+    \item This maps directly to the three hallucination causes: the model was optimized to produce fluent text, not to verify facts
+\end{itemize}
+
+\subsection{Activity 2: Chatbot Intervention Design --- Strong Solution Criteria}
+
+\paragraph{For a healthcare information chatbot, a strong design matrix includes:}
+
+\begin{table}[htbp]
+\caption{Healthcare chatbot intervention design matrix}
+\label{tab:healthcare-chatbot}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{2.5cm}p{5cm}@{}}
+\toprule
+\textbf{Query Type} & \textbf{Routing} & \textbf{Justification} \\
+\midrule
+General health education & Auto-answer & Low stakes, well-covered in training \\
+Medication general info & Hedge + disclaimer & Moderate stakes; must note individual variation \\
+Symptom interpretation & Refuse diagnosis; hedge on general info & High stakes; no personal clinical context \\
+Emergency indicators & Escalate immediately & Any delay in emergency is unacceptable \\
+Mental health crisis signals & Escalate + provide crisis line & Stakes override all other considerations \\
+Prescription advice & Refuse + escalate & Requires clinical licensing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What distinguishes strong responses.}
+
+Strong student answers specify \emph{why} each routing decision is made in terms of stakes, availability of error correction, and the system's actual reliability on that query type. Weak answers make routing decisions without explicit reasoning.
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``Why don't language models just say they don't know?''}
+Language models are trained to produce completions of text. Silence or ``I don't know'' is a possible output, but the training objective (predict the next token) does not specifically reward appropriate uncertainty expression. RLHF can reduce overconfident hallucinations but cannot eliminate the underlying training dynamic that creates them.
+
+\paragraph{``Isn't this problem solved if you give the model access to the internet?''}
+Retrieval-augmented systems reduce hallucination rates but do not eliminate them. The generation step (combining retrieved information with model knowledge) can still produce hallucinations. Retrieved documents may themselves be inaccurate. The model may generate text that doesn't accurately represent the retrieved content. Internet access changes the problem --- it does not solve it.
+
+\paragraph{``Who decides what the 'constitution' in Constitutional AI should say?''}
+Anthropic's team, guided by research in ethics, safety, and helpfulness. The constitution is a human artifact: it encodes the values its authors chose to encode. This is both the power of the approach (explicit, auditable, intentional) and its limitation (reflects the worldview, assumptions, and blind spots of its authors). The HITL relationship in CAI is: humans provide the framework, the model implements it. Whether the framework itself is right is a separate human responsibility.
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~10's solutions guide reinforces the core insight: hallucination is not a random error to be minimized by scale alone. It is a structural consequence of the training objective --- and it demands structural HITL responses. Students who can articulate why fluency and accuracy diverge, and what that means for system design, have acquired a durable mental model for evaluating any language AI deployment.}

@@ -1,0 +1,261 @@
+% ============================================================================
+% TECHNICAL APPENDIX 9A: Annotation Pipeline Tooling — Python Reference
+% API integration, pipeline implementation, and tool comparison
+% ============================================================================
+% Source: /chapters/ch9/Ch9A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 9A: Annotation Pipeline Tooling}
+\addcontentsline{toc}{chapter}{Technical Appendix 9A: Annotation Pipeline Tooling}
+
+\begin{chapterquote}{Formal foundations for Chapter 9}
+Chapter~9 introduced the annotation economy and the quality control mechanisms that keep it from producing noise. This appendix provides Python reference implementations for production annotation pipelines using Label Studio, inter-annotator agreement measurement, and multi-stage quality routing.
+\end{chapterquote}
+
+% ============================================================================
+\section{Label Studio API Integration}
+% ============================================================================
+
+Label Studio provides an open-source annotation platform with a Python SDK supporting programmatic project management, task import, and export.
+
+\begin{lstlisting}[style=python, caption={Label Studio connection and project creation}]
+from label_studio_sdk import Client
+
+ls = Client(url='http://localhost:8080', api_key='YOUR_API_KEY')
+ls.check_connection()
+
+# Text classification project
+project = ls.start_project(
+    title='Document Classification',
+    label_config='''
+    <View>
+      <Text name="text" value="$text"/>
+      <Choices name="label" toName="text" choice="single">
+        <Choice value="relevant"/>
+        <Choice value="irrelevant"/>
+        <Choice value="uncertain"/>
+      </Choices>
+    </View>
+    '''
+)
+\end{lstlisting}
+
+\subsection{Task Import with Pre-Annotations}
+
+\begin{lstlisting}[style=python, caption={Importing tasks with model pre-annotations}]
+# Import with pre-annotations (model-assisted annotation)
+pre_annotated_tasks = [
+    {
+        "text": "Document text here.",
+        "predictions": [{
+            "result": [{
+                "from_name": "label",
+                "to_name":   "text",
+                "type":      "choices",
+                "value":     {"choices": ["relevant"]},
+                "score":     0.87
+            }]
+        }]
+    }
+]
+project.import_tasks(pre_annotated_tasks)
+\end{lstlisting}
+
+\subsection{Export and Parsing}
+
+\begin{lstlisting}[style=python, caption={Annotation export and label parsing}]
+import pandas as pd
+
+annotations = project.export_tasks(export_type='JSON_MIN')
+results = []
+for task in annotations:
+    if task.get('annotations'):
+        ann   = task['annotations'][0]
+        label = ann['result'][0]['value']['choices'][0]
+        results.append({
+            'id':         task['id'],
+            'text':       task['data']['text'],
+            'label':      label,
+            'annotator':  ann.get('completed_by', {}).get('id'),
+            'created_at': ann.get('created_at'),
+        })
+df = pd.DataFrame(results)
+\end{lstlisting}
+
+% ============================================================================
+\section{Complete HITLAnnotationPipeline}
+% ============================================================================
+
+The following class integrates quality control, inter-annotator agreement measurement, and expert routing into a single pipeline object.
+
+\begin{lstlisting}[style=python, caption={Production annotation pipeline with quality control}]
+import numpy as np
+from label_studio_sdk import Client
+from sklearn.metrics import cohen_kappa_score
+from collections import defaultdict
+from typing import Dict, List, Tuple
+import logging
+
+logger = logging.getLogger(__name__)
+
+class HITLAnnotationPipeline:
+    """
+    Production annotation pipeline with quality control.
+
+    Features:
+    - Automatic overlap sampling for IAA measurement
+    - Per-annotator kappa computation with outlier detection
+    - Multi-stage routing: fast pass -> expert review
+    """
+
+    def __init__(self, ls_url: str, api_key: str, project_id: int,
+                 min_kappa: float = 0.60,
+                 overlap_fraction: float = 0.10,
+                 expert_threshold: float = 0.45):
+        self.client   = Client(url=ls_url, api_key=api_key)
+        self.project  = self.client.get_project(project_id)
+        self.min_kappa        = min_kappa
+        self.overlap_fraction = overlap_fraction
+        self.expert_threshold = expert_threshold
+
+    def sample_overlap_items(self, items: List[dict]
+                              ) -> Tuple[List[dict], List[dict]]:
+        n          = len(items)
+        n_overlap  = max(30, int(n * self.overlap_fraction))
+        np.random.shuffle(items)
+        return items[:n_overlap], items[n_overlap:]
+
+    def compute_project_kappa(self) -> Tuple[float, List[str]]:
+        tasks = self.project.export_tasks(export_type='JSON')
+        overlap = [t for t in tasks
+                   if len(t.get('annotations', [])) >= 2]
+        if not overlap:
+            return float('nan'), []
+
+        per_task: Dict[int, Dict[str, str]] = {}
+        for task in overlap:
+            per_task[task['id']] = {}
+            for ann in task['annotations']:
+                aid   = str(ann.get('completed_by', {}).get('id', 'unknown'))
+                if ann.get('result'):
+                    label = ann['result'][0]['value']['choices'][0]
+                    per_task[task['id']][aid] = label
+
+        all_ann = list({a for labels in per_task.values()
+                        for a in labels})
+        pair_kappas = {}
+        for i in range(len(all_ann)):
+            for j in range(i + 1, len(all_ann)):
+                a, b = all_ann[i], all_ann[j]
+                la, lb = [], []
+                for labels in per_task.values():
+                    if a in labels and b in labels:
+                        la.append(labels[a]); lb.append(labels[b])
+                if len(la) >= 5:
+                    pair_kappas[(a, b)] = cohen_kappa_score(la, lb)
+
+        if not pair_kappas:
+            return float('nan'), []
+
+        all_a, all_b = [], []
+        for (a, b) in pair_kappas:
+            for labels in per_task.values():
+                if a in labels and b in labels:
+                    all_a.append(labels[a]); all_b.append(labels[b])
+        aggregate = cohen_kappa_score(all_a, all_b) if all_a \
+                    else float('nan')
+
+        avg_kappa = defaultdict(list)
+        for (a, b), k in pair_kappas.items():
+            avg_kappa[a].append(k); avg_kappa[b].append(k)
+        low_quality = [aid for aid, ks in avg_kappa.items()
+                       if np.mean(ks) < self.expert_threshold]
+
+        return aggregate, low_quality
+
+    def route_for_expert_review(
+            self, completed: List[dict]
+    ) -> Tuple[List[dict], List[dict]]:
+        _, low_quality = self.compute_project_kappa()
+        accepted, expert_queue = [], []
+        for task in completed:
+            anns = task.get('annotations', [])
+            if len(anns) >= 2:
+                labels = {ann['result'][0]['value']['choices'][0]
+                          for ann in anns if ann.get('result')}
+                if len(labels) > 1:
+                    expert_queue.append(task); continue
+            ann_ids = [str(ann.get('completed_by', {}).get('id', ''))
+                       for ann in anns]
+            if any(aid in low_quality for aid in ann_ids):
+                expert_queue.append(task)
+            else:
+                accepted.append(task)
+        return accepted, expert_queue
+
+    def cost_estimate(self, n_items: int,
+                      cost_per_annotation_usd: float,
+                      n_annotators_per_overlap: int = 3) -> dict:
+        n_overlap   = max(30, int(n_items * self.overlap_fraction))
+        n_regular   = n_items - n_overlap
+        total_anns  = n_regular + n_overlap * n_annotators_per_overlap
+        total_cost  = total_anns * cost_per_annotation_usd
+        return {
+            'n_items':              n_items,
+            'n_overlap_items':      n_overlap,
+            'total_annotations':    total_anns,
+            'total_cost_usd':       round(total_cost, 2),
+            'qc_overhead_fraction': n_overlap * n_annotators_per_overlap
+                                    / total_anns,
+        }
+\end{lstlisting}
+
+% ============================================================================
+\section{Tool Comparison}
+% ============================================================================
+
+\begin{table}[h]
+\centering
+\caption{Annotation platform comparison}
+\begin{tabular}{lllll}
+\hline
+\textbf{Tool} & \textbf{Data types} & \textbf{Managed} & \textbf{Self-host} & \textbf{Best use case} \\
+\hline
+Label Studio & All           & No  & Yes      & Research, privacy-sensitive \\
+Argilla      & NLP, LLM eval & No  & Yes      & RLHF preference collection \\
+CVAT         & Image, video  & No  & Yes      & Object detection, segmentation \\
+Prodigy      & NLP           & No  & License  & Fast NLP with active learning \\
+Scale AI     & All           & Yes & No       & High-volume commercial \\
+SageMaker GT & All           & Yes & AWS      & AWS-integrated workflows \\
+Labelbox     & All           & Yes & No       & Enterprise, collaborative \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[Label Studio Setup]
+Using the Label Studio SDK, set up a binary text classification project. Import 50 sample items. Annotate 20 items manually. Export the results and compute the distribution of labels.
+\end{Exercise}
+
+\begin{Exercise}[Majority Vote Resolution]
+Extend the \texttt{HITLAnnotationPipeline} class to support configurable majority vote resolution for overlap items. When 3~annotators label an item and 2~agree, accept the majority. When all~3 disagree on a 3-class task, route to expert review.
+\end{Exercise}
+
+\begin{Exercise}[Real-World IAA Analysis]
+Using the SNLI or MultiNLI datasets from HuggingFace (which include per-annotator labels), compute pairwise kappa for all annotator pairs. Identify the 10\% most contested items. What is the kappa improvement from removing them?
+\end{Exercise}
+
+\begin{Exercise}[Cost Estimation]
+Using the \texttt{cost\_estimate} function, calculate the total cost for a project of 10{,}000 items at \$0.10/annotation with 10\% expert re-annotation at \$1.00/annotation. How does the optimal overlap fraction change if expert re-annotation is 20\% of items?
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides production-ready Python tooling for annotation pipelines, inter-annotator agreement measurement, and quality-controlled expert routing, as introduced in Chapter~9.}

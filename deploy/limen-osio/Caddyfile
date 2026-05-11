@@ -1,0 +1,51 @@
+{
+	email {$ACME_EMAIL:admin@example.com}
+}
+
+# ── limen-os.io landing page ──────────────────────────────────────────────────
+{$LANDING_DOMAIN} {
+	encode gzip
+
+	# /index/files/ — authenticated old-school directory browse (Python http.server)
+	handle_path /index/files/* {
+		basicauth {
+			{$INDEX_USER} {$INDEX_PASS_HASH}
+		}
+		reverse_proxy localhost:8099
+	}
+
+	# /index — curated overview page
+	handle /index* {
+		basicauth {
+			{$INDEX_USER} {$INDEX_PASS_HASH}
+		}
+		root * /srv/index
+		rewrite * /index.html
+		file_server
+	}
+
+	# Root → limen-os landing (the PhD site lives at what-if.io)
+	handle / {
+		rewrite * /limen-os/index.html
+		root * /srv/site
+		file_server
+	}
+
+	handle {
+		root * /srv/site
+		file_server
+	}
+}
+
+# ── io.limen-os.io shell web app ──────────────────────────────────────────────
+# All traffic goes to limen-serve (Bun). It handles SPA routing, HA proxy,
+# WebSocket upgrades, auth, search, and filesystem API internally.
+{$SHELL_DOMAIN} {
+	encode gzip
+	reverse_proxy localhost:1420 {
+		header_up X-Real-IP {remote_host}
+		transport http {
+			dial_timeout 5s
+		}
+	}
+}

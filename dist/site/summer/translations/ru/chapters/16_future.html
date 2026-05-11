@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Перспективы развития &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ru/chapters/16_future';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ru/chapters/16_future.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Перспективы развития</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Фундаментальные модели и изменение роли аннотирования</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Снижение нагрузки по аннотированию</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Новые формы спецификации</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">LLM как аннотаторы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Где аннотирование LLM работает хорошо</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Где аннотирование LLM даёт сбой</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif">RLAIF и конституционный ИИ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Слабый надзор в масштабе</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Непрерывное обучение с человеческим надзором</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">Мультимодальный HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Масштабируемый надзор</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Эволюционирующее разделение труда</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Открытые исследовательские проблемы</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Перспективы развития<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>Область машинного обучения с участием человека стремительно меняется. Фундаментальные модели, LLM-аннотаторы и новые парадигмы взаимодействия человека и ИИ трансформируют экономику и практику HITL так, как это было немыслимо ещё пять лет назад. В заключительной главе намечается ландшафт нарождающихся направлений и открытых проблем.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>Фундаментальные модели и изменение роли аннотирования<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Фундаментальные модели — большие модели, предварительно обученные на широких данных и адаптируемые к нижестоящим задачам, — коренным образом меняют экономику HITL.</p>
+<section id="id3">
+<h3>Снижение нагрузки по аннотированию<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Задача, ранее требовавшая тысяч размеченных примеров для обучения с нуля, может потребовать лишь десятков при дообучении фундаментальной модели. Промптинг с несколькими примерами может полностью устранить необходимость в дообучении для ряда задач.</p>
+<p><strong>Следствие:</strong> ROI аннотирования меняется. Усилия по аннотированию теперь лучше направлять на:</p>
+<ul class="simple">
+<li><p>Высококачественные тестовые наборы (для измерения того, действительно ли адаптированная модель работает)</p></li>
+<li><p>Трудные случаи и пограничные случаи, с которыми фундаментальная модель справляется неверно</p></li>
+<li><p>Специфические для задачи примеры, обучающие модель тому, что нельзя вывести из предобучения</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Новые формы спецификации<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>Когда базовая модель уже понимает язык, код и здравый смысл, пользователи могут общаться с ней на естественном языке, а не через размеченные примеры. Пользователь, которому нужен классификатор текста, больше не должен размечать 500 примеров — он может описать задачу классификации и оценить производительность в режиме нулевого обучения.</p>
+<p>Это смещает задачу HITL от <em>сбора примеров</em> к <em>спецификации задачи</em>: помощи пользователям в точной формулировке того, что они хотят, в форме, на которую модель может действовать. Это сложнее, чем кажется, — описания задач на естественном языке нередко неоднозначны так, как размеченные примеры не являются.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="llm">
+<h2>LLM как аннотаторы<a class="headerlink" href="#llm" title="Permalink to this heading">#</a></h2>
+<p>Одним из наиболее значимых событий 2023–2025 годов является использование <strong>LLM в качестве оракулов аннотирования</strong>. Вместо того чтобы спрашивать человека «Является ли этот отзыв позитивным или негативным?», мы спрашиваем GPT-4 или Claude. Для хорошо определённых задач классификации аннотации LLM нередко соответствуют точности краудворкеров или близко к ней <a href="#id5"><span class="problematic" id="id6">gilardi2023chatgpt</span></a>, а стоимость на аннотацию при обращениях к API, как правило, на порядки ниже, чем человеческие ставки труда.</p>
+<section id="id7">
+<h3>Где аннотирование LLM работает хорошо<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Простые, хорошо определённые задачи классификации (тональность, тема, намерение)</p></li>
+<li><p>Задачи, где человеческие метки кодируют культурный консенсус, усвоенный LLM</p></li>
+<li><p>Задачи, где аннотирование согласованно в контекстах (не высоко субъективны)</p></li>
+<li><p>Генерация первичных аннотаций для проверки человеком</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>Где аннотирование LLM даёт сбой<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Высококонкретные задачи предметной области, требующие редкой экспертизы (медицинские, юридические, научные)</p></li>
+<li><p>Задачи, требующие местных культурных знаний или языковых вариаций</p></li>
+<li><p>Задачи безопасности и вреда, где LLM может быть неверно откалиброван в том же направлении, что и данные, на которых он обучался</p></li>
+<li><p>Новые типы задач, слабо представленные в предобучении</p></li>
+</ul>
+</section>
+<section id="rlaif">
+<h3>RLAIF и конституционный ИИ<a class="headerlink" href="#rlaif" title="Permalink to this heading">#</a></h3>
+<p>Как обсуждалось в главе 6, обратная связь, сгенерированная ИИ, может использоваться для обучения моделей вознаграждения и руководства дообучением с RL. Это создаёт цикл обратной связи: LLM генерируют данные, на них обучаются модели, и лучшие модели генерируют лучшие данные. Вопрос о том, как запустить этот цикл без кодирования систематических ошибок от начальной модели, является центральной открытой проблемой в исследованиях масштабируемого надзора.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>Слабый надзор в масштабе<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p><strong>Программная разметка</strong> через функции разметки (глава 9) позволяет экспертам предметной области выражать свои знания в виде кода, а не размеченных примеров. Системы Snorkel <a href="#id10"><span class="problematic" id="id11">ratner2017snorkel</span></a> и его преемники существенно созрели и сейчас используются в промышленной эксплуатации в крупных технологических компаниях.</p>
+<p><strong>Перспективные направления:</strong></p>
+<ul class="simple">
+<li><p><strong>Функции разметки, дополненные LLM:</strong> Использование LLM для генерации функций разметки из описаний на естественном языке</p></li>
+<li><p><strong>Обучение на основе срезов:</strong> Выявление критических подмножеств данных (срезов), где функции разметки расходятся, и направление аннотирования туда</p></li>
+<li><p><strong>Агрегирование с учётом неопределённости:</strong> Более качественные статистические модели для объединения функций разметки с разной точностью и корреляциями</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h2>Непрерывное обучение с человеческим надзором<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>Большинство систем МО обучаются в автономном режиме и развёртываются как статические модели. Реальный мир меняется; модели, точные в момент развёртывания, деградируют по мере смещения распределения данных.</p>
+<p><strong>Непрерывное обучение</strong> — способность обучаться на новых данных, сохраняя старые знания, — является активной областью исследований. Человеческий надзор критически важен: автоматизированное непрерывное обучение без человеческого контроля может быстро кодировать смещения распределения, являющиеся ошибками, а не подлинными изменениями мира.</p>
+<p><strong>HITL непрерывное обучение</strong> включает:</p>
+<ul class="simple">
+<li><p>Мониторинг смещения распределения (автоматический) и маршрутизацию смещённых примеров на человеческий контроль</p></li>
+<li><p>Избирательное переобучение: одобренные человеком примеры из нового распределения добавляются в обучающие данные</p></li>
+<li><p>Человеческий контроль изменений поведения модели после каждого обновления</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="hitl">
+<h2>Мультимодальный HITL<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<p>По мере того как системы ИИ становятся мультимодальными — обрабатывая и генерируя текст, изображения, аудио и видео одновременно, — аннотирование усложняется. Один фрагмент контента может требовать аннотирования по нескольким модальностям с зависимостями между ними.</p>
+<p><strong>Нарождающиеся типы задач:</strong></p>
+<ul class="simple">
+<li><p>Аннотирование видео + транскрипта (что происходит, кто говорит, что визуально описывает текст?)</p></li>
+<li><p>Аннотирование медицинского изображения + клинического отчёта</p></li>
+<li><p>Аннотирование траектории робота (связывание данных сенсоров с последовательностями действий)</p></li>
+</ul>
+<p>Мультимодальные фундаментальные модели (GPT-4V, Gemini, Claude) меняют ландшафт аннотирования и здесь — модели теперь могут интерпретировать изображения и генерировать аннотации-кандидаты, которые люди проверяют.</p>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h2>Масштабируемый надзор<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<p>Фундаментальная открытая проблема HITL ML — <strong>масштабируемый надзор</strong> <a href="#id14"><span class="problematic" id="id15">irving2018ai,bowman2022measuring</span></a>: по мере того как системы ИИ становятся более способными, чем люди, в конкретных областях, как поддерживать значимый человеческий надзор?</p>
+<p>Для таких задач, как предсказание структуры белка, юридический анализ или верификация математических доказательств, даже эксперты-аннотаторы могут не способны судить, какой из двух выходов ИИ является правильным. Текущие методы HITL ломаются, когда человеческое суждение менее надёжно, чем оцениваемая модель.</p>
+<p><strong>Предлагаемые подходы <a href="#id16"><span class="problematic" id="id17">bowman2022measuring</span></a>:</strong></p>
+<p><strong>Дебаты:</strong> Два системы ИИ аргументируют разные заключения; судья-человек оценивает аргументы, а не заключения напрямую. Правильное заключение должно быть более защищаемым.</p>
+<p><strong>Усиление:</strong> Судьи-люди консультируются с ИИ-ассистентами (самой моделью) для оценки сложных выходов. Это использует возможности ИИ для расширения человеческого надзора, а не для его замены.</p>
+<p><strong>Надзор над процессом:</strong> Вместо оценки конечного вывода люди оценивают <em>процесс рассуждения</em> — отмечая ошибочные шаги в цепочке размышлений, независимо от того, оказывается ли конечный ответ правильным.</p>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h2>Эволюционирующее разделение труда<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<p>Долгосрочная траектория HITL ML направлена к более гибкому сотрудничеству людей и ИИ, где ни один из них не является просто «разметчиком», а другой — «обучающимся», но оба вносят вклад в совместный когнитивный процесс.</p>
+<p><strong>Тенденции, за которыми стоит следить:</strong></p>
+<ul class="simple">
+<li><p><strong>ИИ-поддержанное аннотирование:</strong> ИИ предлагает; люди решают. Качество улучшается по мере того, как ИИ делает лучшие предложения.</p></li>
+<li><p><strong>Человеко-направленное исследование:</strong> Люди устанавливают цели и ограничения; ИИ исследует пространство решений.</p></li>
+<li><p><strong>Совместная оценка:</strong> Люди и ИИ совместно оценивают сложные выходы через диалог.</p></li>
+<li><p><strong>Обучение предпочтениям в масштабе:</strong> Неявные сигналы (то, как пользователи взаимодействуют с выходами ИИ) питают непрерывное обучение предпочтениям без необходимости в явных сеансах аннотирования.</p></li>
+</ul>
+<p>Вопрос о том, насколько доверять суждению ИИ в сравнении с суждением человека, — и в каких областях, при каких уровнях способности, с какими защитными механизмами, — является в конечном счёте общественным, а не только техническим. HITL ML предоставляет техническую инфраструктуру для ответа на него обдуманно, а не по умолчанию.</p>
+</section>
+<hr class="docutils" />
+<section id="id19">
+<h2>Открытые исследовательские проблемы<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<p>Завершаем перечнем важных открытых проблем, над которыми активно работает область:</p>
+<ol class="arabic simple">
+<li><p><strong>Оптимальная остановка в активном обучении:</strong> Когда предельная ценность следующей аннотации ниже стоимости? Принципиальные правила остановки остаются труднодостижимыми.</p></li>
+<li><p><strong>Распределение бюджета аннотирования между задачами:</strong> В многозадачных условиях как следует распределять фиксированный бюджет аннотирования между задачами?</p></li>
+<li><p><strong>Смещение распределения в активном обучении:</strong> Активное обучение создаёт смещённые размеченные множества. Как можно должным образом откалибровать модели, обученные таким образом?</p></li>
+<li><p><strong>Обобщение модели вознаграждения:</strong> Модели вознаграждения RLHF могут не обобщаться на новые пары подсказка–ответ. Как строить более надёжные модели предпочтений?</p></li>
+<li><p><strong>Масштабируемый надзор:</strong> Как поддерживать человеческий надзор по мере того, как системы ИИ превосходят человеческую производительность в конкретных областях?</p></li>
+<li><p><strong>Моделирование аннотаторов:</strong> Более качественные статистические модели поведения аннотаторов, захватывающие не только компетентность, но и систематические предвзятости, тематическую экспертизу и усталость.</p></li>
+<li><p><strong>Оценка согласования:</strong> У нас отсутствуют тесты с истиной в последней инстанции для проверки согласования модели с человеческими ценностями. Разработка таких тестов — по аналогии с состязательными примерами для устойчивости — является открытой проблемой.</p></li>
+<li><p><strong>Справедливый трудовой рынок данных:</strong> Экономические и институциональные структуры, обеспечивающие справедливую компенсацию и защиту аннотационных работников при сохранении рентабельности крупномасштабного аннотирования.</p></li>
+</ol>
+<hr class="docutils" />
+<blockquote class="epigraph">
+<div><p>Цель не в том, чтобы заменить человеческое суждение машинным,
+а в том, чтобы строить системы, где их сочетание лучше, чем каждое по отдельности.</p>
+</div></blockquote>
+<p>Инструменты и техники из данного руководства — аннотирование, активное обучение, RLHF, обучение предпочтениям и всё остальное — являются средствами к этой цели. По мере развития области конкретные техники будут меняться. Лежащее в основе стремление — строить системы, одновременно способные и подлинно согласованные с намерениями человека, — останется.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Масштабируемый надзор и дебаты: <a href="#id20"><span class="problematic" id="id21">bowman2022measuring</span></a>. Слабый надзор Snorkel: <a href="#id22"><span class="problematic" id="id23">ratner2017snorkel</span></a>. Широкое будущее сотрудничества человека и ИИ: <a href="#id24"><span class="problematic" id="id25">amershi2019software</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ru/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Фундаментальные модели и изменение роли аннотирования</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Снижение нагрузки по аннотированию</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Новые формы спецификации</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">LLM как аннотаторы</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Где аннотирование LLM работает хорошо</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Где аннотирование LLM даёт сбой</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif">RLAIF и конституционный ИИ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Слабый надзор в масштабе</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Непрерывное обучение с человеческим надзором</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">Мультимодальный HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Масштабируемый надзор</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Эволюционирующее разделение труда</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Открытые исследовательские проблемы</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

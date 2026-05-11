@@ -1,0 +1,38 @@
+% ============================================================================
+% PREFACE
+% ============================================================================
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+\noindent This book began with a thermostat.
+
+Not a metaphor for a thermostat---an actual Nest thermostat, in a real apartment, making a decision about whether its occupant was home. The thermostat had motion sensors, a learning algorithm, and a confident display readout. What it did not have was any awareness of the difference between ``I am confident'' and ``I am correct.'' It acted on its confidence. It was wrong. The heating turned off. The occupant was cold.
+
+This is a small example of a large problem. As machine learning systems take on more consequential tasks---diagnosing illness, assessing credit, moderating speech, recommending sentences---the gap between a system's expressed confidence and its actual reliability has consequences that are not merely inconvenient. The question of when a system should act autonomously and when it should ask for help is not a technical detail. It is, increasingly, a question with moral weight.
+
+Human-in-the-loop machine learning is the field that takes this question seriously. HITL is not about keeping humans in control because we do not trust machines. It is about designing systems that are honest about their own uncertainty, that route decisions to humans when human judgment genuinely adds value, and that learn from the humans they work with. Done well, HITL systems are more accurate, more fair, and more trustworthy than either humans or machines working alone.
+
+\medskip
+
+This book is written for people who build, deploy, or govern AI systems---and for citizens who increasingly live inside them. The technical sections assume familiarity with basic probability and some exposure to machine learning; the narrative sections assume only curiosity and a willingness to think carefully. The two are designed to be read together: the stories motivate the mathematics, and the mathematics gives the stories precision.
+
+The book is organized around a five-dimension framework for evaluating HITL systems. The five dimensions---uncertainty detection, intervention design, timing, stakes calibration, and feedback integration---are not the only way to think about human-AI collaboration, but they are a useful scaffold. Each chapter introduces one or two dimensions through a concrete story (a 911~dispatcher, a hospital alarm system, a criminal justice algorithm) before developing the technical and design principles that underlie them. Technical appendices follow each chapter for readers who want the mathematics.
+
+\medskip
+
+A note on what this book argues, and what it does not. This book does not argue that AI is dangerous and humans should remain in control as a safeguard. That framing treats human oversight as a temporary crutch that will become unnecessary as systems improve. The argument here is different: human judgment, accountability, and lived experience are not limitations of current AI that future AI will overcome. They are features of the decision-making process that no AI system, however capable, can supply on its own behalf. The human role in AI-assisted decisions is not contingent on AI's limitations. It is grounded in what decisions are, and who is responsible for them.
+
+This does not mean humans are always right, or that human review always improves outcomes. The data are more complicated than that. Chapter 12 examines what the research actually shows about when human oversight helps and when it introduces new errors. The answer is not ``always'' and not ``never.'' It depends on how the system is designed.
+
+\medskip
+
+The Winter edition is the full technical treatment of the ideas introduced across this project. It includes eighteen chapters, eighteen technical appendices with reference implementations, a complete teaching package, and a glossary. It is intended for use in courses on machine learning, human-computer interaction, AI ethics, or any setting where the question of how humans and AI systems should work together deserves more than a paragraph.
+
+The misunderstanding at the center of this work is not just technical. It is about what role humans play, what value they add, and what responsibility they carry. This book is an attempt to understand that relationship better.
+
+\bigskip
+\begin{flushright}
+\textit{Lazaros Toumanidis}\\
+\textit{Spring 2026}
+\end{flushright}

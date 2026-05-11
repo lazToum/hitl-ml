@@ -1,0 +1,310 @@
+% ============================================================================
+% TECHNICAL APPENDIX 6A: Interface Design for Human-in-the-Loop Systems
+% Formal frameworks and implementation patterns for HITL interfaces
+% ============================================================================
+% Source: /markdown/ch6/Ch6A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 6A: Interface Design for Human-in-the-Loop Systems}
+\addcontentsline{toc}{chapter}{Technical Appendix 6A: Interface Design Foundations}
+
+\begin{chapterquote}{Formal foundations for the examples in Chapter 6}
+The interfaces described in Chapter~6 can be analyzed using cognitive load theory, decision-theoretic models of automation bias, and formal metrics for explanation quality.
+\end{chapterquote}
+
+% ============================================================================
+\section{Cognitive Load Theory and Interface Design}
+% ============================================================================
+
+\subsection{The Three-Component Model}
+
+Following Sweller (1988) and Paas \& van Merriënboer (1994), we identify three components of cognitive load relevant to \hitl interface design:
+
+\paragraph{Intrinsic Load (IL).} The inherent complexity of the decision task.
+\[
+IL = f(\text{task complexity},\; \text{element interactivity})
+\]
+
+\paragraph{Extraneous Load (EL).} Cognitive overhead imposed by interface design that does not contribute to the decision.
+\[
+EL = f(\text{navigation steps},\; \text{visual noise},\; \text{context switches})
+\]
+
+\paragraph{Germane Load (GL).} Cognitive effort directed toward actual judgment.
+\[
+GL = \text{Total Working Memory} - IL - EL
+\]
+
+The design goal for \hitl interfaces: minimize $EL$, so $GL$ can be maximized within working memory limits.
+
+\subsection{Formalizing the Annotation Click Problem}
+
+Let $T$ be total session time, $N$ be the number of items to review, and define:
+\begin{itemize}
+    \item $t_j$ = time on genuine judgment per item
+    \item $t_m$ = time on interface mechanics per item
+    \item $q_0$ = baseline judgment quality (early session)
+    \item $\delta(t_m)$ = quality degradation as a function of accumulated mechanical overhead
+\end{itemize}
+
+Then:
+\[
+\text{Session Quality} = q_0 - \int_0^N \delta(t_m \cdot n)\; dn
+\]
+
+\begin{table}[htbp]
+\caption{Annotation quality vs.\ interface design from production data}
+\label{tab:annotation-interface}
+\centering
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Interface Design} & \textbf{Avg.\ $t_m$ per item} & \textbf{Session kappa at item 400} \\
+\midrule
+Legacy (menu-based)         & 14 sec & 0.61 \\
+Optimized (keyboard shortcuts) & 5 sec & 0.79 \\
+Optimal (single-action)     & 2 sec  & 0.84 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Automation Bias: Formal Model}
+% ============================================================================
+
+\subsection{The Anchor-Adjustment Framework}
+
+Automation bias can be modeled as an anchoring process \autocite{tversky1974judgment}. When a human reviewer $h$ is shown an AI recommendation $r_{AI}$ before forming their independent judgment:
+\[
+r_h = r_{AI} + \alpha \cdot (r_{\text{independent}} - r_{AI})
+\]
+where $\alpha \in [0, 1]$ is the adjustment coefficient. When $\alpha = 1$, the human makes a fully independent judgment. When $\alpha = 0$, the human simply adopts the AI recommendation.
+
+The adjustment coefficient degrades with fatigue and AI confidence display:
+\[
+\alpha(t, f, c) = \alpha_0 \cdot e^{-\lambda_f f} \cdot e^{-\lambda_c c}
+\]
+where $f$ is fatigue (session hours elapsed), $c$ is displayed AI confidence, and $\lambda_f, \lambda_c$ are empirically estimated decay constants.
+
+Empirical studies in radiology consistently find $\alpha \in [0.3, 0.7]$ under standard conditions.
+
+\subsection{Interface Interventions That Increase $\alpha$}
+
+\paragraph{Pre-commitment approach.}
+Require the human to record their initial assessment before revealing the AI recommendation:
+\[
+\alpha_{\text{pre-commit}} \approx 1.0 \quad \text{(by construction)}
+\]
+
+The Israeli Air Force study found this intervention brought measured $\alpha$ to 0.92 under conditions where the standard interface produced $\alpha = 0.41$ \autocite{mosier1998automation}.
+
+\paragraph{Disagree-facilitation.}
+If $C_{\text{agree}} = 1$ click and $C_{\text{disagree}} = k$ clicks:
+\[
+P(\text{disagree}) \propto \frac{1}{k}
+\]
+Setting $k = 1$ significantly increases the rate of warranted independent overrides.
+
+% ============================================================================
+\section{Explainability Output Quality Metrics}
+% ============================================================================
+
+\subsection{Faithfulness and Stability}
+
+An explanation method $E$ that maps model $f$ and input $x$ to a feature importance vector is evaluated on:
+
+\paragraph{Faithfulness.}
+\[
+\text{Faithfulness}(E, f, x) = \text{corr}\bigl(\Delta f(x, \text{mask}),\; E(f, x)\bigr)
+\]
+
+\paragraph{Stability.}
+\[
+\text{Stability}(E, f, x) = 1 - \mathbb{E}_{\epsilon}\bigl[\|E(f, x + \epsilon) - E(f, x)\|_2\bigr]
+\]
+
+LIME stability scores: approximately 0.4--0.6. SHAP stability scores: typically 0.7--0.85 for the same models.
+
+\subsection{Human Interpretability Metric}
+
+\[
+\text{Utility}(E, h) = P(\text{correct override} \mid E \text{ shown to } h)
+  - P(\text{correct override} \mid E \text{ not shown to } h)
+\]
+
+\begin{table}[htbp]
+\caption{Human utility of explanation types (medical imaging studies, 2019--2023)}
+\label{tab:explanation-utility}
+\centering
+\begin{tabular}{@{}lc@{}}
+\toprule
+\textbf{Explanation Type} & \textbf{Human Utility (mean)} \\
+\midrule
+Probability score only & $-0.04$ \\
+Probability + highlighted region & $+0.12$ \\
+Probability + region + plain-language rationale & $+0.21$ \\
+Full SHAP feature plot (no training) & $-0.07$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Interface Sequence Models}
+% ============================================================================
+
+\subsection{Information Ordering and Decision Quality}
+
+Under ideal Bayesian updating, the order of evidence presentation does not matter. Humans are not ideal Bayesian updaters. Empirically:
+\[
+\Delta_{\text{order}} = P(\text{correct} \mid \text{Human-first}) - P(\text{correct} \mid \text{AI-first})
+\]
+
+Studies in radiology and legal document review find $\Delta_{\text{order}} \in [0.05, 0.15]$ in favor of human-first sequencing, particularly when the AI recommendation is wrong.
+
+\subsection{Optimal Interface Sequencing Algorithm}
+
+\begin{lstlisting}[style=python, caption={Optimal review sequencing for HITL interfaces}]
+def optimal_review_sequence(item, ai_model, human_reviewer,
+                            HIGH_CONF_THRESHOLD=0.92):
+    # Phase 1: Establish human prior (independent)
+    initial_judgment = human_reviewer.assess(item)
+    record(initial_judgment, timestamp=now())
+
+    # Phase 2: Compute AI recommendation
+    ai_pred, ai_conf, ai_expl = ai_model.predict(item)
+
+    # Phase 3: Conditional display based on uncertainty
+    if ai_conf < HIGH_CONF_THRESHOLD:
+        show_to_human(ai_pred, ai_conf, ai_expl)
+        final_judgment = human_reviewer.review(
+            item,
+            own_judgment=initial_judgment,
+            ai_input=ai_pred
+        )
+    else:
+        if initial_judgment == ai_pred:
+            final_judgment = initial_judgment
+            log(agreement=True, reviewed=False)
+        else:
+            # Disagreement on high-confidence case: escalate
+            final_judgment = escalate_to_senior(item)
+
+    record(final_judgment, ai_pred, ai_conf)
+    return final_judgment
+\end{lstlisting}
+
+% ============================================================================
+\section{Attention Map Quality Assessment}
+% ============================================================================
+
+\subsection{Grad-CAM Formal Definition}
+
+For a convolutional network with class activation weights $\alpha_k^c$ and feature map activations $A^k$:
+\[
+L_{\text{Grad-CAM}}^c = \text{ReLU}\!\Bigl(\sum_k \alpha_k^c A^k\Bigr)
+\]
+where:
+\[
+\alpha_k^c = \frac{1}{Z} \sum_i \sum_j \frac{\partial y^c}{\partial A_{ij}^k}
+\]
+
+\subsection{Radiologist Utility Conditions}
+
+Grad-CAM is useful to radiologists when:
+\begin{enumerate}
+    \item \textbf{Localization is correct}: IoU between Grad-CAM highlight and ground-truth annotation $> 0.5$
+    \item \textbf{Not dominated by artifacts}: Attention mass on non-anatomical features $< 5\%$
+    \item \textbf{Uncertainty not masked}: Diffuse low-magnitude Grad-CAM vs.\ tight high-magnitude should be visually distinguished
+\end{enumerate}
+
+\begin{lstlisting}[style=python, caption={Grad-CAM quality assessment}]
+def assess_gradcam_quality(gradcam_map, ground_truth_mask, artifact_mask):
+    intersection = np.logical_and(gradcam_map > 0.5, ground_truth_mask)
+    union = np.logical_or(gradcam_map > 0.5, ground_truth_mask)
+    iou = intersection.sum() / union.sum()
+
+    artifact_fraction = (gradcam_map * artifact_mask).sum() / gradcam_map.sum()
+    entropy = -np.sum(gradcam_map * np.log(gradcam_map + 1e-8))
+
+    return {
+        'localization_iou': iou,
+        'artifact_fraction': artifact_fraction,
+        'attention_entropy': entropy,
+        'display_recommended': iou > 0.5 and artifact_fraction < 0.05
+    }
+\end{lstlisting}
+
+% ============================================================================
+\section{The Review Queue as a Cognitive System}
+% ============================================================================
+
+\subsection{Queue Design and Cognitive Fatigue}
+
+Reviewer quality $q(n)$ as a function of items reviewed $n$:
+\[
+q(n) = q_0 \cdot e^{-\lambda_q n} + q_{\text{floor}}
+\]
+
+Break scheduling to maintain quality above threshold $q_{\min}$:
+\[
+n_{\text{break}} = \frac{1}{\lambda_q} \ln\!\left(\frac{q_0 - q_{\text{floor}}}{q_{\min} - q_{\text{floor}}}\right)
+\]
+
+For $q_0 = 1.0$, $q_{\text{floor}} = 0.7$, $q_{\min} = 0.85$, $\lambda_q = 0.005$:
+\[
+n_{\text{break}} = 200 \cdot \ln(2) \approx 139 \text{ items}
+\]
+
+For high-stakes annotation, breaks should be enforced approximately every 140 items.
+
+\subsection{Priority Routing in Review Queues}
+
+\[
+\text{Priority}(x) = w_1 \cdot U_{\text{model}}(x) + w_2 \cdot S(x) + w_3 \cdot T(x)
+\]
+
+where:
+\begin{itemize}
+    \item $U_{\text{model}}(x)$ = model uncertainty for item $x$
+    \item $S(x)$ = estimated stakes of a wrong decision
+    \item $T(x)$ = time pressure (queue age of item)
+    \item $w_1, w_2, w_3$ = domain-specific weighting parameters
+\end{itemize}
+
+Recommended starting weights:
+\begin{itemize}
+    \item Content moderation (safety-critical): $w_1 = 0.3, w_2 = 0.5, w_3 = 0.2$
+    \item Medical imaging triage: $w_1 = 0.4, w_2 = 0.5, w_3 = 0.1$
+    \item General annotation: $w_1 = 0.5, w_2 = 0.3, w_3 = 0.2$
+\end{itemize}
+
+% ============================================================================
+\section{Exercises and Assignments}
+% ============================================================================
+
+\begin{Exercise}[Interface Audit]
+Take any annotation or AI-assisted review interface. Count the number of clicks required to: (a) confirm the AI recommendation, (b) override the AI recommendation, (c) escalate to senior review. Calculate $k_{\text{disagree}} / k_{\text{agree}}$. What does this ratio imply about the interface's design assumptions regarding override frequency?
+\end{Exercise}
+
+\begin{Exercise}[Automation Bias Measurement]
+Design a controlled experiment to measure the automation bias coefficient $\alpha$ for a binary classification review task. Define your Control, AI-First, and Human-First conditions. Describe how you estimate $\alpha$ from the resulting data. Compute the sample size needed to detect a difference of 0.05 in mean accuracy between conditions (power = 0.80, $\alpha = 0.05$).
+\end{Exercise}
+
+\begin{Exercise}[Explanation Utility]
+Implement a simple binary classifier. For 50 test cases, have three evaluators assess each case under three conditions: (a) no explanation, (b) LIME explanation, (c) SHAP explanation. Calculate Human Utility for each explanation type. Which performs best? Are there systematic differences based on evaluator data literacy?
+\end{Exercise}
+
+\begin{Exercise}[Cognitive Load Reduction]
+Choose an annotation task requiring at least 5 clicks per item. Redesign the interface to reduce clicks to 2 or fewer while maintaining all necessary data capture. Using the cognitive fatigue model, estimate the expected change in the session quality threshold crossing point $n_{\text{break}}$ for your redesign.
+\end{Exercise}
+
+\begin{Exercise}[Priority Queue Design]
+A content moderation queue contains 10,000 items. You have 5 reviewers and 8 hours. Using the Priority$(x)$ formula, design a routing system. How do you estimate $U_{\text{model}}(x)$ and $S(x)$ in practice? How do you choose weights? Conduct a capacity analysis: how many items can be reviewed, and what fraction of the highest-priority items will receive human review?
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the formal foundations for the interface design principles introduced in Chapter~6. The cognitive load model, automation bias framework, and explanation utility metric together constitute a quantitative toolkit for evaluating and improving HITL interfaces in production systems.}

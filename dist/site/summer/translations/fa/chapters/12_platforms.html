@@ -1,0 +1,636 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>بسترها و ابزارهای حاشیه‌نویسی &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/fa/chapters/12_platforms';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/fa/chapters/12_platforms.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>بسترها و ابزارهای حاشیه‌نویسی</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">چشم‌انداز بستر حاشیه‌نویسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">بسترهای متن‌باز</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">بسترهای تجاری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">مقایسه ویژگی‌های بستر حاشیه‌نویسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">حاشیه‌نویسی به‌عنوان کد</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>بسترها و ابزارهای حاشیه‌نویسی<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>بستر حاشیه‌نویسی محیطی است که بازخورد انسانی به داده تبدیل می‌شود. یک بستر خوب توان عملیاتی را افزایش می‌دهد، خطاها را کاهش می‌دهد، کنترل‌های کیفی را حفظ می‌کند، و خط لوله حاشیه‌نویسی را در مقیاس قابل مدیریت می‌کند. انتخاب بستر مناسب — و دانستن چه زمانی بسازید در برابر بخرید — یک تصمیم مهم در هر پروژه HITL است.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>چشم‌انداز بستر حاشیه‌نویسی<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>بازار ابزار حاشیه‌نویسی در سال‌های اخیر به‌طور قابل توجهی رشد و بلوغ یافته است، که توسط تقاضای سازمانی برای داده آموزشی یادگیری ماشین هدایت می‌شود. ابزارها از خدمات کاملاً مدیریت‌شده تا چارچوب‌های متن‌باز میزبانی‌شده توسط خود طیف گسترده‌ای را پوشش می‌دهند.</p>
+<section id="id3">
+<h3>بسترهای متن‌باز<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p><strong>Label Studio</strong> محبوب‌ترین بستر حاشیه‌نویسی متن‌باز است که از داده متن، تصویر، صوت، ویدیو، و سری زمانی از طریق یک پیکربندی وظیفه مبتنی بر XML یکپارچه پشتیبانی می‌کند. می‌توان آن را به‌خودی خود میزبانی کرد و با بک‌اندهای یادگیری ماشین برای یادگیری فعال یکپارچه کرد. نقاط قوت کلیدی: انعطاف‌پذیری، پشتیبانی جامعه، و توانایی جاسازی پیش‌بینی‌های یادگیری ماشین سفارشی برای پیش‌حاشیه‌نویسی.</p>
+<p><strong>Prodigy</strong> (از سازندگان spaCy) یک ابزار حاشیه‌نویسی بسیار گردش‌کار-محور است که برای وظایف پردازش زبان طبیعی طراحی شده. معماری جریانی‌اش نمونه‌ها را یک به یک ارسال می‌کند و از یادگیری فعال از جعبه پشتیبانی می‌کند. رابط حاشیه‌نویسی حداقلی اما سریع است — طراحی‌شده برای به حداکثر رساندن توان عملیاتی حاشیه‌نویسی. Prodigy نرم‌افزار پولی است اما به‌طور گسترده در پژوهش پردازش زبان طبیعی استفاده می‌شود.</p>
+<p><strong>CVAT (ابزار حاشیه‌نویسی بینایی ماشین)</strong> پیشروترین ابزار متن‌باز برای حاشیه‌نویسی بینایی ماشین است، با پشتیبانی قوی از تشخیص، تقطیع، و حاشیه‌نویسی ویدیو. در اصل در اینتل توسعه یافته، CVAT از الگوریتم‌های ردیابی، حاشیه‌نویسی اسکلت، و یکپارچه‌سازی‌های الگوریتم شخص ثالث پشتیبانی می‌کند.</p>
+<p><strong>Doccano</strong> وظایف برچسب‌زنی دنباله (NER، استخراج رابطه، طبقه‌بندی متن) را هدف قرار می‌دهد. رابط وب ساده‌اش آن را برای تیم‌هایی بدون منابع مهندسی داده اختصاصی دسترس‌پذیر می‌کند.</p>
+</section>
+<section id="id4">
+<h3>بسترهای تجاری<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p><strong>Scale AI</strong> خدمات حاشیه‌نویسی مدیریت‌شده سرتاسری ارائه می‌دهد: نیروی کار انسانی، مدیریت کیفیت، و یکپارچه‌سازی API. به‌ویژه برای رانندگی خودکار، رباتیک، و حاشیه‌نویسی سه‌بعدی پیچیده قوی است.</p>
+<p><strong>Labelbox</strong> یک بستر کامل برای مدیریت، حاشیه‌نویسی، و برچسب‌زنی کمک‌گرفته از یادگیری ماشین داده است. ویژگی‌های سازمانی قوی: مدیریت پروژه، گردش‌کارهای کیفی، حلقه‌های بازخورد مدل، و یکپارچه‌سازی با بسترهای اصلی یادگیری ماشین (SageMaker، Vertex AI، Azure ML).</p>
+<p><strong>Appen</strong> (قبلاً Figure Eight / CrowdFlower) یک نیروی کار حاشیه‌نویسی جهانی بزرگ را همراه با ابزار اجرا می‌کند.</p>
+<p><strong>Surge AI</strong> بر حاشیه‌نویسان متخصص تمرکز دارد و برای وظایفی که نیاز به دانش حوزه یا قضاوت دقیق دارند قوی است.</p>
+<p><strong>Humanloop</strong> در جمع‌آوری بازخورد LLM — حاشیه‌نویسی ترجیح، جمع‌آوری داده RLHF، و ارزیابی مدل — تخصص دارد.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>مقایسه ویژگی‌های بستر حاشیه‌نویسی<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ویژگی</p></th>
+<th class="head"><p>Label Studio</p></th>
+<th class="head"><p>Prodigy</p></th>
+<th class="head"><p>CVAT</p></th>
+<th class="head"><p>Labelbox</p></th>
+<th class="head"><p>Scale AI</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>مجوز</p></td>
+<td><p>متن‌باز</p></td>
+<td><p>تجاری</p></td>
+<td><p>متن‌باز</p></td>
+<td><p>تجاری</p></td>
+<td><p>تجاری</p></td>
+</tr>
+<tr class="row-odd"><td><p>میزبانی</p></td>
+<td><p>خود / ابری</p></td>
+<td><p>خود</p></td>
+<td><p>خود / ابری</p></td>
+<td><p>ابری</p></td>
+<td><p>مدیریت‌شده</p></td>
+</tr>
+<tr class="row-even"><td><p>حاشیه‌نویسی متن</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>—</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>حاشیه‌نویسی تصویر</p></td>
+<td><p>✓</p></td>
+<td><p>محدود</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>حاشیه‌نویسی ویدیو</p></td>
+<td><p>✓</p></td>
+<td><p>—</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>یکپارچه‌سازی یادگیری فعال</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>محدود</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>پیش‌حاشیه‌نویسی کمک‌گرفته از یادگیری ماشین</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>گردش‌کارهای کنترل کیفیت</p></td>
+<td><p>اساسی</p></td>
+<td><p>اساسی</p></td>
+<td><p>اساسی</p></td>
+<td><p>پیشرفته</p></td>
+<td><p>پیشرفته</p></td>
+</tr>
+<tr class="row-even"><td><p>دسترسی API / برنامه‌نویسانه</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>مدیریت نیروی کار</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>محدود</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>حاشیه‌نویسی به‌عنوان کد<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>یک جنبه حیاتی اما اغلب نادیده‌گرفته‌شده از زیرساخت حاشیه‌نویسی <strong>کنترل نسخه برای حاشیه‌نویسی‌ها و طرح‌های حاشیه‌نویسی</strong> است. تلقی حاشیه‌نویسی به‌عنوان کد به معنای:</p>
+<p><strong>طراحی طرح‌اول.</strong> طبقه‌شناسی برچسب و قوانین حاشیه‌نویسی در یک فایل پیکربندی نسخه‌گذاری‌شده (YAML یا JSON) قبل از شروع حاشیه‌نویسی تعریف می‌شوند. تغییرات در طرح نسخه جدیدی ایجاد می‌کنند.</p>
+<p><strong>نسخه‌گذاری حاشیه‌نویسی.</strong> حاشیه‌نویسی‌ها با پیوندی به نسخه طرحی که تحت آن ایجاد شدند ذخیره می‌شوند. این اجازه ممیزی، عقب‌گرد، و مقایسه حاشیه‌نویسی‌ها در نسخه‌های طرح را می‌دهد.</p>
+<p><strong>خطوط لوله تکرارپذیر.</strong> خط لوله حاشیه‌نویسی — از داده خام تا برچسب‌های آماده آموزش — باید از کد تکرارپذیر باشد.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: Label Studio annotation schema (text classification)</span>
+<span class="nt">label_config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">&lt;View&gt;</span>
+<span class="w">    </span><span class="no">&lt;Text name=&quot;text&quot; value=&quot;$text&quot;/&gt;</span>
+<span class="w">    </span><span class="no">&lt;Choices name=&quot;sentiment&quot; toName=&quot;text&quot; choice=&quot;single&quot;&gt;</span>
+<span class="w">      </span><span class="no">&lt;Choice value=&quot;positive&quot;/&gt;</span>
+<span class="w">      </span><span class="no">&lt;Choice value=&quot;negative&quot;/&gt;</span>
+<span class="w">      </span><span class="no">&lt;Choice value=&quot;neutral&quot;/&gt;</span>
+<span class="w">      </span><span class="no">&lt;Choice value=&quot;mixed&quot;/&gt;</span>
+<span class="w">    </span><span class="no">&lt;/Choices&gt;</span>
+<span class="w">  </span><span class="no">&lt;/View&gt;</span>
+<span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.1.0&quot;</span>
+<span class="nt">task_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text_classification</span>
+<span class="nt">guidelines_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;guidelines_v3.pdf&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>منبع داده
+    |
+    v
+استخر بدون برچسب --&gt;  بستر حاشیه‌نویسی --&gt; مجموعه‌داده برچسب‌زده
+    ^                    |                        |
+    |                    | (کمک یادگیری ماشین)    v
+یادگیری فعال &lt;----------+                    اجرای آموزش
+راهبرد پرسش                                      |
+    ^                                             v
+    +------------ مدل آموزش‌دیده &lt;---------- ارزیابی
+                                                  |
+                                            استقرار و
+                                            پایش
+</pre></div>
+</div>
+<p>نقاط یکپارچه‌سازی کلیدی:
+۱. <strong>دریافت داده:</strong> داده بدون برچسب به‌طور خودکار از انبار داده به بستر حاشیه‌نویسی جاری می‌شود
+۲. <strong>سرویس مدل:</strong> بهترین مدل فعلی برای پیش‌حاشیه‌نویسی و امتیازدهی یادگیری فعال در بستر حاشیه‌نویسی مستقر می‌شود
+۳. <strong>صادرات:</strong> حاشیه‌نویسی‌های تکمیل‌شده در قالبی سازگار با چارچوب آموزش (COCO JSON، مجموعه‌داده‌های Hugging Face و غیره) صادر می‌شوند
+۴. <strong>حلقه بازخورد:</strong> خطاهای مدل تولیدی به بستر حاشیه‌نویسی برای تصحیح مسیریابی می‌شوند</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>برای مستندات Label Studio و یکپارچه‌سازی یادگیری فعال: <a class="reference external" href="https://labelstud.io">https://labelstud.io</a>. برای Prodigy: <a class="reference external" href="https://prodi.gy">https://prodi.gy</a>. CVAT: <a class="reference external" href="https://cvat.ai">https://cvat.ai</a>. برای مقایسه جامع ابزارهای حاشیه‌نویسی، ببینید <a href="#id7"><span class="problematic" id="id8">monarch2021human</span></a>، فصل ۷.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/fa/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">چشم‌انداز بستر حاشیه‌نویسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">بسترهای متن‌باز</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">بسترهای تجاری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">مقایسه ویژگی‌های بستر حاشیه‌نویسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">حاشیه‌نویسی به‌عنوان کد</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>what-if.io / index</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #090810;
+      --surface:  #0e0c18;
+      --border:   #1e1a30;
+      --text:     #ccc8de;
+      --muted:    #5a5270;
+      --accent:   #a78bfa;
+      --green:    #34d399;
+      --amber:    #fbbf24;
+      --mono:     'IBM Plex Mono', monospace;
+      --sans:     'IBM Plex Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--muted); }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h2 {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .section { margin-bottom: 2.5rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      display: block;
+      transition: background 0.15s;
+    }
+
+    a.card:hover { background: #14112a; }
+
+    .card-title {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-green { background: var(--green); }
+    .dot-amber { background: var(--amber); }
+    .dot-muted { background: var(--muted); }
+
+    .card-url {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .files-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .files-link:hover { border-color: var(--accent); background: #16122a; }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    footer span { display: flex; gap: 0.4rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">what-if.io<span>/index</span></div>
+  <div class="badge">restricted</div>
+</header>
+
+<div class="section">
+  <h2>Services</h2>
+  <div class="grid">
+    <a class="card" href="https://what-if.io" target="_blank">
+      <div class="card-title"><span class="dot dot-green"></span>PhD Landing</div>
+      <div class="card-url">what-if.io</div>
+      <div class="card-desc">Research landing — HITL: Misunderstood. Static site served by Caddy.</div>
+    </a>
+    <a class="card" href="https://hunt.what-if.io" target="_blank">
+      <div class="card-title"><span class="dot dot-green"></span>Spring Hunt</div>
+      <div class="card-url">hunt.what-if.io</div>
+      <div class="card-desc">Treasure hunt platform — React SPA + Rust API + Claude AI scoring.</div>
+    </a>
+    <a class="card" href="https://account.what-if.io" target="_blank">
+      <div class="card-title"><span class="dot dot-amber"></span>Auth</div>
+      <div class="card-url">account.what-if.io</div>
+      <div class="card-desc">Zitadel OIDC — console, login UI, player accounts, admin.</div>
+    </a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Files</h2>
+  <a class="files-link" href="/index/files/">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 3h6l2 2h10v16H3z"/>
+    </svg>
+    Browse deployed files →
+  </a>
+</div>
+
+<div class="section">
+  <h2>Stack</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Edge</div>
+      <div class="card-desc">Caddy 2 — TLS, gzip, SPA routing, API proxy</div>
+    </div>
+    <div class="card">
+      <div class="card-title">API</div>
+      <div class="card-desc">Rust / Axum · port 8080 · PostgreSQL 16 · Redis 7</div>
+    </div>
+    <div class="card">
+      <div class="card-title">AI scoring</div>
+      <div class="card-desc">Python · Claude claude-opus-4-7 · port 8000</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Auth</div>
+      <div class="card-desc">Zitadel v4 · OIDC + SAML · login v2 · port 8180</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>host <strong>what-if.io</strong></span>
+  <span>vm <strong>188.164.131.45</strong></span>
+  <span>deploy <strong id="ts"></strong></span>
+</footer>
+
+<script>
+  document.getElementById('ts').textContent = new Date().toISOString().slice(0, 10);
+</script>
+
+
+  <!-- Font-size accessibility widget -->
+  <script>
+  (function () {
+    var SZ_KEY = 'limen:font-size', OP_KEY = 'limen:font-ctrl';
+    var STEPS = [90, 100, 115, 130];
+    var idx = Math.max(0, Math.min(3, parseInt(localStorage.getItem(SZ_KEY) ?? '1', 10) || 1));
+    var open = localStorage.getItem(OP_KEY) === '1';
+    function applySize() { document.documentElement.style.fontSize = STEPS[idx] + '%'; localStorage.setItem(SZ_KEY, String(idx)); }
+    applySize();
+    document.addEventListener('DOMContentLoaded', function () {
+      var dark = /^#[89a-fA-F]/.test((getComputedStyle(document.documentElement).getPropertyValue('--text') || '').trim());
+      var fg = dark ? '#e2e8f0' : '#1d2935';
+      var hv = dark ? 'rgba(255,255,255,0.1)' : 'rgba(13,158,142,0.1)';
+      var bg = dark ? 'rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.9);border:1px solid rgba(45,62,80,0.13)';
+      var w = document.createElement('div');
+      w.setAttribute('role', 'toolbar'); w.setAttribute('aria-label', 'Text size');
+      w.style.position = 'fixed'; w.style.bottom = '18px'; w.style.right = '18px';
+      w.style.zIndex = '9999'; w.style.display = 'flex'; w.style.alignItems = 'center';
+      w.style.borderRadius = '10px'; w.style.backdropFilter = 'blur(10px)';
+      w.style.webkitBackdropFilter = 'blur(10px)';
+      w.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+      function btn(label, title, onclick) {
+        var b = document.createElement('button');
+        b.textContent = label; b.title = title; b.setAttribute('aria-label', title);
+        b.style.cssText = 'border:none;background:none;cursor:pointer;padding:3px 8px;border-radius:6px;font-family:inherit;font-size:.85rem;line-height:1.4;color:' + fg + ';transition:background 120ms ease';
+        b.addEventListener('mouseenter', function(){ this.style.background = hv; });
+        b.addEventListener('mouseleave', function(){ this.style.background = 'none'; });
+        b.addEventListener('click', onclick);
+        return b;
+      }
+      function render() {
+        w.innerHTML = '';
+        w.style.cssText += ';padding:' + (open ? '4px 2px 4px 6px' : '4px 6px') + ';background:' + bg;
+        var toggle = btn('Aa', open ? 'Collapse text controls' : 'Text size controls', function(){
+          open = !open; localStorage.setItem(OP_KEY, open ? '1' : '0'); render();
+        });
+        toggle.style.fontWeight = '600'; toggle.style.fontSize = '.78rem';
+        w.appendChild(toggle);
+        if (open) {
+          var sep = document.createElement('span');
+          sep.style.cssText = 'width:1px;height:16px;background:' + fg + ';opacity:.15;margin:0 2px';
+          w.appendChild(sep);
+          var dm = btn('A−', 'Smaller text', function(){ if(idx>0){idx--;applySize();upd();} });
+          var dr = btn('A',  'Default size', function(){ idx=1; applySize();upd(); });
+          var dp = btn('A+', 'Larger text',  function(){ if(idx<3){idx++;applySize();upd();} });
+          [dm, dr, dp].forEach(function(b){ w.appendChild(b); });
+          function upd(){ dm.style.opacity=idx===0?'.3':'1'; dm.style.pointerEvents=idx===0?'none':''; dp.style.opacity=idx===3?'.3':'1'; dp.style.pointerEvents=idx===3?'none':''; }
+          upd();
+        }
+      }
+      render();
+      document.body.appendChild(w);
+    });
+  }());
+  </script>
+</body>
+</html>

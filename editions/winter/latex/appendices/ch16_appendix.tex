@@ -1,0 +1,190 @@
+% ============================================================================
+% CHAPTER 16 APPENDIX: Domain-Specific HITL Metrics
+% Measurement frameworks for audio, time-series, scientific discovery,
+% and physical systems
+% ============================================================================
+% Source: /markdown/ch16/Ch16A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix: Chapter 16}
+\addcontentsline{toc}{chapter}{Technical Appendix: Chapter 16 --- Domain-Specific HITL Metrics}
+\label{app:ch16}
+
+% ============================================================================
+\section*{A16.1 Audio and Speech HITL Metrics}
+% ============================================================================
+
+\subsection*{Word Error Rate with Demographic Slicing}
+
+\term{Word Error Rate} (WER) is the standard transcription metric:
+
+\begin{equation}
+WER = \frac{S + D + I}{N}
+\label{eq:wer}
+\end{equation}
+
+where $S$ is substitutions, $D$ is deletions, $I$ is insertions, and $N$ is the number of words in the reference transcript.
+
+For \hitl audit purposes, WER must be computed by speaker demographics (not just in aggregate). A flagging threshold of 30\% worse than the overall WER is a practical starting point; the appropriate threshold depends on the application's sensitivity requirements.
+
+\begin{technote}[WER Gap in Practice]
+Koenecke et al. (2020) found that five major commercial \asr systems had WER of 19--23\% for Black speakers versus 5--8\% for white speakers on matched audio. This 3--4$\times$ gap represents a systematic \hitl failure: annotation from these systems will have systematically different reliability across speaker demographics.
+\end{technote}
+
+\subsection*{Diarization Error Rate}
+
+\term{Diarization Error Rate} (DER) evaluates speaker attribution:
+
+\begin{equation}
+DER = \frac{\text{Missed Speech} + \text{False Alarm Speech}
+            + \text{Speaker Confusion}}{\text{Total Reference Speech Time}}
+\label{eq:der}
+\end{equation}
+
+For \hitl routing in legal and medical contexts, DER by confidence bin is critical: if high-confidence attributions are not more accurate than low-confidence attributions, the confidence score cannot be used to route cases to human review.
+
+\subsection*{Multimodal Crisis Escalation Logic}
+
+The crisis detection escalation combines semantic and prosodic risk scores:
+
+\begin{equation}
+\text{Escalate} = \begin{cases}
+1 & \text{if } r_{\text{combined}} > \theta_H \\
+1 & \text{if } |r_{\text{text}} - r_{\text{prosody}}| > \delta \\
+0 & \text{otherwise}
+\end{cases}
+\label{eq:crisis-escalation}
+\end{equation}
+
+where $r_{\text{combined}} = \alpha r_{\text{text}} + (1-\alpha) r_{\text{prosody}}$, $\theta_H$ is the high-risk threshold, and $\delta$ is the disagreement threshold. Setting $\delta$ appropriately ensures that the Marcus scenario---text risk low, prosodic risk high---always triggers escalation.
+
+% ============================================================================
+\section*{A16.2 Time-Series HITL Metrics}
+% ============================================================================
+
+\subsection*{Alarm Quality Metrics}
+
+Four metrics characterize alarm system quality:
+
+\paragraph{Alarm Precision.} Of all alarms generated, what fraction were genuine anomalies?
+\begin{equation}
+\text{Precision} = \frac{TP}{TP + FP}
+\label{eq:alarm-precision}
+\end{equation}
+
+\paragraph{Alarm Burden.} Average alarms per operator per hour. EEMUA Publication 191 recommends a maximum of 6--12 alarms per operator per hour; above 20 is considered ``very likely unmanageable'' \autocite{eemua191}.
+
+\paragraph{Actionability Rate.} Fraction of reviewed alarms that resulted in a human intervention.
+
+\paragraph{Critical Miss Rate.} Fraction of genuine anomalies that the system failed to alarm on.
+
+\begin{table}[h]
+\centering
+\caption{Alarm Management Performance Thresholds (EEMUA 191)}
+\label{tab:alarm-thresholds}
+\begin{tabular}{lll}
+\toprule
+\textbf{Alarm Burden} & \textbf{Category} & \textbf{HITL Implication} \\
+\midrule
+$< 1$/hr & Very low & Possible under-detection \\
+$1$--$6$/hr & Acceptable & Target range for manageable oversight \\
+$6$--$12$/hr & Manageable & Review alarm priority logic \\
+$> 12$/hr & Overloaded & Alarm fatigue; redesign filtering \\
+$> 20$/hr & Very likely unmanageable & Immediate intervention required \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Temporal Uncertainty Quantification}
+
+For time-series anomaly detection, uncertainty estimates must account for temporal context. Monte Carlo Dropout applied to a sequence model provides epistemic uncertainty estimates that can be augmented with changepoint proximity:
+
+\begin{equation}
+u_t^* = u_t \cdot (1 + \beta \cdot \text{CP}_t)
+\label{eq:temporal-uncertainty}
+\end{equation}
+
+where $u_t$ is the base uncertainty estimate, $\text{CP}_t$ is a changepoint proximity score (0--1), and $\beta$ is a scaling factor. Uncertainty is higher near recent changepoints in the input signal.
+
+% ============================================================================
+\section*{A16.3 Scientific Discovery HITL Metrics}
+% ============================================================================
+
+\subsection*{AlphaFold pLDDT Confidence Classification}
+
+\begin{table}[h]
+\centering
+\caption{AlphaFold pLDDT Score Interpretation for Drug Design HITL}
+\label{tab:plddt}
+\begin{tabular}{llll}
+\toprule
+\textbf{pLDDT Range} & \textbf{Interpretation} & \textbf{Structural Reliability} & \textbf{Validation Required} \\
+\midrule
+$\geq 90$ & Very high & Comparable to experiment & Low \\
+$70$--$90$ & High & Backbone reliable & Medium (side chains) \\
+$50$--$70$ & Low & Uncertain & High \\
+$< 50$ & Very low & Likely disordered & Critical \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For drug design applications, the critical metric is the fraction of \textbf{binding site} residues in low or very-low confidence categories---not the overall structure mean. A protein with mean pLDDT of 85 may still have an unreliable binding site if the active site residues cluster in the 50--70 range.
+
+\subsection*{Bayesian Optimization Loop Metrics}
+
+\begin{description}
+    \item[Convergence rate] Number of iterations to reach 90\% of the best observed objective value
+    \item[Human override rate] Fraction of model suggestions the researcher overrode
+    \item[Human value-add] Average objective improvement of overridden experiments minus average objective improvement of model-suggested experiments. Positive values indicate the researcher is adding value beyond the model; negative values may indicate the researcher is underconfident in the model.
+    \item[Data quality flag rate] Fraction of experimental outcomes flagged by the researcher as unreliable. High rates indicate an experimental process quality issue rather than a model quality issue.
+\end{description}
+
+% ============================================================================
+\section*{A16.4 Robotics and Physical Systems HITL Metrics}
+% ============================================================================
+
+\subsection*{Shared Autonomy Calibration}
+
+A key metric for shared autonomy systems is the correlation between system uncertainty and human intervention rate:
+
+\begin{equation}
+\rho = \text{Corr}(\text{Uncertainty}_t, \mathbb{1}[\text{Human Intervened}_t])
+\label{eq:shared-autonomy-corr}
+\end{equation}
+
+A high positive correlation ($\rho > 0.5$) indicates the system is correctly identifying when to ask for help. A low or negative correlation indicates that the system is asking for help on the wrong cases---a \textbf{Timing} failure in the Five Dimensions framework.
+
+\subsection*{Prosthetic Adaptation Metrics}
+
+\begin{description}
+    \item[Adaptation trajectory] Accuracy slope per session (bpm/session). A positive slope indicates continuing improvement; slope $< 0.005$ suggests convergence.
+    \item[Correction rate] Fraction of actuations where the user re-attempted due to incorrect movement. Above 15\% suggests recalibration is needed.
+    \item[Per-movement accuracy] Accuracy by intended movement class. Identifies specific movements that require targeted retraining.
+    \item[Latency] Time from muscle signal to actuation onset. Should remain stable or decrease as adaptation proceeds; increasing latency may indicate hardware issues.
+\end{description}
+
+% ============================================================================
+\section*{A16.5 Universal Metrics for Non-Static HITL Systems}
+% ============================================================================
+
+\subsection*{Distribution Shift Detection}
+
+The Kolmogorov-Smirnov two-sample test detects whether the current data distribution has shifted from the training distribution:
+
+\begin{equation}
+D_{KS} = \sup_x |F_1(x) - F_2(x)|
+\label{eq:ks-test}
+\end{equation}
+
+where $F_1$ and $F_2$ are the empirical CDFs of the training and recent data samples. Applied feature-by-feature, this identifies which input dimensions have drifted---pointing toward which aspect of the model's training distribution is no longer representative.
+
+\subsection*{HITL Health Dashboard Metrics}
+
+For continuous deployment monitoring:
+
+\begin{itemize}
+    \item \textbf{Human-model agreement rate}: Fraction of cases where the human agrees with the model's recommendation. Below 70\% suggests model degradation or threshold misalignment.
+    \item \textbf{Review rate}: Fraction of cases routed to human review. Above the target range suggests model degradation or threshold too conservative; below suggests overconfidence.
+    \item \textbf{Reviewer decision consistency}: Cohen's $\kappa$ between the same reviewer's decisions on matched cases at different time points. Below 0.6 suggests reviewer fatigue or changing standards.
+    \item \textbf{Outcome tracking}: Where outcomes are observable, track accuracy of decisions including human review, not just pre-review model predictions.
+\end{itemize}

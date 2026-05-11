@@ -1,0 +1,660 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Что такое машинное обучение с участием человека? &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ru/chapters/01_introduction';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ru/chapters/01_introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Что такое машинное обучение с участием человека?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Парадокс автоматизации</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Определение машинного обучения с участием человека</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Краткая история</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Экспертные системы и инженерия знаний (1960-е — 1980-е)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Статистический поворот (1980-е — 2000-е)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Эра глубокого обучения (2010-е — настоящее время)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">Зачем HITL? Обоснование ценности человеческого суждения</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">1. Здравый смысл и мировые знания</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2. Семантическая укоренённость</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">3. Согласование ценностей</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4. Адаптивность</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. Подотчётность</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Цикл обратной связи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Что не является HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Экономика человеческой обратной связи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Обзор руководства</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Что такое машинное обучение с участием человека?<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>Машина, способная учиться на опыте… но только если снабдить её правильным опытом.
+– перефразируя Алана Тьюринга</p>
+</div></blockquote>
+<section id="id2">
+<h2>Парадокс автоматизации<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Каждая новая волна автоматизации порождает новые требования к вниманию человека. Когда авиакомпании внедрили автопилот, пилоты превратились в контролёров — ответственных не за управление в каждый момент времени, а за более сложную задачу: знать, <em>когда</em> нужно взять управление на себя. Когда супермаркеты ввели кассы самообслуживания, выяснилось, что эти системы требуют более пристального надзора на каждую транзакцию, чем традиционные кассиры. И когда машинное обучение начало принимать решения в масштабе — в медицине, финансах, найме персонала и модерации контента — оно породило огромный, непрекращающийся спрос на человеческое суждение.</p>
+<p>Это <strong>парадокс автоматизации</strong> <a href="#id3"><span class="problematic" id="id4">bainbridge1983ironies</span></a>: чем более совершенной становится автоматизированная система, тем более серьёзными оказываются последствия её сбоев, и тем необходимее становится надёжный человеческий надзор. Машинное обучение — не исключение.</p>
+<p>Машинное обучение с участием человека (HITL ML) — это область, которая принимает данный парадокс всерьёз и закладывает его в основу проектирования систем с самого начала. Вместо того чтобы рассматривать участие человека как временные строительные леса, подлежащие последующему демонтажу, HITL ML трактует взаимодействие человека и машины как <em>характеристику</em> системы — источник сигналов, коррекций и руководства, позволяющий сделать модели более точными, более согласованными с человеческими ценностями и более надёжными.</p>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>Определение машинного обучения с участием человека<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>Единого общепринятого определения HITL ML не существует, и этот термин используется в нескольких взаимосвязанных значениях в литературе. В данном руководстве принимается широкое, но точное определение:</p>
+<div class="important admonition">
+<p class="admonition-title">Определение</p>
+<p><strong>Машинное обучение с участием человека</strong> — это любая система или методология машинного обучения, в которой обратная связь от человека встраивается в процесс обучения <em>намеренным, структурированным и непрерывным</em> образом — не только в момент создания датасета, но и на протяжении обучения, оценки и развёртывания.</p>
+</div>
+<p>Это определение содержит три ключевых пункта:</p>
+<p><strong>Намеренность.</strong> HITL — это не случайное человеческое влияние (например, тот факт, что обучающие данные изначально были созданы людьми). Речь идёт о системах, явно спроектированных для сбора, встраивания и использования обратной связи от человека.</p>
+<p><strong>Структурированность.</strong> Обратная связь имеет определённую форму — метка, исправление, суждение о предпочтении, демонстрация — и определённую роль в алгоритме обучения.</p>
+<p><strong>Непрерывность.</strong> Цикл обратной связи продолжается во времени, позволяя системе совершенствоваться по мере встречи с новыми ситуациями, совершения ошибок и получения человеческого руководства.</p>
+<p>Это определение охватывает классические аннотационные конвейеры, активное обучение, интерактивное МО, RLHF и обучение на демонстрациях. Оно исключает пассивный сбор данных и чисто автономное обучение с учителем (хотя граница размыта, как будет обсуждаться в главе 2).</p>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>Краткая история<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<section id="id7">
+<h3>Экспертные системы и инженерия знаний (1960-е — 1980-е)<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>Самые ранние системы искусственного интеллекта были почти полностью основаны на участии человека: инженеры по знаниям месяцами работали с экспертами предметной области, кропотливо кодируя правила в экспертных системах вроде MYCIN и DENDRAL. Каждый фрагмент знания был явно предоставлен человеком. Машина выступала исполнителем; человек — оракулом.</p>
+<p>Эти системы работали удивительно хорошо в узких областях, однако были хрупкими — неспособными обобщаться за пределы вручную созданных правил и дорогостоящими в обслуживании.</p>
+</section>
+<section id="id8">
+<h3>Статистический поворот (1980-е — 2000-е)<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>Переход к статистическому машинному обучению в 1980-х и 1990-х годах изменил характер участия человека. Вместо кодирования знаний в виде правил люди теперь предоставляли <em>примеры</em> — размеченные датасеты, позволявшие моделям выводить закономерности. Роль человека превратилась в роль аннотатора: разметку документов, тегирование изображений, транскрибирование речи.</p>
+<p>Это стало важным шагом вперёд, но породило новое узкое место: <strong>размеченные данные стоят дорого</strong>. Исследователи начали спрашивать, как наиболее эффективно использовать усилия по разметке. Этот вопрос дал начало <strong>активному обучению</strong>, формализованному в начале 1990-х годов <a href="#id9"><span class="problematic" id="id10">cohn1994improving</span></a>.</p>
+</section>
+<section id="id11">
+<h3>Эра глубокого обучения (2010-е — настоящее время)<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>Революция глубокого обучения создала новый режим: модели с миллиардами параметров, способные обучаться экстремально сложным функциям из данных — но требующие соразмерно огромных размеченных датасетов. ImageNet (14 миллионов размеченных изображений) и последующие крупномасштабные проекты аннотирования продемонстрировали как мощь, так и цену масштаба.</p>
+<p>Одновременно развёртывание МО в масштабе обнажило новые проблемы: модели, точные в среднем, но систематически ошибающиеся для определённых групп; модели, уверенно «галлюцинирующие» факты; модели, оптимизирующие измеримые прокси вместо человеческих ценностей. Эти сбои мотивировали новые формы участия человека: не просто разметку, но <em>согласование</em> — проект создания моделей, ведущих себя так, как люди действительно хотят.</p>
+<p>Наиболее чётким выражением этой работы по согласованию, ориентированной на HITL, является <strong>обучение с подкреплением на основе обратной связи от человека (RLHF)</strong> <a href="#id12"><span class="problematic" id="id13">christiano2017deep</span></a>, ставшее основой систем вроде InstructGPT <a href="#id14"><span class="problematic" id="id15">ouyang2022training</span></a> и способностей следовать инструкциям у современных языковых моделей.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hitl">
+<h2>Зачем HITL? Обоснование ценности человеческого суждения<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<p>Что делает человеческое суждение достаточно ценным для встраивания в системы машинного обучения? Несколько свойств:</p>
+<section id="id16">
+<h3>1. Здравый смысл и мировые знания<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<p>Люди привносят обширный контекстуальный опыт в любую задачу. Когда радиолог размечает рентгеновский снимок, она опирается на годы подготовки, понимание анатомии и имплицитные знания о том, как выглядят заболевания — знания, которые чрезвычайно трудно полностью формализовать или получить только из данных.</p>
+</section>
+<section id="id17">
+<h3>2. Семантическая укоренённость<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p>Метки имеют смысл, потому что люди понимают, что они означают. Класс «кошка» в ImageNet отсылает к размытому концепту, который люди узнают интуитивно, но который ни одно формальное определение полностью не охватывает. Модели обучаются экстенсионалу метки (какие изображения ей соответствуют), но могут не научиться самому концепту, что приводит к сбоям на пограничных случаях, с которыми любой человек справился бы правильно.</p>
+</section>
+<section id="id18">
+<h3>3. Согласование ценностей<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<p>Люди обладают предпочтениями, ценностями и этическими суждениями, которые модели МО не могут вывести только из данных. Является ли фрагмент текста «полезным» или «вредным» — это не чисто эмпирический вопрос: он зависит от человеческих ценностей, варьирующихся у разных людей и в разных контекстах. HITL является основным механизмом, посредством которого эти ценности могут быть переданы системам МО.</p>
+</section>
+<section id="id19">
+<h3>4. Адаптивность<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
+<p>Человеческое суждение способно адаптироваться к новым ситуациям без переобучения. Модель, обученная на исторических данных, может катастрофически сбоить при изменении мира; человек способен распознать новизну и отреагировать соответствующим образом.</p>
+</section>
+<section id="id20">
+<h3>5. Подотчётность<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h3>
+<p>В высокорисковых областях — медицине, праве, финансах — решения должны быть подотчётны людям. Системы HITL обеспечивают эту подотчётность, удерживая людей в позиции, позволяющей понимать, проверять и переопределять поведение машины.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id21">
+<h2>Цикл обратной связи<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h2>
+<p>Центральной структурой HITL ML является цикл обратной связи между моделью и одним или несколькими людьми:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+---------------------------------------------+
+|                                             |
+|   Модель делает предсказания / запросы      |
+|   ----------------------------------&gt;       |
+|                                   Человек   |
+|   Человек предоставляет обратную  &lt;-------- |
+|   связь                                     |
+|   ----------------------------------        |
+|                                             |
+|   Модель обновляется на основе              |
+|   обратной связи                            |
+|                                             |
++---------------------------------------------+
+</pre></div>
+</div>
+<p>Характер обратной связи существенно различается в разных парадигмах HITL:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Тип обратной связи</p></th>
+<th class="head"><p>Пример</p></th>
+<th class="head"><p>Основная парадигма</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Метка класса</p></td>
+<td><p>«Это письмо является спамом»</p></td>
+<td><p>Обучение с учителем</p></td>
+</tr>
+<tr class="row-odd"><td><p>Исправление</p></td>
+<td><p>«Сущность должна быть ORG, а не PER»</p></td>
+<td><p>Активное / интерактивное МО</p></td>
+</tr>
+<tr class="row-even"><td><p>Предпочтение</p></td>
+<td><p>«Ответ A лучше, чем B»</p></td>
+<td><p>RLHF / ранжирование</p></td>
+</tr>
+<tr class="row-odd"><td><p>Демонстрация</p></td>
+<td><p>Показать роботу, как захватить предмет</p></td>
+<td><p>Имитационное обучение</p></td>
+</tr>
+<tr class="row-even"><td><p>Естественный язык</p></td>
+<td><p>«Давай давай более краткие ответы»</p></td>
+<td><p>Настройка на инструкции</p></td>
+</tr>
+<tr class="row-odd"><td><p>Неявный сигнал</p></td>
+<td><p>Пользователь нажал / не нажал</p></td>
+<td><p>Неявная обратная связь</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h2>Что не является HITL<a class="headerlink" href="#id22" title="Permalink to this heading">#</a></h2>
+<p>Важно чётко обозначить, что выходит <em>за пределы</em> нашего определения.</p>
+<p><strong>HITL — это не то же самое, что «человек над петлёй» при развёртывании</strong> (иногда называемый «human on the loop»), когда люди контролируют автоматизированные решения и могут их отменять, но не отправляют коррекции обратно в обучение. Это различие будет обсуждаться в главе 2.</p>
+<p><strong>HITL — это не слабый надзор сам по себе.</strong> Программные системы разметки вроде Snorkel используют функции разметки (часто написанные людьми правила) для генерации зашумлённых меток в масштабе. Это форма структурированного человеческого ввода, но обратная связь не является итеративной в том смысле, который обычно подразумевает HITL.</p>
+<p><strong>HITL — это не просто использование размеченных данных.</strong> Каждая модель обучения с учителем использует данные, размеченные людьми. HITL относится именно к системам, где обратная связь от человека является <em>активной, итеративной</em> частью процесса обучения.</p>
+</section>
+<hr class="docutils" />
+<section id="id23">
+<h2>Экономика человеческой обратной связи<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h2>
+<p>Человеческая обратная связь ценна, но дорогостояща. Аннотирование медицинских изображений может стоить от нескольких десятков до нескольких сотен долларов за изображение при выполнении специалистом — в зависимости от подспециальности и сложности задачи <a href="#id24"><span class="problematic" id="id25">monarch2021human</span></a>. Метки краудворкеров на платформах вроде Amazon Mechanical Turk могут стоить <span class="math notranslate nohighlight">\(0,01–\)</span>0,10 за элемент <a href="#id26"><span class="problematic" id="id27">hara2018data</span></a> при значительно более низком качестве. Фундаментальная задача HITL ML — <strong>максимизация ценности каждой единицы человеческой обратной связи</strong>.</p>
+<p>Это приводит к объединяющему вопросу, проходящему через большую часть данного руководства:</p>
+<div class="tip admonition">
+<p class="admonition-title">Центральный вопрос HITL ML</p>
+<p><em>При фиксированном бюджете человеческого времени и внимания, как следует решать, что спрашивать у людей, когда спрашивать и как встраивать ответы в обучение модели?</em></p>
+</div>
+<p>Ответ на этот вопрос зависит от области, формы обратной связи, стоимости аннотирования, риска ошибки и текущего состояния модели — именно поэтому HITL ML является богатой и продолжающей развиваться дисциплиной.</p>
+</section>
+<hr class="docutils" />
+<section id="id28">
+<h2>Обзор руководства<a class="headerlink" href="#id28" title="Permalink to this heading">#</a></h2>
+<p>Остальная часть данного руководства организована следующим образом. <strong>Часть II</strong> охватывает три классических столпа HITL: аннотирование, активное обучение и интерактивное МО. <strong>Часть III</strong> посвящена более новым парадигмам обучения на основе обратной связи — RLHF, имитационному обучению и обучению на предпочтениях, — ставшим центральными для современного ИИ. <strong>Часть IV</strong> рассматривает HITL через призму конкретных прикладных областей. <strong>Часть V</strong> предлагает взгляд практика на платформы, краудсорсинг и оценку. <strong>Часть VI</strong> посвящена этике и взгляду в будущее.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Обзор области, ориентированный на практиков, см. в <a href="#id29"><span class="problematic" id="id30">monarch2021human</span></a>. Основополагающую статью об активном обучении, заложившую формальную базу HITL, см. в <a href="#id31"><span class="problematic" id="id32">settles2009active</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ru/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Парадокс автоматизации</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Определение машинного обучения с участием человека</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Краткая история</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Экспертные системы и инженерия знаний (1960-е — 1980-е)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Статистический поворот (1980-е — 2000-е)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Эра глубокого обучения (2010-е — настоящее время)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">Зачем HITL? Обоснование ценности человеческого суждения</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">1. Здравый смысл и мировые знания</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2. Семантическая укоренённость</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">3. Согласование ценностей</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4. Адаптивность</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. Подотчётность</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Цикл обратной связи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Что не является HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Экономика человеческой обратной связи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Обзор руководства</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

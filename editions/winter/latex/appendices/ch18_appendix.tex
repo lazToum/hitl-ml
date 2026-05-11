@@ -1,0 +1,211 @@
+% ============================================================================
+% TECHNICAL APPENDIX 18A: Measuring Human Contribution in HITL Systems
+% HCI metric, complementarity analysis, civic AI literacy, accountability
+% ============================================================================
+% Source: /chapters/ch18/Ch18A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 18A: Measuring Human Contribution}
+\addcontentsline{toc}{chapter}{Technical Appendix 18A: Measuring Human Contribution}
+
+\begin{chapterquote}{Formal foundations for Chapter 18}
+Chapter~18 asked what role humans should play in an AI-enabled future. This appendix provides the quantitative tools for measuring that role: the Human Contribution Index, complementarity analysis, civic AI literacy frameworks, and accountability architecture requirements.
+\end{chapterquote}
+
+% ============================================================================
+\section{Quantifying the Human Value-Add}
+% ============================================================================
+
+\subsection{Human Contribution Index}
+
+In a HITL system, the human contribution can be formally measured as the difference between the system's performance with and without human review:
+
+\[
+\text{HCI} = \text{Acc}(f_\text{HITL}) - \text{Acc}(f_\text{automated})
+\]
+
+This aggregate measure conflates two distinct effects: (1)~\emph{routing benefit} --- cases routed to humans were genuinely harder, and human accuracy on those cases exceeds model accuracy; and (2)~\emph{review quality} --- the human reviews cases accurately. A decomposed measure:
+
+\[
+\text{HCI} = P(\text{routed}) \cdot
+  \bigl(\text{Acc}_\text{human, routed} - \text{Acc}_\text{model, routed}\bigr)
+\]
+
+\begin{lstlisting}[style=python, caption={Computing the Human Contribution Index}]
+import numpy as np
+from sklearn.metrics import accuracy_score
+
+def compute_hci(y_true, model_preds, human_decisions, routed_mask):
+    """
+    y_true:          ground truth labels
+    model_preds:     model predictions for all cases
+    human_decisions: human labels for routed cases only
+    routed_mask:     boolean array, True where case was routed
+    """
+    hitl_decisions             = model_preds.copy()
+    hitl_decisions[routed_mask] = human_decisions
+
+    hitl_acc   = accuracy_score(y_true, hitl_decisions)
+    auto_acc   = accuracy_score(y_true, model_preds)
+
+    human_acc_on_routed = (
+        accuracy_score(y_true[routed_mask], human_decisions)
+        if routed_mask.sum() > 0 else np.nan
+    )
+    model_acc_on_routed = (
+        accuracy_score(y_true[routed_mask], model_preds[routed_mask])
+        if routed_mask.sum() > 0 else np.nan
+    )
+
+    routing_rate    = routed_mask.mean()
+    routing_benefit = routing_rate * (human_acc_on_routed
+                                      - model_acc_on_routed)
+    return {
+        'hitl_accuracy':              hitl_acc,
+        'auto_only_accuracy':         auto_acc,
+        'human_accuracy_on_routed':   human_acc_on_routed,
+        'model_accuracy_on_routed':   model_acc_on_routed,
+        'routing_rate':               routing_rate,
+        'hci':                        routing_benefit,
+        'human_value_add':            hitl_acc - auto_acc,
+    }
+\end{lstlisting}
+
+% ============================================================================
+\section{Human--AI Complementarity Analysis}
+% ============================================================================
+
+The value of a HITL system depends on \emph{complementarity} between human and AI capabilities:
+
+\[
+C = P(\text{human correct} \mid \text{model wrong})
+  - P(\text{human correct} \mid \text{model right})
+\]
+
+$C > 0$ means humans are more likely to be correct when the model is wrong --- the system benefits from human involvement. $C \leq 0$ means human and model errors are correlated --- adding humans does not help, and may reflect the same cognitive biases as the training data.
+
+\begin{lstlisting}[style=python, caption={Complementarity analysis}]
+def complementarity_analysis(y_true, model_preds, human_preds):
+    model_correct = (model_preds == y_true)
+    human_correct = (human_preds == y_true)
+
+    p_human_given_model_wrong = (
+        human_correct[~model_correct].mean()
+        if (~model_correct).sum() > 0 else np.nan
+    )
+    p_human_given_model_right = (
+        human_correct[model_correct].mean()
+        if model_correct.sum() > 0 else np.nan
+    )
+
+    return {
+        'complementarity':
+            p_human_given_model_wrong - p_human_given_model_right,
+        'p_human_correct_given_model_wrong': p_human_given_model_wrong,
+        'p_human_correct_given_model_right': p_human_given_model_right,
+        'agreement_matrix': {
+            'both_right':       (model_correct & human_correct).mean(),
+            'both_wrong':       (~model_correct & ~human_correct).mean(),
+            'human_only_right': (~model_correct & human_correct).mean(),
+            'model_only_right': (model_correct & ~human_correct).mean(),
+        }
+    }
+\end{lstlisting}
+
+\begin{cautionbox}[Correlated Errors]
+If $C \approx 0$, humans and models fail on the same cases. This often occurs when the model was trained on human-generated data and has learned the same systematic biases. Adding human review adds cost without adding accuracy. Diagnosis: compute complementarity by input subgroup to identify where human judgment does and does not add value.
+\end{cautionbox}
+
+% ============================================================================
+\section{Civic AI Literacy Framework}
+% ============================================================================
+
+Meaningful participation in AI governance does not require deep technical expertise. The following framework maps competency levels to participation forms:
+
+\begin{table}[h]
+\centering
+\caption{Civic AI literacy levels and participation forms}
+\begin{tabular}{p{2.2cm}p{5cm}p{5cm}}
+\hline
+\textbf{Level} & \textbf{Key concepts} & \textbf{Participation forms} \\
+\hline
+Level~1 (Basic) &
+  AI as statistical pattern matching; uncertainty is normal; models can be wrong &
+  Noticing and reporting AI errors; informed consumer of AI products \\[4pt]
+Level~2 (Functional) &
+  Training data determines behaviour; calibration vs.\ accuracy; fairness tradeoffs &
+  Public comment on AI regulations; understanding AI explanations \\[4pt]
+Level~3 (Critical) &
+  Feedback loops; impossibility theorems; accountability gaps &
+  Auditing AI systems; advocacy for fairness standards; advising policymakers \\[4pt]
+Level~4 (Technical) &
+  All of the above plus implementation &
+  Red-teaming; designing audits; building oversight tools \\
+\hline
+\end{tabular}
+\end{table}
+
+Reading this book places you solidly at Level~2, with exposure to Level~3 concepts. Level~2 is sufficient for meaningful participation in most public governance processes.
+
+% ============================================================================
+\section{Accountability Architecture}
+% ============================================================================
+
+A complete accountability architecture for a HITL system has four layers:
+
+\begin{keyconcept}{Decision Audit Trail (Layer 1)}
+Every automated and human-reviewed decision is logged with: timestamp, input features (or hash), model confidence, routing decision, human reviewer ID, human decision, and outcome when observable. Without this layer, no post-hoc analysis is possible.
+\end{keyconcept}
+
+\begin{keyconcept}{Aggregate Monitoring (Layer 2)}
+Regular reporting of accuracy by demographic group, false positive and false negative rates, override rates, and reviewer agreement rates. This layer makes disparate impact visible before it becomes a compliance problem.
+\end{keyconcept}
+
+\begin{keyconcept}{Independent Audit (Layer 3)}
+Periodic (quarterly or annual) review by parties independent of the operating team, with access to audit logs and aggregate statistics. Findings reported publicly for high-stakes systems. Independence is the critical property: internal teams cannot audit their own blind spots.
+\end{keyconcept}
+
+\begin{keyconcept}{Contestability Pathway (Layer 4)}
+A documented, functional process by which individuals affected by a system's decision can: (a)~receive a meaningful explanation; (b)~challenge the decision with a human reviewer who has actual authority to override; (c)~receive a response within defined time limits. A contestability page that leads to a contact form is not a contestability pathway.
+\end{keyconcept}
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[Human Contribution Audit]
+Using a classification dataset of your choice, simulate a HITL system:
+\begin{enumerate}
+    \item Train a model; route cases with confidence $< 0.7$ to a simulated human.
+    \item Simulate human performance: correct 80\% of the time on routed cases.
+    \item Compute HCI and complementarity scores.
+    \item At what confidence threshold is HCI maximised? Why?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Accountability Architecture Audit]
+Choose an AI system you interact with regularly (spam filter, content recommendation, fraud detection):
+\begin{enumerate}
+    \item Which layers of the accountability architecture does it have?
+    \item Is there a public description of how decisions are made?
+    \item Can you find a contestability pathway? How accessible is it?
+    \item Write a one-page accountability assessment.
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Civic Participation Simulation]
+Find a recent public comment period on AI regulation (FTC AI guidelines, NIST AI RMF updates, EU AI Act implementation):
+\begin{enumerate}
+    \item Read the draft document's key provisions.
+    \item Write a public comment (250--500 words) using concepts from this book.
+    \item Identify: what fairness definition does the proposal implicitly adopt? What monitoring requirements does it include? What contestability provisions?
+\end{enumerate}
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the quantitative and structural tools for measuring, communicating, and demanding human contribution in AI systems, as introduced in Chapter~18.}

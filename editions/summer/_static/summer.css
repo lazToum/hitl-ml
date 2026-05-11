@@ -1,0 +1,364 @@
+/* Summer Edition — warm, relaxed, print-friendly */
+
+/* Override sphinx-book-theme PST color variables globally */
+:root {
+  --pst-color-primary:        #c47e1a;
+  --pst-color-secondary:      #b85c38;
+  --pst-color-accent:         #5a7a52;
+  --pst-color-background:     #fdf6e3;
+  --pst-color-surface:        #f5ead0;
+  --pst-color-on-background:  #2c2416;
+  --pst-color-on-surface:     #2c2416;
+  --pst-color-navbar-link:    #2c2416;
+  --pst-color-text-base:      #2c2416;
+  --pst-color-text-muted:     #7a6848;
+  --pst-color-border:         #e8d9b8;
+  --pst-color-shadow:         rgba(44,36,22,0.1);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&family=Patrick+Hand&display=swap');
+
+:root {
+  --sand:        #fdf6e3;
+  --amber:       #c47e1a;
+  --terracotta:  #b85c38;
+  --sage:        #5a7a52;
+  --ink:         #2c2416;
+  --light-rule:  #e8d9b8;
+  --highlight:   #fce8c3;
+}
+
+/* Page background */
+body,
+.bd-page-width,
+.bd-content,
+article {
+  background: var(--sand) !important;
+  color: var(--ink) !important;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: 'Lora', Georgia, serif !important;
+  color: var(--terracotta) !important;
+  font-weight: 600;
+}
+
+h1 { border-bottom: 2px solid var(--light-rule); padding-bottom: 0.3em; }
+
+/* Body text */
+p, li, td, th {
+  font-family: 'Lora', Georgia, serif !important;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink) !important;
+}
+
+/* Top header bar */
+header.bd-header,
+.bd-header,
+.navbar,
+.navbar-header-items,
+.navbar-item,
+.bd-header-article,
+.bd-header-article__inner,
+.header-article-items {
+  background: #f5ead0 !important;
+  color: var(--ink) !important;
+  border-bottom: 1px solid var(--light-rule) !important;
+}
+
+.bd-header svg,
+.bd-header button,
+.bd-header .btn,
+.navbar-item button,
+.header-article-items button {
+  color: var(--ink) !important;
+  fill: var(--ink) !important;
+}
+
+/* Right sidebar (secondary — table of contents) */
+.bd-sidebar-secondary,
+.tocsidebar,
+.bd-toc,
+nav.bd-toc,
+div.bd-sidebar-secondary {
+  background: #f5ead0 !important;
+  color: var(--ink) !important;
+  border-left: 1px solid var(--light-rule) !important;
+}
+
+.bd-sidebar-secondary a,
+.bd-toc a,
+nav.bd-toc a {
+  color: var(--ink) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.85rem;
+}
+
+.bd-sidebar-secondary a:hover,
+.bd-toc a:hover {
+  color: var(--amber) !important;
+}
+
+.bd-sidebar-secondary .current > a,
+.bd-toc .current > a {
+  color: var(--terracotta) !important;
+  font-weight: 500;
+}
+
+/* Left sidebar (primary — navigation) */
+.bd-sidebar-primary,
+nav.bd-links {
+  background: #f5ead0 !important;
+  border-right: 1px solid var(--light-rule) !important;
+}
+
+.bd-sidebar-primary a,
+nav.bd-links a {
+  color: var(--amber) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.9rem;
+}
+
+.bd-sidebar-primary a:hover,
+nav.bd-links a:hover {
+  color: var(--terracotta) !important;
+}
+
+/* Active nav link */
+.bd-sidebar-primary .current > a {
+  color: var(--terracotta) !important;
+  border-left: 3px solid var(--terracotta);
+  padding-left: 0.5em;
+}
+
+/* Horizontal rules */
+hr {
+  border: none;
+  border-top: 1px dashed var(--light-rule);
+  margin: 2rem 0;
+}
+
+/* Admonitions */
+.admonition {
+  background: var(--highlight) !important;
+  border-left: 4px solid var(--amber) !important;
+  border-radius: 4px;
+  font-family: 'Lora', Georgia, serif !important;
+}
+
+.admonition.tip  { border-left-color: var(--sage) !important; }
+.admonition.note { border-left-color: var(--amber) !important; }
+.admonition.warning { border-left-color: var(--terracotta) !important; }
+
+.admonition-title {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1rem;
+  color: var(--ink) !important;
+  background: transparent !important;
+}
+
+/* Word puzzle / pre blocks — lined notebook feel */
+pre, code {
+  font-family: 'Patrick Hand', 'Courier New', monospace !important;
+  font-size: 1rem;
+  background: #fffdf5 !important;
+  border: 1px solid var(--light-rule) !important;
+  color: var(--ink) !important;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.95rem;
+}
+
+th {
+  background: var(--highlight) !important;
+  color: var(--terracotta) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 500;
+  border-bottom: 2px solid var(--light-rule);
+  padding: 0.5em 0.75em;
+}
+
+td {
+  border-bottom: 1px solid var(--light-rule);
+  padding: 0.4em 0.75em;
+}
+
+/* Epigraph / pull quotes — override theme dark background */
+blockquote,
+.epigraph,
+div.epigraph,
+div.epigraph > blockquote,
+div.epigraph p,
+div.epigraph p.attribution {
+  background: var(--highlight) !important;
+  color: var(--ink) !important;
+  border-left: 3px solid var(--amber) !important;
+  padding: 0.75em 1.25em !important;
+  font-style: italic;
+  border-radius: 0 4px 4px 0;
+}
+
+/* ── Interactive Word Search ──────────────────────────── */
+
+.ws-root {
+  margin: 1.5rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ws-wordlist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+}
+
+.ws-word {
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  border: 1px solid var(--light-rule);
+  border-radius: 3px;
+  background: #fffdf5;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.ws-word-found {
+  text-decoration: line-through;
+  opacity: 0.45;
+  background: #e8f5e4;
+  border-color: var(--sage);
+}
+
+.ws-grid {
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-family: 'Patrick Hand', 'Courier New', monospace;
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  cursor: crosshair;
+}
+
+.ws-grid tr { background: transparent; }
+
+.ws-cell {
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #fffdf5;
+  color: var(--ink);
+  font-weight: 500;
+  padding: 0;
+  transition: background 0.08s, color 0.08s;
+  cursor: crosshair;
+}
+
+.ws-cell.ws-selecting {
+  background: var(--amber);
+  color: #fff;
+  border-color: #a86a10;
+}
+
+.ws-cell.ws-found {
+  background: var(--sage);
+  color: #fff;
+  border-color: #3d5e36;
+}
+
+.ws-banner {
+  margin-top: 1rem;
+  padding: 0.6em 1.2em;
+  background: var(--highlight);
+  border: 2px solid var(--sage);
+  border-radius: 6px;
+  color: var(--sage);
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* ── Answer boxes — blank lines for writing ─────────── */
+.answer-box {
+  border-bottom: 1px solid var(--light-rule);
+  min-height: 1.8rem;
+  margin: 0.25rem 0;
+  display: block;
+}
+
+/* Top announcement banner */
+.bd-header-announcement {
+  background: var(--amber) !important;
+  color: var(--sand) !important;
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1rem;
+}
+
+/* Sidebar toggle — fix for SBT 1.0.1 / PST 0.15.4 id mismatch (sidebar-fix.js) */
+.bd-sidebar-primary {
+  transition: margin-left .25s ease, opacity .25s ease, visibility .25s ease !important;
+}
+@media (min-width: 992px) {
+  .bd-sidebar-primary.sbt-sidebar-collapsed {
+    margin-left: -20% !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+}
+/* Ensure toggle button is visible and clickable */
+label.primary-toggle,
+label.sidebar-toggle {
+  cursor: pointer !important;
+  color: var(--ink) !important;
+  opacity: 1 !important;
+}
+
+/* Hide the dark/light mode toggle — summer edition is always light */
+.theme-switch-button,
+button.theme-switch,
+[title="Toggle dark mode"],
+[aria-label="Toggle dark mode"],
+[aria-label*="dark"],
+[aria-label*="theme"],
+.pst-navbar-icon.theme-switch-button {
+  display: none !important;
+}
+
+/* Ensure pre/code blocks never go invisible in any mode */
+pre, pre *, code, code * {
+  color: var(--ink) !important;
+  background: #fffdf5 !important;
+}
+
+/* Force light mode — prevent prefers-color-scheme: dark from applying */
+@media (prefers-color-scheme: dark) {
+  body,
+  .bd-page-width,
+  .bd-content,
+  article,
+  .bd-sidebar-primary,
+  .bd-sidebar-secondary,
+  header.bd-header {
+    background: var(--sand) !important;
+    color: var(--ink) !important;
+  }
+
+  pre, code, pre * {
+    background: #fffdf5 !important;
+    color: var(--ink) !important;
+  }
+}

@@ -1,0 +1,419 @@
+% ============================================================================
+% CHAPTER 5 TEACHER'S MANUAL
+% Complete instructional guide for teaching HITL intervention design
+% ============================================================================
+% Source: /markdown/ch5/Ch5T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 5}
+\label{ch:teacher-ch05}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching the art of designing human-AI interactions using \emph{The Art of Asking for Help Without Being Annoying}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Name the three primary design levers for HITL interventions: Timing, Frequency, Format (T-F-F)
+    \item Define the trust-attention-response triangle and describe how each vertex can fail
+    \item Explain the ``Lazy User Assumption'' and why it leads to bad intervention design
+    \item Describe how question framing affects response quality, using the 911 dispatcher example
+    \item Identify the core difference between a well-timed and a well-formatted ask
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Evaluate existing alert designs using the T-F-F framework and trust-attention-response triangle
+    \item Identify when poor alert performance is due to timing, frequency, or format failures
+    \item Apply cognitive load principles to assess query design choices
+    \item Analyze fraud alert, 2FA, and content moderation examples using the chapter's framework
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design HITL interventions that respect timing, manage frequency, and optimize format
+    \item Critique real alert systems and propose specific, implementable improvements
+    \item Argue for specific design choices using trust-attention-response reasoning
+    \item Evaluate the information value of different query formats for a specific domain
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--4 (required):} Five Dimensions framework, uncertainty types, calibration, threshold decisions; Chapter~5 is where the routing decision (Ch.\ 4) meets the human moment
+    \item \textbf{No technical background required} for the main chapter
+    \item \textbf{Appendix~5A} uses information theory (entropy, mutual information) and basic probability
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Standard sequence] After Chapter~4 (threshold decisions) and before the domain-specific chapters --- Chapter~5 addresses what happens at the moment of human-AI handoff
+    \item[HCI emphasis] Core content on interactive alert design; connections to notification research, dual-process theory
+    \item[ML pipeline courses] The feedback integration argument shows how question format determines training signal quality
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Design Insight}
+
+The chapter's core argument: \textbf{the moment of the ask is a design problem, not just an engineering trigger}. Even when detection, routing, and threshold decisions are correct, the ask can fail if its design does not respect human psychology. One word --- ``personally'' --- created a 40\% improvement in the Louisville 911 dispatcher study. This is not a marginal efficiency gain; it is the difference between a system that works and one that does not.
+
+\begin{technote}[Teaching Tip]
+Open with the 911 dispatcher story before introducing any vocabulary. Ask students: ``What would you change about the question `Is there someone there who needs help?''' Then reveal the answer (one word: ``personally''; and ``right now''). The concreteness of one word creating 40\% improvement is vivid. Then ask: ``Why did one word matter so much?'' Lead students to: the question's framing changes what the caller searches for in memory, and therefore what information they report.
+\end{technote}
+
+\subsection{The Three Design Levers: T-F-F}
+
+\begin{table}[htbp]
+\caption{The three HITL design levers: definitions and failure examples}
+\label{tab:tff-ch05}
+\centering
+\begin{tabular}{@{}p{2cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Lever} & \textbf{Definition} & \textbf{Failure Example} \\
+\midrule
+Timing & When the ask is sent & Fraud alert at 3 AM for a morning charge; context has evaporated \\
+Frequency & How often asks are sent & iPhone update prompt: dismissed after repetition, even for critical updates \\
+Format & How the ask is phrased and presented & ``Your account has been flagged'' vs.\ ``Did you make this \$47.23 purchase at Costa Coffee at 2:15 PM today?'' \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[Mnemonic: T-F-F]
+Help students remember: \textbf{T}iming = when you ask; \textbf{F}requency = how often you ask; \textbf{F}ormat = how you ask. These are not independent --- a perfect format at the wrong time fails. All three must be optimized together.
+\end{keyconcept}
+
+\subsection{The Trust-Attention-Response Triangle}
+
+Draw this on the board at the start of the relevant section:
+
+\begin{table}[htbp]
+\caption{Trust-attention-response triangle: failure modes at each vertex}
+\label{tab:triangle-ch05}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{4.5cm}p{4cm}@{}}
+\toprule
+\textbf{Vertex} & \textbf{Failure Mode} & \textbf{Example} \\
+\midrule
+Trust & Alerts dismissed because precision is too low & Clinical alerts: physicians override 90\%+ when precision is low \\
+Attention & Alert arrives when reviewer cannot engage & Interrupt mid-complex task; 3 AM fraud alert \\
+Response & Question format gets useless answers & ``Was this transaction legitimate?'' when user can't remember \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The Lazy User Assumption}
+
+State the assumption explicitly: most bad alert design implicitly assumes ``if users don't engage, it is because they are lazy.'' Then attack it:
+\begin{enumerate}
+    \item Empirically wrong --- research shows users engage when design respects their time
+    \item Fails on its own terms --- friction does not select for motivated users; it just loses them
+    \item The right assumption: ``users will engage if the ask is worth their time''
+\end{enumerate}
+
+\textbf{Design implication:} What makes an ask worth a user's time? It should be: (1) rare (surprising); (2) timely (user can respond with current context); (3) clear (user understands what is being asked); (4) consequential (user can see that their response changes something).
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening: The 911 Story (7 minutes)}
+
+Tell the Louisville story slowly. Before revealing the improvement, ask students: ``What would you change about the question `Is there someone there who needs help?''' Then reveal the answer.
+
+\begin{trythis}
+\textbf{Key question:} ``Why did one word matter so much?'' Lead students to: the question's framing changes what the caller searches for in memory. ``Personally'' and ``right now'' anchor the caller to their immediate sensory experience rather than a general assessment.
+\end{trythis}
+
+\subsubsection{Part 1: The Three Levers (10 minutes)}
+
+Walk through T-F-F with vivid examples:
+\begin{itemize}
+    \item \textbf{Timing failure:} Fraud alert at 3 AM. Who gets these at 3 AM? Why does it happen? (Batch processing, not real-time.) What does a half-awake approval actually contribute?
+    \item \textbf{Frequency failure:} The iPhone update prompt. How many have dismissed without reading? Why? What does that mean for the rare important update?
+    \item \textbf{Format failure:} ``Your account has been flagged for unusual activity'' vs.\ ``Did you make this \$47.23 purchase at Costa Coffee at 2:15 PM today? Reply YES or NO.''
+\end{itemize}
+
+\paragraph{Key discussion question.} Why did the format failure example feel intuitively worse than the timing failure? (Because format failure destroys the information value of the response --- it gets you a useless answer. Timing failure at least gets the right question at the wrong time.)
+
+\subsubsection{Part 2: The Trust-Attention-Response Triangle (12 minutes)}
+
+Introduce each vertex with a failure example (Table~\ref{tab:triangle-ch05}).
+
+\begin{trythis}
+\textbf{Class discussion (3 min):} ``Which vertex of the triangle is hardest to recover from once lost? Which is most under the designer's control?''\\[0.5em]
+\textbf{Strong answer:} Trust is hardest to recover (erodes fast, builds slowly). Format is most under the designer's control (each question is a deliberate choice).
+\end{trythis}
+
+\subsubsection{Part 3: The Lazy User Assumption (8 minutes)}
+
+State the assumption, attack it, then derive the design implication. What makes an ask worth a user's time?
+
+\subsubsection{Part 4: Case Studies (8 minutes)}
+
+Comparative analysis of 2FA and fraud alerts:
+
+\begin{description}
+    \item[2FA: Bad] Push notification, no context, tap to approve --- the MFA fatigue attack exploits reflexive approval
+    \item[2FA: Good] Number matching, context about device/location, prominent ``I didn't initiate this'' option
+    \item[Fraud: Bad] Generic flagging, delayed, requires calling bank
+    \item[Fraud: Good] Specific merchant/amount/time, immediate, binary reply
+\end{description}
+
+Tie both back to T-F-F: identify which lever is well-designed in each case.
+
+\subsubsection{Wrap-Up: Feedback Integration (5 minutes)}
+
+The ask is useless if the response disappears. The question format determines what information is captured. The feedback loop determines whether that information improves the system.
+
+Close the five-chapter arc: detection (Ch.\ 2) $\to$ learning (Ch.\ 3) $\to$ thresholds (Ch.\ 4) $\to$ asking (Ch.\ 5). Each chapter has answered a successively more specific question about the HITL moment.
+
+\begin{table}[htbp]
+\caption{50-minute lesson plan for Chapter~5}
+\label{tab:lesson-plan-ch05}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{4cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:07 & Opening: 911 story + discussion & Ch.\ 5 opening narrative \\
+0:07--0:17 & Three levers (T-F-F) with examples & Slides with real alert comparisons \\
+0:17--0:29 & Trust-attention-response triangle + discussion & Whiteboard triangle diagram \\
+0:29--0:37 & Lazy User Assumption + correction & Discussion \\
+0:37--0:44 & Case studies: 2FA and fraud alerts & Comparative slides \\
+0:44--0:49 & Feedback integration + chapter arc close & \\
+0:49--0:50 & Assign Try This; preview domain chapters & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Alert Triage Activity (15 min).}
+See Activity~1 below. Students rank six alert designs and explain their ranking.
+
+\paragraph{Add: HITL Redesign Workshop (10 min).}
+See Activity~2 below. Small groups redesign a specified intervention system.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Recognition:} ``The 911 dispatcher story shows that the wording of a question can dramatically change the response. Give two examples from your own experience where how you were asked a question changed how you answered it.''\\
+    \textit{Target: Strong answers identify specific episodes where phrasing changed what the respondent searched for. Example: ``Do you have any questions?'' vs.\ ``What's one thing that's still unclear?'' --- the latter produces genuine reflection.}
+
+    \item \textbf{Analysis:} ``A mobile banking app sends you: `Unusual activity detected. Open the app to review.' Apply the T-F-F framework: what does this notification do well and do poorly?''\\
+    \textit{Target: Timing (likely unpredictable, context may be stale), Frequency (if sent for many events, users learn to dismiss), Format (no actionable specifics; requires 3--4 steps before user can even assess). Poor on all three.}
+
+    \item \textbf{Application:} ``Redesign the banking notification from Question~2 to be better on all three dimensions. What information would you include? When would you send it? How would you prevent alert fatigue?''\\
+    \textit{Target: ``Did you make a \$127.43 purchase at GameStop on Friday at 6:15 PM? Reply YES to confirm or NO to freeze your card.'' Sent within 60 seconds; only for statistically anomalous transactions; binary reply with stated consequence.}
+
+    \item \textbf{Comparison:} ``Compare two-factor authentication with push notifications (tap to approve) vs.\ number matching. Which is better and why? Use the trust-attention-response triangle.''\\
+    \textit{Target: Push fails on response dimension --- approval requires no information from user that an attacker couldn't provide. Number matching requires active engagement with information an attacker cannot have. Both score equally on timing and frequency; difference is entirely format.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Alert Fatigue:} ``A hospital's clinical decision support system generates 500 alerts per doctor per day, and doctors override 95\% of them. Diagnose this system using the trust-attention-response triangle. Which vertex is failing most critically? Propose three specific interventions.''\\
+    \textit{Target: Trust failure (5\% precision). Also attention failure (one alert every 57 seconds). Three interventions: precision triage (eliminate low-actionability categories), adaptive thresholds, batching + contextual presentation at workflow breaks.}
+
+    \item \textbf{Design Challenge:} ``Design a HITL intervention for a plagiarism detection system used by university professors. Specify: what gets flagged, when the professor is notified, what format the notification takes, and how the professor's response feeds back to the system.''\\
+    \textit{Target: Trigger on high similarity scores (e.g., >0.75) in uncertain zone; notify after submission batch closes (not mid-grading flow --- timing matters); format includes similarity percentage + specific source + excerpt comparison; professor response (confirm/dismiss/escalate) feeds into model recalibration.}
+
+    \item \textbf{Information Value:} ``A fraud alert system can send a specific alert (`Did you make this \$23.45 purchase at Starbucks at 9:14 AM?') or a generic alert (`A transaction may need your review'). Why is the specific alert better even though both ask the same underlying question?''\\
+    \textit{Target: Specific alert activates episodic memory. User can directly check their experience of that morning. Generic alert activates only general assessment: no new information. Information gain (entropy reduction) from specific alert is high; from generic alert is near zero.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{System Design:} ``A content moderation platform employs 200 moderators reviewing 50,000 pieces of flagged content per day. Using all five dimensions of the HITL framework, design a complete intervention system including: routing criteria, interface design, cognitive load management, alert frequency management, and feedback integration.''
+
+    \item \textbf{Research Design:} ``Design an experiment to measure the information value of different fraud alert formats. What would you measure? How would you quantify `information quality' from a human response? What confounds would you control for?''
+
+    \item \textbf{Dynamic Optimization:} ``Using the RL formulation from Appendix~5A, explain why the optimal HITL policy should be context-dependent (different thresholds for different users, times, and situations) rather than a fixed rule. What data would you need to learn such a policy?''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Alert Triage (15 minutes)}
+
+\textbf{Setup:} Present six alert designs (Table~\ref{tab:alert-triage}). Students rank them from best to worst and explain their ranking.
+
+\begin{table}[htbp]
+\caption{Six alerts for triage ranking exercise}
+\label{tab:alert-triage}
+\centering
+\begin{tabular}{@{}p{1cm}p{7cm}p{3.5cm}@{}}
+\toprule
+\textbf{\#} & \textbf{Alert Text / Description} & \textbf{Assessment} \\
+\midrule
+1 & ``Your account requires your attention'' & Poor all dimensions \\
+2 & ``Did you make this \$237.00 purchase at Best Buy at 4:47 PM today? Reply YES or NO'' & Good all dimensions \\
+3 & Push notification: ``New login detected --- Tap to approve'' & Good timing, poor format \\
+4 & Email 6 hours later: ``We noticed a large purchase on your account'' & Poor timing, poor format \\
+5 & Phone call: ``We're calling to verify a recent transaction\ldots'' & Good format, bad attention \\
+6 & In-app banner: ``Review 14 flagged items'' & Timing/format problems \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Debrief:} The reveal is that Alert~2 should rank highest and Alert~1 lowest. More interesting: Alert~3 (good timing, bad format) vs.\ Alert~4 (bad timing, bad format) --- both are bad, but why differently? Alert~5 (good format, bad attention) shows that format alone is insufficient.
+
+\subsection{Activity 2: HITL Intervention Redesign (20 minutes)}
+
+\textbf{Setup:} Groups of 3--4 redesign the intervention system for a specific scenario.
+
+\paragraph{Scenarios.}
+\begin{description}
+    \item[A: Premium credit card fraud] International customer, high-value transaction in unfamiliar city, unusual time
+    \item[B: University plagiarism detection] Professor reviewing 30 student submissions; one flagged at 78\% similarity
+    \item[C: Smart home security] Door left unlocked when no one is home; AI is 82\% confident
+    \item[D: Medical documentation AI] Physician dictation transcription detected possible error on drug dosage
+\end{description}
+
+\textbf{Deliverable:} Each group specifies: trigger condition, notification text, timing, frequency controls, response format, and feedback integration mechanism.
+
+\subsection{Activity 3: Try This Debrief (10 minutes)}
+
+\textbf{Second-session activity.} Students share their audit of alerts they experienced between classes.
+
+\paragraph{Discussion prompts.}
+\begin{itemize}
+    \item Which was the worst-timed alert you received?
+    \item Which format felt most respectful of your time?
+    \item Did any alert feel like it was designed to extract your specific knowledge vs.\ just get an approval?
+    \item Which alert taught you the most about good design by being bad?
+\end{itemize}
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``More Information in the Ask = Better Ask''}
+
+\paragraph{Student thinking:} ``A fraud alert should give you everything: merchant, amount, time, location, device, and previous purchase history.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Cognitive load theory shows accuracy peaks when complexity matches working memory capacity
+    \item A comprehensive but overwhelming ask produces lower-quality responses than a well-focused simpler one
+    \item Good design finds the minimum sufficient information, not the maximum available information
+    \item The goal is to activate the right memory at the right level of specificity
+\end{itemize}
+
+\subsection{Misconception 2: ``Automated Confirmation Is Fine for Low-Stakes Asks''}
+
+\paragraph{Student thinking:} ``For routine things, it doesn't matter if people approve without reading.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The MFA fatigue attack exploits exactly this logic --- users who habitually approve without reading become attack vectors
+    \item Habitual non-reading transfers across contexts: users who learn to dismiss ``low-stakes'' alerts apply the same behavior to higher-stakes ones (trust erosion across contexts)
+    \item The categorization of ``low-stakes'' is itself a design decision that can be wrong
+\end{itemize}
+
+\subsection{Misconception 3: ``The Format Problem Is Just a UX Issue''}
+
+\paragraph{Student thinking:} ``This is about making things look nice, not about fundamental AI design.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The information the human provides is the primary input to the system's learning loop
+    \item A badly formatted question produces a response with less useful information for model improvement
+    \item This is not UX polish --- it is core ML pipeline engineering: garbage format = garbage training signal
+    \item The information-theoretic argument: question format determines entropy reduction in the response
+\end{itemize}
+
+\subsection{Misconception 4: ``Alert Fatigue Is an Individual User Problem''}
+
+\paragraph{Student thinking:} ``Some users are just lazy or have too many notifications.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Alert fatigue is a property of system design, not user character
+    \item Well-designed systems with sufficient precision maintain engagement
+    \item The dynamic trust model shows that any system with low alert precision will degrade trust over time, regardless of user motivation
+    \item The clinical alert fatigue literature documents this in among the most dedicated professionals: physicians
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Alert Audit Report (500--750 words)}
+
+\textbf{Prompt:} ``Audit five alerts or HITL interventions you encountered this week. For each: (a) identify which of timing, frequency, format is best and worst; (b) apply the trust-attention-response triangle; (c) propose one specific improvement. Conclude with a pattern you noticed across the five.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{T-F-F application (35\%):} Correctly identifies and distinguishes the three levers for each alert
+    \item \textbf{Triangle analysis (25\%):} Identifies which vertex is failing and why
+    \item \textbf{Improvement quality (25\%):} Specific, feasible, addresses the identified failure mode
+    \item \textbf{Pattern identification (15\%):} Cross-alert pattern is genuine and well-supported
+\end{itemize}
+
+\subsection{Option 2: HITL Design Document}
+
+\textbf{Prompt:} ``Design the complete human-AI collaboration interface for a domain of your choice. Include: trigger conditions, notification design (with mockup or detailed description), frequency controls, response options, and feedback integration mechanism. Justify each design decision using chapter concepts.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Completeness (30\%):} All six required components present
+    \item \textbf{Conceptual grounding (35\%):} Each design decision justified using T-F-F, trust-attention-response, or Lazy User Assumption
+    \item \textbf{Feedback integration (20\%):} Explicit mechanism; connected to model improvement
+    \item \textbf{Feasibility (15\%):} Design is actually implementable
+\end{itemize}
+
+\subsection{Option 3: Case Analysis}
+
+\textbf{Prompt:} ``The chapter describes how professional content moderators' decision quality is affected by interface design, throughput pressure, and context availability. Analyze a content moderation platform you are familiar with (or based on published research). What would you change?''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~1:} Alert fatigue first introduced; the Goldilocks problem; Nest thermostat as asking badly
+    \item \textbf{Chapter~2:} Uncertainty signal must be surfaced before it can be asked about; calibration determines whether the ask is triggered at the right moment
+    \item \textbf{Chapter~3:} The training signal from human responses depends on the quality of the question --- bad format = noisy training data
+    \item \textbf{Chapter~4:} The HITL band defines when asking happens; format determines what is learned from each ask
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~6:} Interface design expands on Format in depth --- the visual and cognitive design of the ask itself
+    \item \textbf{Chapter~7:} Annotation science is structured asking at scale --- every principle in Chapter~5 applies to annotation guideline design
+    \item \textbf{Domain chapters (Part~II):} Each domain applies the T-F-F framework in a specific professional context
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This teacher's manual provides everything needed to teach Chapter~5 on HITL intervention design. The central insight --- that the ask is a design problem, not just an engineering trigger --- closes the first arc of the book and opens the interface design arc that follows.}
+
+\medskip
+\noindent\textit{Next: Chapter~6 deepens the interface question: not just how to ask, but how to present AI output to humans in ways that support rather than replace their judgment.}

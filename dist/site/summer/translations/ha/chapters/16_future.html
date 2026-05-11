@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Alkiblar Gaba &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ha/chapters/16_future';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ha/chapters/16_future.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Alkiblar Gaba</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#samfurin-ginshikai-da-canjin-matsayin-lakabi">Samfurin Ginshiƙai da Canjin Matsayin Lakabi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rage-nauyin-lakabi">Rage Nauyin Lakabi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nau-i-sabon-na-kayyadewa">Nau’i Sabon na Ƙayyadewa</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-a-matsayin-masu-sanya-lakabi">LLMs a matsayin Masu Sanya Lakabi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inda-lakabi-na-llm-ke-aiki-da-kyau">Inda Lakabi na LLM ke Aiki Da Kyau</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inda-lakabi-na-llm-ke-gazawa">Inda Lakabi na LLM ke Gazawa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif-da-ai-na-tsarin-mulki">RLAIF da AI na Tsarin Mulki</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kulawa-kasa-a-sikeli">Kulawa ƙasa a Sikeli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-gaba-mai-ci-gaba-tare-da-kulawa-ta-dan-adam">Ci Gaba Mai Ci gaba tare da Kulawa ta Dan Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-mai-yawan-yanayi">HITL Mai Yawan Yanayi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kulawa-mai-sikeli">Kulawa Mai Sikeli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#canjin-rabe-rabe-na-aikin">Canjin Rabe-Rabe na Aikin</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matsalolin-bincike-buaen">Matsalolin Bincike Buɗaɗɗen</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="alkiblar-gaba">
+<h1>Alkiblar Gaba<a class="headerlink" href="#alkiblar-gaba" title="Permalink to this heading">#</a></h1>
+<p>Filin koyon injin da dan adam a cikin zagaye yana canzawa da sauri. Samfurin ginshiƙai, LLMs-a-matsayin-masu sanya lakabi, da tsarin sabon don haɗin gwiwa ta dan adam da AI suna sake fasalin tattalin arzikin da aikin HITL ta hanyoyi waɗanda ba za a yi tunanin su ba ma shekaru biyar da suka wuce. Wannan babi na ƙarshe yana zana shimfida na alkiblu masu tasowa da matsaloli buɗaɗɗen.</p>
+<hr class="docutils" />
+<section id="samfurin-ginshikai-da-canjin-matsayin-lakabi">
+<h2>Samfurin Ginshiƙai da Canjin Matsayin Lakabi<a class="headerlink" href="#samfurin-ginshikai-da-canjin-matsayin-lakabi" title="Permalink to this heading">#</a></h2>
+<p>Samfurin ginshiƙai — manyan samfurin da aka horar a baya akan bayanai faffada waɗanda za a iya daidaita su ga ayyuka na ƙasa — suna canza tattalin arzikin HITL ta asali.</p>
+<section id="rage-nauyin-lakabi">
+<h3>Rage Nauyin Lakabi<a class="headerlink" href="#rage-nauyin-lakabi" title="Permalink to this heading">#</a></h3>
+<p>Aiki wanda a baya yana buƙatar dubbai na misalin da aka yi lakabi don horarwa daga farko na iya buƙatar kawai dozin biyu lokacin daidaita samfuri na ginshiƙi. Tambaya da kaɗan-kaɗan na iya gaba ɗaya kawar da buƙatar daidaita ga wasu ayyuka.</p>
+<p><strong>Abubuwa masu amfani:</strong> ROI na lakabi yana canzawa. Ƙoƙarin lakabi yanzu yana da kyau ƙari idan yana mai da hankali kan:</p>
+<ul class="simple">
+<li><p>Saitin kimantawa mai inganci (don auna ko samfuri da aka daidaita yana aiki gaske)</p></li>
+<li><p>Lokuta masu wuya da lokutan iyaka waɗanda samfuri na ginshiƙi yana sarrafa ba daidai ba</p></li>
+<li><p>Misalan musamman na aiki waɗanda ke koyar da samfuri wani abu wanda ba zai iya fitar da shi daga pre-horarwa ba</p></li>
+</ul>
+</section>
+<section id="nau-i-sabon-na-kayyadewa">
+<h3>Nau’i Sabon na Ƙayyadewa<a class="headerlink" href="#nau-i-sabon-na-kayyadewa" title="Permalink to this heading">#</a></h3>
+<p>Lokacin da samfuri na tushe ya riga ya fahimci harshe, lambar shirye-shirye, da hankali na yau da kullum, masu amfani suna iya sadarwa da shi a cikin harshen yau da kullum maimakon ta misalin da aka yi lakabi. Mai amfani wanda ke son mai rarraba rubutu ba ya ƙara buƙatar yin lakabi ga misalin 500 — zai iya rubuta bayani na aikin rarrabuwa da kimantawa ta aiki mai rikitarwa.</p>
+<p>Wannan yana canza kalubalen HITL daga <em>tattara misali</em> zuwa <em>ƙayyadewa ta aiki</em>: taimaka wa masu amfani su bayyana ainihin abin da suke so ta hanyar da samfuri zai iya aiki akan. Wannan yana da wuya fiye da yadda ya sauti — bayani na harshen yau da kullum na ayyuka galibi yana da rikitarwa ta hanyoyin da misalin da aka sanya lakabi ba ya.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="llms-a-matsayin-masu-sanya-lakabi">
+<h2>LLMs a matsayin Masu Sanya Lakabi<a class="headerlink" href="#llms-a-matsayin-masu-sanya-lakabi" title="Permalink to this heading">#</a></h2>
+<p>Ɗaya daga cikin mafi muhimmancin ci gaban 2023–2025 shine amfani da <strong>LLMs a matsayin oracle na lakabi</strong>. Maimakon tambayar dan adam “Shin wannan bita mai kyau ne ko mara kyau?”, muna tambayar GPT-4 ko Claude. Don ayyukan rarrabuwa masu bayyananne, lakabi na LLM galibi suna dacewa ko kusan kaiwa daidaito na mai aiki na taron aiki <a href="#id1"><span class="problematic" id="id2">gilardi2023chatgpt</span></a>, kuma kuɗi na kiran API kowace lakabi galibi ya ƙasa da dalar Amurka da yawa fiye da yawan albashi na dan adam.</p>
+<section id="inda-lakabi-na-llm-ke-aiki-da-kyau">
+<h3>Inda Lakabi na LLM ke Aiki Da Kyau<a class="headerlink" href="#inda-lakabi-na-llm-ke-aiki-da-kyau" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ayyukan rarrabuwa masu sauƙi, masu bayyananne (ji, batu, niyya)</p></li>
+<li><p>Ayyuka inda lakabin dan adam suna ɓoye yarjejeniyar al’adu da LLM ya haɗa</p></li>
+<li><p>Ayyuka inda lakabi yana daidaito cikin mahallin (ba son zuciya sosai ba)</p></li>
+<li><p>Ƙirƙira lakabi na farko don duba dan adam</p></li>
+</ul>
+</section>
+<section id="inda-lakabi-na-llm-ke-gazawa">
+<h3>Inda Lakabi na LLM ke Gazawa<a class="headerlink" href="#inda-lakabi-na-llm-ke-gazawa" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ayyuka musamman na yanki waɗanda ke buƙatar ƙwarewa mara cika (likitanci, doka, kimiyya)</p></li>
+<li><p>Ayyuka waɗanda ke buƙatar ilimin al’adu na gida ko bambancin harshe</p></li>
+<li><p>Ayyuka na aminci da cutar, inda LLM na iya kasancewa mara daidai a alkiblar ɗaya tare da bayanai da aka horar akan shi</p></li>
+<li><p>Nau’in aiki sabon waɗanda ba su wakilta sosai a cikin pre-horarwa ba</p></li>
+</ul>
+</section>
+<section id="rlaif-da-ai-na-tsarin-mulki">
+<h3>RLAIF da AI na Tsarin Mulki<a class="headerlink" href="#rlaif-da-ai-na-tsarin-mulki" title="Permalink to this heading">#</a></h3>
+<p>Kamar yadda aka tattauna a Babi na 6, ra’ayin da AI ya ƙirƙira za a iya amfani da shi don horar da samfurin lada da kula da daidaitan RL. Wannan yana ƙirƙira zagayen ra’ayi: LLMs suna ƙirƙira bayanai, ana horar da samfurin akan su, kuma samfurin mafi kyau suna ƙirƙira bayanai mafi kyau. Tambaya ta yadda za a ɗaukar wannan zagaye ba tare da ɓoye kurakurai masu tsari daga samfuri na farko shine matsalar bincike ta muhimmanci a cikin binciken kulawa mai sikeli.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kulawa-kasa-a-sikeli">
+<h2>Kulawa ƙasa a Sikeli<a class="headerlink" href="#kulawa-kasa-a-sikeli" title="Permalink to this heading">#</a></h2>
+<p><strong>Sanya lakabi ta shirye-shirye</strong> ta ayyukan sanya lakabi (Babi na 9) yana ba da damar ƙwararrun yanki su bayyana ilimin su a matsayin lambar maimakon a matsayin misalin da aka yi lakabi. Tsarin kamar Snorkel <a href="#id3"><span class="problematic" id="id4">ratner2017snorkel</span></a> da magajin su sun nuna sosai kuma ana amfani da su a samarwa a kamfanoni masu fasaha manyan.</p>
+<p><strong>Alkiblu na iyaka:</strong></p>
+<ul class="simple">
+<li><p><strong>Ayyukan sanya lakabi masu ƙaruwa da LLM:</strong> Yi amfani da LLMs don ƙirƙira ayyukan sanya lakabi daga bayani na harshen yau da kullum</p></li>
+<li><p><strong>Koyo bisa ɓangare:</strong> Gano ɓangare masu mahimmanci na bayanai (ɓangarori) inda ayyukan sanya lakabi suke rashin jituwa da jagorancin lakabi na dan adam a can</p></li>
+<li><p><strong>Haɗawa mara tabbas:</strong> Samfurin lissafi mafi kyau don haɗa ayyukan sanya lakabi masu daidaito daban-daban da alaƙa</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ci-gaba-mai-ci-gaba-tare-da-kulawa-ta-dan-adam">
+<h2>Ci Gaba Mai Ci gaba tare da Kulawa ta Dan Adam<a class="headerlink" href="#ci-gaba-mai-ci-gaba-tare-da-kulawa-ta-dan-adam" title="Permalink to this heading">#</a></h2>
+<p>Mafi yawan tsarin ML ana horar da su a layi guda kuma ana aikawa a matsayin samfurin tsaye. Duniya ta gaske tana canzawa; samfurin da suka kasance daidai a lokacin aikawa suna raguwa yayin da rarrabawar bayanai ke canzawa.</p>
+<p><strong>Ci gaba mai ci gaba</strong> — damar koyon daga bayanai sabon yayin adana ilimin tsoho — yanki ne mai aiki na bincike. Kulawa ta dan adam yana da muhimmanci: ci gaba mai ci gaba ta atomatik ba tare da duba dan adam ba na iya da sauri ɓoye canjin rarrabawa waɗanda kurakurai ne maimakon canjin gaske a duniya.</p>
+<p><strong>HITL ci gaba mai ci gaba</strong> ya haɗa da:</p>
+<ul class="simple">
+<li><p>Sa ido don canjin rarrabawa (ta atomatik) da jagorancin misalai da suka canza zuwa duba dan adam</p></li>
+<li><p>Sake horarwa zaɓi: misalan da dan adam ya amince da su daga rarrabawar sabon suna ƙarawa zuwa bayanin horarwa</p></li>
+<li><p>Duba dan adam na canjin ɗabi’ar samfuri bayan kowane sabuntawa</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="hitl-mai-yawan-yanayi">
+<h2>HITL Mai Yawan Yanayi<a class="headerlink" href="#hitl-mai-yawan-yanayi" title="Permalink to this heading">#</a></h2>
+<p>Yayin da tsarin AI suke zama mai yawan yanayi — suna sarrafa da ƙirƙira rubutu, hotuna, sauti, da bidiyo a lokaci ɗaya — lakabi yana zama mafi rikitarwa. Wani yanki ɗaya na abun ciki na iya buƙatar lakabi cikin yanayi da yawa, tare da dogaro tsakanin su.</p>
+<p><strong>Nau’in aiki masu tasowa:</strong></p>
+<ul class="simple">
+<li><p>Lakabi na bidiyo + rubutu (abin da ke faruwa, wanda ke magana, abin da rubutu ke bayyana ta gani?)</p></li>
+<li><p>Lakabi na hoto likitanci + rahoto na asibiti</p></li>
+<li><p>Lakabi na hanya na robot (haɗa bayanin na’ura zuwa jeri na ayyuka)</p></li>
+</ul>
+<p>Samfurin ginshiƙai mai yawan yanayi (GPT-4V, Gemini, Claude) suna canza shimfidar lakabi a nan ma — samfurin yanzu suna iya fassara hotuna da ƙirƙira lakabi ɗan takara, waɗanda dan adam ya duba.</p>
+</section>
+<hr class="docutils" />
+<section id="kulawa-mai-sikeli">
+<h2>Kulawa Mai Sikeli<a class="headerlink" href="#kulawa-mai-sikeli" title="Permalink to this heading">#</a></h2>
+<p>Matsala buɗaɗɗe ta asali a HITL ML shine <strong>kulawa mai sikeli</strong> <a href="#id5"><span class="problematic" id="id6">irving2018ai,bowman2022measuring</span></a>: yayin da tsarin AI suka zama mafi ƙarfin ɗan adam a yankuna musamman, yadda za a kiyaye kulawa da ma’ana ta dan adam?</p>
+<p>Don ayyuka kamar hasashen tsarin furotin, binciken doka, ko tabbatarwar shaidar lissafi, ko da masu sanya lakabi ƙwararru na iya zama mara aminci a yanke hukunci wane sakamakon AI ya fi daidai. Hanyoyin HITL na yanzu suna rushe lokacin da hukuncin dan adam ya kasance mara aminci fiye da samfuri da ake kimantawa.</p>
+<p><strong>Hanyoyin da aka ba da shawara <a href="#id7"><span class="problematic" id="id8">bowman2022measuring</span></a>:</strong></p>
+<p><strong>Muhawara:</strong> Tsarin AI biyu suna jayayya don ƙarshe daban; alƙalin dan adam yana kimantawa hujjoji maimakon ƙarshe kai tsaye. Ƙarshen daidai ya kamata ya kasance mai iya kare.</p>
+<p><strong>Amplification:</strong> Alƙalan dan adam suna shawarta da masu taimako na AI (samfurin kansa) don taimakawa kimantawa sakamakon masu rikitarwa. Wannan yana amfana da iyawar AI don faɗaɗa kulawa ta dan adam maimakon maye gurbinsa.</p>
+<p><strong>Kulawa ta Tsari:</strong> Maimakon kimantawa sakamakon ƙarshe, dan adam yana kimantawa <em>tsarin tunani</em> — yin alamar matakai mara daidai a cikin sarkar tunanin, ba tare da la’akari da ko amsar ƙarshe ta kasance daidai ba.</p>
+</section>
+<hr class="docutils" />
+<section id="canjin-rabe-rabe-na-aikin">
+<h2>Canjin Rabe-Rabe na Aikin<a class="headerlink" href="#canjin-rabe-rabe-na-aikin" title="Permalink to this heading">#</a></h2>
+<p>Hanyar dogon lokaci ta HITL ML na zuwa ga haɗin gwiwa mafi sauyi tsakanin dan adam da AI, inda babu ɗaya kawai “mai yin lakabi” kuma ɗayan “mai koyo,” amma duka suna ba da gudummawa ga tsarin fahimi na gama gari.</p>
+<p><strong>Alkiblu na kallo:</strong></p>
+<ul class="simple">
+<li><p><strong>Lakabi mai tallafi na AI:</strong> AI yana ba da shawara; dan adam yana yanke shawara. Inganci yana inganta yayin da AI ke ba da shawarwari mafi kyau.</p></li>
+<li><p><strong>Bincike mai jagoran dan adam:</strong> Dan adam yana saita manufa da ƙuntatawa; AI yana bincike sararin mafita.</p></li>
+<li><p><strong>Kimantawa ta haɗin gwiwa:</strong> Dan adam da AI suna haɗin gwiwa kimantawa sakamakon masu rikitarwa ta tattaunawa.</p></li>
+<li><p><strong>Koyon fifiko a sikeli:</strong> Alamu da ɓoye (yadda masu amfani ke hulda da sakamakon AI) suna ciyar da koyon fifiko na ci gaba ba tare da buƙatar zaman lakabi a fili ba.</p></li>
+</ul>
+<p>Tambaya ta nawa za a amince da hukunci na AI da hukunci na dan adam — kuma a waɗanne yankuna, a waɗanne matakai na ƙarfi, tare da waɗanne kariya — a ƙarshe tambaya ce ta zamantakewa, ba ta fasaha kawai ba. HITL ML yana ba da ababen more rayuwa na fasaha don amsa shi da hankali, maimakon ta tsoho.</p>
+</section>
+<hr class="docutils" />
+<section id="matsalolin-bincike-buaen">
+<h2>Matsalolin Bincike Buɗaɗɗen<a class="headerlink" href="#matsalolin-bincike-buaen" title="Permalink to this heading">#</a></h2>
+<p>Mun rufe tare da jerin matsalolin buɗaɗɗen masu muhimmanci waɗanda filin yana aiki akan su sosai:</p>
+<ol class="arabic simple">
+<li><p><strong>Ƙarshen mai kyau a cikin koyon aiki:</strong> Yaushe ƙimar iyaka ta lakabi gaba yana ƙasa da kuɗin? Ƙa’idojin tsayawa masu ƙa’ida har yanzu suna da sauƙin gano.</p></li>
+<li><p><strong>Rarraba kasafin kuɗin lakabi cikin ayyuka:</strong> A yanayi masu ayyuka da yawa, yadda za a raba kasafin kuɗin lakabi tsaye cikin ayyuka?</p></li>
+<li><p><strong>Canjin rarrabawa a cikin koyon aiki:</strong> Koyon aiki yana ƙirƙira saitin da aka yi lakabi mara daidaito. Yadda za a daidaita samfurin da aka horar ta wannan hanya yadda ya kamata?</p></li>
+<li><p><strong>Faɗaɗawar samfurin lada:</strong> Samfurin lada na RLHF na iya gazawa don faɗaɗawa zuwa nau’in tambaya-amsa sabon. Yadda za a gina samfurin fifiko mafi ƙarfi?</p></li>
+<li><p><strong>Kulawa mai sikeli:</strong> Yadda za a kiyaye kulawa ta dan adam yayin da tsarin AI suka wuce aiki na dan adam a yankuna musamman?</p></li>
+<li><p><strong>Ƙiyanar mai sanya lakabi:</strong> Samfurin lissafi mafi kyau don ɗabi’ar mai sanya lakabi waɗanda ba kawai suna kama ƙarfi amma kuma nuna son zuciya ta tsari, ƙwarewar batu, da gajiya.</p></li>
+<li><p><strong>Kimantawar dacewa:</strong> Muna rasa gwajin ƙasa don ko samfuri yana dacewa da ƙimar dan adam. Haɓaka irin waɗannan gwajin — makamancin misalin makiya don ƙarfin — matsala ce buɗaɗɗe.</p></li>
+<li><p><strong>Aikin bayanai mai gaskiya:</strong> Tsarin tattalin arzikin da ke tabbatarwa masu aiki na lakabi suna da biyan kuɗi mai gaskiya da kariya, yayin kiyaye ingancin tattalin arzikin lakabi mai sikeli.</p></li>
+</ol>
+<hr class="docutils" />
+<blockquote class="epigraph">
+<div><p>Manufar ba ta maye gurbin hukunci na dan adam da hukunci na injin ba,
+amma gina tsarin inda haɗin gwiwa na biyun ya fi kowane kawai.</p>
+</div></blockquote>
+<p>Kayan aiki da dabarun da ke cikin wannan littafi — lakabi, koyon aiki, RLHF, koyon fifiko, da sauran su — hanyoyin zuwa wannan ƙarshe ne. Yayin da filin ke haɓaka, dabarun musamman za su canza. Ƙudurin da ke ƙasa — gina tsarin waɗanda duka suke iya kuma suna dacewa gaske da nufin dan adam — zai kasance.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Kulawa mai sikeli da muhawara: <a href="#id9"><span class="problematic" id="id10">bowman2022measuring</span></a>. Kulawa ƙasa ta Snorkel: <a href="#id11"><span class="problematic" id="id12">ratner2017snorkel</span></a>. Don makomar haɗin gwiwa ta dan adam da AI gaba ɗaya, duba <a href="#id13"><span class="problematic" id="id14">amershi2019software</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ha/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#samfurin-ginshikai-da-canjin-matsayin-lakabi">Samfurin Ginshiƙai da Canjin Matsayin Lakabi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rage-nauyin-lakabi">Rage Nauyin Lakabi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nau-i-sabon-na-kayyadewa">Nau’i Sabon na Ƙayyadewa</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-a-matsayin-masu-sanya-lakabi">LLMs a matsayin Masu Sanya Lakabi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inda-lakabi-na-llm-ke-aiki-da-kyau">Inda Lakabi na LLM ke Aiki Da Kyau</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inda-lakabi-na-llm-ke-gazawa">Inda Lakabi na LLM ke Gazawa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif-da-ai-na-tsarin-mulki">RLAIF da AI na Tsarin Mulki</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kulawa-kasa-a-sikeli">Kulawa ƙasa a Sikeli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-gaba-mai-ci-gaba-tare-da-kulawa-ta-dan-adam">Ci Gaba Mai Ci gaba tare da Kulawa ta Dan Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-mai-yawan-yanayi">HITL Mai Yawan Yanayi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kulawa-mai-sikeli">Kulawa Mai Sikeli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#canjin-rabe-rabe-na-aikin">Canjin Rabe-Rabe na Aikin</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matsalolin-bincike-buaen">Matsalolin Bincike Buɗaɗɗen</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Μελλοντικές Κατευθύνσεις &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/el/chapters/16_future';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/el/chapters/16_future.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Μελλοντικές Κατευθύνσεις</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Θεμελιώδη Μοντέλα και ο Μεταβαλλόμενος Ρόλος του Σχολιασμού</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Μείωση του Βάρους Σχολιασμού</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Νέες Μορφές Προδιαγραφής</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms">LLMs ως Σχολιαστές</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">Πού Λειτουργεί Καλά ο Σχολιασμός LLM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Πού Αποτυγχάνει ο Σχολιασμός LLM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif">RLAIF και Συνταγματική ΤΝ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Αδύναμη Επίβλεψη σε Κλίμακα</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Συνεχής Μάθηση με Ανθρώπινη Εποπτεία</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">Πολυτροπικό HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Κλιμακωτή Εποπτεία</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Η Εξελισσόμενη Κατανομή Εργασίας</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Ανοιχτά Ερευνητικά Προβλήματα</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Μελλοντικές Κατευθύνσεις<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>Ο τομέας της ανθρωποκεντρικής μηχανικής μάθησης αλλάζει ταχέως. Τα θεμελιώδη μοντέλα, τα LLMs-ως-σχολιαστές και νέα παραδείγματα ανθρώπινης-ΤΝ συνεργασίας ανασχηματίζουν τα οικονομικά και την πρακτική του HITL με τρόπους που δεν ήταν φανταστοί ακόμα και πέντε χρόνια πριν. Αυτό το τελευταίο κεφάλαιο χαρτογραφεί το τοπίο των αναδυόμενων κατευθύνσεων και ανοιχτών προβλημάτων.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>Θεμελιώδη Μοντέλα και ο Μεταβαλλόμενος Ρόλος του Σχολιασμού<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Τα θεμελιώδη μοντέλα — μεγάλα μοντέλα προ-εκπαιδευμένα σε ευρεία δεδομένα που μπορούν να προσαρμοστούν σε εργασίες κατάντη — αλλάζουν θεμελιωδώς τα οικονομικά του HITL.</p>
+<section id="id3">
+<h3>Μείωση του Βάρους Σχολιασμού<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Μια εργασία που προηγουμένως απαιτούσε χιλιάδες επισημασμένα παραδείγματα για εκπαίδευση από την αρχή μπορεί να απαιτεί μόνο δεκάδες κατά την προσαρμοστική εκπαίδευση ενός θεμελιώδους μοντέλου. Η few-shot παρακίνηση μπορεί να εξαλείψει εντελώς την ανάγκη για fine-tuning για ορισμένες εργασίες.</p>
+<p><strong>Συνέπεια:</strong> Η ROI του σχολιασμού αλλάζει. Η προσπάθεια σχολιασμού κατευθύνεται τώρα καλύτερα σε:</p>
+<ul class="simple">
+<li><p>Σύνολα αξιολόγησης υψηλής ποιότητας (για μέτρηση αν το προσαρμοσμένο μοντέλο πράγματι λειτουργεί)</p></li>
+<li><p>Δύσκολες περιπτώσεις και οριακές περιπτώσεις που το θεμελιώδες μοντέλο χειρίζεται λανθασμένα</p></li>
+<li><p>Παραδείγματα ειδικά για εργασίες που διδάσκουν στο μοντέλο κάτι που δεν μπορεί να συνάγει από την προ-εκπαίδευση</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Νέες Μορφές Προδιαγραφής<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>Όταν το βασικό μοντέλο ήδη κατανοεί γλώσσα, κώδικα και κοινή λογική, οι χρήστες μπορούν να επικοινωνούν μαζί του στη φυσική γλώσσα αντί μέσω επισημασμένων παραδειγμάτων. Ένας χρήστης που θέλει έναν ταξινομητή κειμένου δεν χρειάζεται πλέον να επισημάνει 500 παραδείγματα — μπορεί να γράψει μια περιγραφή της εργασίας ταξινόμησης και να αξιολογήσει απόδοση zero-shot.</p>
+<p>Αυτό μετατοπίζει την πρόκληση HITL από <em>συλλογή παραδειγμάτων</em> σε <em>προδιαγραφή εργασίας</em>: βοηθώντας τους χρήστες να αρθρώσουν ακριβώς τι θέλουν σε μια μορφή στην οποία το μοντέλο μπορεί να ενεργήσει. Αυτό είναι δυσκολότερο από ό,τι φαίνεται — οι περιγραφές εργασιών σε φυσική γλώσσα είναι συχνά αμφίσημες με τρόπους που τα σχολιασμένα παραδείγματα δεν είναι.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="llms">
+<h2>LLMs ως Σχολιαστές<a class="headerlink" href="#llms" title="Permalink to this heading">#</a></h2>
+<p>Μια από τις πιο σημαντικές εξελίξεις 2023–2025 είναι η χρήση <strong>LLMs ως μαντεία σχολιασμού</strong>. Αντί να ρωτάμε έναν άνθρωπο “Είναι αυτή η κριτική θετική ή αρνητική;”, ρωτάμε το GPT-4 ή τον Claude. Για καλά ορισμένες εργασίες ταξινόμησης, οι σχολιασμοί LLM συχνά ταιριάζουν ή πλησιάζουν στενά την ακρίβεια εργαζομένων crowdsourcing <a href="#id5"><span class="problematic" id="id6">gilardi2023chatgpt</span></a>, και το κόστος ανά σχολιασμό των κλήσεων API είναι συνήθως τάξεις μεγέθους χαμηλότερο από τα ανθρώπινα ημερομίσθια.</p>
+<section id="llm">
+<h3>Πού Λειτουργεί Καλά ο Σχολιασμός LLM<a class="headerlink" href="#llm" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Απλές, καλά ορισμένες εργασίες ταξινόμησης (συναίσθημα, θέμα, πρόθεση)</p></li>
+<li><p>Εργασίες όπου οι ανθρώπινες ετικέτες κωδικοποιούν πολιτισμική συναίνεση που έχει απορροφήσει το LLM</p></li>
+<li><p>Εργασίες όπου ο σχολιασμός είναι συνεπής σε πλαίσια (όχι ιδιαίτερα υποκειμενικές)</p></li>
+<li><p>Δημιουργία πρώτης προσέγγισης σχολιασμών για ανθρώπινη επισκόπηση</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>Πού Αποτυγχάνει ο Σχολιασμός LLM<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Εργασίες εξαιρετικά εξειδικευμένου τομέα που απαιτούν σπάνια εμπειρογνωμοσύνη (ιατρικές, νομικές, επιστημονικές)</p></li>
+<li><p>Εργασίες που απαιτούν τοπική πολιτισμική γνώση ή γλωσσική παραλλαγή</p></li>
+<li><p>Εργασίες ασφάλειας και βλάβης, όπου το LLM μπορεί να είναι κακώς βαθμονομημένο στην ίδια κατεύθυνση με τα δεδομένα στα οποία εκπαιδεύτηκε</p></li>
+<li><p>Νέοι τύποι εργασιών που δεν αντιπροσωπεύονται καλά στην προ-εκπαίδευση</p></li>
+</ul>
+</section>
+<section id="rlaif">
+<h3>RLAIF και Συνταγματική ΤΝ<a class="headerlink" href="#rlaif" title="Permalink to this heading">#</a></h3>
+<p>Όπως συζητήθηκε στο Κεφάλαιο 6, η ανατροφοδότηση που παράγεται από ΤΝ μπορεί να χρησιμοποιηθεί για εκπαίδευση μοντέλων ανταμοιβής και καθοδήγηση fine-tuning RL. Αυτό δημιουργεί έναν βρόχο ανατροφοδότησης: τα LLMs παράγουν δεδομένα, τα μοντέλα εκπαιδεύονται σε αυτά, και καλύτερα μοντέλα παράγουν καλύτερα δεδομένα. Το ερώτημα πώς να εκκινήσουμε αυτόν τον βρόχο χωρίς κωδικοποίηση συστηματικών σφαλμάτων από το αρχικό μοντέλο είναι ένα κεντρικό ανοιχτό πρόβλημα στην έρευνα κλιμακωτής εποπτείας.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h2>Αδύναμη Επίβλεψη σε Κλίμακα<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<p>Η <strong>προγραμματική επισήμανση</strong> μέσω συναρτήσεων επισήμανσης (Κεφάλαιο 9) επιτρέπει στους εμπειρογνώμονες θέματος να εκφράζουν τη γνώση τους ως κώδικα αντί ως επισημασμένα παραδείγματα. Συστήματα όπως το Snorkel <a href="#id9"><span class="problematic" id="id10">ratner2017snorkel</span></a> και οι διάδοχοί του έχουν ωριμάσει σημαντικά και χρησιμοποιούνται τώρα σε παραγωγή σε μεγάλες τεχνολογικές εταιρείες.</p>
+<p><strong>Πρωτοπόρες κατευθύνσεις:</strong></p>
+<ul class="simple">
+<li><p><strong>Συναρτήσεις επισήμανσης ενισχυμένες με LLM:</strong> Χρησιμοποιήστε LLMs για δημιουργία συναρτήσεων επισήμανσης από περιγραφές φυσικής γλώσσας</p></li>
+<li><p><strong>Μάθηση βάσει τμημάτων:</strong> Εντοπίστε κρίσιμα υποσύνολα δεδομένων (τμήματα) όπου οι συναρτήσεις επισήμανσης διαφωνούν και κατευθύνετε εκεί τον ανθρώπινο σχολιασμό</p></li>
+<li><p><strong>Συνάθροιση ευαίσθητη στην αβεβαιότητα:</strong> Καλύτερα στατιστικά μοντέλα για τον συνδυασμό συναρτήσεων επισήμανσης με διαφορετικές ακρίβειες και συσχετίσεις</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id11">
+<h2>Συνεχής Μάθηση με Ανθρώπινη Εποπτεία<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<p>Τα περισσότερα συστήματα ΜΜ εκπαιδεύονται εκτός σύνδεσης και αναπτύσσονται ως στατικά μοντέλα. Ο πραγματικός κόσμος αλλάζει· τα μοντέλα που ήταν ακριβή κατά το χρόνο ανάπτυξης υποβαθμίζονται καθώς η κατανομή δεδομένων μετατοπίζεται.</p>
+<p>Η <strong>συνεχής μάθηση</strong> — η ικανότητα μάθησης από νέα δεδομένα διατηρώντας παλιά γνώση — είναι ένας ενεργός τομέας έρευνας. Η ανθρώπινη εποπτεία είναι κρίσιμη: η αυτοματοποιημένη συνεχής μάθηση χωρίς ανθρώπινη επισκόπηση μπορεί ταχέως να κωδικοποιήσει μετατοπίσεις κατανομής που είναι σφάλματα αντί γνήσιες αλλαγές στον κόσμο.</p>
+<p><strong>Η συνεχής μάθηση HITL</strong> περιλαμβάνει:</p>
+<ul class="simple">
+<li><p>Παρακολούθηση για μετατόπιση κατανομής (αυτοματοποιημένη) και δρομολόγηση μετατοπισμένων παραδειγμάτων σε ανθρώπινη επισκόπηση</p></li>
+<li><p>Επιλεκτική επανεκπαίδευση: παραδείγματα εγκεκριμένα από άνθρωπο από τη νέα κατανομή προστίθενται στα εκπαιδευτικά δεδομένα</p></li>
+<li><p>Ανθρώπινη επισκόπηση αλλαγών συμπεριφοράς μοντέλου μετά από κάθε ενημέρωση</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="hitl">
+<h2>Πολυτροπικό HITL<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<p>Καθώς τα συστήματα ΤΝ γίνονται πολυτροπικά — επεξεργάζονται και παράγουν κείμενο, εικόνες, ήχο και βίντεο ταυτόχρονα — ο σχολιασμός γίνεται πιο σύνθετος. Ένα μεμονωμένο κομμάτι περιεχομένου μπορεί να απαιτεί σχολιασμό σε διάφορες τροπικότητες, με εξαρτήσεις μεταξύ τους.</p>
+<p><strong>Αναδυόμενοι τύποι εργασιών:</strong></p>
+<ul class="simple">
+<li><p>Σχολιασμός βίντεο + μεταγραφής (τι συμβαίνει, ποιος μιλά, τι περιγράφει οπτικά το κείμενο;)</p></li>
+<li><p>Σχολιασμός ιατρικής εικόνας + κλινικής αναφοράς</p></li>
+<li><p>Σχολιασμός ρομποτικής τροχιάς (σύνδεση δεδομένων αισθητήρα με ακολουθίες ενεργειών)</p></li>
+</ul>
+<p>Τα πολυτροπικά θεμελιώδη μοντέλα (GPT-4V, Gemini, Claude) αλλάζουν επίσης εδώ το τοπίο σχολιασμού — τα μοντέλα μπορούν τώρα να ερμηνεύουν εικόνες και να παράγουν υποψήφιους σχολιασμούς, τους οποίους οι άνθρωποι επισκοπούν.</p>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h2>Κλιμακωτή Εποπτεία<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>Ένα θεμελιώδες ανοιχτό πρόβλημα στη ΑΜΜ HITL είναι η <strong>κλιμακωτή εποπτεία</strong> <a href="#id13"><span class="problematic" id="id14">irving2018ai,bowman2022measuring</span></a>: καθώς τα συστήματα ΤΝ γίνονται ικανότερα από τους ανθρώπους σε συγκεκριμένους τομείς, πώς διατηρούμε ουσιαστική ανθρώπινη εποπτεία;</p>
+<p>Για εργασίες όπως πρόβλεψη δομής πρωτεΐνης, νομική ανάλυση ή επαλήθευση μαθηματικής απόδειξης, ακόμα και εμπειρογνώμονες σχολιαστές μπορεί να μην μπορούν να κρίνουν ποια από τις δύο εξόδους ΤΝ είναι σωστή. Οι τρέχουσες μέθοδοι HITL καταρρέουν όταν η ανθρώπινη κρίση είναι λιγότερο αξιόπιστη από το μοντέλο που αξιολογείται.</p>
+<p><strong>Προτεινόμενες προσεγγίσεις <a href="#id15"><span class="problematic" id="id16">bowman2022measuring</span></a>:</strong></p>
+<p><strong>Διαφωνία:</strong> Δύο συστήματα ΤΝ υποστηρίζουν διαφορετικά συμπεράσματα· ένας ανθρώπινος κριτής αξιολογεί τα επιχειρήματα αντί τα συμπεράσματα άμεσα. Το σωστό συμπέρασμα πρέπει να είναι πιο υπερασπίσιμο.</p>
+<p><strong>Ενίσχυση:</strong> Οι ανθρώπινοι κριτές συμβουλεύονται βοηθούς ΤΝ (το ίδιο το μοντέλο) για να βοηθήσουν στην αξιολόγηση σύνθετων εξόδων. Αυτό αξιοποιεί τις δυνατότητες ΤΝ για επέκταση της ανθρώπινης εποπτείας αντί αντικατάστασής της.</p>
+<p><strong>Εποπτεία διαδικασίας:</strong> Αντί αξιολόγησης της τελικής εξόδου, οι άνθρωποι αξιολογούν τη <em>διαδικασία συλλογισμού</em> — επισημαίνοντας ελαττωματικά βήματα σε μια αλυσίδα σκέψης, ανεξάρτητα από το αν η τελική απάντηση τυγχάνει να είναι σωστή.</p>
+</section>
+<hr class="docutils" />
+<section id="id17">
+<h2>Η Εξελισσόμενη Κατανομή Εργασίας<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
+<p>Η μακροπρόθεσμη τροχιά της ΑΜΜ HITL είναι προς μια πιο ρευστή συνεργασία μεταξύ ανθρώπων και ΤΝ, όπου κανένας δεν είναι απλώς ο “σχολιαστής” και ο άλλος ο “μαθητής”, αλλά και οι δύο συνεισφέρουν σε μια κοινή γνωστική διαδικασία.</p>
+<p><strong>Τάσεις που πρέπει να παρακολουθήσουμε:</strong></p>
+<ul class="simple">
+<li><p><strong>Σχολιασμός με βοήθεια ΤΝ:</strong> Η ΤΝ προτείνει· οι άνθρωποι αποφασίζουν. Η ποιότητα βελτιώνεται καθώς η ΤΝ προτείνει καλύτερες επιλογές.</p></li>
+<li><p><strong>Ανθρώπινη καθοδηγούμενη εξερεύνηση:</strong> Οι άνθρωποι θέτουν στόχους και περιορισμούς· η ΤΝ εξερευνά τον χώρο λύσεων.</p></li>
+<li><p><strong>Συνεργατική αξιολόγηση:</strong> Άνθρωποι και ΤΝ αξιολογούν από κοινού σύνθετες εξόδους μέσω διαλόγου.</p></li>
+<li><p><strong>Μάθηση προτίμησης σε κλίμακα:</strong> Έμμεσα σήματα (πώς οι χρήστες αλληλεπιδρούν με εξόδους ΤΝ) τροφοδοτούν συνεχή μάθηση προτίμησης χωρίς να απαιτούν ρητές συνεδρίες σχολιασμού.</p></li>
+</ul>
+<p>Το ερώτημα πόσο να εμπιστευόμαστε την κρίση ΤΝ έναντι ανθρώπινης κρίσης — και σε ποιους τομείς, σε ποια επίπεδα δυνατότητας, με ποιες διασφαλίσεις — είναι τελικά κοινωνικό ερώτημα, όχι μόνο τεχνικό. Η ΑΜΜ HITL παρέχει την τεχνική υποδομή για να απαντηθεί προσεκτικά, αντί από προεπιλογή.</p>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h2>Ανοιχτά Ερευνητικά Προβλήματα<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<p>Κλείνουμε με μια λίστα σημαντικών ανοιχτών προβλημάτων που ο τομέας εργάζεται ενεργά:</p>
+<ol class="arabic simple">
+<li><p><strong>Βέλτιστη στάση στην ενεργό μάθηση:</strong> Πότε η οριακή αξία του επόμενου σχολιασμού είναι κάτω από το κόστος; Οι αρχικοί κανόνες στάσης παραμένουν δύσκολοι να βρεθούν.</p></li>
+<li><p><strong>Κατανομή προϋπολογισμού σχολιασμού σε εργασίες:</strong> Σε ρυθμίσεις πολλαπλών εργασιών, πώς πρέπει να χωριστεί ένας σταθερός προϋπολογισμός σχολιασμού σε εργασίες;</p></li>
+<li><p><strong>Μετατόπιση κατανομής στην ενεργό μάθηση:</strong> Η ενεργός μάθηση δημιουργεί μεροληπτικά επισημασμένα σύνολα. Πώς μπορούν να βαθμονομηθούν σωστά τα μοντέλα που εκπαιδεύονται με αυτόν τον τρόπο;</p></li>
+<li><p><strong>Γενίκευση μοντέλου ανταμοιβής:</strong> Τα μοντέλα ανταμοιβής RLHF μπορεί να αποτύχουν να γενικεύσουν σε νέα ζεύγη παρακίνησης-απόκρισης. Πώς μπορούμε να κατασκευάσουμε πιο ισχυρά μοντέλα προτίμησης;</p></li>
+<li><p><strong>Κλιμακωτή εποπτεία:</strong> Πώς διατηρούμε ανθρώπινη εποπτεία καθώς τα συστήματα ΤΝ υπερβαίνουν την ανθρώπινη απόδοση σε συγκεκριμένους τομείς;</p></li>
+<li><p><strong>Μοντελοποίηση σχολιαστών:</strong> Καλύτερα στατιστικά μοντέλα για συμπεριφορά σχολιαστών που αποτυπώνουν όχι μόνο ικανότητα αλλά και συστηματικές προκαταλήψεις, θεματική εμπειρογνωμοσύνη και κόπωση.</p></li>
+<li><p><strong>Αξιολόγηση ευθυγράμμισης:</strong> Μας λείπουν δοκιμές αλήθειας-βάσης για το αν ένα μοντέλο είναι ευθυγραμμισμένο με ανθρώπινες αξίες. Η ανάπτυξη τέτοιων δοκιμών — ανάλογα με τα αντίξοα παραδείγματα για ισχυρότητα — είναι ένα ανοιχτό πρόβλημα.</p></li>
+<li><p><strong>Δίκαιη εργασία δεδομένων:</strong> Οικονομικές και θεσμικές δομές που διασφαλίζουν δίκαιη αμοιβή και προστασία εργαζομένων σχολιασμού, διατηρώντας παράλληλα την οικονομική αποτελεσματικότητα του μαζικού σχολιασμού.</p></li>
+</ol>
+<hr class="docutils" />
+<blockquote class="epigraph">
+<div><p>Ο στόχος δεν είναι να αντικαταστήσουμε την ανθρώπινη κρίση με μηχανική κρίση,
+αλλά να κατασκευάσουμε συστήματα όπου ο συνδυασμός και των δύο είναι καλύτερος από τον καθένα μόνο.</p>
+</div></blockquote>
+<p>Τα εργαλεία και οι τεχνικές σε αυτό το εγχειρίδιο — σχολιασμός, ενεργός μάθηση, RLHF, μάθηση προτίμησης και όλα τα υπόλοιπα — είναι μέσα προς αυτόν τον σκοπό. Καθώς ο τομέας εξελίσσεται, οι συγκεκριμένες τεχνικές θα αλλάξουν. Η υποκείμενη φιλοδοξία — να κατασκευαστούν συστήματα που είναι και ικανά και γνησίως ευθυγραμμισμένα με ανθρώπινη πρόθεση — θα παραμείνει.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Κλιμακωτή εποπτεία και διαφωνία: <a href="#id19"><span class="problematic" id="id20">bowman2022measuring</span></a>. Αδύναμη επίβλεψη Snorkel: <a href="#id21"><span class="problematic" id="id22">ratner2017snorkel</span></a>. Για το ευρύ μέλλον συνεργασίας ανθρώπου-ΤΝ, βλ. <a href="#id23"><span class="problematic" id="id24">amershi2019software</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/el/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Θεμελιώδη Μοντέλα και ο Μεταβαλλόμενος Ρόλος του Σχολιασμού</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Μείωση του Βάρους Σχολιασμού</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Νέες Μορφές Προδιαγραφής</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms">LLMs ως Σχολιαστές</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">Πού Λειτουργεί Καλά ο Σχολιασμός LLM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Πού Αποτυγχάνει ο Σχολιασμός LLM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif">RLAIF και Συνταγματική ΤΝ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Αδύναμη Επίβλεψη σε Κλίμακα</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Συνεχής Μάθηση με Ανθρώπινη Εποπτεία</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">Πολυτροπικό HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Κλιμακωτή Εποπτεία</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Η Εξελισσόμενη Κατανομή Εργασίας</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Ανοιχτά Ερευνητικά Προβλήματα</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

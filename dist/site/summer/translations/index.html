@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Summer Edition — Translations</title>
+  <style>
+    :root {
+      --bg: #f7f3ec; --bg-alt: #fdfaf4; --surface: rgba(255,255,255,0.72);
+      --surface-border: rgba(45,62,80,0.14); --text: #1d2935; --muted: #5b6875;
+      --accent: #c47e1a; --shadow: 0 18px 40px rgba(35,44,56,0.08);
+      --radius: 18px; --page-max: 900px;
+    }
+    *{box-sizing:border-box}
+    html{font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;color:var(--text);
+      background:radial-gradient(circle at top left,rgba(196,126,26,.08),transparent 32%),linear-gradient(180deg,var(--bg-alt),var(--bg));}
+    body{margin:0;min-height:100vh}
+    a{color:inherit;text-decoration:none}
+    .page-shell{max-width:var(--page-max);margin:0 auto;padding:48px 24px 72px}
+    .back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:32px;color:var(--muted);
+      font-size:.88rem;font-family:"JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.02em;transition:color 120ms ease}
+    .back-link:hover{color:var(--accent)}.back-link::before{content:"←"}
+    .eyebrow{margin:0 0 12px;color:var(--accent);font:700 .8rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0 0 8px;font-size:clamp(1.8rem,4vw,3rem);line-height:1}
+    .lede{max-width:600px;margin:12px 0 32px;color:var(--muted);font-size:1rem;line-height:1.6}
+    .lang-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .lang-card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;
+      background:var(--surface);border:1px solid var(--surface-border);
+      border-left:4px solid var(--accent);border-radius:14px;
+      box-shadow:var(--shadow);backdrop-filter:blur(10px);
+      transition:transform 120ms ease,border-color 120ms ease}
+    .lang-card:hover{border-color:rgba(196,126,26,.5);transform:translateY(-2px)}
+    .lang-native{font-size:1.1rem;font-weight:600}
+    .lang-en{font-size:.82rem;color:var(--muted);font-family:"JetBrains Mono","SFMono-Regular",monospace}
+    .lang-pdf{display:inline-flex;align-items:center;gap:4px;margin-top:4px;font-size:.78rem;
+      color:var(--accent);font-family:"JetBrains Mono","SFMono-Regular",monospace;opacity:.8}
+    .lang-pdf:hover{opacity:1;text-decoration:underline}
+    .site-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--surface-border);color:var(--muted);font-size:.82rem}
+    .site-footer a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <a class="back-link" href="../">Summer Edition</a>
+
+    <p class="eyebrow">Summer Edition</p>
+    <h1>Translations</h1>
+    <p class="lede">The Summer workbook in 14 languages. Each translation is a full web edition with interactive word puzzles.</p>
+
+    <div class="lang-grid">
+      <a class="lang-card" href="am/intro.html">
+        <span class="lang-native">አማርኛ</span>
+        <span class="lang-en">Amharic</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_am.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="ar/intro.html">
+        <span class="lang-native">العربية</span>
+        <span class="lang-en">Arabic</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_ar.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="zh/intro.html">
+        <span class="lang-native">中文</span>
+        <span class="lang-en">Chinese</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_zh.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="fa/intro.html">
+        <span class="lang-native">فارسی</span>
+        <span class="lang-en">Farsi / Persian</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_fa.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="fr/intro.html">
+        <span class="lang-native">Français</span>
+        <span class="lang-en">French</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_fr.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="de/intro.html">
+        <span class="lang-native">Deutsch</span>
+        <span class="lang-en">German</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_de.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="el/intro.html">
+        <span class="lang-native">Ελληνικά</span>
+        <span class="lang-en">Greek</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_el.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="ha/intro.html">
+        <span class="lang-native">Hausa</span>
+        <span class="lang-en">Hausa</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_ha.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="hi/intro.html">
+        <span class="lang-native">हिन्दी</span>
+        <span class="lang-en">Hindi</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_hi.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="ru/intro.html">
+        <span class="lang-native">Русский</span>
+        <span class="lang-en">Russian</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_ru.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="es/intro.html">
+        <span class="lang-native">Español</span>
+        <span class="lang-en">Spanish</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_es.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="sw/intro.html">
+        <span class="lang-native">Kiswahili</span>
+        <span class="lang-en">Swahili</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_sw.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="tr/intro.html">
+        <span class="lang-native">Türkçe</span>
+        <span class="lang-en">Turkish</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_tr.pdf'">↓ PDF</span>
+      </a>
+      <a class="lang-card" href="en/intro.html">
+        <span class="lang-native">English</span>
+        <span class="lang-en">Source language</span>
+        <span class="lang-pdf" onclick="event.preventDefault();window.location='/downloads/summer/translations/hitl_summer_en.pdf'">↓ PDF</span>
+      </a>
+    </div>
+
+    <footer class="site-footer">
+      &copy; 2026 Lazaros Toumanidis &mdash;
+      <a href="https://laztoum.com">laztoum.com</a>
+    </footer>
+  </main>
+</body>
+</html>

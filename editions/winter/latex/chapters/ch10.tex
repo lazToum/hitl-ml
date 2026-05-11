@@ -1,0 +1,288 @@
+% ============================================================================
+% CHAPTER 10: Teaching Computers to Understand Language
+% How transformers learned to read — and why they still need humans
+% to tell them when they're wrong
+% ============================================================================
+% Source: /markdown/ch10/Ch10_final.md
+% ============================================================================
+
+\begin{chapterquote}{on language and machine}
+Language is the most human thing we do. That computers can appear to do it is either our greatest technical achievement---or our most elaborate illusion.
+\end{chapterquote}
+
+% ============================================================================
+\section{The Lawyer Who Trusted the Machine}
+\label{sec:ch10-lawyer}
+% ============================================================================
+
+On June~22, 2023, a federal judge in New York held an unusual sanctions hearing. Two attorneys --- Steven Schwartz and Peter LoDuca of the firm Levidow, Levidow \& Oberman --- sat before Judge P.~Kevin Castel in the Southern District of New York. They had filed a legal brief in a personal injury case against Avianca airlines. The brief cited over half a dozen case precedents. The judge had noticed something strange: he couldn't find them.
+
+He couldn't find them because they didn't exist.
+
+ChatGPT, the AI assistant attorney Schwartz had used to research the case, had fabricated six court decisions --- complete with plausible-sounding case names, docket numbers, courts of jurisdiction, and summarized holdings. \emph{Martinez v.\ Delta Air Lines. Varghese v.\ China Southern Airlines. Shaboon v.\ Egypt Air.} None were real. When opposing counsel filed a brief pointing this out, Schwartz asked ChatGPT to verify the cases. The AI doubled down, insisting they were ``real and can be found in reputable legal databases.'' Schwartz attached printed ChatGPT transcripts to a court filing, apparently as evidence that he had done his due diligence.
+
+Judge Castel imposed sanctions on both attorneys. In his ruling, he wrote something that should be printed on the login screen of every AI assistant: ``The Court is presented with an unprecedented circumstance --- a submission replete with citations to non-existent cases.''
+
+\begin{cautionbox}[The Hallucination Problem in Practice]
+This story reveals something profound about how language models work --- and how they fail. These are systems that can discuss Aristotle, write sonnets, and explain quantum mechanics, yet they will confidently cite cases that never happened, with the same untroubled certainty they'd use to tell you the capital of France. To understand why, we need to understand what language models actually are --- and what ``understanding'' means when you're made of math.
+\end{cautionbox}
+
+% ============================================================================
+\section{Why Language Is Hard}
+\label{sec:why-language-hard}
+% ============================================================================
+
+Before computers, before neural networks, before anyone dreamed of machines that could write --- long before all of that --- there was the problem of language itself.
+
+Language is, in a word, slippery.
+
+Consider the sentence: ``I saw the man with the telescope.'' Did you use the telescope to see him? Or was he carrying the telescope? Both readings are grammatically valid. English doesn't tell you.
+
+Now try: ``The chicken is ready to eat.'' Is the chicken about to eat something? Or has it been cooked and is awaiting consumption? Again --- both are correct. Context resolves the ambiguity, but context is everything: it's the restaurant menu, the farmyard, the smell coming from the kitchen.
+
+Or consider irony: ``Oh, great. Another Monday.'' A computer reading that sentence, unaware that Monday often brings dread, might classify it as a positive statement. Sentiment analysis tools still get tripped up by sarcasm constantly, because understanding irony requires a model of what the speaker wanted you to \emph{think they meant} as opposed to what they \emph{literally said} --- a layered theory of mind that took humans millions of years to evolve.
+
+Language also carries cultural baggage. ``That's sick'' can be a compliment among teenagers and an insult at the dinner table. ``Wicked'' means evil in standard English and excellent in Boston. References to ``the shot heard round the world'' mean something entirely different to a baseball fan than to a history teacher.
+
+And then there's implication. ``Do you know what time it is?'' is not a question about your epistemological relationship to clock-reading. It's a request for the time. Humans automatically perform this translation. Computers, for decades, could not.
+
+These challenges --- ambiguity, context, irony, cultural reference, implication --- are not edge cases. They are the \emph{substance} of language. Every sentence ever uttered is woven through with them. For five decades, researchers tried to solve this with rules. Write down enough grammar rules. Build enough ontologies. It mostly failed. Language was too vast, too fluid, too context-dependent for any rulebook.
+
+Then came a different idea: what if instead of teaching computers the rules of language, you let them \emph{learn} language from the sheer volume of text that humans had already written?
+
+% ============================================================================
+\section{Words as Coordinates in Meaning-Space}
+\label{sec:word-embeddings}
+% ============================================================================
+
+The first breakthrough in modern language AI came in 2013, from a small team at Google. Tom\'{a}\v{s} Mikolov and colleagues published a technique called \term{Word2Vec} \autocite{mikolov2013efficient}. The idea sounds almost too simple: train a neural network to predict which words appear near other words in text, and the process of learning those predictions will encode meaning.
+
+Here's the intuition. Words that appear in similar contexts tend to mean similar things. ``Dog'' and ``cat'' both appear near ``pet,'' ``owner,'' ``veterinarian,'' ``food bowl.'' ``King'' and ``queen'' both appear near ``throne,'' ``crown,'' ``royal,'' ``palace.''
+
+Word2Vec turned these contextual patterns into coordinates --- \term{vectors} in a high-dimensional space, where each dimension captures some aspect of meaning. The result was startling: not only did similar words cluster near each other geometrically, but the \emph{relationships} between words were encoded in the directions between them.
+
+The famous example: the vector for ``king'' minus the vector for ``man,'' plus the vector for ``woman,'' gave something very close to the vector for ``queen.'' The geometry of meaning-space mirrored the geometry of human concepts.
+
+But word embeddings had a fundamental limitation. They gave each word a single fixed location in meaning-space, regardless of context. The word ``bank'' has the same vector whether you're talking about a river bank or a financial institution. Real understanding requires knowing which \emph{sense} of a word is meant in a particular sentence --- for that, you need something that reads the whole sentence to determine meaning.
+
+% ============================================================================
+\section{The Attention Mechanism: Reading While Noticing}
+\label{sec:attention}
+% ============================================================================
+
+In 2017, a team at Google published a paper with a deceptively casual title: ``Attention Is All You Need'' \autocite{vaswani2017attention}. It was, by any measure, one of the most consequential papers in the history of artificial intelligence.
+
+The key idea was a mechanism called \term{attention}, which can be understood through an analogy.
+
+Imagine you're reading a mystery novel. You're on page 300, and you've just reached a scene where the detective notices a red coat. To understand why the red coat is significant, your brain doesn't process just the current sentence. Without conscious effort, your attention drifts back to page 47, where a witness mentioned a figure in red. And to page 112, where the suspect claimed to own no bright clothing. Your mind holds the current word and simultaneously asks: \emph{which other words, anywhere in what I've read, are relevant to understanding this one?}
+
+That is attention.
+
+The \term{transformer} architecture --- the ``T'' in ChatGPT, the engine inside nearly every modern language AI --- does exactly this, but for every word simultaneously.
+
+When a transformer processes the sentence ``The animal didn't cross the street because it was too tired,'' it asks, for the word ``it'': which other words in this sentence should I weight heavily when interpreting this one? ``Animal'' scores highly. ``Street'' scores low. ``Tired'' scores very high, because the attribution of tiredness resolves the pronoun reference. The word ``it'' is processed \emph{in relation} to all other words at once.
+
+This happens not once but many times simultaneously, in parallel ``heads'' of attention, each head learning to track different kinds of relationships --- syntactic ones, semantic ones, coreference chains, discourse structure. When all these heads are combined and processed through layers upon layers of the same mechanism, something remarkable emerges: representations of text that capture context at every level of abstraction.
+
+The transformer architecture unleashed a scaling law that no one fully expected \autocite{kaplan2020scaling}. The more text you fed it, the more parameters you used, the more compute you threw at the problem --- the better the results, in a way that showed no sign of plateauing. Researchers fed transformers first millions of documents, then billions of web pages, then essentially the entire written output of human civilization. The models got better and better at predicting text, which --- it turned out --- was a surprisingly good proxy for getting better at understanding it.
+
+This is how we arrived at \term{large language models}: GPT-4, Claude, Gemini, LLaMA, Mistral. Vast statistical engines trained on human writing at a scale that dwarfs any library ever built.
+
+% ============================================================================
+\section{What a Language Model ``Knows''}
+\label{sec:what-llm-knows}
+% ============================================================================
+
+Here is where we need to be careful --- because the word ``knows'' is doing a lot of work, and it's often doing it dishonestly.
+
+When a language model appears to ``know'' something, what's actually happening is this: during training, the model processed enormous amounts of text in which certain patterns co-occurred. It learned, in a statistical sense, that ``Paris'' and ``capital of France'' appear together constantly. That ``Abraham Lincoln'' and ``1865'' and ``assassinated'' appear together. That ``Avianca'' and ``airline'' appear together, and that ``Martinez v.\ Delta Air Lines'' --- well, that's where things get interesting.
+
+The model didn't learn ``Martinez v.\ Delta Air Lines'' from any case reporter. It learned the \emph{pattern} of what court citations look like. And it learned what kinds of phrases appear near ``airline injury lawsuits.'' When asked to produce precedents for airline injury cases, it did what it always does: it generated text that was statistically plausible given the prompt. It produced strings of text that \emph{looked like} court citations without any mechanism to distinguish between citing something that existed and generating something plausible-sounding.
+
+The model has no memory in the human sense. It has no index pointing from case names to actual decisions. It has something more like a vast, compressed statistical portrait of what human writing looks like --- and it uses that portrait to generate text that continues naturally from whatever you've given it.
+
+This is not the same as knowing. It is, at its best, an extraordinary mimicry of knowing. The distinction matters enormously --- and it's a distinction the models themselves cannot make.
+
+% ============================================================================
+\section{The Hallucination Problem}
+\label{sec:hallucination}
+% ============================================================================
+
+The AI research community has a name for what happened to attorney Schwartz's legal brief: \term{hallucination}.
+
+A language model hallucinates when it produces text that is confident, fluent, plausible in form --- and factually wrong. The term captures something real: the wrongness isn't random noise. It's confabulation --- the generation of plausible-seeming content that fills a gap where actual knowledge should be.
+
+Why does hallucination happen? Several reasons, each illuminating.
+
+\paragraph{Training objective.} The model is trained to predict what comes next in text. Real text sometimes contains errors, propaganda, myths, and mistakes. The model learned from all of it. When it generates text, it generates what's statistically likely given its training --- not what's true.
+
+\paragraph{No ``I don't know'' token.} The model has no mechanism for expressing genuine uncertainty about a specific fact. Every query gets a response. The model has learned to produce fluent text, and silence is not a token in its vocabulary.
+
+\paragraph{Confidence is stylistic, not calibrated.} The model's confidence is encoded in the fluency and assertiveness of its output style, not in any internal calibration. It writes ``The case was decided on April~14, 1992, by the Second Circuit'' with the same stylistic assurance whether the case is real or fabricated.
+
+Research into hallucination rates is sobering. A 2024 study by researchers at Stanford found that leading AI legal research tools hallucinated in over 58\% of legal queries \autocite{magesh2024hallucination}. Across medical domains, studies of AI diagnostic outputs have found clinically significant error rates that vary widely by task and patient population \autocite{kompa2021second}. Even retrieval-augmented systems --- models that can look things up --- hallucinate at measurable rates.
+
+\begin{keyconcept}[The Calibration Core of Hallucination]
+The hallucination problem is, at its core, a calibration problem. The model isn't uncertain where it should be uncertain. Its expressed confidence doesn't match its actual accuracy. This is the same problem this book has been tracking all along --- in GPS systems, in medical AI, in the Air Canada chatbot. The system doesn't know what it doesn't know.
+\end{keyconcept}
+
+% ============================================================================
+\section{Three Shapes of Human-in-the-Loop in Language AI}
+\label{sec:three-hitl-shapes}
+% ============================================================================
+
+Language AI has not one but three very distinct shapes of \hitl deployment, each demanding very different design thinking.
+
+\subsection{The Chatbot: Real-Time Assistance}
+
+The first shape is the one most people encounter: the AI assistant deployed to answer questions, help write emails, or provide customer service in real time.
+
+Here, the \hitl challenge is primarily one of \textbf{uncertainty communication and escalation}. When should the system answer directly? When should it hedge? When should it say ``I recommend you check this with a human expert''? When should it refuse to answer entirely?
+
+The Air Canada chatbot failed this test catastrophically \autocite{moffatt2024}. It had no mechanism to distinguish confident knowledge from confident confabulation. It had no escalation path to a human agent when uncertainty was high. It behaved, in effect, as though every question were equally within its competence.
+
+Well-designed chatbot systems do the opposite. They are trained to recognize categories of query where the model's knowledge is unreliable --- time-sensitive information, jurisdiction-specific legal matters, medical diagnosis, anything requiring personal context the model doesn't have. For these categories, they hedge explicitly: ``I can give you general information, but for your specific situation, you should consult a licensed professional.''
+
+This hedging is not a limitation --- it is a feature, exactly the kind of \emph{Stakes Calibration} we described in earlier chapters. The stakes for getting medical advice wrong are not the same as the stakes for getting a recipe wrong.
+
+\subsection{The Content Moderator: Harmful Content Detection}
+
+The second shape of \hitl in language AI is less visible to most users but arguably more consequential: content moderation at scale.
+
+Language AI does the first pass. Human reviewers handle the escalations. This sounds elegant, but the practice is bruising. The language of harm is deeply contextual. ``I want to kill my boss'' is, in virtually all instances, idiomatic frustration, not a genuine threat. Satire of a political figure can look exactly like earnest endorsement of the views being lampooned. A slur used reclaimed by the community it targets means something different than the same slur used as an attack.
+
+Automated systems miss these distinctions constantly. They over-remove legitimate content --- often disproportionately affecting minority communities whose speech patterns fall outside the training distribution --- and under-remove harmful content that's been camouflaged through deliberate adversarial manipulation.
+
+The human reviewers who handle escalations are some of the least-discussed people in the AI ecosystem. Research has documented significant psychological harm to content moderators exposed to graphic violence, child abuse material, and extremist propaganda \autocite{steiger2021psychological}. The feedback they provide trains the next version of the automated system.
+
+This is \hitl in its most difficult form: humans in the loop not as occasional consultants but as the cognitive infrastructure that makes the whole system function.
+
+\subsection{The Alignment Trainer: Preference Feedback}
+
+The third shape of \hitl in language AI --- using human feedback to align language model behavior with human values --- has received the most attention from researchers and is the domain of RLHF, DPO, and Constitutional AI.
+
+% ============================================================================
+\section{Teaching Values: RLHF, DPO, and Constitutional AI}
+\label{sec:alignment}
+% ============================================================================
+
+\subsection{Reinforcement Learning from Human Feedback}
+
+Imagine you've trained a language model on billions of words. It can generate fluent text. But ``fluent'' is not the same as ``good.'' The model might generate text that's plausible but harmful, factually wrong, or simply unhelpful.
+
+\term{Reinforcement Learning from Human Feedback} (\term{RLHF}) --- developed through work at OpenAI, DeepMind, and Anthropic \autocite{ouyang2022training} --- works roughly like this:
+
+Generate a lot of model outputs for a variety of prompts. Show pairs of outputs to human raters and ask: which is better? The raters compare responses on dimensions like helpfulness, honesty, harmlessness, and accuracy. These judgments train a \term{reward model} --- an AI that learns to predict which outputs humans prefer. The original language model is then fine-tuned using reinforcement learning, nudging it toward outputs the reward model would rate highly \autocite{christiano2017deep}.
+
+The genius of RLHF is that it converts the fuzzy notion of ``good output'' into something a model can optimize for. Instead of trying to write rules for every possible scenario, you hire humans to express their preferences, train a model on those preferences, and use that as a training signal.
+
+The limitation of RLHF is that it's expensive, slow, and the humans in the loop introduce their own biases. There's also a well-documented problem of \term{reward hacking} --- the model finding ways to score highly on the reward model without actually being helpful, a bit like a student who learns to write essays that sound good to automated graders without engaging with the substance.
+
+\subsection{Direct Preference Optimization}
+
+\term{Direct Preference Optimization} (\term{DPO}) \autocite{rafailov2023direct} is a more recent approach that sidesteps the need for a separate reward model. DPO directly adjusts the language model's weights based on preference comparisons, using a mathematical insight: the reinforcement learning problem RLHF is trying to solve has a closed-form solution computable directly from preference data. This makes training more stable, more efficient, and less prone to some forms of reward hacking.
+
+For our purposes, the important point is the same: humans are in the loop, providing preference judgments that shape what the model learns to do.
+
+\subsection{Constitutional AI}
+
+A different approach was pioneered by Anthropic under the name \term{Constitutional AI} (\term{CAI}) \autocite{bai2022constitutional}. Rather than relying purely on human raters to judge millions of individual outputs, CAI starts with a set of written principles --- a ``constitution'' --- describing how the AI should behave: be helpful, be honest, avoid harmful outputs, respect human autonomy.
+
+The AI is then asked to critique and revise its own outputs based on these principles, in a process that can be largely automated. This drastically reduces the need for human feedback on individual examples, while still allowing humans to exert significant influence --- through the design of the constitution itself.
+
+Constitutional AI represents an interesting reconfiguration of the \hitl relationship. The human is in the loop not at the level of individual judgments (``this output is better than that one'') but at the level of values (``these are the principles we want the system to embody''). It's a shift from line-editing to authorship --- from correcting individual mistakes to writing the ethical framework the system will use to correct itself.
+
+None of these approaches is perfect. They all depend, ultimately, on humans --- on the quality of the raters' judgments, the wisdom of the constitution's authors, the diversity and representativeness of the human feedback. That dependency is not a weakness to be engineered away. It is the point.
+
+% ============================================================================
+\section{The Five Dimensions, Applied to Language AI}
+\label{sec:five-dimensions-language}
+% ============================================================================
+
+\paragraph{Uncertainty Detection.} Language models are notoriously miscalibrated \autocite{guo2017calibration}. They express uncertainty through hedging language (``I think,'' ``I believe,'' ``you may want to verify''), but this hedging is learned stylistic behavior, not a reflection of actual probability estimates. The challenge: the model generates output token by token with no natural point where genuine uncertainty is computed and communicated.
+
+\paragraph{Intervention Design.} The best implementations use a tiered approach: answer directly when confidence is high and stakes are low; hedge and suggest verification when confidence is uncertain; refuse and escalate when stakes are high and confidence is insufficient. The chatbot that says ``For specific legal advice, please consult a licensed attorney'' is practicing good intervention design.
+
+\paragraph{Timing.} In real-time language AI, timing of human intervention is particularly constrained. A customer service chatbot that routes to a human after ten minutes of unhelpful circular conversation has failed the Timing dimension. Intervention needed to happen at the first signal of inadequate confidence.
+
+\paragraph{Stakes Calibration.} Language AI systems need domain-aware stakes calibration. Getting a recipe wrong has different consequences than getting a drug interaction wrong. The best systems have been trained with category-specific behavior: more hedging in high-stakes domains, clearer escalation for medical, legal, and safety-critical queries.
+
+\paragraph{Feedback Integration.} RLHF and its descendants are, at bottom, systematic feedback integration --- the most elaborate version of this dimension yet designed. Every preference judgment from a human rater is a piece of feedback that shapes future behavior. The challenge is ensuring this feedback loop is representative, unbiased, and fast enough to keep pace with the ways people use the model.
+
+% ============================================================================
+\section{Does It Understand? A Philosophical Aside}
+\label{sec:does-it-understand}
+% ============================================================================
+
+We have been using the word ``understand'' carefully throughout this chapter. Let's address it directly, because it matters more than it might seem.
+
+When a transformer model processes ``The animal didn't cross the street because it was too tired'' and correctly identifies that ``it'' refers to the animal rather than the street --- has it \emph{understood} that sentence?
+
+One view says: yes. It produced the correct output. It tracked the relevant relationships. What more could understanding require?
+
+Another view says: no. Understanding implies something beyond correct output. It implies a model of the world inside --- representations of animals and streets and tiredness that connect to a broader understanding of physical reality. The transformer has learned statistical patterns over text. It has, perhaps, a kind of textual shadow of these concepts. Whether that shadow constitutes genuine comprehension is genuinely unclear \autocite{searle1980minds, bender2021stochastic}.
+
+This is not an idle philosophical question. It has direct practical implications for where human oversight is most needed.
+
+A system that genuinely understands what it's saying will, presumably, notice when what it's saying is false. A system that is producing statistically plausible text has no such internal check. If the distinction matters, it tells us something important: language AI systems need human oversight not as a workaround for a temporary technical limitation, but as a structural feature of what these systems are.
+
+The attorney's problem was not that ChatGPT was a flawed prototype that future versions would fix. It was that ChatGPT is, at its core, a very sophisticated text prediction machine --- and text prediction machines, however sophisticated, do not have a relationship to truth. They have a relationship to plausibility. Closing that gap requires humans in the loop.
+
+% ============================================================================
+\section{What's Next}
+\label{sec:ch10-next}
+% ============================================================================
+
+Language and vision evolved together in biological intelligence --- the words we use to describe what we see, the images we conjure when we read. It's fitting that the next frontier in AI combines both.
+
+In Chapter~11, we'll turn to the other great sensory modality that AI has been learning to navigate: vision. We'll explore how machines learn to see, why adversarial examples reveal such a fundamental strangeness in machine perception, and how the \hitl problem looks different when the stakes involve a radiologist reading a tumor scan, a car traveling at sixty miles an hour, or a content moderator reviewing millions of images.
+
+The challenges are different. The fundamental question is the same: when can the machine act alone, and when does it need us?
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\begin{trythis}
+The next time you use an AI assistant for something that matters --- a health question, a legal question, a factual claim you'll repeat to someone else --- ask it to express its confidence. Then verify the answer through another source. How often does it hedge appropriately? How often is it confidently wrong? What does this tell you about when AI tools need human supervision?
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+    \item Language is intrinsically hard for computers because of ambiguity, context-dependence, irony, cultural reference, and implication
+    \item Word embeddings gave words coordinates in ``meaning-space'' --- similar words cluster together
+    \item Transformer models use attention to process words in context of all other words simultaneously
+    \item Language models ``know'' things statistically, not factually --- they have no internal check on truth
+    \item Hallucination is a calibration failure: models express high confidence when they should express uncertainty
+    \item Three \hitl shapes in language AI: real-time chatbot assistance, content moderation, and alignment training
+    \item RLHF, DPO, and Constitutional AI are systematic approaches to incorporating human values through preference feedback
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Examples}
+
+\begin{description}
+    \item[\emph{Mata v.\ Avianca} (2023)] Attorney sanctioned for submitting AI-fabricated legal citations; demonstrates the hallucination problem's real-world consequences
+    \item[Air Canada chatbot (2024)] No escalation path for high-stakes queries; confidently wrong about policy
+    \item[Content moderation reviewers] The unseen human cognitive infrastructure behind automated moderation
+    \item[RLHF alignment training] Human preference judgments as the signal that makes AI helpful rather than merely fluent
+    \item[Constitutional AI] Human values encoded at the constitutional level, not the individual judgment level
+\end{description}
+
+\subsection*{Key Principles}
+
+\begin{itemize}
+    \item Fluency is not accuracy: a system can sound certain while being completely wrong
+    \item Hallucination is not a bug to be patched but a structural feature of text prediction systems
+    \item The three \hitl shapes demand different intervention designs: hedging, escalation, and preference training
+    \item Human oversight of language AI is not a temporary workaround --- it is a structural necessity
+\end{itemize}
+
+\noindent\textit{In Chapter~11, we turn from language to vision --- and discover that the way machines learn to see reveals something just as strange about the nature of machine intelligence.}

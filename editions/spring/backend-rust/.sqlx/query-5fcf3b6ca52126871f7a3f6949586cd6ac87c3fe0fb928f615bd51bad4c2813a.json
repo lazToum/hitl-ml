@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT hint_unlock_after_minutes, hint_unlock_after_attempts FROM clues WHERE id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "hint_unlock_after_minutes",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "hint_unlock_after_attempts",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "5fcf3b6ca52126871f7a3f6949586cd6ac87c3fe0fb928f615bd51bad4c2813a"
+}

@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "प्रारंभिक सामग्री"
+    chapters:
+      - file: front/declaration
+        title: "मौलिकता की घोषणा"
+      - file: front/abstract
+        title: "सारांश"
+      - file: front/acknowledgments
+        title: "आभार"
+
+  - caption: "भाग I — आधार"
+    chapters:
+      - file: chapters/01_introduction
+        title: "मानव-इन-द-लूप ML क्या है?"
+      - file: chapters/02_taxonomy
+        title: "मानव–मशीन अंतःक्रिया का वर्गीकरण"
+
+  - caption: "भाग II — मूल तकनीकें"
+    chapters:
+      - file: chapters/03_annotation
+        title: "डेटा अनुलेखन एवं लेबलिंग"
+      - file: chapters/04_active_learning
+        title: "सक्रिय अधिगम"
+      - file: chapters/05_interactive_ml
+        title: "इंटरैक्टिव मशीन लर्निंग"
+
+  - caption: "भाग III — मानव प्रतिक्रिया से अधिगम"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "मानव प्रतिक्रिया से प्रबलन अधिगम"
+      - file: chapters/07_demonstrations
+        title: "प्रदर्शन से अधिगम"
+      - file: chapters/08_preferences
+        title: "तुलना एवं क्रम-निर्धारण से अधिगम"
+
+  - caption: "भाग IV — अनुप्रयोग"
+    chapters:
+      - file: chapters/09_nlp
+        title: "प्राकृतिक भाषा संसाधन में HITL"
+      - file: chapters/10_vision
+        title: "कंप्यूटर दृष्टि में HITL"
+      - file: chapters/11_healthcare
+        title: "स्वास्थ्य सेवा एवं विज्ञान में HITL"
+
+  - caption: "भाग V — प्रणालियाँ एवं व्यवहार"
+    chapters:
+      - file: chapters/12_platforms
+        title: "अनुलेखन प्लेटफ़ॉर्म एवं उपकरण"
+      - file: chapters/13_crowdsourcing
+        title: "क्राउडसोर्सिंग एवं गुणवत्ता नियंत्रण"
+      - file: chapters/14_evaluation
+        title: "मूल्यांकन एवं मापदंड"
+
+  - caption: "भाग VI — नैतिकता एवं क्षितिज"
+    chapters:
+      - file: chapters/15_ethics
+        title: "निष्पक्षता, पूर्वाग्रह एवं नैतिकता"
+      - file: chapters/16_future
+        title: "भविष्य की दिशाएँ"
+
+  - caption: "परिशिष्ट सामग्री"
+    chapters:
+      - file: bibliography
+        title: "संदर्भ सूची"
+      - file: chapters/17_limen
+        title: "लाइमेन: प्रत्येक लूप में एक मानव"
+      - file: front/on_leaving
+        title: "विदाई पर"

@@ -1,0 +1,425 @@
+% ============================================================================
+% CHAPTER 4 TEACHER'S MANUAL
+% Complete instructional guide for teaching threshold decisions
+% ============================================================================
+% Source: /markdown/ch4/Ch4T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 4}
+\label{ch:teacher-ch04}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching threshold decisions, error tradeoffs, and the value judgments embedded in HITL design using \emph{From Confusion to Decision}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Explain the distinction between a probability score and a decision, and why a threshold is required to convert one into the other
+    \item Describe Type~I (false positive) and Type~II (false negative) errors and the inherent tradeoff between them
+    \item Define cost asymmetry and explain how it justifies non-standard threshold settings
+    \item Identify when threshold-setting is a value judgment and when it is a technical optimization
+    \item Define the HITL band (two-threshold system) and explain its advantages over single-threshold designs
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply cost asymmetry reasoning to justify threshold settings in real-world domains
+    \item Construct and interpret a confusion matrix for a given threshold setting
+    \item Evaluate a threshold choice for its distributional consequences (who bears the cost of each error type)
+    \item Analyze the HITL band width for a given cost structure and reviewer capacity
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design HITL bands appropriate for a given error cost structure and operational context
+    \item Critique threshold choices as hidden value judgments and propose deliberative alternatives
+    \item Argue for specific threshold settings using cost asymmetry reasoning and domain knowledge
+    \item Evaluate the equity implications of threshold choices in algorithmically-mediated decisions
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--3 (required):} HITL framework, uncertainty types, calibration, generalization gap
+    \item \textbf{Basic probability:} Understanding of probability as a number between 0 and 1
+    \item \textbf{Not required:} ROC curve analysis (main chapter); Appendix~4A introduces ROC/AUC and expected cost minimization
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Standard sequence] After Chapter~3 (where does model uncertainty come from) and before Chapter~5 (how to ask for help)
+    \item[Policy/ethics emphasis] The chapter's ethical argument --- threshold setting embeds value judgments --- is central to AI governance and algorithmic accountability
+    \item[Technical ML courses] Connects standard classifier evaluation (ROC, precision-recall) to HITL design
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Reframe: Probability Is Not Decision}
+
+The chapter's first conceptual move is a clean separation between what the model produces (a number, a probability) and what the system does (a binary action). The threshold is the rule that connects them. This distinction is obvious once stated but invisible to students who have never seen it articulated.
+
+\begin{technote}[Teaching Tip]
+Use the spam filter at threshold 0.50 as the initial example. An email with P(spam) = 0.49 goes to inbox. An email with P(spam) = 0.51 goes to spam. One point of probability separates them. Ask: ``Is that the right line? Who chose it? On what basis?'' The goal is to make the threshold visible as a design choice before introducing the Type~I/II vocabulary.
+\end{technote}
+
+\subsection{The Two Error Types}
+
+\begin{table}[htbp]
+\caption{Type I and Type~II errors: domain examples for instruction}
+\label{tab:error-types-ch04}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Domain} & \textbf{Type I (False Positive)} & \textbf{Type II (False Negative)} \\
+\midrule
+Medical screening & Unnecessary biopsy & Missed cancer \\
+Spam filter & Legitimate email blocked & Phishing in inbox \\
+Child welfare (AFST) & Traumatic false investigation & Missed abuse \\
+Fraud detection & Legitimate transaction blocked & Fraud charge processed \\
+Parole recommendation & Safe person denied parole & Dangerous person released \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[The Dial Metaphor]
+The threshold is a dial that trades Type~I for Type~II. You cannot minimize both simultaneously. The question of where to set the dial requires knowing which error costs more. That knowledge comes from domain expertise and value judgment --- not from the data.
+\end{keyconcept}
+
+\subsection{The HITL Band: Two-Threshold Architecture}
+
+\begin{table}[htbp]
+\caption{Single-threshold vs.\ HITL band: structural comparison}
+\label{tab:hitl-band-ch04}
+\centering
+\begin{tabular}{@{}p{4cm}p{5.5cm}@{}}
+\toprule
+\textbf{Single Threshold ($\tau$)} & \textbf{HITL Band ($\tau_L$, $\tau_H$)} \\
+\midrule
+Every score gets a binary decision & Scores above $\tau_H$: auto-positive \\
+Cases near threshold decided automatically & Scores below $\tau_L$: auto-negative \\
+Threshold is a single point of brittleness & Scores between $\tau_L$ and $\tau_H$: human review \\
+No uncertainty zone recognized & The uncertain middle zone goes to experts \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[Why Two Thresholds Are Better]
+The HITL band explicitly recognizes that the cases near any single threshold are the ones where errors are most likely. By routing the uncertain middle zone to human review, the system achieves: (1) high precision at the extremes (auto-positive and auto-negative zones); (2) human expertise applied where it adds the most value; (3) separate optimization of the two error types. The band width is determined by reviewer capacity, error cost asymmetry, and the human-model accuracy differential in the uncertain zone.
+\end{keyconcept}
+
+\subsection{The Hidden Value Judgment}
+
+The chapter's ethical argument: every threshold setting embeds a value judgment about which error costs more. This judgment is often political, ethical, and distributional. The pretense that it is a ``technical parameter'' conceals this from deliberation and accountability.
+
+Prepare students for resistance: ``Isn't that just good engineering?'' The response is: good engineering requires making the value judgment explicit and deliberate, not hiding it in a line of code. Setting a threshold and calling it ``optimized'' is a value judgment labeled as math.
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening: The Paramedic and the Surgeon (8 minutes)}
+
+Open with the paramedic/surgeon contrast. Ask: ``Why do paramedics start CPR without a definitive diagnosis, but surgeons require extensive workup before operating?'' Draw out the cost asymmetry:
+\begin{itemize}
+    \item Missing a true cardiac arrest: fatal (Type~II cost is very high)
+    \item Unnecessary CPR on someone who recovers: lower cost (Type~I cost is manageable)
+    \item Surgery false positive: patient exposed to serious operative risk (Type~I cost is high)
+    \item Surgery delay: can also be costly, but often reversible (Type~II cost is context-dependent)
+\end{itemize}
+
+The threshold is set differently in each case, deliberately, because the cost structure is different.
+
+\subsubsection{Part 1: Probability Is Not Decision (10 minutes)}
+
+Draw the distinction: the model produces a number; a threshold turns it into an action. Demonstrate with the spam filter:
+
+\begin{trythis}
+\textbf{Demonstration:} Walk through what happens when you lower or raise the threshold from 0.50 systematically. Use a small confusion matrix on the board (10 emails: 1 spam, 9 legitimate). Show what happens at $\tau = 0.3$, $\tau = 0.5$, $\tau = 0.7$.
+\end{trythis}
+
+\subsubsection{Part 2: The Two Mistakes and the Dial (12 minutes)}
+
+Introduce Type~I/II with examples from Table~\ref{tab:error-types-ch04}. Make the cost asymmetry vivid. The key argument: the dial trades one error for the other. You cannot minimize both. The question of where to set the dial requires knowing which error costs more. That knowledge comes from domain expertise and value judgment, not from the data.
+
+\paragraph{Class discussion (3 min).} ``Name a domain where you think false positives are more costly than false negatives. Name one where the reverse is true. Do these cost judgments reflect values? Whose values?''
+
+\subsubsection{Part 3: The HITL Band (10 minutes)}
+
+Introduce the two-threshold system. Demonstrate how adjusting the band width changes: review volume, false negative rate, false positive rate.
+
+\textbf{Banking fraud example:} The band is calibrated to the fraud analyst team's capacity. When capacity drops (holiday staffing), the band narrows (more autonomous decisions, higher error rate). When a new attack pattern appears, the band expands. The threshold is not static.
+
+\subsubsection{Part 4: Hidden Value Judgments (8 minutes)}
+
+The chapter's ethical argument. Work through the credit scoring or AFST example. Who decides the acceptable rate of denying legitimate applicants? Or of traumatic false investigations? The choice has real distributional consequences. The pretense that it is a ``technical parameter'' obscures this.
+
+\begin{cautionbox}[Common Student Objection]
+``But the algorithm just optimizes against the data --- it doesn't make value judgments.'' Response: The algorithm optimizes against a specified metric (accuracy, F1, expected cost). Who specified that metric and those cost values? That act of specification is the value judgment. The algorithm faithfully executes the embedded values.
+\end{cautionbox}
+
+\subsubsection{Wrap-Up (2 minutes)}
+Close and assign the ``Try This'' exercise.
+
+\begin{table}[htbp]
+\caption{50-minute lesson plan for Chapter~4}
+\label{tab:lesson-plan-ch04}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{4cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Opening: paramedic/surgeon + cost asymmetry & Whiteboard \\
+0:08--0:18 & Probability vs.\ decision + threshold demonstration & Confusion matrix on board \\
+0:18--0:30 & Type I/II + dial metaphor + discussion & Table of domain examples \\
+0:30--0:40 & HITL band: two-threshold architecture & Diagram slide \\
+0:40--0:48 & Hidden value judgments + AFST/credit scoring & Case study slide \\
+0:48--0:50 & Wrap-up, assign Try This & Chapter handout \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Confusion Matrix Workshop (10 min).}
+Students compute precision, recall, and F1 at different thresholds for a given dataset and observe the tradeoff curve directly.
+
+\paragraph{Add: ROC Curve Construction (10 min).}
+Walk through ROC curve construction from first principles. AUC as a threshold-independent summary. When AUC is the right metric and when it is not (imbalanced classes, asymmetric costs).
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Smoke Detector:} ``A smoke detector is set to a low threshold --- it alarms on very low smoke concentrations. What are the consequences of this setting? Would you set it differently for a hospital vs.\ a warehouse?''\\
+    \textit{Target: Hospital has high Type~II cost (patients cannot self-evacuate) but also high Type~I cost (evacuations harm fragile patients). Solution involves HITL band: staff verify before triggering full evacuation. Warehouse: simpler cost structure, standard threshold.}
+
+    \item \textbf{Job Application Threshold:} ``A job application screening algorithm is set to a threshold of `top 30\% of applicants.' If the company changes its hiring strategy to be more selective, should the threshold change? Who makes that decision?''\\
+    \textit{Target: Changing to ``top 15\%'' changes who bears the cost of each error type. The threshold setter must be the people who understand business priorities, legal constraints, and distributional consequences --- not the data scientist alone.}
+
+    \item \textbf{Probability vs.\ Decision:} ``What is the difference between `the model thinks this email is 70\% likely to be spam' and `this email is spam'? Why does that difference matter?''\\
+    \textit{Target: Probability expresses uncertainty; a label commits to action and loses the uncertainty information. 70\% is not 95\% --- the difference matters for routing (this case might benefit from HITL). Labels make decisions seem definitive.}
+
+    \item \textbf{Medical Context:} ``A cancer screening AI has AUC = 0.95. The radiologist's supervisor says `set the threshold conservatively.' What does this mean in practice, and what tradeoff is it making?''\\
+    \textit{Target: Conservative = high threshold = fewer positives flagged. Means: higher specificity, lower sensitivity. Tradeoff: fewer unnecessary biopsies but more missed cancers. The supervisor is making a value judgment about which error is more acceptable.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Two Hospitals:} ``A cancer screening AI has AUC = 0.95. Hospital A sets $\tau = 0.3$ (aggressive), Hospital B sets $\tau = 0.6$ (conservative). Describe expected outcomes for each in terms of detection rates and unnecessary biopsies. Which would you recommend? On what basis?''\\
+    \textit{Target: Hospital A: high TPR ($\sim$95\%), high FPR ($\sim$30--40\%). Hospital B: lower TPR ($\sim$75\%), low FPR ($\sim$8\%). Recommendation depends on cancer type --- aggressive cancers favor Hospital A's approach. Nuance: neither hospital should rely on a single threshold; the 0.3--0.6 middle zone should go to radiologist review.}
+
+    \item \textbf{Two-Threshold System:} ``Explain why a HITL band system (two thresholds) is generally preferable to a single-threshold system for high-stakes applications. What determines the optimal width of the band?''\\
+    \textit{Target: Band routes the uncertain middle zone to human review. Separates two error types independently. Optimal width: cost of human review per case, cost asymmetry ($C_{FN}/C_{FP}$), human accuracy advantage in uncertain zone, reviewer capacity.}
+
+    \item \textbf{AFST:} ``Critics argue that the threshold at which the Allegheny Family Screening Tool triggers an investigation should be set by social workers with lived experience, not data scientists. Evaluate this argument.''\\
+    \textit{Target: Largely correct. Threshold setting = value judgment about acceptable rate of traumatic false investigations vs.\ missed abuse. Low-income families bear asymmetric costs of false positives. Data scientists define technical performance; domain experts and community representatives deliberate on threshold given those tradeoffs. Decision should be explicit and accountable, not embedded in a commit.}
+
+    \item \textbf{Dynamic Thresholds:} ``A fraud detection system has a HITL band calibrated to a team of 20 analysts. During holiday staffing, only 12 analysts are available. How should the band change? What are the consequences of each adjustment option?''\\
+    \textit{Target: Narrow the band (more autonomous decisions, higher error rate) OR maintain the band but accept review backlog (delayed decisions, time pressure errors). A third option: raise $\tau_H$ and lower $\tau_L$ symmetrically (reduce middle zone, push more cases to auto-decision). Each option has different error cost profiles.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Optimal Threshold Derivation:} ``Derive the optimal threshold formula $\tau^* = C_{FP} \cdot P(y=0) / (C_{FP} \cdot P(y=0) + C_{FN} \cdot P(y=1))$ from first principles using expected cost minimization. Explain what happens to $\tau^*$ as $C_{FN}/C_{FP} \to \infty$.''
+
+    \item \textbf{Multi-Class Extension:} ``In a multi-class classification system (not binary), the concept of a threshold becomes a threshold surface in probability simplex space. How would you design a HITL band for a 3-class system? What cases would go to human review?''
+
+    \item \textbf{Dynamic Threshold Optimization:} ``A healthcare system wants to adjust HITL band thresholds dynamically based on current reviewer workload and the time of day. Formalize this as an optimization problem. What are the decision variables, constraints, and objective function?''
+
+    \item \textbf{Threshold and Equity:} ``A recidivism prediction tool has higher false positive rates for Black defendants than white defendants at the same threshold. Describe at least three distinct interventions (technical, procedural, and deliberative) that would address this disparity. What tradeoffs does each make?''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Cost Asymmetry Classification (10 minutes)}
+
+\textbf{Task:} Students identify domains where False Positives cost more vs.\ where False Negatives cost more, and reflect on whether these cost judgments reflect values.
+
+\paragraph{Sample responses.}
+\begin{description}
+    \item[FP more costly] Antivirus software blocking legitimate software; parole denial for a safe person; charging innocent person with crime
+    \item[FN more costly] Cancer screening (missed cancer); bridge safety inspection (missed structural failure); wire transfer fraud detection (money lost permanently)
+    \item[Values question] The parole recommendation is a particularly rich example --- the answer depends on values about criminal justice (rehabilitation vs.\ public safety).
+\end{description}
+
+\subsection{Activity 2: Confusion Matrix Threshold Exploration (15 minutes)}
+
+\textbf{Setup:} 1,000 emails; 100 spam (10\% base rate). Model scores available.
+
+\paragraph{At threshold $\tau = 0.5$: TP = 80, FP = 50, FN = 20, TN = 850.}
+
+\begin{table}[htbp]
+\caption{Confusion matrix metrics at $\tau = 0.5$}
+\label{tab:confusion-ch04}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Metric} & \textbf{Formula} & \textbf{Value} \\
+\midrule
+Accuracy & (TP + TN) / N & 93.0\% \\
+Precision & TP / (TP + FP) & 61.5\% \\
+Recall (TPR) & TP / (TP + FN) & 80.0\% \\
+FPR & FP / (FP + TN) & 5.6\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Task:} The company sets a new target of 95\% spam detection rate (Recall = 0.95). What threshold must be set? What happens to precision and FPR? Make the tradeoff explicit.
+
+\subsection{Activity 3: HITL Band Design Workshop (20 minutes)}
+
+\textbf{Setup:} Small groups. Each group receives a scenario with a specified cost structure.
+
+\paragraph{Scenario A: Medical Imaging}
+$C_{FN}$ (missed cancer): very high. $C_{FP}$ (unnecessary biopsy): moderate. Reviewer capacity: 30\% of cases. Design the HITL band.
+
+\paragraph{Scenario B: Content Moderation}
+$C_{FN}$ (harmful content published): high. $C_{FP}$ (legitimate content removed): moderate. Reviewer capacity: 20\% of cases. Design the HITL band.
+
+\paragraph{Scenario C: Credit Decisions}
+$C_{FN}$ (creditworthy person denied): moderate-high. $C_{FP}$ (unqualified person approved): moderate. Reviewer capacity: 10\% of cases. Design the HITL band.
+
+\textbf{Deliverable:} Specify $\tau_L$ and $\tau_H$, justify with cost-asymmetry reasoning, identify who makes the final value judgment.
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``Setting the Threshold at 0.5 Is the Default Correct Answer''}
+
+\paragraph{Student thinking:} ``If you don't know what to do, split down the middle.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item 0.5 is optimal only when classes are balanced and the costs of each error type are equal
+    \item For most real applications, neither condition holds
+    \item 0.5 is a choice with consequences, not a natural starting point
+    \item The optimal threshold formula $\tau^* = C_{FP} / (C_{FP} + C_{FN})$ (for balanced classes) shows that only equal costs produce $\tau^* = 0.5$
+\end{itemize}
+
+\subsection{Misconception 2: ``Higher Accuracy = Better Threshold''}
+
+\paragraph{Student thinking:} ``Optimize for accuracy; everything else follows.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Accuracy averages across both error types; on imbalanced datasets it is dominated by the majority class
+    \item A system that always predicts the majority class achieves majority-class-rate accuracy while catching 0\% of rare events
+    \item Use precision, recall, and F-score appropriate to the cost structure
+\end{itemize}
+
+\subsection{Misconception 3: ``The Threshold Is a Technical Decision''}
+
+\paragraph{Student thinking:} ``Data scientists optimize the threshold using validation data.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The threshold embeds a value judgment about which error costs more
+    \item Optimizing the threshold against a validation metric requires first specifying the metric --- and the metric specification is the value judgment
+    \item Calling it ``technical'' removes the decision from deliberative accountability
+    \item Chapter~4's core contribution is making this hidden value judgment visible
+\end{itemize}
+
+\subsection{Misconception 4: ``Higher Threshold Is Always Safer''}
+
+\paragraph{Student thinking:} ``Being conservative means avoiding risk.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item ``Safer'' depends on which error you are trying to avoid
+    \item For cancer screening, a higher threshold (more conservative) means more missed cancers --- that is \emph{less} safe for patients
+    \item For criminal sentencing, a higher threshold (more conservative re: recidivism risk) means more people denied release --- more restrictive, not more just
+    \item Safety and conservatism are domain-specific and value-laden concepts
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Short Answer (200--350 words)}
+
+\textbf{Prompt:} ``Explain the tradeoff between Type~I and Type~II errors using a real example. How does cost asymmetry determine the optimal threshold setting?''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Error type definition (25\%):} Correct, domain-specific definitions
+    \item \textbf{Tradeoff explanation (30\%):} Dial metaphor applied; cannot minimize both
+    \item \textbf{Cost asymmetry (30\%):} Correct direction; identifies who bears the cost
+    \item \textbf{Domain application (15\%):} Specific, accurate example
+\end{itemize}
+
+\subsection{Option 2: Case Analysis (500--750 words)}
+
+\textbf{Prompt:} ``You are designing the content moderation system for a social media platform serving users in 50 countries with different legal standards for hate speech. Describe: (a) why a single global threshold is problematic; (b) the considerations that would go into setting country-specific thresholds; (c) who should be involved in those threshold decisions.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Global threshold problem (25\%):} Distributional consequences of uniform application; cultural variation in harm
+    \item \textbf{Threshold considerations (35\%):} Legal standards; cultural context; cost asymmetry; who bears each error type
+    \item \textbf{Decision participation (25\%):} Identifies domain experts, community representatives, legal counsel; explains why data scientists alone are insufficient
+    \item \textbf{Writing clarity (15\%):} Clear, structured argument
+\end{itemize}
+
+\subsection{Option 3: Technical Problem Set}
+
+\begin{itemize}
+    \item Given a confusion matrix, compute precision, recall, F1, and AUC
+    \item Given cost parameters ($C_{FN}$, $C_{FP}$, class priors), derive the optimal threshold
+    \item Design a HITL band for a specified scenario with reviewer capacity constraints
+\end{itemize}
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~2:} Calibration --- the threshold is only as good as the calibration of the score it operates on; a miscalibrated model routes the wrong cases
+    \item \textbf{Chapter~3:} Distribution edges --- cases at the edge of the distribution are exactly the cases that fall in or near the HITL band
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~5:} The HITL band defines the cases that trigger asks; the format of those asks determines the quality of human response
+    \item \textbf{Chapter~6:} Interface design for the uncertain zone --- how to present a case to a human reviewer when the score falls in the band
+    \item \textbf{Chapter~7:} What human reviewers produce when they evaluate cases in the band; annotation quality and inter-annotator agreement
+\end{itemize}
+
+\subsection{Cross-Curricular Connections}
+\begin{itemize}
+    \item \textbf{Statistics:} ROC curves; precision-recall curves; AUC; Neyman-Pearson framework
+    \item \textbf{Decision theory:} Expected cost minimization; utility theory; decision under uncertainty
+    \item \textbf{Law:} Burden of proof standards (``beyond reasonable doubt'' = very high FP cost); civil standards (``preponderance of evidence'' = more balanced)
+    \item \textbf{Ethics:} Distributional justice; who bears the cost of each error type; algorithmic fairness
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This teacher's manual provides everything needed to teach Chapter~4 on threshold decisions and the value judgments they embed. The central corrective --- that threshold setting is never purely technical --- is foundational for AI governance literacy and for the design chapters that follow.}
+
+\medskip
+\noindent\textit{Next: Chapter~5 addresses how to ask for help once the routing decision is made --- the design of the human-AI interaction moment itself.}

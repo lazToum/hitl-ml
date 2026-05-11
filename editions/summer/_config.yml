@@ -1,0 +1,168 @@
+title: "Human in the Loop: Misunderstood — Summer Edition"
+author: "Lazaros Toumanidis"
+logo: ""
+
+execute:
+  execute_notebooks: "off"
+
+html:
+  use_repository_button: false
+  use_edit_page_button: false
+  use_issues_button: false
+  home_page_in_navbar: false
+  extra_footer: ""
+  announcement: "Grab a pencil. Dog-ears are encouraged."
+
+  extra_css_files:
+    - summer.css
+  extra_js_files:
+    - wordsearch.js
+    - sidebar-fix.js
+
+latex:
+  latex_documents:
+    targetname: hitl_summer_edition.tex
+  latex_engine: xelatex
+  use_jupyterbook_latex: true
+
+sphinx:
+  extra_extensions: []
+  config:
+    html_show_copyright: false
+    latex_elements:
+      papersize: a4paper
+      pointsize: 11pt
+      fontpkg: |
+        \usepackage{fontspec}
+        \setmainfont{Georgia}[Ligatures=TeX, Numbers=OldStyle]
+        \setsansfont{Helvetica Neue}[Scale=0.90, Ligatures=TeX]
+        \setmonofont{Menlo}[Scale=0.80, Ligatures=NoCommon]
+      geometry: |
+        \usepackage[
+          a4paper,
+          inner=30mm, outer=24mm,
+          top=30mm,   bottom=26mm,
+          headsep=11mm
+        ]{geometry}
+      preamble: |
+        \usepackage{microtype}
+        \usepackage{setspace}
+        \setstretch{1.10}
+        \usepackage{emptypage}
+        \usepackage{titlesec}
+        \usepackage{fancyhdr}
+
+        % ── Warm palette ─────────────────────────────────────────────────
+        \definecolor{sumamber}{HTML}{c47e1a}
+        \definecolor{sumterra}{HTML}{b85c38}
+        \definecolor{sumsage}{HTML}{5a7a52}
+        \definecolor{sumsand}{HTML}{8a6a50}
+        \definecolor{sumtext}{HTML}{3d2b1f}
+        \definecolor{sumhighlight}{HTML}{fce8c3}
+        \definecolor{sumverbbg}{HTML}{fffdf5}
+        \definecolor{sumrule}{HTML}{e8d9b8}
+
+        % ── Verbatim / code blocks (word-search grids, etc.) ─────────────
+        \sphinxsetup{%
+          VerbatimColor={HTML}{fffdf5},%
+          VerbatimBorderColor={HTML}{e8d9b8},%
+          verbatimwithframe=true,%
+          verbatimborder=0.6pt%
+        }
+
+        % ── Admonition boxes (note / tip / warning) ───────────────────────
+        \usepackage[most,breakable]{tcolorbox}
+        \newcommand{\sumadmonbox}[3]{%
+          \begin{tcolorbox}[%
+            enhanced,breakable,
+            colback=sumhighlight,colframe=#1,coltext=sumtext,
+            leftrule=4pt,rightrule=0.5pt,toprule=0.5pt,bottomrule=0.5pt,
+            arc=3pt,left=8pt,right=8pt,top=5pt,bottom=5pt,
+            title={\sffamily\footnotesize\bfseries\color{sumtext} #2},
+            attach boxed title to top left={yshift=-2mm,xshift=6pt},
+            boxed title style={%
+              colback=sumhighlight,colframe=#1,
+              leftrule=4pt,rightrule=0pt,toprule=0pt,bottomrule=0pt,
+              arc=0pt,left=2pt,right=4pt
+            }
+          ]#3\end{tcolorbox}}
+        \renewenvironment{sphinxnote}[1]%
+          {\begin{tcolorbox}[enhanced,breakable,
+            colback=sumhighlight,colframe=sumamber,coltext=sumtext,
+            leftrule=4pt,rightrule=0.5pt,toprule=0.5pt,bottomrule=0.5pt,
+            arc=3pt,left=8pt,right=8pt,top=5pt,bottom=5pt,
+            title={\sffamily\footnotesize\bfseries\color{sumtext} #1},
+            attach boxed title to top left={yshift=-2mm,xshift=6pt},
+            boxed title style={colback=sumhighlight,colframe=sumamber,
+              leftrule=4pt,rightrule=0pt,toprule=0pt,bottomrule=0pt,arc=0pt}
+          ]}{\end{tcolorbox}}
+        \renewenvironment{sphinxtip}[1]%
+          {\begin{tcolorbox}[enhanced,breakable,
+            colback=sumhighlight!60!white,colframe=sumsage,coltext=sumtext,
+            leftrule=4pt,rightrule=0.5pt,toprule=0.5pt,bottomrule=0.5pt,
+            arc=3pt,left=8pt,right=8pt,top=5pt,bottom=5pt,
+            title={\sffamily\footnotesize\bfseries\color{sumtext} #1},
+            attach boxed title to top left={yshift=-2mm,xshift=6pt},
+            boxed title style={colback=sumhighlight!60!white,colframe=sumsage,
+              leftrule=4pt,rightrule=0pt,toprule=0pt,bottomrule=0pt,arc=0pt}
+          ]}{\end{tcolorbox}}
+        \renewenvironment{sphinxwarning}[1]%
+          {\begin{tcolorbox}[enhanced,breakable,
+            colback=sumhighlight,colframe=sumterra,coltext=sumtext,
+            leftrule=4pt,rightrule=0.5pt,toprule=0.5pt,bottomrule=0.5pt,
+            arc=3pt,left=8pt,right=8pt,top=5pt,bottom=5pt,
+            title={\sffamily\footnotesize\bfseries\color{sumtext} #1},
+            attach boxed title to top left={yshift=-2mm,xshift=6pt},
+            boxed title style={colback=sumhighlight,colframe=sumterra,
+              leftrule=4pt,rightrule=0pt,toprule=0pt,bottomrule=0pt,arc=0pt}
+          ]}{\end{tcolorbox}}
+
+        % ── Epigraph / pull-quote (Sphinx renders {epigraph} as quote) ────
+        \renewenvironment{quote}{%
+          \begin{tcolorbox}[enhanced,
+            colback=sumhighlight,colframe=sumamber,coltext=sumtext,
+            leftrule=3pt,rightrule=0pt,toprule=0pt,bottomrule=0pt,
+            arc=0pt,left=12pt,right=8pt,top=6pt,bottom=6pt
+          ]\itshape\small
+        }{\end{tcolorbox}}
+
+        % ── Chapter headings ─────────────────────────────────────────────
+        \titleformat{\chapter}[display]
+          {\normalfont\sffamily}
+          {\raggedright\color{sumterra!70}\fontsize{64}{64}\selectfont\thechapter}
+          {-28pt}
+          {\color{sumamber}\huge\bfseries\rmfamily}
+          [\vspace{8pt}{\color{sumsage!70}\rule{\textwidth}{1.5pt}}\vspace{2pt}]
+        \titlespacing*{\chapter}{0pt}{-8pt}{26pt}
+
+        % ── Section headings ─────────────────────────────────────────────
+        \titleformat{\section}
+          {\normalfont\large\bfseries\color{sumamber}}
+          {\color{sumterra}\thesection}{0.9em}{}
+        \titleformat{\subsection}
+          {\normalfont\normalsize\bfseries\color{sumsage}}
+          {\thesubsection}{0.8em}{}
+        \titleformat{\subsubsection}
+          {\normalfont\normalsize\itshape\color{sumsand}}
+          {}{0em}{}
+
+        % ── Running headers / footers ─────────────────────────────────────
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[LE]{\small\color{sumsand}\itshape\nouppercase{\leftmark}}
+        \fancyhead[RO]{\small\color{sumsand}\itshape\nouppercase{\rightmark}}
+        \fancyfoot[LE,RO]{\small\color{sumsand}\thepage}
+        \fancyfoot[CE]{\scriptsize\color{sumsand!60}\textit{HITL ML — Summer Edition}}
+        \renewcommand{\headrulewidth}{0.4pt}
+        \renewcommand{\headrule}{%
+          \hbox to\headwidth{\color{sumamber!40}\leaders\hrule height\headrulewidth\hfill}}
+        \fancypagestyle{plain}{%
+          \fancyhf{}
+          \fancyfoot[C]{\small\color{sumsand}\thepage}
+          \renewcommand{\headrulewidth}{0pt}}
+
+        % ── Spacing ───────────────────────────────────────────────────────
+        \setlength{\parskip}{5pt plus 2pt}
+        \setlength{\parindent}{16pt}
+        \widowpenalty=9999
+        \clubpenalty=9999

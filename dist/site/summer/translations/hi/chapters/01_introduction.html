@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>मानव-इन-द-लूप ML क्या है? &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/hi/chapters/01_introduction';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/hi/chapters/01_introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>मानव-इन-द-लूप ML क्या है?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">स्वचालन का विरोधाभास</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-ml">HITL ML की परिभाषा</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">संक्षिप्त इतिहास</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">विशेषज्ञ प्रणालियाँ और ज्ञान इंजीनियरिंग (1960–1980 के दशक)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">सांख्यिकीय मोड़ (1980–2000 के दशक)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">डीप लर्निंग युग (2010 का दशक–वर्तमान)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">HITL क्यों? मानव निर्णय का तर्क</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">1. सामान्य ज्ञान और विश्व-बोध</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2. अर्थपूर्ण आधार</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3. मूल्य संरेखण</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4. अनुकूलनीयता</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5. जवाबदेही</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">प्रतिक्रिया लूप</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">HITL क्या नहीं है</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">मानव प्रतिक्रिया का अर्थशास्त्र</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">पुस्तक का अवलोकन</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ml">
+<h1>मानव-इन-द-लूप ML क्या है?<a class="headerlink" href="#ml" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>एक मशीन जो अनुभव से सीख सकती है… लेकिन केवल तभी जब आप उसे सही अनुभव दें।
+– Alan Turing की व्याख्या</p>
+</div></blockquote>
+<section id="id1">
+<h2>स्वचालन का विरोधाभास<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>स्वचालन की प्रत्येक नई लहर मानव ध्यान पर नई माँगें उत्पन्न करती है। जब एयरलाइनों ने ऑटोपायलट पेश किया, तो पायलट निगरानीकर्ता बन गए — पल-पल के नियंत्रण के लिए नहीं, बल्कि इस कठिन कार्य के लिए कि <em>कब</em> हस्तक्षेप करना है। जब सुपरमार्केट ने सेल्फ-चेकआउट पेश किया, तो उन्होंने पाया कि पारंपरिक कैशियरों की तुलना में प्रति लेनदेन अधिक मानव पर्यवेक्षण की आवश्यकता होती है, कम नहीं। और जब मशीन लर्निंग ने चिकित्सा, वित्त, भर्ती, और सामग्री मॉडरेशन में बड़े पैमाने पर निर्णय लेना शुरू किया, तो इसने मानव निर्णय की एक विशाल, निरंतर माँग उत्पन्न की।</p>
+<p>यही <strong>स्वचालन का विरोधाभास</strong> है <a href="#id2"><span class="problematic" id="id3">bainbridge1983ironies</span></a>: एक स्वचालित प्रणाली जितनी अधिक सक्षम हो जाती है, उसकी विफलताएँ उतनी ही अधिक परिणामपूर्ण होती हैं, और इसलिए मज़बूत मानव निगरानी उतनी ही अधिक आवश्यक हो जाती है। मशीन लर्निंग कोई अपवाद नहीं है।</p>
+<p>ह्यूमन-इन-द-लूप मशीन लर्निंग (HITL ML) वह क्षेत्र है जो इस विरोधाभास को गंभीरता से लेता है और इसे शुरू से ही प्रणाली डिज़ाइन में शामिल करता है। मानव भागीदारी को अंततः हटाई जाने वाली अस्थायी पाड़ के रूप में मानने के बजाय, HITL ML मानव–मशीन अंतःक्रिया को एक <em>विशेषता</em> के रूप में मानता है — एक संकेत, सुधार, और मार्गदर्शन का स्रोत जो मॉडलों को अधिक सटीक, मानव मूल्यों के साथ अधिक संरेखित, और अधिक विश्वसनीय बना सकता है।</p>
+</section>
+<hr class="docutils" />
+<section id="hitl-ml">
+<h2>HITL ML की परिभाषा<a class="headerlink" href="#hitl-ml" title="Permalink to this heading">#</a></h2>
+<p>साहित्य में HITL ML की कोई एकल सहमत परिभाषा नहीं है, और यह शब्द कई परस्पर अतिव्यापी तरीकों से उपयोग किया जाता है। इस पुस्तक के लिए हम एक व्यापक किंतु सटीक परिभाषा अपनाते हैं:</p>
+<div class="important admonition">
+<p class="admonition-title">परिभाषा</p>
+<p><strong>ह्यूमन-इन-द-लूप मशीन लर्निंग</strong> किसी भी ML प्रणाली या पद्धति को संदर्भित करता है जिसमें मानव प्रतिक्रिया को अधिगम प्रक्रिया में <em>जानबूझकर, संरचित और निरंतर</em> तरीके से शामिल किया जाता है — न केवल डेटासेट निर्माण के समय, बल्कि प्रशिक्षण, मूल्यांकन और परिनियोजन के दौरान भी।</p>
+</div>
+<p>इस परिभाषा में तीन प्रमुख खंड हैं:</p>
+<p><strong>जानबूझकर।</strong> HITL आकस्मिक मानव प्रभाव नहीं है (जैसे, यह तथ्य कि प्रशिक्षण डेटा मूल रूप से मनुष्यों द्वारा बनाया गया था)। यह उन प्रणालियों को संदर्भित करता है जो स्पष्ट रूप से मानव प्रतिक्रिया को आमंत्रित करने, शामिल करने और उससे लाभ उठाने के लिए डिज़ाइन की गई हैं।</p>
+<p><strong>संरचित।</strong> प्रतिक्रिया का एक परिभाषित रूप है — एक लेबल, एक सुधार, एक वरीयता निर्णय, एक प्रदर्शन — और अधिगम एल्गोरिदम में एक परिभाषित भूमिका है।</p>
+<p><strong>निरंतर।</strong> प्रतिक्रिया लूप समय के साथ जारी रहता है, जिससे प्रणाली नई स्थितियों का सामना करने, गलतियाँ करने, और मानव मार्गदर्शन प्राप्त करने पर सुधार कर सकती है।</p>
+<p>यह परिभाषा शास्त्रीय अनुलेखन पाइपलाइनों, सक्रिय अधिगम, इंटरैक्टिव ML, RLHF, और अनुकरण अधिगम को शामिल करती है। यह निष्क्रिय डेटा संग्रह और पूरी तरह ऑफलाइन निर्देशित अधिगम को बाहर रखती है (हालाँकि रेखा धुंधली है, जैसा कि हम अध्याय 2 में चर्चा करेंगे)।</p>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>संक्षिप्त इतिहास<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<section id="id5">
+<h3>विशेषज्ञ प्रणालियाँ और ज्ञान इंजीनियरिंग (1960–1980 के दशक)<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>सबसे प्रारंभिक AI प्रणालियाँ लगभग पूरी तरह ह्यूमन-इन-द-लूप थीं: ज्ञान इंजीनियर महीनों तक डोमेन विशेषज्ञों के साथ बैठते थे, MYCIN और DENDRAL जैसी विशेषज्ञ प्रणालियों में नियमों को सावधानीपूर्वक कोड करते थे। ज्ञान का प्रत्येक टुकड़ा एक मानव द्वारा स्पष्ट रूप से प्रदान किया जाता था। मशीन निष्पादक थी; मानव ज्ञानस्रोत था।</p>
+<p>ये प्रणालियाँ संकीर्ण डोमेन में आश्चर्यजनक रूप से अच्छी तरह काम करती थीं लेकिन भंगुर थीं — अपने हस्त-निर्मित नियमों से परे सामान्यीकरण करने में असमर्थ और रखरखाव में महंगी।</p>
+</section>
+<section id="id6">
+<h3>सांख्यिकीय मोड़ (1980–2000 के दशक)<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>1980 और 1990 के दशकों में सांख्यिकीय मशीन लर्निंग की ओर बदलाव ने मानव भागीदारी की प्रकृति बदल दी। नियमों के रूप में ज्ञान को कूटबद्ध करने के बजाय, मनुष्यों ने अब <em>उदाहरण</em> प्रदान किए — लेबल किए गए डेटासेट जिन्होंने मॉडलों को पैटर्न अनुमानित करने की अनुमति दी। मानव की भूमिका अनुलेखक की हो गई: दस्तावेज़ लेबल करना, छवियाँ टैग करना, भाषण अनुलेखित करना।</p>
+<p>यह एक बड़ा कदम आगे था, लेकिन इसने एक नई बाधा उत्पन्न की: <strong>लेबल किया गया डेटा महंगा है</strong>। शोधकर्ताओं ने पूछना शुरू किया कि मानव लेबलिंग प्रयास का सबसे कुशल उपयोग कैसे किया जाए। इस प्रश्न ने <strong>सक्रिय अधिगम</strong> को जन्म दिया, जिसे 1990 के दशक की शुरुआत में पहली बार औपचारिक रूप दिया गया <a href="#id7"><span class="problematic" id="id8">cohn1994improving</span></a>।</p>
+</section>
+<section id="id9">
+<h3>डीप लर्निंग युग (2010 का दशक–वर्तमान)<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>डीप लर्निंग क्रांति ने एक नया प्रतिमान बनाया: अरबों पैरामीटर वाले मॉडल जो डेटा से असाधारण जटिल कार्य सीख सकते हैं — लेकिन इसके लिए तदनुसार विशाल लेबल किए गए डेटासेट की आवश्यकता होती है। ImageNet (14 मिलियन लेबल किए गए चित्र) और बाद की बड़े पैमाने की अनुलेखन परियोजनाओं ने पैमाने की शक्ति और लागत दोनों को दर्शाया।</p>
+<p>साथ ही, बड़े पैमाने पर ML के परिनियोजन ने नई समस्याएँ उजागर कीं: ऐसे मॉडल जो औसतन सटीक थे लेकिन विशिष्ट समूहों के लिए व्यवस्थित रूप से गलत थे, जो तथ्यों को आत्मविश्वास से गढ़ते थे, जो मानव मूल्यों के बजाय मापने योग्य प्रॉक्सी के लिए अनुकूलन करते थे। इन विफलताओं ने मानव भागीदारी के नए रूपों को प्रेरित किया: केवल लेबलिंग नहीं, बल्कि <em>संरेखण</em> — वह परियोजना जिसमें मॉडलों को उस तरह व्यवहार करना सिखाया जाता है जैसा मनुष्य वास्तव में चाहते हैं।</p>
+<p>इस संरेखण-केंद्रित HITL कार्य की सबसे स्पष्ट अभिव्यक्ति <strong>मानव प्रतिक्रिया से प्रबलन अधिगम (RLHF)</strong> है <a href="#id10"><span class="problematic" id="id11">christiano2017deep</span></a>, जो InstructGPT <a href="#id12"><span class="problematic" id="id13">ouyang2022training</span></a> और आधुनिक भाषा मॉडलों की निर्देश-अनुसरण क्षमताओं की रीढ़ बन गया।</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hitl">
+<h2>HITL क्यों? मानव निर्णय का तर्क<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<p>मानव निर्णय को मशीन लर्निंग प्रणालियों में शामिल करने योग्य क्या बनाता है? कई गुण:</p>
+<section id="id14">
+<h3>1. सामान्य ज्ञान और विश्व-बोध<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>मनुष्य किसी भी कार्य के लिए विशाल पृष्ठभूमि ज्ञान लाते हैं। जब एक रेडियोलॉजिस्ट X-ray लेबल करती है, तो वह वर्षों के प्रशिक्षण, शारीरिक रचना की समझ, और इस बारे में अंतर्निहित ज्ञान पर निर्भर करती है कि रोग कैसे दिखते हैं — ऐसा ज्ञान जिसे पूरी तरह निर्दिष्ट करना या केवल डेटा से प्राप्त करना असाधारण रूप से कठिन है।</p>
+</section>
+<section id="id15">
+<h3>2. अर्थपूर्ण आधार<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>लेबल इसलिए अर्थपूर्ण हैं क्योंकि मनुष्य समझते हैं कि उनका क्या अर्थ है। ImageNet में “बिल्ली” वर्ग एक अस्पष्ट अवधारणा को संदर्भित करता है जिसे मनुष्य सहज रूप से पहचानते हैं लेकिन जिसे कोई औपचारिक परिभाषा पूरी तरह से नहीं पकड़ती। मॉडल लेबल का विस्तार सीखते हैं (कौन सी छवियाँ उस पर मानचित्रित होती हैं) लेकिन स्वयं अवधारणा नहीं सीख सकते, जिससे सीमांत मामलों पर विफलताएँ होती हैं जिन्हें कोई भी मानव सही ढंग से संभाल लेता।</p>
+</section>
+<section id="id16">
+<h3>3. मूल्य संरेखण<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<p>मनुष्यों की प्राथमिकताएँ, मूल्य, और नैतिक निर्णय होते हैं जिन्हें ML मॉडल केवल डेटा से प्राप्त नहीं कर सकते। क्या कोई पाठ “सहायक” है या “हानिकारक” यह एक विशुद्ध अनुभवजन्य प्रश्न नहीं है — यह मानव मूल्यों पर निर्भर करता है जो व्यक्तियों और संदर्भों में भिन्न होते हैं। HITL वह प्राथमिक तंत्र है जिसके द्वारा ये मूल्य ML प्रणालियों तक संप्रेषित किए जा सकते हैं।</p>
+</section>
+<section id="id17">
+<h3>4. अनुकूलनीयता<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p>मानव निर्णय पुनः प्रशिक्षण के बिना नई स्थितियों के अनुकूल हो सकता है। ऐतिहासिक डेटा पर प्रशिक्षित एक मॉडल जब विश्व बदलता है तो विनाशकारी रूप से विफल हो सकता है; एक मानव नवीनता को पहचान सकता है और उचित प्रतिक्रिया दे सकता है।</p>
+</section>
+<section id="id18">
+<h3>5. जवाबदेही<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<p>उच्च-दांव वाले डोमेन — चिकित्सा, कानून, वित्त — में निर्णयों को मानव प्राणियों के प्रति जवाबदेह होना आवश्यक है। HITL प्रणालियाँ इस जवाबदेही को व्यवहार्य बनाती हैं, मनुष्यों को मशीन व्यवहार को समझने, सत्यापित करने और ओवरराइड करने की स्थिति में रखकर।</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id19">
+<h2>प्रतिक्रिया लूप<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<p>HITL ML की केंद्रीय संरचना एक मॉडल और एक या अधिक मनुष्यों के बीच एक प्रतिक्रिया लूप है:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+---------------------------------------------+
+|                                             |
+|   मॉडल पूर्वानुमान / अनुरोध करता है       |
+|   ----------------------------------&gt;       |
+|                                   मानव     |
+|   मानव प्रतिक्रिया प्रदान करता है &lt;------- |
+|   ----------------------------------        |
+|                                             |
+|   मॉडल प्रतिक्रिया पर अद्यतन करता है      |
+|                                             |
++---------------------------------------------+
+</pre></div>
+</div>
+<p>प्रतिक्रिया की प्रकृति HITL प्रतिमानों में बहुत भिन्न होती है:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>प्रतिक्रिया प्रकार</p></th>
+<th class="head"><p>उदाहरण</p></th>
+<th class="head"><p>प्राथमिक प्रतिमान</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>वर्ग लेबल</p></td>
+<td><p>“यह ईमेल स्पैम है”</p></td>
+<td><p>निर्देशित अधिगम</p></td>
+</tr>
+<tr class="row-odd"><td><p>सुधार</p></td>
+<td><p>“यह इकाई PER नहीं, ORG होनी चाहिए”</p></td>
+<td><p>सक्रिय / इंटरैक्टिव ML</p></td>
+</tr>
+<tr class="row-even"><td><p>वरीयता</p></td>
+<td><p>“उत्तर A, B से बेहतर है”</p></td>
+<td><p>RLHF / रैंकिंग</p></td>
+</tr>
+<tr class="row-odd"><td><p>प्रदर्शन</p></td>
+<td><p>रोबोट को वस्तु पकड़ना दिखाना</p></td>
+<td><p>अनुकरण अधिगम</p></td>
+</tr>
+<tr class="row-even"><td><p>प्राकृतिक भाषा</p></td>
+<td><p>“अपने उत्तरों में अधिक संक्षिप्त रहें”</p></td>
+<td><p>निर्देश ट्यूनिंग</p></td>
+</tr>
+<tr class="row-odd"><td><p>अंतर्निहित संकेत</p></td>
+<td><p>उपयोगकर्ता ने क्लिक किया / नहीं किया</p></td>
+<td><p>अंतर्निहित प्रतिक्रिया</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h2>HITL क्या नहीं है<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h2>
+<p>यह स्पष्ट करना उचित है कि हमारी परिभाषा के <em>बाहर</em> क्या आता है।</p>
+<p><strong>HITL, ह्यूमन-ऑन-द-लूप परिनियोजन के समान नहीं है</strong> (जिसे कभी-कभी “human on the loop” कहा जाता है), जहाँ मनुष्य स्वचालित निर्णयों की निगरानी करते हैं और उन्हें ओवरराइड कर सकते हैं लेकिन प्रशिक्षण में सुधार वापस नहीं दे रहे हैं। हम अध्याय 2 में इस भेद पर चर्चा करेंगे।</p>
+<p><strong>HITL, केवल कमज़ोर पर्यवेक्षण नहीं है।</strong> Snorkel जैसी प्रोग्रामेटिक लेबलिंग प्रणालियाँ बड़े पैमाने पर शोरगुल वाले लेबल उत्पन्न करने के लिए लेबलिंग फ़ंक्शन (अक्सर मानव-लिखित नियम) का उपयोग करती हैं। यह संरचित मानव इनपुट का एक रूप है, लेकिन प्रतिक्रिया उस तरह पुनरावृत्त नहीं है जैसा HITL आमतौर पर तात्पर्य करता है।</p>
+<p><strong>HITL, केवल लेबल किए गए डेटा का उपयोग करना नहीं है।</strong> प्रत्येक निर्देशित अधिगम मॉडल मानव-लेबल किए गए डेटा का उपयोग करता है। HITL विशेष रूप से उन प्रणालियों को संदर्भित करता है जहाँ मानव प्रतिक्रिया अधिगम प्रक्रिया का एक <em>सक्रिय, पुनरावृत्त</em> हिस्सा है।</p>
+</section>
+<hr class="docutils" />
+<section id="id21">
+<h2>मानव प्रतिक्रिया का अर्थशास्त्र<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h2>
+<p>मानव प्रतिक्रिया मूल्यवान लेकिन महंगी है। एक विशेषज्ञ द्वारा की गई चिकित्सा इमेजिंग अनुलेखन में उपविशेषता और कार्य जटिलता के आधार पर प्रति छवि दसों से सैकड़ों डॉलर खर्च हो सकते हैं <a href="#id22"><span class="problematic" id="id23">monarch2021human</span></a>। Amazon Mechanical Turk जैसे प्लेटफ़ॉर्म पर क्राउडवर्कर लेबल बहुत कम गुणवत्ता पर <span class="math notranslate nohighlight">\(0.01–\)</span>0.10 प्रति आइटम <a href="#id24"><span class="problematic" id="id25">hara2018data</span></a> पर मिल सकते हैं। HITL ML की मूलभूत चुनौती <strong>मानव प्रतिक्रिया की प्रत्येक इकाई के मूल्य को अधिकतम करना</strong> है।</p>
+<p>इससे एक एकीकृत प्रश्न उत्पन्न होता है जो इस पुस्तक के अधिकांश भाग में व्याप्त है:</p>
+<div class="tip admonition">
+<p class="admonition-title">HITL ML का केंद्रीय प्रश्न</p>
+<p><em>मानव समय और ध्यान के एक निश्चित बजट को देखते हुए, हमें कैसे तय करना चाहिए कि मनुष्यों से क्या पूछना है, कब पूछना है, और उनके उत्तरों को मॉडल प्रशिक्षण में कैसे शामिल करना है?</em></p>
+</div>
+<p>इस प्रश्न का उत्तर डोमेन, प्रतिक्रिया के स्वरूप, अनुलेखन लागत, त्रुटि के जोखिम, और मॉडल की वर्तमान स्थिति पर निर्भर करता है — यही कारण है कि HITL ML एक समृद्ध और अभी भी विकसित हो रहा अनुशासन है।</p>
+</section>
+<hr class="docutils" />
+<section id="id26">
+<h2>पुस्तक का अवलोकन<a class="headerlink" href="#id26" title="Permalink to this heading">#</a></h2>
+<p>इस पुस्तक का शेष भाग निम्नानुसार संरचित है। <strong>भाग II</strong> HITL के तीन शास्त्रीय स्तंभों को शामिल करता है: अनुलेखन, सक्रिय अधिगम, और इंटरैक्टिव ML। <strong>भाग III</strong> प्रतिक्रिया से अधिगम के नए प्रतिमानों को संबोधित करता है — RLHF, अनुकरण अधिगम, और वरीयता अधिगम — जो आधुनिक AI के केंद्र में आ गए हैं। <strong>भाग IV</strong> विशिष्ट अनुप्रयोग डोमेन के लेंस से HITL की जाँच करता है। <strong>भाग V</strong> प्लेटफ़ॉर्म, क्राउडसोर्सिंग और मूल्यांकन पर व्यवसायी दृष्टिकोण अपनाता है। <strong>भाग VI</strong> नैतिकता को संबोधित करता है और आगे देखता है।</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>क्षेत्र के व्यवसायी-केंद्रित अवलोकन के लिए, <a href="#id27"><span class="problematic" id="id28">monarch2021human</span></a> देखें। HITL के औपचारिक विवेचन की शुरुआत करने वाले मूलभूत सक्रिय अधिगम शोधपत्र के लिए, <a href="#id29"><span class="problematic" id="id30">settles2009active</span></a> देखें।</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/hi/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">स्वचालन का विरोधाभास</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl-ml">HITL ML की परिभाषा</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">संक्षिप्त इतिहास</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">विशेषज्ञ प्रणालियाँ और ज्ञान इंजीनियरिंग (1960–1980 के दशक)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">सांख्यिकीय मोड़ (1980–2000 के दशक)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">डीप लर्निंग युग (2010 का दशक–वर्तमान)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">HITL क्यों? मानव निर्णय का तर्क</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">1. सामान्य ज्ञान और विश्व-बोध</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2. अर्थपूर्ण आधार</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3. मूल्य संरेखण</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4. अनुकूलनीयता</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5. जवाबदेही</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">प्रतिक्रिया लूप</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">HITL क्या नहीं है</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">मानव प्रतिक्रिया का अर्थशास्त्र</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">पुस्तक का अवलोकन</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

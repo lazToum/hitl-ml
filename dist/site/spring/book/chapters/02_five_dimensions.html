@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Five Dimensions in Play &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02_five_dimensions';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Designing for Humans: The Schema" href="03_schema.html" />
+    <link rel="prev" title="Building HITL: Why a Game?" href="01_building_hitl.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/02_five_dimensions.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Five Dimensions in Play</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#five-dimensions">Five dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-1-control">Dimension 1: Control</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-2-transparency">Dimension 2: Transparency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-3-feedback">Dimension 3: Feedback</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-4-autonomy">Dimension 4: Autonomy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-5-trust">Dimension 5: Trust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-map">The map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-five-dimensions-in-play">
+<h1>The Five Dimensions in Play<a class="headerlink" href="#the-five-dimensions-in-play" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>A framework is useful not when it answers your questions, but when it helps you ask better ones.</p>
+<p class="attribution">—Chapter 2</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> A self-driving car can hand control back to the human driver. But studies show that drivers who have been disengaged for twenty minutes are slower to react than drivers who have been driving the whole time. Automation erodes the skills it replaces. Is handing back control the same as <em>having</em> control?</p>
+<p><strong>2.</strong> Think of a system you use where you do not know how it decides what to show you. Does not knowing bother you? Would knowing change your behavior?</p>
+<p><strong>3.</strong> “The human is in the loop” is often used to mean “a human approves outputs before they are acted on.” But approval is not the same as understanding. When does human approval add value, and when is it theater?</p>
+</section>
+<hr class="docutils" />
+<section id="five-dimensions">
+<h2>Five dimensions<a class="headerlink" href="#five-dimensions" title="Permalink to this heading">#</a></h2>
+<p>The earlier editions of this handbook introduced five dimensions along which HITL systems vary. Here we will ground each one concretely in the treasure hunt codebase — in the actual decisions encoded in actual files.</p>
+<p>This chapter is both a conceptual map and a code tour. Every dimension points to a real file you will read or write later.</p>
+</section>
+<hr class="docutils" />
+<section id="dimension-1-control">
+<h2>Dimension 1: Control<a class="headerlink" href="#dimension-1-control" title="Permalink to this heading">#</a></h2>
+<p><em>Who can override whom, and when?</em></p>
+<p>Control in HITL systems is rarely binary. It is a spectrum of authority distributed across roles, time, and stakes.</p>
+<p>In the treasure hunt, control appears in at least three places:</p>
+<p><strong>Answer validation.</strong> When a player submits “Eiffel Tower” and the correct answer is “eiffel tower,” the fuzzy matching algorithm decides whether they are equivalent. The creator set the threshold (default: 0.85 similarity). The developer wrote the algorithm. The player has no voice in this decision — they just see “Correct” or “Try again.” Control sits entirely with the creator and developer.</p>
+<p>The relevant code is in <code class="docutils literal notranslate"><span class="pre">backend-rust/src/services/clue_validator.rs</span></code>. Notice the <code class="docutils literal notranslate"><span class="pre">answer_tolerance</span></code> field in the schema: it is a per-clue parameter the creator sets, but it has a default they may never touch. A default is a decision someone made once, propagated silently to everyone.</p>
+<p><strong>Hint unlock.</strong> The hint engine (<code class="docutils literal notranslate"><span class="pre">services/hint_engine.rs</span></code>) will not release a hint until either enough time has passed or enough attempts have been made. A player who figures something out after one second cannot get a hint to confirm their thinking. Control sits with the creator who set the thresholds.</p>
+<p><strong>Hunt status.</strong> A creator can change a hunt from <code class="docutils literal notranslate"><span class="pre">draft</span></code> to <code class="docutils literal notranslate"><span class="pre">active</span></code> to <code class="docutils literal notranslate"><span class="pre">archived</span></code>. They can edit clues before a hunt starts. After it starts, their changes affect in-progress sessions immediately. There is no version lock. A player halfway through a hunt could, in principle, find that a clue changed under them. The code does not prevent this — it is a design decision left open.</p>
+<div class="tip admonition">
+<p class="admonition-title">Build prompt</p>
+<p>The current <code class="docutils literal notranslate"><span class="pre">PATCH</span> <span class="pre">/hunts/:id</span></code> endpoint already lets creators change status and hunt metadata. The unresolved design question is versioning: should editing a clue on an active hunt be allowed? If yes, what should happen to sessions already past that clue? If no, what does the UI show when a creator tries?</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dimension-2-transparency">
+<h2>Dimension 2: Transparency<a class="headerlink" href="#dimension-2-transparency" title="Permalink to this heading">#</a></h2>
+<p><em>What can each role see about the system’s behavior?</em></p>
+<p>Transparency is not a single thing. There is transparency about <em>what</em> the system decided, <em>why</em> it decided it, <em>what data it used</em>, and <em>what the alternatives were</em>. These are four distinct things that HITL systems routinely conflate.</p>
+<p>In the treasure hunt:</p>
+<p><strong>For the player:</strong> When they receive a hint, they see the hint text. They do not see why the system decided to offer it now — whether it was because of elapsed time or attempt count. They do not see the hint sequence (is this hint 1 of 3 or hint 3 of 3?). The <code class="docutils literal notranslate"><span class="pre">HintView</span></code> model in <code class="docutils literal notranslate"><span class="pre">models/clue.rs</span></code> exposes <code class="docutils literal notranslate"><span class="pre">sequence</span></code> and <code class="docutils literal notranslate"><span class="pre">body</span></code> — so the information exists, the question is whether the UI surfaces it.</p>
+<p><strong>For the creator:</strong> The observer dashboard (<code class="docutils literal notranslate"><span class="pre">routes/observer.rs</span></code>) streams live session events over WebSocket. A creator watching a live hunt can see which clue each player is on and can inspect attempts, hints, completions, and nudges as events arrive. This is high transparency — arguably more than a creator designing a physical hunt would have.</p>
+<p><strong>For the developer:</strong> The event log table (<code class="docutils literal notranslate"><span class="pre">events</span></code> in <code class="docutils literal notranslate"><span class="pre">db/schema.sql</span></code>) captures every significant action with a JSONB payload. In principle, any query is possible. In practice, this edition does not build a query UI over it — that is left as an exercise.</p>
+<div class="note admonition">
+<p class="admonition-title">The transparency gap</p>
+<p>Players cannot see how the hint unlock threshold was set. Creators cannot see how other creators set theirs. Developers can see everything. This asymmetry is common in HITL systems — the people with the least power often have the least visibility into why the system behaves as it does.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dimension-3-feedback">
+<h2>Dimension 3: Feedback<a class="headerlink" href="#dimension-3-feedback" title="Permalink to this heading">#</a></h2>
+<p><em>How does human behavior change the system over time?</em></p>
+<p>Feedback is the dimension most associated with “machine learning” in HITL. The loop only closes if information from human behavior re-enters the system and changes something.</p>
+<p>In the treasure hunt, feedback exists at two levels:</p>
+<p><strong>Session-level feedback.</strong> Every attempt, hint request, and solve time is captured in <code class="docutils literal notranslate"><span class="pre">session_clues</span></code>. This is raw behavioral signal. It tells us: this clue had a 78% first-attempt success rate; that clue had an average of 4.2 attempts and 1.8 hints used. The schema records it. Nothing yet reads it systematically.</p>
+<p><strong>AI-level feedback.</strong> The Python sidecar (<code class="docutils literal notranslate"><span class="pre">backend-python/app/services/difficulty.py</span></code>) can estimate how hard a clue will be before a hunt runs. After the hunt, the actual difficulty (from session data) could be compared to the estimate and used to calibrate the model. This calibration loop is described but not implemented.</p>
+<p>This is honest. Most real HITL systems have loops that are planned but never closed. The data is collected, but the retraining pipeline is “coming soon,” and soon never comes. Naming this gap is part of understanding HITL in practice.</p>
+<div class="warning admonition">
+<p class="admonition-title">The open loop</p>
+<p>An open loop is not a failed loop. Sometimes you collect data first and decide what to do with it later. The danger is forgetting to close it — building infrastructure that accumulates signal forever without anyone acting on it. The <code class="docutils literal notranslate"><span class="pre">events</span></code> table in this system is at risk of becoming exactly that.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dimension-4-autonomy">
+<h2>Dimension 4: Autonomy<a class="headerlink" href="#dimension-4-autonomy" title="Permalink to this heading">#</a></h2>
+<p><em>When does the system act without asking?</em></p>
+<p>Autonomy is not just about what the AI does — it is about what the whole system does without requiring human confirmation.</p>
+<p>In the treasure hunt, high-autonomy behaviors include:</p>
+<ul class="simple">
+<li><p><strong>Answer validation</strong>: The system accepts or rejects answers without human review. If your fuzzy matcher says 0.84 and the threshold is 0.85, the answer is rejected. No human ever sees it.</p></li>
+<li><p><strong>Hint dispatch</strong>: When the unlock conditions are met, a hint is available. The system does not ask the creator whether to release it.</p></li>
+<li><p><strong>Player creation</strong>: On first login, the middleware (<code class="docutils literal notranslate"><span class="pre">middleware/auth.rs</span></code>) creates a new player row automatically, inferring their role from Zitadel project-role claims or the email fallback. No human approves the account.</p></li>
+</ul>
+<p>Low-autonomy behaviors (requiring human action):</p>
+<ul class="simple">
+<li><p><strong>Hunt activation</strong>: A creator must explicitly set <code class="docutils literal notranslate"><span class="pre">status</span> <span class="pre">=</span> <span class="pre">'active'</span></code>. The system will not start a hunt on its own, even if <code class="docutils literal notranslate"><span class="pre">start_time</span></code> has passed.</p></li>
+<li><p><strong>Clue content</strong>: The AI can <em>suggest</em> a clue, but a human must submit it via the creator dashboard. The AI has no write access to the clues table.</p></li>
+</ul>
+<p>This boundary — AI suggests, human commits — is a common pattern in responsible HITL design. It is also a performance tax. Every AI suggestion that requires human confirmation is a friction point that determines whether the AI will actually be used.</p>
+</section>
+<hr class="docutils" />
+<section id="dimension-5-trust">
+<h2>Dimension 5: Trust<a class="headerlink" href="#dimension-5-trust" title="Permalink to this heading">#</a></h2>
+<p><em>Under what conditions will a human follow the system’s output?</em></p>
+<p>Trust is the dimension that is hardest to engineer and easiest to destroy.</p>
+<p>In the treasure hunt, trust manifests differently for each role:</p>
+<p><strong>Player trust.</strong> A player who has tried four times and received a hint from the system — do they follow it? Or do they assume the hint is wrong because the system has been unhelpful before? Player trust in hint quality depends on actual hint quality, which depends on creator effort, which depends on whether creators believe the hints matter.</p>
+<p><strong>Creator trust in the AI.</strong> The clue generator (<code class="docutils literal notranslate"><span class="pre">backend-python/app/services/clue_generator.py</span></code>) can produce clue text from a theme and a location. If a creator uses it, they are trusting that the output is good enough to use — or they are reviewing it critically and editing heavily. Either behavior is reasonable. The question for the system designer is: do you want the AI to be a starting point or a finishing point?</p>
+<p><strong>Observer trust in the live view.</strong> An observer watching the WebSocket stream sees events as they happen. If there is a bug in the event logger, they may see nothing — or wrong data — and not know. Trust in a monitoring tool depends on calibration: being told when the tool is unreliable, not just when it is working.</p>
+<div class="note admonition">
+<p class="admonition-title">Trust and defaults</p>
+<p>Every default in the system encodes an assumption about trust. The default fuzzy threshold of 0.85 implies the system trusts that answers within 15% of the correct string are probably correct. The default hint unlock of 5 minutes implies the system trusts that 5 minutes is long enough for a genuine attempt. These defaults will be wrong for some hunts. The question is: who do you trust to change them?</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="the-map">
+<h2>The map<a class="headerlink" href="#the-map" title="Permalink to this heading">#</a></h2>
+<p>With the five dimensions in hand, here is a map of the chapters ahead:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Chapter</p></th>
+<th class="head"><p>Builds</p></th>
+<th class="head"><p>Primary dimension</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Schema</p></td>
+<td><p>Transparency (what is visible), Control (who can change what)</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Rust API</p></td>
+<td><p>Autonomy (what runs without asking)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Auth/OIDC</p></td>
+<td><p>Control (roles), Trust (identity)</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Validation</p></td>
+<td><p>Autonomy, Control</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>Hints</p></td>
+<td><p>Autonomy, Feedback</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>AI sidecar</p></td>
+<td><p>Feedback, Trust</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>Creator UI</p></td>
+<td><p>Transparency, Control</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>Player app</p></td>
+<td><p>Trust, Transparency</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>Observer</p></td>
+<td><p>Transparency, Feedback</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>Physical</p></td>
+<td><p>Trust (physical vs. digital)</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>Testing</p></td>
+<td><p>All five</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>Deployment</p></td>
+<td><p>Autonomy</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>Reflection</p></td>
+<td><p>All five</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Use this as a compass, not a syllabus. The dimensions bleed into each other.</p>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<p>The five-dimension framework is a tool for analysis, not a truth. It was constructed to be useful, not to be correct.</p>
+<p>Where does it feel like it fits badly? Is there a dimension missing? Is there a dimension that collapses into another when you look at a real system?</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_building_hitl.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Building HITL: Why a Game?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_schema.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Designing for Humans: The Schema</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#five-dimensions">Five dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-1-control">Dimension 1: Control</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-2-transparency">Dimension 2: Transparency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-3-feedback">Dimension 3: Feedback</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-4-autonomy">Dimension 4: Autonomy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimension-5-trust">Dimension 5: Trust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-map">The map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,235 @@
+% ============================================================================
+% CHAPTER 17 SOLUTIONS MANUAL: Almost-Autonomous
+% Model answers to all discussion questions and exercises
+% ============================================================================
+
+\section*{Chapter 17 Solutions Manual: Almost-Autonomous}
+\addcontentsline{toc}{section}{Chapter 17 Solutions Manual}
+
+% ============================================================================
+\subsection*{Solutions to Discussion Questions}
+% ============================================================================
+
+\subsubsection*{Q0: Opening Reflection}
+
+Strong responses will identify that effective mentors: (a)~observed what the student already understood versus where genuine confusion existed; (b)~reserved their attention for the latter; and (c)~used the student's formulation of the question (not their own agenda) to direct the conversation. This is exactly what active learning does---the model observes where it is uncertain and directs the labeling effort there, rather than asking for random supervision.
+
+\subsubsection*{Q1: Economics of active learning}
+
+Active learning's efficiency gain primarily benefits organizations with limited annotation budgets. A 50\% reduction in labeling cost has a larger relative impact on a startup with a \$50,000 annotation budget than on a large tech company with a \$5,000,000 budget.
+
+However, large companies also benefit: they can build higher-performance models at the same annotation budget, or achieve the same model performance faster. The democratizing effect is real---active learning reduces the resource advantage of incumbents by compressing the annotation cost needed to achieve competitive performance.
+
+Implications for organizational decision-making: the ROI on active learning tooling is proportionally higher for resource-constrained teams; the absolute dollar savings are higher for larger teams.
+
+\subsubsection*{Q2: Near-boundary vs.\ outlier uncertain cases}
+
+\textbf{Near-boundary cases:}
+\begin{description}
+    \item[Why informative:] A label on a near-boundary case directly informs the model's decision boundary---the model learns which side of the boundary this case belongs on, which reduces uncertainty for nearby cases.
+    \item[Best strategy:] Uncertainty sampling (selects cases where the model's probability distribution is flattest, which are typically near-boundary cases).
+\end{description}
+
+\textbf{Outlier uncertain cases:}
+\begin{description}
+    \item[Why informative:] A label on an outlier expands the training distribution into a region the model has never seen, preventing overconfident predictions on novel inputs. However, it may not improve performance on common cases.
+    \item[Best strategy:] Diversity sampling (selects cases dissimilar from existing training data, which preferentially surfaces outliers and underrepresented regions of the input space).
+\end{description}
+
+A pure uncertainty sampler will miss the outliers; a pure diversity sampler may waste labels on easy cases. Hybrid approaches (like BADGE, which combines uncertainty via gradient magnitude with diversity via k-means++ initialization) address both simultaneously.
+
+\subsubsection*{Q3: Staffing implications of the active learning trajectory}
+
+As the system matures:
+
+\textbf{Early phase:} High volume of cases, moderate complexity. Need for relatively large teams capable of handling diverse cases including many straightforward ones. Training is broad---reviewers need coverage of the full input space.
+
+\textbf{Late phase:} Low volume of cases, very high complexity. Need for smaller teams with deep expertise, because only genuine edge cases are routed. Training must become specialized---reviewers are now expert consultants on genuinely hard cases that the model cannot handle.
+
+Organizational implication: the long-term staffing model for human review evolves from a high-volume operational function to a smaller, more expert advisory function. Organizations that don't anticipate this may be over-staffed (wasting resources on cases the model now handles) or under-staffed for the expert capacity needed on hard cases.
+
+\subsubsection*{Q4: Ensemble disagreement as a routing signal}
+
+Ensemble disagreement has advantages over single-model uncertainty:
+\begin{itemize}
+    \item Ensemble members trained with different initializations or data subsets disagree most on cases where the signal is weak---not just where the current model's softmax output is flat.
+    \item A single model can be confidently wrong (overconfident predictions in tail regions). Ensemble members are less likely to all share the same overconfident error.
+\end{itemize}
+
+When ensemble disagreement fails:
+\begin{itemize}
+    \item If all ensemble members are trained on the same biased data, they will share the same systematic errors and agree confidently on wrong answers.
+    \item If the ensemble is too small (2--3 models), disagreement is noisy.
+    \item In distribution-shifted conditions where all models are equally lost, ensemble disagreement may increase uniformly across cases rather than identifying the hardest ones.
+\end{itemize}
+
+\subsubsection*{Q5: Why comparison is easier than generation}
+
+Comparison leverages recognition rather than recall. A human can recognize that response B is clearer than response A without being able to generate a better response themselves. This is cognitively less demanding because:
+\begin{enumerate}
+    \item Comparison provides a concrete reference---you're not judging a response against an abstract ideal, but against another concrete option.
+    \item Comparison can surface partial quality signals---a response can be ``better than'' a worse one without being good in an absolute sense.
+    \item Comparison captures multidimensional quality in a single binary choice, rather than requiring the rater to specify which dimensions matter and by how much.
+\end{enumerate}
+
+Types of quality well-captured by comparison:
+\begin{itemize}
+    \item Relative helpfulness (which response better addresses the actual question)
+    \item Relative safety (which response is less likely to cause harm)
+    \item Relative tone (which response is more appropriate for the context)
+\end{itemize}
+
+Types of quality poorly captured by comparison:
+\begin{itemize}
+    \item Absolute factual accuracy (a false statement sounds more confident than a truthful uncertain one; the comparison may prefer the confident falsehood)
+    \item Quality below the lowest comparison baseline (if both responses are bad, the comparison tells you one is less bad, not that neither meets the bar)
+\end{itemize}
+
+\subsubsection*{Q6: Consequences of homogeneous rater pools}
+
+A language model trained on preferences from a homogeneous rater pool will:
+\begin{itemize}
+    \item Use communication styles that are preferred by that group (e.g., higher-context communication styles may be rated lower if raters prefer direct, low-context responses)
+    \item Handle topics that are culturally salient to the rater group more fluently
+    \item Rate responses about unfamiliar cultural contexts as lower quality even when they are accurate
+    \item Encode values about what constitutes ``appropriate'' or ``safe'' responses that reflect that group's norms
+\end{itemize}
+
+A more diverse preference rating process would require:
+\begin{itemize}
+    \item Geographic diversity in the rater pool (not just one country or region)
+    \item Demographic diversity (age, gender, educational background)
+    \item Language diversity (native speakers of the target languages, not translations of a monolingual pool's preferences)
+    \item Domain expertise diversity (to capture quality in specialized domains)
+\end{itemize}
+
+This is expensive and logistically complex---one reason why most current RLHF systems rely on more homogeneous pools than would be ideal.
+
+\subsubsection*{Q7: Constitutional AI advantages and limitations}
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Scales without proportional growth in human labeling effort: the model self-critiques against principles
+    \item Provides interpretable governance---the principles can be inspected, contested, and revised
+    \item Reduces inconsistency from individual rater variation (the ``constitution'' is consistent across all cases)
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item The principles are themselves a form of human choice---someone wrote the constitution, and that choice encodes values
+    \item Self-critique relies on the model's ability to evaluate its own outputs, which inherits the model's biases
+    \item Constitutional principles may not generalize well to cultural contexts or edge cases not anticipated when the constitution was written
+    \item The transparency of the principles can be gamed---responses that satisfy the letter of the principles without their spirit
+\end{itemize}
+
+\subsubsection*{Q8: Reactive vs.\ proactive uncertainty flagging}
+
+A system that flags uncertainty when asked is responding to a direct query about its confidence. The additional capability required for proactive flagging: the system must monitor the characteristics of its inputs and compare them to a map of its known weak areas---without being prompted.
+
+This requires:
+\begin{itemize}
+    \item A representation of the input space that allows comparison with training distribution
+    \item A mapping from input characteristics to expected performance
+    \item Threshold criteria for when the mismatch is large enough to flag
+\end{itemize}
+
+The key distinction: reactive systems answer questions about their uncertainty; proactive systems pose questions about their uncertainty. The proactive system has developed a form of self-monitoring that the reactive system lacks.
+
+\subsubsection*{Q9: What would genuine meta-uncertainty communication require?}
+
+A system that accurately communicates meta-level uncertainty would need:
+\begin{enumerate}
+    \item A taxonomy of input categories that corresponds to the model's actual performance structure (not just a surface-level categorization)
+    \item Historical performance data labeled by category: ``in category X, I have been wrong Y\% of the time''
+    \item An input classifier that accurately places new inputs into the taxonomy
+    \item A mechanism for combining category-level historical accuracy with case-level confidence scores
+\end{enumerate}
+
+Current research directions toward this: out-of-distribution detection (identifying when an input is outside the training distribution), calibration research for rare subgroups, and failure mode analysis that characterizes the structure of model errors rather than just their rate.
+
+None of these is yet mature enough for reliable real-world deployment at the meta-uncertainty level the chapter describes.
+
+\subsubsection*{Q10: Behavior change from meta-uncertainty communication}
+
+With only a confidence score, a human reviewer might:
+\begin{itemize}
+    \item Accept predictions with high confidence scores with minimal scrutiny
+    \item Apply more scrutiny only when the score is low
+    \item Have no information about whether the model's confidence is well-calibrated for this type of case
+\end{itemize}
+
+With meta-uncertainty communication (``this case is in a category where I've historically been wrong 30\% of the time''):
+\begin{itemize}
+    \item The reviewer has category-level information that calibrates their interpretation of the confidence score
+    \item A high confidence score in a poorly-calibrated category is no longer misleading
+    \item The reviewer can deploy more scrutiny on systematically hard categories, not just individually uncertain cases
+    \item The reviewer develops a more accurate mental model of the system's strengths and weaknesses over time
+\end{itemize}
+
+The practical effect: reviewers would trust the model's confidence scores more (because they are appropriately calibrated by category information) and the human review effort would be better directed.
+
+\subsubsection*{Q11: Where each extreme fails}
+
+\textbf{Fully autonomous fails most badly:}
+\begin{itemize}
+    \item Novel situations not represented in training data (out-of-distribution failure)
+    \item Decisions requiring value judgment about contested questions
+    \item High-stakes irreversible decisions (medical, legal) where errors have catastrophic consequences
+    \item Any context where accountability requires a human agent
+\end{itemize}
+
+\textbf{Fully human-dependent fails most badly:}
+\begin{itemize}
+    \item High-volume, time-sensitive decisions (fraud detection, spam filtering) where human speed is insufficient
+    \item Tasks where human fatigue and attention limits systematically degrade performance at scale
+    \item Cases where consistency across decisions matters more than any individual decision
+\end{itemize}
+
+\textbf{Hardest ``almost-autonomous'' design case:} Tasks where the boundary between ``AI can handle this'' and ``human judgment needed'' is itself ambiguous or context-dependent---e.g., creative tasks where novelty is desirable, or social situations where context that is invisible to the model changes the appropriate response.
+
+\subsubsection*{Q12: AI design specifications for targeted uncertainty communication}
+
+Translating the medical student analogy into design specifications:
+
+\begin{enumerate}
+    \item \textbf{Explicit knowledge representation:} The system must maintain a structured model of what it knows (well-characterized input regions with high training coverage) vs.\ doesn't know (thin training coverage, high historical error rate, OOD detection flag).
+    \item \textbf{Targeted query formulation:} Rather than returning a single confidence score, the system should be able to specify: ``I am uncertain about [specific sub-component of the decision] for [this reason].''
+    \item \textbf{Information need identification:} The system should be able to specify what information would most reduce its uncertainty---analogous to the student who knows ``I need to know whether this presentation is consistent with D'' rather than asking for a complete review.
+    \item \textbf{Calibrated confidence:} The confidence communication must accurately track performance---the system must know when to say it knows and when to say it doesn't.
+\end{enumerate}
+
+% ============================================================================
+\subsection*{Solutions to Appendix 17A Exercises}
+% ============================================================================
+
+\subsubsection*{Exercise 17A.1: Active Learning Sample Efficiency}
+
+\textbf{Expected results:}
+\begin{itemize}
+    \item Entropy/uncertainty sampling typically outperforms random sampling by round 3--5, achieving the target accuracy with 30--50\% fewer labels.
+    \item BADGE typically outperforms pure uncertainty sampling, especially in later rounds when boundary-only sampling has saturated.
+    \item The learning curve plot shows random sampling as a roughly linear curve; active learning curves are steeper early and flatten more quickly.
+\end{itemize}
+
+\textbf{Part (d):} The annotation savings at 85\% accuracy target is typically 200--400 examples (out of the 100 + 50×10 = 600 total in the budget), depending on the dataset and model. Students should report the specific iteration at which each strategy first achieves 85\%, and compute the label count at that point.
+
+\subsubsection*{Exercise 17A.2: Reward Model Simulation}
+
+\textbf{Part (c):} With 10\% noise in preference labels, the reward model will have some systematic errors but will generally recover the correct ranking. Spearman rank correlation between learned reward and ground truth reward is typically 0.80--0.92 with 1,000 pairs, even with 10\% noise.
+
+\textbf{Part (d)/(e):} Key observations:
+\begin{itemize}
+    \item The reward model struggles most on near-boundary cases (similar conciseness levels)
+    \item Noise in preference labels is most damaging for fine-grained distinctions
+    \item Increasing training set size from 1,000 to 2,000 examples typically improves Spearman correlation more than reducing noise from 10\% to 5\%---quantity beats quality for reward models, up to a point
+\end{itemize}
+
+\subsubsection*{Exercise 17A.3: Out-of-Distribution Detection}
+
+\textbf{Part (a):} Softmax confidence on SVHN (OOD) inputs will often be high---this is the well-documented ``softmax overconfidence'' problem. Many OOD inputs map to confident incorrect predictions.
+
+\textbf{Part (b):} Energy scores correctly assign higher energy (more OOD) to SVHN inputs than CIFAR-10 test inputs. The energy-based detector achieves substantially better OOD separation than softmax confidence.
+
+\textbf{Part (c):} Energy is consistently the better metric for in-distribution/OOD separation, with AUROC typically 0.85--0.93 vs.\ 0.65--0.75 for softmax confidence.
+
+\textbf{Part (d):} At an energy threshold that achieves 90\% true positive rate (correctly routing 90\% of OOD inputs to human review), the false positive rate (incorrectly routing in-distribution inputs) is typically 15--25\%. The precision/recall tradeoff: tightening the threshold to reduce false positives (unnecessary human review) increases false negatives (missed OOD inputs processed automatically). The appropriate threshold depends on the cost of each type of error in the deployment context.

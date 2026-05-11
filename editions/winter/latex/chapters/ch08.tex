@@ -1,0 +1,176 @@
+% ============================================================================
+% CHAPTER 8: The Blueprint for Smart Helper Systems
+% System architecture for HITL — how the pieces fit, where they break,
+% and what it takes to keep them together
+% ============================================================================
+% Source: editions/winter/chapters/ch8/Ch8_final.md
+% ============================================================================
+
+\label{chap:ch08}
+
+\begin{storyhook}
+  \textit{System architecture for \hitl---how the pieces fit, where they break, and what it takes to keep them together.}
+\end{storyhook}
+
+% ============================================================================
+\section{The Alarm Nobody Heard}
+\label{sec:ch08-uber-tempe}
+% ============================================================================
+
+In 2018, an Uber self-driving test vehicle struck and killed Elaine Herzberg in Tempe, Arizona. She was walking her bicycle across a multi-lane road at night. The onboard systems detected her 5.6~seconds before impact. They classified her presence with high uncertainty---first as ``unknown object,'' then as ``vehicle,'' then as ``bicycle.'' The system was uncertain. The uncertainty was detected. Then the system made a fateful choice: to classify the object as a vehicle that was stationary.
+
+At that classification, the software determined that a safety stop was not needed. One second before impact, the system recognized it needed to stop. By then, it was too late.
+
+The backup safety driver, meanwhile, had not been watching the road.
+
+Here is what makes this a \emph{system architecture failure} rather than a sensor failure or a human failure: both the algorithm and the human were in the loop. Both failed. And the system's architecture---the way the two were connected, the expectations placed on each, the escalation rules that governed handoffs---was designed without sufficient attention to how human and algorithmic components interact under real operating conditions.
+
+The human was supposed to be in the loop. She was sitting in the driver's seat. But the system had been designed in a way that made meaningful human oversight essentially impossible: the safety driver was expected to monitor continuous operation but had no clear trigger for when to engage. The uncertainty signal that the software was generating was not communicated to her in any actionable form. The ``human in the loop'' was a checkbox, not a design.
+
+This is the architecture problem.
+
+% ============================================================================
+\section{The Pipeline Is Not the Loop}
+\label{sec:ch08-pipeline-vs-loop}
+% ============================================================================
+
+Before we discuss what \hitl system architecture should look like, it is worth naming the failure mode it is designed to avoid: treating a human-in-the-loop system as a \term{pipeline} with a human at one end.
+
+A pipeline is a sequence of steps. Data goes in, processing happens, output comes out. In a pipeline with a human step, the human reviews something and passes it along. The human's role is fixed, their inputs are fixed, their outputs are fixed. There is no feedback. There is no learning.
+
+A loop is different. In a loop, the outputs from the human step flow back into the system. The human's responses change how the system behaves in the future. The system is designed to improve based on human feedback. And the human is designed to be supported---with good interfaces, good context, appropriate caseload---so their feedback is worth incorporating.
+
+Most systems that claim to be ``human-in-the-loop'' are actually pipelines. The human step exists but contributes nothing to system learning. The model is static. The human is a quality control check, not a contributor to the system's intelligence.
+
+Real \hitl architecture requires several components that a simple pipeline does not have.
+
+% ============================================================================
+\section{The Components of Real HITL Architecture}
+\label{sec:ch08-components}
+% ============================================================================
+
+\paragraph{The Prediction Layer.} The machine learning model that processes inputs and produces outputs with uncertainty estimates. The key architectural requirement is that it produces not just predictions but \term{confidence signals}---calibrated probabilities that the downstream routing layer can act on.
+
+\paragraph{The Uncertainty Quantification Layer.} A separate component (or integrated capability) that computes calibrated uncertainty for each prediction. This may be as simple as temperature-scaled softmax outputs, or as complex as a separate ensemble model for uncertainty estimation \autocite{lakshminarayanan2017simple}. The key is that the output is a calibrated confidence score, not a raw logit.
+
+\paragraph{The Routing Layer.} The decision logic that determines what happens to each prediction. Above the high-confidence threshold: automatic action. Below the low-confidence threshold: automatic action in the cautious direction. In between: route to human review. This is where the threshold band design from Chapter~4 is implemented.
+
+\paragraph{The Interface Layer.} The system through which human reviewers receive and respond to cases. This is more than a display---it is the context provision, the question framing, the response format, and the ergonomics that determine whether human feedback is useful or garbage. Chapter~5 covers this in depth. Architecturally, the key requirement is that it can present information appropriately for different case types and capture structured responses that can be fed back into training.
+
+\paragraph{The Feedback Integration Layer.} The mechanism by which human responses improve the system. This may be a retraining pipeline, an active learning module, a rule update system, or a calibration recalibration component. Without this layer, the ``loop'' in \hitl is not a loop---it is an open-ended pipeline.
+
+\paragraph{The Monitoring Layer.} Ongoing tracking of system behavior---prediction distributions, human response patterns, accuracy metrics, throughput, reviewer load, calibration drift. This is the component that keeps the system honest over time, detecting when things are drifting in ways that require intervention \autocite{beyer2016sre}.
+
+\paragraph{The Audit Layer.} Logging of decisions, escalations, human responses, and outcomes. This is what makes the system accountable: a record of what was decided, why, by whom (human or machine), and what happened next. In regulated industries, this is often legally required. In all industries, it is practically required for debugging and improvement.
+
+% ============================================================================
+\section{The Feedback Loop: From Human Response to Model}
+\label{sec:ch08-feedback-loop}
+% ============================================================================
+
+The most important and most underbuilt component is \term{feedback integration}. This is where the loop actually closes---where the system gets smarter over time because of what humans tell it.
+
+Several architectures exist, ranging from simple to sophisticated.
+
+\paragraph{Batch retraining.} Human labels are accumulated over a period (day, week, month), quality-checked, and added to the training dataset. The model is retrained periodically on the augmented dataset. Simple, robust, but slow---the model does not improve from this morning's reviews until next month's retraining.
+
+\paragraph{Online learning.} Human labels are incorporated immediately into model updates. Faster learning, but also faster propagation of errors if human quality drops. Requires careful quality monitoring of the incoming labels.
+
+\paragraph{Active learning queues.} The routing layer preferentially sends to human review the cases where the model would benefit most from a label---not just the uncertain cases, but the uncertain cases in underrepresented regions of the training distribution. This is an intelligent version of batch retraining where human effort is directed where the learning value is highest. Chapter~17 covers active learning in more depth.
+
+\paragraph{RLHF.} \term{Reinforcement Learning from Human Feedback} (\rlhf) is a more sophisticated architecture used in large language models where human preferences (expressed as comparisons between outputs) are used to train a reward model, which is then used to fine-tune the generative model \autocite{christiano2017deep}. This is the architecture behind ChatGPT and similar systems \autocite{ouyang2022training}. The architectural novelty is that humans do not label correct answers---they express preferences between alternatives, which is often easier and cheaper.
+
+% ============================================================================
+\section{Logging, Monitoring, and Drift Detection}
+\label{sec:ch08-monitoring}
+% ============================================================================
+
+One of the most consistent failure modes in production \hitl systems is drift without detection. The system performs well at launch, degrades slowly over the following months, and the degradation is not noticed until a visible failure---a bad press story, a complaint escalation, an audit finding---prompts a review.
+
+Good \hitl architecture prevents this with systematic monitoring.
+
+\paragraph{Prediction monitoring.} Track the distribution of confidence scores, label predictions, and model outputs over time. A shift in any of these distributions is a signal that something has changed---either the model's behavior or the input distribution.
+
+\paragraph{Human response monitoring.} Track human reviewer agreement rates, time-per-review, and the rate at which human reviewers override automated decisions. Declining agreement rate or drastically faster reviews often signal reviewer fatigue or training distribution change. Rising override rates suggest the model is performing worse, or that the reviewers have developed new judgment that the model has not yet learned.
+
+\paragraph{Outcome monitoring.} Where outcomes are observable (fraud actually occurred or did not, content actually caused reported harm or did not), track whether the system's predictions corresponded to reality. This is the ground truth check. It requires outcome labels, which are often delayed and incomplete---but even partial outcome monitoring is valuable.
+
+\paragraph{Calibration monitoring.} Periodically recompute the Expected Calibration Error (ECE) on held-out samples with known outcomes. If calibration is drifting, the routing rules need to be recalibrated.
+
+% ============================================================================
+\section{Where Things Break in Production}
+\label{sec:ch08-failure-modes}
+% ============================================================================
+
+Real \hitl systems break in predictable ways.
+
+\begin{cautionbox}[Production Failure Taxonomy]
+\begin{description}
+  \item[Reviewer bottleneck] The volume of cases routed to human review exceeds reviewer capacity. Reviewers speed up, quality drops, the feedback signal degrades. Downstream: model does not improve, error rates stay high.
+  \item[Label quality degradation] As a task becomes routine, reviewer attention decreases. Labels become less careful. Training data quality drops. Model performance plateaus or regresses.
+  \item[Feedback lag] Human labels from today do not reach the model for weeks or months. By the time the model learns from today's edge cases, those edge cases are no longer edge cases---the distribution has moved.
+  \item[Distribution shift without detection] The real-world data changes faster than the monitoring system detects. The model is making decisions on a distribution it was not trained on, but the monitoring dashboard still shows ``all green'' because it is tracking the wrong metrics.
+  \item[The ghost reviewer] A reviewer position that exists on paper but is chronically understaffed or filled by someone with insufficient training. The system reports that human oversight is in place. The reality is that oversight is nominal.
+  \item[Specification gaming] The model learns to game the metrics it is being evaluated on rather than learning the true task. If the feedback loop is measuring the wrong thing, the model will optimize the wrong thing.
+\end{description}
+\end{cautionbox}
+
+% ============================================================================
+\section{The Lifecycle: From Prototype to Deployed System}
+\label{sec:ch08-lifecycle}
+% ============================================================================
+
+\hitl systems evolve over time, and their architecture needs to evolve with them.
+
+\paragraph{Phase~1---Human-heavy prototype.} Almost all cases go to human review. The model exists but has thin training. This is the data collection phase---the human labels are the product, not the model outputs.
+
+\paragraph{Phase~2---Hybrid operation.} The model handles high-confidence cases automatically. Human review is concentrated on uncertain cases. The model is updated regularly on reviewed cases. This is the steady state for most production \hitl systems.
+
+\paragraph{Phase~3---Model-dominant.} As training data accumulates, the model becomes more capable. Fewer cases require review. Human review concentrates on genuinely hard cases and edge cases. The human role becomes more expert and less routine.
+
+\paragraph{Phase~4---Monitoring-dominant.} The model handles most cases well. Human involvement shifts to monitoring, auditing, and handling edge cases and appeals. The architecture focuses on drift detection and outcome monitoring rather than case-by-case review.
+
+Each phase has different architectural requirements. A system optimized for Phase~1 data collection will need significant changes to serve well in Phase~3 model-dominant operation. Planning for these transitions is part of good \hitl architecture design.
+
+\begin{trythis}
+Sketch the \hitl architecture for a system you interact with regularly---your email spam filter, your bank's fraud detection, a recommendation system. Where is the prediction layer? Where is the routing layer? Where is the interface? And most importantly: can you identify a feedback integration layer? If you cannot find the feedback loop, what does that tell you about whether the system is actually designed to improve?
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+  \item \hitl architecture requires a loop, not just a pipeline---human responses must flow back into the system
+  \item Seven components: prediction, uncertainty quantification, routing, interface, feedback integration, monitoring, and audit layers
+  \item Feedback integration can be batch retraining, online learning, active learning, or \rlhf---each with different latency and quality tradeoffs
+  \item Production \hitl systems break in predictable ways: reviewer bottleneck, label quality degradation, feedback lag, distribution shift without detection
+  \item The system lifecycle has distinct phases (human-heavy $\to$ hybrid $\to$ model-dominant $\to$ monitoring-dominant), each requiring different architecture
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Examples}
+
+\begin{description}
+  \item[Uber Tempe incident (2018)] A human-in-the-loop that was not---a pipeline with a human placeholder; uncertainty was detected but not communicated to the safety driver
+  \item[Active learning queues] Intelligent routing for maximum learning value, not just uncertainty-based routing
+  \item[\rlhf in language models] Preference-based feedback as an alternative to label-based feedback; the architecture behind ChatGPT and similar systems
+\end{description}
+
+\subsection*{Five Dimensions Check}
+
+\begin{itemize}
+  \item \emph{Feedback Integration} (Dimension~5): The core subject of this chapter
+  \item \emph{Uncertainty Detection} (Dimension~1): Required for the routing layer to function
+  \item \emph{Stakes Calibration} (Dimension~4): Informs the routing thresholds
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Next chapter: a practical guide to the tools anyone can use---from annotation platforms to cloud-based \hitl services to open-source options for getting started with real data.}

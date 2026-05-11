@@ -1,0 +1,309 @@
+% ============================================================================
+% TECHNICAL APPENDIX 12A: Measuring HITL System Performance
+% Formal definitions, calibration metrics, statistical inference,
+% and experimental design for human-in-the-loop evaluation
+% ============================================================================
+% Source: /markdown/ch12/Ch12A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 12A: Measuring HITL System Performance}
+\addcontentsline{toc}{chapter}{Technical Appendix 12A: Measuring HITL Performance}
+
+\begin{chapterquote}{Formal foundations for Chapter 12}
+Measurement theory applied to human-in-the-loop systems: calibration metrics, pathway decomposition, inter-rater reliability, and the statistics of controlled experiments.
+\end{chapterquote}
+
+% ============================================================================
+\section{Classification Metrics: Formal Definitions}
+% ============================================================================
+
+\subsection{The Confusion Matrix}
+
+For a binary classifier, outcomes fall into four cells:
+
+\begin{table}[htbp]
+\centering
+\caption{Binary classifier confusion matrix}
+\label{tab:confusion-matrix}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & \textbf{Predicted Positive} & \textbf{Predicted Negative} \\
+\midrule
+\textbf{Actual Positive} & True Positive (TP) & False Negative (FN) \\
+\textbf{Actual Negative} & False Positive (FP) & True Negative (TN) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Core Metrics}
+
+\paragraph{Accuracy.}
+\[
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+\]
+Misleading under class imbalance.
+
+\paragraph{Precision (Positive Predictive Value).}
+\[
+\text{Precision} = \frac{TP}{TP + FP}
+\]
+Of all cases flagged as positive, how many were correct? A precision-focused system minimizes false alarms.
+
+\paragraph{Recall (Sensitivity, True Positive Rate).}
+\[
+\text{Recall} = \frac{TP}{TP + FN}
+\]
+Of all actually positive cases, how many were caught? A recall-focused system minimizes missed detections.
+
+\paragraph{F1 Score.}
+\[
+F_1 = 2 \cdot \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
+\]
+The harmonic mean of precision and recall. The harmonic mean penalizes extreme imbalances between precision and recall more severely than the arithmetic mean.
+
+\paragraph{$F_\beta$ Score.}
+\[
+F_\beta = (1 + \beta^2) \cdot \frac{\text{Precision} \times \text{Recall}}{(\beta^2 \cdot \text{Precision}) + \text{Recall}}
+\]
+When $\beta > 1$, recall is weighted more heavily (missing a positive is more costly). When $\beta < 1$, precision is weighted more heavily.
+
+\subsection{HITL-Specific Pathway Decomposition}
+
+Let $\mathcal{A}$ denote the set of auto-processed cases and $\mathcal{H}$ the set of human-reviewed cases, with $|\mathcal{A}| + |\mathcal{H}| = N$.
+
+\paragraph{Pathway Error Rates.}
+\[
+\text{Error}_{\mathcal{A}} = \frac{FP_{\mathcal{A}} + FN_{\mathcal{A}}}{|\mathcal{A}|}, \qquad
+\text{Error}_{\mathcal{H}} = \frac{FP_{\mathcal{H}} + FN_{\mathcal{H}}}{|\mathcal{H}|}
+\]
+
+\paragraph{System-Level Error Rate.}
+\[
+\text{Error}_{\text{system}} = \frac{|\mathcal{A}|}{N} \cdot \text{Error}_{\mathcal{A}} + \frac{|\mathcal{H}|}{N} \cdot \text{Error}_{\mathcal{H}}
+\]
+
+A system can show improving aggregate error while $\text{Error}_{\mathcal{A}}$ increases, if the routing threshold is raised (more cases auto-processed). Tracking pathway-specific error rates separately detects this divergence.
+
+\paragraph{Human Value-Added.}
+\[
+\Delta_H = \text{Error}_{\mathcal{H}}^{(\text{auto-only})} - \text{Error}_{\mathcal{H}}^{(\text{human-reviewed})}
+\]
+Estimated counterfactual: how much higher would the error rate on human-reviewed cases have been if the model had decided them autonomously?
+
+% ============================================================================
+\section{Calibration Metrics}
+% ============================================================================
+
+\subsection{Why Calibration Matters for HITL}
+
+A HITL system routes cases to humans based on model confidence. If confidence is miscalibrated---if an 80\% confidence score corresponds to 60\% accuracy---the routing threshold is miscalibrated too.
+
+\paragraph{Definition: Calibration.} A probabilistic classifier $f$ is perfectly calibrated if, for all $p \in [0,1]$:
+\[
+P\bigl(\hat{y} = y \mid f(x) = p\bigr) = p
+\]
+
+\subsection{Expected Calibration Error (ECE)}
+
+Partition predictions into $M$ equally-spaced confidence bins. Let $B_m$ denote the set of cases in bin $m$, with $|B_m|$ elements:
+\[
+\text{acc}(B_m) = \frac{1}{|B_m|} \sum_{i \in B_m} \mathbf{1}[\hat{y}_i = y_i], \qquad
+\text{conf}(B_m) = \frac{1}{|B_m|} \sum_{i \in B_m} \hat{p}_i
+\]
+
+\[
+\text{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{n} \left| \text{acc}(B_m) - \text{conf}(B_m) \right|
+\]
+
+A perfectly calibrated model has $\text{ECE} = 0$. Values below 0.02 are considered good; above 0.05 warrant intervention \autocite{guo2017calibration}.
+
+\subsection{Maximum Calibration Error (MCE)}
+
+ECE is an average; a model can have low ECE while severely miscalibrated in high-confidence bins where routing decisions are made:
+\[
+\text{MCE} = \max_m \left| \text{acc}(B_m) - \text{conf}(B_m) \right|
+\]
+
+For HITL systems, MCE in the high-confidence bins should be tracked separately from the overall ECE.
+
+\subsection{Calibration Methods}
+
+\paragraph{Temperature Scaling \autocite{guo2017calibration}.}
+A single learned parameter $T > 0$ scales the logits before the softmax:
+\[
+\hat{p}_i = \text{softmax}(z_i / T)
+\]
+When $T > 1$, confidence is reduced. $T$ is optimized on a held-out validation set by minimizing negative log-likelihood.
+
+\paragraph{Platt Scaling.}
+Fits a logistic regression $P(y=1 \mid f) = \sigma(af + b)$ on a validation set, where $(a, b)$ are learned parameters.
+
+\paragraph{Isotonic Regression.}
+Non-parametric monotonic calibration. More flexible than temperature scaling but requires a larger validation set to avoid overfitting. Preferred when calibration errors are concentrated in specific confidence regions.
+
+% ============================================================================
+\section{Confidence Intervals for HITL Metrics}
+% ============================================================================
+
+\subsection{Wilson Score Interval for Proportions}
+
+For an observed proportion $\hat{p} = k/n$, the Wilson score interval:
+\[
+\left[ \frac{\hat{p} + z^2/(2n) \pm z\sqrt{\hat{p}(1-\hat{p})/n + z^2/(4n^2)}}{1 + z^2/n} \right]
+\]
+where $z = 1.96$ for a 95\% interval. Preferred over the Wald interval when $\hat{p}$ is near 0 or 1.
+
+\subsection{Bootstrap Confidence Intervals}
+
+F1, ECE, and inter-rater agreement are nonlinear functions of the data. Closed-form intervals are unreliable. The bootstrap:
+\begin{enumerate}
+    \item Draw $B = 10{,}000$ bootstrap samples (with replacement) from $n$ observations.
+    \item Compute the metric on each: $\theta_1^*, \ldots, \theta_B^*$.
+    \item The 95\% interval is the 2.5th and 97.5th percentiles of $\{\theta_b^*\}$.
+\end{enumerate}
+
+\subsection{Minimum Detectable Effect}
+
+Required sample size to detect error-rate difference $\delta$ with power $1-\beta$ at significance $\alpha$:
+\[
+n = \frac{(z_{\alpha/2} + z_\beta)^2 \cdot 2\bar{p}(1-\bar{p})}{\delta^2}
+\]
+where $\bar{p}$ is the pooled error rate. For a 5\% baseline and 1 percentage point improvement, 80\% power requires $n \approx 2{,}600$ cases per arm.
+
+% ============================================================================
+\section{Inter-Rater Reliability}
+% ============================================================================
+
+\subsection{Cohen's Kappa}
+
+Raw agreement is inflated by chance. Kappa corrects for this:
+\[
+\kappa = \frac{p_o - p_e}{1 - p_e}
+\]
+where $p_o$ is observed agreement and $p_e = \sum_k (n_{k\cdot}/n)(n_{\cdot k}/n)$ is expected chance agreement.
+
+Benchmarks (Landis \& Koch, 1977): $\kappa < 0.20$ slight; $0.21$--$0.40$ fair; $0.41$--$0.60$ moderate; $0.61$--$0.80$ substantial; ${>}0.80$ nearly perfect.
+
+\subsection{Fleiss' Kappa for Multiple Reviewers}
+
+For $k > 2$ reviewers, Fleiss' generalization:
+\[
+\kappa_F = \frac{\bar{P} - \bar{P}_e}{1 - \bar{P}_e}
+\]
+
+\subsection{Intraclass Correlation Coefficient (ICC)}
+
+For continuous annotations (e.g., severity scores), two-way mixed ICC:
+\[
+\text{ICC}(2,1) = \frac{MS_R - MS_E}{MS_R + (k-1)MS_E + k(MS_C - MS_E)/n}
+\]
+where $MS_R$, $MS_C$, $MS_E$ are mean squares from a two-way ANOVA decomposition.
+
+% ============================================================================
+\section{Statistical Significance in A/B Tests}
+% ============================================================================
+
+\subsection{Two-Proportion Z-Test}
+
+Null hypothesis $H_0: p_A = p_B$. Test statistic:
+\[
+z = \frac{\hat{p}_A - \hat{p}_B}{\sqrt{\hat{p}(1-\hat{p})(1/n_A + 1/n_B)}}
+\]
+where $\hat{p} = (k_A + k_B)/(n_A + n_B)$. Reject $H_0$ at $\alpha = 0.05$ when $|z| > 1.96$.
+
+\subsection{Complications in HITL Experiments}
+
+\begin{keyconcept}[Three HITL-Specific Complications]
+\begin{itemize}
+    \item \textbf{Non-independence:} Cases reviewed by the same reviewer are correlated. Use cluster-robust variance estimation with reviewers as clusters.
+    \item \textbf{SUTVA violations:} Reviewer behavior can change based on queue length, which is affected by arm assignment. Minimize by balancing queue lengths across arms.
+    \item \textbf{Learning effects:} If the model updates during the experiment, freeze model weights for the experimental period or use pre-registered stopping rules.
+\end{itemize}
+\end{keyconcept}
+
+\subsection{CUPED: Variance Reduction Using Pre-Experiment Data}
+
+CUPED reduces variance by regressing out baseline covariates \autocite{deng2013improving}:
+\[
+Y_{\text{CUPED}} = Y - \theta(X - \mathbb{E}[X])
+\]
+where $\theta = \text{Cov}(Y, X)/\text{Var}(X)$ is estimated from pre-experiment data. Can reduce variance by 30--50\%, roughly halving required sample size.
+
+% ============================================================================
+\section{Feedback Loop Latency Measurement}
+% ============================================================================
+
+\subsection{Defining Latency}
+
+Let $t_{\text{decision}}$ be the time a human reviewer finalizes a decision, and $t_{\text{incorporated}}$ be the time that decision is reflected in the model's predictions:
+\[
+L_i = t_{\text{incorporated},i} - t_{\text{decision},i}, \qquad
+\bar{L} = \frac{1}{|\mathcal{H}|} \sum_{i \in \mathcal{H}} L_i
+\]
+
+\subsection{Measuring Feedback Value}
+
+The value of the feedback loop is the improvement attributable to human corrections:
+\[
+V_{\text{feedback}} = \text{Error}_t^{(\text{without feedback})} - \text{Error}_{t+\Delta}^{(\text{with feedback})}
+\]
+Estimating the counterfactual requires freezing model snapshots at multiple time points and evaluating each against new ground truth---operationally complex but the only rigorous approach.
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[Calibration Assessment]
+A model has predictions in 10 confidence bins with accuracy values: \{0.05, 0.11, 0.18, 0.30, 0.42, 0.55, 0.63, 0.74, 0.82, 0.90\} (equal numbers per bin, $n=1{,}000$ total).
+\begin{enumerate}[(a)]
+    \item Compute the ECE.
+    \item Describe the reliability diagram shape.
+    \item Assess calibration quality; is temperature scaling appropriate?
+    \item What does this calibration imply for HITL routing at a threshold of 0.80?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Sample Size Determination]
+A HITL system has a current error rate of 8\%. A proposed redesign is expected to reduce this to 6\%.
+\begin{enumerate}[(a)]
+    \item Compute the required sample size per arm at 80\% power, $\alpha = 0.05$.
+    \item Recompute for 90\% power.
+    \item At a throughput of 500 human-reviewed cases per day, how long would each experiment take? What practical challenges arise at this timescale?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Goodhart's Law Simulation]
+A model routes the bottom 20\% of confidence cases to human review. Original reviewer accuracy: 92\%. Gaming increases throughput 3$\times$ but reduces accuracy to 65\%. System auto-processes the remaining 80\% at a 3\% error rate.
+\begin{enumerate}[(a)]
+    \item Compute the system-level error rate before and after gaming using the pathway decomposition from \cref{sec:divergence-trap}.
+    \item Explain why aggregate accuracy might appear stable to management while the system degrades.
+    \item What single monitoring metric would most reliably detect gaming within two weeks?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Inter-Rater Reliability]
+Two reviewers independently label 100 borderline cases. Reviewer A: 60 positive, 40 negative. Reviewer B: 55 positive, 45 negative. Agreement: 50 both-positive, 25 both-negative.
+\begin{enumerate}[(a)]
+    \item Compute Cohen's kappa.
+    \item Interpret the level of agreement.
+    \item What trend in kappa over time would constitute a warning signal? What might cause it?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Feedback Loop Quality Control]
+Design a quality control procedure for incoming reviewer decisions before model training. The system processes 10,000 cases per day, routes 15\% to human review, and targets 24-hour feedback loop latency.
+\begin{enumerate}[(a)]
+    \item Specify four statistics to compute on each incoming daily batch.
+    \item Define alert thresholds for each statistic.
+    \item Describe the decision rule: when to proceed, when to hold for audit, when to reject.
+    \item What is the cost of a false hold (rejecting a good batch)? Of a false pass (accepting a bad batch)?
+\end{enumerate}
+\end{Exercise}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the mathematical foundations for Chapter~12's measurement framework. The exercises are calibrated so that Exercises~12A.1--12A.4 are accessible to readers with introductory statistics, while Exercise~12A.5 requires systems-level thinking appropriate for practitioners and advanced students.}

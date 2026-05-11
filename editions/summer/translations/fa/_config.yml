@@ -1,0 +1,101 @@
+# Book settings
+title: "یادگیری ماشین با حلقه انسانی: سوءتفاهم"
+author: "لازاروس تومانیدیس"
+copyright: "2026"
+logo: _static/logo.svg
+
+execute:
+  execute_notebooks: auto
+  timeout: 300
+  exclude_patterns: ["*.ipynb_checkpoints"]
+
+latex:
+  latex_documents:
+    targetname: hitl_ml_handbook_fa.tex
+  latex_engine: xelatex
+  use_jupyterbook_latex: true
+
+html:
+  use_issues_button: false
+  use_repository_button: false
+  use_download_button: true
+  home_page_in_navbar: true
+  extra_navbar: ""
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
+    - tasklist
+  myst_url_schemes: [mailto, http, https]
+  myst_dmath_double_inline: true
+
+sphinx:
+  extra_extensions:
+    - sphinxcontrib.bibtex
+  config:
+    bibtex_bibfiles: [references.bib]
+    bibtex_reference_style: author_year
+    html_css_files: [custom.css]
+    html_theme_options:
+      use_download_button: true
+      show_navbar_depth: 2
+      navigation_depth: 4
+      direction: rtl
+    language: fa
+    latex_elements:
+      papersize: a4paper
+      pointsize: 11pt
+      fontpkg: |
+        \usepackage{fontspec}
+        \usepackage{polyglossia}
+        \setmainlanguage{persian}
+        \setotherlanguage{english}
+        \setmainfont[Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/gnu-freefont/,
+          BoldFont=FreeSerifBold.otf,
+          ItalicFont=FreeSerifItalic.otf,
+          BoldItalicFont=FreeSerifBoldItalic.otf]{FreeSerif.otf}
+        \newfontfamily\arabicfont[Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/gnu-freefont/,
+          BoldFont=FreeSerifBold.otf]{FreeSerif.otf}
+        \newfontfamily\arabicfontsf[Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/gnu-freefont/]{FreeSerif.otf}
+        \newfontfamily\arabicfonttt{Courier New}
+        \setmonofont{Courier New}[Scale=0.80]
+      geometry: |
+        \usepackage[a4paper, inner=32mm, outer=26mm, top=32mm, bottom=28mm, headsep=12mm]{geometry}
+      preamble: |
+        \usepackage{microtype}
+        \usepackage{setspace}
+        \setstretch{1.07}
+        \usepackage{emptypage}
+        \usepackage{titlesec}
+        \usepackage{fancyhdr}
+        \PassOptionsToPackage{bookmarks=false}{hyperref}
+        \makeatletter
+        \newcolumntype{L}{l}
+        \newcolumntype{C}{c}
+        \newcolumntype{R}{r}
+        \newcolumntype{J}{l}
+        \newcolumntype{T}{l}
+        \makeatother
+        \RenewDocumentEnvironment{tabulary}{m o m}{\begin{tabular}{#3}}{\end{tabular}}
+        \definecolor{hitlblue}{HTML}{2b3a8f}
+        \definecolor{hitlcoral}{HTML}{e05c5c}
+        \definecolor{hitlteal}{HTML}{0d9e8e}
+        \definecolor{hitlgray}{HTML}{4a4a5a}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[LE]{\small\color{hitlgray}\itshape\nouppercase{\leftmark}}
+        \fancyhead[RO]{\small\color{hitlgray}\itshape\nouppercase{\rightmark}}
+        \fancyfoot[LE,RO]{\small\color{hitlgray}\thepage}
+        \fancyfoot[CE]{\scriptsize\color{hitlgray!50}\textit{HITL ML: سوءتفاهم}}
+        \renewcommand{\headrulewidth}{0.4pt}
+        \setlength{\parskip}{5pt plus 1pt}
+        \setlength{\parindent}{18pt}

@@ -1,0 +1,141 @@
+% ============================================================================
+% TECHNICAL APPENDIX 17A: Active Learning Theory and Advanced Alignment
+% Source: /chapters/ch17/Ch17A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 17A: Active Learning Theory and Advanced Alignment Techniques}
+\addcontentsline{toc}{chapter}{Technical Appendix 17A: Active Learning and Alignment}
+
+\begin{chapterquote}{Mathematical foundations for active learning, RLHF, and meta-uncertainty}
+Chapter~17 describes the frontier of automation---where systems learn from increasingly sparse human feedback, align to human preferences rather than fixed labels, and detect their own limits. This appendix formalizes the theory behind each of those capabilities.
+\end{chapterquote}
+
+% ============================================================================
+\section{Active Learning: Formal Framework}
+\label{sec:a17-active-learning}
+% ============================================================================
+
+\subsection{Query Complexity}
+
+Standard supervised learning requires $m = O(d / \varepsilon^2)$ labeled examples to achieve error $\varepsilon$ in $d$-dimensional space. Active learning's key theoretical result: for many problem classes, the query complexity is $O(d / \varepsilon)$---a quadratic improvement.
+
+This speedup arises because active learning concentrates queries near the decision boundary, where labels provide the most information about the target function $f^*$.
+
+\subsection{Version Space Active Learning}
+
+The \term{version space} $V_n$ is the set of hypotheses consistent with all $n$ observed labels. Active learning strategies can be viewed as minimizing the expected version space volume after each query:
+\[
+x^* = \arg\min_{x \in \mathcal{U}} \mathbb{E}_{y \sim p(y|x)}\bigl[\mathrm{Vol}(V_{n+1}(x, y))\bigr]
+\]
+Selecting the query that maximally shrinks the version space is equivalent to selecting the most informative query under an information-theoretic criterion.
+
+\subsection{BADGE: Batch Active Learning by Diverse Gradient Embeddings}
+
+BADGE \autocite{ash2020badge} combines uncertainty and diversity in a principled way:
+\begin{enumerate}
+    \item For each unlabeled point $x_i$, compute the gradient of the loss with respect to the predicted label: $g_i = \nabla_\theta L(f_\theta(x_i), \hat{y}_i)$
+    \item Select a batch $S$ by $k$-means++ initialization on the $\{g_i\}$ vectors
+\end{enumerate}
+The gradient magnitude captures uncertainty (gradients are larger near the decision boundary); $k$-means++ selection enforces diversity across the batch.
+
+\begin{lstlisting}[style=python, caption={BADGE selection via gradient embeddings and k-means++}]
+import numpy as np
+from sklearn.cluster import kmeans_plusplus
+
+def badge_select(model, unlabeled_X, batch_size: int) -> np.ndarray:
+    """Select batch using BADGE: gradient embeddings + k-means++ init."""
+    probs     = model.predict_proba(unlabeled_X)
+    n_classes = probs.shape[1]
+    n_samples = unlabeled_X.shape[0]
+
+    pseudo_labels      = probs.argmax(axis=1)
+    gradient_embeddings = np.zeros((n_samples, n_classes))
+
+    for i in range(n_samples):
+        label      = pseudo_labels[i]
+        confidence = probs[i, label]
+        gradient_embeddings[i, label] = 1 - confidence
+        for j in range(n_classes):
+            if j != label:
+                gradient_embeddings[i, j] = -probs[i, j] * confidence
+
+    _, indices = kmeans_plusplus(gradient_embeddings, n_clusters=batch_size,
+                                  random_state=42)
+    return indices
+\end{lstlisting}
+
+% ============================================================================
+\section{RLHF: Mathematical Formulation}
+\label{sec:a17-rlhf}
+% ============================================================================
+
+\subsection{The Reward Model}
+
+Given preference pairs $\mathcal{D} = \{(x, y_w, y_l)\}$, the reward model $r_\phi$ is trained to maximize:
+\[
+\mathcal{L}_{\mathrm{RM}}(\phi) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \Bigl[\log \sigma\bigl(r_\phi(x, y_w) - r_\phi(x, y_l)\bigr)\Bigr]
+\]
+This is a Bradley-Terry model of preference:
+\[
+P(y_w \succ y_l \mid x) = \sigma\bigl(r_\phi(x, y_w) - r_\phi(x, y_l)\bigr)
+\]
+
+\subsection{PPO Fine-Tuning}
+
+With a trained reward model, the policy $\pi_\theta$ is fine-tuned to maximize:
+\[
+\mathcal{L}_{\mathrm{RLHF}}(\theta)
+  = \mathbb{E}_{x \sim \mathcal{D},\; y \sim \pi_\theta(y|x)}
+    \Bigl[r_\phi(x, y) - \beta \cdot \mathrm{KL}\!\bigl(\pi_\theta(\cdot|x) \| \pi_{\mathrm{ref}}(\cdot|x)\bigr)\Bigr]
+\]
+The KL penalty $\beta$ prevents the fine-tuned model from drifting too far from $\pi_{\mathrm{ref}}$, preserving general capabilities while aligning outputs with human preferences \autocite{christiano2017deep,ouyang2022training}.
+
+\subsection{Direct Preference Optimization (DPO)}
+
+DPO \autocite{rafailov2023direct} eliminates the explicit reward model:
+\[
+\mathcal{L}_{\mathrm{DPO}}(\theta)
+  = -\mathbb{E}_{(x, y_w, y_l)} \left[\log \sigma\!\left(
+      \beta \log \frac{\pi_\theta(y_w|x)}{\pi_{\mathrm{ref}}(y_w|x)}
+    - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{\mathrm{ref}}(y_l|x)}
+  \right)\right]
+\]
+DPO is mathematically equivalent to RLHF under certain assumptions but simpler to train: no reward model, no PPO loop.
+
+% ============================================================================
+\section{Meta-Uncertainty: Out-of-Distribution Detection}
+\label{sec:a17-ood}
+% ============================================================================
+
+\subsection{Energy-Based OOD Detection}
+
+\textcite{liu2020energy} propose:
+\[
+E(x;\, f) = -T \cdot \log \sum_c e^{f_c(x)/T}
+\]
+where $f_c(x)$ is the logit for class $c$ and $T$ is a temperature parameter. In-distribution inputs have lower energy; OOD inputs have higher energy, enabling threshold-based routing to human review.
+
+\subsection{Calibration Under Distribution Shift}
+
+Standard ECE is computed on a test set drawn from the same distribution as training. Under distribution shift, ECE typically degrades. A meta-calibration measure:
+\[
+\mathrm{ECE\text{-}shift} = \mathbb{E}_{P' \neq P}\bigl[\mathrm{ECE}(f, P')\bigr]
+\]
+Models with lower ECE-shift are more reliably calibrated across deployment contexts---a critical property for HITL systems where deployment conditions evolve.
+
+% ============================================================================
+\section{Exercises}
+\label{sec:a17-exercises}
+% ============================================================================
+
+\begin{Exercise}[Active Learning Comparison]
+On a binary classification dataset, implement uncertainty sampling, random sampling, and BADGE. Start with 100 labeled examples, query 50 per iteration for 10 iterations. Plot accuracy vs.\ annotation budget. What are the annotation savings at 85\% accuracy?
+\end{Exercise}
+
+\begin{Exercise}[RLHF Simulation]
+Create a simple RLHF simulation: 1{,}000 synthetic text summaries with a known reward function (conciseness). Simulate human preferences with 10\% noise. Train a reward model. Compare learned rankings to ground truth (Spearman $\rho$). At what noise level does the reward model fail to recover the ground-truth ranking?
+\end{Exercise}
+
+\begin{Exercise}[OOD Detection and Human Routing]
+Train an image classifier on CIFAR-10. Evaluate OOD detection on SVHN: compute softmax confidence and energy scores for both datasets. Which better separates in-distribution from OOD? At what threshold would you route to human review? Plot the precision/recall tradeoff for routing decisions as the threshold varies.
+\end{Exercise}

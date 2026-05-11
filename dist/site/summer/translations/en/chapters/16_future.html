@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Future Directions &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/en/chapters/16_future';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/en/chapters/16_future.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Future Directions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundation-models-and-the-changing-role-of-annotation">Foundation Models and the Changing Role of Annotation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-annotation-burden">Reducing Annotation Burden</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-forms-of-specification">New Forms of Specification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-as-annotators">LLMs as Annotators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-llm-annotation-works-well">Where LLM Annotation Works Well</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-llm-annotation-fails">Where LLM Annotation Fails</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif-and-constitutional-ai">RLAIF and Constitutional AI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-supervision-at-scale">Weak Supervision at Scale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continual-learning-with-human-oversight">Continual Learning with Human Oversight</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-modal-hitl">Multi-Modal HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalable-oversight">Scalable Oversight</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-evolving-division-of-labor">The Evolving Division of Labor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-research-problems">Open Research Problems</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="future-directions">
+<h1>Future Directions<a class="headerlink" href="#future-directions" title="Permalink to this heading">#</a></h1>
+<p>The field of human-in-the-loop machine learning is changing rapidly. Foundation models, LLMs-as-annotators, and new paradigms for human-AI collaboration are reshaping the economics and practice of HITL in ways that were not imaginable even five years ago. This final chapter maps the landscape of emerging directions and open problems.</p>
+<hr class="docutils" />
+<section id="foundation-models-and-the-changing-role-of-annotation">
+<h2>Foundation Models and the Changing Role of Annotation<a class="headerlink" href="#foundation-models-and-the-changing-role-of-annotation" title="Permalink to this heading">#</a></h2>
+<p>Foundation models — large models pre-trained on broad data that can be adapted to downstream tasks — are fundamentally changing the economics of HITL.</p>
+<section id="reducing-annotation-burden">
+<h3>Reducing Annotation Burden<a class="headerlink" href="#reducing-annotation-burden" title="Permalink to this heading">#</a></h3>
+<p>A task that previously required thousands of labeled examples for training from scratch may require only dozens when fine-tuning a foundation model. Few-shot prompting may eliminate the need for fine-tuning entirely for some tasks.</p>
+<p><strong>Implication:</strong> The ROI of annotation changes. Annotation effort is now better directed toward:</p>
+<ul class="simple">
+<li><p>High-quality evaluation sets (to measure whether the adapted model actually works)</p></li>
+<li><p>Hard cases and edge cases that the foundation model handles incorrectly</p></li>
+<li><p>Task-specific examples that teach the model something it cannot infer from pre-training</p></li>
+</ul>
+</section>
+<section id="new-forms-of-specification">
+<h3>New Forms of Specification<a class="headerlink" href="#new-forms-of-specification" title="Permalink to this heading">#</a></h3>
+<p>When the base model already understands language, code, and common sense, users can communicate with it in natural language rather than through labeled examples. A user who wants a text classifier no longer needs to label 500 examples — they can write a description of the classification task and evaluate zero-shot performance.</p>
+<p>This shifts the HITL challenge from <em>example collection</em> to <em>task specification</em>: helping users articulate precisely what they want in a form the model can act on. This is harder than it sounds — natural language descriptions of tasks are often ambiguous in ways that annotated examples are not.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="llms-as-annotators">
+<h2>LLMs as Annotators<a class="headerlink" href="#llms-as-annotators" title="Permalink to this heading">#</a></h2>
+<p>One of the most significant developments of 2023–2025 is the use of <strong>LLMs as annotation oracles</strong>. Instead of asking a human “Is this review positive or negative?”, we ask GPT-4 or Claude. For well-defined classification tasks, LLM annotations often match or closely approach crowd-worker accuracy <a href="#id1"><span class="problematic" id="id2">gilardi2023chatgpt</span></a>, and the per-annotation cost of API calls is typically orders of magnitude lower than human labor rates. Note that this applies specifically to <em>annotation</em> tasks (assigning labels), which is distinct from <em>evaluation</em> tasks (judging which of two outputs is better) — the latter is the domain of LLM-as-judge methods and has different reliability characteristics.</p>
+<section id="where-llm-annotation-works-well">
+<h3>Where LLM Annotation Works Well<a class="headerlink" href="#where-llm-annotation-works-well" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Simple, well-defined classification tasks (sentiment, topic, intent)</p></li>
+<li><p>Tasks where human labels encode cultural consensus that the LLM has absorbed</p></li>
+<li><p>Tasks where annotation is consistent across contexts (not highly subjective)</p></li>
+<li><p>Generating first-pass annotations for human review</p></li>
+</ul>
+</section>
+<section id="where-llm-annotation-fails">
+<h3>Where LLM Annotation Fails<a class="headerlink" href="#where-llm-annotation-fails" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Highly specialized domain tasks requiring rare expertise (medical, legal, scientific)</p></li>
+<li><p>Tasks that require local cultural knowledge or language variation</p></li>
+<li><p>Safety and harm tasks, where the LLM may be miscalibrated in the same direction as the data it was trained on</p></li>
+<li><p>Novel task types not well-represented in pre-training</p></li>
+</ul>
+</section>
+<section id="rlaif-and-constitutional-ai">
+<h3>RLAIF and Constitutional AI<a class="headerlink" href="#rlaif-and-constitutional-ai" title="Permalink to this heading">#</a></h3>
+<p>As discussed in Chapter 6, AI-generated feedback can be used to train reward models and guide RL fine-tuning. This creates a feedback loop: LLMs generate data, models are trained on it, and better models generate better data. The question of how to bootstrap this loop without encoding systematic errors from the initial model is a central open problem in scalable oversight research.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="weak-supervision-at-scale">
+<h2>Weak Supervision at Scale<a class="headerlink" href="#weak-supervision-at-scale" title="Permalink to this heading">#</a></h2>
+<p><strong>Programmatic labeling</strong> via labeling functions (Chapter 9) allows subject matter experts to express their knowledge as code rather than as labeled examples. Systems like Snorkel <a href="#id3"><span class="problematic" id="id4">ratner2017snorkel</span></a> and its successors have matured substantially and are now used in production at major technology companies.</p>
+<p><strong>Frontier directions:</strong></p>
+<ul class="simple">
+<li><p><strong>LLM-augmented labeling functions:</strong> Use LLMs to generate labeling functions from natural language descriptions</p></li>
+<li><p><strong>Slice-based learning:</strong> Identify critical subsets of the data (slices) where labeling functions disagree and direct human annotation there</p></li>
+<li><p><strong>Uncertainty-aware aggregation:</strong> Better statistical models for combining labeling functions with different accuracies and correlations</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="continual-learning-with-human-oversight">
+<h2>Continual Learning with Human Oversight<a class="headerlink" href="#continual-learning-with-human-oversight" title="Permalink to this heading">#</a></h2>
+<p>Most ML systems are trained offline and deployed as static models. The real world changes; models that were accurate at deployment time degrade as the data distribution shifts.</p>
+<p><strong>Continual learning</strong> — the ability to learn from new data while retaining old knowledge — is an active research area. Human oversight is critical: automated continual learning without human review can rapidly encode distribution shifts that are errors rather than genuine changes in the world.</p>
+<p><strong>HITL continual learning</strong> involves:</p>
+<ul class="simple">
+<li><p>Monitoring for distribution shift (automated) and routing shifted examples to human review</p></li>
+<li><p>Selective retraining: human-approved examples from the new distribution are added to training data</p></li>
+<li><p>Human review of model behavior changes after each update</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="multi-modal-hitl">
+<h2>Multi-Modal HITL<a class="headerlink" href="#multi-modal-hitl" title="Permalink to this heading">#</a></h2>
+<p>As AI systems become multi-modal — processing and generating text, images, audio, and video simultaneously — annotation becomes more complex. A single piece of content may require annotation across modalities, with dependencies between them.</p>
+<p><strong>Emerging task types:</strong></p>
+<ul class="simple">
+<li><p>Video + transcript annotation (what is happening, who is speaking, what does the text describe visually?)</p></li>
+<li><p>Medical image + clinical report annotation</p></li>
+<li><p>Robotic trajectory annotation (linking sensor data to action sequences)</p></li>
+</ul>
+<p>Multi-modal foundation models (GPT-4V, Gemini, Claude) are changing the annotation landscape here too — models can now interpret images and generate candidate annotations, which humans review.</p>
+</section>
+<hr class="docutils" />
+<section id="scalable-oversight">
+<h2>Scalable Oversight<a class="headerlink" href="#scalable-oversight" title="Permalink to this heading">#</a></h2>
+<p>A fundamental open problem in HITL ML is <strong>scalable oversight</strong> <a href="#id5"><span class="problematic" id="id6">irving2018ai,bowman2022measuring</span></a>: as AI systems become more capable than humans in specific domains, how do we maintain meaningful human oversight?</p>
+<p>For tasks like protein structure prediction, legal analysis, or mathematical proof verification, even expert annotators may not be able to judge which of two AI outputs is correct. Current HITL methods break down when human judgment is less reliable than the model being evaluated.</p>
+<p><strong>Proposed approaches <a href="#id7"><span class="problematic" id="id8">bowman2022measuring</span></a>:</strong></p>
+<p><strong>Debate:</strong> Two AI systems argue for different conclusions; a human judge evaluates the arguments rather than the conclusions directly. The correct conclusion should be more defensible.</p>
+<p><strong>Amplification:</strong> Human judges consult AI assistants (the model itself) to help evaluate complex outputs. This leverages AI capabilities to extend human oversight rather than replacing it.</p>
+<p><strong>Process supervision:</strong> Instead of evaluating the final output, humans evaluate the <em>reasoning process</em> — flagging flawed steps in a chain of thought, regardless of whether the final answer happens to be correct.</p>
+</section>
+<hr class="docutils" />
+<section id="the-evolving-division-of-labor">
+<h2>The Evolving Division of Labor<a class="headerlink" href="#the-evolving-division-of-labor" title="Permalink to this heading">#</a></h2>
+<p>The long-term trajectory of HITL ML is toward a more fluid collaboration between humans and AI, where neither is simply the “labeler” and the other the “learner,” but both contribute to a shared cognitive process.</p>
+<p><strong>Trends to watch:</strong></p>
+<ul class="simple">
+<li><p><strong>AI-assisted annotation:</strong> AI proposes; humans decide. Quality improves as AI proposes better options.</p></li>
+<li><p><strong>Human-guided exploration:</strong> Humans set goals and constraints; AI explores the space of solutions.</p></li>
+<li><p><strong>Collaborative evaluation:</strong> Humans and AI jointly evaluate complex outputs through dialogue.</p></li>
+<li><p><strong>Preference learning at scale:</strong> Implicit signals (how users interact with AI outputs) feed continuous preference learning without requiring explicit annotation sessions.</p></li>
+</ul>
+<p>The question of how much to trust AI judgment versus human judgment — and in what domains, at what capability levels, with what safeguards — is ultimately a societal question, not just a technical one. HITL ML provides the technical infrastructure for answering it carefully, rather than by default.</p>
+</section>
+<hr class="docutils" />
+<section id="open-research-problems">
+<h2>Open Research Problems<a class="headerlink" href="#open-research-problems" title="Permalink to this heading">#</a></h2>
+<p>We close with a list of important open problems that the field is actively working on:</p>
+<ol class="arabic simple">
+<li><p><strong>Optimal stopping in active learning:</strong> When is the marginal value of the next annotation below the cost? Principled stopping rules remain elusive.</p></li>
+<li><p><strong>Annotation budget allocation across tasks:</strong> In multi-task settings, how should a fixed annotation budget be split across tasks?</p></li>
+<li><p><strong>Distribution shift in active learning:</strong> Active learning creates biased labeled sets. How can models trained this way be properly calibrated?</p></li>
+<li><p><strong>Reward model generalization:</strong> RLHF reward models may fail to generalize to novel prompt-response pairs. How can we build more robust preference models?</p></li>
+<li><p><strong>Scalable oversight:</strong> How do we maintain human oversight as AI systems exceed human performance in specific domains?</p></li>
+<li><p><strong>Annotator modeling:</strong> Better statistical models for annotator behavior that capture not just competence but also systematic biases, topical expertise, and fatigue.</p></li>
+<li><p><strong>Evaluation of alignment:</strong> We lack ground-truth tests for whether a model is aligned with human values. Developing such tests — analogous to adversarial examples for robustness — is an open problem.</p></li>
+<li><p><strong>Fair data labor:</strong> Economic and institutional structures that ensure annotation workers are fairly compensated and protected, while maintaining the cost-effectiveness of large-scale annotation.</p></li>
+</ol>
+<hr class="docutils" />
+<blockquote class="epigraph">
+<div><p>The goal is not to replace human judgment with machine judgment,
+but to build systems where the combination of both is better than either alone.</p>
+</div></blockquote>
+<p>The tools and techniques in this handbook — annotation, active learning, RLHF, preference learning, and all the rest — are means to that end. As the field evolves, the specific techniques will change. The underlying aspiration — to build systems that are both capable and genuinely aligned with human intent — will remain.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Scalable oversight and debate: <a href="#id9"><span class="problematic" id="id10">bowman2022measuring</span></a>. Snorkel weak supervision: <a href="#id11"><span class="problematic" id="id12">ratner2017snorkel</span></a>. For the broad future of human-AI collaboration, see <a href="#id13"><span class="problematic" id="id14">amershi2019software</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/en/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundation-models-and-the-changing-role-of-annotation">Foundation Models and the Changing Role of Annotation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-annotation-burden">Reducing Annotation Burden</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-forms-of-specification">New Forms of Specification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-as-annotators">LLMs as Annotators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-llm-annotation-works-well">Where LLM Annotation Works Well</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-llm-annotation-fails">Where LLM Annotation Fails</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaif-and-constitutional-ai">RLAIF and Constitutional AI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-supervision-at-scale">Weak Supervision at Scale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continual-learning-with-human-oversight">Continual Learning with Human Oversight</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-modal-hitl">Multi-Modal HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalable-oversight">Scalable Oversight</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-evolving-division-of-labor">The Evolving Division of Labor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-research-problems">Open Research Problems</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

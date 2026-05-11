@@ -1,0 +1,200 @@
+% ============================================================================
+% CHAPTER 14 SOLUTIONS MANUAL: Building Fair and Ethical Systems
+% Model answers to all discussion questions and exercises
+% ============================================================================
+
+\section*{Chapter 14 Solutions Manual: Building Fair and Ethical Systems}
+\addcontentsline{toc}{section}{Chapter 14 Solutions Manual}
+
+% ============================================================================
+\subsection*{Solutions to Discussion Questions}
+% ============================================================================
+
+\subsubsection*{Q0: Opening Reflection}
+
+This question does not have a single correct answer; it is designed to surface students' prior experience and intuitions.
+
+Strong responses will identify: (a)~that the unfairness felt systemic because it affected not just the individual but appeared to affect a category of people; (b)~that fixing it would have required changing a policy, a data source, or an incentive structure---not just correcting an individual's mistake; (c)~a distinction between malicious intent (rare) and structural outcomes that disadvantage groups even without intent (more common and harder to fix).
+
+\subsubsection*{Q1: Which layer is hardest to detect / prevent?}
+
+\textbf{Hardest to detect after the fact:} \textbf{Collection bias} is often the hardest to detect retrospectively because it is invisible in the data itself---you can only see what was collected, not what was omitted. If a facial recognition training dataset contains 80\% light-skinned male faces, the dataset doesn't announce this as a problem; it simply doesn't include the missing cases. Detecting collection bias requires comparing the training distribution to the deployment population.
+
+\textbf{Hardest to prevent:} \textbf{Feedback loop amplification} is hardest to prevent because it requires active monitoring of how model outputs affect future training inputs---a feedback process that requires an ongoing commitment to monitoring systems that most organizations don't build proactively. The gap between initial deployment (when the feedback loop doesn't yet exist) and later harm (when the loop has been running long enough to cause measurable amplification) can span years.
+
+These are not the same layer. Collection bias is detectable (with the right comparisons) but hard to prevent in retrospect; feedback amplification is preventable (with the right monitoring design) but hard to detect without proactive measurement.
+
+\subsubsection*{Q2: ``Bias is a signal the model correctly learned''}
+
+This reframe has several practical implications:
+
+\begin{enumerate}
+    \item \textit{Removing specific features is insufficient} because the model can learn proxies. The causal chain runs through the data, not through the features explicitly included.
+    \item \textit{``Debiasing'' is a misleading term} when applied to model parameters alone. You cannot debias a model trained on biased historical outcomes by adjusting its weights, because the bias is in the relationship between inputs and outputs.
+    \item \textit{Meaningful remediation requires changing what the model is trying to predict.} If the training labels reflect historical disparate outcomes, changing features doesn't fix the problem.
+    \item \textit{Accountability cannot be discharged by claiming the model was ``objective.''} Accuracy to biased training data is itself a form of encoded injustice.
+\end{enumerate}
+
+\subsubsection*{Q3: Amazon's proxy adaptation}
+
+Amazon's recruiting AI exhibited \textbf{proxy displacement}: when direct proxies for a protected attribute are removed, the model learns indirect ones. This is not a flaw in the model---it is a feature. The model is finding the information it needs to make accurate predictions within the training data.
+
+The implications:
+\begin{itemize}
+    \item Feature-level interventions are whack-a-mole. Any approach that tries to remove bias by blocking specific features will face proxy adaptation.
+    \item The problem is structural, not architectural. The model finds proxies because the training data genuinely encodes a world where gender correlated with hiring outcomes.
+    \item The alternative is to intervene on the training objective or the labels, not the input features. Adversarial debiasing attacks the problem at the information level.
+\end{itemize}
+
+\subsubsection*{Q4: The feedback loop and cognitive bias}
+
+The primary cognitive bias is \textbf{confirmation bias} operating through a \textbf{measurement illusion}: the reviewers see more arrests and interpret arrests as evidence of underlying crime. They are not distinguishing between:
+\begin{itemize}
+    \item More crime occurring (the thing they are trying to measure)
+    \item More policing intensity (which directly causes more arrests regardless of underlying crime rates)
+\end{itemize}
+
+A human reviewer would need to know: (1)~that policing intensity in the flagged areas increased after the model's deployment; (2)~that arrest rates in areas with equal patrol presence but without model flagging did not increase; and (3)~that the model's training data includes historical policing intensity as a latent feature.
+
+The structural fix is not better reviewers---it is measuring the right thing. A system designed to measure underlying crime rates (using victimization surveys rather than arrest rates) would not have this feedback structure. But arrest rates are cheap and available; victimization survey data is expensive and slow.
+
+\subsubsection*{Q5: Feedback loops in other domains}
+
+\textbf{Sample: credit scoring}
+
+The model predicts credit risk based on credit history $\rightarrow$ higher-risk scores lead to higher interest rates or denials $\rightarrow$ higher cost of credit leads to higher default rates for the affected group, regardless of underlying creditworthiness $\rightarrow$ new defaults become training data $\rightarrow$ the model learns with higher confidence that the group is high-risk.
+
+Breaking the loop requires: (a)~using income and expense verification rather than credit history as primary signals; (b)~offering credit-building products to under-served segments, generating new positive history; (c)~monitoring approval rate trends over time by demographic segment and investigating increases in disparity.
+
+\subsubsection*{Q6: Which COMPAS claim is more important?}
+
+The question of \textit{which claim is more important} is a normative question that depends on which type of error you believe is more costly.
+
+Northpointe's calibration claim says: when two people receive the same risk score, they have approximately the same probability of reoffending, regardless of race. This is a claim about the instrument's consistency across groups.
+
+ProPublica's disparity claim says: among defendants who did \textit{not} reoffend, Black defendants were incorrectly labeled high-risk at nearly twice the rate of white defendants. This is a claim about the instrument's accuracy for specific groups.
+
+The impossibility theorem resolves the apparent contradiction: because Black defendants have higher arrest rates in Broward County (itself a consequence of unequal policing and sentencing), a calibrated model necessarily has higher false positive rates for Black defendants. The two claims are both true and mathematically consistent.
+
+Which matters more depends on what you're optimizing for: equal treatment of individuals with the same score (calibration), or equal incarceration of innocent people across races (equal FPR). Neither position is wrong. The choice is a value judgment.
+
+\subsubsection*{Q7: Who should make the fairness choice?}
+
+A legitimate answer should address:
+
+\begin{description}
+    \item[Case for judges:] They are responsible for the decision. If the tool influences sentencing, the person who sentences should understand and own the fairness tradeoffs.
+    \item[Case for legislatures:] Systemic choices about which errors criminal justice systems should prioritize are policy questions with constitutional dimensions.
+    \item[Case for affected communities:] The people most affected by the choice are defendants and their communities. Processes that affect people without meaningful representation are democratically deficient.
+    \item[Case against the company:] The company has a conflict of interest and lacks democratic accountability.
+\end{description}
+
+A defensible answer: the choice should be made through a participatory process that includes affected communities, is ratified by democratic process, and is made explicit and public so that it can be contested and revised.
+
+\subsubsection*{Q8: Does making implicit choices explicit change moral responsibility?}
+
+Making implicit social choices explicit through an algorithm does at minimum one important thing: it makes the choice legible and therefore contestable. Before COMPAS, judges made intuitive risk assessments influenced by the same historical data, but without any formal documentation of how that information was used.
+
+This is double-edged:
+\begin{description}
+    \item[Positive:] Creates an object that can be audited, challenged, and improved. ProPublica's analysis was possible precisely because COMPAS's outputs could be measured.
+    \item[Negative:] Creates an object that can serve as cover---a human decision laundered through an algorithm acquires a patina of objectivity it doesn't deserve.
+\end{description}
+
+Deploying a tool with known fairness tradeoffs, without disclosing those tradeoffs or building contestability mechanisms, is a moral choice---even if the alternative (unsystematized judicial intuition) was also biased.
+
+\subsubsection*{Q9: Which limit of human oversight is most tractable?}
+
+\begin{enumerate}
+    \item \textit{Humans absorb AI bias:} Tractable through blind review (preventing reviewers from seeing AI scores before making independent assessments) and structured checklists.
+    \item \textit{Humans carry their own biases:} Partially tractable through demographic diversity of reviewer teams and structured decision processes. Not fully solvable.
+    \item \textit{Humans can't track systemic effects:} Tractable through statistical auditing at the organizational level---this is a problem with what reviewers are asked to look at, not with individual reviewers.
+\end{enumerate}
+
+Most practically tractable: blind review processes and statistical aggregate monitoring. Least tractable without structural redesign: the diversity limitation.
+
+\subsubsection*{Q10: Conditions for compliance theater vs.\ genuine oversight}
+
+\textbf{Conditions that produce compliance theater:}
+\begin{itemize}
+    \item Reviewers trust the system (``the algorithm is usually right'')
+    \item Reviewers are evaluated on throughput rather than quality of review
+    \item No mechanism for reviewers to escalate disagreement with the algorithm's judgment
+    \item No feedback to reviewers about when they were right vs.\ wrong
+    \item Organizational culture treats algorithm disagreement as a sign of reviewer error
+\end{itemize}
+
+\textbf{Conditions that produce genuine oversight:}
+\begin{itemize}
+    \item Reviewers make independent judgments before seeing algorithm outputs
+    \item Some fraction of cases are re-reviewed to measure reviewer quality
+    \item Reviewers have access to historical patterns of algorithm error
+    \item Reviewers who appropriately override incorrect algorithm outputs receive positive feedback
+    \item The organization tracks the rate at which human review changes outcomes
+\end{itemize}
+
+\subsubsection*{Q11: Ranking explainability, auditability, contestability}
+
+\begin{center}
+\begin{tabular}{p{3.5cm}p{3cm}p{5cm}}
+\toprule
+\textbf{Application} & \textbf{Priority Ranking} & \textbf{Rationale} \\
+\midrule
+Medical screening (cancer) & Contestability $>$ Auditability $>$ Explainability & False negatives are catastrophic; patient must be able to seek second opinion \\
+\addlinespace
+Hiring algorithm & Auditability $>$ Contestability $>$ Explainability & Aggregate disparity across many candidates is primary concern \\
+\addlinespace
+Recidivism / sentencing & Contestability $>$ Explainability $>$ Auditability & Individual liberty at stake; defendant must be able to challenge the score \\
+\addlinespace
+Content moderation & Auditability $>$ Contestability $>$ Explainability & Systemic political or demographic disparities are the primary risk \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+No ordering is uniquely correct; the reasoning is more important than the ranking.
+
+\subsubsection*{Q12: Genuine vs.\ formal explanations}
+
+\textbf{Genuinely informative explanation} (e.g., rejected loan application): ``Your application was declined primarily because your current debt-to-income ratio of 42\% exceeds our threshold of 36\%. If your ratio were below 36\%, you would likely qualify. The factors that contributed most to your score were: [specific factors, specific values, direction of contribution].''
+
+\textbf{Formally compliant but uninformative:} ``Your application was declined due to information in your credit report. You may request a free copy of your credit report from the reporting agency.''
+
+The difference: an informative explanation gives the applicant actionable information about what would change the decision. GDPR Article 22 requires ``meaningful information about the logic involved''---but courts and regulators have not fully resolved what this requires.
+
+% ============================================================================
+\subsection*{Solutions to Appendix 14A Exercises}
+% ============================================================================
+
+\subsubsection*{Exercise 14A.1: The Impossibility in Practice}
+
+Running \texttt{demonstrate\_impossibility(base\_rate\_0=0.15, base\_rate\_1=0.35, n=2000)} will show that calibration is approximately satisfied (predicted positive rates roughly match base rates), but that TPR and FPR differ substantially across groups.
+
+\textbf{Part (b):} Adjusting the decision threshold to maximize demographic parity (equal prediction rates) requires predicting positive at a higher rate for group 0 than the calibrated model would. This increases the predicted positive rate for group 0, but decreases PPV for group 0 (the model is now predicting positive more people who won't actually be positive)---calibration is sacrificed.
+
+\textbf{Part (c):} The impossibility becomes practically significant at base-rate differences above roughly 0.10--0.15. Below this, the tension exists mathematically but may be small enough to be practically irrelevant. Above 0.20, the tradeoffs become substantial---you cannot improve FPR parity without a meaningful hit to calibration.
+
+\subsubsection*{Exercise 14A.2: Disparate Impact Audit}
+
+Using the Adult/Census Income dataset:
+
+\textbf{Part (a):} A logistic regression on all features will typically achieve around 83\% accuracy. However, it will show substantial disparate impact across gender and race.
+
+\textbf{Part (b):} DIR for gender typically falls below 0.8 (women are predicted $>$\$50K at lower rates than men), triggering the flag. DIR for race may also fall below 0.8.
+
+\textbf{Part (c):} Post-processing threshold adjustment (different decision thresholds per group) can bring DIR above 0.8. The accuracy cost is typically 1--3 percentage points, concentrated in reduced precision for the advantaged group. The key lesson: there is no free lunch.
+
+\subsubsection*{Exercise 14A.3: Feedback Loop Simulation}
+
+\textbf{Parts (a)--(b):} Initialize a two-neighborhood model with different base crime rates (e.g., 0.15 and 0.25). The model initially predicts these rates accurately.
+
+\textbf{Parts (c)--(d):} Over 20 rounds, patrol allocation based on model predictions increases arrests in the initially higher-crime neighborhood. These arrests feed back as training data. By round 10--15, the model's predicted crime rate for neighborhood 2 has increased above the true underlying rate; for neighborhood 1, the predicted rate is accurate or slightly below.
+
+The key observation: the model's predictions and the measured arrest data appear consistent (the loop is self-validating), even though the underlying crime rates have not changed. A human reviewer looking only at arrest data would have no signal that the model has drifted from reality.
+
+\subsubsection*{Exercise 14A.4: Counterfactual Fairness Check}
+
+\textbf{Parts (a)--(b):} For a hiring model trained on historical data, flipping the gender attribute and re-running predictions will typically change decisions for 15--40\% of test cases in models trained on historical US hiring data (the exact number varies by dataset and model).
+
+\textbf{Part (c):} If prediction changes are correlated with gender (women more likely to have predictions change downward when gender is preserved than men), this is evidence of indirect gender discrimination through the model's learned representations.
+
+\textbf{Part (d):} Counterfactual fairness is not satisfied if flipping the gender attribute changes the prediction. The implication: the model is encoding a path from gender to hiring outcome that cannot be explained by legitimate job-relevant factors. This suggests the training data reflects historical gender discrimination that the model has internalized.

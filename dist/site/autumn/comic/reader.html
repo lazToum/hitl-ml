@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGENTS — Comic Reader</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230a0a0a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='20' font-family='Georgia,serif' fill='%23e8c97a' font-style='italic'>A</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111;
+    --border: #222;
+    --text: #ccc;
+    --muted: #555;
+    --accent: #e8c97a;
+    --font-serif: 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'Courier New', monospace;
+  }
+
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-mono); }
+
+  /* ── Header ── */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .6rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .title-block { display: flex; flex-direction: column; gap: 2px; }
+  .title-block .series { font-size: .6rem; letter-spacing: .2em; color: var(--muted); text-transform: uppercase; }
+  .title-block .name   { font-size: 1rem; letter-spacing: .12em; color: var(--accent); font-family: var(--font-serif); font-style: italic; }
+  .counter { font-size: .75rem; color: var(--muted); letter-spacing: .08em; min-width: 80px; text-align: right; }
+
+  /* ── Main stage ── */
+  #stage {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    height: calc(100vh - 98px);
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #stage img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: opacity .18s ease;
+  }
+  #stage img.fade { opacity: 0; }
+
+  /* click zones */
+  .zone {
+    position: absolute; top: 0; height: 100%; width: 40%;
+    display: flex; align-items: center;
+    opacity: 0; transition: opacity .15s;
+    font-size: 2rem; color: rgba(255,255,255,.8);
+    pointer-events: auto;
+  }
+  .zone:hover { opacity: 1; }
+  .zone.prev { left: 0; justify-content: flex-start; padding-left: 1rem; }
+  .zone.next { right: 0; justify-content: flex-end; padding-right: 1rem; }
+
+  /* ── Filmstrip ── */
+  #strip {
+    height: 58px;
+    display: flex; gap: 3px; align-items: center;
+    padding: 6px 1rem;
+    overflow-x: auto; overflow-y: hidden;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  #strip::-webkit-scrollbar { height: 3px; }
+  #strip::-webkit-scrollbar-thumb { background: var(--border); }
+
+  .thumb {
+    flex-shrink: 0; width: 40px; height: 40px;
+    object-fit: cover; border-radius: 2px;
+    opacity: .4; cursor: pointer;
+    border: 1px solid transparent;
+    transition: opacity .12s, border-color .12s;
+  }
+  .thumb:hover { opacity: .7; }
+  .thumb.active { opacity: 1; border-color: var(--accent); }
+
+  /* ── Credits ── */
+  .credits {
+    position: absolute; bottom: 4px; right: 8px;
+    font-size: .58rem; color: rgba(255,255,255,.18);
+    pointer-events: none;
+  }
+
+  /* touch hint */
+  @media (pointer: coarse) {
+    .zone { opacity: .3; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <span class="series">Human in the Loop — Companion</span>
+    <span class="name">AGENTS</span>
+  </div>
+  <span class="counter" id="counter">1 / 99</span>
+</header>
+
+<div id="stage">
+  <img id="panel" src="images/20260201001.webp" alt="Panel 1" loading="eager">
+  <div class="zone prev" id="btn-prev">&#8592;</div>
+  <div class="zone next" id="btn-next">&#8594;</div>
+  <span class="credits">Images: Google Gemini</span>
+</div>
+
+<div id="strip"></div>
+
+<script>
+const IMAGES = ["20260201001.webp","20260201002.webp","20260201003.webp","20260201004.webp","20260201007.webp","20260201008.webp","20260201010.webp","20260201012.webp","20260201013.webp","20260201014.webp","20260201015.webp","20260201018.webp","20260201019.webp","20260201020.webp","20260201021.webp","20260201022.webp","20260201024.webp","20260201029.webp","20260201031.webp","20260201032.webp","20260201033.webp","20260201034.webp","20260201036.webp","20260201039.webp","20260201040.webp","20260201041.webp","20260201044.webp","20260201045.webp","20260201049.webp","20260201055.webp","20260201057.webp","20260201058.webp","20260201061.webp","20260201062.webp","20260201064.webp","20260201066.webp","20260201067.webp","20260201070.webp","20260201072.webp","20260201077.webp","20260201079.webp","20260201082.webp","20260201084.webp","20260201085.webp","20260201086.webp","20260202016.webp","20260202017.webp","20260202018.webp","20260202020.webp","20260202021.webp","20260202022.webp","20260202023.webp","20260202024.webp","20260202025.webp","20260202026.webp","20260202027.webp","20260202028.webp","20260202029.webp","20260202030.webp","20260202031.webp","20260202032.webp","20260202033.webp","20260202034.webp","20260202035.webp","20260202036.webp","20260202037.webp","20260202038.webp","20260202039.webp","20260202040.webp","20260202041.webp","20260202042.webp","20260202043.webp","20260202044.webp","20260202045.webp","20260202046.webp","20260202047.webp","20260202048.webp","20260202049.webp","20260202050.webp","20260202051.webp","20260202052.webp","20260202053.webp","20260202054.webp","20260202055.webp","20260202056.webp","20260202057.webp","20260202058.webp","20260202059.webp","20260202060.webp","20260202061.webp","20260202062.webp","20260202063.webp","20260202064.webp","20260202065.webp","20260202066.webp","20260202067.webp","20260202068.webp","20260202069.webp","20260202070.webp"];
+
+let current = 0;
+const panel   = document.getElementById('panel');
+const counter = document.getElementById('counter');
+const strip   = document.getElementById('strip');
+
+// Build filmstrip
+IMAGES.forEach((src, i) => {
+  const t = document.createElement('img');
+  t.className = 'thumb' + (i === 0 ? ' active' : '');
+  t.loading = 'lazy';
+  t.src = 'images/' + src;
+  t.alt = '';
+  t.dataset.i = i;
+  t.onclick = () => goto(i);
+  strip.appendChild(t);
+});
+
+function goto(i) {
+  if (i < 0 || i >= IMAGES.length) return;
+  panel.classList.add('fade');
+  setTimeout(() => {
+    current = i;
+    panel.src = 'images/' + IMAGES[i];
+    panel.alt = 'Panel ' + (i + 1);
+    panel.classList.remove('fade');
+    counter.textContent = (i + 1) + ' / ' + IMAGES.length;
+    // Update filmstrip
+    strip.querySelectorAll('.thumb').forEach((t, j) => t.classList.toggle('active', j === i));
+    // Scroll filmstrip to active thumb
+    const active = strip.children[i];
+    if (active) active.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+    // Preload neighbours
+    [i+1, i+2].forEach(n => { if (IMAGES[n]) new Image().src = 'images/' + IMAGES[n]; });
+  }, 90);
+}
+
+document.getElementById('btn-prev').onclick = () => goto(current - 1);
+document.getElementById('btn-next').onclick = () => goto(current + 1);
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goto(current + 1); }
+  if (e.key === 'ArrowLeft')                   { e.preventDefault(); goto(current - 1); }
+  if (e.key === 'Home')  goto(0);
+  if (e.key === 'End')   goto(IMAGES.length - 1);
+});
+
+// Touch swipe
+let tx = 0;
+const stage = document.getElementById('stage');
+stage.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+stage.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 40) goto(dx < 0 ? current + 1 : current - 1);
+});
+
+// Preload first few
+[1,2,3].forEach(n => { if (IMAGES[n]) new Image().src = 'images/' + IMAGES[n]; });
+</script>
+</body>
+</html>

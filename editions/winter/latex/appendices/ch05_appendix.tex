@@ -1,0 +1,272 @@
+% ============================================================================
+% TECHNICAL APPENDIX 5A: The Mathematics and Psychology of Optimal Human–AI Asks
+% Formal foundations for intervention timing, frequency, and format design
+% ============================================================================
+% Source: /chapters/ch5/Ch5A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 5A: Optimal Ask Design}
+\addcontentsline{toc}{chapter}{Technical Appendix 5A: Optimal Ask Design}
+
+\begin{chapterquote}{Formal foundations for Chapter 5}
+Chapter~5 introduced three design levers for human-in-the-loop asks: timing, frequency, and format. This appendix provides mathematical frameworks for optimising each, drawing on information theory, cognitive psychology, and reinforcement learning.
+\end{chapterquote}
+
+% ============================================================================
+\section{Information-Theoretic Foundations of Ask Design}
+% ============================================================================
+
+\subsection{Information Value of a Human Response}
+
+The value of asking a human is the expected reduction in uncertainty about the correct action. Let $Y$ be the correct decision (unknown to the system), $H$ the human's response, and $X$ the system's current information. The \term{information gain} from asking is:
+
+\[
+\text{IG}(H;\, Y \mid X) = \mathbb{H}(Y \mid X) - \mathbb{H}(Y \mid H, X)
+\]
+
+where $\mathbb{H}(\cdot)$ denotes entropy. A high information gain means the human's response substantially reduces uncertainty about the right action.
+
+\paragraph{Optimal ask criterion.} Ask a human when:
+
+\[
+\text{IG}(H;\, Y \mid X) > \frac{C_\text{ask}}{V_\text{decision}}
+\]
+
+where $C_\text{ask}$ is the cost (time, attention, trust) and $V_\text{decision}$ is the value of making the correct decision.
+
+\subsection{Query Optimisation}
+
+The \term{optimal query} $Q^*$ maximises information gain subject to cognitive load constraints:
+
+\[
+Q^* = \arg\max_{Q \in \mathcal{Q}} \bigl[\text{IG}(H_Q;\, Y \mid X) - \lambda \cdot \text{CogLoad}(Q)\bigr]
+\]
+
+where $\text{CogLoad}(Q)$ is the cognitive effort required to answer query $Q$ and $\lambda$ is a cost--effort tradeoff parameter.
+
+\begin{examplebox}[Simplicity vs.\ Information]
+A simpler query (lower cognitive load) is only preferable if its information loss is proportionally small. The 911~example from Chapter~5 illustrates this: the revised question had \emph{lower} cognitive load and \emph{higher} information gain simultaneously---a rare but achievable combination.
+\end{examplebox}
+
+\subsection{Human--AI Complementarity}
+
+The value of the full human--AI system depends on the \emph{complementarity} between human and AI knowledge:
+
+\[
+I(H_\text{human};\, Y \mid H_\text{AI}, X) = \mathbb{H}(Y \mid H_\text{AI}, X) - \mathbb{H}(Y \mid H_\text{human}, H_\text{AI}, X)
+\]
+
+This is the additional uncertainty reduction from the human, given the AI has already processed $X$. High complementarity means the human knows things the AI does not---this is when HITL intervention is most valuable.
+
+% ============================================================================
+\section{Alert Fatigue: A Dynamic Model}
+% ============================================================================
+
+\subsection{Trust as a State Variable}
+
+Let $\tau_t \in [0, 1]$ represent the human's trust in the system's alerts at time~$t$. Trust evolves dynamically:
+
+\[
+\tau_{t+1} = \tau_t
+  + \alpha \cdot \mathbf{1}[\text{alert}_t \text{ was valid}]
+  - \beta  \cdot \mathbf{1}[\text{alert}_t \text{ was false}]
+\]
+
+where $\alpha$ is the trust gain from a true alert and $\beta$ is the trust loss from a false alarm. Empirically $\beta > \alpha$: trust erodes faster than it builds \autocite{lee2004trust}. Effective alert value therefore decays with sustained false-positive rates:
+
+\[
+V_\text{effective}(t) = \tau_t \cdot V_\text{intrinsic}
+\]
+
+\subsection{Precision--Fatigue Tradeoff}
+
+Define $r$ as the alert rate, $p(r)$ as precision (decreasing in $r$), $\tau(r)$ as equilibrium trust (also decreasing in $r$), and $\rho(\tau)$ as response probability. The effective information extracted per hour:
+
+\[
+I_\text{effective}(r) = r \cdot p(r) \cdot \tau(r) \cdot \rho\bigl(\tau(r)\bigr) \cdot V_\text{per alert}
+\]
+
+\begin{lstlisting}[style=python, caption={Effective information vs.\ alert rate}]
+from scipy.optimize import minimize_scalar
+
+def effective_information(r, precision_decay=0.1,
+                           trust_decay=0.05, base_value=1.0):
+    precision = 1 / (1 + precision_decay * r)
+    false_alarm_rate = r * (1 - precision)
+    trust = 1 / (1 + trust_decay * false_alarm_rate)
+    response_prob = trust ** 0.5
+    return r * precision * trust * response_prob * base_value
+
+result = minimize_scalar(
+    lambda r: -effective_information(r),
+    bounds=(0.1, 100), method='bounded'
+)
+print(f"Optimal alert rate: {result.x:.2f} alerts/hour")
+\end{lstlisting}
+
+\subsection{Habituation and Recovery}
+
+Consecutive alerts induce faster degradation:
+
+\[
+\tau_t = \tau_{\text{baseline}} \cdot e^{-\gamma \cdot n_\text{recent}}
+\]
+
+where $n_\text{recent}$ is the number of alerts in the recent window. Recovery is slower:
+
+\[
+\tau_{t+T} = \tau_t + (1 - \tau_t)\bigl(1 - e^{-\delta T}\bigr)
+\]
+
+\begin{cautionbox}[Design Implication]
+Spacing alerts recovers attention; clustering alerts degrades it faster than average-rate models predict. A well-designed HITL interface enforces a minimum inter-alert gap, not just a maximum average rate.
+\end{cautionbox}
+
+% ============================================================================
+\section{Optimal Timing Models}
+% ============================================================================
+
+\subsection{Attention Windows}
+
+Let $a(t) \in [0,1]$ be the human's attention availability. The effective response quality for an alert sent at time~$t$:
+
+\[
+Q_\text{response}(t) = Q_\text{max} \cdot a(t) \cdot \tau(t)
+\]
+
+Optimal timing: $t^* = \arg\max_t Q_\text{response}(t)$. Interruption at natural task breakpoints consistently produces higher response quality than mid-task interruption.
+
+\subsection{The Window of Relevance Problem}
+
+Context availability decays after an event:
+
+\[
+C(\Delta t) = e^{-\kappa \Delta t}
+\]
+
+for decay rate $\kappa$ depending on event type. Optimal alert delay balances context availability against attention window:
+
+\[
+t^* = \arg\max_t \, a(t + t_\text{event}) \cdot C(t)
+\]
+
+For financial transactions $\kappa$ is large, so $t^* \approx 0$. Asking about a charge 24~hours later yields near-chance accuracy.
+
+% ============================================================================
+\section{Format Design: Cognitive Load and Response Accuracy}
+% ============================================================================
+
+\subsection{Cognitive Load Model}
+
+Following Sweller's cognitive load theory, response accuracy degrades beyond working memory capacity $W$:
+
+\[
+A(c, W) = \begin{cases}
+  A_\text{max} & \text{if } c \leq W \\
+  A_\text{max} \cdot (W/c)^\alpha & \text{if } c > W
+\end{cases}
+\]
+
+\subsection{Optimal Query Granularity}
+
+A $k$-choice query captures $\log_2 k$ bits at $O(k)$ cognitive cost:
+
+\[
+k^* = \arg\max_k \frac{\log_2 k}{k^\beta \cdot C_\text{per-choice}}
+\]
+
+For most practical settings $k^* \in [2,5]$. Binary questions are easiest but information-sparse; 4--5 choices represent the practical optimum.
+
+% ============================================================================
+\section{Feedback Integration: Closing the Learning Loop}
+% ============================================================================
+
+\subsection{Active Learning Formulation}
+
+Each human response is a labeled data point. Select the next query to maximise expected model improvement:
+
+\[
+Q^*_\text{next} = \arg\max_Q \mathbb{E}\bigl[\Delta\text{ModelPerf} \mid H_Q,\, \mathcal{D}_\text{current}\bigr]
+\]
+
+In practice this is approximated by querying cases near the decision boundary, in underrepresented categories, or where human and model systematically disagree.
+
+\subsection{RL Formulation of the Full HITL Loop}
+
+The ask--learn loop formalised as an MDP \autocite{christiano2017deep}:
+
+\begin{itemize}
+    \item \textbf{State} $s_t$: model weights, trust $\tau_t$, queue depth, context
+    \item \textbf{Action} $a_t$: ask with format $Q$, or act autonomously
+    \item \textbf{Reward}: $r_t = \Delta\text{Acc}(a_t) - C_\text{ask}\cdot\mathbf{1}[a_t=\text{ask}] - \lambda\cdot\Delta\tau_t$
+\end{itemize}
+
+Optimal policy $\pi^*$ maximises $\mathbb{E}[\sum_t \gamma^t r_t]$, capturing the tension between short-run accuracy and long-run trust.
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[Information Value Calculation]
+A spam filter has confidence 0.65 on an email. A human reviewer has 90\% accuracy on boundary cases.
+\begin{enumerate}
+    \item Calculate the expected information gain from asking the reviewer.
+    \item If the cost of asking is 30~seconds of reviewer time (valued at \$0.01/second), at what minimum email value must human review be worthwhile?
+    \item How does information gain change if filter confidence was 0.95?
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[Alert Fatigue Simulation]
+Using the dynamic trust model:
+\begin{lstlisting}[style=python, caption={Alert fatigue simulator}]
+import numpy as np
+
+def simulate_alert_fatigue(n_alerts=300, precision=0.7,
+                            alpha=0.05, beta=0.15):
+    trust, history = 1.0, [1.0]
+    for _ in range(n_alerts):
+        is_valid = np.random.random() < precision
+        trust = min(1.0, trust + alpha) if is_valid \
+                else max(0.0, trust - beta)
+        history.append(trust)
+    return history
+\end{lstlisting}
+Simulate: (a)~10/hour at 70\% precision; (b)~3/hour at 90\% precision; (c)~20/hour at 90\% precision. Compare equilibrium trust levels.
+\end{Exercise}
+
+\begin{Exercise}[Optimal Query Granularity]
+For a content moderation interface with 5 labels vs.\ 2 labels:
+\begin{enumerate}
+    \item Calculate maximum information per response for each.
+    \item Assuming $\beta = 1.5$, compute $k^*$.
+    \item Design an experiment measuring actual information captured using inter-annotator agreement as a proxy.
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[HITL Policy Optimisation]
+Implement a Q-learning agent learning when to ask. State: confidence (binned 0--10), trust (high/medium/low). Actions: auto-decide, binary query, detailed query. Reward: $+10$ correct, $-1$ ask cost, $-0.5\times(1-\text{trust})$ incorrect auto-decision. Simulate 10{,}000 episodes. At what confidence level does the optimal policy switch from asking to auto-deciding?
+\end{Exercise}
+
+% ============================================================================
+\section{Recommended Reading}
+% ============================================================================
+
+\subsection*{Alert Design}
+\begin{itemize}
+    \item \textcite{eemua191} --- Engineering Equipment and Materials Users' Association: alarm system management guidelines.
+    \item \textcite{drew2013alarm} --- Attention and awareness in simulated radiological search. \emph{Psychological Science}.
+\end{itemize}
+
+\subsection*{Active Learning and HITL Feedback}
+\begin{itemize}
+    \item \textcite{settles2009active} --- Active learning literature survey.
+    \item \textcite{christiano2017deep} --- Deep reinforcement learning from human preferences. \emph{NeurIPS}.
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the formal foundations for ask design, alert fatigue, timing, format, and feedback integration as introduced in Chapter~5.}

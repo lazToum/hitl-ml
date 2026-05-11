@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>التعلم النشط &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ar/chapters/04_active_learning';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ar/chapters/04_active_learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>التعلم النشط</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">إعداد التعلم النشط</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">الأسس النظرية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">استراتيجيات الاستعلام</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">أخذ عينات الشك</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qbc">الاستعلام باللجنة (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">التغيير المتوقع في النموذج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">المجموعة الأساسية / المناهج الهندسية</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">تقدير الشك للنماذج العميقة</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">نوعان من الشك</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo">إسقاط Monte Carlo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">التجميعات العميقة</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">حلقة تعلم نشط متكاملة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">مشكلة البداية الباردة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">التعلم النشط الدفعي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">معايير التوقف</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">متى يعمل التعلم النشط (ومتى لا يعمل)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>التعلم النشط<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>البيانات المُسمَّاة مُكلفة. الفكرة الجوهرية للتعلم النشط هي أن <em>ليست جميع الأمثلة غير المُسمَّاة متساوية في قيمتها المعلوماتية</em> — يستطيع النموذج التطور بسرعة أكبر إذا أُتيح له اختيار الأمثلة التي يسأل عنها. بدلاً من تسمية البيانات بصورة عشوائية، يستعلم نظام التعلم النشط أورابل (عادةً مُوصِّف بشري) عن الأمثلة الأكثر احتمالاً لتحسين النموذج.</p>
+<p>يتناول هذا الفصل نظرية وممارسة التعلم النشط: استراتيجيات الاستعلام، وأطر أخذ العينات، ومعايير التوقف، والاعتبارات العملية للنشر الفعلي.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>إعداد التعلم النشط<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>يشتمل الإعداد القياسي <strong>للتعلم النشط المعتمد على المجموعة</strong> على:</p>
+<ul class="simple">
+<li><p><strong>مجموعة مُسمَّاة</strong> <span class="math notranslate nohighlight">\(\mathcal{L} = \{(x_i, y_i)\}_{i=1}^n\)</span> — صغيرة في البداية</p></li>
+<li><p><strong>مجموعة غير مُسمَّاة</strong> <span class="math notranslate nohighlight">\(\mathcal{U} = \{x_j\}_{j=1}^m\)</span> — أكبر عادةً بكثير من <span class="math notranslate nohighlight">\(\mathcal{L}\)</span></p></li>
+<li><p><strong>أورابل</strong> <span class="math notranslate nohighlight">\(\mathcal{O}\)</span> يستطيع إعادة <span class="math notranslate nohighlight">\(y = \mathcal{O}(x)\)</span> لأي <span class="math notranslate nohighlight">\(x\)</span> مستعلَم عنه</p></li>
+<li><p><strong>استراتيجية استعلام</strong> <span class="math notranslate nohighlight">\(\phi\)</span> تختار الاستعلام التالي <span class="math notranslate nohighlight">\(x^* = \phi(\mathcal{L}, \mathcal{U}, f_\theta)\)</span></p></li>
+</ul>
+<p>حلقة التعلم النشط:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    1. تهيئة: L = مجموعة بذور مُسمَّاة صغيرة، U = مجموعة غير مُسمَّاة
+    2. تدريب: f_θ ← train(L)
+    3. استعلام: x* = argmax φ(x; f_θ) على x ∈ U
+    4. تسمية: y* = O(x*)
+    5. تحديث: L ← L ∪ {(x*, y*)}، U ← U \ {x*}
+    → كرر من 2 حتى استنفاد الميزانية
+</pre></div>
+</div>
+<p>الهدف هو بلوغ جودة نموذج مستهدفة باستخدام أقل عدد ممكن من الاستعلامات على الأورابل.</p>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>الأسس النظرية<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>سؤال طبيعي: كم يمكن أن يُفيد التعلم النشط؟ في أفضل حالاته، يستطيع التعلم النشط تحقيق تقليل <em>أسّي</em> في تعقيد التسمية — بلوغ خطأ <span class="math notranslate nohighlight">\(\epsilon\)</span> بـ <span class="math notranslate nohighlight">\(O(\log(1/\epsilon))\)</span> تسمية بدلاً من <span class="math notranslate nohighlight">\(O(1/\epsilon)\)</span> التي يحتاجها التعلم السلبي، في الإعدادات القابلة للتحقق مع استراتيجية استعلام جيدة <a href="#id4"><span class="problematic" id="id5">settles2009active</span></a>.</p>
+<p>في الواقع العملي، الضمانات أصعب منالاً. يُظهر <strong>التعلم النشط اللاأدري</strong> <a href="#id6"><span class="problematic" id="id7">balcan2006agnostic</span></a> أن توفير التسميات ممكن حتى حين لا يكون المفهوم الهدف ضمن فئة الفرضيات، لكن التوفير يعتمد اعتماداً وثيقاً على معامل الخلاف — مقياس لمدى سرعة تقلص مجموعة الفرضيات المعقولة مع تراكم البيانات.</p>
+<p>الأثر العملي الرئيسي: ميزة التعلم النشط أكبر ما تكون حين تكون <strong>حدود القرار بسيطة ومركّزة</strong> (حيث تُزيل استعلامات الشك الفرضيات الخاطئة بسرعة)، وأصغر ما تكون حين تكون فئة الفرضيات كبيرة أو الحد معقداً.</p>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h2>استراتيجيات الاستعلام<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<section id="id9">
+<h3>أخذ عينات الشك<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>أبسط استراتيجية وأكثرها استخداماً: الاستعلام عن المثال الذي يكون فيه النموذج <em>أكثر شكاً</em> <a href="#id10"><span class="problematic" id="id11">lewis1994sequential</span></a>.</p>
+<p><strong>أدنى ثقة</strong> يستعلم عن المثال الذي ثقة النموذج في تنبؤه الأعلى أدنى ما تكون:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left(1 - P_\theta(\hat{y} \mid x)\right)
+\]</div>
+<p><strong>أخذ عينات الهامش</strong> ينظر في الفجوة بين أعلى احتمالين متنبأ بهما:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmin_{x \in \mathcal{U}} \left(P_\theta(\hat{y}_1 \mid x) - P_\theta(\hat{y}_2 \mid x)\right)
+\]</div>
+<p><strong>أخذ عينات الإنتروبيا</strong> يستخدم التوزيع المتنبأ الكامل:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \left( -\sum_{k=1}^K P_\theta(y_k \mid x) \log P_\theta(y_k \mid x) \right)
+\]</div>
+<p>أخذ عينات الإنتروبيا هو الأكثر مبدئيةً من الثلاثة — إذ يعتبر جميع الفئات — وعموماً يتفوق على الاستراتيجيتين الأخريين في مسائل متعددة الفئات.</p>
+</section>
+<section id="qbc">
+<h3>الاستعلام باللجنة (QbC)<a class="headerlink" href="#qbc" title="Permalink to this heading">#</a></h3>
+<p>يُدرَّب <strong>لجنة</strong> من <span class="math notranslate nohighlight">\(C\)</span> نماذج (باستخدام التجزئة أو تهيئات مختلفة أو معماريات مختلفة). يُستعلَم عن المثال الذي تختلف عليه اللجنة أكثر:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \; \text{الخلاف}(\{f_c(x)\}_{c=1}^C)
+\]</div>
+<p>يمكن قياس الخلاف بـ <strong>إنتروبيا التصويت</strong> (إنتروبيا التصويت الأغلبي للجنة) أو <strong>تباعد KL</strong> عن توزيع الإجماع.</p>
+<p>يُقدِّم QbC تقديرات شك أفضل من نموذج واحد لكنه يتطلب تدريب نماذج متعددة مما يُعدّ مُكلفاً حسابياً.</p>
+</section>
+<section id="id12">
+<h3>التغيير المتوقع في النموذج<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>الاستعلام عن المثال الذي سيُسبِّب أكبر تغيير في النموذج الحالي إذا سُمِّي. للنماذج المعتمدة على التدرج، يتوافق هذا مع المثال ذي أكبر حجم تدرج متوقع <a href="#id13"><span class="problematic" id="id14">settles2008analysis</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \sum_{y \in \mathcal{Y}} P_\theta(y \mid x) \left\| \nabla_\theta \mathcal{L}(f_\theta(x), y) \right\|
+\]</div>
+<p>لهذه الاستراتيجية دوافع نظرية قوية لكنها تتطلب حساب التدرجات لكل مرشح مما يجعلها مُكلفة للنماذج الكبيرة.</p>
+</section>
+<section id="id15">
+<h3>المجموعة الأساسية / المناهج الهندسية<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>يمكن أن تكون الاستراتيجيات المعتمدة على الشك <strong>منحازة نحو الشاذات</strong>: قد يكون المثال غير المألوف ذا شك عالٍ لكنه غير تمثيلي لتوزيع البيانات. تعالج أساليب المجموعة الأساسية ذلك بالبحث عن عينة متنوعة تُغطي فضاء الميزات.</p>
+<p>تجد خوارزمية <strong>k-center الجشعة</strong> <a href="#id16"><span class="problematic" id="id17">sener2018active</span></a> أصغر مجموعة نقاط بحيث تكون كل نقطة غير مُسمَّاة ضمن <span class="math notranslate nohighlight">\(\delta\)</span> من نقطة مستعلَم عنها على الأقل:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \argmax_{x \in \mathcal{U}} \min_{x' \in \mathcal{L}} d(x, x')
+\]</div>
+<p>أي الاستعلام عن النقطة الأبعد عن أي نقطة مُسمَّاة حالياً. يُشجِّع هذا على مجموعة توصيفات موزعة توزيعاً جيداً.</p>
+</section>
+<section id="badge">
+<h3>BADGE<a class="headerlink" href="#badge" title="Permalink to this heading">#</a></h3>
+<p><strong>التعلم النشط الدفعي بتضمينات التدرج المتنوعة (BADGE)</strong> <a href="#id18"><span class="problematic" id="id19">ash2020deep</span></a> يجمع الشك والتنوع: يختار دفعة من الأمثلة التي تكون تضميناتها التدرجية (بالنسبة للتسمية المتنبأ بها) كبيرة الحجم (شك عالٍ) ومتنوعة (تُغطي مناطق مختلفة من فضاء التدرج). وهو من أكثر الاستراتيجيات الحديثة تنافسية.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h2>تقدير الشك للنماذج العميقة<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h2>
+<p>تفترض الاستراتيجيات أعلاه الوصول إلى مخرجات احتمالية معايَرة من النموذج. للنماذج البسيطة (الانحدار اللوجستي، مصنفات softmax)، هذا بسيط. للشبكات العميقة، يستلزم الحصول على تقديرات شك موثوقة تقنيات إضافية.</p>
+<section id="id21">
+<h3>نوعان من الشك<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h3>
+<p>تبعاً لـ Kendall وGal <a href="#id22"><span class="problematic" id="id23">kendall2017uncertainties</span></a>، نُميِّز:</p>
+<p><strong>الشك الذري</strong> (شك البيانات): ضجيج متأصل في الملاحظات لا يمكن تقليصه بجمع مزيد من البيانات. الصورة الضبابية غير مؤكدة ذرياً — لن يجعل النموذج أكثر ثقةً بشأنها أي كمية من بيانات التدريب الإضافية من التوزيع ذاته.</p>
+<p><strong>الشك المعرفي</strong> (شك النموذج): شك ناتج عن محدودية بيانات التدريب أو نموذج لم يرَ أمثلة مماثلة. الشك المعرفي <em>يمكن</em> تقليصه بتسمية مزيد من البيانات — وبالتالي فهو الكمية ذات الصلة باختيار الاستعلام في التعلم النشط.</p>
+<p>للتعلم النشط، نريد الاستعلام عن الأمثلة ذات الشك المعرفي العالي لا ذات الشك الذري العالي. الاستعلام عن مثال غامض بطبيعته يُضيِّع جهد الأورابل: لا توجد تسمية يقدمونها يمكن أن تكون صحيحة بوضوح.</p>
+</section>
+<section id="monte-carlo">
+<h3>إسقاط Monte Carlo<a class="headerlink" href="#monte-carlo" title="Permalink to this heading">#</a></h3>
+<p>منهج عملي لتقدير الشك المعرفي للشبكات العصبية هو <strong>إسقاط MC</strong> <a href="#id24"><span class="problematic" id="id25">gal2016dropout</span></a>: تطبيق الإسقاط عند الاستنتاج وتشغيل <span class="math notranslate nohighlight">\(T\)</span> تمرير للأمام. التباين عبر التنبؤات هو تقدير للشك المعرفي.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MCDropoutNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">p_drop</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p_drop</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run T stochastic forward passes with dropout active.</span>
+<span class="sd">    Returns mean prediction and epistemic uncertainty (predictive variance).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># keep dropout active during inference</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="p">])</span>  <span class="c1"># shape: (T, N, C)</span>
+    <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Epistemic uncertainty: mean of variances across passes</span>
+    <span class="n">epistemic</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Aleatoric uncertainty: entropy of mean prediction</span>
+    <span class="n">aleatoric</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">mean_pred</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean_pred</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean_pred</span><span class="p">,</span> <span class="n">epistemic</span><span class="p">,</span> <span class="n">aleatoric</span>
+
+<span class="c1"># Quick demonstration</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MCDropoutNet</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># In-distribution example (simulated)</span>
+<span class="n">x_familiar</span>   <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="c1"># Out-of-distribution example (far from training distribution)</span>
+<span class="n">x_unfamiliar</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.0</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;In-distribution &quot;</span><span class="p">,</span> <span class="n">x_familiar</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Out-of-distribution&quot;</span><span class="p">,</span> <span class="n">x_unfamiliar</span><span class="p">)]:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">al</span> <span class="o">=</span> <span class="n">mc_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> | epistemic: </span><span class="si">{</span><span class="n">ep</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | aleatoric: </span><span class="si">{</span><span class="n">al</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>في الشبكة غير المدرَّبة أعلاه، يُظهر كلا المثالَين شكاً مماثلاً. بعد التدريب، سيُظهر المثال خارج التوزيع شكاً معرفياً أعلى — النموذج لم يتعلم تعييناً موثوقاً للمدخلات البعيدة عن توزيع التدريب.</p>
+</section>
+<section id="id26">
+<h3>التجميعات العميقة<a class="headerlink" href="#id26" title="Permalink to this heading">#</a></h3>
+<p>يُوفر تدريب <span class="math notranslate nohighlight">\(M\)</span> نماذج مهيأة باستقلالية وتوسط تنبؤاتها تقديراً للشك أبسط وأكثر موثوقية في الغالب من إسقاط MC <a href="#id27"><span class="problematic" id="id28">lakshminarayanan2017simple</span></a>. الخلاف بين أعضاء التجميع هو إشارة الشك المعرفي.</p>
+<p>للتعلم النشط على نطاق واسع، يُضيف كل من إسقاط MC والتجميعات العميقة تكلفة بمقدار <span class="math notranslate nohighlight">\(T\)</span> أو <span class="math notranslate nohighlight">\(M\)</span> تمريرات للأمام. في الواقع العملي، <span class="math notranslate nohighlight">\(T = 10\)</span>–<span class="math notranslate nohighlight">\(30\)</span> لإسقاط MC أو <span class="math notranslate nohighlight">\(M = 5\)</span> أعضاء تجميع كثيراً ما يكفي لترتيب الأمثلة حسب الشك المعرفي، حتى وإن لم تكن القيم المطلقة معايَرةً جيداً.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id29">
+<h2>حلقة تعلم نشط متكاملة<a class="headerlink" href="#id29" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Generate dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">1500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">1500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">1500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index of most uncertain sample (entropy).&quot;&quot;&quot;</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ent</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random baseline.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pool</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">n_initial</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_queries</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">query_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">labeled_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_initial</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled_idx</span><span class="p">]</span>
+    <span class="n">accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_queries</span> <span class="o">//</span> <span class="n">query_batch</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled_idx</span><span class="p">])</span>
+        <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+        <span class="c1"># Query</span>
+        <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query_batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;entropy&#39;</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">entropy_query</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">random_query</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+            <span class="n">labeled_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled_idx</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+            <span class="n">X_pool</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled_idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span>
+
+<span class="n">labels_used</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">30</span>  <span class="c1"># label counts at each step</span>
+
+<span class="n">accs_active</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+<span class="n">accs_random</span> <span class="o">=</span> <span class="n">run_active_learning</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_active</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entropy sampling&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labels_used</span><span class="p">,</span> <span class="n">accs_random</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of labeled examples&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning vs. Random Sampling&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;active_learning_curve.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning reaches </span><span class="si">{</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random sampling reaches </span><span class="si">{</span><span class="n">accs_random</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active learning saves ~</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">accs_random</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">accs_random</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">accs_active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">accs_active</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels to match random&#39;s final accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id30">
+<h2>مشكلة البداية الباردة<a class="headerlink" href="#id30" title="Permalink to this heading">#</a></h2>
+<p>يتطلب التعلم النشط نموذجاً مدرَّباً لتصنيف النقاط غير المُسمَّاة — لكن في البداية لا توجد (أو توجد قليل جداً من) الأمثلة المُسمَّاة. هذه هي <strong>مشكلة البداية الباردة</strong>.</p>
+<p>الحلول العملية:</p>
+<ol class="arabic simple">
+<li><p><strong>التهيئة العشوائية:</strong> تسمية مجموعة بذور عشوائية صغيرة (20–100 مثال) قبل بدء التعلم النشط.</p></li>
+<li><p><strong>التهيئة المعتمدة على التجميع:</strong> استخدام k-means على المجموعة غير المُسمَّاة؛ تسمية مثال واحد من كل مجموعة. يضمن هذا التنوع في المجموعة المُسمَّاة الأولية.</p></li>
+<li><p><strong>الاختيار المعتمد على التضمين:</strong> استخدام مشفِّر مُدرَّب مسبقاً لتضمين الأمثلة؛ اختيار مجموعة فرعية متنوعة عبر المجموعة الأساسية.</p></li>
+</ol>
+<p>لمعظم المهام، يكفي عادةً بضع عشرات من تسميات البذور العشوائية لبدء التعلم النشط؛ يعتمد العدد الدقيق على توازن الفئات وأبعاد الميزات وتعقيد النموذج.</p>
+</section>
+<hr class="docutils" />
+<section id="id31">
+<h2>التعلم النشط الدفعي<a class="headerlink" href="#id31" title="Permalink to this heading">#</a></h2>
+<p>في الواقع العملي، يعمل المُوصِّفون في دفعات — تدريب ونشر نموذج جديد بعد كل تسمية مفردة أمر غير كفء. <strong>التعلم النشط الدفعي</strong> يختار مجموعة من <span class="math notranslate nohighlight">\(b\)</span> أمثلة للتسمية في آنٍ واحد.</p>
+<p>الاختيار الساذج لأفضل <span class="math notranslate nohighlight">\(b\)</span> أمثلة الأكثر شكاً يُفضي إلى <strong>التكرار</strong>: الأمثلة ذات الشك العالي تميل إلى التجمع (أمثلاً، الأمثلة القريبة من حدود القرار في المنطقة نفسها). تُحسِّن استراتيجيات الدفعات الأفضل الشكَّ <em>والتنوع</em> معاً داخل الدفعة.</p>
+<p><strong>عمليات النقطة المحددة (DPPs)</strong> توفر طريقة مبدئية لأخذ عينات دفعات متنوعة: تُعرِّف توزيعاً على المجموعات الفرعية يُعاقب العناصر المتشابهة. احتمالية المجموعة الفرعية <span class="math notranslate nohighlight">\(S\)</span> تحت DPP تتناسب مع <span class="math notranslate nohighlight">\(\det(L_S)\)</span> حيث <span class="math notranslate nohighlight">\(L\)</span> مصفوفة نواة تُشفِّر التشابه.</p>
+</section>
+<hr class="docutils" />
+<section id="id32">
+<h2>معايير التوقف<a class="headerlink" href="#id32" title="Permalink to this heading">#</a></h2>
+<p>متى ينبغي للتعلم النشط أن يتوقف؟ المعايير الشائعة:</p>
+<ul class="simple">
+<li><p><strong>استنفاد الميزانية:</strong> الأبسط — التوقف حين تنفد ميزانية التوصيف.</p></li>
+<li><p><strong>تسطح الأداء:</strong> التوقف حين لم تتحسن دقة النموذج على مجموعة تحقق محتجزة بأكثر من <span class="math notranslate nohighlight">\(\delta\)</span> لـ <span class="math notranslate nohighlight">\(k\)</span> جولات متتالية.</p></li>
+<li><p><strong>عتبة الثقة:</strong> التوقف حين تكون نسبة أقل من نسبة معينة من الأمثلة غير المُسمَّاة ذات شك يتجاوز عتبة.</p></li>
+<li><p><strong>أقصى تقليص للخسارة:</strong> تقدير أقصى مكسب ممكن من تسميات إضافية؛ التوقف حين يقل هذا عن عتبة <a href="#id33"><span class="problematic" id="id34">bloodgood2009method</span></a>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id35">
+<h2>متى يعمل التعلم النشط (ومتى لا يعمل)<a class="headerlink" href="#id35" title="Permalink to this heading">#</a></h2>
+<p>يميل التعلم النشط إلى العمل جيداً حين:</p>
+<ul class="simple">
+<li><p>التسمية مُكلفة والمجموعة غير المُسمَّاة كبيرة</p></li>
+<li><p>البيانات ذات بنية واضحة يستطيع النموذج استغلالها لتحديد الأمثلة المفيدة</p></li>
+<li><p>فئة النموذج مناسبة للمهمة</p></li>
+</ul>
+<p>يؤدي التعلم النشط أداءً رديئاً حين:</p>
+<ul class="simple">
+<li><p>النموذج الأولي ضعيف جداً (بداية باردة) ولا يستطيع بشكل ذي معنى ترتيب الأمثلة</p></li>
+<li><p>تختار استراتيجية الاستعلام شاذات أو أمثلة مُسمَّاة خطأ (تهم مقاومة الضجيج)</p></li>
+<li><p>يتحول توزيع البيانات بين المجموعة غير المُسمَّاة وتوزيع الاختبار</p></li>
+</ul>
+<p>مصدر قلق عملي رئيسي هو <strong>عدم تطابق التوزيع</strong>: يميل التعلم النشط إلى الاستعلام عن الأمثلة القريبة من حدود القرار، مُنشئاً مجموعةً مُسمَّاة متحيزة قد لا تُمثِّل توزيع الاختبار بشكل جيد. قد يُفضي هذا إلى حدود قرار مُدرَّبة جيداً لكن معايرة رديئة.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>الاستعراض التأسيسي هو <a href="#id36"><span class="problematic" id="id37">settles2009active</span></a>. الأسس النظرية (تعقيد التسمية، الحدود اللاأدرية): <a href="#id38"><span class="problematic" id="id39">balcan2006agnostic</span></a>. للتعلم النشط الخاص بالتعلم العميق، راجع <a href="#id40"><span class="problematic" id="id41">ash2020deep</span></a> (BADGE) و<a href="#id42"><span class="problematic" id="id43">sener2018active</span></a> (المجموعة الأساسية). لتقييم نقدي لمتى يساعد التعلم النشط فعلاً، راجع <a href="#id44"><span class="problematic" id="id45">lowell2019practical</span></a>. حول الشك الذري مقابل المعرفي للنماذج العميقة، راجع <a href="#id46"><span class="problematic" id="id47">kendall2017uncertainties</span></a>؛ للتجميعات العميقة كمقدِّرات شك، راجع <a href="#id48"><span class="problematic" id="id49">lakshminarayanan2017simple</span></a>؛ لإسقاط MC كاستدلال بايزي تقريبي، راجع <a href="#id50"><span class="problematic" id="id51">gal2016dropout</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ar/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">إعداد التعلم النشط</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">الأسس النظرية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">استراتيجيات الاستعلام</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">أخذ عينات الشك</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qbc">الاستعلام باللجنة (QbC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">التغيير المتوقع في النموذج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">المجموعة الأساسية / المناهج الهندسية</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#badge">BADGE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">تقدير الشك للنماذج العميقة</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">نوعان من الشك</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo">إسقاط Monte Carlo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">التجميعات العميقة</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">حلقة تعلم نشط متكاملة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">مشكلة البداية الباردة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">التعلم النشط الدفعي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">معايير التوقف</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">متى يعمل التعلم النشط (ومتى لا يعمل)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

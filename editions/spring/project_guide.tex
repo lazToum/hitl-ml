@@ -1,0 +1,943 @@
+%% !TEX program = lualatex
+% ============================================================================
+% Human in the Loop: Misunderstood — Spring Edition
+% Semester Project Guide
+% ============================================================================
+% Compile: lualatex project_guide.tex (twice for TOC/refs)
+% ============================================================================
+
+\documentclass[
+  11pt,
+  oneside,
+  DIV=12,
+]{scrartcl}
+
+% ── Fonts ────────────────────────────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{microtype}
+\setmainfont[
+  Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/libertinus-fonts/,
+  BoldFont=LibertinusSerif-Bold.otf,
+  ItalicFont=LibertinusSerif-Italic.otf,
+  BoldItalicFont=LibertinusSerif-BoldItalic.otf,
+  Numbers=OldStyle,
+  Ligatures=TeX,
+]{LibertinusSerif-Regular.otf}
+\setsansfont[
+  Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/libertinus-fonts/,
+  BoldFont=LibertinusSans-Bold.otf,
+  ItalicFont=LibertinusSans-Italic.otf,
+]{LibertinusSans-Regular.otf}
+\setmonofont[
+  Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/SIL/jetbrainsmono-otf/,
+  BoldFont=JetBrainsMono-Bold.otf,
+  ItalicFont=JetBrainsMono-Italic.otf,
+  Scale=0.82,
+  Contextuals=Alternate,
+]{JetBrainsMono-Regular.otf}
+
+% ── Geometry ─────────────────────────────────────────────────────────────────
+\usepackage{geometry}
+\geometry{
+  paper=a4paper,
+  top=2.4cm,
+  bottom=2.8cm,
+  inner=2.8cm,
+  outer=2.8cm,
+}
+
+% ── Colors ───────────────────────────────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{SpringGreen}{HTML}{2D6A4F}
+\definecolor{SpringLeaf}{HTML}{40916C}
+\definecolor{SpringFog}{HTML}{D8F3DC}
+\definecolor{SpringMoss}{HTML}{1B4332}
+\definecolor{HintAmber}{HTML}{B45309}
+\definecolor{HintCream}{HTML}{FEF9EF}
+\definecolor{WarnRed}{HTML}{9B1C1C}
+\definecolor{WarnPink}{HTML}{FEE2E2}
+\definecolor{ConceptBlue}{HTML}{1E3A5F}
+\definecolor{ConceptIce}{HTML}{EBF4FF}
+\definecolor{DeliverGray}{HTML}{374151}
+\definecolor{DeliverFog}{HTML}{F3F4F6}
+\definecolor{RuleGray}{HTML}{D1D5DB}
+\definecolor{WeekBand}{HTML}{F9FAFB}
+
+% ── Packages ─────────────────────────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable, listings}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+\usepackage{fontawesome5}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=SpringMoss,
+  urlcolor=SpringLeaf,
+  pdftitle={Human in the Loop: Misunderstood — Spring Edition: Semester Project Guide},
+  pdfauthor={Lazaros Toumanidis},
+}
+
+% ── Typography ───────────────────────────────────────────────────────────────
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[itemize]{leftmargin=1.4em, topsep=3pt, itemsep=1pt}
+\setlist[enumerate]{leftmargin=1.6em, topsep=3pt, itemsep=1pt}
+
+% ── tcolorbox environments ───────────────────────────────────────────────────
+
+% Milestone card — the main building block
+\newtcolorbox{milestone}[2]{
+  enhanced,
+  breakable,
+  before skip=10pt, after skip=6pt,
+  colframe=SpringLeaf,
+  colback=white,
+  colbacktitle=SpringGreen,
+  coltitle=white,
+  fonttitle=\sffamily\bfseries\large,
+  title={\faLeaf\quad Week~#1 \enspace\textbar\enspace #2},
+  top=8pt, bottom=8pt, left=10pt, right=10pt,
+  arc=4pt,
+  drop shadow,
+}
+
+% HITL concept callout inside milestone
+\newtcolorbox{hitlconcept}[1]{
+  enhanced,
+  colframe=ConceptBlue!40,
+  colback=ConceptIce,
+  coltitle=ConceptBlue,
+  fonttitle=\sffamily\bfseries\small,
+  title={\faLightbulb[regular]\enspace HITL Concept: #1},
+  top=4pt, bottom=4pt, left=8pt, right=8pt,
+  arc=3pt,
+  boxrule=0.6pt,
+  before skip=5pt, after skip=3pt,
+}
+
+% Hint box
+\newtcolorbox{hintbox}{
+  enhanced,
+  colframe=HintAmber!60,
+  colback=HintCream,
+  coltitle=HintAmber,
+  fonttitle=\sffamily\bfseries\small,
+  title={\faQuestion\enspace Hint},
+  top=3pt, bottom=3pt, left=8pt, right=8pt,
+  arc=3pt,
+  boxrule=0.5pt,
+  before skip=4pt, after skip=2pt,
+}
+
+% Checkpoint deliverable
+\newtcolorbox{checkpoint}{
+  enhanced,
+  colframe=DeliverGray!40,
+  colback=DeliverFog,
+  coltitle=DeliverGray,
+  fonttitle=\sffamily\bfseries\small,
+  title={\faCheckCircle[regular]\enspace Checkpoint},
+  top=3pt, bottom=3pt, left=8pt, right=8pt,
+  arc=3pt,
+  boxrule=0.5pt,
+  before skip=4pt, after skip=2pt,
+}
+
+% Caution / watch-out box
+\newtcolorbox{watchout}{
+  enhanced,
+  colframe=WarnRed!50,
+  colback=WarnPink,
+  coltitle=WarnRed,
+  fonttitle=\sffamily\bfseries\small,
+  title={\faExclamationTriangle\enspace Watch out},
+  top=3pt, bottom=3pt, left=8pt, right=8pt,
+  arc=3pt,
+  boxrule=0.5pt,
+  before skip=4pt, after skip=2pt,
+}
+
+% Overview/info box
+\newtcolorbox{infobox}[1]{
+  enhanced,
+  colframe=SpringLeaf!50,
+  colback=SpringFog!40,
+  coltitle=SpringMoss,
+  fonttitle=\sffamily\bfseries,
+  title={#1},
+  top=6pt, bottom=6pt, left=10pt, right=10pt,
+  arc=4pt,
+  boxrule=0.8pt,
+  before skip=8pt, after skip=8pt,
+}
+
+% ── Section styling ───────────────────────────────────────────────────────────
+\RedeclareSectionCommand[
+  beforeskip=24pt,
+  afterskip=6pt,
+  font=\Large\sffamily\bfseries\color{SpringMoss},
+]{section}
+\RedeclareSectionCommand[
+  beforeskip=14pt,
+  afterskip=4pt,
+  font=\large\sffamily\bfseries\color{SpringGreen},
+]{subsection}
+
+% ── Helpers ───────────────────────────────────────────────────────────────────
+\newcommand{\build}[1]{\textbf{\color{SpringMoss}Build:} #1}
+\newcommand{\reflect}[1]{\textbf{\color{ConceptBlue}Reflect:} \textit{#1}}
+\newcommand{\role}[1]{\textsc{\color{SpringLeaf}#1}}
+
+% ── Title block ───────────────────────────────────────────────────────────────
+\setkomafont{title}{\Huge\sffamily\bfseries\color{SpringMoss}}
+\setkomafont{subtitle}{\large\sffamily\color{SpringLeaf}}
+\setkomafont{author}{\normalsize\sffamily}
+\setkomafont{date}{\small\sffamily\color{gray}}
+
+% ============================================================================
+\begin{document}
+% ============================================================================
+
+% ── Cover ─────────────────────────────────────────────────────────────────────
+\thispagestyle{empty}
+\begin{center}
+  \vspace*{1.2cm}
+
+  {\color{RuleGray}\rule{\linewidth}{0.4pt}}
+  \vspace{0.5cm}
+
+  {\fontsize{32}{38}\selectfont\sffamily\bfseries\color{SpringMoss}
+    Build the Loop}
+
+  \vspace{0.3cm}
+
+  {\LARGE\sffamily\color{SpringLeaf}
+    Spring Edition — Semester Project Guide}
+
+  \vspace{0.4cm}
+
+  {\color{RuleGray}\rule{\linewidth}{0.4pt}}
+
+  \vspace{0.8cm}
+
+  {\large\sffamily\color{DeliverGray}
+    Human in the Loop: Misunderstood}
+
+  \vspace{0.3cm}
+
+  {\normalsize\sffamily\color{gray}
+    Lazaros Toumanidis}
+
+  \vspace{1.2cm}
+
+  \begin{infobox}{In one sentence}
+    Over fifteen weeks, you will build a complete Human-in-the-Loop system
+    from a blank directory to a live, deployed treasure hunt — and in doing
+    so, you will \emph{feel} every concept that the other editions only
+    describe.
+  \end{infobox}
+
+  \vspace{0.8cm}
+
+  {\small\sffamily\color{gray}
+    \faTools\enspace Rust + Axum \quad
+    \faPython\enspace Python + FastAPI \quad
+    \faReact\enspace React \quad
+    \faMobile*\enspace Flutter \quad
+    \faDocker\enspace Docker}
+
+\end{center}
+
+\clearpage
+
+% ── Overview ─────────────────────────────────────────────────────────────────
+\section*{What This Project Is}
+\addcontentsline{toc}{section}{What This Project Is}
+
+The Spring Edition is different from every other edition of this series.
+
+The Summer Edition asks you to \emph{think}. The Winter Edition asks you to
+\emph{analyse}. This one asks you to \emph{build} — and then to run what you
+built with real people in a real space, and watch what breaks.
+
+The system is a \textbf{Treasure Hunt}: players follow a sequence of clues
+through a physical location, scanning QR codes or tapping NFC tags, submitting
+answers, and earning hints when they are stuck. Behind the game is a complete
+HITL architecture: a \role{creator} who designs the experience, a \role{player}
+who generates feedback by playing, and a \role{developer} (you) who builds the
+machinery connecting them through an AI layer.
+
+\begin{infobox}{Why a game?}
+  Games have four properties that make HITL legible:
+  \begin{itemize}
+    \item \textbf{Defined tasks} — a clue has a correct answer, so we can
+          measure human performance without ambiguity.
+    \item \textbf{Motivated participants} — players want to win; their
+          behavior is signal, not noise.
+    \item \textbf{Visible feedback} — attempts, timing, and hint requests
+          are explicit training signal.
+    \item \textbf{Low stakes} — wrong predictions mean nudges, not harm.
+          We can iterate freely and break things deliberately.
+  \end{itemize}
+\end{infobox}
+
+\subsection*{The Three Roles}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{SpringMoss}}lX@{}}
+\toprule
+\role{Creator} & The annotator. Encodes judgment into data by designing clues,
+  setting thresholds, choosing what counts as correct.
+  Their decisions are baked in long before any player sees them. \\[4pt]
+\role{Player}  & The oracle. Receives outputs (clues) and produces feedback
+  (attempts, timing, hints). Does not know they are providing training signal.
+  They are just trying to win. \\[4pt]
+\role{Developer} & You. Builds the infrastructure connecting creator and
+  player through an AI layer, and must decide how much autonomy to give
+  each component. \\
+\bottomrule
+\end{tabularx}
+
+\bigskip
+
+\subsection*{What You Will Deliver}
+
+By the end of week 15, you will have:
+
+\begin{itemize}
+  \item A \textbf{Rust/Axum} REST API with WebSocket live events
+  \item A \textbf{Python/FastAPI} AI sidecar (clue generation, difficulty
+        estimation, adaptive hints)
+  \item A \textbf{React} creator dashboard
+  \item A \textbf{Flutter} mobile app for players
+  \item A running local stack via
+        \texttt{docker compose up}
+  \item A 2-page \textbf{retrospective analysis} mapping what you built
+        to the Five Dimensions
+\end{itemize}
+
+\clearpage
+
+% ── Prerequisites ─────────────────────────────────────────────────────────────
+\section*{Prerequisites and Setup}
+
+\begin{infobox}{Required before Week 1}
+\begin{itemize}
+  \item Rust toolchain (\texttt{rustup}, stable channel)
+  \item Python 3.11+
+  \item Docker + Docker Compose v2
+  \item Node.js 20+ and npm
+  \item Flutter SDK 3.22+ (Chapters 10, 12 only)
+  \item An LLM API key if you want hosted-model features (\texttt{LLM\_API\_KEY})
+\end{itemize}
+\end{infobox}
+
+\subsection*{Getting Started}
+
+\begin{enumerate}
+  \item Clone the repository and enter the Spring Edition directory:
+  \begin{center}\ttfamily\small
+    cd path/to/repo/editions/spring
+  \end{center}
+
+  \item Copy the environment template and fill in your model settings:
+  \begin{center}\ttfamily\small
+    cp .env.example .env
+  \end{center}
+
+  \item Start the local stack:
+  \begin{center}\ttfamily\small
+    docker compose up -d --build
+  \end{center}
+
+  \item Verify Rust compiles (takes 2--5 minutes on first build):
+  \begin{center}\ttfamily\small
+    cd backend-rust \&\& cargo build
+  \end{center}
+
+  \item Install Python dependencies:
+  \begin{center}\ttfamily\small
+    cd ../backend-python \&\& pip install -r requirements.txt
+  \end{center}
+\end{enumerate}
+
+If \texttt{cargo build} succeeds in your environment and \texttt{docker compose ps} shows
+the services running, you are ready.
+
+\begin{watchout}
+  The Rust build downloads dependencies on first run.
+  Do this before Week 1 class, not during it.
+\end{watchout}
+
+\clearpage
+
+% ── 15-Week Schedule ─────────────────────────────────────────────────────────
+\section*{15-Week Schedule at a Glance}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\linewidth}{@{}>{\sffamily\bfseries\color{SpringMoss}}lX>{\small\color{SpringLeaf}\sffamily}l@{}}
+\toprule
+Week & Chapter & HITL Concept \\
+\midrule
+1  & Building HITL: Why a Game? & The Loop Made Tangible \\
+2  & The Five Dimensions in Play & Framework Application \\
+3  & Designing for Humans: The Schema & Creator as Annotator \\
+4  & The API Layer: Rust and Axum & Intervention Design \\
+5  & Identity in the Loop: OIDC and Roles & Stakes Calibration \\
+6  & Answer Validation: The Judgment Call & Threshold as Policy \\
+7  & The Hint Engine: When to Help & Timing \\
+8  & AI in the Loop: The Python Sidecar & Uncertainty Detection \\
+9  & The Creator's Perspective & Human Contribution \\
+10 & The Player's Perspective & Oracle as User \\
+11 & Watching in Real Time & Feedback Integration \\
+12 & QR, NFC, and Physical Anchors & Physical Loop Closure \\
+13 & Testing HITL Systems & Feedback at Scale \\
+14 & Deployment: Shipping the Loop & Real Stakes \\
+15 & What the Game Taught Us & Meta-Reflection \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\clearpage
+
+% ── Milestones ────────────────────────────────────────────────────────────────
+\section*{Milestone Cards}
+
+Each card is one week's work. The \textbf{Build} column is concrete; the
+\textbf{Reflect} prompt is not graded. The checkpoint is the deliverable you
+should be able to demonstrate at the start of the following week.
+
+\bigskip
+
+% ----- Week 1 ----------------------------------------------------------------
+\begin{milestone}{1}{Building HITL: Why a Game?}
+
+\build{Nothing to code yet. Read \texttt{intro.md}. Run
+\texttt{docker compose up -d --build}. Verify services start.
+Browse the full directory tree and write a one-paragraph description of
+each top-level folder in your own words.}
+
+\medskip
+\reflect{You have probably used a HITL system today. Where was the human?
+Where was the loop? Did the loop actually close, or did it stop somewhere?}
+
+\begin{hitlconcept}{The Loop Made Tangible}
+  A treasure hunt is, structurally, a HITL system. By the end of this
+  semester, you will not just know that — you will have felt it.
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Docker services healthy. Directory tree documented in your notebook.
+  One-paragraph answer: what is the human's job in this system?
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 2 ----------------------------------------------------------------
+\begin{milestone}{2}{The Five Dimensions in Play}
+
+\build{Read \texttt{chapters/02\_five\_dimensions.md} in full. Open
+\texttt{backend-rust/src/services/clue\_validator.rs}. Annotate five
+specific lines (add a comment) where a dimension of the framework is
+embodied in the code. Do the same for one file in \texttt{backend-python/}.}
+
+\medskip
+\reflect{``The human is in the loop'' often means ``a human approves outputs
+before they are acted on.'' Is approval the same as understanding?
+When does it add value, and when is it theater?}
+
+\begin{hitlconcept}{Framework Application}
+  The Five Dimensions are not abstract. They live in specific files,
+  specific parameters, specific defaults someone chose and stopped thinking
+  about.
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Ten annotated lines (five Rust, five Python) with dimension labels and
+  one sentence of reasoning each.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 3 ----------------------------------------------------------------
+\begin{milestone}{3}{Designing for Humans: The Schema}
+
+\build{Study \texttt{db/migrations/001\_initial.sql} and
+\texttt{002\_external\_id.sql}. Run both against your local Postgres.
+Sketch the entity-relationship diagram by hand. Identify every field where
+a human made a normative decision (``what counts as a correct answer?'')
+vs.\ a technical one (``which type stores this?''). Add one field you think
+is missing.}
+
+\medskip
+\reflect{A database schema is a theory about the world. Every constraint is
+a claim about what is always true. Which constraints here encode a claim
+about human behavior?}
+
+\begin{hitlconcept}{Creator as Annotator}
+  The \texttt{answer\_tolerance} field is a threshold the creator sets.
+  A default is a decision made once, propagated silently to everyone.
+\end{hitlconcept}
+
+\begin{hintbox}
+  The \texttt{external\_id} column in migration 002 is for QR/NFC physical
+  anchors. Don't try to understand it fully yet — it becomes clear in Week 12.
+\end{hintbox}
+
+\begin{checkpoint}
+  ER diagram. Annotated list of normative vs.\ technical decisions.
+  Proposed new field with justification.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 4 ----------------------------------------------------------------
+\begin{milestone}{4}{The API Layer: Rust and Axum}
+
+\build{Implement the \texttt{GET /hunts} and \texttt{POST /hunts} endpoints
+in \texttt{src/routes/hunts.rs}. Add basic input validation. Write the
+handler tests. Run \texttt{cargo test} until they pass. Then: try to make
+a request that your validation should reject, and verify it is rejected.}
+
+\medskip
+\reflect{A type error at compile time is a design conversation. A type error
+at runtime is an incident. Find one place where Rust's type system enforced
+a HITL design decision before any player touched the system.}
+
+\begin{hitlconcept}{Intervention Design}
+  Every API contract is a decision about what the human can and cannot
+  express. What can a creator \emph{not} say to this system, because the
+  schema won't let them?
+\end{hitlconcept}
+
+\begin{checkpoint}
+  \texttt{GET /hunts} and \texttt{POST /hunts} pass handler tests.
+  One documented example of a rejected invalid input.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 5 ----------------------------------------------------------------
+\begin{milestone}{5}{Identity in the Loop: OIDC and Roles}
+
+\build{Configure Zitadel with creator and player dev accounts. Implement the auth middleware in
+\texttt{src/middleware/auth.rs}. Verify that a player JWT cannot access a
+creator-only endpoint. Document the RBAC rules in a table.}
+
+\medskip
+\reflect{Identity is not a property of a person. It is a claim made by a
+system about a person, which other systems choose to trust. What happens
+when the system's model of identity doesn't match the real-world situation?
+(Two players sharing a phone. A creator who is also playing.)}
+
+\begin{hitlconcept}{Stakes Calibration}
+  Role separation is stakes calibration made structural. A player with
+  creator access could invalidate everyone's data.
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Login works for both roles. Creator endpoint returns 403 for player JWT.
+  RBAC table documented.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 6 ----------------------------------------------------------------
+\begin{milestone}{6}{Answer Validation: The Judgment Call}
+
+\build{Implement fuzzy matching in \texttt{src/services/clue\_validator.rs}
+using the Levenshtein distance or Jaro-Winkler similarity. Make the
+\texttt{answer\_tolerance} field live — different clues should behave
+differently. Write a test matrix: ten (answer, correct\_answer) pairs,
+three tolerance levels, expected result for each.}
+
+\medskip
+\reflect{Every threshold is an argument. The argument is usually implicit.
+Write out the explicit argument your default threshold makes. Who benefits
+from a strict threshold? Who is harmed?}
+
+\begin{hitlconcept}{Threshold as Policy}
+  The validation tolerance is not a technical parameter. It is a policy
+  decision about how much linguistic variation you accept from players —
+  which is a proxy for who you designed the game for.
+\end{hitlconcept}
+
+\begin{hintbox}
+  The \texttt{strsim} crate has Jaro-Winkler implemented. Add it to
+  \texttt{Cargo.toml} rather than implementing from scratch.
+\end{hintbox}
+
+\begin{checkpoint}
+  Test matrix (30 cells) with all cases passing. Default tolerance
+  documented and justified in one paragraph.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 7 ----------------------------------------------------------------
+\begin{milestone}{7}{The Hint Engine: When to Help}
+
+\build{Build the hint system: hints unlock after $n$ failed attempts
+(configurable per clue). Implement three hint levels — vague, directional,
+near-explicit. Track hint requests in the event log. Add a per-clue
+\texttt{hint\_policy} field (none, after\_3, after\_5, always\_available).}
+
+\medskip
+\reflect{Help that arrives too early prevents learning. Help that arrives
+too late causes frustration. The gap between them is the entire art of
+pedagogy. Where does your default policy sit in that gap?
+Who did you optimize for?}
+
+\begin{hitlconcept}{Timing}
+  The hint unlock timer is the most direct implementation of timing in
+  this project. The threshold you choose is a claim about when frustration
+  outweighs learning.
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Three-level hints working. Hint events logged with timestamps.
+  Policy field configurable. Demo: one clue that unlocks hints at attempt 3,
+  one that unlocks at attempt 5.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 8 ----------------------------------------------------------------
+\begin{milestone}{8}{AI in the Loop: The Python Sidecar}
+
+\build{Implement two services in \texttt{backend-python/}:
+(1) \texttt{clue\_generator.py} — given a location description and theme,
+generates clue text via the Anthropic API;
+(2) \texttt{difficulty.py} — estimates the first-attempt success rate
+for a clue using sentence embeddings and a trained regressor.
+Connect both to the Rust API via HTTP. The sidecar must fail gracefully:
+if it is down, the game still runs.}
+
+\medskip
+\reflect{An AI generates a clue. The creator approves it without reading
+carefully. A player spends 40 minutes because the phrasing was subtly
+ambiguous. Who is responsible?}
+
+\begin{hitlconcept}{Uncertainty Detection}
+  The difficulty estimator outputs a probability. What should the system
+  do when it is uncertain about that estimate? When should it route the
+  clue to the creator for review rather than publishing automatically?
+\end{hitlconcept}
+
+\begin{hintbox}
+  Start with a lightweight similarity baseline for semantic matching and
+  difficulty estimation. If you later need stronger embeddings, add them
+  deliberately rather than making them a boot-time dependency.
+\end{hintbox}
+
+\begin{watchout}
+  The Anthropic API has rate limits. Cache generated clues in Postgres,
+  not in memory — the sidecar will restart.
+\end{watchout}
+
+\begin{checkpoint}
+  \texttt{POST /clues/generate} returns a clue. \texttt{POST
+  /clues/estimate-difficulty} returns a probability. Both endpoints return
+  gracefully when sidecar is stopped.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 9 ----------------------------------------------------------------
+\begin{milestone}{9}{The Creator's Perspective}
+
+\build{Build the React creator dashboard in \texttt{web/}:
+a hunt builder where the creator can create a hunt, add clues, set
+tolerances, preview the clue sequence, and export a QR sheet (stub the QR
+generation for now — it becomes real in Week 12). Integrate AI clue
+generation so the creator can request suggestions and edit them.}
+
+\medskip
+\reflect{The annotator sees the world through the categories you gave them.
+What categories does your creator dashboard give to the creator?
+What can they not express because the form won't let them?}
+
+\begin{hitlconcept}{Human Contribution}
+  Every UI affordance is a constraint on what the human can contribute.
+  The creator's dashboard shapes the quality of every player's experience
+  before a single player has joined.
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Hunt buildable end-to-end via the creator UI. AI suggestions requestable
+  and editable. Hunt visible in the database after save.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 10 ---------------------------------------------------------------
+\begin{milestone}{10}{The Player's Perspective}
+
+\build{Build the Flutter mobile app in \texttt{mobile/}:
+the player scans a QR code (use the device camera), submits an answer,
+sees the result, and can request a hint. The app should work offline for
+content already downloaded; only answer submission requires connectivity.}
+
+\medskip
+\reflect{The oracle does not know they are an oracle. They are just trying
+to win. Is there anything in your player UI that makes the data-collection
+nature of the system visible? Should there be?}
+
+\begin{hitlconcept}{Oracle as User}
+  Every interaction the player makes is feedback. The quality of that
+  feedback depends entirely on the quality of their experience. A confusing
+  UI produces noisy labels.
+\end{hitlconcept}
+
+\begin{hintbox}
+  Use \texttt{mobile\_scanner} for QR reading. Test on a physical device
+  early — the simulator camera is unreliable.
+\end{hintbox}
+
+\begin{checkpoint}
+  Player can scan a QR code, submit an answer, receive feedback, and
+  request a hint. Full flow works on a physical device or emulator.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 11 ---------------------------------------------------------------
+\begin{milestone}{11}{Watching in Real Time}
+
+\build{Implement the WebSocket observer stream in
+\texttt{src/routes/observer.rs}. Every significant event — clue scanned,
+answer submitted (correct or not), hint requested, hunt completed —
+broadcasts to connected observers. Build a minimal observer view in the
+React dashboard: a live feed that shows events as they happen.}
+
+\medskip
+\reflect{You cannot understand a HITL system by reading its logs after the
+fact. You understand it by watching it run. What does the live feed make
+visible that the database would have hidden?}
+
+\begin{hitlconcept}{Feedback Integration}
+  The observer stream closes the feedback loop for the developer. Once you
+  have real play data, re-train your difficulty estimator from Week 8 on
+  actual attempt counts. How much did the synthetic training data mislead you?
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Live event stream works: three events visible in the observer view within
+  10 seconds of a player action. Difficulty estimator re-trained on at least
+  20 real play observations.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 12 ---------------------------------------------------------------
+\begin{milestone}{12}{QR, NFC, and Physical Anchors}
+
+\build{Implement QR sheet generation in the creator dashboard (use a
+JavaScript QR library to generate printable A4 sheets with one QR per
+clue location). If you have NFC hardware: implement NFC tag reading in
+the Flutter app using \texttt{nfc\_manager}. Print and physically deploy
+at least one three-clue hunt in a real space.}
+
+\medskip
+\reflect{The loop is not closed until a human has physically walked it.
+What surprised you when you ran the hunt in a real space that no amount
+of testing on a laptop would have revealed?}
+
+\begin{hitlconcept}{Physical Loop Closure}
+  A HITL system that has never touched a human is a simulation. Until
+  someone walks the route with their phone, many bugs are invisible.
+\end{hitlconcept}
+
+\begin{hintbox}
+  Use \texttt{qrcode} (npm) for QR generation. Print on A4, laminate if
+  outdoors. NFC is optional — QR alone is sufficient for the checkpoint.
+\end{hintbox}
+
+\begin{checkpoint}
+  Printable QR sheet generated for a three-clue hunt.
+  Hunt successfully completed by at least one person who was not you.
+  One documented observation from the live run.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 13 ---------------------------------------------------------------
+\begin{milestone}{13}{Testing HITL Systems}
+
+\build{Write integration tests that simulate the full loop:
+(1) a creator creates a hunt with three clues;
+(2) a simulated player makes three wrong attempts on clue 1, requests a hint,
+then answers correctly;
+(3) asserts the event log contains the expected sequence;
+(4) asserts the hint was unlocked at the right attempt count.
+Also: write one test that deliberately injects a flawed clue and asserts
+the system handles it gracefully.}
+
+\medskip
+\reflect{A test that passes tells you the code does what you expected.
+It tells you nothing about whether what you expected was right.
+What would a test of your \emph{design assumptions} look like?}
+
+\begin{hitlconcept}{Feedback at Scale}
+  The integration test is a synthetic human. It is faster and cheaper than
+  a real player, but it only tests the behaviors you thought to specify.
+  Where is your test suite blind?
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Integration test suite covers the full three-clue loop with wrong
+  attempts, hint unlock, and correct answer. All tests pass in CI
+  (\texttt{cargo test}).
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 14 ---------------------------------------------------------------
+\begin{milestone}{14}{Deployment: Shipping the Loop}
+
+\build{Deploy the full stack to a machine that is not your laptop —
+a VPS, a local server, or a Raspberry Pi on a local network all count.
+Participants should be able to join using their own phone without any
+special setup. Run a live hunt with at least three participants you did
+not brief in advance.}
+
+\medskip
+\reflect{A system that works on your laptop is a prototype. A system that
+works for strangers is a product. What was the first thing that broke when
+strangers used it?}
+
+\begin{hitlconcept}{Real Stakes}
+  Deployment changes the cost model. Errors are no longer free. A
+  misconfigured threshold, a missing hint, a confusing UI — all of these
+  now have real consequences for real people's experience.
+\end{hitlconcept}
+
+\begin{watchout}
+  If your VPS has limited RAM, the Rust binary + Postgres + Python sidecar
+  together use \textasciitilde 800MB. A 1GB instance will OOM under load.
+  Use a 2GB minimum or run Postgres on a separate container.
+\end{watchout}
+
+\begin{checkpoint}
+  System deployed and reachable from a device not on your local network.
+  Live hunt completed by at least three external participants.
+  Notes from what broke, what surprised you, what you changed under pressure.
+\end{checkpoint}
+
+\end{milestone}
+
+% ----- Week 15 ---------------------------------------------------------------
+\begin{milestone}{15}{What the Game Taught Us}
+
+\build{Write a retrospective analysis (1,500--2,000 words). Structure it
+around the Five Dimensions: for each dimension, describe one decision you
+made in the code, whether it worked, and what you would change. End with
+one paragraph on what the game made visible that the textbook could not.}
+
+\medskip
+\reflect{You do not understand a system by reading about it.
+You understand it by breaking it.
+What did you understand, after Week 14, that you did not understand
+after Week 1?}
+
+\begin{hitlconcept}{Meta-Reflection}
+  The retrospective is not a formality. It is the closing of the loop
+  you have been building for fifteen weeks: human feedback on the system
+  that was designed to generate human feedback.
+\end{hitlconcept}
+
+\begin{checkpoint}
+  Retrospective submitted (1,500--2,000 words).
+  Five Dimensions each addressed with a concrete code example.
+  One ``this surprised me'' paragraph grounded in the live deployment.
+\end{checkpoint}
+
+\end{milestone}
+
+\clearpage
+
+% ── Final Integration Checklist ───────────────────────────────────────────────
+\section*{Final Integration Checklist}
+
+Before your Week 15 retrospective, verify the following end-to-end:
+
+\begin{tcolorbox}[
+  enhanced,
+  colframe=SpringLeaf!50,
+  colback=white,
+  top=8pt, bottom=8pt, left=12pt, right=12pt,
+  arc=4pt,
+]
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{@{}>{\footnotesize}clX@{}}
+\toprule
+& & \textbf{Capability} \\
+\midrule
+\faSquare[regular] & & Creator can log in and build a hunt via the React dashboard \\
+\faSquare[regular] & & Creator can request AI clue suggestions and edit them \\
+\faSquare[regular] & & Creator can export a printable QR sheet \\
+\faSquare[regular] & & Player can scan a QR code on a physical device \\
+\faSquare[regular] & & Player can submit an answer and receive correct/incorrect feedback \\
+\faSquare[regular] & & Answer validation respects the per-clue tolerance setting \\
+\faSquare[regular] & & Hints unlock after the configured number of failed attempts \\
+\faSquare[regular] & & Observer sees live event stream during active play \\
+\faSquare[regular] & & AI sidecar failure does not crash the core game \\
+\faSquare[regular] & & Difficulty estimates update when re-trained on real play data \\
+\faSquare[regular] & & Integration test suite passes on a clean checkout \\
+\faSquare[regular] & & System survives a 30-minute live hunt with $\geq$ 3 participants \\
+\faSquare[regular] & & Retrospective maps each deliverable to a Five Dimensions concept \\
+\bottomrule
+\end{tabularx}
+\end{tcolorbox}
+
+\bigskip
+
+% ── The Five Dimensions Reference ─────────────────────────────────────────────
+\section*{Reference: The Five Dimensions}
+
+\begin{tcolorbox}[
+  enhanced,
+  colframe=ConceptBlue!40,
+  colback=ConceptIce!60,
+  top=8pt, bottom=8pt, left=12pt, right=12pt,
+  arc=4pt,
+]
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{ConceptBlue}\small}lX@{}}
+\toprule
+Dimension & Key Question \\
+\midrule
+Uncertainty Detection  & Can the system recognize when it is unsure? \\
+Intervention Design    & How does it ask for help — or choose not to? \\
+Timing                 & When does it intervene — too early, too late, or just right? \\
+Stakes Calibration     & Does it understand the cost of being wrong? \\
+Feedback Integration   & Does it learn from the responses it receives? \\
+\bottomrule
+\end{tabularx}
+\end{tcolorbox}
+
+\bigskip
+
+\begin{center}
+  {\color{RuleGray}\rule{0.6\linewidth}{0.4pt}}
+
+  \vspace{0.4cm}
+
+  {\small\sffamily\color{gray}
+    Human in the Loop\enspace —\enspace Spring Edition\enspace —\enspace
+    \textit{Build the Loop}}
+
+  \vspace{0.2cm}
+
+  {\footnotesize\color{gray}
+    laztoum.com\enspace·\enspace what-if.io\enspace·\enspace limen-os.io\enspace·\enspace laztoum@protonmail.com}
+\end{center}
+
+\end{document}

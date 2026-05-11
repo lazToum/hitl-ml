@@ -1,0 +1,590 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Building HITL: Why a Game? &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/01_building_hitl';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Five Dimensions in Play" href="02_five_dimensions.html" />
+    <link rel="prev" title="Human in the Loop: Misunderstood" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_ai.html">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/01_building_hitl.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Building HITL: Why a Game?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-premise">The premise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-game">Why a game?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-roles">The three roles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-dimensions-briefly">The five dimensions, briefly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture-briefly">The architecture, briefly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-you-write-a-line">Before you write a line</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="building-hitl-why-a-game">
+<h1>Building HITL: Why a Game?<a class="headerlink" href="#building-hitl-why-a-game" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>A system that only works when no one is using it is not a system. It is a sketch.</p>
+<p class="attribution">—Chapter 1</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> You have probably used a HITL system today. A spam filter that learned from the mail you marked as junk. A search engine that updated its model when you ignored the top result and clicked the third. A music app that noted when you skipped after three seconds. In each case, where was the human? Where was the loop?</p>
+<p><strong>2.</strong> Most HITL textbooks show you diagrams of the loop — annotation feeds training, training produces predictions, predictions go to humans, humans annotate. But when you’ve seen real systems, does the loop actually close? Or does it stop somewhere?</p>
+<p><strong>3.</strong> What would it mean to <em>feel</em> the loop rather than observe it? To be the annotator, not just the analyst?</p>
+</section>
+<hr class="docutils" />
+<section id="the-premise">
+<h2>The premise<a class="headerlink" href="#the-premise" title="Permalink to this heading">#</a></h2>
+<p>Most treatments of human-in-the-loop machine learning describe it from the outside.</p>
+<p>You learn what active learning is. You learn what RLHF stands for. You learn that annotators disagree and that crowdsourced labels are noisy. You read about systems where humans are involved — but you are not the human, and you are not building the system.</p>
+<p>This edition flips that. We will build a system where the loop is tangible because it runs on a computer you control, where the humans are people you can observe because they are playing a game you designed.</p>
+<p>The game is a treasure hunt. Players follow a sequence of clues through a physical space, scanning QR codes or tapping NFC tags at each location, submitting answers, and earning hints when they are stuck. A creator — a human — designed those clues. An AI — fed by another human’s API key — can help generate them and estimate how hard they will be. And you, the developer, built all of it.</p>
+<p>Three humans. One loop. Thousands of lines of code connecting them.</p>
+</section>
+<hr class="docutils" />
+<section id="why-a-game">
+<h2>Why a game?<a class="headerlink" href="#why-a-game" title="Permalink to this heading">#</a></h2>
+<p>Because games have properties that make HITL legible:</p>
+<p><strong>Defined tasks.</strong> A clue has a correct answer. That means we can measure how humans perform — attempts, time, hints used — without ambiguity about what we are measuring.</p>
+<p><strong>Motivated participants.</strong> Players want to win. They will actually engage with the system rather than click through it. Their behavior is signal, not noise.</p>
+<p><strong>Visible feedback.</strong> When a player answers incorrectly three times and then asks for a hint, that is explicit feedback about clue difficulty. When they solve it in thirty seconds, that is also feedback. The system captures both.</p>
+<p><strong>Low stakes.</strong> A wrong prediction in a medical AI system harms a patient. A wrong prediction in a treasure hunt means the player gets a nudge and tries again. We can iterate freely, break things deliberately, and learn from failures without consequence.</p>
+<p>Games, in other words, are a HITL sandbox.</p>
+</section>
+<hr class="docutils" />
+<section id="the-three-roles">
+<h2>The three roles<a class="headerlink" href="#the-three-roles" title="Permalink to this heading">#</a></h2>
+<p>The treasure hunt has three human roles, and each embodies a different HITL relationship to the system.</p>
+<p><strong>The creator</strong> is the annotator. They design each clue: write the text, pick the location, choose what counts as a correct answer and how similar an answer must be to count. They are encoding their judgment into data that the system will act on. Every parameter they set — fuzzy match threshold, hint unlock time, GPS radius — is a decision that will shape the experience of every player who runs that hunt.</p>
+<p>Creators are also the <em>hardest</em> humans to study, because they are often invisible. Their decisions are baked into training data or game logic long before any player sees them. One goal of this system is to make creator decisions auditable — logged, versioned, reviewable.</p>
+<p><strong>The player</strong> is the oracle. They receive outputs (clues) and produce feedback (attempts, timing, hints requested, answers given). They do not know they are providing training signal. They are just trying to win. This is the normal condition of the human in the loop: unaware, consequential.</p>
+<p><strong>The developer</strong> — you — is the architect of the loop itself. You decide what feedback gets captured, how it is stored, whether it gets used. You are responsible for closing the loop or leaving it open. Most of this edition is about the decisions you will make in that role.</p>
+</section>
+<hr class="docutils" />
+<section id="the-five-dimensions-briefly">
+<h2>The five dimensions, briefly<a class="headerlink" href="#the-five-dimensions-briefly" title="Permalink to this heading">#</a></h2>
+<p>The Summer and Winter editions introduced five dimensions along which HITL systems vary. The treasure hunt system will express each of them. We will revisit each dimension in detail in Chapter 2, but here is the map:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Dimension</p></th>
+<th class="head"><p>In the treasure hunt</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Control</strong></p></td>
+<td><p>Who can override the AI’s hint suggestions? Who can change a clue after the hunt has started?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Transparency</strong></p></td>
+<td><p>Can the player see why they got a hint? Can the creator see how players performed?</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Feedback</strong></p></td>
+<td><p>How does player behavior change what the AI recommends next time?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Autonomy</strong></p></td>
+<td><p>When does the system act without asking a human? When does it always ask?</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Trust</strong></p></td>
+<td><p>Under what conditions will a player follow the AI’s hint rather than their own judgment?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>None of these questions have obvious answers. The code we write will make implicit choices about all of them. One aim of this edition is to make those choices explicit.</p>
+</section>
+<hr class="docutils" />
+<section id="the-architecture-briefly">
+<h2>The architecture, briefly<a class="headerlink" href="#the-architecture-briefly" title="Permalink to this heading">#</a></h2>
+<p>The full architecture is documented in <code class="docutils literal notranslate"><span class="pre">editions/spring/architecture.md</span></code>. Here is the sketch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Flutter app (player)          React dashboard (creator/observer)
+      │                                  │
+      └────────────── HTTPS ─────────────┘
+                           │
+                    Rust/Axum API  ←──── JWKS ───→  Zitadel (OIDC)
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+          PostgreSQL    Python AI    WebSocket
+                        sidecar     broadcaster
+</pre></div>
+</div>
+<p>Each piece will be built in a dedicated chapter. The system is intentionally simple — simple enough to hold in your head, complex enough to be real.</p>
+</section>
+<hr class="docutils" />
+<section id="before-you-write-a-line">
+<h2>Before you write a line<a class="headerlink" href="#before-you-write-a-line" title="Permalink to this heading">#</a></h2>
+<p>Three questions to keep in mind throughout this semester:</p>
+<p><strong>Where is the human?</strong> Every chapter introduces new code. Before you finish reading it, ask: at which point in this code does a human decision matter? Where does the system depend on something a human chose?</p>
+<p><strong>What happens when the human is wrong?</strong> Creators make bad clues. Players misunderstand instructions. Annotators disagree. What does the system do?</p>
+<p><strong>What data are you throwing away?</strong> Every interaction produces signal. Not all of it is captured. The decision about what to log and what to discard is as consequential as any model training decision.</p>
+<p>Keep a notebook. Not for code. For these.</p>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<p>The chapter description says this is about building HITL systems. But there is an argument that building a game is not the same as building a HITL system — that a game is entertainment, not infrastructure, and that real HITL systems are medical, judicial, financial.</p>
+<p>What do you think? Is the distinction meaningful? Does it change what you should build, or how you should evaluate it?</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Human in the Loop: Misunderstood</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_five_dimensions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Five Dimensions in Play</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-premise">The premise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-game">Why a game?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-roles">The three roles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-dimensions-briefly">The five dimensions, briefly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture-briefly">The architecture, briefly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-you-write-a-line">Before you write a line</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,582 @@
+%% ============================================================
+%% PREAMBLE.TEX - Human in the Loop Book
+%% ============================================================
+
+% ============================================================================
+% PAGE GEOMETRY
+% ============================================================================
+\usepackage{geometry}
+
+\ifprintedition
+% Standard trade paperback: 6" x 9"
+\geometry{
+	paperwidth=6in,
+	paperheight=9in,
+	inner=0.875in,       % Gutter margin (binding side)
+	outer=0.625in,       % Outside margin
+	top=0.75in,
+	bottom=0.875in,
+	includehead,
+	includefoot,
+}
+\fi
+
+\ifebookedition
+% Screen-friendly: larger margins, single-sided
+\geometry{
+	paperwidth=7in,
+	paperheight=10in,
+	margin=1in,
+}
+\KOMAoptions{twoside=false, open=any}
+\fi
+
+\ifthesisedition
+% US Letter for thesis submission
+\geometry{
+	paper=letterpaper,
+	inner=1.5in,         % Extra for binding
+	outer=1in,
+	top=1in,
+	bottom=1in,
+}
+\fi
+
+% ============================================================================
+% FONTS - Professional Typography
+% ============================================================================
+\usepackage{fontspec}
+\usepackage[
+  protrusion=true,           % Allow punctuation to hang into margin (xelatex)
+  final,                     % Always active, even in draft mode
+]{microtype}
+
+% Line-breaking quality: give LaTeX two extra passes before declaring an
+% overfull box, then a third emergency pass with extra stretch.
+\tolerance=2000              % Default 200 — higher = allows looser spacing
+\emergencystretch=2em        % Last-resort extra stretch before overflow
+\hbadness=2000               % Suppress minor underfull warnings
+
+% Option 1: Libertinus (free, excellent for academic/technical books)
+\setmainfont[
+  Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/libertinus-fonts/,
+  BoldFont=LibertinusSerif-Bold.otf,
+  ItalicFont=LibertinusSerif-Italic.otf,
+  BoldItalicFont=LibertinusSerif-BoldItalic.otf,
+  Numbers=OldStyle,
+  Ligatures=TeX,
+]{LibertinusSerif-Regular.otf}
+\setsansfont[
+  Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/libertinus-fonts/,
+  BoldFont=LibertinusSans-Bold.otf,
+  ItalicFont=LibertinusSans-Italic.otf,
+  BoldItalicFont=LibertinusSans-Bold.otf,
+]{LibertinusSans-Regular.otf}
+\setmonofont[
+  Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/SIL/jetbrainsmono-otf/,
+  BoldFont=JetBrainsMono-Bold.otf,
+  ItalicFont=JetBrainsMono-Italic.otf,
+  Scale=0.85,
+  Contextuals=Alternate,
+]{JetBrainsMono-Regular.otf}
+
+% Option 2: Alternative professional fonts (uncomment to use)
+% \setmainfont{TeX Gyre Pagella}     % Palatino clone
+% \setmainfont{EB Garamond}          % Classic Garamond
+% \setmainfont{Source Serif Pro}     % Modern, highly readable
+% \setsansfont{Source Sans Pro}
+% \setmonofont{Source Code Pro}[Scale=0.85]
+
+% Math fonts
+\usepackage{unicode-math}
+\setmathfont[
+  Path=/usr/local/texlive/2025/texmf-dist/fonts/opentype/public/libertinus-fonts/,
+]{LibertinusMath-Regular.otf}
+% Alternative: \setmathfont{TeX Gyre Pagella Math}
+
+% ============================================================================
+% COLORS
+% ============================================================================
+\usepackage{xcolor}
+
+% Professional, muted palette
+\definecolor{hitlblue}{HTML}{2C5282}      % Primary accent
+\definecolor{hitlgray}{HTML}{4A5568}      % Secondary text
+\definecolor{hitllight}{HTML}{EDF2F7}     % Background highlights
+\definecolor{hitlgreen}{HTML}{276749}     % Success/examples
+\definecolor{hitlred}{HTML}{C53030}       % Warnings/cautions
+\definecolor{hitlorange}{HTML}{C05621}    % Notes
+\definecolor{CoreGreen}{HTML}{27AE60}
+% Code colors
+\definecolor{codebg}{HTML}{F7FAFC}
+\definecolor{codeframe}{HTML}{E2E8F0}
+\definecolor{codecomment}{HTML}{718096}
+\definecolor{codestring}{HTML}{2F855A}
+\definecolor{codekeyword}{HTML}{6B46C1}
+
+
+\newcounter{exercise}[chapter]
+\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+\newenvironment{Exercise}[1][]{%
+	\refstepcounter{exercise}%
+	\begin{tcolorbox}[colframe=CoreGreen!60!black,colback=CoreGreen!5,
+		title=\sffamily\bfseries Exercise \theexercise\if\relax\detokenize{#1}\relax\else\ — #1\fi]%
+	}{\end{tcolorbox}}
+
+% ============================================================================
+% LANGUAGE & TYPOGRAPHY
+% ============================================================================
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+
+\usepackage{csquotes}        % Smart quotes
+\usepackage{ellipsis}        % Proper ellipsis spacing
+\usepackage{selnolig}        % Disable bad ligatures
+\usepackage[shortlabels]{enumitem}
+
+% Paragraph settings
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\linespread{1.08}            % Slightly looser for readability
+
+% Prevent widows and orphans
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+% ============================================================================
+% HEADERS & FOOTERS
+% ============================================================================
+\usepackage[
+headsepline=0.5pt,       % Line under header
+footsepline=false,
+automark,
+]{scrlayer-scrpage}
+
+\clearpairofpagestyles
+
+% Header: Chapter title on left, section on right
+\lehead{\pagemark}
+\rohead{\pagemark}
+\rehead{\headmark}
+\lohead{\headmark}
+
+% Redefine marks for cleaner headers
+\renewcommand*{\chaptermarkformat}{}  % No "Chapter X" prefix
+\renewcommand*{\sectionmarkformat}{}
+
+% Page number styling
+\setkomafont{pagenumber}{\normalfont\small}
+\setkomafont{pageheadfoot}{\normalfont\small\itshape}
+
+% ============================================================================
+% CHAPTER & SECTION STYLING
+% ============================================================================
+\addtokomafont{chapter}{\color{hitlblue}}
+\addtokomafont{section}{\color{hitlblue}}
+\addtokomafont{subsection}{\normalfont\large\bfseries}
+\addtokomafont{subsubsection}{\normalfont\normalsize\bfseries\itshape}
+\addtokomafont{paragraph}{\normalfont\normalsize\bfseries}
+
+\RedeclareSectionCommand[
+beforeskip=-30pt,
+afterskip=40pt,
+]{chapter}
+\raggedbottom
+
+%\usepackage{titlesec}
+
+%% Chapter style: clean, modern
+%\titleformat{\chapter}[display]
+%{\normalfont\huge\bfseries\color{hitlblue}}  % Format
+%{}                                             % Label (empty for no number)
+%{0pt}                                          % Sep
+%{\LARGE}                                       % Before-code
+%[\vspace{1ex}\titlerule]                      % After-code
+%
+%\titlespacing*{\chapter}{0pt}{-30pt}{40pt}
+%
+%% Section styles
+%\titleformat{\section}
+%{\normalfont\Large\bfseries\color{hitlblue}}
+%{\thesection}{1em}{}
+%
+%\titleformat{\subsection}
+%{\normalfont\large\bfseries}
+%{\thesubsection}{1em}{}
+%
+%\titleformat{\subsubsection}
+%{\normalfont\normalsize\bfseries\itshape}
+%{\thesubsubsection}{1em}{}
+%
+%\titleformat{\paragraph}[runin]
+%{\normalfont\normalsize\bfseries}
+%{\theparagraph}{1em}{}
+%
+%\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
+% ============================================================================
+% TABLE OF CONTENTS
+% ============================================================================
+\usepackage{tocbasic}
+
+\setcounter{tocdepth}{1}     % Only chapters and sections in TOC
+
+% Style TOC entries
+\addtokomafont{chapterentry}{\bfseries}
+\addtokomafont{chapterentrypagenumber}{\bfseries}
+
+% Dotted leaders for all entries
+\RedeclareSectionCommand[
+toclinefill=\TOCLineLeaderFill
+]{chapter}
+
+% ============================================================================
+% FIGURES & TABLES
+% ============================================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}        % Professional tables
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+
+% Caption styling
+\usepackage[
+font=small,
+labelfont={bf,color=hitlblue},
+format=plain,
+justification=justified,
+singlelinecheck=false,
+]{caption}
+
+\usepackage{subcaption}
+
+% Figure placement
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}
+
+% ============================================================================
+% CODE LISTINGS
+% ============================================================================
+\usepackage{listings}
+\usepackage{fancyvrb}
+
+\lstset{
+	basicstyle=\ttfamily\small,
+	backgroundcolor=\color{codebg},
+	frame=single,
+	rulecolor=\color{codeframe},
+	framesep=3pt,
+	xleftmargin=1em,
+	xrightmargin=1em,
+	breaklines=true,
+	breakatwhitespace=true,
+	showstringspaces=false,
+	tabsize=4,
+	captionpos=b,
+	numbers=left,
+	numberstyle=\tiny\color{hitlgray},
+	numbersep=8pt,
+	commentstyle=\color{codecomment}\itshape,
+	keywordstyle=\color{codekeyword}\bfseries,
+	stringstyle=\color{codestring},
+}
+
+% Python style
+\lstdefinestyle{python}{
+	language=Python,
+	morekeywords={self, True, False, None, as, with, yield, async, await},
+}
+
+% Inline code command
+\newcommand{\code}[1]{\texttt{\small #1}}
+
+% ============================================================================
+% CUSTOM ENVIRONMENTS - Story-Driven Book Elements
+% ============================================================================
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, hooks}
+
+% Opening vignette/story box
+\newtcolorbox{storyhook}{
+	enhanced,
+	breakable,
+	colback=hitllight,
+	colframe=hitlblue,
+	boxrule=0pt,
+	leftrule=4pt,
+	arc=0pt,
+	outer arc=0pt,
+	left=12pt,
+	right=12pt,
+	top=10pt,
+	bottom=10pt,
+	fontupper=\itshape,
+	before skip=\baselineskip,
+	after skip=\baselineskip,
+}
+
+% Key concept/takeaway box
+\newtcolorbox{keyconcept}[1][Key Concept]{
+	enhanced,
+	breakable,
+	colback=white,
+	colframe=hitlblue,
+	boxrule=1pt,
+	arc=3pt,
+	title=#1,
+	fonttitle=\bfseries\color{white},
+	attach boxed title to top left={yshift=-2mm, xshift=5mm},
+	boxed title style={colback=hitlblue, arc=2pt},
+	before skip=\baselineskip,
+	after skip=\baselineskip,
+}
+
+% Example box
+\newtcolorbox{examplebox}[1][Example]{
+	enhanced,
+	breakable,
+	colback=white,
+	colframe=hitlgreen,
+	boxrule=0.5pt,
+	leftrule=4pt,
+	arc=0pt,
+	outer arc=0pt,
+	title=#1,
+	fonttitle=\bfseries\color{hitlgreen},
+	coltitle=hitlgreen,
+	attach boxed title to top left={yshift=-\tcboxedtitleheight/2, xshift=5mm},
+	boxed title style={colback=white, frame empty},
+	before skip=\baselineskip,
+	after skip=\baselineskip,
+}
+
+% Warning/caution box
+\newtcolorbox{cautionbox}[1][Caution]{
+	enhanced,
+	breakable,
+	colback=red!5,
+	colframe=hitlred,
+	boxrule=0.5pt,
+	leftrule=4pt,
+	arc=0pt,
+	outer arc=0pt,
+	title=#1,
+	fonttitle=\bfseries\color{hitlred},
+	before skip=\baselineskip,
+	after skip=\baselineskip,
+}
+
+% Technical aside (for general readers to skip)
+\newtcolorbox{technote}[1][Technical Note]{
+	enhanced,
+	breakable,
+	colback=gray!5,
+	colframe=hitlgray,
+	boxrule=0.5pt,
+	arc=2pt,
+	title=#1,
+	fonttitle=\small\bfseries\color{hitlgray},
+	fontupper=\small,
+	before skip=\baselineskip,
+	after skip=\baselineskip,
+}
+
+% "Try This" reader exercise
+\newtcolorbox{QuickRecallBox}{
+	enhanced,
+	breakable,
+	colback=hitlblue!6,
+	colframe=hitlblue!50,
+	boxrule=0pt,
+	leftrule=3pt,
+	arc=2pt,
+	outer arc=2pt,
+	before skip=\baselineskip,
+	after skip=\baselineskip,
+}
+
+\newtcolorbox{trythis}{
+	enhanced,
+	breakable,
+	colback=hitlorange!10,
+	colframe=hitlorange,
+	boxrule=0pt,
+	leftrule=4pt,
+	arc=0pt,
+	outer arc=0pt,
+	title={\faLightbulb\hspace{0.5em}Try This},
+	fonttitle=\bfseries\color{hitlorange},
+	before skip=\baselineskip,
+	after skip=\baselineskip,
+}
+
+\newcommand{\chapterquoteauthor}{}
+\newenvironment{chapterquote}[1]{%
+	\renewcommand{\chapterquoteauthor}{#1}%
+	\begin{flushright}
+		\begin{minipage}{0.85\textwidth}
+			\itshape
+		}{%
+			\par\normalfont\small\raggedleft--- \chapterquoteauthor
+		\end{minipage}
+	\end{flushright}
+	\vspace{\baselineskip}
+}
+% Quote/epigraph environment
+%\newenvironment{chapterquote}[1]{%
+%	\begin{flushright}
+%		\begin{minipage}{0.85\textwidth}
+%			\itshape
+%		}{%
+%			\par\normalfont\small\raggedleft--- #1
+%		\end{minipage}
+%	\end{flushright}
+%	\vspace{\baselineskip}
+%}
+
+% ============================================================================
+% CROSS-REFERENCES & HYPERLINKS
+% ============================================================================
+\usepackage[
+colorlinks=true,
+linkcolor=hitlblue,
+citecolor=hitlgreen,
+urlcolor=hitlblue,
+bookmarks=true,
+bookmarksnumbered=true,
+bookmarksopen=true,
+bookmarksopenlevel=1,
+pdfpagemode=UseOutlines,
+]{hyperref}
+
+\usepackage{bookmark}        % Better bookmark handling
+
+% Print edition: no colored links
+\ifprintedition
+\hypersetup{
+	colorlinks=false,
+	pdfborder={0 0 0},
+}
+\fi
+
+% Smart cross-references
+\usepackage[capitalise, noabbrev, nameinlink]{cleveref}
+
+% ============================================================================
+% BIBLIOGRAPHY
+% ============================================================================
+\usepackage[
+backend=biber,
+style=apa,               % APA style (change to authoryear-comp for compact)
+sorting=nyt,             % Name, year, title
+maxbibnames=99,
+maxcitenames=2,
+uniquelist=false,
+url=true,
+doi=true,
+eprint=false,
+]{biblatex}
+
+\addbibresource{references.bib}
+
+% Smaller bibliography font
+\renewcommand*{\bibfont}{\small}
+
+% ============================================================================
+% INDEX
+% ============================================================================
+\usepackage{imakeidx}
+\makeindex[
+columns=2,
+title=Index,
+intoc=true,
+options=-s indexstyle.ist,  % Optional custom style file
+]
+
+% ============================================================================
+% ICONS (optional, for Try This boxes etc.)
+% ============================================================================
+\usepackage{fontawesome5}
+
+% ============================================================================
+% DRAFT MODE (comment out for final)
+% ============================================================================
+% \usepackage{draftwatermark}
+% \SetWatermarkText{DRAFT}
+% \SetWatermarkScale{0.5}
+% \SetWatermarkColor[gray]{0.9}
+
+% Uncomment to show overfull boxes as black bars during proofreading:
+% \overfullrule=5pt
+
+
+\hypersetup{
+	pdftitle={Human in the Loop: Misunderstood},
+	pdfauthor={Lazaros Toumanidis},
+	pdfsubject={Human-AI Collaboration, Machine Learning, Artificial Intelligence},
+	pdfkeywords={human-in-the-loop, HITL, machine learning, AI, uncertainty, collaboration},
+	pdfcreator={LaTeX with hyperref},
+	pdfproducer={XeLaTeX},
+}
+
+% ============================================================================
+% CUSTOM COMMANDS
+% ============================================================================
+% Abbreviations
+\newcommand{\hitl}{HITL\xspace}
+\newcommand{\ai}{AI\xspace}
+\newcommand{\ml}{ML\xspace}
+\newcommand{\asr}{ASR\xspace}
+\newcommand{\nlp}{NLP\xspace}
+\newcommand{\cv}{CV\xspace}
+\newcommand{\rl}{RL\xspace}
+\newcommand{\rlhf}{RLHF\xspace}
+\newcommand{\llm}{LLM\xspace}
+\newcommand{\llms}{LLMs\xspace}
+
+% Emphasis for key terms (first use)
+\newcommand{\term}[1]{\textbf{\textcolor{hitlblue}{#1}}\index{#1}}
+
+% For thesis edition: add line numbers
+\ifthesisedition
+\usepackage{lineno}
+% \linenumbers  % Uncomment to enable
+\fi
+
+% ============================================================================
+% DOCUMENT STRUCTURE HELPERS
+% ============================================================================
+
+% Part styling
+\renewcommand*{\partformat}{\color{hitlblue}\partname~\thepart}
+\addtokomafont{part}{\color{hitlblue}}
+\addtokomafont{partentry}{\bfseries}
+
+% Dedication page
+%\newenvironment{dedication}{
+%	\cleardoublepage
+%	\thispagestyle{empty}
+%	\vspace*{\stretch{1}}
+%	\begin{flushright}
+%		\itshape
+%	}{
+%	\end{flushright}
+%	\vspace*{\stretch{3}}
+%	\cleardoublepage
+%}
+
+% Epigraph for part openings
+\newcommand{\partepigraph}[2]{%
+	\vspace{2\baselineskip}
+	\begin{flushright}
+		\begin{minipage}{0.7\textwidth}
+			\itshape #1
+			\par\normalfont\small\raggedleft--- #2
+		\end{minipage}
+	\end{flushright}
+	\vspace{2\baselineskip}
+}

@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>基于人类反馈的强化学习 &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/zh/chapters/06_rlhf';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/zh/chapters/06_rlhf.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>基于人类反馈的强化学习</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">对齐问题</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf">RLHF流程</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">阶段1：监督微调</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">阶段2：奖励模型训练</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppo">阶段3：使用PPO进行强化学习微调</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">简化版RLHF演示</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">RLHF的挑战</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">奖励黑客攻击</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">评估者偏差</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">可扩展监督</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-rlaif">宪法AI（RLAIF）</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>基于人类反馈的强化学习<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>没有任何一项技术比基于人类反馈的强化学习（RLHF）更能将HITL ML带入主流视野。它是InstructGPT <a href="#id2"><span class="problematic" id="id3">ouyang2022training</span></a> 背后的核心机制，也是许多现代大型语言模型指令遵循流程的关键组件 <a href="#id4"><span class="problematic" id="id5">stiennon2020learning</span></a>。理解RLHF——不仅仅是作为一套可以遵循的技术方案，而是作为一种有原则的对齐方法——对任何从事现代人工智能工作的人而言都至关重要。</p>
+<hr class="docutils" />
+<section id="id6">
+<h2>对齐问题<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>纯粹基于下一词元预测进行训练的大型语言模型（LLM）针对一个代理目标进行优化：预测人类书写文本中下一个词元是什么。这个目标与我们实际想要的——有帮助、准确、安全且符合人类价值观的回复——相关，但并不相同。</p>
+<p>训练目标与期望行为之间的不匹配被称为<strong>对齐问题</strong> <a href="#id7"><span class="problematic" id="id8">russell2019human</span></a>。具体而言，在互联网文本上训练的语言模型会学习：</p>
+<ul class="simple">
+<li><p>产生听起来合理的续写内容（这些内容可能在事实上是错误的）</p></li>
+<li><p>反映训练数据中存在的偏见和有害内容</p></li>
+<li><p>当这是统计上最可能跟随提示的内容时，表现出回避或操纵性行为</p></li>
+</ul>
+<p>RLHF通过将人类偏好纳入<em>优化目标本身</em>来解决对齐问题。</p>
+</section>
+<hr class="docutils" />
+<section id="rlhf">
+<h2>RLHF流程<a class="headerlink" href="#rlhf" title="Permalink to this heading">#</a></h2>
+<p>RLHF分三个阶段进行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>阶段1：监督微调（SFT）
+  --&gt; 收集示范数据（人类撰写理想回复）
+  --&gt; 在示范数据上对基础LLM进行微调
+
+阶段2：奖励模型训练
+  --&gt; 收集成对偏好数据（人类对A与B进行评分）
+  --&gt; 训练奖励模型 R(x, y) 以预测人类偏好
+
+阶段3：强化学习微调
+  --&gt; 使用PPO/RL对LLM进行微调以最大化 R(x, y)
+  --&gt; KL散度惩罚防止过度偏离SFT模型
+</pre></div>
+</div>
+<section id="id9">
+<h3>阶段1：监督微调<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>从预训练基础模型 <span class="math notranslate nohighlight">\(\pi_0\)</span> 出发，我们收集一个（提示，理想回复）对的数据集，由遵循详细指南的人类承包商撰写或选择。模型在这些示范数据上使用标准交叉熵进行微调：</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_\text{SFT}(\theta) = -\mathbb{E}_{(x, y) \sim \mathcal{D}_\text{demo}} \left[ \log \pi_\theta(y \mid x) \right]
+\]</div>
+<p>SFT模型 <span class="math notranslate nohighlight">\(\pi_\text{SFT}\)</span> 是比原始预训练模型更好的RLHF起始点。</p>
+</section>
+<section id="id10">
+<h3>阶段2：奖励模型训练<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>对于一组提示 <span class="math notranslate nohighlight">\(\{x_i\}\)</span>，我们使用 <span class="math notranslate nohighlight">\(\pi_\text{SFT}\)</span> 为每个提示生成 <span class="math notranslate nohighlight">\(K\)</span> 个回复，并以成对比较的形式呈现给人类标注者：”哪个回复更好，A还是B？”</p>
+<p>奖励模型 <span class="math notranslate nohighlight">\(r_\phi\)</span> 被训练以预测这些偏好。在<strong>Bradley-Terry模型</strong>（第8章）下，回复 <span class="math notranslate nohighlight">\(y_w\)</span> 优于 <span class="math notranslate nohighlight">\(y_l\)</span> 的概率为：</p>
+<div class="math notranslate nohighlight">
+\[
+P(y_w \succ y_l \mid x) = \sigma\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right)
+\]</div>
+<p>奖励模型被训练以最小化成对排序损失：</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_\text{RM}(\phi) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}_\text{pref}} \left[ \log \sigma\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right) \right]
+\]</div>
+<p>奖励模型通常从SFT模型初始化，以标量头替换最后一层。</p>
+</section>
+<section id="ppo">
+<h3>阶段3：使用PPO进行强化学习微调<a class="headerlink" href="#ppo" title="Permalink to this heading">#</a></h3>
+<p>有了训练好的奖励模型，我们可以使用强化学习对LLM进行微调。每个提示 <span class="math notranslate nohighlight">\(x\)</span> 是一个状态；每个回复 <span class="math notranslate nohighlight">\(y\)</span> 是词元选择的轨迹；奖励为 <span class="math notranslate nohighlight">\(r_\phi(x, y)\)</span>。</p>
+<p>优化目标包括一个<strong>KL散度惩罚</strong>，以防止模型过度偏离SFT基线（这会导致奖励黑客攻击 <a href="#id11"><span class="problematic" id="id12">krakovna2020specification,gao2023scaling</span></a>）：</p>
+<div class="math notranslate nohighlight">
+\[
+\max_\theta \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(\cdot | x)} \left[ r_\phi(x, y) - \beta \cdot \text{KL}\left[\pi_\theta(\cdot \mid x) \| \pi_\text{SFT}(\cdot \mid x)\right] \right]
+\]</div>
+<p>参数 <span class="math notranslate nohighlight">\(\beta\)</span> 控制KL惩罚强度。较小的 <span class="math notranslate nohighlight">\(\beta\)</span> 允许更多优化，但存在奖励黑客攻击风险；较大的 <span class="math notranslate nohighlight">\(\beta\)</span> 使模型保持接近SFT，但限制了对齐收益。</p>
+<p><strong>近端策略优化（PPO）</strong> <a href="#id13"><span class="problematic" id="id14">schulman2017proximal</span></a> 是这一阶段的标准算法，因其相对于原始策略梯度方法更为稳定而被选用。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id15">
+<h2>简化版RLHF演示<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
+<p>完整的RLHF流程需要大规模基础设施。以下示例在小规模上展示了核心思想。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------</span>
+<span class="c1"># Toy setup: responses are 4-dimensional vectors</span>
+<span class="c1"># &quot;Quality&quot; is known analytically (sum of positive values)</span>
+<span class="c1"># We simulate a reward model learning this from pairwise feedback</span>
+<span class="c1"># -----------------------------------------------</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RewardModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">true_quality</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The hidden ground-truth reward function.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Generate pairwise preference data</span>
+<span class="n">N_PAIRS</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N_PAIRS</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N_PAIRS</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">true_quality</span><span class="p">(</span><span class="n">X1</span><span class="p">),</span> <span class="n">true_quality</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+<span class="c1"># Human prefers X1 when q1 &gt; q2 (with some noise)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N_PAIRS</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="n">preferred_1</span> <span class="o">=</span> <span class="p">((</span><span class="n">q1</span> <span class="o">-</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">noise</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+<span class="c1"># Train reward model</span>
+<span class="n">rm</span> <span class="o">=</span> <span class="n">RewardModel</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>
+
+<span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">rm</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">rm</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+    <span class="c1"># Bradley-Terry loss</span>
+    <span class="n">logit</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">binary_cross_entropy_with_logits</span><span class="p">(</span><span class="n">logit</span><span class="p">,</span> <span class="n">preferred_1</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">();</span> <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">();</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+<span class="c1"># Evaluate: does the reward model agree with true quality?</span>
+<span class="n">X_eval</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">r_pred</span> <span class="o">=</span> <span class="n">rm</span><span class="p">(</span><span class="n">X_eval</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">r_true</span> <span class="o">=</span> <span class="n">true_quality</span><span class="p">(</span><span class="n">X_eval</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+<span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">r_pred</span><span class="p">,</span> <span class="n">r_true</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reward model correlation with true quality: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final training loss: </span><span class="si">{</span><span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Pairwise loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Reward Model Training&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">r_true</span><span class="p">[:</span><span class="mi">200</span><span class="p">],</span> <span class="n">r_pred</span><span class="p">[:</span><span class="mi">200</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;True quality&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted reward&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reward Model vs. Truth (r=</span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;reward_model.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id16">
+<h2>RLHF的挑战<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h2>
+<section id="id17">
+<h3>奖励黑客攻击<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p>一个关键的失败模式：策略找到了从奖励模型中获得高分的方式，但这些方式并不对应真正良好的行为。例如，LLM可能学会产生奉承性或听起来很自信的回复（标注者往往给这类回复高分），而不是准确的回复。</p>
+<p>以下情况更容易出现奖励黑客攻击：</p>
+<ul class="simple">
+<li><p>奖励模型在偏好数据不足的情况下进行训练</p></li>
+<li><p>策略被允许大幅偏离SFT基线（较小的 <span class="math notranslate nohighlight">\(\beta\)</span>）</p></li>
+<li><p>奖励模型分布在PPO训练过程中发生偏移</p></li>
+</ul>
+<p><strong>缓解策略：</strong> KL惩罚、迭代奖励模型训练、多样化评估、宪法AI约束。</p>
+</section>
+<section id="id18">
+<h3>评估者偏差<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<p>人类标注者存在系统性偏差。他们往往偏好更长的回复（冗长偏差）、听起来更自信的文本（置信偏差），以及与他们先验信念一致的回复。这些偏差会传播到奖励模型中。</p>
+<p>RLHF模型臭名昭著的逢迎失败——模型告诉用户他们想听的而不是真实的内容——部分原因就是评估者对顺从性回复的偏好所致。</p>
+</section>
+<section id="id19">
+<h3>可扩展监督<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
+<p>对于复杂任务，人类无法可靠地判断哪个AI回复是正确的。比较两个长篇数学证明或两段代码实现的标注者可能只是选择更易读的那个，而不考虑正确性。<strong>可扩展监督</strong>是一个开放性研究问题：随着任务复杂度的增加，如何设计仍然可靠的评估程序 <a href="#id20"><span class="problematic" id="id21">bowman2022measuring</span></a>。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ai-rlaif">
+<h2>宪法AI（RLAIF）<a class="headerlink" href="#ai-rlaif" title="Permalink to this heading">#</a></h2>
+<p><strong>宪法AI</strong> <a href="#id22"><span class="problematic" id="id23">bai2022constitutional</span></a>（由Anthropic开发）通过让AI本身基于一套原则（即”宪法”）生成偏好标签，减少了对人类标注者的依赖。其流程如下：</p>
+<ol class="arabic simple">
+<li><p>对潜在有害的提示生成回复</p></li>
+<li><p>使用AI评论者根据宪法原则评估回复</p></li>
+<li><p>在AI反馈的引导下修改回复（RLAIF——基于AI反馈的强化学习）</p></li>
+<li><p>在AI生成的偏好数据上训练奖励模型</p></li>
+<li><p>使用这个奖励模型进行RLHF微调</p></li>
+</ol>
+<p>RLAIF能够以远超人类标注的规模生成偏好数据，并允许对奖励模型中编码的价值观进行精细控制。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>原始InstructGPT论文 <a href="#id24"><span class="problematic" id="id25">ouyang2022training</span></a> 描述了RLHF在LLM上的第一次大规模应用。深度强化学习中RLHF的奠基性工作为 <a href="#id26"><span class="problematic" id="id27">christiano2017deep</span></a>。PPO见于 <a href="#id28"><span class="problematic" id="id29">schulman2017proximal</span></a>。宪法AI来自 <a href="#id30"><span class="problematic" id="id31">bai2022constitutional</span></a>。</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/zh/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">对齐问题</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf">RLHF流程</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">阶段1：监督微调</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">阶段2：奖励模型训练</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppo">阶段3：使用PPO进行强化学习微调</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">简化版RLHF演示</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">RLHF的挑战</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">奖励黑客攻击</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">评估者偏差</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">可扩展监督</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-rlaif">宪法AI（RLAIF）</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

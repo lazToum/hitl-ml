@@ -1,0 +1,274 @@
+% ============================================================================
+% CHAPTER 5: The Art of Asking for Help (Without Being Annoying)
+% How the design of the ask changes whether humans actually help
+% ============================================================================
+% Source: editions/winter/chapters/ch5/Ch5_final.md
+% ============================================================================
+
+\label{chap:ch05}
+
+\begin{storyhook}
+  \textit{How the design of the ask changes whether humans actually help.}
+\end{storyhook}
+
+% ============================================================================
+\section{One Word}
+\label{sec:ch05-one-word}
+% ============================================================================
+
+In the spring of 2019, the city of Louisville, Kentucky's 911 dispatch center faced a problem that had nothing to do with technology. Their emergency dispatch system had a high rate of false dispatches---crews sent to locations where nothing was wrong, or where the situation had resolved before they arrived. False dispatches wasted resources, delayed responses to genuine emergencies, and wore down dispatchers and first responders.
+
+A consultant hired to analyze the problem reviewed audio recordings of dispatch calls and noticed something striking. When dispatchers asked callers, ``Is there someone there who needs help?''---the typical formulation---they got a high rate of ambiguous answers. Callers who were uncertain, or who were calling on someone else's behalf, or who were watching something happen from a distance, tended to answer ``yes'' to the general question even when the situation was unclear.
+
+The consultant recommended a single change: replace ``Is there someone there who needs help?'' with ``Do you personally need emergency assistance right now?''
+
+The addition of ``personally'' and ``right now'' did two things. It forced the caller to think specifically about themselves and the present moment, rather than reporting vaguely on a situation. And it changed the framing from a general inquiry to a direct commitment.
+
+The false dispatch rate dropped by approximately 40~percent over the following months.
+
+One word. One word in a question that dispatchers were asking hundreds of times a day changed how callers understood what they were being asked---and changed what information the dispatchers got back.
+
+This is the art of asking for help. Not whether to ask. How.
+
+% ============================================================================
+\section{The Ask Is a Design Problem}
+\label{sec:ch05-design-problem}
+% ============================================================================
+
+Everything we have established in the previous chapters points toward a moment: the moment when a system detects that it is uncertain, evaluates that the case is worth routing to a human, and then\ldots\ asks. Or alerts. Or flags. Or notifies. Or interrupts.
+
+That moment is where most \hitl systems fail, even when everything before it has been done right.
+
+Chapter~1 gave us the framework: five dimensions, three failure modes. Chapter~2 explained that confusion itself is useful information. Chapter~3 showed that learning systems produce predictable patterns of uncertainty at the edges of their training. Chapter~4 introduced the threshold problem and the human value judgments embedded in it.
+
+All of that engineering, all of that calibration, all of that careful cost analysis---it delivers the system to the moment of the ask. And then a poorly designed question throws it all away.
+
+The fraud alert that comes at 3~AM and wakes you from sleep to ask about a charge you made yourself that morning. The spam filter notification that flags the same newsletter for the hundredth time. The pop-up that asks for your permission to access your location before you have even understood what the app is for. The car alarm that fires whenever a large truck passes.
+
+Each of these is a system that detected uncertainty correctly, made a reasonable threshold decision, and then asked badly. The ask was the failure.
+
+% ============================================================================
+\section{Three Levers}
+\label{sec:ch05-three-levers}
+% ============================================================================
+
+The design space for an ask has three primary dimensions:
+
+\paragraph{Timing.} When does the ask happen? Is it synchronous---immediately interrupting what the person is doing---or asynchronous, deferred until a natural break? Is it too early (before the person has the information needed to answer) or too late (after the decision has already been made by default)?
+
+\paragraph{Frequency.} How often does the ask happen? Is it rare enough to command attention, or common enough to become noise? Does the system have a mechanism to prevent the same person from being asked the same type of question too many times?
+
+\paragraph{Format.} How is the ask phrased? What choices does it offer? How much cognitive work does it require? Does the phrasing bias the answer?
+
+These are not independent. A well-timed, infrequent ask can survive imperfect format. A perfectly formatted ask at the wrong moment fails. The goal is to optimize all three together, and to understand how the human's context---what they are doing, what they are attending to, what they have already been asked---shapes every dimension of the optimal ask.
+
+% ============================================================================
+\section{The Trust--Attention--Response Triangle}
+\label{sec:ch05-tar-triangle}
+% ============================================================================
+
+Human psychology and the design of alerts interact in a system that has its own dynamics. Call it the \term{trust--attention--response triangle}.
+
+When a system asks for human input, three things are required: the human must \textbf{trust} that the ask is worth responding to; the human must have \textbf{attention} available to process it; and the human must be willing and able to \textbf{respond} effectively.
+
+Each of these can fail independently.
+
+\paragraph{Trust failure.} A system that has cried wolf too many times loses the trust that makes its alerts actionable. The alerts still arrive. The human learns to dismiss them. This is the clinical \term{alert fatigue} problem described in Chapter~1, but it applies everywhere. The fire alarm that fires so frequently that residents stop evacuating. The fraud alert service that flags so many routine purchases that cardholders start ignoring the texts. The over-alerting system trains its own users to be non-users.
+
+\paragraph{Attention failure.} A system that asks at the worst possible moment gets ignored not because the human does not trust it but because the human literally cannot process the ask right now. The update prompt that fires during a video call. The security notification that arrives mid-presentation. Timing failures are attention failures.
+
+\paragraph{Response failure.} A system that asks a question the human cannot answer effectively gets useless or harmful responses. A fraud alert that asks ``Was this transaction legitimate?'' when you cannot remember whether you made it, at an amount that is not extraordinary---you will answer randomly or default to ``yes'' without thinking. The ask's format must give the human the information they need to answer accurately.
+
+The trust--attention--response triangle is not static. It changes over time, across users, and across contexts. A system that maintains all three is rare. A system that degrades all three is common.
+
+% ============================================================================
+\section{The Lazy User Assumption}
+\label{sec:ch05-lazy-user}
+% ============================================================================
+
+Here is a design assumption that underlies most bad alert design, usually implicitly: \emph{users will not try}.
+
+The premise behind asking questions with six items to review, or requiring navigating three menus to respond to a notification, or sending a fraud alert in a format that requires calling a phone number---all of these assume that the user is lazy and that the friction is acceptable because dedicated users will push through it.
+
+This assumption is wrong in two ways.
+
+First, it is empirically incorrect. Users in well-designed systems routinely engage with alerts, respond to notifications, and participate in feedback mechanisms---when the design makes it easy. The problem is not user laziness. The problem is designers treating users as if they have infinite attention and zero competing demands.
+
+Second, the assumption fails even on its own terms. A user who is willing to engage with a fraud alert but is given a format that requires four steps to respond will not respond four times better than a user given one step. The friction does not select for motivated users. It just loses them.
+
+\begin{keyconcept}[The Design Principle]
+Good \hitl intervention design starts from the opposite assumption: \emph{users will try if the ask is worth their time.} The design challenge is making the ask worthy.
+
+``Worth their time'' means: the ask is rare enough to be surprising; it arrives at a moment when the human can actually respond; the format makes the question clear and the response easy; and the human has reason to believe their response will actually matter.
+\end{keyconcept}
+
+% ============================================================================
+\section{Two-Factor Authentication: Lessons from the Field}
+\label{sec:ch05-2fa}
+% ============================================================================
+
+\term{Two-factor authentication} (2FA) is perhaps the most widely deployed \hitl mechanism in existence. Every time a website sends you a six-digit code and asks you to type it in, it is inserting a human into a loop that would otherwise be purely automated.
+
+The security rationale is sound: even if an attacker has your password, they are unlikely to also have your phone. The human in the loop---you, confirming your identity by entering a code only you could receive---provides a verification layer that pure password authentication cannot.
+
+But 2FA's implementation landscape is a masterclass in how to design the ask both well and badly.
+
+\paragraph{Poorly designed 2FA.}
+\begin{itemize}
+  \item Push notifications sent to a phone that require dismissal without confirmation (so-called \emph{MFA fatigue attacks} exploit users who approve requests reflexively)
+  \item SMS codes sent to numbers that may be SIM-swappable
+  \item Time pressure so aggressive that the window expires before the user finds their phone
+  \item No context provided: ``Your authentication code is 847291''---but for what? From where?
+  \item Prompts sent at 3~AM that train users to approve requests without fully waking up
+\end{itemize}
+
+\paragraph{Well-designed 2FA.}
+\begin{itemize}
+  \item Provides context: ``Someone is trying to sign into your account from a new device. If this was you, enter this code: [code]''
+  \item Number matching: the login screen shows a number and the push notification asks ``Did you see the number [X]?''---defeating reflexive approval
+  \item Adaptive authentication: only prompts for 2FA when the login context is unusual (new device, new location, unusual time)
+  \item Clear, low-friction response options with a prominent ``I did not initiate this login'' option
+\end{itemize}
+
+The difference between these two designs is not the technology. It is the application of the trust--attention--response triangle. Good 2FA provides the context the user needs (trust), arrives when the user is actively trying to log in (attention), and makes both ``approve'' and ``deny'' equally easy (response).
+
+% ============================================================================
+\section{The Fraud Alert as Design Canvas}
+\label{sec:ch05-fraud-alert}
+% ============================================================================
+
+Bank fraud alerts are another rich case study, because the same underlying technology---``this transaction looks unusual, confirm it was you''---can be implemented in ways that range from excellent to actively harmful.
+
+\begin{examplebox}[An Excellent Fraud Alert]
+\begin{itemize}
+  \item Sent within seconds of the transaction, while you are still in the situation
+  \item Contains specific, identifiable information: the merchant name, the exact amount, the last four digits of the card
+  \item Asks a simple binary question: ``Did you make this \$47.23 purchase at Costa Coffee? Reply YES or NO''
+  \item Takes one action (a single text reply) to confirm
+  \item If you reply NO: immediate card freeze plus one-tap call option to the fraud line
+  \item If you do not reply within 10~minutes: gentle follow-up, then escalation protocol
+\end{itemize}
+\end{examplebox}
+
+\begin{cautionbox}[A Poor Fraud Alert]
+\begin{itemize}
+  \item Sent six hours after the transaction, when context is gone
+  \item Contains: ``Your account has been flagged for unusual activity''
+  \item Requires you to call a number, navigate an IVR system, verify your identity, explain the situation
+  \item If the transaction was legitimate: 20~minutes of your life gone
+  \item Teaches you that fraud alerts are time-consuming, training you to ignore the next one
+\end{itemize}
+\end{cautionbox}
+
+The first design respects the trust--attention--response triangle at every step. The second violates all three. And the second is, unfortunately, still common.
+
+% ============================================================================
+\section{Content Moderation and the Interface of Judgment}
+\label{sec:ch05-content-moderation}
+% ============================================================================
+
+Content moderation is a domain that makes the design of the ask visible in ways that other \hitl applications do not, because the ``human'' in the loop is often a professional reviewer whose job is entirely about responding to system-generated asks.
+
+Professional content moderators at major platforms spend their days responding to a stream of flagged content: videos, images, posts, comments---each one a system-generated ask requiring a human response. The design of the interface they use shapes the quality of every response they give \autocite{roberts2019behind}.
+
+Research into content moderation interfaces has documented several consistent findings.
+
+\paragraph{Context improves accuracy.} Moderators shown content with its original context (the thread, the account history, the apparent intent) make more accurate decisions than those shown the same content in isolation. But showing context slows throughput. The ask's format creates a tradeoff between speed and quality.
+
+\paragraph{Category granularity matters.} Interfaces with many specific categories (``graphic violence: real vs.\ artistic context,'' ``hate speech: individual vs.\ systemic'') produce more consistent and useful decisions than interfaces with coarse categories (``violent,'' ``non-violent''). But more categories require more cognitive work per decision.
+
+\paragraph{Throughput pressure degrades decision quality.} Moderators required to make more decisions per hour show increased error rates, particularly near the end of shifts and during high-volume periods \autocite{steiger2021psychological}. The ask format cannot compensate for structural workload problems.
+
+\paragraph{Explanation requests improve downstream model quality.} When moderators are asked not just ``is this violating?'' but ``what makes this violating?'' (even briefly), the resulting labels are more useful for model training. The ask format shapes what information is captured, not just what decision is made.
+
+Each of these findings is a design lesson. The ask format is not neutral. It actively shapes the information the system gets back.
+
+% ============================================================================
+\section{The 911 Dispatcher, Revisited}
+\label{sec:ch05-dispatcher-revisited}
+% ============================================================================
+
+Return to Louisville. One word changed the false dispatch rate by 40~percent.
+
+Why did ``personally'' and ``right now'' matter so much?
+
+The original question (``Is there someone there who needs help?'') asked callers to interpret a situation they may have been observing from some distance, with some uncertainty, with some motivation to act because they were already on the phone with 911. The framing invited them to extrapolate.
+
+The revised question (``Do you personally need emergency assistance right now?'') grounded the question in the caller's direct experience at the present moment. It asked for first-person knowledge rather than third-party interpretation. It implicitly provided a category: ``emergency assistance'' is more specific than ``help,'' and ``right now'' excludes anticipated future needs.
+
+These are not just clarity improvements. They are changes to what information the question extracts. The question's format shapes the answer's content.
+
+\begin{keyconcept}[The Core Insight]
+The question you ask determines the information you get. A vague question gets vague information. A question framed to invite confirmation gets confirmation. A question framed to invite nuance gets nuance.
+
+And in a \hitl system, the quality of the information the human provides determines how much the system improves. A question designed to extract maximum useful information from a minimum human effort is not just a UX nicety---it is the core engineering of the feedback loop.
+\end{keyconcept}
+
+% ============================================================================
+\section{Feedback Integration: Does It Learn?}
+\label{sec:ch05-feedback-integration}
+% ============================================================================
+
+There is a fifth dimension in our framework that often gets overlooked in the design of individual asks: \term{Feedback Integration}---whether the system actually learns from the human's response.
+
+The ask is useless if the response disappears into a void. If a fraud alert's ``NO'' response does not update the model's representation of the user's spending patterns, the same type of transaction will keep getting flagged. If a content moderator's ``not violating'' decision on a borderline case does not inform how similar cases are classified in the future, the system is simply routing work rather than learning.
+
+The design of the ask and the design of the feedback loop are not separate problems. The ask's format determines what information is captured. The feedback loop determines what happens with that information.
+
+Well-designed \hitl systems close this loop explicitly:
+\begin{itemize}
+  \item The user's response is labeled and stored with the full context of the ask
+  \item Cases where human decisions systematically differ from model predictions are flagged for calibration review
+  \item The frequency of human corrections in a particular category is used to prioritize model improvement
+  \item The human reviewer occasionally receives confirmation that their feedback mattered: ``Your corrections in this category helped improve accuracy by X\%''
+\end{itemize}
+
+That last point---feedback to the feedback provider---may seem like a courtesy. It is actually a mechanism for maintaining engagement. A human reviewer who never sees evidence that their responses matter eventually stops trying. The trust--attention--response triangle degrades from the trust side.
+
+% ============================================================================
+\begin{trythis}
+For the next week, pay attention to every digital alert or notification that asks you to take an action. For each one, ask three questions: (1) Is this well-timed---are you in a position to respond effectively right now? (2) Is this well-framed---do you understand exactly what is being asked and have what you need to answer? (3) Does your response matter---does it feel like your answer will change anything? Keep a log of your answers. You will quickly develop a sense for which systems are designed to get useful human input, and which are designed to appear to involve humans without actually extracting useful judgment.
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+  \item The design of the ask is as important as the decision to ask---a technically correct routing decision can be wasted by a poorly designed intervention
+  \item Three primary levers: \textbf{timing}, \textbf{frequency}, \textbf{format}
+  \item The trust--attention--response triangle: all three must be maintained for \hitl to work
+  \item The Lazy User Assumption is wrong: users will engage with asks that respect their time and attention
+  \item The question's format determines the information captured---not just what decision is made
+  \item Feedback Integration closes the loop: the ask is wasted if the response does not improve the system
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Examples}
+
+\begin{description}
+  \item[911 dispatch (Louisville)] One word change in a question (``personally'' + ``right now'') reduced false dispatches by 40\%
+  \item[Two-factor authentication] The same security mechanism implemented well vs.\ poorly---context and number matching vs.\ fatigue-inducing push approval
+  \item[Bank fraud alerts] Specific, timely, binary ask vs.\ generic, delayed, high-friction request
+  \item[Content moderation interfaces] Context, category granularity, and throughput pressure all shape decision quality
+\end{description}
+
+\subsection*{Key Principles}
+
+\begin{itemize}
+  \item Timing must align with the human's attention window---ask when they can answer
+  \item Frequency must be low enough to preserve the signal value of each ask
+  \item Format must give the human what they need to answer accurately in minimum steps
+  \item Good design assumes users will try; bad design assumes they will not
+  \item The ask and the feedback loop are one system, not two separate problems
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This chapter closes the first part of our journey: from understanding that smart systems need to ask for help, through understanding what confusion is and where it comes from, to understanding how to turn uncertainty into decisions, and finally to understanding how to make the ask itself effective. The next part turns to specific domains where \hitl design matters most.}

@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>AI in the Loop: The Python Sidecar &#8212; Human in the Loop: Misunderstood — Spring Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/spring.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/08_ai';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Creator’s Perspective" href="09_creator.html" />
+    <link rel="prev" title="The Hint Engine: When to Help" href="07_hints.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Build something. Break something. Learn something.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Spring Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — The Idea</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_building_hitl.html">Building HITL: Why a Game?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_five_dimensions.html">The Five Dimensions in Play</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — The Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_schema.html">Designing for Humans: The Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_api.html">The API Layer: Rust and Axum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_auth.html">Identity in the Loop: OIDC and Roles</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — The Intelligence</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="06_validation.html">Answer Validation: The Judgment Call</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_hints.html">The Hint Engine: When to Help</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">AI in the Loop: The Python Sidecar</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — The Experience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_creator.html">The Creator's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_player.html">The Player's Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_observer.html">Watching in Real Time</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — The System</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_physical.html">QR, NFC, and Physical Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_testing.html">Testing HITL Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_deployment.html">Deployment: Shipping the Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reflection.html">What the Game Taught Us</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/08_ai.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>AI in the Loop: The Python Sidecar</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-of-the-sidecar">Architecture of the sidecar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#services-in-the-sidecar">Services in the sidecar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clue-generation">Clue generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#difficulty-estimation">Difficulty estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-answer-matching">Semantic answer matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photo-verification">Photo verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-aiclient-in-rust">The AiClient in Rust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ai-in-the-loop-the-python-sidecar">
+<h1>AI in the Loop: The Python Sidecar<a class="headerlink" href="#ai-in-the-loop-the-python-sidecar" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>The best AI integration is one where you can remove the AI and the system still works, just less well.</p>
+<p class="attribution">—Chapter 8</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="think-about-it">
+<h2>Think about it<a class="headerlink" href="#think-about-it" title="Permalink to this heading">#</a></h2>
+<p><strong>1.</strong> An AI generates a clue. The creator approves it without reading carefully. A player spends 40 minutes on that clue because the AI’s phrasing was subtly ambiguous. Who is responsible for the bad clue?</p>
+<p><strong>2.</strong> “AI-assisted” and “AI-generated” are different. What changes when the human goes from editor to approver?</p>
+<p><strong>3.</strong> A difficulty estimator predicts that a clue will have a 70% first-attempt success rate. The actual rate turns out to be 35%. Is the estimator wrong, or was it trained on a different population?</p>
+</section>
+<hr class="docutils" />
+<section id="architecture-of-the-sidecar">
+<h2>Architecture of the sidecar<a class="headerlink" href="#architecture-of-the-sidecar" title="Permalink to this heading">#</a></h2>
+<p>The Python AI sidecar is a FastAPI service running at <code class="docutils literal notranslate"><span class="pre">http://localhost:8001</span></code>. The Rust API talks to it via HTTP. The separation is deliberate:</p>
+<p><strong>Language boundary.</strong> The Python ecosystem has richer ML tooling — LLM clients, vision libraries, and fast experimentation loops. Rust has better performance and concurrency. The sidecar does the ML; the Rust API does everything else.</p>
+<p><strong>Failure isolation.</strong> If the AI sidecar goes down, the non-AI parts of the game still work: text, QR/NFC, and GPS answers can be submitted; static hints can be requested; hunts can be completed. The degraded functionality is AI clue drafting, difficulty estimation, semantic fallback matching, photo verification, adaptive hints, and session analysis. This is the “remove the AI and it still works, just less well” property.</p>
+<p><strong>Independent scaling.</strong> AI inference is GPU-hungry and CPU-bound. The Rust API is I/O-bound. Running them as separate services allows independent scaling and different hardware profiles.</p>
+</section>
+<hr class="docutils" />
+<section id="services-in-the-sidecar">
+<h2>Services in the sidecar<a class="headerlink" href="#services-in-the-sidecar" title="Permalink to this heading">#</a></h2>
+<p>The Python sidecar provides six services:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clue_generator.py</span></code></p></td>
+<td><p>Generates clue text from a theme and location description</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">difficulty.py</span></code></p></td>
+<td><p>Estimates how hard a clue will be for players</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">semantic_match.py</span></code></p></td>
+<td><p>Semantic answer validation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">adaptive_hint.py</span></code></p></td>
+<td><p>Generates personalized hints based on session context</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">session_analyzer.py</span></code></p></td>
+<td><p>Reviews completed sessions for insights</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">photo_verifier.py</span></code></p></td>
+<td><p>Verifies photo answers using Claude Vision</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="clue-generation">
+<h2>Clue generation<a class="headerlink" href="#clue-generation" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate_clue</span><span class="p">(</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">answer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">num_hints</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Generate a treasure hunt clue with these properties:</span>
+<span class="s2">- Location/theme: </span><span class="si">{</span><span class="n">description</span><span class="si">}</span>
+<span class="s2">- Correct answer: </span><span class="si">{</span><span class="n">answer</span><span class="si">}</span>
+<span class="s2">- Difficulty: </span><span class="si">{</span><span class="n">difficulty</span><span class="si">}</span><span class="s2">/5</span>
+<span class="s2">- Number of hints: </span><span class="si">{</span><span class="n">num_hints</span><span class="si">}</span>
+
+<span class="s2">Return JSON with: title, body (the clue text), hints.&quot;&quot;&quot;</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">anthropic_client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;claude-opus-4-7&quot;</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}],</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The generator returns a structured response that the creator dashboard can pre-fill into the clue editor form. In the current UI, AI Draft fills the clue title, body, and hints. It does not overwrite the answer value or tolerance; the creator remains responsible for those validation fields before saving.</p>
+<p>The critical HITL property: the AI cannot directly write to the clues table. Its output flows through the creator’s review step. The human is a mandatory gate, not an optional one.</p>
+<p>In practice, creators will approve AI-generated clues with varying levels of scrutiny. Some will edit heavily. Some will click “use as-is.” The system cannot enforce careful review — it can only require that a human click a button. Whether that button-click constitutes meaningful review is outside the system’s control.</p>
+</section>
+<hr class="docutils" />
+<section id="difficulty-estimation">
+<h2>Difficulty estimation<a class="headerlink" href="#difficulty-estimation" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">estimate_difficulty</span><span class="p">(</span><span class="n">clue_body</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="c1"># Ask the LLM for a judgment</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">anthropic_client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;claude-sonnet-4-6&quot;</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Rate difficulty 1-5 for this clue:</span><span class="se">\n</span><span class="si">{</span><span class="n">clue_body</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">}],</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;score&quot;</span><span class="p">:</span>     <span class="n">extract_score</span><span class="p">(</span><span class="n">response</span><span class="p">),</span>
+        <span class="s2">&quot;reasoning&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The current endpoint is a direct LLM judgment over the clue body. It does not receive the answer value, so it cannot compare clue-answer semantic distance. It is a useful prior — better than no estimate at all — but it may not match the population of players who will run the hunt.</p>
+<p>The calibration loop (comparing estimates to actual session data) is described but not implemented.</p>
+</section>
+<hr class="docutils" />
+<section id="semantic-answer-matching">
+<h2>Semantic answer matching<a class="headerlink" href="#semantic-answer-matching" title="Permalink to this heading">#</a></h2>
+<p>The text validator in Rust uses Jaro-Winkler string similarity — a surface-level metric that works well for typos and abbreviations but fails for synonyms or paraphrases.</p>
+<p>The Python sidecar adds semantic matching:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">semantic_match</span><span class="p">(</span><span class="n">answer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correct</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">answer_emb</span>  <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+    <span class="n">correct_emb</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">correct</span><span class="p">)</span>
+    <span class="n">similarity</span>  <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">answer_emb</span><span class="p">,</span> <span class="n">correct_emb</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">similarity</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span>
+</pre></div>
+</div>
+<p>The Rust validator now uses this as a fallback. It first checks exact normalized equality, then Jaro-Winkler string similarity. If the string score is plausible but below the configured tolerance, it calls <code class="docutils literal notranslate"><span class="pre">AiClient::semantic_match</span></code> against the Python <code class="docutils literal notranslate"><span class="pre">/semantic-match</span></code> endpoint. “Large mountain in Asia” and “Everest” have low string similarity but may still pass semantically.</p>
+<p>The fallback is intentionally gated. Clearly wrong answers do not call the AI sidecar, which limits latency and cost on ordinary mistakes.</p>
+</section>
+<hr class="docutils" />
+<section id="photo-verification">
+<h2>Photo verification<a class="headerlink" href="#photo-verification" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">verify_photo</span><span class="p">(</span><span class="n">image_b64</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">anthropic_client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;claude-opus-4-7&quot;</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;base64&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;media_type&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">image_b64</span><span class="p">,</span>
+                <span class="p">}},</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Does this photo show: </span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s2">? Answer YES or NO with brief reasoning.&quot;</span><span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">}],</span>
+    <span class="p">)</span>
+    <span class="n">confidence</span> <span class="o">=</span> <span class="n">parse_confidence</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="n">confidence</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The photo verifier sends the image to Claude’s vision API with a natural-language description of what the photo should show. The response is reduced to a confidence score, and the Rust validator compares that score with the clue’s <code class="docutils literal notranslate"><span class="pre">answer_tolerance</span></code>.</p>
+<p>This is fragile in production. A production photo verifier would need stronger structured output, calibrated confidence scores, and a fallback path when the model is uncertain. In this implementation, the result is acted on synchronously: if the confidence is below tolerance, the photo answer is rejected.</p>
+</section>
+<hr class="docutils" />
+<section id="the-aiclient-in-rust">
+<h2>The AiClient in Rust<a class="headerlink" href="#the-aiclient-in-rust" title="Permalink to this heading">#</a></h2>
+<p>The Rust API communicates with the Python sidecar through <code class="docutils literal notranslate"><span class="pre">services/ai_client.rs</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">AiClient</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">base_url</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<span class="w">    </span><span class="n">http</span><span class="p">:</span><span class="w">     </span><span class="nc">reqwest</span><span class="p">::</span><span class="n">Client</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">AiClient</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">generate_clue</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="nc">GenerateClueRequest</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">GeneratedClue</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">http</span>
+<span class="w">            </span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;{}/generate-clue&quot;</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">base_url</span><span class="p">))</span>
+<span class="w">            </span><span class="p">.</span><span class="n">json</span><span class="p">(</span><span class="o">&amp;</span><span class="n">req</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">send</span><span class="p">().</span><span class="k">await</span><span class="o">?</span>
+<span class="w">            </span><span class="p">.</span><span class="n">json</span><span class="p">::</span><span class="o">&lt;</span><span class="n">GeneratedClue</span><span class="o">&gt;</span><span class="p">().</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">estimate_difficulty</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="nc">DifficultyRequest</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">DifficultyEstimate</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The client is injected into <code class="docutils literal notranslate"><span class="pre">AppState</span></code> and available to handlers and validators. The current methods are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">semantic_match</span></code> → Python <code class="docutils literal notranslate"><span class="pre">/semantic-match</span></code>, used as text-answer fallback</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verify_photo</span></code> → Python <code class="docutils literal notranslate"><span class="pre">/verify-photo</span></code>, used synchronously for photo clues</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generate_clue</span></code> → Python <code class="docutils literal notranslate"><span class="pre">/generate-clue</span></code>, exposed through <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/hunts/:id/ai/generate-clue</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">estimate_difficulty</span></code> → Python <code class="docutils literal notranslate"><span class="pre">/estimate-difficulty</span></code>, exposed through <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/hunts/:id/ai/difficulty</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adaptive_hint</span></code> → Python <code class="docutils literal notranslate"><span class="pre">/adaptive-hint</span></code>, used after static hints are exhausted</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">analyze_session</span></code> → Python <code class="docutils literal notranslate"><span class="pre">/analyze-session</span></code>, exposed through <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/sessions/:id/analysis</span></code></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<p>Every call to the AI sidecar has a latency cost, a financial cost (API tokens), and a reliability risk (the sidecar might be down or slow). The current design makes these calls synchronously — the request waits for the AI response.</p>
+<p>For photo verification, this is probably fine. For adaptive hints, it might add noticeable latency to a step players are already frustrated by.</p>
+<p>How would you architect the AI calls differently? What would an asynchronous, queue-based approach look like? What would it make better, and what would it make worse?</p>
+<p><span class="answer-box"> </span>
+<span class="answer-box"> </span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07_hints.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Hint Engine: When to Help</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="09_creator.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Creator’s Perspective</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-of-the-sidecar">Architecture of the sidecar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#services-in-the-sidecar">Services in the sidecar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clue-generation">Clue generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#difficulty-estimation">Difficulty estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-answer-matching">Semantic answer matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photo-verification">Photo verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-aiclient-in-rust">The AiClient in Rust</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE session_clues SET hints_used = $1 WHERE session_id = $2 AND clue_id = $3",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "d7291a3e8f2fb72ee03fe345c58d91faff5a1469b5b3cd291552fa7cef720fb7"
+}

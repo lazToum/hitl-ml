@@ -1,0 +1,201 @@
+# what-ifio production deployment
+#
+# Serves:
+#   ${PHD_DOMAIN}   — PhD landing page (static)
+#   ${HUNT_DOMAIN}  — Spring treasure hunt (React SPA + Rust API + AI scoring)
+#   ${AUTH_DOMAIN}  — Zitadel OIDC (console + login UI)
+#
+# Pre-requisites on the VM:
+#   1. Clone / rsync the repo to ~/p/main
+#   2. Build the JS frontend locally and rsync dist:
+#        cd editions/spring/web && bun run build
+#        rsync -av editions/spring/web/dist/ vm:~/p/main/editions/spring/web/dist/
+#        rsync -av dist/site/ vm:~/p/main/dist/site/
+#   3. Copy .env.example → .env and fill in secrets
+#   4. docker compose up -d --build
+
+services:
+
+  # ── Edge proxy: SSL termination + routing ─────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./index:/srv/index:ro
+      - ../../dist/site:/srv/phd:ro
+      - ../../dist/reader:/srv/reader:ro
+      - ../../dist/comic:/srv/comic:ro
+      - ../../editions/spring/web/dist:/srv/hunt:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      PHD_DOMAIN:      ${PHD_DOMAIN}
+      HUNT_DOMAIN:     ${HUNT_DOMAIN}
+      AUTH_DOMAIN:     ${AUTH_DOMAIN}
+      INDEX_USER:      ${INDEX_USER:-admin}
+      INDEX_PASS_HASH: ${INDEX_PASS_HASH}
+    networks: [public, internal]
+    restart: unless-stopped
+
+  # ── Comic reader API ─────────────────────────────────────────────────────
+  comic-api:
+    build:
+      context: ../../../other/agents-comic/player/backend
+      dockerfile: Dockerfile
+    volumes:
+      - ../../../other/agents-comic/player/backend/static:/app/static:ro
+    networks: [internal]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ── Spring Rust API ───────────────────────────────────────────────────────
+  spring-api:
+    build:
+      context: ../../editions/spring/backend-rust
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL:   postgres://hunt:${POSTGRES_PASSWORD}@postgres:5432/treasure_hunt
+      REDIS_URL:      redis://redis:6379
+      AI_SERVICE_URL: http://python-ai:8000
+      OIDC_ISSUER:    https://${AUTH_DOMAIN}
+      OIDC_JWKS_URL:  http://${AUTH_DOMAIN}:8180/oauth/v2/keys
+      PORT:           "8080"
+    networks: [internal]
+    depends_on:
+      postgres:  { condition: service_healthy }
+      zitadel:   { condition: service_healthy }
+      redis:     { condition: service_healthy }
+      python-ai: { condition: service_healthy }
+    restart: unless-stopped
+
+  # ── Python AI scoring service ─────────────────────────────────────────────
+  python-ai:
+    build:
+      context: ../../editions/spring/backend-python
+      dockerfile: Dockerfile
+    environment:
+      LLM_API_KEY: ${ANTHROPIC_API_KEY}
+      LLM_MODEL:   ${LLM_MODEL:-claude-opus-4-7}
+      PORT:        "8000"
+    networks: [internal]
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  # ── Zitadel OIDC ──────────────────────────────────────────────────────────
+  zitadel:
+    image: ghcr.io/zitadel/zitadel:v4.14.0
+    command: start-from-init --masterkeyFromEnv --tlsMode disabled
+    environment:
+      ZITADEL_MASTERKEY:                                      ${ZITADEL_MASTERKEY}
+      ZITADEL_DATABASE_POSTGRES_HOST:                         postgres
+      ZITADEL_DATABASE_POSTGRES_PORT:                         5432
+      ZITADEL_DATABASE_POSTGRES_DATABASE:                     zitadel
+      ZITADEL_DATABASE_POSTGRES_USER_USERNAME:                hunt
+      ZITADEL_DATABASE_POSTGRES_USER_PASSWORD:                ${POSTGRES_PASSWORD}
+      ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE:                disable
+      ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME:               hunt
+      ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD:               ${POSTGRES_PASSWORD}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE:               disable
+      ZITADEL_EXTERNALSECURE:                                 "true"
+      ZITADEL_EXTERNALPORT:                                   443
+      ZITADEL_EXTERNALDOMAIN:                                 ${AUTH_DOMAIN}
+      ZITADEL_FIRSTINSTANCE_ORG_NAME:                         TreasureHunt
+      ZITADEL_FIRSTINSTANCE_ORG_HUMAN_USERNAME:               admin
+      ZITADEL_FIRSTINSTANCE_ORG_HUMAN_PASSWORD:               ${ZITADEL_ADMIN_PASSWORD}
+      ZITADEL_FIRSTINSTANCE_ORG_HUMAN_PASSWORDCHANGEREQUIRED: "false"
+      ZITADEL_FIRSTINSTANCE_LOGINCLIENTPATPATH:                       /zitadel/bootstrap/login-client.pat
+      ZITADEL_FIRSTINSTANCE_ORG_LOGINCLIENT_MACHINE_USERNAME:         login-client
+      ZITADEL_FIRSTINSTANCE_ORG_LOGINCLIENT_MACHINE_NAME:             Login Client
+      ZITADEL_FIRSTINSTANCE_ORG_LOGINCLIENT_PAT_EXPIRATIONDATE:       "2099-01-01T00:00:00Z"
+      ZITADEL_DEFAULTINSTANCE_FEATURES_LOGINV2_REQUIRED:              "true"
+      ZITADEL_DEFAULTINSTANCE_FEATURES_LOGINV2_BASEURI:               https://${AUTH_DOMAIN}/ui/v2/login/
+      ZITADEL_OIDC_DEFAULTLOGINURLV2:                                 https://${AUTH_DOMAIN}/ui/v2/login/login?authRequest=
+      ZITADEL_OIDC_DEFAULTLOGOUTURLV2:                                https://${AUTH_DOMAIN}/ui/v2/login/logout?post_logout_redirect=
+      ZITADEL_SAML_DEFAULTLOGINURLV2:                                 https://${AUTH_DOMAIN}/ui/v2/login/login?samlRequest=
+      ZITADEL_PORT:                                                    "8180"
+    volumes:
+      - ../../editions/spring/zitadel/bootstrap:/zitadel/bootstrap
+      - ../../editions/spring/zitadel/ready.yaml:/etc/zitadel/ready.yaml:ro
+    networks:
+      internal:
+        aliases:
+          - ${AUTH_DOMAIN}
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "/app/zitadel", "ready", "--config", "/etc/zitadel/ready.yaml"]
+      interval: 10s
+      timeout: 30s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  # ── Zitadel login UI ──────────────────────────────────────────────────────
+  login:
+    image: ghcr.io/zitadel/zitadel-login:v4.14.0
+    environment:
+      ZITADEL_API_URL:                http://${AUTH_DOMAIN}:8180
+      NEXT_PUBLIC_BASE_PATH:          /ui/v2/login
+      ZITADEL_SERVICE_USER_TOKEN_FILE: /zitadel/bootstrap/login-client.pat
+    volumes:
+      - ../../editions/spring/zitadel/bootstrap:/zitadel/bootstrap:ro
+    networks: [internal]
+    depends_on:
+      zitadel: { condition: service_healthy }
+    restart: unless-stopped
+
+  # ── PostgreSQL ────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB:       treasure_hunt
+      POSTGRES_USER:     hunt
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ../../editions/spring/db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ../../editions/spring/db/seed_demo.sql:/docker-entrypoint-initdb.d/02_seed_demo.sql:ro
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hunt -d treasure_hunt"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  # ── Redis (rate limiting) ─────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+networks:
+  public:
+  internal:
+    internal: true
+
+volumes:
+  pg_data:
+  caddy_data:
+  caddy_config:

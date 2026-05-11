@@ -1,0 +1,267 @@
+% ============================================================================
+% CHAPTER 11 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch11/C11AM_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 11}
+\label{ch:solutions-ch11}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Framework-aligned answers on computer vision, adversarial examples, and HITL in visual AI systems.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Adversarial Examples}
+
+\textbf{Prompt:} ``A neural network sees a panda and classifies it correctly. You add imperceptible pixel noise and it classifies the image as a gibbon with 99\% confidence. What does this tell you about how the neural network `sees'?''
+
+\paragraph{Model Answer.}
+
+The adversarial example reveals that the neural network is not performing recognition the way humans do --- identifying a panda based on its shape, coloring, body posture, and characteristic features. Instead, the network detects statistical patterns in the pixel values that correlate with the label ``panda'' in its training data.
+
+These statistical patterns are not the semantic features humans use. Some involve high-frequency patterns (subtle spatial relationships between pixel values across the image) that are essentially invisible to human perception but are genuinely diagnostic for the network's classification. When adversarial noise is added, nothing that humans consider meaningful is changed --- but the exact statistical patterns the network relies on are altered.
+
+\paragraph{The structural implication.}
+
+For the network to ``see more like a human,'' it would need to build representations grounded in the conceptual structure of the visual world --- representations of animal bodies, textures, and characteristic markings --- rather than representations built from statistical correlations in training images. Current architectures do not provide this.
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[A-grade] Distinguishes statistical pattern detection from semantic understanding; explains why the vulnerability is structural; correctly identifies that human perception processes semantic features not captured by adversarial noise; concludes that the gap is inherent to how CNNs learn.
+
+    \item[B-grade] Understands that the network and human are using different features; less precise about why the vulnerability is structural vs.\ a temporary limitation.
+
+    \item[C-grade] Notes that the network was ``fooled'' but doesn't explain the mechanism. May attribute the failure to the network ``being bad.''
+
+    \item[Needs improvement] Attributes the failure to the specific network being outdated or that ``better training'' will fix it without qualification.
+\end{description}
+
+\paragraph{Common misconceptions to address.}
+\begin{itemize}
+    \item ``The network is being tricked'' --- the network is doing exactly what it learned to do. The adversarial noise changes inputs in ways the network's learned features are sensitive to.
+    \item ``Better training will fix this'' --- adversarial training helps but does not eliminate the vulnerability; the root cause is the statistical nature of pattern learning.
+\end{itemize}
+
+\subsubsection{Question 2: Automation Bias in Radiology}
+
+\textbf{Prompt:} ``Why might seeing an AI's `all clear' make a radiologist less accurate at catching an abnormality the AI missed?''
+
+\paragraph{Model Answer.}
+
+This is a manifestation of \textbf{automation bias}: the human tendency to over-rely on automated system outputs and reduce independent verification.
+
+The mechanism: confidence is a social and epistemic signal. When the AI has ``already checked'' the scan and found nothing, the radiologist's prior probability that something is there shifts downward. This is actually rational Bayesian behavior --- if a good system says something is clean, the posterior probability that it is clean should increase.
+
+The problem arises at the margin: the radiologist becomes less likely to carefully examine regions the AI certified as normal, precisely because the AI seems to have already done that work. In the case where the AI is wrong, the radiologist is now less attentive than they would have been without the AI.
+
+\paragraph{This is not a failure of the radiologist.}
+
+It is a structural consequence of how confident AI systems interact with human attention allocation. The solution is design-based:
+\begin{itemize}
+    \item Present AI findings \emph{after} the radiologist's initial read (preserving unbiased first inspection)
+    \item Present regions of interest without confident diagnoses (triggering attention without anchoring conclusion)
+    \item Present the AI's uncertainty as prominently as its findings (changing the epistemic signal)
+\end{itemize}
+
+\paragraph{The Five Dimensions framing.}
+
+This is an \textbf{Intervention Design} failure, not an AI accuracy failure. The AI's accuracy may be perfectly acceptable; how its findings are communicated determines whether it helps or hurts the human's performance.
+
+\subsubsection{Question 3: Autonomous Vehicle Timing Constraint}
+
+\textbf{Prompt:} ``At 60~mph, a car travels 88~feet per second. Explain why this is a fundamental design constraint for human-in-the-loop autonomous vehicles.''
+
+\paragraph{Model Answer.}
+
+The arithmetic is simple; its implications are profound.
+
+\begin{itemize}
+    \item At 60~mph = 88~ft/sec
+    \item Human cognitive reaction time (perceive + decide): $\approx$0.75~seconds = 66~feet
+    \item Physical response time (motor action: foot moves to brake): $\approx$0.75~seconds = 66~feet
+    \item Total: $\approx$1.5~seconds = 132~feet before any corrective input reaches the car
+\end{itemize}
+
+This means that for any emergency event requiring immediate response (obstacle in road, sudden steering need), there is no meaningful human intervention possible within the event's timescale. The ``human in the loop'' at high speed is not actually in the loop for the events that matter most.
+
+\paragraph{What this means for design.}
+
+Human oversight in fast-moving physical systems must be redesigned as:
+\begin{enumerate}
+    \item \textbf{Pre-event supervision:} The human monitors for conditions that predict emergencies before they occur (e.g., unusual traffic pattern ahead), not real-time responses to emergencies.
+    \item \textbf{System-level oversight:} The human monitors whether the automated system is behaving correctly overall, intervening at the route/policy level, not the moment-to-moment control level.
+    \item \textbf{Emergency shutdown:} The human can halt the system entirely (kill switch) but cannot reliably substitute for automated control within a developing emergency.
+\end{enumerate}
+
+\subsubsection{Question 4: Perceptual Hashing Limits}
+
+\paragraph{Model Answer.}
+
+Perceptual hashing matches new content against a fingerprint database of known harmful content. It is essentially a lookup operation: ``is this image in the database?''
+
+\textbf{Why it cannot detect novel harmful content:} Novel content, by definition, is not in the fingerprint database. The system has no fingerprint to match against. It would need semantic understanding of what makes content harmful --- understanding its subject matter, context, and implicit meaning --- not just matching against known examples.
+
+\textbf{The limit is important in practice:} Bad actors learn that their specific content is blocked, then create slight variations. Perceptual hashing catches near-identical copies but not variations beyond the similarity threshold. Novel harmful content created specifically to avoid matching known examples requires human review or semantic AI models.
+
+\textbf{HITL implication:} Perceptual hashing is the first-pass filter for known content. Human reviewers are essential for the categories it cannot handle: contextual harm, novel categories of harmful content, and cases where harm depends on meaning rather than appearance.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Five Dimensions: Radiology AI}
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Five-dimension framework applied to radiology AI}
+\label{tab:radiology-five-dim-ch11}
+\centering
+\begin{tabular}{@{}p{3cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Assessment} \\
+\midrule
+Uncertainty Detection & 4/5 & Well-implemented in modern systems: per-finding confidence scores, uncertainty maps. Could include uncertainty on unflagged regions. \\
+Intervention Design & 3/5 & Typical weakness: AI findings presented before radiologist's independent read, causing automation bias anchoring. Sequential design would improve this. \\
+Timing & 5/5 & Non-time-critical: radiologist review happens on their schedule. No timing problem in this domain. \\
+Stakes Calibration & 5/5 & High-stakes medical context is understood; systems route all uncertain cases to human review. \\
+Feedback Integration & 2/5 & Most commonly weak: radiologist corrections are often logged but not used for real-time model updating. Missed learning opportunity. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Strongest dimension:} Stakes Calibration --- the high-stakes medical context ensures systems do not auto-diagnose without radiologist sign-off.
+
+\paragraph{Weakest dimension:} Feedback Integration --- radiologist corrections provide rich training signal that most deployed systems fail to capture. This is partly for regulatory reasons (changing a certified model requires re-certification) and partly for infrastructure reasons.
+
+\subsubsection{Architecture Comparison: Tesla vs.\ Waymo}
+
+\paragraph{Model Answer.}
+
+\textbf{Higher automation complacency risk: Tesla FSD.}
+
+Tesla requires an ``attentive'' human driver, but the automation is designed to handle the vast majority of driving situations. Research on human factors in highly reliable automation consistently shows that supervisory vigilance degrades when intervention is rarely required. Tesla drivers have been documented watching videos, sleeping, and sitting in the back seat while FSD is engaged. The reliability of the automation creates exactly the conditions for skill atrophy and vigilance failure described in Chapter~13.
+
+\textbf{Higher total-failure risk: Waymo.}
+
+If Waymo's automated system encounters a scenario outside its operational design domain and the remote operator connection fails, there is no fallback. The in-vehicle passenger cannot assume manual control. This is a different risk profile --- low frequency, higher severity when it occurs.
+
+\textbf{Are these risks in tension?}
+
+Yes. The approach that reduces complacency risk (no human in vehicle who can be habituated) is the same approach that increases brittleness in total failure scenarios. There is no architecture that simultaneously maximizes human backup availability and minimizes automation complacency. The choice between architectures is a choice between risk profiles, not between safe and unsafe designs.
+
+\subsubsection{Content Moderation Reviewer Capacity}
+
+\paragraph{Model Answer.}
+
+\paragraph{Minimum reviewer capacity.}
+10,000 images/day at 5~minutes/image = 50,000 reviewer-minutes/day = 833~reviewer-hours/day. At 8~hours/reviewer/day: approximately 104 full-time reviewers minimum. In practice, accounting for breaks, training, and quality checks, 120--130 reviewers would be a realistic minimum.
+
+\paragraph{Quality risks at minimum capacity.}
+
+\begin{enumerate}
+    \item \textbf{Fatigue:} At minimum staffing, each reviewer handles the maximum load throughout their shift. Decision quality degrades over a shift (see Chapter~13 on fatigue effects); errors will be higher in the last hour than the first.
+
+    \item \textbf{Exposure harm:} Reviewing violent content at sustained high volume causes documented psychological harm to reviewers. Minimum capacity means no rotation, no breaks beyond legal minimums, and maximum exposure.
+
+    \item \textbf{Quality floor creep:} Reviewers under load learn to pattern-match quickly rather than evaluate carefully. Over time, the decision quality floor drops as reviewers habituate to content categories they see repeatedly.
+\end{enumerate}
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Full Dermatology Screening System Design}
+
+\paragraph{Model Answer Framework.}
+
+A complete system design answer should include:
+
+\paragraph{Five Dimensions specification:}
+\begin{itemize}
+    \item \textbf{Uncertainty Detection:} Per-lesion confidence score; uncertainty map highlighting diagnosis-driving regions; calibration maintained via quarterly audit on held-out dermatologist-verified cases.
+    \item \textbf{Intervention Design:} Route all confidence $<$0.85 to dermatologist review. Present AI output after dermatologist's independent assessment; show AI uncertainty regions, not diagnosis. Sequential design to minimize automation bias.
+    \item \textbf{Timing:} Non-emergency dermatology screening: 24--48~hour review SLA acceptable. Flag urgent cases (suspicious melanoma features) for same-day review.
+    \item \textbf{Stakes Calibration:} False negative for melanoma is catastrophic (missed cancer); false positive is costly but correctable (unnecessary biopsy). Set routing threshold to minimize false negatives, accepting higher review volume.
+    \item \textbf{Feedback Integration:} Biopsy-confirmed cases provide ground truth. All confirmed cases (positive and negative) enter quarterly retraining cycle. Track model improvement over training cohorts.
+\end{itemize}
+
+\paragraph{Workforce design:}
+Board-certified dermatologists for all final decisions. Can use dermatology residents for initial review of low-uncertainty cases with attending sign-off for efficiency.
+
+\paragraph{Quality controls:}
+Sentinel cases (known melanomas and known benign lesions) injected into reviewer queue monthly. Track sensitivity on sentinels per reviewer.
+
+\paragraph{Performance measurement:}
+Track sensitivity, specificity, and AUC on quarterly held-out test set. Track reviewer override rate by confidence bin. Alert when override rate on high-confidence cases exceeds baseline (suggesting model calibration drift).
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Stop Sign Analysis --- Instructor Key}
+
+\paragraph{Key distinctions.}
+
+\begin{table}[htbp]
+\caption{Stop sign modification comparison}
+\label{tab:stop-sign-key}
+\centering
+\begin{tabular}{@{}p{4cm}p{3cm}p{3cm}p{3cm}@{}}
+\toprule
+\textbf{Modification} & \textbf{Human reads} & \textbf{CNN reads} & \textbf{Why different} \\
+\midrule
+Normal sign & STOP & STOP & Same features available \\
+Adversarial stickers & STOP & Speed Limit 45 & Stickers change pixel statistics CNNs rely on; not semantic features humans use \\
+Spray paint / graffiti & STOP (if legible) & Likely STOP & Humans and CNNs share some robustness to surface variation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The key debrief insight.}
+
+Graffiti and real-world wear don't cause the same classification problem because they don't systematically target the high-frequency pixel features CNNs use for recognition. Adversarial stickers are specifically calculated to change those features while leaving the human-readable semantic content intact. The stop sign attack required researchers to understand the CNN's feature space to construct the attack.
+
+\subsection{Activity 2: Five Dimensions Audit --- Strong Response Criteria}
+
+\paragraph{Autonomous vehicles --- strong response.}
+
+Should note Intervention Design as the most problematic dimension: the timing constraint makes real-time human intervention structurally impossible at highway speeds. Strong response proposes redesigning human oversight as system-level monitoring rather than moment-to-moment control.
+
+\paragraph{Medical imaging --- strong response.}
+
+Should note Intervention Design as weak (automation bias) and Feedback Integration as weak (corrections not flowing to model retraining). Should propose specific redesigns: sequential presentation of AI findings; structured feedback loop from confirmed biopsy/diagnosis back to training pipeline.
+
+\paragraph{Content moderation --- strong response.}
+
+Should note human workload and reviewer burnout as not covered by the Five Dimensions framework's standard application, revealing a gap in the framework for applications where human reviewer wellbeing is itself a system-level concern.
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``If CNNs are so brittle, why are we using them?''}
+Because for the tasks they are trained on and deployed in, their accuracy is exceptional --- often superhuman on narrow benchmarks. Brittleness to adversarial attacks and distributional shift is a real limitation; it motivates HITL design, not abandonment of the technology. The right question is not ``is this brittle?'' but ``given this brittleness, what oversight architecture makes deployment safe?''
+
+\paragraph{``Could a human create adversarial examples on purpose to fool autonomous vehicles?''}
+Yes, and this has been demonstrated. The stop sign attack paper showed physical adversarial attacks work in real-world conditions. This is part of the reason autonomous vehicle safety testing now includes adversarial robustness evaluation alongside standard performance benchmarking.
+
+\paragraph{``Why don't radiologists just ignore what the AI says?''}
+Automation bias is not a conscious choice. Research shows that even when radiologists are told to apply independent judgment, and even when they have incentives to do so, automation bias persists. It operates at the level of attentional allocation --- which happens before conscious deliberation. The solution is interface design that prevents the AI's output from biasing attention, not instructions to ignore it.
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~11's solutions guide reinforces a running theme of the book: the most important failures in deployed AI systems are often not failures of accuracy but failures of interface design and human factors. The adversarial example is technically striking; automation bias in radiology is clinically significant. Both point to the same conclusion: understanding what the system actually computes, and designing human oversight accordingly, is the core challenge.}

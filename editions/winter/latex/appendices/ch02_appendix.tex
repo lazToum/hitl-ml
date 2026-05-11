@@ -1,0 +1,344 @@
+% ============================================================================
+% TECHNICAL APPENDIX 2A: The Mathematics of AI Confusion
+% Formal foundations for uncertainty types, calibration, and edge-case detection
+% ============================================================================
+% Source: /markdown/ch2/Ch2A_final.md
+% ============================================================================
+
+\chapter*{Technical Appendix 2A: The Mathematics of AI Confusion}
+\addcontentsline{toc}{chapter}{Technical Appendix 2A: The Mathematics of AI Confusion}
+
+\begin{chapterquote}{Formal foundations for Chapter 2}
+Chapter~2 introduced two types of uncertainty---aleatoric and epistemic---and argued that confusion is a feature rather than a bug when properly surfaced. This appendix provides the mathematical framework underlying those concepts.
+\end{chapterquote}
+
+% ============================================================================
+\section{Formal Definitions of Uncertainty Types}
+% ============================================================================
+
+\subsection{Aleatoric Uncertainty}
+
+Aleatoric uncertainty captures the inherent randomness or noise in observed data. Given input $x$ and true label $y$, aleatoric uncertainty is:
+
+\[
+\sigma^2_{\text{aleatoric}} = \mathbb{E}_{y \sim p(y|x)}\bigl[(y - f(x))^2\bigr]
+\]
+
+This represents the expected squared deviation between the true output and the model prediction, averaged over the true output distribution. It cannot be reduced by collecting more data, because it reflects genuine ambiguity in the relationship between $x$ and $y$.
+
+\paragraph{Key property.}
+\[
+\sigma^2_{\text{aleatoric}} \text{ does not decrease as } |\mathcal{D}| \to \infty
+\]
+
+\subsection{Epistemic Uncertainty}
+
+Epistemic uncertainty captures uncertainty about the model parameters $\theta$ given observed data $\mathcal{D}$. Under the Bayesian framework:
+
+\[
+p(\theta \mid \mathcal{D}) \propto p(\mathcal{D} \mid \theta) \cdot p(\theta)
+\]
+
+The predictive distribution for a new input $x^*$ is:
+
+\[
+p(y^* \mid x^*, \mathcal{D}) = \int p(y^* \mid x^*, \theta) \cdot p(\theta \mid \mathcal{D}) \, d\theta
+\]
+
+Epistemic uncertainty is high when this integral shows high variance---when different plausible parameter settings produce very different predictions. It decreases as more training data is observed:
+
+\[
+\sigma^2_{\text{epistemic}} \to 0 \quad \text{as } |\mathcal{D}| \to \infty
+\]
+
+\subsection{Total Predictive Uncertainty}
+
+Following \textcite{kendall2017uncertainties}, total predictive uncertainty decomposes as:
+
+\[
+\underbrace{\text{Var}[y^*]}_{\text{total}} = \underbrace{\mathbb{E}_{\theta}\bigl[\text{Var}_{y^*}[y^* \mid \theta]\bigr]}_{\text{aleatoric}} + \underbrace{\text{Var}_{\theta}\bigl[\mathbb{E}_{y^*}[y^* \mid \theta]\bigr]}_{\text{epistemic}}
+\]
+
+This decomposition is foundational for HITL design: the aleatoric component tells you how intrinsically hard the case is; the epistemic component tells you how much the model's own ignorance contributes.
+
+% ============================================================================
+\section{Measuring Calibration}
+% ============================================================================
+
+\subsection{Definition}
+
+A model is \term{perfectly calibrated} if its expressed confidence exactly predicts its accuracy:
+
+\[
+P\bigl(\hat{y} = y \mid \hat{p} = p\bigr) = p \quad \text{for all } p \in [0,1]
+\]
+
+When the model says it is 70\% confident, it should be correct 70\% of the time.
+
+\subsection{Reliability Diagrams}
+
+To assess calibration empirically:
+\begin{enumerate}
+    \item Partition predictions into $M$ confidence bins $B_m = [m/M,\, (m+1)/M)$
+    \item For each bin, compute:
+    \begin{itemize}
+        \item Average confidence: $\text{conf}(B_m) = \frac{1}{|B_m|} \sum_{i \in B_m} \hat{p}_i$
+        \item Accuracy: $\text{acc}(B_m) = \frac{1}{|B_m|} \sum_{i \in B_m} \mathbf{1}[\hat{y}_i = y_i]$
+    \end{itemize}
+    \item Plot $\text{conf}(B_m)$ vs.\ $\text{acc}(B_m)$
+\end{enumerate}
+
+A perfectly calibrated model produces a straight diagonal line. Points below the diagonal indicate overconfidence (confidence exceeds accuracy)---the most common failure mode in modern deep learning \autocite{guo2017calibration}.
+
+\subsection{Expected Calibration Error (ECE)}
+
+\[
+\text{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{n} \bigl|\text{acc}(B_m) - \text{conf}(B_m)\bigr|
+\]
+
+where $n$ is the total number of predictions. ECE is the weighted average absolute gap between confidence and accuracy across bins.
+
+\begin{cautionbox}[HITL Implication of High ECE]
+A high ECE means the model's confidence scores cannot be trusted to route cases correctly. A model with ECE = 0.20 that reports 90\% confidence is accurate only 70\% of the time---it will dramatically under-request human oversight on the cases it's least reliable about.
+\end{cautionbox}
+
+\subsection{Temperature Scaling}
+
+\textcite{guo2017calibration} showed that dividing logits by a scalar temperature $T > 1$ before softmax reduces overconfidence without altering class predictions:
+
+\[
+\hat{p}_i = \text{softmax}(\mathbf{z}_i / T)
+\]
+
+$T$ is fitted on a held-out validation set by minimizing negative log-likelihood. It is the simplest effective post-hoc calibration method.
+
+\begin{lstlisting}[style=python, caption={Temperature scaling implementation}]
+class TemperatureScaler:
+    def __init__(self, model):
+        self.model = model
+        self.temperature = torch.nn.Parameter(torch.ones(1) * 1.5)
+
+    def calibrate(self, val_loader):
+        optimizer = torch.optim.LBFGS(
+            [self.temperature], lr=0.01, max_iter=50)
+        logits_list, labels_list = [], []
+
+        with torch.no_grad():
+            for x, y in val_loader:
+                logits_list.append(self.model(x))
+                labels_list.append(y)
+
+        logits = torch.cat(logits_list)
+        labels = torch.cat(labels_list)
+
+        def eval_nll():
+            optimizer.zero_grad()
+            loss = F.cross_entropy(logits / self.temperature, labels)
+            loss.backward()
+            return loss
+
+        optimizer.step(eval_nll)
+        return self
+\end{lstlisting}
+
+% ============================================================================
+\section{Uncertainty Estimation Methods}
+% ============================================================================
+
+\subsection{Monte Carlo Dropout}
+
+\textcite{gal2016dropout} showed that applying dropout at inference time corresponds approximately to Bayesian inference over model weights.
+
+\begin{lstlisting}[style=python, caption={MC Dropout uncertainty estimation}]
+def mc_dropout_uncertainty(model, x, n_samples=100):
+    # model.train() enables dropout but also sets BatchNorm to training
+    # mode, which corrupts uncertainty estimates in BN networks.
+    # Prefer setting only dropout layers to train mode:
+    #   for m in model.modules():
+    #       if isinstance(m, nn.Dropout): m.train()
+    model.train()  # Enable dropout at inference (safe for dropout-only nets)
+    predictions = []
+
+    for _ in range(n_samples):
+        with torch.no_grad():
+            pred = model(x)
+            predictions.append(torch.softmax(pred, dim=-1))
+
+    predictions = torch.stack(predictions, dim=0)
+    mean_pred = predictions.mean(dim=0)
+
+    # Total uncertainty: predictive entropy
+    entropy = -(mean_pred * torch.log(mean_pred + 1e-8)).sum(dim=-1)
+
+    # Aleatoric: mean of per-sample entropies
+    per_sample_entropy = -(predictions *
+                           torch.log(predictions + 1e-8)).sum(dim=-1)
+    aleatoric = per_sample_entropy.mean(dim=0)
+
+    # Epistemic: mutual information (total - aleatoric)
+    epistemic = entropy - aleatoric
+
+    return mean_pred, aleatoric, epistemic, entropy
+\end{lstlisting}
+
+\subsection{Deep Ensembles}
+
+Train $M$ separate models with different random initializations \autocite{lakshminarayanan2017simple}:
+
+\[
+\mu_{\text{ens}} = \frac{1}{M}\sum_{i=1}^{M} \mu_i(x)
+\qquad
+\sigma^2_{\text{ens}} = \frac{1}{M}\sum_{i=1}^{M}\bigl[\sigma^2_i(x) + \mu^2_i(x)\bigr] - \mu^2_{\text{ens}}
+\]
+
+\paragraph{Advantages over MC Dropout.} Better-calibrated uncertainty estimates; captures diversity across function space; parallelizable. \paragraph{Disadvantage.} Requires training and storing $M$ full models.
+
+\subsection{Conformal Prediction}
+
+A distribution-free framework providing prediction sets with guaranteed coverage:
+
+\[
+P\bigl(y_{\text{true}} \in C_\alpha(x)\bigr) \geq 1 - \alpha
+\]
+
+Given a calibration set $\{(x_i, y_i)\}_{i=1}^n$, the prediction set is:
+
+\[
+C_\alpha(x^*) = \{y : s(x^*, y) \leq \hat{q}_{1-\alpha}\}
+\]
+
+where $\hat{q}_{1-\alpha}$ is the $(1-\alpha)$ empirical quantile of calibration nonconformity scores \autocite{angelopoulos2021gentle}.
+
+\begin{examplebox}[HITL Value of Conformal Prediction]
+A prediction set of size~1 indicates high confidence. A set containing multiple classes indicates genuine ambiguity warranting human review. This provides formally guaranteed coverage without distributional assumptions.
+\end{examplebox}
+
+% ============================================================================
+\section{Out-of-Distribution Detection}
+% ============================================================================
+
+\subsection{Maximum Softmax Probability (Baseline)}
+
+\[
+\text{OOD flag}(x) = \mathbf{1}\!\left[\max_c p(c\mid x) < \tau\right]
+\]
+
+\begin{cautionbox}[Known Limitation]
+Deep networks can produce high-confidence outputs for OOD inputs. A model trained on cats and dogs may classify a fox as a dog with 99\% confidence. The softmax does not reliably reflect OOD-ness.
+\end{cautionbox}
+
+\subsection{Mahalanobis Distance}
+
+\textcite{lee2018simple} use class-conditional Gaussian distributions fit to intermediate feature representations:
+
+\[
+M(x) = \min_c \, (f(x) - \mu_c)^\top \Sigma^{-1}(f(x) - \mu_c)
+\]
+
+High distance to all class centroids $\to$ likely OOD. This is particularly useful for diagnosing \emph{why} a model is uncertain: is the input far from all training classes, or is it between two well-known classes?
+
+\begin{lstlisting}[style=python, caption={Mahalanobis distance OOD scoring}]
+def mahalanobis_ood_score(model, x, class_means, precision_matrix):
+    with torch.no_grad():
+        features = model.get_features(x)
+
+    distances = []
+    for mu_c in class_means:
+        diff = features - mu_c
+        dist = (diff @ precision_matrix @ diff.T).diag()
+        distances.append(dist)
+
+    # Minimum distance to any class
+    min_distance = torch.stack(distances, dim=0).min(dim=0).values
+    return min_distance
+\end{lstlisting}
+
+% ============================================================================
+\section{The Radiology Case: Mathematical Analysis}
+% ============================================================================
+
+The 51\% confidence case from Chapter~2 maps directly to the calibration framework.
+
+\paragraph{Optimal routing threshold.}
+
+Let $\theta$ be the confidence threshold. The system auto-diagnoses if confidence $\geq \theta$; otherwise routes to human review. Define:
+\begin{itemize}
+    \item $\alpha(\theta)$: error rate on auto-routed cases (decreasing in $\theta$)
+    \item $\beta(\theta) = 1 - F(\theta)$: fraction routed to human review (decreasing in $\theta$)
+    \item $C_E$: cost of a missed diagnosis
+    \item $C_R$: cost of human review
+\end{itemize}
+
+Optimal threshold:
+
+\[
+\theta^* = \arg\min_\theta \Bigl[ C_E \cdot \alpha(\theta) \cdot (1 - \beta(\theta)) + C_R \cdot \beta(\theta) \Bigr]
+\]
+
+In medical imaging, $C_E \gg C_R$, so $\theta^*$ is high. The AI at 51\% correctly placed the case in the review queue, since any medically reasonable $\theta^* > 0.51$ would route it to the radiologist.
+
+\paragraph{Interpretation.} The model was not ``almost right''---it was maximally uncertain (0.51 $\approx$ coin flip). This is the correct output when the model genuinely cannot distinguish two diagnoses that look similar in its learned representation. Perfect calibration under epistemic uncertainty.
+
+% ============================================================================
+\section{Exercises}
+% ============================================================================
+
+\begin{Exercise}[Calibration Measurement]
+Implement Expected Calibration Error (ECE) and reliability diagram construction for a pretrained image classifier. Compare ECE before and after temperature scaling. Then compute ECE broken down by input subgroup (e.g., demographic, image condition). Where is calibration worst?
+\end{Exercise}
+
+\begin{Exercise}[Aleatoric vs.\ Epistemic Decomposition]
+Using MC~Dropout:
+\begin{enumerate}
+    \item Generate two overlapping Gaussian clusters (in-distribution, high aleatoric at boundary) and one separated Gaussian cluster (OOD, high epistemic).
+    \item Train a dropout classifier.
+    \item Run MC~Dropout. Plot aleatoric and epistemic uncertainty separately.
+    \item Show that aleatoric peaks at the in-distribution decision boundary; epistemic peaks in the OOD region.
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[HITL Routing Optimization]
+Given a binary classifier with calibrated confidence scores:
+\begin{enumerate}
+    \item Set costs: $C_{\text{FN}} = 100$, $C_{\text{FP}} = 10$, $C_{\text{human}} = 2$.
+    \item Sweep threshold $\theta \in [0.5, 0.99]$ and compute expected total cost.
+    \item Find $\theta^*$.
+    \item Compare accuracy at $\theta^*$ vs.\ full automation vs.\ full human review.
+\end{enumerate}
+\end{Exercise}
+
+\begin{Exercise}[OOD Detection Comparison]
+Compare three OOD detection methods (max softmax probability, MC~Dropout predictive entropy, Mahalanobis distance) on a test set with both in-distribution and OOD samples. Report AUROC for each method. Explain which performs best and why.
+\end{Exercise}
+
+% ============================================================================
+\section{Recommended Reading}
+% ============================================================================
+
+\subsection*{Foundational}
+\begin{itemize}
+    \item \textcite{kendall2017uncertainties} --- What uncertainties do we need in Bayesian deep learning?\ \emph{NeurIPS}.
+    \item \textcite{guo2017calibration} --- On calibration of modern neural networks. \emph{ICML}.
+    \item \textcite{lakshminarayanan2017simple} --- Simple and scalable predictive uncertainty estimation. \emph{NeurIPS}.
+\end{itemize}
+
+\subsection*{Methods}
+\begin{itemize}
+    \item \textcite{gal2016dropout} --- Dropout as a Bayesian approximation. \emph{ICML}.
+    \item \textcite{lee2018simple} --- A simple unified framework for detecting OOD samples. \emph{NeurIPS}.
+    \item \textcite{angelopoulos2021gentle} --- A gentle introduction to conformal prediction. \emph{arXiv:2107.07511}.
+\end{itemize}
+
+\subsection*{Applications}
+\begin{itemize}
+    \item \textcite{begoli2019uncertainty} --- Uncertainty quantification in machine-assisted medical decision making. \emph{Nature Machine Intelligence}.
+    \item \textcite{koenecke2020racial} --- Racial disparities in automated speech recognition. \emph{PNAS}.
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This appendix provides the mathematical foundations for uncertainty quantification, calibration, and OOD detection as introduced in Chapter~2. The worked exercises connect the theory to the practical HITL scenarios described in the main chapter.}

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human in the Loop: Misunderstood — Lazaros Toumanidis</title>
+  <meta name="description" content="A multi-edition project on human-AI collaboration: textbook, workbook, pamphlet, interactive reader, and platform." />
+  <style>
+    :root {
+      --bg: #f4efe6; --bg-alt: #fbf8f2; --surface: rgba(255,255,255,0.72);
+      --surface-border: rgba(45,62,80,0.14); --text: #1d2935; --muted: #5b6875;
+      --accent: #0d9e8e; --accent-2: #b85c38; --accent-3: #2b3a8f;
+      --shadow: 0 18px 40px rgba(35,44,56,0.08); --radius: 18px; --page-max: 1100px;
+      --spring: #27ae60; --summer: #c47e1a; --autumn: #b85c38;
+      --winter: #2b3a8f; --reader: #0d9e8e; --companion: #6b7c5e;
+      --limen: #7c3aed;
+    }
+    *{box-sizing:border-box}
+    html{font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;color:var(--text);
+      background:radial-gradient(circle at top left,rgba(13,158,142,.1),transparent 32%),linear-gradient(180deg,var(--bg-alt),var(--bg));}
+    body{margin:0;min-height:100vh}
+    a{color:inherit;text-decoration:none}
+    .page-shell{max-width:var(--page-max);margin:0 auto;padding:48px 24px 72px}
+    .hero{padding:32px 0 24px}
+    .eyebrow{margin:0 0 12px;color:var(--accent);font:700 .8rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .hero h1{margin:0;font-size:clamp(2.6rem,6vw,5rem);line-height:.95}
+    .hero h1 em{color:var(--accent-2);font-style:normal}
+    .lede{max-width:720px;margin:18px 0 0;color:var(--muted);font-size:1.08rem;line-height:1.6}
+    .author-line{margin:14px 0 0;color:var(--muted);font-size:.95rem}
+    .author-line a{color:var(--accent);border-bottom:1px solid rgba(13,158,142,.3)}
+    .author-line a:hover{border-bottom-color:var(--accent)}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+    .edition-card{display:flex;flex-direction:column;gap:10px;min-height:200px;padding:20px;
+      background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius);
+      box-shadow:var(--shadow);backdrop-filter:blur(10px);transition:transform 140ms ease,border-color 140ms ease}
+    .edition-card:hover{border-color:rgba(13,158,142,.36);transform:translateY(-2px)}
+    .edition-tag{font:700 .78rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .edition-card[data-season="spring"]{border-left:4px solid var(--spring)} .edition-card[data-season="spring"] .edition-tag{color:var(--spring)}
+    .edition-card[data-season="summer"]{border-left:4px solid var(--summer)} .edition-card[data-season="summer"] .edition-tag{color:var(--summer)}
+    .edition-card[data-season="autumn"]{border-left:4px solid var(--autumn)} .edition-card[data-season="autumn"] .edition-tag{color:var(--autumn)}
+    .edition-card[data-season="winter"]{border-left:4px solid var(--winter)} .edition-card[data-season="winter"] .edition-tag{color:var(--winter)}
+    .edition-card[data-season="reader"]{border-left:4px solid var(--reader)} .edition-card[data-season="reader"] .edition-tag{color:var(--reader)}
+    .edition-card[data-season="companion"]{border-left:4px solid var(--companion)} .edition-card[data-season="companion"] .edition-tag{color:var(--companion)}
+    .edition-card[data-season="limen"]{border-left:4px solid var(--limen)} .edition-card[data-season="limen"] .edition-tag{color:var(--limen)}
+    .edition-card strong{font-size:1.15rem}
+    .edition-card span:last-child{color:var(--muted);line-height:1.55}
+    .about-block{max-width:720px;margin:24px 0 0;padding:22px 24px;background:var(--surface);
+      border:1px solid var(--surface-border);border-radius:var(--radius);box-shadow:var(--shadow);
+      color:var(--muted);line-height:1.7}
+    .about-block p{margin:0 0 10px}.about-block p:last-child{margin-bottom:0}
+    .site-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--surface-border);
+      color:var(--muted);font-size:.82rem;line-height:1.7}
+    .site-footer a{color:var(--accent);border-bottom:1px solid rgba(13,158,142,.3)}
+    .site-footer a:hover{border-bottom-color:var(--accent)}
+    /* ── Journey timeline ── */
+    .journey{margin-top:40px}
+    .journey-label{font:700 .78rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 24px}
+    .journey-track{display:flex;flex-wrap:wrap;gap:0;position:relative}
+    .journey-track::before{content:'';position:absolute;top:18px;left:18px;right:18px;height:1px;
+      background:linear-gradient(90deg,var(--spring),var(--summer),var(--autumn),var(--winter),var(--reader),var(--companion),var(--limen));
+      opacity:.35;z-index:0;pointer-events:none}
+    @media(max-width:640px){.journey-track{flex-direction:column;gap:0}
+      .journey-track::before{top:18px;left:18px;bottom:18px;right:auto;width:1px;height:auto;
+        background:linear-gradient(180deg,var(--spring),var(--summer),var(--autumn),var(--winter),var(--reader),var(--companion),var(--limen))}}
+    .journey-step{flex:1 1 0;min-width:120px;position:relative;z-index:1;padding:0 8px 0 0;
+      display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;
+      text-decoration:none;color:inherit;transition:transform 120ms ease}
+    .journey-step:hover{transform:translateY(-2px)}
+    @media(max-width:640px){.journey-step{flex-direction:row;text-align:left;padding:0 0 20px 0;align-items:flex-start;gap:12px}}
+    .journey-dot{width:36px;height:36px;border-radius:50%;border:2px solid currentColor;
+      background:var(--bg-alt);display:flex;align-items:center;justify-content:center;
+      font:700 .7rem/1 "JetBrains Mono",monospace;letter-spacing:0;flex-shrink:0}
+    .journey-step[data-season="spring"] .journey-dot{color:var(--spring);background:rgba(39,174,96,.08)}
+    .journey-step[data-season="summer"] .journey-dot{color:var(--summer);background:rgba(196,126,26,.08)}
+    .journey-step[data-season="autumn"] .journey-dot{color:var(--autumn);background:rgba(184,92,56,.08)}
+    .journey-step[data-season="winter"] .journey-dot{color:var(--winter);background:rgba(43,58,143,.08)}
+    .journey-step[data-season="reader"] .journey-dot{color:var(--reader);background:rgba(13,158,142,.08)}
+    .journey-step[data-season="companion"] .journey-dot{color:var(--companion);background:rgba(107,124,94,.08)}
+    .journey-step[data-season="limen"]  .journey-dot{color:var(--limen);background:rgba(124,58,237,.08)}
+    .journey-step-body{display:flex;flex-direction:column;gap:3px}
+    .journey-title{font-size:.82rem;font-weight:600;color:var(--text)}
+    .journey-hint{font-size:.75rem;color:var(--muted);line-height:1.4}
+    @media(min-width:641px){.journey-step:first-child{padding-left:0;align-items:flex-start;text-align:left}
+      .journey-step:last-child{align-items:flex-end;text-align:right}}
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Human in the Loop</p>
+      <h1><em>Misunderstood</em></h1>
+      <p class="lede">
+        A research-driven project on human–AI collaboration, built across four
+        seasonal editions: a technical textbook, a reading workbook, a pamphlet,
+        an interactive reader, and a deployable platform.
+      </p>
+      <p class="author-line">
+        Lazaros Toumanidis &mdash; <a href="https://laztoum.com">laztoum.com</a> &middot; <a href="https://what-if.io">what-if.io</a> &middot; <a href="https://limen-os.io">limen-os.io</a>
+      </p>
+    </section>
+
+    <section class="card-grid" aria-label="Edition links">
+      <a class="edition-card" data-season="winter" href="/winter/">
+        <span class="edition-tag">Winter</span>
+        <strong>Main textbook</strong>
+        <span>18 chapters, technical appendices, teaching package, and canonical PDF. The full treatment.</span>
+      </a>
+      <a class="edition-card" data-season="summer" href="/summer/">
+        <span class="edition-tag">Summer</span>
+        <strong>Web workbook</strong>
+        <span>A reading-first edition with reflection questions, scenarios, and word puzzles. The conceptual material from the main textbook, without the apparatus.</span>
+      </a>
+      <a class="edition-card" data-season="autumn" href="/autumn/">
+        <span class="edition-tag">Autumn</span>
+        <strong>Pamphlet</strong>
+        <span>Short, self-contained, designed to read in one sitting. A good place to start.</span>
+      </a>
+      <a class="edition-card" data-season="reader" href="/reader/">
+        <span class="edition-tag">Reader</span>
+        <strong>Interactive reader</strong>
+        <span>All four editions with text-to-speech, ambient audio, chapter navigation, and twelve embedded games.</span>
+      </a>
+      <a class="edition-card" data-season="spring" href="/spring/">
+        <span class="edition-tag">Spring</span>
+        <strong>Platform</strong>
+        <span>A deployable treasure-hunt platform: Rust API, Python AI sidecar, React dashboard, Flutter mobile, OIDC auth.</span>
+      </a>
+      <a class="edition-card" data-season="companion" href="/companion/">
+        <span class="edition-tag">Companion</span>
+        <strong>Supporting materials</strong>
+        <span>Shorter documents, instructor notes, and study aids across the seasonal editions.</span>
+      </a>
+      <a class="edition-card" data-season="limen" href="/limen-os/">
+        <span class="edition-tag">Limen OS</span>
+        <strong>Desktop environment</strong>
+        <span>A desktop environment shell with all four editions embedded, nine interactive games, and an AI assistant. Demonstrates the book's HITL principles as a designed interface.</span>
+      </a>
+    </section>
+
+    <section class="journey" aria-label="Reading journey">
+      <p class="journey-label">The journey</p>
+      <div class="journey-track">
+        <a class="journey-step" data-season="autumn" href="/autumn/">
+          <div class="journey-dot" aria-hidden="true">A</div>
+          <div class="journey-step-body">
+            <span class="journey-title">Autumn</span>
+            <span class="journey-hint">Start here — one sitting</span>
+          </div>
+        </a>
+        <a class="journey-step" data-season="summer" href="/summer/">
+          <div class="journey-dot" aria-hidden="true">S</div>
+          <div class="journey-step-body">
+            <span class="journey-title">Summer</span>
+            <span class="journey-hint">Reflect &amp; apply</span>
+          </div>
+        </a>
+        <a class="journey-step" data-season="winter" href="/winter/">
+          <div class="journey-dot" aria-hidden="true">W</div>
+          <div class="journey-step-body">
+            <span class="journey-title">Winter</span>
+            <span class="journey-hint">Full technical depth</span>
+          </div>
+        </a>
+        <a class="journey-step" data-season="reader" href="/reader/">
+          <div class="journey-dot" aria-hidden="true">R</div>
+          <div class="journey-step-body">
+            <span class="journey-title">Reader</span>
+            <span class="journey-hint">All editions + games + TTS</span>
+          </div>
+        </a>
+        <a class="journey-step" data-season="spring" href="/spring/">
+          <div class="journey-dot" aria-hidden="true">P</div>
+          <div class="journey-step-body">
+            <span class="journey-title">Spring</span>
+            <span class="journey-hint">Deploy the platform</span>
+          </div>
+        </a>
+        <a class="journey-step" data-season="companion" href="/companion/">
+          <div class="journey-dot" aria-hidden="true">C</div>
+          <div class="journey-step-body">
+            <span class="journey-title">Companion</span>
+            <span class="journey-hint">Study aids &amp; notes</span>
+          </div>
+        </a>
+        <a class="journey-step" data-season="limen" href="/limen-os/">
+          <div class="journey-dot" aria-hidden="true">L</div>
+          <div class="journey-step-body">
+            <span class="journey-title">Limen OS</span>
+            <span class="journey-hint">Live in the shell</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="about-block">
+      <p>
+        The central argument is that human judgment in AI-assisted decisions is not a
+        temporary limitation of current systems — it is grounded in what decisions
+        <em>are</em> and who is responsible for them. The five-dimension framework
+        developed here (uncertainty detection, intervention design, timing, stakes
+        calibration, and feedback integration) provides a practical scaffold for
+        evaluating any HITL system.
+      </p>
+      <p>
+        The Winter edition is the primary technical reference. Autumn is the shortest
+        entry point. Summer is the workbook. The Reader and Spring editions are
+        interactive surfaces built on the same material.
+      </p>
+      <p>
+        The content across all editions was produced with substantial AI assistance
+        and fully reviewed by the author. Translations have been validated for
+        English and Greek only; all other language editions are machine-generated
+        and unreviewed.
+      </p>
+    </div>
+
+    <footer class="site-footer">
+      &copy; 2026 Lazaros Toumanidis &mdash;
+      Content: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> &middot;
+      Code: <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>
+      <br>
+      <a href="downloads/winter/hitl_winter_edition.pdf">Download Winter PDF</a> &middot;
+      <a href="downloads/summer/hitl_summer_edition.pdf">Download Summer PDF</a> &middot;
+      <a href="downloads/autumn/hitl_autumn_edition.pdf">Download Autumn PDF</a> &middot;
+      <a href="downloads/spring/hitl_spring_guide.pdf">Download Spring PDF</a> &middot;
+      <a href="downloads/overview/editions_overview.pdf">Download Editions Overview PDF</a>
+    </footer>
+  </main>
+
+
+  <!-- Font-size accessibility widget -->
+  <script>
+  (function () {
+    var SZ_KEY = 'limen:font-size', OP_KEY = 'limen:font-ctrl';
+    var STEPS = [90, 100, 115, 130];
+    var idx = Math.max(0, Math.min(3, parseInt(localStorage.getItem(SZ_KEY) ?? '1', 10) || 1));
+    var open = localStorage.getItem(OP_KEY) === '1';
+    function applySize() { document.documentElement.style.fontSize = STEPS[idx] + '%'; localStorage.setItem(SZ_KEY, String(idx)); }
+    applySize();
+    document.addEventListener('DOMContentLoaded', function () {
+      var dark = /^#[89a-fA-F]/.test((getComputedStyle(document.documentElement).getPropertyValue('--text') || '').trim());
+      var fg = dark ? '#e2e8f0' : '#1d2935';
+      var hv = dark ? 'rgba(255,255,255,0.1)' : 'rgba(13,158,142,0.1)';
+      var bg = dark ? 'rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.9);border:1px solid rgba(45,62,80,0.13)';
+      var w = document.createElement('div');
+      w.setAttribute('role', 'toolbar'); w.setAttribute('aria-label', 'Text size');
+      w.style.position = 'fixed'; w.style.bottom = '18px'; w.style.right = '18px';
+      w.style.zIndex = '9999'; w.style.display = 'flex'; w.style.alignItems = 'center';
+      w.style.borderRadius = '10px'; w.style.backdropFilter = 'blur(10px)';
+      w.style.webkitBackdropFilter = 'blur(10px)';
+      w.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+      function btn(label, title, onclick) {
+        var b = document.createElement('button');
+        b.textContent = label; b.title = title; b.setAttribute('aria-label', title);
+        b.style.cssText = 'border:none;background:none;cursor:pointer;padding:3px 8px;border-radius:6px;font-family:inherit;font-size:.85rem;line-height:1.4;color:' + fg + ';transition:background 120ms ease';
+        b.addEventListener('mouseenter', function(){ this.style.background = hv; });
+        b.addEventListener('mouseleave', function(){ this.style.background = 'none'; });
+        b.addEventListener('click', onclick);
+        return b;
+      }
+      function render() {
+        w.innerHTML = '';
+        w.style.cssText += ';padding:' + (open ? '4px 2px 4px 6px' : '4px 6px') + ';background:' + bg;
+        var toggle = btn('Aa', open ? 'Collapse text controls' : 'Text size controls', function(){
+          open = !open; localStorage.setItem(OP_KEY, open ? '1' : '0'); render();
+        });
+        toggle.style.fontWeight = '600'; toggle.style.fontSize = '.78rem';
+        w.appendChild(toggle);
+        if (open) {
+          var sep = document.createElement('span');
+          sep.style.cssText = 'width:1px;height:16px;background:' + fg + ';opacity:.15;margin:0 2px';
+          w.appendChild(sep);
+          var dm = btn('A−', 'Smaller text', function(){ if(idx>0){idx--;applySize();upd();} });
+          var dr = btn('A',  'Default size', function(){ idx=1; applySize();upd(); });
+          var dp = btn('A+', 'Larger text',  function(){ if(idx<3){idx++;applySize();upd();} });
+          [dm, dr, dp].forEach(function(b){ w.appendChild(b); });
+          function upd(){ dm.style.opacity=idx===0?'.3':'1'; dm.style.pointerEvents=idx===0?'none':''; dp.style.opacity=idx===3?'.3':'1'; dp.style.pointerEvents=idx===3?'none':''; }
+          upd();
+        }
+      }
+      render();
+      document.body.appendChild(w);
+    });
+  }());
+  </script>
+</body>
+</html>

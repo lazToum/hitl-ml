@@ -1,0 +1,783 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Veri Açıklaması ve Etiketleme &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/tr/chapters/03_annotation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/tr/chapters/03_annotation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Veri Açıklaması ve Etiketleme</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-turleri">Açıklama Türleri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#siniflandirma">Sınıflandırma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dizi-etiketleme">Dizi Etiketleme</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parca-ve-iliski-aciklamasi">Parça ve İlişki Açıklaması</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinir-kutulari-ve-nesne-algilama">Sınır Kutuları ve Nesne Algılama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentasyon">Segmentasyon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transkripsiyon-ve-ceviri">Transkripsiyon ve Çeviri</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-kilavuzlari">Açıklama Kılavuzları</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-kalitesini-olcme-aciklayicilar-arasi-anlasma">Açıklama Kalitesini Ölçme: Açıklayıcılar Arası Anlaşma</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cohen-in-kappa-katsayisi">Cohen’in Kappa Katsayısı</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fleiss-in-kappa-katsayisi">Fleiss’ın Kappa Katsayısı</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#krippendorff-un-alfa-katsayisi">Krippendorff’un Alfa Katsayısı</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anlasmazliklarin-ele-alinmasi">Anlaşmazlıkların Ele Alınması</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cogunluk-oyu">Çoğunluk Oyu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agirlikli-oylama">Ağırlıklı Oylama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yumusak-etiketler">Yumuşak Etiketler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tahkim">Tahkim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#istatistiksel-modeller">İstatistiksel Modeller</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etiket-gurultusu-ve-etkileri">Etiket Gürültüsü ve Etkileri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-maliyeti-ve-verimi">Açıklama Maliyeti ve Verimi</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="veri-aciklamasi-ve-etiketleme">
+<h1>Veri Açıklaması ve Etiketleme<a class="headerlink" href="#veri-aciklamasi-ve-etiketleme" title="Permalink to this heading">#</a></h1>
+<p>Veri açıklaması, makine öğrenmesindeki insan katılımının en yaygın biçimidir. Bir model öğrenmeye başlamadan önce birinin doğru yanıtların ne olduğunu söylemesi gerekir — bu biri çoğunlukla bir insandır. Bu bölüm, açıklamanın teorisini ve pratiğini kapsar: açıklamayı güçleştiren nedir, açıklama görevleri nasıl tasarlanır, kalite nasıl ölçülür ve anlaşmazlıklar nasıl ele alınır.</p>
+<hr class="docutils" />
+<section id="aciklama-turleri">
+<h2>Açıklama Türleri<a class="headerlink" href="#aciklama-turleri" title="Permalink to this heading">#</a></h2>
+<p>Açıklama görevleri yapıları, güçlükleri ve maliyetleri bakımından büyük ölçüde farklılaşır. Başlıca türler şunlardır:</p>
+<section id="siniflandirma">
+<h3>Sınıflandırma<a class="headerlink" href="#siniflandirma" title="Permalink to this heading">#</a></h3>
+<p>Açıklayıcı her örneği önceden tanımlanmış <span class="math notranslate nohighlight">\(K\)</span> kategoriden birine atar. Bu, bilişsel açıdan en basit açıklama görevidir; ancak iyi bir kategori şeması (<em>taksonomi</em>) tasarlamak şaşırtıcı ölçüde güç olabilir.</p>
+<p><strong>İkili sınıflandırma</strong> (bu görüntü bir kedi mi?) en basit durumdur. <strong>Çok sınıflı sınıflandırma</strong> (bu hayvan hangi türe ait?) açıklayıcının listeden tek seçenek yapmasını gerektirir. <strong>Çok etiketli</strong> açıklama (bu makale hangi konuları kapsar?) aynı anda birden fazla etiket atamasına olanak tanır.</p>
+</section>
+<section id="dizi-etiketleme">
+<h3>Dizi Etiketleme<a class="headerlink" href="#dizi-etiketleme" title="Permalink to this heading">#</a></h3>
+<p>Bir dizideki her belirteç bir etiket alır. Adlandırılmış Varlık Tanıma (NER) klasik örnektir — açıklayıcılar metin parçalarını KİŞİ, KURULUŞ, KONUM vb. olarak işaretler. Açıklama genellikle BIO (Başlangıç–İçinde–Dışında) veya BIOES etiketleme şeması kullanılarak gerçekleştirilir:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  B-ORG    O           B-ORG    O     O      O
+</pre></div>
+</div>
+</section>
+<section id="parca-ve-iliski-aciklamasi">
+<h3>Parça ve İlişki Açıklaması<a class="headerlink" href="#parca-ve-iliski-aciklamasi" title="Permalink to this heading">#</a></h3>
+<p>Tek tek belirteçleri etiketlemenin ötesinde açıklayıcıların şunları yapması gerekebilir:</p>
+<ul class="simple">
+<li><p>Parçaları (çok belirteçli ifadeler) belirleyip türleri atamak</p></li>
+<li><p>Parçalar arasındaki <em>ilişkileri</em> işaretlemek (“Apple” EDİNDİ “Shazam”)</p></li>
+<li><p>Eş-atıf zincirlerini açıklamak (aynı varlığın tüm anılması)</p></li>
+</ul>
+<p>Bu görevler bilişsel açıdan zorlu olup açıklayıcılar arası anlaşma düzeyi daha düşüktür.</p>
+</section>
+<section id="sinir-kutulari-ve-nesne-algilama">
+<h3>Sınır Kutuları ve Nesne Algılama<a class="headerlink" href="#sinir-kutulari-ve-nesne-algilama" title="Permalink to this heading">#</a></h3>
+<p>Açıklayıcılar görüntülerdeki nesnelerin etrafına dikdörtgenler çizer ve her kutuya bir kategori etiketi atar. Konumlandırma hassasiyeti önem taşır: çok küçük bir kutu bağlamı kaçırır; çok büyük bir kutu arka planı içerir. Modern açıklama araçları, kalite sorunlarını işaretlemek için referans açıklamalarla kesişim/birleşim (IoU) değerini hesaplar.</p>
+</section>
+<section id="segmentasyon">
+<h3>Segmentasyon<a class="headerlink" href="#segmentasyon" title="Permalink to this heading">#</a></h3>
+<p>Piksel düzeyinde açıklama: her piksel bir sınıfa (anlamsal segmentasyon) ya da belirli bir nesne örneğine (örnek segmentasyonu) atanır. Yüksek kaliteli segmentasyon en pahalı açıklama türlerinden biridir; karmaşık sahnelerde alana ve araç desteğine bağlı olarak görüntü başına maliyetler onlardan yüz doların üzerine çıkabilir.</p>
+</section>
+<section id="transkripsiyon-ve-ceviri">
+<h3>Transkripsiyon ve Çeviri<a class="headerlink" href="#transkripsiyon-ve-ceviri" title="Permalink to this heading">#</a></h3>
+<p>Ses → metin (ASR eğitim verisi), el yazısı → metin (OCR verisi) veya kaynak dil → hedef dil (MT verisi). Bu görevler dilbilimsel uzmanlık gerektirir ve eğitimsiz açıklayıcılar tarafından güvenilir biçimde yapılamaz.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="aciklama-kilavuzlari">
+<h2>Açıklama Kılavuzları<a class="headerlink" href="#aciklama-kilavuzlari" title="Permalink to this heading">#</a></h2>
+<p>Açıklama kalitesinin en belirleyici etkeni, açıklayıcıların uyduğu yazılı talimatlar olan <strong>açıklama kılavuzlarının</strong> kalitesidir.</p>
+<p>İyi kılavuzlar:</p>
+<ul class="simple">
+<li><p>Görev hedefini belirtir ve etiketin <em>neden</em> önem taşıdığını açıklar</p></li>
+<li><p>Olumlu ve olumsuz örneklerle birlikte her kategori için net bir tanım sunar</p></li>
+<li><p>Yaygın sınır durumlarını ve güç vakaları açıkça ele alır</p></li>
+<li><p>Belirsizlik durumunda ne yapılacağını belirtir (örneğin “atla” işaretlemek mi zorunlu seçim mi)</p></li>
+<li><p>Eksiksiz açıklama örnekleri içerir</p></li>
+</ul>
+<p>Kötü kılavuzlar, açıklayıcıların sınır vakalar için “sağduyu kullanmasına” güvenir — bu durum, model kalitesini düşüren ve açıklayıcılar arası anlaşmazlığı artıran tutarsız kararlara yol açar.</p>
+<div class="note admonition">
+<p class="admonition-title">Kılavuz geliştirme yinelemeli bir süreçtir</p>
+<p>Mükemmel kılavuzları baştan yazmayı beklemeyin. Küçük çaplı bir pilot açıklama turu yürütün, anlaşmazlıkları analiz edin ve kılavuzları güncelleyin. Tekrarlayın. İyi geliştirilmiş kılavuzlar genellikle kararlılık kazanmadan önce 3–5 revizyon döngüsünden geçer.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="aciklama-kalitesini-olcme-aciklayicilar-arasi-anlasma">
+<h2>Açıklama Kalitesini Ölçme: Açıklayıcılar Arası Anlaşma<a class="headerlink" href="#aciklama-kalitesini-olcme-aciklayicilar-arasi-anlasma" title="Permalink to this heading">#</a></h2>
+<p>Birden fazla açıklayıcı aynı veriyi etiketlediğinde anlaşmaları ölçülebilir. Yüksek anlaşma, görevin iyi tanımlandığını ve açıklayıcıların bunu anladığını gösterir. Düşük anlaşma, görevde, kılavuzlarda veya verinin kendisinde belirsizliğe işaret eder.</p>
+<section id="cohen-in-kappa-katsayisi">
+<h3>Cohen’in Kappa Katsayısı<a class="headerlink" href="#cohen-in-kappa-katsayisi" title="Permalink to this heading">#</a></h3>
+<p>Veriyi <span class="math notranslate nohighlight">\(K\)</span> kategoriye etiketleyen iki açıklayıcı için <strong>Cohen’in kappa katsayısı</strong> <a href="#id1"><span class="problematic" id="id2">cohen1960coefficient</span></a> gözlemlenen anlaşmayı rastlantı için düzeltir:</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa = \frac{P_o - P_e}{1 - P_e}
+\]</div>
+<p>burada <span class="math notranslate nohighlight">\(P_o\)</span> gözlemlenen orantısal anlaşmadır ve <span class="math notranslate nohighlight">\(P_e\)</span> rastlantısal anlaşma olasılığıdır (marjinal etiket dağılımlarından hesaplanır).</p>
+<p><span class="math notranslate nohighlight">\(\kappa = 1\)</span> mükemmel anlaşmayı; <span class="math notranslate nohighlight">\(\kappa = 0\)</span> rastlantıdan iyi olmayan anlaşmayı; <span class="math notranslate nohighlight">\(\kappa &lt; 0\)</span> sistematik anlaşmazlığı ifade eder.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(\kappa\)</span> aralığı</p></th>
+<th class="head"><p>Yorum</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(&lt; 0\)</span></p></td>
+<td><p>Rastlantıdan az</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0{,}0 - 0{,}20\)</span></p></td>
+<td><p>Çok düşük</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0{,}21 - 0{,}40\)</span></p></td>
+<td><p>Düşük</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0{,}41 - 0{,}60\)</span></p></td>
+<td><p>Orta</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0{,}61 - 0{,}80\)</span></p></td>
+<td><p>Yüksek</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(0{,}81 - 1{,}00\)</span></p></td>
+<td><p>Neredeyse mükemmel</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="fleiss-in-kappa-katsayisi">
+<h3>Fleiss’ın Kappa Katsayısı<a class="headerlink" href="#fleiss-in-kappa-katsayisi" title="Permalink to this heading">#</a></h3>
+<p>Cohen’in kappa katsayısını <span class="math notranslate nohighlight">\(M &gt; 2\)</span> açıklayıcıya genişletir. Her açıklayıcı her öğeyi bağımsız olarak etiketler; formül açıklayıcılar genelinde toplar:</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_F = \frac{\bar{P} - \bar{P}_e}{1 - \bar{P}_e}
+\]</div>
+<p>burada <span class="math notranslate nohighlight">\(\bar{P}\)</span> tüm açıklayıcı çiftlerindeki ortalama ikili anlaşmadır ve <span class="math notranslate nohighlight">\(\bar{P}_e\)</span> rastgele atama altında beklenen anlaşmadır.</p>
+</section>
+<section id="krippendorff-un-alfa-katsayisi">
+<h3>Krippendorff’un Alfa Katsayısı<a class="headerlink" href="#krippendorff-un-alfa-katsayisi" title="Permalink to this heading">#</a></h3>
+<p>Herhangi sayıda açıklayıcıyı, herhangi bir ölçek türünü (nominal, sıralı, aralıklı, oransal) ve eksik veriyi destekleyen en genel ölçüttür <a href="#id3"><span class="problematic" id="id4">krippendorff2011computing</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha = 1 - \frac{D_o}{D_e}
+\]</div>
+<p>burada <span class="math notranslate nohighlight">\(D_o\)</span> gözlemlenen anlaşmazlık ve <span class="math notranslate nohighlight">\(D_e\)</span> beklenen anlaşmazlıktır. Krippendorff’un alfa katsayısı, esnekliği nedeniyle akademik çalışmalarda genellikle tercih edilir.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">cohen_kappa_score</span>
+
+<span class="c1"># Simulate two annotators labeling 200 items into 3 categories</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">true_labels</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># Annotator 1: mostly agrees with ground truth</span>
+<span class="n">ann1</span> <span class="o">=</span> <span class="n">true_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">flip_mask</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.15</span>
+<span class="n">ann1</span><span class="p">[</span><span class="n">flip_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flip_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># Annotator 2: less consistent</span>
+<span class="n">ann2</span> <span class="o">=</span> <span class="n">true_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">flip_mask2</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.30</span>
+<span class="n">ann2</span><span class="p">[</span><span class="n">flip_mask2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flip_mask2</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="n">kappa_12</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann1</span><span class="p">,</span> <span class="n">ann2</span><span class="p">)</span>
+<span class="n">kappa_1true</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann1</span><span class="p">,</span> <span class="n">true_labels</span><span class="p">)</span>
+<span class="n">kappa_2true</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">ann2</span><span class="p">,</span> <span class="n">true_labels</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann1 vs ann2):   </span><span class="si">{</span><span class="n">kappa_12</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann1 vs truth):  </span><span class="si">{</span><span class="n">kappa_1true</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohen&#39;s κ (ann2 vs truth):  </span><span class="si">{</span><span class="n">kappa_2true</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="anlasmazliklarin-ele-alinmasi">
+<h2>Anlaşmazlıkların Ele Alınması<a class="headerlink" href="#anlasmazliklarin-ele-alinmasi" title="Permalink to this heading">#</a></h2>
+<p>Açıklayıcılar anlaşmazlığa düştüğünde birkaç strateji mevcuttur:</p>
+<section id="cogunluk-oyu">
+<h3>Çoğunluk Oyu<a class="headerlink" href="#cogunluk-oyu" title="Permalink to this heading">#</a></h3>
+<p>En yaygın etiket altın standart olarak alınır. Öğe başına açıklayıcı sayısı tek olduğunda basit ve sağlamdır. Azınlık grubundaki açıklayıcıların sistematik olarak daha doğru olduğu durumlarda başarısız olur.</p>
+</section>
+<section id="agirlikli-oylama">
+<h3>Ağırlıklı Oylama<a class="headerlink" href="#agirlikli-oylama" title="Permalink to this heading">#</a></h3>
+<p>Açıklayıcılar, tahmini doğruluklarına göre ağırlıklandırılır (altın standart veya diğer açıklayıcılarla anlaşmadan türetilir). Daha doğru açıklayıcıların etkisi daha fazladır.</p>
+</section>
+<section id="yumusak-etiketler">
+<h3>Yumuşak Etiketler<a class="headerlink" href="#yumusak-etiketler" title="Permalink to this heading">#</a></h3>
+<p>Açıklamaları tek bir etikette yoğunlaştırmak yerine dağılımı koruyun. 5 açıklayıcıdan 3’ü “pozitif” ve 2’si “nötr” dediyse bunu <span class="math notranslate nohighlight">\((p_\text{pos}, p_\text{nötr}, p_\text{neg}) = (0{,}6, 0{,}4, 0{,}0)\)</span> olarak temsil edin. Yumuşak etiketlerle eğitim, kalibrasyon kalitesini artırır.</p>
+</section>
+<section id="tahkim">
+<h3>Tahkim<a class="headerlink" href="#tahkim" title="Permalink to this heading">#</a></h3>
+<p>Kıdemli bir açıklayıcı veya alan uzmanı anlaşmazlıklara karar verir. Altın standart bir yaklaşımdır ancak pahalıdır; genellikle yüksek riskli alanlar için ayrılır.</p>
+</section>
+<section id="istatistiksel-modeller">
+<h3>İstatistiksel Modeller<a class="headerlink" href="#istatistiksel-modeller" title="Permalink to this heading">#</a></h3>
+<p>Daha sofistike yaklaşımlar, açıklayıcı yetkinliğini olasılıksal biçimde modeller. <strong>Dawid-Skene</strong> modeli <a href="#id5"><span class="problematic" id="id6">dawid1979maximum</span></a>, EM algoritması aracılığıyla hem açıklayıcı karışıklık matrislerini hem de öğe gerçek etiketlerini eş zamanlı olarak tahmin eder. Ayrıntılar için bkz. Bölüm 13.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="etiket-gurultusu-ve-etkileri">
+<h2>Etiket Gürültüsü ve Etkileri<a class="headerlink" href="#etiket-gurultusu-ve-etkileri" title="Permalink to this heading">#</a></h2>
+<p>Gerçek açıklamalar gürültülüdür. Etiket gürültüsünün model eğitimine etkileri, gürültü türüne bağlıdır:</p>
+<ul class="simple">
+<li><p><strong>Rastgele gürültü</strong> (etiketlerin rastgele çevrilmesi) performansı düşürür, ancak modeller ılımlı düzeylere (birçok görev için ~%20’ye kadar) şaşırtıcı biçimde dayanıklıdır.</p></li>
+<li><p><strong>Sistematik/saldırgan gürültü</strong> (etiketlerin belirli kalıplarda sürekli yanlış olması) çok daha zararlıdır ve tespit edilmesi güçtür.</p></li>
+<li><p><strong>Sınıf koşullu gürültü</strong> (belirli sınıflar için daha fazla hata) modelin karar sınırını önyargılı hâle getirir.</p></li>
+</ul>
+<p>Pratik bir kural: <span class="math notranslate nohighlight">\(n\)</span> eğitim örneği ve <span class="math notranslate nohighlight">\(\epsilon\)</span> bozuk etiket oranıyla model performansı, yaklaşık olarak <span class="math notranslate nohighlight">\((1 - 2\epsilon)^2 n\)</span> temiz örneğe eşdeğer biçimde bozulur <a href="#id7"><span class="problematic" id="id8">natarajan2013learning</span></a>. <span class="math notranslate nohighlight">\(\epsilon = 0{,}2\)</span> için bu, verinizin %36’sını yitirmeye eşdeğerdir.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">noise_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">mean_accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">noise_levels</span><span class="p">:</span>
+    <span class="n">y_noisy</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">flip</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">eps</span>
+    <span class="n">y_noisy</span><span class="p">[</span><span class="n">flip</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">y_noisy</span><span class="p">[</span><span class="n">flip</span><span class="p">]</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y_noisy</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">mean_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noise_levels</span><span class="p">,</span> <span class="n">mean_accs</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Label noise rate (ε)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cross-validated accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Effect of Label Noise on Model Performance&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;20% noise&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;label_noise_effect.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Accuracy at 0% noise:  </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy at 20% noise: </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0.45</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">14</span><span class="p">)]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy at 40% noise: </span><span class="si">{</span><span class="n">mean_accs</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="aciklama-maliyeti-ve-verimi">
+<h2>Açıklama Maliyeti ve Verimi<a class="headerlink" href="#aciklama-maliyeti-ve-verimi" title="Permalink to this heading">#</a></h2>
+<p>Açıklama ekonomisini anlamak, proje planlaması açısından önem taşır.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Görev türü</p></th>
+<th class="head"><p>Tipik verim</p></th>
+<th class="head"><p>Öğe başına maliyet (uzman)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>İkili görüntü sınıflandırması</p></td>
+<td><p>200–500/sa</p></td>
+<td><p>0,02–0,10 USD</p></td>
+</tr>
+<tr class="row-odd"><td><p>NER (kısa metin)</p></td>
+<td><p>50–150 öğe/sa</p></td>
+<td><p>0,10–0,50 USD</p></td>
+</tr>
+<tr class="row-even"><td><p>İlişki çıkarımı</p></td>
+<td><p>20–60 öğe/sa</p></td>
+<td><p>0,30–1,50 USD</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tıbbi görüntü segmentasyonu</p></td>
+<td><p>5–30 öğe/sa</p></td>
+<td><p>10–100 USD</p></td>
+</tr>
+<tr class="row-even"><td><p>Video açıklaması</p></td>
+<td><p>5–20 dk video/sa</p></td>
+<td><p>20–200 USD</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Bu rakamlar yaklaşık büyüklük tahminleridir ve alana gereken uzmanlığa, açıklama aracının kalitesine, kılavuz netliğine ve açıklayıcı deneyimine göre büyük ölçüde değişir. Gösterge niteliği taşır; kesin değer olarak yorumlanmamalıdır.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Açıklama aracı seçenekleri Bölüm 12’de ele alınmaktadır. Kitle kaynaklı açıklama için istatistiksel modeller (Dawid-Skene, MACE) Bölüm 13’te işlenmektedir.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/tr/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-turleri">Açıklama Türleri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#siniflandirma">Sınıflandırma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dizi-etiketleme">Dizi Etiketleme</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parca-ve-iliski-aciklamasi">Parça ve İlişki Açıklaması</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinir-kutulari-ve-nesne-algilama">Sınır Kutuları ve Nesne Algılama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentasyon">Segmentasyon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transkripsiyon-ve-ceviri">Transkripsiyon ve Çeviri</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-kilavuzlari">Açıklama Kılavuzları</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-kalitesini-olcme-aciklayicilar-arasi-anlasma">Açıklama Kalitesini Ölçme: Açıklayıcılar Arası Anlaşma</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cohen-in-kappa-katsayisi">Cohen’in Kappa Katsayısı</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fleiss-in-kappa-katsayisi">Fleiss’ın Kappa Katsayısı</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#krippendorff-un-alfa-katsayisi">Krippendorff’un Alfa Katsayısı</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anlasmazliklarin-ele-alinmasi">Anlaşmazlıkların Ele Alınması</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cogunluk-oyu">Çoğunluk Oyu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agirlikli-oylama">Ağırlıklı Oylama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yumusak-etiketler">Yumuşak Etiketler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tahkim">Tahkim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#istatistiksel-modeller">İstatistiksel Modeller</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etiket-gurultusu-ve-etkileri">Etiket Gürültüsü ve Etkileri</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aciklama-maliyeti-ve-verimi">Açıklama Maliyeti ve Verimi</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spring Edition — Human in the Loop: Misunderstood</title>
+  <style>
+    :root {
+      --bg: #f4efe6; --bg-alt: #fbf8f2; --surface: rgba(255,255,255,0.72);
+      --surface-border: rgba(45,62,80,0.14); --text: #1d2935; --muted: #5b6875;
+      --accent: #0d9e8e; --spring: #27ae60; --winter: #2b3a8f; --reader: #0d9e8e;
+      --shadow: 0 18px 40px rgba(35,44,56,0.08); --radius: 18px; --page-max: 1100px;
+    }
+    *{box-sizing:border-box}
+    html{font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;color:var(--text);
+      background:radial-gradient(circle at top left,rgba(39,174,96,.07),transparent 32%),linear-gradient(180deg,var(--bg-alt),var(--bg));}
+    body{margin:0;min-height:100vh}
+    a{color:inherit;text-decoration:none}
+    .page-shell{max-width:var(--page-max);margin:0 auto;padding:48px 24px 72px}
+    .back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:32px;color:var(--muted);
+      font-size:.88rem;font-family:"JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.02em;transition:color 120ms ease}
+    .back-link:hover{color:var(--accent)}.back-link::before{content:"←"}
+    .hero{padding:32px 0 24px}
+    .eyebrow{margin:0 0 12px;color:var(--spring);font:700 .8rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .hero h1{margin:0;font-size:clamp(2.2rem,5vw,4rem);line-height:.95}
+    .lede{max-width:720px;margin:18px 0 0;color:var(--muted);font-size:1.08rem;line-height:1.6}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+    .edition-card{display:flex;flex-direction:column;gap:10px;min-height:200px;padding:20px;
+      background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius);
+      box-shadow:var(--shadow);backdrop-filter:blur(10px);transition:transform 140ms ease,border-color 140ms ease}
+    .edition-card:hover{border-color:rgba(39,174,96,.36);transform:translateY(-2px)}
+    .edition-tag{font:700 .78rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--spring)}
+    .edition-card[data-season="reader"] .edition-tag{color:var(--reader)}
+    .edition-card[data-season="winter"] .edition-tag{color:var(--winter)}
+    .edition-card{border-left:4px solid var(--spring)}
+    .edition-card[data-season="reader"]{border-left-color:var(--reader)}
+    .edition-card[data-season="winter"]{border-left-color:var(--winter)}
+    .edition-card strong{font-size:1.15rem}
+    .edition-card span:last-child{color:var(--muted);line-height:1.55}
+    .stack{margin-top:28px;padding:22px 24px;background:var(--surface);border:1px solid var(--surface-border);
+      border-radius:var(--radius);box-shadow:var(--shadow)}
+    .stack h2{margin:0 0 14px;font-size:1.2rem;color:var(--spring)}
+    .stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+    .stack-item{padding:12px 16px;background:rgba(39,174,96,.06);border:1px solid rgba(39,174,96,.18);border-radius:10px}
+    .stack-item strong{display:block;font-size:.85rem;color:var(--text);font-family:"JetBrains Mono","SFMono-Regular",monospace}
+    .stack-item span{font-size:.8rem;color:var(--muted)}
+    .run-block{margin-top:20px;padding:18px 22px;background:rgba(0,0,0,.06);border:1px solid rgba(39,174,96,.25);
+      border-radius:12px;font-family:"JetBrains Mono","SFMono-Regular",monospace;font-size:.88rem;color:var(--muted)}
+    .run-block .cmd{color:#166534;margin-top:6px}
+    .about-block{max-width:720px;margin:24px 0 0;padding:22px 24px;background:var(--surface);
+      border:1px solid var(--surface-border);border-radius:var(--radius);box-shadow:var(--shadow);
+      color:var(--muted);line-height:1.7}
+    .about-block p{margin:0 0 10px}.about-block p:last-child{margin-bottom:0}
+    .site-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--surface-border);color:var(--muted);font-size:.82rem}
+    .site-footer a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <a class="back-link" href="../">Series overview</a>
+
+    <section class="hero">
+      <p class="eyebrow">Spring Edition</p>
+      <h1>Build the Loop</h1>
+      <p class="lede">
+        A semester-long treasure-hunt platform that puts human-in-the-loop machine learning
+        into practice. Teams design clues, the AI sidecar scores free-text answers, and
+        every hint request or annotation becomes a training signal. Rust/Axum API, Python/FastAPI
+        AI sidecar, React dashboard, Flutter mobile app, Zitadel OIDC auth, PostgreSQL, Redis.
+      </p>
+    </section>
+
+    <section class="card-grid">
+      <a class="edition-card" data-season="spring" href="../downloads/spring/hitl_spring_guide.pdf">
+        <span class="edition-tag">PDF</span>
+        <strong>Project guide</strong>
+        <span>15 chapters on building the platform — schema design, API, auth, AI integration, testing, and deployment.</span>
+      </a>
+      <a class="edition-card" data-season="spring" href="book/">
+        <span class="edition-tag">Handbook</span>
+        <strong>Read online</strong>
+        <span>15 chapters as a searchable web book — schema, API, auth, AI, testing, and deployment.</span>
+      </a>
+      <a class="edition-card" data-season="reader" href="../reader/">
+        <span class="edition-tag">Reader</span>
+        <strong>Interactive reader</strong>
+        <span>The 15 Spring chapters in the interactive reader with TTS and ambient audio.</span>
+      </a>
+      <div class="edition-card" data-season="spring">
+        <span class="edition-tag">Docker</span>
+        <strong>Run locally</strong>
+        <span>Launch the full stack with a single command:</span>
+        <code style="margin-top:6px;font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:.82rem;color:#166534">cd editions/spring &amp;&amp; docker compose up</code>
+      </div>
+    </section>
+
+    <div class="stack">
+      <h2>Platform stack</h2>
+      <div class="stack-grid">
+        <div class="stack-item"><strong>Rust / Axum</strong><span>REST API, answer validation, hint engine</span></div>
+        <div class="stack-item"><strong>Python / FastAPI</strong><span>AI sidecar, LLM integration, scoring</span></div>
+        <div class="stack-item"><strong>React / Vite</strong><span>Creator dashboard, observer view</span></div>
+        <div class="stack-item"><strong>Flutter</strong><span>Mobile player app (iOS + Android)</span></div>
+        <div class="stack-item"><strong>OIDC / Zitadel</strong><span>Identity, roles, session management</span></div>
+        <div class="stack-item"><strong>PostgreSQL</strong><span>Game state, answers, annotations</span></div>
+        <div class="stack-item"><strong>Redis</strong><span>Session cache, real-time leaderboard</span></div>
+      </div>
+    </div>
+
+    <div class="run-block">
+      To run the full platform locally (requires Docker):
+      <div class="cmd">cd editions/spring &amp;&amp; docker compose up</div>
+    </div>
+
+    <div class="about-block">
+      <p>
+        The Spring platform is the experiential counterpart to the Winter textbook.
+        Where Winter explains the five-dimension HITL framework analytically,
+        Spring builds a system that exercises all five dimensions: uncertainty detection
+        via the hint engine, intervention design via the creator interface, timing via
+        live scoring, stakes calibration via difficulty tiers, and feedback integration
+        via the annotation loop.
+      </p>
+      <p>
+        The platform has three roles. <strong>Creators</strong> author hunts through the React
+        dashboard — writing clues, setting difficulty tiers, and previewing AI scoring
+        before publishing. <strong>Players</strong> participate via the Flutter mobile app,
+        submitting free-text answers and requesting hints when stuck.
+        <strong>Observers</strong> watch the live leaderboard and can flag annotations for
+        review, closing the human-in-the-loop cycle in real time.
+      </p>
+      <p>
+        Every design decision in the platform is documented in the 15-chapter project
+        guide. The guide reads as a companion to the codebase — not a tutorial,
+        but a record of the choices made and why. Auth is handled by Zitadel OIDC;
+        no custom identity code is required.
+      </p>
+    </div>
+
+    <footer class="site-footer">
+      &copy; 2026 Lazaros Toumanidis &mdash;
+      <a href="https://laztoum.com">laztoum.com</a>
+    </footer>
+  </main>
+</body>
+</html>

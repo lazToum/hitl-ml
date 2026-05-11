@@ -1,0 +1,60 @@
+title: "Human in the Loop: Misunderstood — Spring Edition"
+author: "Lazaros Toumanidis"
+logo: ""
+
+execute:
+  execute_notebooks: "off"
+
+html:
+  use_repository_button: false
+  use_edit_page_button: false
+  use_issues_button: false
+  home_page_in_navbar: false
+  extra_footer: ""
+  announcement: "Build something. Break something. Learn something."
+
+  extra_css_files:
+    - spring.css
+
+latex:
+  latex_documents:
+    targetname: hitl_spring_edition.tex
+  latex_engine: xelatex
+  use_jupyterbook_latex: true
+
+sphinx:
+  extra_extensions: []
+  config:
+    exclude_patterns:
+      - "backend-python/**"
+      - "backend-rust/**"
+      - "db/**"
+      - "mobile/**"
+      - "web/**"
+      - "zitadel/**"
+    html_show_copyright: false
+    latex_elements:
+      papersize: a4paper
+      pointsize: 11pt
+      fontpkg: |
+        \usepackage{fontspec}
+        \setmainfont{Georgia}[Ligatures=TeX, Numbers=OldStyle]
+        \setsansfont{Helvetica Neue}[Scale=0.90, Ligatures=TeX]
+        \setmonofont{JetBrains Mono}[Scale=0.80]
+      geometry: |
+        \usepackage[
+          a4paper,
+          inner=30mm, outer=24mm,
+          top=30mm,   bottom=26mm,
+          headsep=11mm
+        ]{geometry}
+      preamble: |
+        \usepackage{microtype}
+        \usepackage{setspace}
+        \setstretch{1.10}
+        \usepackage{emptypage}
+        \usepackage{listings}
+        \definecolor{sprteal}{HTML}{0d9e8e}
+        \definecolor{sprindigo}{HTML}{2b3a8f}
+        \definecolor{sprcoral}{HTML}{e05c5c}
+        \definecolor{sprtext}{HTML}{1a2233}

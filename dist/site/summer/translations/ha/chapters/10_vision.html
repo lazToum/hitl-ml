@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>HITL a Gane Hoto ta Kwamfuta &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ha/chapters/10_vision';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ha/chapters/10_vision.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>HITL a Gane Hoto ta Kwamfuta</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yadda-zauukan-lakabi-ke-zama-nuna-son-zuciya-na-samfuri">Yadda Zaɓuɓɓukan Lakabi ke Zama Nuna Son Zuciya na Samfuri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yanayin-imagenet">Yanayin ImageNet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakabi-na-rarrabuwa-hoto">Lakabi na Rarrabuwa Hoto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gano-abubuwa-lakabi-na-akwatin-iyaka">Gano Abubuwa: Lakabi na Akwatin Iyaka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rarrabuwa-ta-ma-ana-da-misali">Rarrabuwa ta Ma’ana da Misali</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koyon-aiki-don-gane-hoto-ta-kwamfuta">Koyon Aiki don Gane Hoto ta Kwamfuta</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koyon-semi-supervised-tare-da-jagoran-dan-adam">Koyon Semi-Supervised tare da Jagoran Dan Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakabi-na-bidiyo">Lakabi na Bidiyo</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hitl-a-gane-hoto-ta-kwamfuta">
+<h1>HITL a Gane Hoto ta Kwamfuta<a class="headerlink" href="#hitl-a-gane-hoto-ta-kwamfuta" title="Permalink to this heading">#</a></h1>
+<p>Gane hoto ta kwamfuta yana ba da wasu mafi bayyana na ɗan adam na HITL ML. Gasar ImageNet, wanda aka gina akan hotuna miliyan 14 da dan adam ya yi lakabi, ya ƙaddamar da zamanin koyon zurfin. Lakabi na hoto likitanci ta likitan hoto yana ƙarfafa AI na gano cutar. Motoci masu tuka kan su suna dogara akan firam da dan adam ya yi lakabi da miliyoyi don koyon gane duniya.</p>
+<p>Abin da ke da sauƙin rasa: waɗannan ba kawai lokuta ne na dan adam da ke ba da gaskiyar ƙasa ba. Su ne lokuta ne na dan adam da ke ƙirƙira saitin bayanai waɗanda ke ɓoye zaɓuɓɓukan fahimta, al’adu, da aiki musamman — zaɓuɓɓuka waɗanda ke bayyana kawai daga baya, lokacin da samfurin suka gazawa ta hanyoyi masu iya hasashe.</p>
+<hr class="docutils" />
+<section id="yadda-zauukan-lakabi-ke-zama-nuna-son-zuciya-na-samfuri">
+<h2>Yadda Zaɓuɓɓukan Lakabi ke Zama Nuna Son Zuciya na Samfuri<a class="headerlink" href="#yadda-zauukan-lakabi-ke-zama-nuna-son-zuciya-na-samfuri" title="Permalink to this heading">#</a></h2>
+<p>Tsarin yau da kullum yana ɗaukar lakabi a matsayin tattara bayanai: dan adam suna lura da duniya kuma suna rubuta abin da suka gani. Tsarin mafi daidai shine cewa lakabi shine <em>zanen saitin bayanai</em>: dan adam suna yanke shawara waɗanne rukunan za a yi amfani da su, inda za a zana iyaka, waɗanne lokuta na iyaka za a haɗa, da yadda za a warware rikitarwa — kuma duk waɗannan yanke shawara suna tsara abin da samfuri da aka horar zai gane.</p>
+<section id="yanayin-imagenet">
+<h3>Yanayin ImageNet<a class="headerlink" href="#yanayin-imagenet" title="Permalink to this heading">#</a></h3>
+<p>ImageNet <a href="#id1"><span class="problematic" id="id2">russakovsky2015imagenet</span></a> shine saitin bayanai mafi muhimmanci a cikin tarihin gane hoto ta kwamfuta. Saita lakabin sa yana samo asali daga synsets na WordNet, da farko an zaɓa don kasancewa da yawa da kuma bambancin ma’ana. Sakamako da yawa na wannan zaɓi na zane suka bayyana shekaru baya:</p>
+<ul class="simple">
+<li><p><strong>Rukunan mutum sun ɓoye alaƙa na halaye na dimokra’iyya.</strong> Sigar farko na lakabin synset na ImageNet don mutum sun haɗa da da yawa waɗanda yanzu za a ɗauke su mara darajar ko nuna son zuciya, suna nuna duka tushen WordNet na tarihi da yanke shawara da ɓoye na ƙungiyar aiki na lakabi game da waɗanne lakabin za a yi amfani da su ga hotuna guda guda <a href="#id3"><span class="problematic" id="id4">yang2020towards</span></a>. Lakabin da aka yi amfani da su ga hotuna na mutum sun ɓoye alaƙa ta jinsi, jima’i, da aji waɗanda kai tsaye suka yada zuwa cikin embeddings na samfuri.</p></li>
+<li><p><strong>Taxonomy ta jinsin-jinsin tsari mai kyau, na kusan duk sauran.</strong> ImageNet yana iya bambanta karnukan nau’in 120 amma yana ruguje bambancin mai yawa a cikin kayan aiki, motoci, abinci, da daki-daki zuwa rukunan ɗaya. Wannan sakamakon bin tsarin WordNet ne, ba zaɓin da gangan game da abin da ke da muhimmanci ba. Samfurin da aka horar akan ImageNet suna nuna daidaito mara daidaito ɗaya.</p></li>
+<li><p><strong>Ma’aunan gani na Yamma, mai magana da Turanci.</strong> An tattara hotuna da farko daga Flickr da binciken Intanet ta amfani da tambayoyi da Turanci. Rarrabawar da ta samu tana nuna sosai zuwa yanayin gani da abubuwan al’adu na ƙasashe masu arziki, masu magana da Turanci.</p></li>
+</ul>
+<p>Babu ɗayan waɗannan kurakurai ba ne. Yanke shawara ne na zanen lakabi da aka yi da sauri a sikeli, galibi ta mutane waɗanda ba su yi tsammanin yadda saitin bayanai za a yi amfani da shi ba. Darasin ba shine cewa ya kamata a gina ImageNet daban ba (ko da yake ya kamata), amma <strong>zanen lakabi zanen samfuri ne</strong>, kuma ya kamata a ɗauke shi da kulawa ɗaya.</p>
+<div class="note admonition">
+<p class="admonition-title">Schema na lakabi ka’idar duniya ce</p>
+<p>Kowane taxonomy na lakabi yana yin da’awa game da bambance waɗanda ke da muhimmanci. Zaɓar rarrabewa “mota” daga “motar da aka yi watsi da wuri biyu” yayin da suka dunkule duk wayoyin hannu zuwa aji ɗaya da’awar ka’ida ce game da waɗanne bambance ke da ma’ana ta ma’ana. Zaɓar yin lakabi ga “mutum” a matsayin aji ɗaya ba tare da la’akari da hali, sutura, ko aiki ba wata da’awar ka’ida ce. Samfurin da aka horar akan waɗannan schemas za su yi bambancen ɗaya, kuma ba fiye da haka — ba za su faɗaɗa fiye da rukunan da aka horar su don bambanta ba.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="lakabi-na-rarrabuwa-hoto">
+<h2>Lakabi na Rarrabuwa Hoto<a class="headerlink" href="#lakabi-na-rarrabuwa-hoto" title="Permalink to this heading">#</a></h2>
+<p>Mafi sauƙin aikin lakabi na CV shine sanya lakabin ɗaya ko fiye ga hoto gaba ɗaya.</p>
+<p><strong>Hierarchy na lakabi.</strong> Lakabi “kare” yana yaro na “dabba” a cikin hierarchy na ma’ana. Samfurin da aka horar akan taxonomies mai saman iya ba su faɗaɗa da kyau a cikin matakin abstraction. ImageNet yana amfani da hierarchy bisa synset wanda ke ba da damar kimantawa a matakai da yawa na musamman.</p>
+<p><strong>Rikitarwa ta lakabi nau’i da yawa.</strong> Yanayin titin na iya ƙunshi mota, mutum, keke, da hasken zirga-zirga a lokaci ɗaya. Yanke shawara waɗanne lakabin za a haɗa yana buƙatar jagoran bayyananne game da iyakar dacewa.</p>
+<p><strong>Rarrabawar dogon wutsiya.</strong> Saitin bayanai na hotuna na yanayi suna bin doka mai iko: rukunan kaɗan suna da yawa sosai; mafi yawansu suna da ƙarami. Koyon aiki yana da ƙima musamman don rukunan dogon wutsiya inda samfurin ta damari yana ba da kaɗan misalai.</p>
+</section>
+<hr class="docutils" />
+<section id="gano-abubuwa-lakabi-na-akwatin-iyaka">
+<h2>Gano Abubuwa: Lakabi na Akwatin Iyaka<a class="headerlink" href="#gano-abubuwa-lakabi-na-akwatin-iyaka" title="Permalink to this heading">#</a></h2>
+<p>Gano abubuwa yana buƙatar masu sanya lakabi su zana akwatuna daidai da axis a kusa da misali na kowane ajin abubuwa. Wannan yana gabatar da buƙatun daidaito na geometrical da lokuta na iyaka masu yawa.</p>
+<p><strong>Ma’aunai na ingancin lakabi:</strong></p>
+<p><em>IoU (Haɗuwa-akan-Ƙungiya)</em> yana auna haɗuwa tsakanin akwati da aka sanya lakabi da akwati na tunani:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{IoU}(A, B) = \frac{|A \cap B|}{|A \cup B|}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\text{IoU} \geq 0.5\)</span> shine iyaka ta yau da kullum don gano “daidai” a PASCAL VOC; COCO <a href="#id5"><span class="problematic" id="id6">lin2014microsoft</span></a> yana amfani da iyaka da yawa daga 0.5 zuwa 0.95, wanda yana da buƙatu fiye da kima kuma yana ba da bayanai fiye da kima.</p>
+<p><strong>Lokuta na iyaka na lakabi waɗanda dole ne a warware su a cikin jagoran:</strong></p>
+<ul class="simple">
+<li><p>Abubuwa masu toshe: yin lakabi ga ɓangare da ake gani ko kimanta faɗin cikakke?</p></li>
+<li><p>Abubuwa masu yanke (a wani ɓangare waje da firam): haɗa ko cire?</p></li>
+<li><p>Yankuna masu cunkoson jama’a: yi amfani da lakabi na musamman “fama da cunkoson jama’a” ko yin lakabi ga misali ɗaya ɗaya?</p></li>
+</ul>
+<p>Kowane ɗayan waɗannan yanke shawara yana canza abin da “gano daidai” ke nufi — kuma saboda haka yana canza abin da samfuri aka horar don yi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_iou</span><span class="p">(</span><span class="n">boxA</span><span class="p">,</span> <span class="n">boxB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute IoU between two boxes [x1, y1, x2, y2].&quot;&quot;&quot;</span>
+    <span class="n">xA</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">yA</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">xB</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">yB</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">inter_area</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xB</span> <span class="o">-</span> <span class="n">xA</span><span class="p">)</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">yB</span> <span class="o">-</span> <span class="n">yA</span><span class="p">)</span>
+    <span class="n">boxA_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxA</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">boxA</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxA</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">boxB_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">boxB</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">boxB</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxB</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">union_area</span> <span class="o">=</span> <span class="n">boxA_area</span> <span class="o">+</span> <span class="n">boxB_area</span> <span class="o">-</span> <span class="n">inter_area</span>
+    <span class="k">return</span> <span class="n">inter_area</span> <span class="o">/</span> <span class="p">(</span><span class="n">union_area</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span>
+
+<span class="n">ref_box</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]</span>
+<span class="n">ann1_box</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">]</span>   <span class="c1"># close</span>
+<span class="n">ann2_box</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">]</span>   <span class="c1"># less precise</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IoU (ann1 vs ref):  </span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann1_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IoU (ann2 vs ref):  </span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann2_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IoU (ann1 vs ann2): </span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann1_box</span><span class="p">,</span><span class="w"> </span><span class="n">ann2_box</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">ref_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ref_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">ref_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">ref_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ref_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ref_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reference&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">ann1_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann1_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">ann1_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">ann1_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann1_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ann1_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#0d9e8e&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Ann1 (IoU=</span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann1_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">ann2_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann2_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">ann2_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">ann2_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ann2_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ann2_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Ann2 (IoU=</span><span class="si">{</span><span class="n">compute_iou</span><span class="p">(</span><span class="n">ann2_box</span><span class="p">,</span><span class="w"> </span><span class="n">ref_box</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Bounding Box Agreement (IoU)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;bbox_iou.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="rarrabuwa-ta-ma-ana-da-misali">
+<h2>Rarrabuwa ta Ma’ana da Misali<a class="headerlink" href="#rarrabuwa-ta-ma-ana-da-misali" title="Permalink to this heading">#</a></h2>
+<p>Lakabi na rarrabuwa yana buƙatar sanya ajin lakabi ga kowane pixel a cikin hoto — daga cikin mafi tsada nau’in lakabi.</p>
+<p><strong>Rarrabuwa ta ma’ana:</strong> Kowane pixel yana cikin ajin ma’ana (hanya, sararin sama, mutum, mota). Duk pixel na ajin ɗaya suna raba lakabi ɗaya, ba tare da la’akari da wane abu na musamman suke cikin shi ba.</p>
+<p><strong>Rarrabuwa misali:</strong> Kowane misali na abu na musamman yana karɓar lakabi na musamman. Fama da cunkoson jama’a na mutum 20 yana zama tufafi 20 daban-daban.</p>
+<p><strong>Rarrabuwa Panoptic:</strong> Yana haɗa duka biyun: rukunan “abu” (abubuwa masu iya ƙidaya) suna da tufafi misali; rukunan “abubuwa” (hanya, sararin sama) suna da tufafi ma’ana.</p>
+<p><strong>Lakabi mai tallafi na SAM:</strong> Samfurin Segment Anything Meta <a href="#id7"><span class="problematic" id="id8">kirillov2023segment</span></a> yana ƙirƙira tufafin rarrabuwa mai inganci daga danna kan ɗaya. Masu sanya lakabi suna danna tsakiyar abu; SAM yana ba da shawara tufafi; mai sanya lakabi yana yarda ko gyara. Marubutan SAM sun ruwaito hanzartar da injin lakabi na kusan 6.5× akan sanya lakabi bisa polygon; riba suna bambanta cikin nau’in yanayi da kayan aiki na lakabi.</p>
+<p>SAM yana wakilta canjin mafi faffada: <strong>matsayin mai sanya lakabi yana canzawa daga zane zuwa duba da tabbatarwa</strong>. Wannan yana da abubuwa masu amfani don ingancin lakabi fiye da sauri. Lokacin da masu sanya lakabi suna zane, hankalinsu yana shiga a duk tsari. Lokacin da masu sanya lakabi suna duba kuma suna danna “yarda,” akwai shaidar cewa suna rasa kurakurai cikin sauƙin fiye da kima — sigar nuna son zuciya na atomatik musamman ga mahallin lakabi.</p>
+</section>
+<hr class="docutils" />
+<section id="koyon-aiki-don-gane-hoto-ta-kwamfuta">
+<h2>Koyon Aiki don Gane Hoto ta Kwamfuta<a class="headerlink" href="#koyon-aiki-don-gane-hoto-ta-kwamfuta" title="Permalink to this heading">#</a></h2>
+<p>Koyon aiki yana da ƙima musamman a CV saboda:</p>
+<ol class="arabic simple">
+<li><p>Hotuna suna da yawan girma kuma suna da arziki ta fasali — embeddings daga samfurin da aka horar a baya suna ɗaukar alaman ƙarfi don ƙiyasin rashin tabbas</p></li>
+<li><p>Tafkin mara lakabi yana da arha (hotuna, firam na bidiyo)</p></li>
+<li><p>Lakabi (musamman rarrabuwa) yana da tsada kuma ba za a iya cunkusar da shi da sauƙin don yankuna musamman ba</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                            <span class="n">n_classes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">2500</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">2500</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span>  <span class="n">y_test</span>  <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">2500</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2500</span><span class="p">:]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">margin_uncertainty</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_pool</span><span class="p">):</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pool</span><span class="p">)</span>
+    <span class="n">sorted_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sorted_p</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">sorted_p</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># most negative = most uncertain</span>
+
+<span class="n">n_init</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;active&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="n">label_counts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">]:</span>
+    <span class="n">labeled</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">n_init</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">unlabeled</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labeled</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">label_counts</span><span class="p">:</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">target</span> <span class="ow">and</span> <span class="n">unlabeled</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;active&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">labeled</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="n">model_temp</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+                    <span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+                <span class="n">margins</span> <span class="o">=</span> <span class="n">margin_uncertainty</span><span class="p">(</span><span class="n">model_temp</span><span class="p">,</span> <span class="n">X_train</span><span class="p">[</span><span class="n">unlabeled</span><span class="p">])</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">margins</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unlabeled</span><span class="p">))</span>
+            <span class="n">labeled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unlabeled</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+
+        <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">labeled</span><span class="p">])</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">strategy</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Active (margin sampling)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;random&#39;</span><span class="p">],</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e05c5c&#39;</span><span class="p">,</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random baseline&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Labeled training images&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Active Learning for 5-Class Image Classification&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;cv_active_learning.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="koyon-semi-supervised-tare-da-jagoran-dan-adam">
+<h2>Koyon Semi-Supervised tare da Jagoran Dan Adam<a class="headerlink" href="#koyon-semi-supervised-tare-da-jagoran-dan-adam" title="Permalink to this heading">#</a></h2>
+<p>Yawan bayanai na gani da ba a yi lakabi ba da yake samuwa yana mai da koyon semi-supervised yana da jan hankali musamman don CV.</p>
+<p><strong>Horarwa-kan-kansa / pseudo-labeling:</strong> Horar da samfuri akan bayanai da aka yi lakabi; yi amfani da hasashe masu amincewar ƙari akan bayanai da ba a yi lakabi ba a matsayin pseudo-lakabin; sake horarwa. Tambayar zanen da ke da muhimmanci ita ce iyakar amincewar. Iyaka ƙarami yana kawo misalai fiye da kima amma yana gabatar da hayaniya; iyaka mai ƙari yana barin mafi yawan tafkin da ba a yi lakabi ba ba a yi amfani da shi ba. Shiga dan adam zai iya kula da wannan iyaka — masu sanya lakabi suna bitar samfuri na pseudo-lakabin misalai don daidaita shi.</p>
+<p><strong>FixMatch da daidaito ta haɓaka:</strong> Waɗannan hanyoyin suna horar da samfurin don samar da hasashe daidai ƙarƙashin haɓaka. Babban ra’ayin HITL: ana ba da shawarwari ta dan adam ba kawai don lakabin amma don <strong>zanen haɓaka</strong> — waɗanne daidaito ya kamata samfuri ya koyo? Samfuri don hoto likitanci ya kamata ya kasance daidai da jujjuyawa da haske amma ba da sukeli ba; samfuri don gano rubutu bai kamata a mai da shi daidai da canzawar hangen nesa ba. Waɗannan zaɓuɓɓuka musamman na yanki suna buƙatar ƙwarewa ta dan adam, kuma kuskuren su yana raunana koyon semi-supervised sosai.</p>
+<p><strong>Koyon aiki na semi-supervised mai aiki:</strong> Haɗin gwiwa mafi inganci: koyon aiki yana tattara lakabin dan adam inda rashin tabbas na samfuri ya fi girma; horarwa-kan-kansa yana yin lakabi ta atomatik ga wutsiyar amincewar ƙari. Ƙoƙarin dan adam yana tattara inda yake da ƙima fiye da kima, kuma samfuri yana ɗaukar sauran ta auto-labeling. A kowane zagaye, bitar dan adam na samfuri ta damari na pseudo-lakabin yana ba da duba inganci ba tare da buƙatar duba cikakke ba.</p>
+</section>
+<hr class="docutils" />
+<section id="lakabi-na-bidiyo">
+<h2>Lakabi na Bidiyo<a class="headerlink" href="#lakabi-na-bidiyo" title="Permalink to this heading">#</a></h2>
+<p>Lakabi na bidiyo yana ninka kalubalen lakabi na hoto ta lokaci:</p>
+<ul class="simple">
+<li><p><strong>Bin sawu:</strong> Dole ne a gano abubuwa cikin firam. Masu sanya lakabi suna yin lakabi ga firam muhimmanci; algorithms na bin sawu suna interpolate tsakanin su. Gazawar bin sawu — toshe, sake shiga, motsi mai sauri — suna buƙatar sake lakabi na dan adam a yawan fiye da bin sawu na daidai.</p></li>
+<li><p><strong>Daidaito na lokaci:</strong> Ya kamata iyaka da aka zana a firam <span class="math notranslate nohighlight">\(t\)</span> su kasance daidai a sararin duniya da firam <span class="math notranslate nohighlight">\(t+1\)</span>. Lakabi mara daidaito alama ce ta horarwa da ke gaya wa samfuri cewa abubuwa suna tsalle ba da tsari ba — wata nau’i ta ƙurar lakabi musamman mai cutarwa don samfurin gano.</p></li>
+<li><p><strong>Girman sikeli:</strong> Bidiyo na awa 1 a 30fps shine firam 108,000. Lakabi cikakke ba mai yiwuwa ba ne; dole ne a tsara dabarun samfuri da hankali don tabbatarwa cewa al’amurra da ba a cika ba (lokuta na iyaka, kusan gazawa, yanayin gazawa) ba a cire su ta tsari ba.</p></li>
+</ul>
+<p>Kayan aikin lakabi na bidiyo na zamani suna tallafa wa <strong>bin sawu mai wayo</strong> wanda ke yada lakabi cikin firam kuma yana yin alamar firam inda amincewar bin sawu ta faɗi ƙasa da iyaka, yana kira mai sanya lakabi don sake duba. Wannan amfani kai tsaye ne na ra’ayin koyon aiki ga tsarin lakabi kansa: kayan aikin yana tambaya mai sanya lakabi ainihin inda interpolation ɗinsa ya kasance mara tabbas.</p>
+<p><strong>Matsalar al’amari da ba a cika ba a cikin tsarin atomatik.</strong> Don aikace-aikace inda sakamakun al’amurra mara cika suka lalace — tuka kai tsaye, kewayar UAV — rarrabawar firam da ake gani a aiki na yau da kullum yana dacewa mara kyau sosai tare da rarrabawar firam waɗanda ke da muhimmanci sosai. Saitin bayanai da aka gina ta samfurin firam na tuka ta daidaito zai ƙunshi firam miliyan na “babu abin ban sha’awa yana faruwa” da ɗan kaɗan na firam na kusan-haɗari, haske na musamman, da firam na sensor masu lalacewa waɗanda ke da muhimmanci sosai ga aminci. Koyon aiki na HITL wanda ke gano da kuma fifita irin waɗannan firam ba dabara ta ingancin ƙoƙari ba ne — buƙata ce ta aminci.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Saitin bayanai na ImageNet: <a href="#id9"><span class="problematic" id="id10">russakovsky2015imagenet</span></a>. Nuna son zuciya na lakabi a ImageNet: <a href="#id11"><span class="problematic" id="id12">yang2020towards</span></a>. Ma’aunin COCO: <a href="#id13"><span class="problematic" id="id14">lin2014microsoft</span></a>. SAM (Segment Anything): <a href="#id15"><span class="problematic" id="id16">kirillov2023segment</span></a>. Koyon aiki na core-set don CV: <a href="#id17"><span class="problematic" id="id18">sener2018active</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ha/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yadda-zauukan-lakabi-ke-zama-nuna-son-zuciya-na-samfuri">Yadda Zaɓuɓɓukan Lakabi ke Zama Nuna Son Zuciya na Samfuri</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yanayin-imagenet">Yanayin ImageNet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakabi-na-rarrabuwa-hoto">Lakabi na Rarrabuwa Hoto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gano-abubuwa-lakabi-na-akwatin-iyaka">Gano Abubuwa: Lakabi na Akwatin Iyaka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rarrabuwa-ta-ma-ana-da-misali">Rarrabuwa ta Ma’ana da Misali</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koyon-aiki-don-gane-hoto-ta-kwamfuta">Koyon Aiki don Gane Hoto ta Kwamfuta</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koyon-semi-supervised-tare-da-jagoran-dan-adam">Koyon Semi-Supervised tare da Jagoran Dan Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakabi-na-bidiyo">Lakabi na Bidiyo</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

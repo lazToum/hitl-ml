@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Προκαταρκτικά"
+    chapters:
+      - file: front/declaration
+        title: "Δήλωση Πρωτοτυπίας"
+      - file: front/abstract
+        title: "Περίληψη"
+      - file: front/acknowledgments
+        title: "Ευχαριστίες"
+
+  - caption: "Μέρος Ι — Θεμέλια"
+    chapters:
+      - file: chapters/01_introduction
+        title: "Τι Είναι η Ανθρωποκεντρική ΜΜ;"
+      - file: chapters/02_taxonomy
+        title: "Ταξινόμηση Αλληλεπίδρασης Ανθρώπου–Μηχανής"
+
+  - caption: "Μέρος ΙΙ — Βασικές Τεχνικές"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Σχολιασμός Δεδομένων και Επισήμανση"
+      - file: chapters/04_active_learning
+        title: "Ενεργός Μάθηση"
+      - file: chapters/05_interactive_ml
+        title: "Διαδραστικό Μηχανικό Μάθηση"
+
+  - caption: "Μέρος ΙΙΙ — Μάθηση από Ανθρώπινη Ανατροφοδότηση"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Ενισχυτική Μάθηση από Ανθρώπινη Ανατροφοδότηση"
+      - file: chapters/07_demonstrations
+        title: "Μάθηση από Επιδείξεις"
+      - file: chapters/08_preferences
+        title: "Μάθηση από Συγκρίσεις και Κατατάξεις"
+
+  - caption: "Μέρος ΙV — Εφαρμογές"
+    chapters:
+      - file: chapters/09_nlp
+        title: "Ανθρωποκεντρική ΜΜ στην Επεξεργασία Φυσικής Γλώσσας"
+      - file: chapters/10_vision
+        title: "Ανθρωποκεντρική ΜΜ στην Υπολογιστική Όραση"
+      - file: chapters/11_healthcare
+        title: "Ανθρωποκεντρική ΜΜ στην Υγεία και την Επιστήμη"
+
+  - caption: "Μέρος V — Συστήματα και Πρακτική"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Πλατφόρμες Σχολιασμού και Εργαλεία"
+      - file: chapters/13_crowdsourcing
+        title: "Crowdsourcing και Ποιοτικός Έλεγχος"
+      - file: chapters/14_evaluation
+        title: "Αξιολόγηση και Μετρικές"
+
+  - caption: "Μέρος VΙ — Ηθική και Ορίζοντες"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Δικαιοσύνη, Προκατάληψη και Ηθική"
+      - file: chapters/16_future
+        title: "Μελλοντικές Κατευθύνσεις"
+
+  - caption: "Παράρτημα"
+    chapters:
+      - file: bibliography
+        title: "Βιβλιογραφία"
+      - file: chapters/17_limen
+        title: "Limen: Ένας Άνθρωπος στον Βρόχο"
+      - file: front/on_leaving
+        title: "Περί Αποχώρησης"

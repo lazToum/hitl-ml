@@ -1,0 +1,371 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Page and typography ----------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage[scaled=0.90]{helvet}
+\usepackage{inconsolata}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.10}
+\usepackage{parskip}
+
+% ---------- Math ----------
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{bm}
+
+% ---------- Color and links ----------
+\usepackage[dvipsnames]{xcolor}
+\definecolor{ink}{HTML}{222222}
+\definecolor{accent}{HTML}{2b3a8f}
+\definecolor{softaccent}{HTML}{EEF1FB}
+\definecolor{softgray}{HTML}{F6F7F9}
+\definecolor{linegray}{HTML}{D6D8DC}
+\definecolor{coral}{HTML}{e05c5c}
+\definecolor{softcoral}{HTML}{FDF3F3}
+\usepackage[colorlinks=true,linkcolor=accent,citecolor=accent,urlcolor=accent]{hyperref}
+
+% ---------- Tables / boxes ----------
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[most]{tcolorbox}
+\tcbset{sharp corners=south, boxrule=0.5pt, arc=3mm, left=8pt, right=8pt, top=7pt, bottom=7pt}
+
+\newtcolorbox{claimbox}{
+  colback=softaccent,
+  colframe=accent,
+  title=Central Claim,
+  fonttitle=\bfseries\sffamily
+}
+
+\newtcolorbox{cautionbox}{
+  colback=softcoral,
+  colframe=coral,
+  title=Scope Limitation,
+  fonttitle=\bfseries\sffamily
+}
+
+\newtcolorbox{definitionbox}[1]{
+  colback=softgray,
+  colframe=linegray,
+  title=#1,
+  fonttitle=\bfseries\sffamily
+}
+
+% ---------- Theorem environments ----------
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% ---------- Section style ----------
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily\color{ink}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily\color{ink}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily\color{ink}}{\thesubsubsection}{0.7em}{}
+
+% ---------- Header/footer ----------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\sffamily\small Human Oversight as Adaptive Reserve}
+\rhead{\sffamily\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ---------- Bibliography ----------
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{plainnat}
+
+% ---------- Metadata ----------
+\title{%
+  \vspace{-1cm}%
+  \sffamily\bfseries\LARGE
+  Human Oversight as Adaptive Reserve\\[0.5em]
+  \large Efficiency--Resilience Tradeoffs in\\
+  Human-in-the-Loop Machine Learning%
+}
+\author{%
+  Lazaros Toumanidis\\
+  \small\textit{Position Paper --- Draft for Workshop Submission}%
+}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+Human oversight in machine learning systems is commonly framed as an operational cost to be minimized as automation improves. We propose an alternative framing: human oversight can be understood as \emph{adaptive reserve}---retained capacity that improves a system's ability to recover from uncertain or novel conditions. Drawing on a minimal formal model of the efficiency-resilience tradeoff, we show that systems optimized exclusively for short-term automation efficiency may rationally eliminate the reserve they need for long-term recoverability. We sketch a conceptual framework for resilience-aware human-in-the-loop (HITL) design and propose an evaluation methodology to test whether uncertainty-responsive human routing improves recovery under distribution shift. We make no empirical claims; the formal model and evaluation design are offered as a structured foundation for future experimental work.
+\end{abstract}
+
+\begin{claimbox}
+Systems optimized exclusively for short-term automation efficiency may eliminate the adaptive reserve required for recovery under distributional uncertainty.
+\end{claimbox}
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+
+Deployed machine learning systems face a recurring pressure: reduce human involvement to improve throughput, lower latency, and reduce annotation cost. This pressure is rational within a short time horizon. Over longer horizons, however, the same reduction may leave the system without the capacity to recognize and recover from novel inputs, distribution shift, or unanticipated failure modes.
+
+The pattern is familiar from other domains. Just-in-time supply chains minimize inventory but become fragile under disruption \citep{holling1973}. Highly leveraged financial institutions maximize short-term return but fail under volatility. Software systems that defer testing and redundancy improve short-term velocity at the cost of accumulated brittleness. In each case, a policy rational under the expected distribution becomes costly when the actual distribution diverges.
+
+We argue that HITL systems are subject to a structurally similar tradeoff. Human oversight introduces immediate cost---in latency, labor, and throughput---while simultaneously maintaining \emph{adaptive reserve}: the capacity to recognize unusual cases, correct errors, and adjust behavior when conditions change.
+
+This paper does not argue that more human oversight is always better, or that automation is harmful. The claim is narrower:
+\begin{quote}
+\itshape
+Systems optimized exclusively for immediate automation efficiency may eliminate the adaptive reserve required for long-term resilience under uncertainty.
+\end{quote}
+We formalize this claim, propose a conceptual HITL framework, and describe an evaluation design that could test it empirically.
+
+% ============================================================
+\section{Related Work}
+% ============================================================
+
+\subsection{Human-in-the-Loop Machine Learning}
+
+HITL methods span active learning \citep{settles2009}, interactive machine learning \citep{amershi2014}, reinforcement learning from human feedback \citep{christiano2017,ouyang2022}, and human-AI collaboration. The dominant focus of this literature is \emph{when} and \emph{how} to elicit human input for maximum learning efficiency. The question of how human involvement affects system resilience under changing conditions has received less systematic attention.
+
+\subsection{Robustness and Uncertainty}
+
+A parallel literature addresses distributional robustness \citep{hendrycks2017}, out-of-distribution detection, uncertainty calibration, and AI safety \citep{amodei2016}. This work characterizes failure modes under distribution shift but generally treats human oversight as an external evaluation tool rather than a structural component of deployed system design.
+
+\subsection{Resilience and Adaptive Systems}
+
+Resilience theory, developed in ecology \citep{holling1973} and applied to complex systems \citep{gunderson2002}, characterizes how systems persist across perturbation through maintained redundancy, diversity, and adaptive capacity. Systems thinking \citep{meadows2008} and complexity economics \citep{arthur1999} offer complementary perspectives on how local optimization can undermine global stability. Taleb's antifragility framework \citep{taleb2012} extends this to systems that retain optionality in the face of uncertainty.
+
+\subsection{Positioning}
+
+\begin{cautionbox}
+This paper does not propose a new theory of resilience or economics. It proposes applying an established analytical lens---the efficiency-resilience tradeoff---to HITL system design. The formal model below is deliberately minimal; its purpose is to expose the structural logic of the tradeoff, not to characterize any specific HITL system.
+\end{cautionbox}
+
+% ============================================================
+\section{Conceptual Framework}
+% ============================================================
+
+Short-term optimization in HITL systems tends to reduce: human review bandwidth, escalation pathways, redundant routing, idle reviewer capacity, and fallback mechanisms. These are precisely the components that provide capacity for recovery when conditions change. We refer to their aggregate as \emph{adaptive reserve}.
+
+\subsection{Proposed Conceptual Mapping}
+
+The following table maps general resilience concepts to candidate HITL interpretations.
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{General concept} & \textbf{Candidate HITL interpretation} \\
+\midrule
+Slack capacity & Available human review bandwidth \\
+Redundancy & Multiple review paths or reviewer types \\
+Reserve & Escalation and deferral capability \\
+Resilience & Recovery under distribution shift or novel input \\
+Shock & Distributional shift, adversarial input, rare event \\
+\bottomrule
+\end{tabularx}
+\caption{Proposed mapping from resilience theory to HITL design concepts. This is a conceptual analogy, not a formal derivation.}
+\end{table}
+
+\begin{remark}
+The mapping in Table~1 is a proposed conceptual analogy. Its validity in any specific deployment depends on whether the identified HITL components actually function as adaptive reserve in the resilience-theoretic sense. This is an empirical question that the evaluation design in Section~\ref{sec:evaluation} is intended to address.
+\end{remark}
+
+% ============================================================
+\section{Minimal Formal Model}
+% ============================================================
+
+We adapt the efficiency-resilience model developed in \citet{toumanidis2026a} to the HITL context. The model is deliberately stylized; its value lies in making the structural tradeoff precise rather than in modeling any specific deployment.
+
+\subsection{Setup}
+
+\begin{definition}[Model variables]
+Let:
+\begin{itemize}
+  \item $s \geq 0$ denote the level of retained oversight or adaptive reserve (e.g., the fraction of tasks routed to human review);
+  \item $c > 0$ denote the immediate cost per unit of retained oversight (latency, labor, throughput loss);
+  \item $X \geq 0$ denote a non-negative random variable representing an incoming shock---the magnitude of distributional shift, novelty, or adversarial perturbation;
+  \item $F_X$ denote the cumulative distribution function of $X$, and $f_X$ its density where it exists.
+\end{itemize}
+\end{definition}
+
+\subsection{Resilience as Survival Probability}
+
+After the arrival of shock $X$, the system handles the incoming task successfully if and only if the retained oversight level is sufficient to absorb the shock:
+\[
+X \leq s.
+\]
+
+Resilience, interpreted as the probability of successful handling, is therefore:
+\[
+R(s) = P(X \leq s) = F_X(s).
+\]
+
+\begin{proposition}[Oversight increases resilience]\label{prop:monotone}
+Assume that $f_X(s) > 0$ on a relevant interval. Then $R(s)$ is strictly increasing in $s$ on that interval.
+\end{proposition}
+
+\begin{proof}
+Since $R(s) = F_X(s)$, differentiation gives $R'(s) = f_X(s) > 0$ by assumption.
+\end{proof}
+
+\subsection{Short-Term Efficiency Optimizer}
+
+A system optimized exclusively to minimize oversight cost solves:
+\[
+\min_{s \geq 0} \ cs.
+\]
+
+The unique solution is $s^* = 0$.
+
+\begin{corollary}[Efficiency optimum is not fully resilient]\label{cor:brittle}
+If shocks of positive size occur with nonzero probability---that is, if $P(X > 0) > 0$---then the oversight-minimizing configuration satisfies $R(0) < 1$ and is therefore not fully resilient.
+\end{corollary}
+
+\subsection{Long-Term Cost Objective}
+
+Now include the cost of failure. Let $L > 0$ denote the loss incurred when $X > s$ (the system fails to handle the task). Expected total cost is:
+\[
+J(s) = cs + L \cdot P(X > s) = cs + L(1 - F_X(s)).
+\]
+
+Assuming differentiability, the first-order condition for an interior minimum is:
+\[
+J'(s) = c - L f_X(s) = 0 \implies L f_X(s^*) = c.
+\]
+
+This condition equates the marginal cost of additional oversight with the marginal reduction in expected failure loss.
+
+\begin{definitionbox}{Temporal mismatch}
+The short-term optimizer minimizes only $cs$ and therefore selects $s = 0$. The long-term optimizer minimizes $cs + L(1 - F_X(s))$ and may select $s > 0$ when $L$ is sufficiently large relative to $c$. The gap arises because the second objective accounts for uncertain future states while the first does not.
+\end{definitionbox}
+
+\begin{remark}
+The condition $L f_X(s^*) = c$ is a standard interior optimality condition and holds under the assumption that $f_X$ is continuous and positive at $s^*$. Second-order conditions require $f_X'(s^*) < 0$, which holds when $f_X$ is decreasing at the optimum---a condition satisfied by many standard distributions at moderate quantiles.
+\end{remark}
+
+% ============================================================
+\section{Proposed HITL Allocation Framework}
+% ============================================================
+
+The formal model treats oversight as a single scalar. Real HITL systems make per-task routing decisions. We sketch a resilience-aware routing framework as a direct application of the model above.
+
+\begin{cautionbox}
+This is a proposed design framework, not a validated system. The components described below are design intentions; their practical implementation and calibration are domain-specific and not addressed here.
+\end{cautionbox}
+
+\subsection{Task-Level Routing Decision}
+
+For each incoming task, the system estimates an uncertainty or novelty signal $u_t \in [0, 1]$ and selects an action:
+\[
+a_t \in \{\text{auto},\ \text{human},\ \text{defer},\ \text{escalate}\}.
+\]
+
+The total cost at time $t$ decomposes as:
+\[
+C_t = C_{\text{latency}}(a_t) + C_{\text{human}}(a_t) + C_{\text{error}}(a_t, u_t).
+\]
+
+\subsection{Resilience-Aware Routing}
+
+A resilience-aware policy increases human routing when $u_t$ is high---under distribution shift, low model confidence, high-stakes contexts, or detected novelty. This corresponds dynamically to adjusting $s$ in the formal model: as shock magnitude increases, the policy preserves adaptive reserve by routing to human review rather than automating.
+
+\subsection{Connection to the Formal Model}
+
+Under the formal model, the optimal oversight level $s^*$ satisfies $L f_X(s^*) = c$. In a dynamic routing context, this translates to a routing threshold that should increase as uncertainty $u_t$ increases (i.e., as the effective shock distribution shifts toward higher values). The mapping from $u_t$ to an optimal routing threshold is task- and domain-specific and requires empirical calibration.
+
+% ============================================================
+\section{Proposed Evaluation Methodology}\label{sec:evaluation}
+% ============================================================
+
+To test whether resilience-aware HITL routing improves recovery under distributional stress, we propose comparing three system configurations:
+
+\begin{enumerate}
+  \item \textbf{Fully automated:} all tasks handled without human review.
+  \item \textbf{Static-threshold HITL:} tasks above a fixed uncertainty threshold routed to human review.
+  \item \textbf{Resilience-aware HITL:} routing threshold adapts dynamically to estimated distribution shift, novelty, or task risk.
+\end{enumerate}
+
+\subsection{Evaluation Conditions}
+
+Each configuration would be evaluated across:
+\begin{itemize}
+  \item a baseline clean test distribution;
+  \item moderate domain shift;
+  \item significant domain shift or adversarial input;
+  \item rare or long-tail events;
+  \item changing user behavior over time.
+\end{itemize}
+
+\subsection{Metrics}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{Metric} & \textbf{What it captures} \\
+\midrule
+Task accuracy & Nominal performance \\
+Latency and throughput & Short-term efficiency cost \\
+Human effort rate & Oversight cost \\
+Recovery time after shift & Resilience \\
+Catastrophic failure rate & Robustness under stress \\
+Calibration quality & Uncertainty estimation accuracy \\
+Performance degradation slope & Adaptability under sustained shift \\
+\bottomrule
+\end{tabularx}
+\caption{Proposed evaluation metrics for resilience-aware HITL comparison.}
+\end{table}
+
+\subsection{Hypothesis}
+
+Under stable conditions, fully automated systems will likely outperform on throughput and latency. Under distribution shift or novel inputs, the resilience-aware configuration may recover more reliably, at the cost of higher short-term human effort.
+
+\begin{cautionbox}
+This is a hypothesis to be tested, not a reported result. No experiments have been conducted at the time of this draft. The evaluation design is offered as a structured methodology for future work.
+\end{cautionbox}
+
+% ============================================================
+\section{Discussion}
+% ============================================================
+
+\subsection{What This Paper Does Not Argue}
+
+This paper does not argue that human oversight is always beneficial, that more oversight is always better, or that automation objectives are misguided. The claim is structural: exclusive optimization for immediate automation efficiency eliminates the same components that provide recovery capacity under uncertainty. Whether this tradeoff is practically significant depends on the deployment context, the nature and frequency of distributional shift, and the relative magnitudes of $c$ and $L$.
+
+\subsection{Deployment Realities}
+
+Modern deployed ML systems increasingly operate continuously, online, and under changing conditions with real social consequences \citep{amodei2016}. As systems operate over longer time horizons and across more varied conditions, the resilience of the oversight structure---not just its nominal accuracy---becomes a legitimate design concern.
+
+\subsection{Limitations of the Formal Model}
+
+The model in Section~4 is a stylized abstraction. It treats oversight as a scalar, shocks as independent draws from a fixed distribution, and failure costs as known constants. Real systems have heterogeneous task types, correlated failures, unknown distributional shift magnitudes, and feedback loops between human oversight and model behavior. The model exposes the structural logic of the tradeoff; it does not characterize the magnitude or domain-specific form of that tradeoff. Extending the model to address these features is left for future work.
+
+\subsection{On the HITL Analogy}
+
+The mapping from general resilience concepts to HITL interpretations (Table~1) is proposed as a productive organizing frame, not derived from first principles. Its usefulness depends on whether the HITL components identified as adaptive reserve actually function like reserve capacity in the resilience-theoretic sense. This is an empirical question that the proposed evaluation is intended to begin addressing.
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+
+We have proposed framing human oversight in HITL systems as adaptive reserve: retained capacity that improves recovery under uncertainty and distributional shift. A minimal formal model shows that systems optimized exclusively for short-term automation efficiency may rationally eliminate this reserve, creating a temporal mismatch between short-horizon and long-horizon objectives.
+
+The practical implication is that resilience-aware HITL design should treat the level of human involvement not as a cost to be minimized but as a parameter to be set with attention to both efficiency and long-run recoverability. We have sketched a conceptual allocation framework and proposed an evaluation methodology.
+
+The paper's claims are modest. The formal model is correct but stylized. The HITL framework is a proposed analogy, not a validated system. The evaluation design is offered as methodology, not results. The contribution, if any, lies in providing a structured conceptual foundation connecting resilience theory, HITL design, and the practical challenge of maintaining safe, adaptive behavior in continuously deployed ML systems.
+
+% ============================================================
+\newpage
+\bibliography{hitl_resilience}
+% ============================================================
+
+\end{document}

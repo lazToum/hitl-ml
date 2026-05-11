@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Companion Materials — Human in the Loop: Misunderstood</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --bg: #f4efe6; --bg-alt: #fbf8f2; --surface: rgba(255,255,255,0.72);
+      --surface-border: rgba(45,62,80,0.14); --text: #1d2935; --muted: #5b6875;
+      --accent: #0d9e8e; --accent-2: #b85c38; --shadow: 0 18px 40px rgba(35,44,56,0.08);
+      --radius: 18px; --page-max: 1100px;
+      --autumn: #b85c38; --winter: #2b3a8f; --summer: #c47e1a; --companion: #6b7c5e; --research: #4a5568;
+    }
+    *{box-sizing:border-box}
+    html{font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;color:var(--text);
+      background:radial-gradient(circle at top left,rgba(13,158,142,.1),transparent 32%),linear-gradient(180deg,var(--bg-alt),var(--bg));}
+    body{margin:0;min-height:100vh}
+    a{color:inherit;text-decoration:none}
+    .page-shell{max-width:var(--page-max);margin:0 auto;padding:48px 24px 72px}
+    .back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:32px;color:var(--muted);
+      font-size:.88rem;font-family:"JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.02em;transition:color 120ms ease}
+    .back-link:hover{color:var(--accent)}.back-link::before{content:"←"}
+    .hero{padding:32px 0 24px}
+    .eyebrow{margin:0 0 12px;color:var(--accent);font:700 .8rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .hero h1{margin:0;font-size:clamp(2.2rem,5vw,4rem);line-height:.95}
+    .lede{max-width:720px;margin:18px 0 0;color:var(--muted);font-size:1.08rem;line-height:1.6}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+    .edition-card{display:flex;flex-direction:column;gap:10px;min-height:200px;padding:20px;
+      background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius);
+      box-shadow:var(--shadow);backdrop-filter:blur(10px);transition:transform 140ms ease,border-color 140ms ease;
+      cursor:pointer;text-align:left;font-family:inherit;font-size:inherit;color:inherit}
+    .edition-card:hover{border-color:rgba(13,158,142,.36);transform:translateY(-2px)}
+    .edition-tag{font:700 .78rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;letter-spacing:.08em;text-transform:uppercase}
+    .edition-card[data-season="autumn"]{border-left:4px solid var(--autumn)} .edition-card[data-season="autumn"] .edition-tag{color:var(--autumn)}
+    .edition-card[data-season="winter"]{border-left:4px solid var(--winter)} .edition-card[data-season="winter"] .edition-tag{color:var(--winter)}
+    .edition-card[data-season="summer"]{border-left:4px solid var(--summer)} .edition-card[data-season="summer"] .edition-tag{color:var(--summer)}
+    .edition-card[data-season="research"]{border-left:4px solid var(--research)} .edition-card[data-season="research"] .edition-tag{color:var(--research)}
+    .edition-card strong{font-size:1.15rem}
+    .edition-card span:last-child{color:var(--muted);line-height:1.55}
+    .site-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--surface-border);color:var(--muted);font-size:.82rem}
+    .site-footer a{color:var(--accent)}
+
+    /* ── Modal ── */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(29,41,53,0.55);backdrop-filter:blur(4px);
+      z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
+    .modal-backdrop.open{display:flex;animation:fade-in 160ms ease}
+    @keyframes fade-in{from{opacity:0}to{opacity:1}}
+    .modal{background:var(--bg-alt);border:1px solid var(--surface-border);border-radius:var(--radius);
+      box-shadow:0 32px 80px rgba(29,41,53,0.22);width:100%;max-width:780px;max-height:88vh;
+      display:flex;flex-direction:column;animation:slide-up 180ms ease}
+    @keyframes slide-up{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .modal-header{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--surface-border);flex-shrink:0}
+    .modal-title{flex:1;font-size:1rem;font-weight:700;margin:0}
+    .modal-dl{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+      background:var(--accent);color:#fff;border:none;border-radius:8px;font:.82rem/1.2 "JetBrains Mono","SFMono-Regular",monospace;
+      letter-spacing:.04em;cursor:pointer;text-decoration:none;transition:opacity 120ms ease}
+    .modal-dl:hover{opacity:.85}
+    .modal-close{width:32px;height:32px;border:none;background:none;cursor:pointer;border-radius:8px;
+      display:flex;align-items:center;justify-content:center;color:var(--muted);transition:background 120ms ease}
+    .modal-close:hover{background:rgba(45,62,80,.1);color:var(--text)}
+    .modal-close svg{display:block}
+    .modal-body{overflow-y:auto;padding:28px 32px 32px;flex:1}
+    .modal-loading{display:flex;align-items:center;justify-content:center;padding:60px;color:var(--muted);
+      font-family:"JetBrains Mono","SFMono-Regular",monospace;font-size:.9rem}
+
+    /* markdown prose */
+    .prose{line-height:1.7;font-size:1rem}
+    .prose h1{font-size:1.9rem;margin:0 0 .5em;line-height:1.15}
+    .prose h2{font-size:1.35rem;margin:1.8em 0 .5em;border-bottom:1px solid var(--surface-border);padding-bottom:.3em}
+    .prose h3{font-size:1.1rem;margin:1.4em 0 .4em}
+    .prose p{margin:.7em 0}
+    .prose ul,.prose ol{margin:.6em 0;padding-left:1.5em}
+    .prose li{margin:.3em 0}
+    .prose code{font-family:"JetBrains Mono","SFMono-Regular",monospace;font-size:.88em;
+      background:rgba(45,62,80,.07);padding:.15em .4em;border-radius:4px}
+    .prose pre{background:rgba(29,41,53,.06);border:1px solid var(--surface-border);border-radius:10px;
+      padding:16px;overflow-x:auto;margin:1em 0}
+    .prose pre code{background:none;padding:0}
+    .prose blockquote{margin:1em 0;padding:.5em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+    .prose hr{border:none;border-top:1px solid var(--surface-border);margin:1.6em 0}
+    .prose a{color:var(--accent);text-decoration:underline}
+    .prose strong{font-weight:700}
+    .prose em{font-style:italic}
+    .prose table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.94rem}
+    .prose th,.prose td{padding:8px 12px;text-align:left;border:1px solid var(--surface-border)}
+    .prose th{background:rgba(45,62,80,.05);font-weight:700}
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <a class="back-link" href="../">Series overview</a>
+
+    <section class="hero">
+      <p class="eyebrow">Companion</p>
+      <h1>Supporting materials</h1>
+      <p class="lede">
+        Shorter documents, instructor notes, and study aids written alongside the
+        seasonal editions. Click any card to read inline — or download from there.
+      </p>
+    </section>
+
+    <section class="card-grid">
+      <button class="edition-card" data-season="autumn" data-src="/companion/HITL_Misunderstood.md" data-title="HITL: Misunderstood">
+        <span class="edition-tag">Misunderstood</span>
+        <strong>HITL: Misunderstood</strong>
+        <span>The core argument in short form — what HITL actually means and why it matters.</span>
+      </button>
+      <button class="edition-card" data-season="summer" data-src="/companion/HITL_Misunderstood_Summer.md" data-title="Misunderstood — Summer">
+        <span class="edition-tag">Summer</span>
+        <strong>Misunderstood — Summer</strong>
+        <span>The Summer-facing companion text. A workbook-adjacent read.</span>
+      </button>
+      <button class="edition-card" data-season="winter" data-src="/companion/HITL_Winter_is_Coming.md" data-title="Winter Is Coming">
+        <span class="edition-tag">Winter</span>
+        <strong>Winter Is Coming</strong>
+        <span>Main Winter companion — study-oriented support for readers working through the textbook.</span>
+      </button>
+      <button class="edition-card" data-season="winter" data-src="/companion/HITL_Winter_is_Coming_Solutions.md" data-title="Winter: Solutions">
+        <span class="edition-tag">Solutions</span>
+        <strong>Winter: Solutions</strong>
+        <span>Full solution set for the Winter companion exercises.</span>
+      </button>
+      <button class="edition-card" data-season="winter" data-src="/companion/HITL_Winter_is_Coming_Teachers.md" data-title="Winter: Instructor Guide">
+        <span class="edition-tag">Instructors</span>
+        <strong>Winter: Instructor guide</strong>
+        <span>Facilitation notes and teaching guidance for the Winter materials.</span>
+      </button>
+      <button class="edition-card" data-season="autumn" data-src="/companion/HITL_Autumn_Before_You_Ship.md" data-title="Before You Ship">
+        <span class="edition-tag">Autumn</span>
+        <strong>Before You Ship</strong>
+        <span>A short pre-deployment checklist for teams building AI-assisted systems.</span>
+      </button>
+      <button class="edition-card" data-season="research" data-src="/companion/HITL_Resilience_Position_Paper.md" data-title="Human Oversight as Adaptive Reserve">
+        <span class="edition-tag">Research</span>
+        <strong>Human Oversight as Adaptive Reserve</strong>
+        <span>Position paper: efficiency–resilience tradeoffs in HITL systems, with a minimal formal model.</span>
+      </button>
+    </section>
+
+    <footer class="site-footer">
+      &copy; 2026 Lazaros Toumanidis &mdash;
+      <a href="https://laztoum.com">laztoum.com</a> &middot;
+      <a href="https://what-if.io">what-if.io</a> &middot;
+      <a href="https://limen-os.io">limen-os.io</a>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title"></span>
+        <a class="modal-dl" id="modal-dl-link" download>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 1v8M3.5 6l3.5 3.5L10.5 6M2 11h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download .md
+        </a>
+        <button class="modal-close" id="modal-close" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <div class="modal-loading">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const backdrop = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const modalDl = document.getElementById('modal-dl-link');
+    const modalClose = document.getElementById('modal-close');
+
+    function openModal(src, title) {
+      modalTitle.textContent = title;
+      modalDl.href = src;
+      modalBody.innerHTML = '<div class="modal-loading">Loading…</div>';
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      fetch(src)
+        .then(r => {
+          if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+          return r.text();
+        })
+        .then(md => {
+          const div = document.createElement('div');
+          div.className = 'prose';
+          div.innerHTML = marked.parse(md);
+          modalBody.innerHTML = '';
+          modalBody.appendChild(div);
+        })
+        .catch(err => {
+          modalBody.innerHTML = `<div class="modal-loading">Could not load file: ${err.message}</div>`;
+        });
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.edition-card').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.src, card.dataset.title));
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+
+
+  <!-- Font-size accessibility widget -->
+  <script>
+  (function () {
+    var SZ_KEY = 'limen:font-size', OP_KEY = 'limen:font-ctrl';
+    var STEPS = [90, 100, 115, 130];
+    var idx = Math.max(0, Math.min(3, parseInt(localStorage.getItem(SZ_KEY) ?? '1', 10) || 1));
+    var open = localStorage.getItem(OP_KEY) === '1';
+    function applySize() { document.documentElement.style.fontSize = STEPS[idx] + '%'; localStorage.setItem(SZ_KEY, String(idx)); }
+    applySize();
+    document.addEventListener('DOMContentLoaded', function () {
+      var dark = /^#[89a-fA-F]/.test((getComputedStyle(document.documentElement).getPropertyValue('--text') || '').trim());
+      var fg = dark ? '#e2e8f0' : '#1d2935';
+      var hv = dark ? 'rgba(255,255,255,0.1)' : 'rgba(13,158,142,0.1)';
+      var bg = dark ? 'rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.9);border:1px solid rgba(45,62,80,0.13)';
+      var w = document.createElement('div');
+      w.setAttribute('role', 'toolbar'); w.setAttribute('aria-label', 'Text size');
+      w.style.position = 'fixed'; w.style.bottom = '18px'; w.style.right = '18px';
+      w.style.zIndex = '9999'; w.style.display = 'flex'; w.style.alignItems = 'center';
+      w.style.borderRadius = '10px'; w.style.backdropFilter = 'blur(10px)';
+      w.style.webkitBackdropFilter = 'blur(10px)';
+      w.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+      function btn(label, title, onclick) {
+        var b = document.createElement('button');
+        b.textContent = label; b.title = title; b.setAttribute('aria-label', title);
+        b.style.cssText = 'border:none;background:none;cursor:pointer;padding:3px 8px;border-radius:6px;font-family:inherit;font-size:.85rem;line-height:1.4;color:' + fg + ';transition:background 120ms ease';
+        b.addEventListener('mouseenter', function(){ this.style.background = hv; });
+        b.addEventListener('mouseleave', function(){ this.style.background = 'none'; });
+        b.addEventListener('click', onclick);
+        return b;
+      }
+      function render() {
+        w.innerHTML = '';
+        w.style.cssText += ';padding:' + (open ? '4px 2px 4px 6px' : '4px 6px') + ';background:' + bg;
+        var toggle = btn('Aa', open ? 'Collapse text controls' : 'Text size controls', function(){
+          open = !open; localStorage.setItem(OP_KEY, open ? '1' : '0'); render();
+        });
+        toggle.style.fontWeight = '600'; toggle.style.fontSize = '.78rem';
+        w.appendChild(toggle);
+        if (open) {
+          var sep = document.createElement('span');
+          sep.style.cssText = 'width:1px;height:16px;background:' + fg + ';opacity:.15;margin:0 2px';
+          w.appendChild(sep);
+          var dm = btn('A−', 'Smaller text', function(){ if(idx>0){idx--;applySize();upd();} });
+          var dr = btn('A',  'Default size', function(){ idx=1; applySize();upd(); });
+          var dp = btn('A+', 'Larger text',  function(){ if(idx<3){idx++;applySize();upd();} });
+          [dm, dr, dp].forEach(function(b){ w.appendChild(b); });
+          function upd(){ dm.style.opacity=idx===0?'.3':'1'; dm.style.pointerEvents=idx===0?'none':''; dp.style.opacity=idx===3?'.3':'1'; dp.style.pointerEvents=idx===3?'none':''; }
+          upd();
+        }
+      }
+      render();
+      document.body.appendChild(w);
+    });
+  }());
+  </script>
+</body>
+</html>

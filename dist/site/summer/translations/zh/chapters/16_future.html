@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>未来展望 &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/zh/chapters/16_future';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/zh/chapters/16_future.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>未来展望</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">基础模型与标注角色的转变</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">减轻标注负担</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">新的任务规格形式</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">LLM作为标注者</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">LLM标注效果良好的情况</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">LLM标注失败的情况</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaifai">RLAIF与宪法AI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">大规模弱监督</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">带有人类监督的持续学习</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">多模态HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">可扩展监督</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">劳动分工的演变</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">开放研究问题</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>未来展望<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>人在回路机器学习领域正在快速变化。基础模型、LLM作为标注者，以及人机协作的新范式，正在以五年前难以想象的方式重塑HITL的经济学和实践。本章最后一章描绘了新兴方向和开放问题的全景。</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>基础模型与标注角色的转变<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>基础模型——在广泛数据上预训练、可适配到下游任务的大型模型——正在从根本上改变HITL的经济学。</p>
+<section id="id3">
+<h3>减轻标注负担<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>一个以前从零开始训练需要数千个标注样本的任务，在微调基础模型时可能只需要数十个。少样本提示可能对某些任务完全消除微调的需求。</p>
+<p><strong>含义：</strong> 标注的ROI发生了变化。标注工作现在最好指向：</p>
+<ul class="simple">
+<li><p>高质量的评估集（衡量适配后的模型是否真正有效）</p></li>
+<li><p>基础模型处理错误的困难案例和边缘案例</p></li>
+<li><p>能告诉模型一些无法从预训练中推断出的东西的特定任务示例</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>新的任务规格形式<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>当基础模型已经理解语言、代码和常识时，用户可以用自然语言与其交流，而不是通过标注样本。想要文本分类器的用户不再需要标注500个示例——他们可以用自然语言描述分类任务并评估零样本性能。</p>
+<p>这将HITL挑战从<em>样本收集</em>转变为<em>任务规格</em>：帮助用户以模型能够行动的形式精确表达他们想要的东西。这比听起来更难——任务的自然语言描述往往具有标注样本所没有的歧义性。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="llm">
+<h2>LLM作为标注者<a class="headerlink" href="#llm" title="Permalink to this heading">#</a></h2>
+<p>2023至2025年最重要的发展之一是将<strong>LLM作为标注来源</strong>。与其问人类”这条评论是正面还是负面的？”，不如问GPT-4或Claude。对于定义明确的分类任务，LLM标注通常与众包工人准确率相当或接近 <a href="#id5"><span class="problematic" id="id6">gilardi2023chatgpt</span></a>，而API调用的每条标注成本通常比人工劳动率低几个数量级。</p>
+<section id="id7">
+<h3>LLM标注效果良好的情况<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>简单、定义明确的分类任务（情感、主题、意图）</p></li>
+<li><p>人类标签编码了LLM已吸收的文化共识的任务</p></li>
+<li><p>标注跨情境一致的任务（非高度主观性）</p></li>
+<li><p>生成供人工审查的初步标注</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>LLM标注失败的情况<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>需要稀缺专业知识的高度专业化领域任务（医学、法律、科学）</p></li>
+<li><p>需要本地文化知识或语言变体的任务</p></li>
+<li><p>安全和危害任务，其中LLM可能在与训练数据相同的方向上校准不足</p></li>
+<li><p>预训练中代表性不足的新型任务类型</p></li>
+</ul>
+</section>
+<section id="rlaifai">
+<h3>RLAIF与宪法AI<a class="headerlink" href="#rlaifai" title="Permalink to this heading">#</a></h3>
+<p>如第6章所讨论，AI生成的反馈可用于训练奖励模型并引导强化学习微调。这创造了一个反馈回路：LLM生成数据，模型在其上训练，更好的模型生成更好的数据。如何在不从初始模型编码系统性错误的情况下启动这个回路，是可扩展监督研究中的核心开放问题。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>大规模弱监督<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>通过标注函数进行的<strong>程序化标注</strong>（第9章）允许主题专家将知识表达为代码而非标注样本。Snorkel <a href="#id10"><span class="problematic" id="id11">ratner2017snorkel</span></a> 及其后继系统已大幅成熟，现在在主要科技公司的生产环境中被使用。</p>
+<p><strong>前沿方向：</strong></p>
+<ul class="simple">
+<li><p><strong>LLM增强的标注函数：</strong> 使用LLM从自然语言描述生成标注函数</p></li>
+<li><p><strong>基于切片的学习：</strong> 识别标注函数不一致的数据关键子集（切片），并将人工标注引导到那里</p></li>
+<li><p><strong>不确定性感知聚合：</strong> 用于组合具有不同准确率和相关性的标注函数的更好统计模型</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h2>带有人类监督的持续学习<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>大多数机器学习系统离线训练并以静态模型的形式部署。真实世界在变化；在部署时准确的模型会随着数据分布的偏移而退化。</p>
+<p><strong>持续学习</strong>——在保留旧知识的同时从新数据中学习的能力——是一个活跃的研究领域。人类监督至关重要：没有人类审查的自动化持续学习，可能会迅速编码那些属于错误而非世界真实变化的分布偏移。</p>
+<p><strong>HITL持续学习</strong>涉及：</p>
+<ul class="simple">
+<li><p>监测分布偏移（自动化）并将偏移的样本路由到人工审查</p></li>
+<li><p>选择性重训练：来自新分布的经人工批准的样本被添加到训练数据</p></li>
+<li><p>在每次更新后对模型行为变化进行人工审查</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="hitl">
+<h2>多模态HITL<a class="headerlink" href="#hitl" title="Permalink to this heading">#</a></h2>
+<p>随着AI系统变得多模态——同时处理和生成文本、图像、音频和视频——标注变得更加复杂。单一内容可能需要跨模态的标注，且模态之间存在依赖关系。</p>
+<p><strong>新兴任务类型：</strong></p>
+<ul class="simple">
+<li><p>视频 + 转录标注（发生了什么，谁在说话，文本在视觉上描述了什么？）</p></li>
+<li><p>医学图像 + 临床报告标注</p></li>
+<li><p>机器人轨迹标注（将传感器数据与动作序列关联）</p></li>
+</ul>
+<p>多模态基础模型（GPT-4V、Gemini、Claude）也在改变这里的标注格局——模型现在可以解释图像并生成候选标注，由人类审查。</p>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h2>可扩展监督<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<p>HITL ML中一个根本性的开放问题是<strong>可扩展监督</strong> <a href="#id14"><span class="problematic" id="id15">irving2018ai,bowman2022measuring</span></a>：随着AI系统在特定领域变得比人类更有能力，我们如何维持有意义的人类监督？</p>
+<p>对于蛋白质结构预测、法律分析或数学证明验证等任务，即使是专家标注者也可能无法判断两个AI输出哪个是正确的。当人类判断的可靠性低于被评估模型时，当前的HITL方法就会失效。</p>
+<p><strong>提出的方法 <a href="#id16"><span class="problematic" id="id17">bowman2022measuring</span></a>：</strong></p>
+<p><strong>辩论：</strong> 两个AI系统为不同结论辩护；人类评判者直接评估论证而非结论。正确的结论应该更具可辩护性。</p>
+<p><strong>放大：</strong> 人类评判者咨询AI助手（模型本身）来帮助评估复杂输出。这利用AI能力来扩展人类监督，而不是取代它。</p>
+<p><strong>过程监督：</strong> 不是评估最终输出，而是人类评估<em>推理过程</em>——在思维链中标记有缺陷的步骤，无论最终答案恰好是否正确。</p>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h2>劳动分工的演变<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<p>HITL ML的长期走向是人类和AI之间更流动的协作，其中双方都不仅仅是”标注者”或”学习者”，而是共同为一个共享的认知过程做出贡献。</p>
+<p><strong>值得关注的趋势：</strong></p>
+<ul class="simple">
+<li><p><strong>AI辅助标注：</strong> AI提议；人类决定。随着AI提议更好的选项，质量提高。</p></li>
+<li><p><strong>人类引导的探索：</strong> 人类设定目标和约束；AI探索解决方案空间。</p></li>
+<li><p><strong>协作评估：</strong> 人类和AI通过对话共同评估复杂输出。</p></li>
+<li><p><strong>大规模偏好学习：</strong> 用户与AI输出交互的隐式信号，在不需要明确标注会话的情况下提供持续的偏好学习。</p></li>
+</ul>
+<p>关于在多大程度上信任AI判断相对于人类判断——以及在什么领域、什么能力水平、采用什么保障措施——这最终是一个社会问题，而非仅仅是技术问题。HITL ML提供了谨慎回答这个问题的技术基础设施，而非默认的答案。</p>
+</section>
+<hr class="docutils" />
+<section id="id19">
+<h2>开放研究问题<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<p>我们以一系列该领域正在积极研究的重要开放问题作为结语：</p>
+<ol class="arabic simple">
+<li><p><strong>主动学习中的最优停止：</strong> 下一个标注的边际价值何时低于其成本？有原则的停止规则仍然难以捉摸。</p></li>
+<li><p><strong>跨任务的标注预算分配：</strong> 在多任务设置中，固定的标注预算应如何在任务之间分配？</p></li>
+<li><p><strong>主动学习中的分布偏移：</strong> 主动学习创建了有偏的标注集。如何对以这种方式训练的模型进行适当校准？</p></li>
+<li><p><strong>奖励模型泛化：</strong> RLHF奖励模型可能无法泛化到新颖的提示-回复对。我们如何构建更鲁棒的偏好模型？</p></li>
+<li><p><strong>可扩展监督：</strong> 当AI系统在特定领域超越人类性能时，我们如何维持人类监督？</p></li>
+<li><p><strong>标注者建模：</strong> 更好的标注者行为统计模型，不仅捕捉能力，还捕捉系统性偏见、主题专业知识和疲劳。</p></li>
+<li><p><strong>对齐评估：</strong> 我们缺乏关于模型是否与人类价值观对齐的客观真相测试。开发此类测试——类似于鲁棒性的对抗样本——是一个开放问题。</p></li>
+<li><p><strong>公平的数据劳动：</strong> 确保标注工人获得公平报酬和保护的经济和机构结构，同时维持大规模标注的成本效益。</p></li>
+</ol>
+<hr class="docutils" />
+<blockquote class="epigraph">
+<div><p>目标不是用机器判断取代人类判断，
+而是构建两者结合优于任何一方单独的系统。</p>
+</div></blockquote>
+<p>本手册中的工具和技术——标注、主动学习、RLHF、偏好学习等等——都是实现这一目标的手段。随着该领域的发展，具体技术将会改变。而根本的愿景——构建既有能力又真正与人类意图对齐的系统——将永远存在。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>可扩展监督与辩论：<a href="#id20"><span class="problematic" id="id21">bowman2022measuring</span></a>。Snorkel弱监督：<a href="#id22"><span class="problematic" id="id23">ratner2017snorkel</span></a>。关于人机协作的广阔未来，请参见 <a href="#id24"><span class="problematic" id="id25">amershi2019software</span></a>。</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/zh/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">基础模型与标注角色的转变</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">减轻标注负担</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">新的任务规格形式</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">LLM作为标注者</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">LLM标注效果良好的情况</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">LLM标注失败的情况</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rlaifai">RLAIF与宪法AI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">大规模弱监督</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">带有人类监督的持续学习</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitl">多模态HITL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">可扩展监督</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">劳动分工的演变</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">开放研究问题</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

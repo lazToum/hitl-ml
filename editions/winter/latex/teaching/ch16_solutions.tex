@@ -1,0 +1,362 @@
+% ============================================================================
+% CHAPTER 16 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch16/C16AM_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 16}
+\label{ch:solutions-ch16}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Model answers and grading guidance for HITL beyond text and images.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: The Prosody Gap}
+
+\textbf{Prompt:} ``A customer service AI analyzes the words of customer complaints to determine urgency. What is it missing? How would you design a HITL system that addresses this?''
+
+\paragraph{Model Answer.}
+
+\paragraph{What a text-only system misses.}
+
+\begin{itemize}
+    \item \textbf{Vocal affect:} Raised voice, flat affect, emotional fatigue --- all carry urgency information not encoded in words. ``I'm fine'' said flatly with a two-second pause is often the opposite of fine.
+    \item \textbf{Pace and rhythm:} Rapid speech may indicate agitation; long pauses may indicate confusion, dissociation, or distress.
+    \item \textbf{Intonation:} The same words with different intonation carry different meanings. The words ``that's fine'' are identical whether the speaker has resolved the issue or is suppressing distress.
+    \item \textbf{Involuntary signals:} Tremor in the voice, audible crying, shallow or irregular breathing --- signals of psychological or physical distress that words may not explicitly name.
+\end{itemize}
+
+\paragraph{HITL design response.}
+
+A well-designed system would:
+\begin{enumerate}
+    \item Run a parallel prosodic analysis model alongside the semantic model
+    \item Escalate to human review when the two models disagree (high semantic urgency + low prosodic distress, or vice versa)
+    \item Flag cases where prosodic signals indicate distress even when words do not
+    \item Provide the human reviewer with both the transcript and the audio
+\end{enumerate}
+
+The principle generalizes: in multimodal systems, model disagreement between modalities is often more informative than single-model confidence.
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[A-grade] Names 2+ specific prosodic features, explains why text misses them, proposes a concrete HITL design element using multimodal disagreement as escalation signal.
+
+    \item[B-grade] Names 1--2 features, connects to HITL escalation need. Less precise on the design.
+
+    \item[C-grade] Identifies the gap vaguely (``tone,'' ``emotion'') without specific prosodic features. Design is generic.
+
+    \item[Needs improvement] Does not identify a meaningful gap beyond what text captures, or proposes a design that doesn't actually address the prosody gap.
+\end{description}
+
+\subsubsection{Question 2: The 0.1\% Problem}
+
+\textbf{Prompt:} ``Why can't you alert the human about everything? Why can't you trust the AI to handle everything? What does this tell you about HITL in high-volume monitoring?''
+
+\paragraph{Model Answer.}
+
+\paragraph{Why you cannot alert about everything.}
+
+Alert fatigue. When every signal triggers a human review, the human's finite attention is spread so thin that they begin ignoring all signals --- including the critical ones. In the ICU data: 700 alarms per patient per day, 72--99\% false positive rate $\to$ nurses habituate to alarms $\to$ when the genuine alarm fires, it sounds like the other 699.
+
+This is not unique to ICUs. Industrial control room research documents ``alarm flood'' as a leading contributor to operator error. Fire alarm systems with high false positive rates are ignored --- sometimes fatally. The human attention budget is a real and finite resource.
+
+\paragraph{Why you cannot trust the AI to handle everything.}
+
+The 0.1\% that matters consists of precisely the cases the AI is worst at: novel failure modes, compound failures, situations outside the training distribution. The cases that are genuinely uncertain to the AI are the cases that most need a human. Fully automated handling removes the safety net exactly where it is needed most.
+
+\paragraph{What this tells us about HITL purpose.}
+
+HITL in high-volume monitoring is primarily a \emph{triage design} problem, not a \emph{review design} problem. The AI's job is to compress 6 million data points to the 12 per month that warrant human attention. The human's job is to handle those 12 well. The design challenge is the compression step --- achieving it without either missing genuine anomalies (false negatives) or overloading the human (false positives).
+
+\subsubsection{Question 3: Physical Consequences}
+
+\textbf{Prompt:} ``A self-driving car and an email spam filter are both AI systems that make automated decisions. How are their HITL design requirements different?''
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Spam filter vs.\ self-driving car HITL comparison}
+\label{tab:spam-vs-car}
+\centering
+\begin{tabular}{@{}p{3cm}p{4cm}p{4.5cm}@{}}
+\toprule
+\textbf{Factor} & \textbf{Spam Filter} & \textbf{Self-Driving Car} \\
+\midrule
+Error recovery & User retrieves from spam folder & Collision may be unrecoverable \\
+Time window for human & Hours or days & Milliseconds to seconds \\
+FN cost & Missed email & Missed hazard; potential death \\
+Threshold for action & Wide range acceptable & Near-certainty for autonomous action \\
+Feedback timing & Weekly retraining & Real-time \\
+Human role & Reviewer (after the fact) & Co-pilot or safety override (concurrent) \\
+Graceful degradation & Everything goes to inbox & Must achieve safe stop \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What specifically changes when consequences are physical.}
+
+\begin{enumerate}
+    \item \textbf{Threshold for autonomous action:} Far more conservative when errors are not recoverable. The spam filter can afford some false negatives; the self-driving car cannot afford false negatives on obstacle detection.
+
+    \item \textbf{Timing design:} Human cannot review individual decisions after the fact; must be able to intervene in real time within the event's timescale.
+
+    \item \textbf{Graceful degradation:} The ``safe'' fallback state matters enormously. Spam filter: everything goes to inbox. Self-driving car: safe stop in current lane. The fallback must be defined explicitly and must be achievable.
+
+    \item \textbf{Pre-deployment verification:} You cannot run a post-mortem on a fatal crash and learn from it the way you can from a misclassified email. Exhaustive scenario testing before deployment is necessary, not optional.
+\end{enumerate}
+
+\subsubsection{Question 4: AlphaFold as HITL Design}
+
+\paragraph{Model Answer.}
+
+\textbf{AI's role:} Predict the three-dimensional structure of a protein from its amino acid sequence. Provide per-residue confidence scores (pLDDT) indicating how confident the model is about each region of the prediction.
+
+\textbf{Human's role:} Interpret the confidence scores to decide which parts of the prediction to trust and which to validate experimentally. Select which predicted structures are worth the expense of X-ray crystallography or cryo-EM validation. Bring domain knowledge about which protein regions are functionally important (prioritizing validation of those regions even when confidence is moderate).
+
+\textbf{The uncertainty interface:} The pLDDT scores. Regions with high pLDDT ($>$90) are generally reliable; the human can trust these in downstream analysis. Regions with low pLDDT ($<$50) require experimental validation or acknowledgment of uncertainty in any conclusions drawn. The human is not reviewing the model's outputs passively --- they are using the confidence scores to design the experimental agenda.
+
+\textbf{The broader HITL principle:} In scientific discovery HITL, the model narrows the hypothesis space; the human selects which hypotheses to test. This is a fundamentally different human role from case-by-case review --- it is \emph{experimental design}.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Multimodal Disagreement Protocol Design}
+
+\textbf{Prompt:} ``Design a HITL escalation protocol for a system that monitors video, audio, and physiological sensors simultaneously.''
+
+\paragraph{Sample Strong Answer.}
+
+\paragraph{Step 1: Define modality-specific confidence thresholds.}
+
+Each modality produces a risk score [0,1]:
+\begin{itemize}
+    \item Video: escalate if pose/behavioral classifier score $> 0.6$
+    \item Audio: escalate if prosodic distress score $> 0.5$
+    \item Physiological: escalate if any vital sign leaves normal range by $> 2$ standard deviations
+\end{itemize}
+
+\paragraph{Step 2: Compute modality agreement.}
+
+Disagreement score $= \max(\text{pairwise differences among risk scores})$. If disagreement $> 0.3$ (e.g., video = 0.7, audio = 0.2), escalate regardless of individual scores.
+
+\paragraph{Step 3: Combined decision logic.}
+
+\begin{lstlisting}[style=python, caption={Multimodal escalation logic}]
+if any_single_score > HIGH_THRESHOLD:
+    escalate("immediate", "single_modality_high")
+elif modality_disagreement > 0.3:
+    escalate("standard", "modality_disagreement")
+elif combined_weighted_score > MEDIUM_THRESHOLD:
+    escalate("standard", "combined_score")
+else:
+    auto_resolve("low_risk")
+\end{lstlisting}
+
+\paragraph{Rationale for disagreement as standalone escalation trigger.}
+
+The physical models of each modality are independent. When they disagree, the disagreement itself is evidence that something in the situation does not fit the training distribution for at least one model --- which is precisely the condition where human judgment is most valuable. The Marcus scenario (text = low risk, prosody = high risk) would always trigger escalation under this protocol, regardless of what either individual model says.
+
+\paragraph{Threshold calibration.}
+
+The 0.3 threshold is a starting point; calibrate on historical data with known outcomes. Key constraint: the threshold must be set so that all historical escalation cases would have been caught.
+
+\subsubsection{Streaming vs.\ Static HITL Differences}
+
+\textbf{Prompt:} ``Explain three specific ways HITL design requirements differ between a text classification model and an industrial sensor monitoring system.''
+
+\paragraph{Model Answer.}
+
+\begin{enumerate}
+    \item \textbf{Evaluation methodology:} A static text classifier can be evaluated on a fixed held-out test set before deployment. A streaming sensor monitoring system is always encountering new data; the test set cannot cover future distribution. Streaming HITL requires continuous performance monitoring with drift detection --- the evaluation never ends.
+
+    \item \textbf{Intervention window design:} Text classification has no time pressure; a reviewer can take hours to evaluate a case. Industrial sensor monitoring may require intervention in seconds or minutes before a process reaches an irreversible state. The human's role must be designed for the timescale of the intervention window, which may be too short for case-by-case review.
+
+    \item \textbf{Nature of human role:} In text classification, the human reviews individual cases and provides labels. In streaming monitoring, the human's primary role is often system-level oversight: monitoring whether the AI's triage is working correctly, calibrating thresholds, and handling genuine anomalies when they arise. The human is not reviewing thousands of sensor readings per day --- they are managing the system that triages those readings.
+\end{enumerate}
+
+\subsubsection{Co-Adaptation Analysis}
+
+\textbf{Prompt:} ``A medical professional uses an AI diagnostic system every day for two years. Describe what changes in the AI, the professional, and the combined system. Is this desirable?''
+
+\paragraph{Model Answer.}
+
+\paragraph{What the AI learns.}
+
+Over two years of production use with feedback from confirmed diagnoses:
+\begin{itemize}
+    \item Updated on the professional's patient population --- more representative of actual deployment distribution
+    \item Refined on edge cases flagged for human review
+    \item Potentially adapted toward the professional's diagnostic style if that professional's overrides are systematically incorporated
+\end{itemize}
+
+\paragraph{What the professional learns.}
+
+\begin{itemize}
+    \item The AI's specific failure modes and areas of low confidence
+    \item How to interpret AI outputs in context: when the AI's uncertainty is meaningful vs.\ routine
+    \item Possibly: which cases the AI handles reliably (reducing independent checking) and which require careful independent evaluation
+    \item Domain knowledge restructured around the AI's categories and decision points
+\end{itemize}
+
+\paragraph{Whether co-adaptation is desirable.}
+
+\emph{Depends on what the adaptation looks like.}
+
+If the professional learns that the AI is reliable on type-A cases and unreliable on type-B, and allocates attention accordingly, this is desirable --- human expertise is better calibrated.
+
+If the professional learns to defer to the AI systematically (automation complacency), this is undesirable --- the human oversight value degrades over time, creating brittleness at the moment of AI failure.
+
+\paragraph{Design implication.}
+
+Track both AI performance and human performance \emph{separately} over time. If human performance on cases not processed by AI degrades as AI improves, co-adaptation is causing skill erosion --- the automation complacency dynamic from Chapter~13 operating at longer timescales.
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Five Dimensions Framework Stress Test}
+
+\textbf{Prompt:} ``Identify one dimension that applies cleanly to all four domains, one that requires modification, and one that requires the most adaptation.''
+
+\paragraph{Sample Strong Answer.}
+
+\paragraph{Applies cleanly to all domains: Stakes Calibration.}
+
+Stakes Calibration generalizes across all four Chapter~16 domains without modification. In each domain, the cost asymmetry between false positives and false negatives drives threshold design:
+\begin{itemize}
+    \item Crisis hotlines: false negative = missed intervention $\to$ very low false negative threshold
+    \item ICUs: false negative = missed deterioration $\to$ very low false negative threshold
+    \item AlphaFold: false negative = acting on a wrong structure $\to$ pLDDT thresholds set conservatively
+    \item Prosthetics: false negative = wrong movement actuation $\to$ uncertainty-driven handoff to human intent
+\end{itemize}
+
+The framework question ``does the system understand the consequences of its errors?'' is relevant everywhere. This is the most universal of the five dimensions.
+
+\paragraph{Applies with significant modification: Feedback Integration.}
+
+In static text/image HITL, Feedback Integration is relatively straightforward: human labels flow back into a training pipeline. In the Chapter~16 domains:
+\begin{itemize}
+    \item Streaming systems (ICU, industrial IoT): feedback loop must operate continuously, with temporal context; labels may be noisy or delayed
+    \item Scientific discovery: feedback turnaround is measured in weeks (experiment time), not hours; domain expert interpretation may be required before a result becomes training signal
+    \item BCIs: feedback is implicit (the user's neural adaptation) rather than explicit labels; the ``feedback'' is the user's motor learning responding to the system's outputs
+\end{itemize}
+
+The concept is robust; the mechanism varies fundamentally across domains.
+
+\paragraph{Requires most adaptation: Timing.}
+
+Timing in text/image HITL means: at what point in the workflow does the human review occur (pre-deployment vs.\ post-deployment; batch vs.\ real-time)?
+
+In physical systems, Timing means something categorically different: is the intervention window physically achievable given human reaction time? At 60~mph in an autonomous vehicle, Timing becomes a hard physical constraint that cannot be addressed by process design. In earthquake early warning, Timing means the human's role must be redesigned as system-level oversight rather than case-by-case review because the intervention window is measured in seconds. In surgical robotics with a 100~ms latency constraint, Timing requires the AI to buffer human intentions and execute them smoothly.
+
+The dimension applies --- you still ask ``when does the human act?'' --- but the analysis is categorically more constrained.
+
+\subsubsection{ICU Alarm Reduction System Design}
+
+\paragraph{Model Answer Framework.}
+
+\paragraph{ML approach.}
+
+A multi-input model that integrates all sensor streams simultaneously rather than monitoring each parameter independently. Features: current values, trend (rate of change), variability (coefficient of variation over last 30 minutes), inter-sensor relationships (e.g., heart rate variability in context of blood pressure). Model architecture: LSTM or transformer-based time-series model predicting patient deterioration probability within the next 30 minutes.
+
+\paragraph{Achieving $< 5$ alarms per nurse per hour.}
+
+At 20 beds per 20-bed ICU with a standard nurse-to-patient ratio of 1:2, each nurse manages 2--3 patients. Target: $\leq 15$ actionable alarms per patient per day ($= 5$ per nurse per 8-hour shift with 3 patients). This requires a model precision (positive predictive value) of at least 60\% on alarms produced and recall $\geq 99\%$ on critical events.
+
+\paragraph{Defining ``actionable'' in training labels.}
+
+An alarm is actionable if a nurse reviewing it with 5 minutes of investigation initiates a clinical intervention that is not routine monitoring. Historical outcome labeling: what alarms preceded documented clinical interventions? What alarms preceding no intervention were false alarms? Expert annotation of a calibration set for ambiguous cases.
+
+\paragraph{Validation before deployment.}
+
+\begin{enumerate}
+    \item Held-out test set from the same hospital (temporal split: train on 2020--2023, test on 2024)
+    \item Prospective shadow mode: run new system alongside current system, compare alarm outputs without acting on new system's alarms, for 60 days
+    \item Pilot deployment on 4 beds with close monitoring, before full ICU rollout
+    \item Independent clinical endpoint analysis: do critical events (codes, rapid responses) increase or decrease after deployment?
+\end{enumerate}
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Prosody Detection --- Instructor Notes}
+
+\paragraph{What to look for in student responses.}
+
+Strong responses after hearing the audio:
+\begin{itemize}
+    \item Identify specific prosodic features that changed their assessment (not just ``the voice sounded sad'')
+    \item Connect to the Marcus story: the words were fine; the voice was not
+    \item Propose features for a prosodic model (pause duration, voice tremor, speaking rate, pitch variance)
+    \item Identify which cases would have been missed entirely by a text-only system
+\end{itemize}
+
+\paragraph{The key insight to surface.}
+
+The gap between text and audio is not small for a subset of edge cases. It is substantial and systematic in mental health, customer service, and any domain where emotional state is a primary signal. A system deployed without prosodic analysis is not simply ``less accurate'' --- it is systematically blind to an entire channel of relevant information.
+
+\subsection{Activity 2: Five Dimensions Stress Test --- Discussion Key}
+
+\paragraph{Most universal dimension across domains: Stakes Calibration.}
+
+Students across all four domain groups should find Stakes Calibration applies cleanly. The cost-asymmetry logic (false positive cost vs.\ false negative cost) is the core of threshold design in every domain.
+
+\paragraph{Most strained dimension: Timing.}
+
+Groups working on physical systems (ICUs, robotics) should find Timing is the most challenging dimension. The physical timescale constraints that make real-time human intervention impossible in fast-moving physical systems require rethinking what ``Timing'' means --- from ``when in the workflow'' to ``is human intervention physically achievable?''
+
+\paragraph{Framework gap identified by most groups: the human's changing state.}
+
+The Five Dimensions framework treats the human component as relatively static. Chapter~13's psychology and Chapter~16's co-adaptation together suggest a sixth dimension: Human Adaptation Monitoring --- tracking how the human component of the HITL system is changing over time (skill erosion, automation complacency, or genuine expertise development). This is the most productive ``limitation'' students are likely to identify.
+
+\subsection{Activity 3: ICU Alarm Reduction --- Grade Criteria}
+
+Strong designs will specify:
+\begin{itemize}
+    \item Multi-input model integrating all sensor streams (not independent per-parameter thresholds)
+    \item Time-series features (trend and variability), not just current values
+    \item Explicit definition of ``actionable'' as a training label with expert annotation process
+    \item Prospective shadow-mode validation before full deployment
+    \item Ongoing monitoring with specific drift-detection criteria after deployment
+\end{itemize}
+
+Weak designs will:
+\begin{itemize}
+    \item Propose simply raising individual parameter thresholds (misses compound failure patterns)
+    \item Define actionable alarms based on current alarm categories rather than clinical outcomes
+    \item Validate only on a held-out test set without prospective validation
+    \item Have no ongoing monitoring plan
+\end{itemize}
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``Can you train a model on prosodic features?''}
+Yes --- this is an active research area. Prosodic features (pitch, speaking rate, pause duration, voice tremor, spectral characteristics) can be extracted from audio and used as model inputs. The challenge is labeled training data: you need examples where prosodic signals of distress are confirmed by outcome data (escalations that were validated as necessary). This is both more expensive to collect and more sensitive than text data.
+
+\paragraph{``Why not just train one very large model on all sensor streams at once instead of having separate models per modality?''}
+Single large models that integrate all streams are more powerful for average-case prediction. But modality-specific models provide a design benefit: when they disagree, the disagreement is diagnostic. A single integrated model that outputs one confidence score cannot surface the information that two specific modalities are contradicting each other. The Marcus scenario would be invisible to a single integrated model --- it might average the text and prosody signals and output a medium-confidence score, missing the urgency of the disagreement itself.
+
+\paragraph{``Isn't co-adaptation in BCIs essentially changing the human to fit the machine?''}
+This is an important ethical question worth serious discussion. Co-adaptation in BCIs can change the user's neural patterns over time --- the user genuinely adapts at the neural level, not just the behavioral level. Whether this is desirable depends on whether the user retains the ability to perform the task without the BCI, and whether the co-adaptation serves the user's goals. The ethical obligation is transparency about co-adaptation effects, reversibility planning, and ensuring that the user's neural changes do not create dependency that the system designer can exploit.
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~16 solutions reinforce the book's final synthesis: the Five Dimensions framework is a robust organizing structure that applies --- with appropriate adaptation --- across domains far removed from the text classification and image review contexts where it was first developed. The domains that strain the framework most (physical systems, scientific discovery, real-time sensor monitoring) are also the domains where HITL design matters most. The human is not optional in those contexts; the architecture of human involvement is the central design challenge.}

@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Koyon Ta Karfafawa daga Ra’ayin Dan Adam &#8212; Human in the Loop: Misunderstood — Summer Edition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/summer.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/sidebar-fix.js"></script>
+    <script src="../../../_static/wordsearch.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translations/ha/chapters/06_rlhf';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">Grab a pencil. Dog-ears are encouraged.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Human in the Loop: Misunderstood — Summer Edition</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I — Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/01_introduction.html">What Is HITL ML?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/02_taxonomy.html">A Taxonomy of Human–Machine Interaction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II — Core Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/03_annotation.html">Data Annotation and Labeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/04_active_learning.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/05_interactive_ml.html">Interactive Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III — Learning from Human Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/06_rlhf.html">Reinforcement Learning from Human Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/07_demonstrations.html">Learning from Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/08_preferences.html">Learning from Comparisons and Rankings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part IV — Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/09_nlp.html">HITL in Natural Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/10_vision.html">HITL in Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/11_healthcare.html">HITL in Healthcare and Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part V — Systems and Practice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/12_platforms.html">Annotation Platforms and Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/13_crowdsourcing.html">Crowdsourcing and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/14_evaluation.html">Evaluation and Metrics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part VI — Ethics and Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/15_ethics.html">Fairness, Bias, and Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/16_future.html">Future Directions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Study</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../chapters/17_limen.html">Limen: A Human in the Loop of Everything</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back/answers.html">Answers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/translations/ha/chapters/06_rlhf.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Koyon Ta Karfafawa daga Ra’ayin Dan Adam</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matsalar-daidaitawa">Matsalar Daidaitawa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tsarin-rlhf">Tsarin RLHF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mataki-na-1-daidaita-supervised">Mataki na 1: Daidaita Supervised</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mataki-na-2-horarwa-ta-samfurin-lada">Mataki na 2: Horarwa ta Samfurin Lada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mataki-na-3-daidaita-rl-tare-da-ppo">Mataki na 3: Daidaita RL tare da PPO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nuni-na-sauki-na-rlhf">Nuni na Sauƙi na RLHF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kalubale-a-rlhf">Kalubale a RLHF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hacking-lada">Hacking Lada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuna-son-zuciya-na-mai-kimantawa">Nuna Son Zuciya na Mai Kimantawa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kulawa-mai-sikeli">Kulawa Mai Sikeli</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-na-tsarin-mulki-rlaif">AI na Tsarin Mulki (RLAIF)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="koyon-ta-karfafawa-daga-ra-ayin-dan-adam">
+<h1>Koyon Ta Karfafawa daga Ra’ayin Dan Adam<a class="headerlink" href="#koyon-ta-karfafawa-daga-ra-ayin-dan-adam" title="Permalink to this heading">#</a></h1>
+<p>Babu wata dabara da ta fi kawo HITL ML cikin babbar hanya fiye da Koyon Ta Karfafawa daga Ra’ayin Dan Adam (RLHF). Shi ne hanyar da ke bayan InstructGPT <a href="#id1"><span class="problematic" id="id2">ouyang2022training</span></a> da wani ɓangare na farko na tsarin bin umarni a cikin manyan samfurin harshe na zamani da yawa <a href="#id3"><span class="problematic" id="id4">stiennon2020learning</span></a>. Fahimtar RLHF — ba kawai a matsayin mai jita-jita don bi ba, amma a matsayin hanyar ƙa’ida ga daidaitawa — yana da muhimmanci ga kowa da ke aiki a AI na zamani.</p>
+<hr class="docutils" />
+<section id="matsalar-daidaitawa">
+<h2>Matsalar Daidaitawa<a class="headerlink" href="#matsalar-daidaitawa" title="Permalink to this heading">#</a></h2>
+<p>Manyan samfurin harshe (LLMs) da aka horar kawai akan hasashen alamar gaba suna inganta don manufar wakili: yi hasashe a abin da rubutu ke zuwa gaba a rukunin rubutu na dan adam. Wannan manufa ta alaƙa da, amma ta bambanta da, abin da muke nufin gaske: amsoshi masu taimako, daidai, amintacce, kuma dacewa da ƙimar dan adam.</p>
+<p>Rashin daidaito tsakanin manufar horarwa da ɗabi’ar da ake so ana kiransa <strong>matsalar daidaitawa</strong> <a href="#id5"><span class="problematic" id="id6">russell2019human</span></a>. Musamman, samfuri na harshe da aka horar akan rubutu na yanar gizo yana koyon:</p>
+<ul class="simple">
+<li><p>Samar da ci gaba mai kama da gaskiya (wanda na iya kasancewa ba daidai ba ta gaskiya)</p></li>
+<li><p>Nuna nuna son zuciya da cutarwa da ke cikin bayanin horarwa</p></li>
+<li><p>Kasancewa mai sauƙin guduwa ko mai yaudarar lokacin da wannan shine abin da ya biyo bayan tambayar ta lissafi</p></li>
+</ul>
+<p>RLHF yana magance daidaitawa ta sanya fifikon dan adam <em>wani ɓangare na manufar inganta</em>.</p>
+</section>
+<hr class="docutils" />
+<section id="tsarin-rlhf">
+<h2>Tsarin RLHF<a class="headerlink" href="#tsarin-rlhf" title="Permalink to this heading">#</a></h2>
+<p>RLHF yana gudana a matakai uku:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Mataki na 1: Daidaita Supervised (SFT)
+  --&gt; Tattara bayanin misali (dan adam yana rubuta amsoshi mafi kyau)
+  --&gt; Daidaita LLM na tushe akan misalai
+
+Mataki na 2: Horarwa ta Samfurin Lada
+  --&gt; Tattara fifiko biyu biyu (dan adam yana kimanta A da B)
+  --&gt; Horar da samfurin lada R(x, y) don hasashen fifikon dan adam
+
+Mataki na 3: Daidaita RL
+  --&gt; Daidaita LLM ta amfani da PPO/RL don inganta R(x, y)
+  --&gt; Hukuncin KL yana hana tafiya mai nisa daga samfurin SFT
+</pre></div>
+</div>
+<section id="mataki-na-1-daidaita-supervised">
+<h3>Mataki na 1: Daidaita Supervised<a class="headerlink" href="#mataki-na-1-daidaita-supervised" title="Permalink to this heading">#</a></h3>
+<p>Farawa daga samfuri na tushe da aka horar a baya <span class="math notranslate nohighlight">\(\pi_0\)</span>, muna tattara saitin bayanai na (tambaya, mafi kyau amsa) biyu, da masu kwangila na dan adam waɗanda suka bi jagoran cikakku. Ana daidaita samfuri akan waɗannan misalai ta amfani da cross-entropy na yau da kullum:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_\text{SFT}(\theta) = -\mathbb{E}_{(x, y) \sim \mathcal{D}_\text{demo}} \left[ \log \pi_\theta(y \mid x) \right]
+\]</div>
+<p>Samfurin SFT <span class="math notranslate nohighlight">\(\pi_\text{SFT}\)</span> farawa mafi kyau ce don RLHF fiye da samfuri na tushe mentah.</p>
+</section>
+<section id="mataki-na-2-horarwa-ta-samfurin-lada">
+<h3>Mataki na 2: Horarwa ta Samfurin Lada<a class="headerlink" href="#mataki-na-2-horarwa-ta-samfurin-lada" title="Permalink to this heading">#</a></h3>
+<p>Don saitin tambayoyi <span class="math notranslate nohighlight">\(\{x_i\}\)</span>, muna ƙirƙira <span class="math notranslate nohighlight">\(K\)</span> amsoshi kowace tambaya ta amfani da <span class="math notranslate nohighlight">\(\pi_\text{SFT}\)</span> kuma mun gabatar da su ga masu sanya lakabi dan adam a matsayin kwatancen biyu biyu: “Wane amsa ya fi, A ko B?”</p>
+<p>Ana horar da samfurin lada <span class="math notranslate nohighlight">\(r_\phi\)</span> don hasashen waɗannan fifiko. Ƙarƙashin tsarin <strong>Bradley-Terry</strong> (Babi na 8), iya yiwuwar cewa amsa <span class="math notranslate nohighlight">\(y_w\)</span> an fi so da <span class="math notranslate nohighlight">\(y_l\)</span> ita ce:</p>
+<div class="math notranslate nohighlight">
+\[
+P(y_w \succ y_l \mid x) = \sigma\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right)
+\]</div>
+<p>Ana horar da samfurin lada don rage asarar jeri biyu biyu:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_\text{RM}(\phi) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}_\text{pref}} \left[ \log \sigma\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right) \right]
+\]</div>
+<p>Ana farawa da samfurin lada daga samfurin SFT tare da kai scalar wanda ya maye gurbin saman ta ƙarshe.</p>
+</section>
+<section id="mataki-na-3-daidaita-rl-tare-da-ppo">
+<h3>Mataki na 3: Daidaita RL tare da PPO<a class="headerlink" href="#mataki-na-3-daidaita-rl-tare-da-ppo" title="Permalink to this heading">#</a></h3>
+<p>Tare da samfurin lada da aka horar, muna iya amfani da koyon ƙarfafawa don daidaita LLM. Kowane tambaya <span class="math notranslate nohighlight">\(x\)</span> yanayi ne; kowane amsa <span class="math notranslate nohighlight">\(y\)</span> hanya ce ta zaɓuɓɓukan alamar; kuma ladan shine <span class="math notranslate nohighlight">\(r_\phi(x, y)\)</span>.</p>
+<p>Manufar inganta ta haɗa da <strong>hukunci na KL divergence</strong> don hana samfuri daga tafiya mai nisa daga tushen SFT (wanda zai haifar da hacking lada <a href="#id7"><span class="problematic" id="id8">krakovna2020specification,gao2023scaling</span></a>):</p>
+<div class="math notranslate nohighlight">
+\[
+\max_\theta \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(\cdot | x)} \left[ r_\phi(x, y) - \beta \cdot \text{KL}\left[\pi_\theta(\cdot \mid x) \| \pi_\text{SFT}(\cdot \mid x)\right] \right]
+\]</div>
+<p>Sinadarin <span class="math notranslate nohighlight">\(\beta\)</span> yana sarrafa ƙarfin hukuncin KL. Ƙaramin <span class="math notranslate nohighlight">\(\beta\)</span> yana ba da damar inganta fiye da kima amma yana hadari hacking lada; babban <span class="math notranslate nohighlight">\(\beta\)</span> yana sanya samfuri kusa da SFT amma yana iyakance riba ta daidaitawa.</p>
+<p><strong>Inganta Manufar Kusan (PPO)</strong> <a href="#id9"><span class="problematic" id="id10">schulman2017proximal</span></a> shine algorithm na yau da kullum don wannan mataki, an zaɓa don daidaitarsa dangane da hanyoyin gradient na manufa mentah.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="nuni-na-sauki-na-rlhf">
+<h2>Nuni na Sauƙi na RLHF<a class="headerlink" href="#nuni-na-sauki-na-rlhf" title="Permalink to this heading">#</a></h2>
+<p>Tsarin cikakke na RLHF yana buƙatar ababen more rayuwar mafi sikeli. Misali mai zuwa yana nuna ra’ayoyin muhimmanci a ƙaramin sikeli.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------</span>
+<span class="c1"># Toy setup: responses are 4-dimensional vectors</span>
+<span class="c1"># &quot;Quality&quot; is known analytically (sum of positive values)</span>
+<span class="c1"># We simulate a reward model learning this from pairwise feedback</span>
+<span class="c1"># -----------------------------------------------</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RewardModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">true_quality</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The hidden ground-truth reward function.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Generate pairwise preference data</span>
+<span class="n">N_PAIRS</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N_PAIRS</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N_PAIRS</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">true_quality</span><span class="p">(</span><span class="n">X1</span><span class="p">),</span> <span class="n">true_quality</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+<span class="c1"># Human prefers X1 when q1 &gt; q2 (with some noise)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N_PAIRS</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="n">preferred_1</span> <span class="o">=</span> <span class="p">((</span><span class="n">q1</span> <span class="o">-</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">noise</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+<span class="c1"># Train reward model</span>
+<span class="n">rm</span> <span class="o">=</span> <span class="n">RewardModel</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>
+
+<span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">rm</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">rm</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+    <span class="c1"># Bradley-Terry loss</span>
+    <span class="n">logit</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">binary_cross_entropy_with_logits</span><span class="p">(</span><span class="n">logit</span><span class="p">,</span> <span class="n">preferred_1</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">();</span> <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">();</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+<span class="c1"># Evaluate: does the reward model agree with true quality?</span>
+<span class="n">X_eval</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">r_pred</span> <span class="o">=</span> <span class="n">rm</span><span class="p">(</span><span class="n">X_eval</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">r_true</span> <span class="o">=</span> <span class="n">true_quality</span><span class="p">(</span><span class="n">X_eval</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+<span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">r_pred</span><span class="p">,</span> <span class="n">r_true</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reward model correlation with true quality: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final training loss: </span><span class="si">{</span><span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Pairwise loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Reward Model Training&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">r_true</span><span class="p">[:</span><span class="mi">200</span><span class="p">],</span> <span class="n">r_pred</span><span class="p">[:</span><span class="mi">200</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2b3a8f&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;True quality&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted reward&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reward Model vs. Truth (r=</span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;reward_model.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="kalubale-a-rlhf">
+<h2>Kalubale a RLHF<a class="headerlink" href="#kalubale-a-rlhf" title="Permalink to this heading">#</a></h2>
+<section id="hacking-lada">
+<h3>Hacking Lada<a class="headerlink" href="#hacking-lada" title="Permalink to this heading">#</a></h3>
+<p>Gazawar muhimmanci: manufar yana nemo hanyoyin samun lada mai ƙari daga samfurin lada waɗanda ba su dace da ɗabi’ar mai kyau gaske ba. Misali, LLM na iya koyon samar da amsoshi masu yabo ko masu haƙiƙa (waɗanda masu sanya lakabi galibi suna ƙididdiga mafi ƙari) maimakon daidai.</p>
+<p>Hacking lada yana yiwuwa fiye da kima lokacin da:</p>
+<ul class="simple">
+<li><p>Ana horar da samfurin lada akan bayanin fifiko ƙasa da isa</p></li>
+<li><p>Ana ba da damar manufa ta tafiya mai nisa daga tushen SFT (ƙaramin <span class="math notranslate nohighlight">\(\beta\)</span>)</p></li>
+<li><p>Rarrabawar samfurin lada tana canzawa a lokacin horarwar PPO</p></li>
+</ul>
+<p><strong>Dabarun rage:</strong> Hukunci KL, horarwar samfurin lada mai sake zagaye, kimantawa iri-iri, ƙuntatawa na AI na tsarin mulki.</p>
+</section>
+<section id="nuna-son-zuciya-na-mai-kimantawa">
+<h3>Nuna Son Zuciya na Mai Kimantawa<a class="headerlink" href="#nuna-son-zuciya-na-mai-kimantawa" title="Permalink to this heading">#</a></h3>
+<p>Masu sanya lakabi dan adam suna da nuna son zuciya ta tsari. Suna fifiko da amsoshi mafi tsawo (nuna son zuciya ga yawa), rubutu mai kama amincewar (nuna son zuciya ga amincewar), da amsoshi waɗanda suka yarda da imaninsu na baya. Waɗannan nuna son zuciya suna yada cikin samfurin lada.</p>
+<p>Gazawar sycophancy da aka fi sani na samfurin RLHF — inda samfuri ke gaya wa masu amfani abin da suke son ji maimakon abin da ya kasance gaskiya — a wani ɓangare sakamakon fifikon mai kimantawa don amsoshi masu jituwa ne.</p>
+</section>
+<section id="kulawa-mai-sikeli">
+<h3>Kulawa Mai Sikeli<a class="headerlink" href="#kulawa-mai-sikeli" title="Permalink to this heading">#</a></h3>
+<p>Don ayyuka masu rikitarwa, dan adam ba zai iya kimanta da aminci wane amsa AI ya fi daidai ba. Mai sanya lakabi da ke kwatanta shaidun lissafi mafi tsawo biyu ko aiwatarwa biyu na lambar na iya kawai zaɓar mai ƙarin karatu, ba tare da la’akari da daidaito ba. <strong>Kulawa mai sikeli</strong> ita ce matsalar bincike buɗaɗɗe na tsara hanyoyin kimantawa waɗanda suke zama amintacce yayin da rikitarwar aiki ke ƙaruwa <a href="#id11"><span class="problematic" id="id12">bowman2022measuring</span></a>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ai-na-tsarin-mulki-rlaif">
+<h2>AI na Tsarin Mulki (RLAIF)<a class="headerlink" href="#ai-na-tsarin-mulki-rlaif" title="Permalink to this heading">#</a></h2>
+<p><strong>AI na Tsarin Mulki</strong> <a href="#id13"><span class="problematic" id="id14">bai2022constitutional</span></a>, da aka haɓaka a Anthropic, yana rage dogaro akan masu sanya lakabi dan adam ta amfani da AI kansa don ƙirƙira lakabin fifiko mai jagora ta saitin ƙa’idoji (wani “tsarin mulki”). Tsari:</p>
+<ol class="arabic simple">
+<li><p>Ƙirƙira amsoshi ga tambayoyin masu iya cutar</p></li>
+<li><p>Yi amfani da mai sukar AI don kimanta amsoshi ƙarƙashin ƙa’idojin tsarin mulki</p></li>
+<li><p>Gyara amsoshi mai jagora ta ra’ayin AI (RLAIF — RL daga Ra’ayin AI)</p></li>
+<li><p>Horar da samfurin lada akan fifikon da AI ya ƙirƙira</p></li>
+<li><p>Daidaita tare da RLHF ta amfani da wannan samfurin lada</p></li>
+</ol>
+<p>RLAIF zai iya ƙirƙira bayanin fifiko a sikeli mafi girma fiye da sanya lakabi dan adam, kuma yana ba da damar sarrafa ɗan ƙarami akan ƙimomi da aka ɓoye a cikin samfurin lada.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Takarda ta asali ta InstructGPT <a href="#id15"><span class="problematic" id="id16">ouyang2022training</span></a> tana bayyana amfani na farko na mafi sikeli na RLHF ga LLMs. Aikin RLHF na asali don RL mai zurfi shine <a href="#id17"><span class="problematic" id="id18">christiano2017deep</span></a>. An bayyana PPO a cikin <a href="#id19"><span class="problematic" id="id20">schulman2017proximal</span></a>. AI na tsarin mulki daga <a href="#id21"><span class="problematic" id="id22">bai2022constitutional</span></a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./translations/ha/chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matsalar-daidaitawa">Matsalar Daidaitawa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tsarin-rlhf">Tsarin RLHF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mataki-na-1-daidaita-supervised">Mataki na 1: Daidaita Supervised</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mataki-na-2-horarwa-ta-samfurin-lada">Mataki na 2: Horarwa ta Samfurin Lada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mataki-na-3-daidaita-rl-tare-da-ppo">Mataki na 3: Daidaita RL tare da PPO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nuni-na-sauki-na-rlhf">Nuni na Sauƙi na RLHF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kalubale-a-rlhf">Kalubale a RLHF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hacking-lada">Hacking Lada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuna-son-zuciya-na-mai-kimantawa">Nuna Son Zuciya na Mai Kimantawa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kulawa-mai-sikeli">Kulawa Mai Sikeli</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-na-tsarin-mulki-rlaif">AI na Tsarin Mulki (RLAIF)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lazaros Toumanidis
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

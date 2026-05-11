@@ -1,0 +1,439 @@
+% ============================================================================
+% CHAPTER 7 TEACHER'S MANUAL
+% Complete instructional guide for teaching annotation science and label quality
+% ============================================================================
+% Source: /markdown/ch7/Ch7T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 7}
+\label{ch:teacher-ch07}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching annotation science, inter-annotator agreement, and the politics of ground truth using \emph{Getting Good Information from People}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Define inter-annotator agreement and explain why raw agreement is insufficient
+    \item Compute and interpret Cohen's kappa and identify when to use Fleiss' kappa
+    \item Describe at least three sources of systematic bias in annotation
+    \item Explain what framing effects are and give two examples from annotation practice
+    \item Distinguish between noise disagreement and genuine ambiguity in annotation data
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Calculate Cohen's kappa for a given annotation matrix
+    \item Design an annotation guideline that reduces framing-effect variance
+    \item Identify the annotator demographic considerations relevant to a specific task
+    \item Compare crowdsourced vs.\ expert annotation trade-offs for a given use case
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a complete annotation project including guideline, quality control, and calibration plan
+    \item Evaluate an existing annotation dataset for potential sources of systematic bias
+    \item Interpret low inter-annotator agreement and determine whether it signals quality failure or task ambiguity
+    \item Propose appropriate label-handling strategies for tasks with irreducibly low agreement
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapter~1} (HITL fundamentals)
+    \item \textbf{Chapter~6} (interface design) --- recommended but not required; Chapter~7 builds on the connection between interface and annotation quality
+    \item \textbf{Basic probability} helpful; kappa formula requires algebra
+    \item \textbf{No programming prerequisite} for the main chapter; Appendix~7A requires Python for Dawid-Skene implementation
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Standard sequence] After Chapter~6 (interface quality affects annotator performance) and before the domain chapters
+    \item[Data science courses] Core content on training data quality; kappa as a foundational measurement skill
+    \item[Ethics/fairness courses] The ImageNet story, AAVE toxicity findings, and demographic blind spot analysis are central case studies
+    \item[Information science] Connects to knowledge organization, classification schemes, and the politics of categorization
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Insight: Labels Are Arguments}
+
+The chapter's core claim --- that every label is an act of interpretation --- is counter-intuitive to students who assume training data is objective. Before introducing technical content, anchor this conceptually.
+
+\begin{technote}[Opening Provocation]
+Show students two photographs of the same protest (or describe the scenario). One photograph shows police in riot gear facing a crowd; the second shows the same moment from the other side, with protesters throwing objects. Ask: ``If these were social media posts, would you label them as `violent content'? What information do you need to decide? Whose perspective are you adopting?''
+
+The exercise reveals that the label is not a property of the image. It is a property of the relationship between the image and the labeling criteria, the context, and the worldview of the labeler.
+\end{technote}
+
+\subsection{The Kappa Framework}
+
+Kappa is the chapter's central technical tool. Introduce it in three steps:
+
+\begin{enumerate}
+    \item \textbf{Why raw agreement fails:} If 95\% of emails are legitimate and the classifier labels everything ``legitimate,'' it achieves 95\% accuracy while doing nothing useful. Raw agreement has the same problem.
+    \item \textbf{What kappa measures:} Agreement beyond chance. Show with a numerical example.
+    \item \textbf{What kappa hides:} Kappa is an average across all annotators and all items. Low aggregate kappa can mask high agreement on easy items and systematic disagreement on hard items. Kappa does not reveal \emph{where} disagreement occurs.
+\end{enumerate}
+
+\begin{table}[htbp]
+\caption{Landis-Koch kappa interpretation scale}
+\label{tab:kappa-scale-ch07}
+\centering
+\begin{tabular}{@{}p{2cm}p{5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Kappa} & \textbf{Landis-Koch Label} & \textbf{HITL Notes} \\
+\midrule
+$< 0.20$ & Slight & Annotation likely unreliable; do not train on it \\
+$0.21$--$0.40$ & Fair & Significant improvement needed; calibration required \\
+$0.41$--$0.60$ & Moderate & May be acceptable for low-stakes tasks \\
+$0.61$--$0.80$ & Substantial & Acceptable for most applications \\
+$0.81$--$1.00$ & Almost perfect & High quality; verify task isn't trivially easy \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{cautionbox}[Important Nuance]
+Kappa thresholds are domain-specific. A kappa of 0.50 for fine-grained emotion classification with 8 categories may be perfectly acceptable. A kappa of 0.70 for a binary medical diagnosis task may be dangerously insufficient. Always interpret kappa in the context of the task and its downstream use.
+\end{cautionbox}
+
+\subsection{The Four Sources of Label Variation}
+
+\begin{table}[htbp]
+\caption{Four sources of label variation: examples and mitigations}
+\label{tab:label-variation-ch07}
+\centering
+\begin{tabular}{@{}p{3cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{Source} & \textbf{Example} & \textbf{Mitigation} \\
+\midrule
+Instruction variation & ``Toxic'' vs.\ ``Would reasonable person find toxic'' & Iterative guideline revision; calibration sessions \\
+Annotator background & AAVE toxicity labeling by non-AAVE speakers & Demographically matched annotator pool \\
+Sequence effects & Items look milder after seeing extreme cases & Randomized item ordering \\
+Fatigue effects & Quality degrades after $\sim$150--200 items & Session length limits; breaks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening: The ImageNet Story (5 minutes)}
+
+Show Li's 2010 TED Talk clip (first 2--3 minutes). Then fast-forward to 2019 and the gender stereotype findings. Ask: ``What went wrong, and when?''
+
+Key insight: nothing ``went wrong'' in the sense of a mistake. The labels were accurate. The problem was structural: the annotation process faithfully recorded the world as the annotator pool experienced it, and that experience was culturally specific.
+
+\subsubsection{Part 1: The Instruction Problem (12 minutes)}
+
+Present the toxicity framing comparison. Ask students to label the same 5 comments under each framing (on paper). Compare results in the room.
+
+\paragraph{Framing A:} ``Is this toxic?''\\
+\paragraph{Framing B:} ``Would a reasonable person find this toxic?''
+
+Usually produces visible divergence on 2--3 of the 5 items. Introduce the \emph{calibration session} --- the industry practice for working through these divergences systematically.
+
+\begin{keyconcept}[Core Teaching Point]
+Guideline wording is not just communication. It specifies the cognitive task. Different wordings are different tasks, and they produce measurably different results from identical annotators looking at identical content.
+\end{keyconcept}
+
+\subsubsection{Part 2: Measuring Agreement (12 minutes)}
+
+Walk through the kappa formula step by step using the 2$\times$2 matrix from Activity~1.
+
+\textbf{The formula:}
+\[
+\kappa = \frac{P_o - P_e}{1 - P_e}
+\]
+
+Emphasize: $P_e$ is the tricky part. Many students confuse kappa with raw agreement. The chance-correction is the whole point. Preview Fleiss' kappa for multiple annotators.
+
+\subsubsection{Part 3: The Annotator Is Not a Recording Device (13 minutes)}
+
+Three examples of systematic annotator-induced variation:
+
+\begin{enumerate}
+    \item \textbf{Sequence effects} --- the Callison-Burch machine translation quality study. Same translation, different rating depending on surrounding items. Design implication: randomized item ordering.
+
+    \item \textbf{Demographics} --- the AAVE toxicity study by Sap et al. Ask: ``If you were building a toxicity classifier for a platform used by a large AAVE-speaking community, what would you want the annotator pool to look like?''
+
+    \item \textbf{Fatigue} --- quality degradation curve. Session length limits. Connects to Chapter~6's cognitive load discussion.
+\end{enumerate}
+
+\subsubsection{Wrap-Up: What Is Low Kappa Telling You? (8 minutes)}
+
+Two interpretations of low kappa:
+\begin{enumerate}
+    \item \textbf{Quality failure} --- annotators are not applying guidelines consistently
+    \item \textbf{Task ambiguity} --- the categories don't cleanly accommodate the data
+\end{enumerate}
+
+How to distinguish: bring annotators together for calibration sessions. If calibration improves agreement, it was quality failure. If calibration reveals genuine conceptual disagreement, it is task ambiguity --- and the model should reflect that uncertainty.
+
+\begin{table}[htbp]
+\caption{50-minute lesson plan for Chapter~7}
+\label{tab:lesson-plan-ch07}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{4cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:05 & Opening: ImageNet story + question & Li TED Talk clip \\
+0:05--0:17 & Instruction problem + framing demo & 5 sample comments, paper \\
+0:17--0:29 & Kappa formula + worked example & Kappa worksheet \\
+0:29--0:42 & Annotator variation: sequence, demographics, fatigue & AAVE study data \\
+0:42--0:47 & Low kappa = quality failure OR task ambiguity? & Discussion \\
+0:47--0:50 & Assign Try This, preview Ch.\ 8 & Chapter handout \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Dawid-Skene vs.\ Majority Vote (10 min).}
+Walk through the intuition: some annotators are more reliable than others; Dawid-Skene estimates annotator quality from the data itself. Show how majority voting ignores this information.
+
+\paragraph{Add: Hands-On Kappa Calculation (5 min).}
+Students compute kappa from Activity~1's confusion matrix. This is the single most important technical skill from the chapter.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Framing recognition:} ``Two teams label the same social media posts. Team~A: `Is this offensive?' Team~B: `Would this post make a member of the target group feel unsafe?' How might their label distributions differ? Which framing produces higher inter-annotator agreement?''\\
+    \textit{Target: Team~A anchors on personal reaction (high threshold variance); Team~B anchors on a shared hypothetical standard (lower threshold variance). Team~B typically produces higher kappa. Caveat: ``reasonable person'' standard is itself culturally specific.}
+
+    \item \textbf{Kappa intuition:} ``A spam filter labels 100 emails. 90 are legitimate; the filter labels all as `not spam' (90\% accuracy). A careful filter labels 80/90 legitimate correctly and 8/10 spam correctly (88\% accuracy). Which is actually better? Why does accuracy alone not tell you?''\\
+    \textit{Target: Filter 2 is better because it is doing something useful. Filter 1's 90\% is from the base rate, not from actual classification. Kappa for Filter 1 = 0 (agreement no better than chance). Kappa for Filter 2 $> 0$ (making genuine discriminations).}
+
+    \item \textbf{Demographics and annotation:} ``A tech company builds a content moderation system for its global platform. The annotation team is based in San Francisco and consists predominantly of 25--35 year old Americans. What categories of content might this team systematically over- or under-label as harmful?''\\
+    \textit{Target: Over-label: content using AAVE or non-standard English dialects that superficially resemble harmful content. Under-label: formally polite but culturally harmful content; harassment patterns specific to non-Western cultural contexts. Solution: demographically matched annotator pools; cultural consultants.}
+
+    \item \textbf{ImageNet critique:} ``The ImageNet dataset was built with great care and was by any standard a technical achievement. Yet it encoded cultural stereotypes into its labels. Was this a failure of the annotation process? Could it have been done differently?''\\
+    \textit{Target: Not a failure in the traditional sense --- labels were accurate to the annotator pool's world. The problem was structural: annotation process faithfully captured the annotator pool's cultural perspective, which was not diverse. Could have been done differently: diverse global annotator pool; explicit annotation of category membership alongside the label.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Kappa computation:} (Provide a 3$\times$3 annotation matrix.) ``Compute Cohen's kappa. Interpret the result. What additional information would you want before deciding whether to proceed with model training?''\\
+    \textit{Target: Correct computation; Landis-Koch interpretation; request for: where the disagreements are located, whether calibration has been attempted, what the downstream use is, what kappa target the task specification set.}
+
+    \item \textbf{Annotation project design:} ``Build an annotation dataset for classifying online reviews as `authentic' or `fake.' Design the annotation guideline, quality control process, and calibration plan. What kappa would you require before releasing the dataset?''\\
+    \textit{Target: Guideline should define positive/negative indicators with examples; address borderline cases; specify the annotator's perspective. QC plan: calibration session, pilot annotation, threshold-based re-annotation trigger. Target kappa: $\geq 0.65$ for this task; accept 0.60--0.65 with documented limitations.}
+
+    \item \textbf{Disagreement analysis:} ``Your annotation team achieves kappa = 0.42 on a hate speech task after two guideline revisions and calibration sessions. What are the possible explanations? How would you determine which is correct? What would you do in each case?''\\
+    \textit{Target: Possible explanations: (1) quality failure persists despite calibration; (2) genuine task ambiguity. Distinguish by: is disagreement concentrated on specific items? Do annotators converge when discussing specific cases face-to-face? If quality failure: more calibration, annotator replacement. If task ambiguity: distribute disagreement to model (soft labels, multi-label training, flag as uncertain).}
+
+    \item \textbf{Crowdsourcing trade-off:} ``\$10,000 budget. Expert annotators: \$5/comment, kappa = 0.78. Crowdworkers: \$0.05/comment, kappa = 0.52 (3-annotator majority vote). What is the effective quality of each approach? Maximum coverage within budget?''\\
+    \textit{Target: Expert: 2,000 comments at kappa = 0.78. Crowdworker: budget allows $\$10,000 / (3 \times \$0.05) = 66,667$ comments with 3-annotator voting. Effective kappa with 3-annotator majority vote at $\kappa_0 = 0.52$: approximately $0.65$--$0.70$ (majority voting on independent noisy annotators improves effective kappa). Trade-off: depth vs.\ coverage.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Dawid-Skene properties:} ``Under what conditions does majority voting converge to the same result as Dawid-Skene? Under what conditions do they diverge most significantly? What empirical evidence would you need to decide which to use?''
+
+    \item \textbf{Label distribution training:} ``A recent research direction uses the full distribution of annotator labels for training rather than majority-vote labels. Under what conditions would this produce better-calibrated models? Under what conditions might it produce worse models? Design an experiment to test this.''
+
+    \item \textbf{Cultural annotation ethics:} ``An AI company is building a hate speech classifier for deployment in 40 countries. The annotation budget allows for annotators in 5 countries. Propose a framework for deciding which 5 countries to include in the annotator pool. Consider both practical and ethical dimensions.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Kappa Calculation Workshop (20 minutes)}
+
+\textbf{Provide students with this annotation table:}
+
+50 social media posts labeled by two annotators:
+
+\begin{table}[htbp]
+\caption{Annotation confusion matrix for kappa calculation}
+\label{tab:annotation-matrix-ch07}
+\centering
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & \textbf{Ann~2: TOXIC} & \textbf{Ann~2: NOT TOXIC} \\
+\midrule
+\textbf{Ann~1: TOXIC} & 12 & 8 \\
+\textbf{Ann~1: NOT TOXIC} & 5 & 25 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Compute $P_o$ (observed agreement)
+    \item Compute $P_e$ (expected chance agreement)
+    \item Compute $\kappa$
+    \item Interpret using the Landis-Koch scale
+    \item Compute a 95\% confidence interval
+    \item Is this kappa sufficient to proceed with model training?
+\end{enumerate}
+
+\textbf{Solution:} $P_o = 0.74$, $P_e = 0.532$, $\kappa = 0.444$, CI = $[0.18, 0.71]$. Moderate agreement.
+
+\subsection{Activity 2: Annotation Guideline Design (25 minutes)}
+
+\textbf{Task:} Students write a 1-page annotation guideline for classifying online product reviews as ``authentic'' or ``fake/planted.''
+
+\textbf{Requirements:}
+\begin{itemize}
+    \item Define the categories with necessary and sufficient conditions
+    \item Provide at least 3 positive examples with explanations
+    \item Provide at least 3 negative examples with explanations
+    \item Identify at least 2 borderline cases and explain how to handle them
+    \item Anticipate and address one major framing effect
+\end{itemize}
+
+\textbf{Swap and cross-label:} Each pair exchanges their guideline with another pair. Both pairs label the same 10 sample reviews using the other pair's guideline.
+
+\textbf{Compute kappa} between the two pairs for the 10-item test and debrief.
+
+\subsection{Activity 3: Demographic Blind Spot Analysis (15 minutes)}
+
+\textbf{Setup:} Provide 10 short text snippets that mix:
+\begin{itemize}
+    \item Standard English offensive content
+    \item AAVE-language content that appears offensive out of context but is positive/neutral in context
+    \item Formally polite content that is harmful (passive-aggressive threats, coded language)
+\end{itemize}
+
+\textbf{Task:} Label each as TOXIC or NOT TOXIC without discussion.
+
+\textbf{Debrief:} Compare labels across the room. Identify systematic patterns. Were AAVE items disproportionately flagged? Were formally polite harmful items under-flagged? What does this tell us about annotator pool composition requirements?
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``More Annotators Always Gives Better Labels''}
+
+\paragraph{Student thinking:} ``If you're not sure about quality, just add more annotators.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item More annotators reduces noise from individual annotator errors
+    \item But it amplifies systematic biases shared by the annotator pool
+    \item If all annotators are demographically similar, doubling the pool reinforces their shared blind spots
+    \item Quality and diversity both matter --- they are not substitutes
+\end{itemize}
+
+\subsection{Misconception 2: ``Kappa Below 0.60 Means the Annotation Is Useless''}
+
+\paragraph{Student thinking:} ``If you can't get kappa $\geq 0.60$, throw out the data.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Kappa thresholds are domain-specific; there is no universal minimum
+    \item A kappa of 0.50 for fine-grained emotion classification (8 categories) may be excellent
+    \item A kappa of 0.70 for binary medical diagnosis may be dangerously insufficient
+    \item Low kappa may signal genuine task ambiguity --- which is information, not failure
+\end{itemize}
+
+\subsection{Misconception 3: ``Label Noise Can Always Be Reduced with Better Guidelines''}
+
+\paragraph{Student thinking:} ``If agreement is low, write better instructions.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Some tasks have irreducible ambiguity because the categories don't map onto stable psychological distinctions
+    \item Forcing higher agreement by making the guideline maximally prescriptive can push annotators into artificial agreement that masks genuine uncertainty
+    \item This produces models that are overconfident on genuinely ambiguous inputs
+    \item The correct response to irreducible ambiguity: distribute it to the model (soft labels, multi-label outputs, explicit uncertainty flags)
+\end{itemize}
+
+\subsection{Misconception 4: ``Crowdworkers Are Less Reliable Than Experts''}
+
+\paragraph{Student thinking:} ``For anything important, use experts.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item For well-defined, objective tasks (image classification, NER, transcription), crowdworkers with multi-annotator quality control can match expert accuracy
+    \item For subjective, domain-specific tasks (medical diagnosis, legal classification, cultural nuance), expert annotators are genuinely superior
+    \item The task determines the appropriate annotator type
+    \item Expert-vs.-crowd is a false binary; the real question is: what knowledge does this task require?
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Annotation Audit Paper (800 words)}
+
+\textbf{Prompt:} ``Choose a publicly available labeled dataset (e.g., from HuggingFace or Kaggle). Research how it was annotated. Identify two potential sources of systematic bias in the annotation process. Propose specific changes to the annotation methodology that would reduce each bias.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Dataset research quality (25\%):} Specific, accurate information about annotation process; uses primary sources (data sheets, papers)
+    \item \textbf{Bias identification with evidence (35\%):} Two distinct bias types (not two instances of the same type); evidence-based, not speculative
+    \item \textbf{Quality of proposed improvements (25\%):} Specific, feasible, addresses the identified bias mechanism
+    \item \textbf{Writing clarity (15\%):} Clear, structured argument
+\end{itemize}
+
+\subsection{Option 2: Annotation Project Design}
+
+\textbf{Deliverables:} Complete annotation guideline (1--2 pages); quality control plan including kappa targets; calibration session design; annotator pool specification with demographics, expertise, size, and selection rationale.
+
+\textbf{Assessment criteria:} Guideline completeness; framing effect anticipation; calibration plan specificity; annotator pool diversity reasoning; kappa target justification.
+
+\subsection{Option 3: Kappa Analysis}
+
+\textbf{Prompt:} ``Given a real annotation dataset with per-annotator labels, compute per-pair kappa, identify outlier annotators, propose which items should be re-annotated, and estimate the aggregate kappa after removing the 10\% most contested items.''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~1:} Five Dimensions framework; Feedback Integration (Dimension~5) depends on annotation quality --- the feedback is only as good as the labels
+    \item \textbf{Chapter~5:} HITL intervention design; the annotation session is a HITL interaction; all T-F-F principles apply to annotation design
+    \item \textbf{Chapter~6:} Interface design directly affects annotator performance; the Appen kappa improvement (0.74 $\to$ 0.83) from interface changes is the Chapter~6 argument applied to Chapter~7 measurement
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~8:} Full HITL pipeline --- annotation is the feedback integration component; Chapter~7 provides the measurement framework for evaluating that component
+    \item \textbf{Chapter~9:} Tool landscape --- annotation tools differ in interface quality and quality-control features; Chapter~7 provides selection criteria
+    \item \textbf{Domain chapters (Part~II):} Each domain has specific annotation challenges; Chapter~7 provides the general framework that domain chapters apply
+\end{itemize}
+
+\subsection{Cross-Curricular Connections}
+\begin{itemize}
+    \item \textbf{Statistics:} Inter-rater reliability; weighted kappa; intraclass correlation coefficient (ICC) for continuous ratings
+    \item \textbf{Linguistics:} The Sap et al.\ AAVE study; linguistic relativity; dialect and register variation
+    \item \textbf{Sociology:} Standpoint epistemology; whose knowledge counts; the politics of categorization (Bowker \& Star)
+    \item \textbf{Information science:} Classification schemes; the work of classification; the politics of data collection
+    \item \textbf{Labor studies:} Annotation labor --- who does it, under what conditions, for what pay
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This teacher's manual provides everything needed to teach Chapter~7 on annotation science and label quality. The central reframe --- that every label is an argument, not a fact --- connects the technical measurement of inter-annotator agreement to the political and ethical dimensions of whose knowledge shapes AI systems.}
+
+\medskip
+\noindent\textit{Next: Chapter~8 assembles the full HITL pipeline, connecting detection, routing, threshold, asking, interface, and annotation into an integrated system design.}

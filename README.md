@@ -1,5 +1,9 @@
 # Human in the Loop: Misunderstood
 
+[![GitHub](https://img.shields.io/badge/GitHub-lazToum%2Fhitl--ml-181717?logo=github)](https://github.com/lazToum/hitl-ml)
+[![GitLab](https://img.shields.io/badge/GitLab-lazToum%2Fhitl--ml-FC6D26?logo=gitlab)](https://gitlab.com/lazToum/hitl-ml)
+[![Site](https://img.shields.io/badge/what--if.io-online-0d9e8e)](https://what-if.io)
+
 A book about the relationship between humans and intelligent systems — why even the most capable AI needs to know when to ask for help, and why the humans who answer those questions are doing something more important than they realize.
 
 **Status:** Winter, Summer, and Autumn are in good release shape. Spring now builds and boots in Docker, but it still needs manual browser/mobile validation before it should be treated as fully complete. The translation set also still needs cleanup before it should be treated as uniformly complete.
@@ -199,7 +203,9 @@ The content across all editions was produced with substantial AI assistance and 
 
 **Content** (chapters, appendices, companion docs, PDFs) — [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 
-**Code** (Spring platform, Reader app, Limen OS, build scripts) — [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+**Code** (Spring platform, Reader app, build scripts) — [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+Limen OS is a companion project in its own repository: [github.com/lazToum/limen-os](https://github.com/lazToum/limen-os)
 
 See [LICENSE.md](LICENSE.md) for the full breakdown.
 

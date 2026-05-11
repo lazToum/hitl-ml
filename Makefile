@@ -57,7 +57,8 @@ EN_DIR         := $(TRANS_DIR)/en
         reader reader-dev reader-install reader-sync \
         sync-player link-player \
         zip zip-full zip-check zip-source \
-        backup backup-sd1 backup-ha backup-sd1-clean dev
+        backup backup-sd1 backup-ha backup-sd1-clean dev \
+        push push-github push-gitlab
 
 # Provide imghdr shim for Python 3.13 (removed from stdlib)
 export PYTHONPATH := $(CURDIR)/build/compat:$(PYTHONPATH)
@@ -86,7 +87,17 @@ help:
 	@printf "  backup-sd1-clean Remove old /p/ folder from SD1 (~6.1 GB)\n"
 	@printf "  deploy           Deploy both VMs (limen + whatif)\n"
 	@printf "  deploy-limen     Deploy limen-os.io (tam@dev)\n"
-	@printf "  deploy-whatif    Rsync to what-if.io VM\n\n"
+	@printf "  deploy-whatif    Rsync to what-if.io VM\n"
+	@printf "  push             Push to GitHub + GitLab (both remotes)\n\n"
+
+# ── Git push (GitHub primary + GitLab mirror) ────────────────────────────────
+push: push-github push-gitlab
+
+push-github:
+	git push origin main
+
+push-gitlab:
+	git push gitlab main
 
 # ── Deploy ───────────────────────────────────────────────────────────────────
 deploy: deploy-limen deploy-whatif

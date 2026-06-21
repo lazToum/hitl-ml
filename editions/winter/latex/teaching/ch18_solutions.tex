@@ -1,0 +1,75 @@
+% ============================================================================
+% CHAPTER 18 SOLUTIONS MANUAL: Who Owns the Loop?
+% Model answers to all discussion questions and exercises
+% ============================================================================
+
+\section*{Chapter 18 Solutions Manual: Who Owns the Loop?}
+\addcontentsline{toc}{section}{Chapter 18 Solutions Manual}
+
+% ============================================================================
+\subsection*{Solutions to Discussion Questions}
+% ============================================================================
+
+\subsubsection*{Q0: Opening Reflection}
+
+Strong responses enumerate at least four contribution relationships: authors of training text and images; annotators and safety labelers; preference raters (RLHF); and end users whose corrections feed back into the system (Dimension~5). Of these, essentially none hold an enforceable claim: copyright litigation is available only to institutional rights-holders in practice; annotators hold employment claims against intermediaries, not against the model owner; raters and users hold nothing. The pedagogically valuable surprise is usually the last category---students discover they are themselves uncompensated contributors to systems they pay to use.
+
+\subsubsection*{Q1: Scale as permission}
+
+The strongest responses separate two questions: whether consent at scale is \emph{feasible} (it is not, individually) and whether infeasibility \emph{authorizes} use (a normative claim that does not follow). Useful comparisons come from music licensing, with a topological caveat worth rewarding: compulsory (mechanical) licensing solves the \emph{opposite} problem---one copyrighted work, many downstream users, each licensed at a statutory rate---while collective rights management (blanket licenses administered by performing-rights organizations) is the structurally correct analogy, since it aggregates \emph{many rightsholders into one license} for a single large user, exactly the many-contributors-one-aggregator topology of training data. In both cases society responded to ``too many to ask'' with structured compensation rather than waived permission. Conversely, aggregate statistics and census data show domains where individual consent is genuinely replaced by governance. The discussion should land on the observation that ``too many to ask'' has historically triggered institutional design, whereas in training-data collection it has so far triggered nothing.
+
+\subsubsection*{Q2: Designing real disclosure}
+
+Good answers distinguish auditable disclosures (source-domain distributions with percentages; lists of identifiable corpora and their licenses; date ranges of collection; volumes per language) from ornamental ones (prose descriptions such as ``publicly available data''). The test to apply: could a third party, given the summary, check any claim in it against the observable behavior of the model or against the named sources? A summary no one can falsify is not disclosure. Excellent answers note the tension with legitimate trade secrecy and resolve it by specifying \emph{who} audits (regulators or accredited auditors under confidentiality) rather than weakening \emph{what} is disclosed.
+
+\subsubsection*{Q3: Institutional vs.\ individual contestation}
+
+Litigation by large rights-holders establishes precedent and forces some disclosure through discovery---both public goods for individual contributors. But settlements can privatize the remedy: a licensing deal between a publisher and a model owner compensates the publisher and re-legitimizes the underlying collection for everyone unrepresented. The ownership gap, contested only by institutions, tends to close for institutions and persist for individuals. Strong answers connect this to Chapter~14's contestability discussion: a right that only organizations can exercise is not meaningfully held by persons.
+
+\subsubsection*{Q4: Two readings of the geodiversity brides}
+
+\textbf{Fairness reading (Ch.~14):} the training distribution under-represents most of the world; the classifier's error rate is unevenly distributed; the remedy is representative data collection and slice-based evaluation.
+
+\textbf{Ownership reading (Ch.~18):} the map of what counts as a ``wedding'' was drawn by whoever assembled the corpus; the populations misclassified had no role in the assembly and no claim on the corrected system. The remedy is not only more data but a seat at the curation and governance of the dataset.
+
+The remedies differ because the diagnoses differ: the fairness reading treats the affected population as a distribution to be sampled better; the ownership reading treats it as a party to be represented. Both are needed; the second does not follow automatically from the first---one can fix the sampling while leaving the governance untouched.
+
+\subsubsection*{Q5: Which terms follow necessarily}
+
+From ``annotation is skilled judgment that determines system quality,'' wage claims follow most directly: skilled inputs command skill-priced compensation in every other engineering supply chain, and paying commodity rates for a quality-determining input is (on the book's own argument) also a quality risk. Psychological support follows for content-moderation work specifically, as an ordinary cost of hazardous work (the analogy to protective equipment is apt). Guideline authority requires one more premise---that annotators possess information the guideline authors lack---which Chapter~15 supplies (annotators surface guideline failures first). Answers that notice the argument requires that extra premise, and that the premise is already in the book, are the strongest.
+
+\subsubsection*{Q6: The procurement-to-values chain}
+
+The chain: cost-minimizing procurement $\rightarrow$ rater pools concentrated where labor is cheap and turnover is high $\rightarrow$ narrow demographic and cultural composition, hurried judgments $\rightarrow$ preference data reflecting that pool's values and fatigue $\rightarrow$ reward model optimizes for it $\rightarrow$ deployed model ships those values globally. Breakable links: procurement policy (pay for diversity and deliberation as specifications, not just throughput); guideline design (Chapter~7); reward-model auditing across rater subgroups (Chapter~15's slice evaluation applied to raters rather than cases). The model owner controls the first link and is the only party who controls any of them unilaterally---which is the chapter's point restated causally.
+
+\subsubsection*{Q7: What the rescission demonstrates}
+
+The rule demonstrated that access can be tiered; the rescission demonstrated that the tiering answers to political cycles rather than to any property of the technology or of the affected countries---eligibility changed for dozens of countries in months while nothing about them changed. That is what ``policy artifact'' means. The steelman: model weights and training compute are dual-use, misuse risk is real and state-level, and export control is a legitimate instrument states apply to dual-use technologies. The asymmetry that survives the steelman: no comparable instrument tiers or conditions the \emph{collection} side---no country's residents were deemed too risky to harvest data from. Granting the security case entirely, the loop still takes globally and dispenses selectively.
+
+\subsubsection*{Q8: Mapping a position}
+
+Any concrete, accurate mapping earns full credit. Example shape: a country whose residents contribute web text, images, and platform behavior to training corpora (contributor); whose developers cannot legally buy top-tier accelerators (excluded from infrastructure); and where the consumer service operates (customer). Symmetry is probably the wrong demand---the useful question is whether the terms at each end were set with the affected party represented anywhere. Strong answers propose representation mechanisms (regional data governance, procurement conditions, treaty-level reciprocity) rather than arithmetic symmetry.
+
+\subsubsection*{Q9: One dimension through the ownership lens}
+
+Model answer for \textbf{Timing}: in the design reading, timing asks when interruption maximizes value-of-information (Chapter~5). In the ownership reading, the interrupt lands on whoever's time the owner has priced lowest---review queues are routed to cheap judgment by construction. A designer who accepts the ownership reading changes real decisions: budgeted reviewer time becomes a design constraint with a floor, not a cost to minimize; ``who absorbs the interruption'' appears in the design document next to ``when.'' Any dimension is acceptable if the answer identifies a concrete design decision that changes, not merely a re-description.
+
+\subsubsection*{Q10: Calibrating ownership}
+
+The analogy holds at the level of method: calibration succeeded because the field defined measurable quantities (confidence vs.\ accuracy), built standard instruments (reliability diagrams, ECE), and normalized routine audits. Ownership equivalents: provenance completeness (fraction of training volume with documented source and license---measurable); labor terms disclosure (wages, support, guideline channels per annotation contract---measurable); access maps (published availability and exclusion rationales---measurable). The disanalogy students should find: calibration audits are run by the model owner on their own system, while ownership audits are adversarial---the party with the data is the party being audited. So the instruments must sit with regulators, accredited auditors, or researchers with legal access, which is why the chapter pairs the technical mechanisms of Appendix~18A with disclosure obligations rather than voluntary practice.
+
+% ============================================================================
+\subsection*{Solutions to Appendix 18A Exercises}
+% ============================================================================
+
+\subsubsection*{Exercise 18A.1: Membership Inference Audit}
+
+Expected findings: on an overfit model (no regularization, trained to near-zero training loss), the loss-threshold attack achieves substantial advantage---typically 0.15--0.45 on small tabular datasets, since member losses cluster near zero while non-member losses spread. Strong L2 regularization and early stopping both compress the member/non-member loss gap, driving advantage toward 0.02--0.10. The implication students should state: membership leakage is largely a function of the generalization gap (\textcite{yeom2018privacy} formalize this), so the same practices that improve generalization also degrade the outsider's only inclusion audit. Privacy improvement and transparency loss are, here, the same intervention---a concrete instance of the chapter's claim that the tool measuring the harm is also the outsider's only instrument.
+
+\subsubsection*{Exercise 18A.2: Data Shapley on a Toy Corpus}
+
+Expected findings: label-corrupted examples receive systematically lower Shapley values, with most going negative---their marginal contribution to accuracy is harmful in the majority of sampled permutations. Ranking stability (e.g., Spearman correlation between successive estimates $>0.9$) typically requires a few hundred permutations on 200 points; students should observe that cost scales with both dataset size and per-model training cost, making exact valuation of web-scale corpora infeasible---which motivates the solution's closing point: valuation at frontier scale requires provenance and sampling infrastructure that only the corpus owner can operate, returning students to the disclosure prerequisite.
+
+\subsubsection*{Exercise 18A.3: Documenting an Undocumented Corpus}
+
+There is no single correct datasheet; grade on process. Full-credit answers include: a top-domain table with percentages; language identification with an honest note on classifier error for low-resource languages; a boilerplate/duplication estimate with the detection heuristic stated; and a benchmark-contamination check against at least one public test set. The required final section---questions unanswerable from the artifact alone---should include collection dates, consent basis, filtering provenance, and annotator identity for any labels. Instructors should point students who ``answered everything'' to what they actually did: they inferred, which is the difference between an audit and a datasheet, and the exercise's intended lesson.

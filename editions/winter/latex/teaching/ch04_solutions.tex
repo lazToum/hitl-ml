@@ -1,0 +1,370 @@
+% ============================================================================
+% CHAPTER 4 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch4/C4AM_updated.md (Solutions Guide)
+%         /markdown/ch4/Ch4AS_updated.md (Technical Exercise Solutions)
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 4}
+\label{ch:solutions-ch04}
+
+\begin{chapterquote}{Solutions for exercises, activities, and discussion questions, numbered per level to match the teacher manual}
+Framework-aligned answers enabling instructors to facilitate discussions on threshold decisions, error tradeoffs, and the value judgments embedded in HITL design. Discussion questions without a solution here are open-ended seminar prompts; target insights for every question appear in the teacher manual.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Smoke Detector Threshold}
+
+\textbf{Prompt:} ``A smoke detector is set to a low threshold. What are the consequences? Would you set it differently for a hospital vs.\ a warehouse?''
+
+\paragraph{Model Answer.}
+
+\textbf{Consequences of a low threshold:}
+\begin{itemize}
+    \item \textit{Benefit:} Very high sensitivity --- almost never misses a real fire (low FN rate)
+    \item \textit{Cost:} High false alarm rate --- cooking smoke, dust, humidity can trigger it
+    \item False alarms train occupants to ignore the alarm (a form of alert fatigue), which is itself dangerous
+\end{itemize}
+
+\textbf{Hospital setting:}
+\begin{itemize}
+    \item High Type~II cost: patients who cannot self-evacuate quickly
+    \item High Type~I cost: hospital evacuations are disruptive and can harm fragile patients
+    \item Recommendation: slightly lower threshold, but invest heavily in HITL --- staff trained to quickly verify alarms before triggering full evacuation
+    \item The HITL band here is the 30-second window where staff determine: real fire or false alarm before escalating
+\end{itemize}
+
+\textbf{Warehouse setting:}
+\begin{itemize}
+    \item Fewer occupants; typically healthier, mobile people
+    \item Cost of FP: evacuation disruption, productivity loss
+    \item Recommendation: standard or slightly higher threshold; false alarms are less costly
+\end{itemize}
+
+\textbf{Key learning:} The optimal threshold differs by context because the cost structure of the errors differs. This is a value judgment, not a technical one.
+
+\paragraph{Grade Band Examples.}
+
+\begin{description}
+    \item[A-grade] ``The hospital faces asymmetric costs in both directions: missed fires are catastrophic for non-ambulatory patients, but false alarms are also harmful (staff cannot ignore an alarm in a hospital). The right design is a two-threshold system: a low threshold triggers a silent staff alert for verification; a confirmed alarm triggers the full evacuation protocol. This is a classic HITL band applied to physical safety.''
+
+    \item[B-grade] Correctly identifies that hospitals have higher FN cost than warehouses; proposes different thresholds; may not identify the HITL band structure.
+
+    \item[C-grade] Notes that the settings should differ without articulating the cost structure that drives the difference.
+\end{description}
+
+\subsubsection{Question 2: Job Application Threshold Change}
+
+\textbf{Prompt:} ``A job application screening algorithm is set to `top 30\%.' Company becomes more selective. Should the threshold change? Who decides?''
+
+\paragraph{Model Answer.}
+
+\textbf{Should it change?} Yes. The threshold was set to route approximately 70\% of applications to rejection. If hiring strategy changes to a higher standard, the routing logic must change accordingly.
+
+\textbf{The deeper issue:} Changing from ``top 30\%'' to ``top 15\%'' changes who bears the cost of each error type:
+\begin{itemize}
+    \item More conservative threshold: more good candidates rejected (FN cost falls on candidates)
+    \item Less conservative threshold: more poor candidates sent to human review (FP cost falls on reviewers)
+\end{itemize}
+
+\textbf{Who decides?}
+\begin{itemize}
+    \item Not the algorithm alone --- it doesn't know what ``qualified'' means in the new strategy
+    \item Not the data scientist alone --- they don't know the business priorities or legal constraints
+    \item The people who bear the consequences: hiring managers (know job requirements), HR (know legal constraints), business leadership (know strategy)
+    \item And critically: those who bear the cost of the errors (candidates), who are often not at the table
+\end{itemize}
+
+\paragraph{Common wrong answers.}
+\begin{itemize}
+    \item ``The algorithm handles it automatically'' --- No; the threshold is a design choice.
+    \item ``The data scientist should optimize it'' --- Optimizing requires specifying a metric, which requires knowing whose interests to prioritize.
+\end{itemize}
+
+\subsubsection{Question 3: Probability Is Not Decision}
+
+\textbf{Prompt:} ``What is the difference between `the model thinks this email is 70\% likely spam' and `this email is spam'? Why does it matter?''
+
+\paragraph{Model Answer.}
+
+\textbf{The difference:}
+``70\% likely spam'' is a probability --- an expression of uncertainty about a specific email. ``This email is spam'' is a decision --- a binary commitment to action that discards the uncertainty information.
+
+\textbf{Why it matters:}
+
+\begin{enumerate}
+    \item \textbf{Reversibility:} A probability can be acted upon at different thresholds depending on context. A label is applied uniformly and loses context.
+
+    \item \textbf{Accountability:} If the email was legitimate and important, the label made the decision seem definitive. The probability flag would have preserved the option for reconsideration.
+
+    \item \textbf{Threshold sensitivity:} The jump from 0.49 to 0.51 is statistically tiny but crosses the threshold and changes the decision entirely. This brittleness is a structural feature of any threshold system.
+
+    \item \textbf{HITL opportunity:} A probability of 70\% is not 95\% --- it signals that this case might benefit from human review. Treating it identically to a 99\% spam email discards useful routing information.
+\end{enumerate}
+
+\subsubsection{Question 4: Medical Context --- ``Set the Threshold Conservatively''}
+
+\textbf{Prompt:} ``A cancer screening AI has AUC = 0.95. The radiologist's supervisor says `set the threshold conservatively.' What does this mean in practice, and what tradeoff is it making?''
+
+\paragraph{Model Answer.}
+
+First, note that AUC says nothing about where to cut: AUC = 0.95 means the model ranks cases well, but the threshold is a separate, cost-driven decision.
+
+``Conservatively'' in a screening context means \emph{do not miss cancers}: set the threshold low, so that almost all true cases are flagged (high sensitivity) at the price of more false positives --- healthy patients sent for follow-up imaging or biopsy.
+
+\textbf{The tradeoff being made:} the supervisor is implicitly asserting that the cost of a missed cancer (delayed diagnosis, potentially fatal) far exceeds the cost of a false alarm (anxiety, an unnecessary procedure, expense). Formally, a low threshold is optimal when $C_{FN} \gg C_{FP}$.
+
+\textbf{Worth surfacing in discussion:}
+\begin{itemize}
+    \item ``Conservative'' is itself a value judgment wearing a technical label --- someone decided whose costs count more.
+    \item False positives are not free: over-testing causes real harm (biopsy complications, overtreatment of slow-growing cancers), so ``conservative'' can be contested by clinicians with a different cost view.
+    \item The HITL framing: a low threshold paired with radiologist review of flagged cases is exactly a HITL band --- the model casts a wide net, humans make the costly call.
+\end{itemize}
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 1: Hospital A vs.\ Hospital B Thresholds}
+
+\textbf{Prompt:} ``AUC = 0.95. Hospital A sets $\tau = 0.3$, Hospital B sets $\tau = 0.6$. Describe expected outcomes.''
+
+\paragraph{Model Answer.}
+
+\textbf{Hospital A ($\tau = 0.3$ --- aggressive):}
+\begin{itemize}
+    \item True Positive Rate (sensitivity): very high ($\sim$95\%)
+    \item False Positive Rate: high (30--40\% of healthy patients flagged)
+    \item Consequences: many unnecessary biopsies, patient anxiety, healthcare costs, but very few missed cancers
+\end{itemize}
+
+\textbf{Hospital B ($\tau = 0.6$ --- conservative):}
+\begin{itemize}
+    \item True Positive Rate: moderate ($\sim$75\%)
+    \item False Positive Rate: low ($\sim$8\%)
+    \item Consequences: fewer unnecessary biopsies, but some cancers detected late
+\end{itemize}
+
+\textbf{Recommendation:} For cancer screening, the evidence strongly supports a lower threshold (Hospital A approach). Missing a cancer is typically irreversible and fatal; unnecessary biopsy is harmful but recoverable. Nuance: the optimal threshold also depends on cancer type --- for slow-growing conditions where overtreatment itself causes harm (certain prostate cancers), Hospital B's approach may be justified.
+
+\textbf{HITL design implication:} Neither hospital should rely on a single automated threshold. The middle zone (0.3 to 0.6) should go to radiologist review. The hospitals' real choice is which side of the middle zone gets auto-approved and which gets auto-rejected.
+
+\subsubsection{Question 2: Two-Threshold HITL System}
+
+\textbf{Prompt:} ``Why is a HITL band (two thresholds) generally preferable to single-threshold for high-stakes applications?''
+
+\paragraph{Model Answer.}
+
+A single-threshold system makes a binary commitment at every point on the score scale. An email with score 0.51 goes to spam; an email with score 0.49 goes to inbox. The threshold is a single point of brittleness.
+
+A two-threshold HITL band system:
+\begin{itemize}
+    \item Above $\tau_H$: high confidence positive $\to$ automated action
+    \item Below $\tau_L$: high confidence negative $\to$ automated action
+    \item Between $\tau_L$ and $\tau_H$: uncertain $\to$ human review
+\end{itemize}
+
+\textbf{Why this is better for high-stakes applications:}
+
+\begin{enumerate}
+    \item \textbf{Routes the highest-error-risk cases:} Cases near any single threshold are where errors are most likely. The band explicitly routes these to human review.
+
+    \item \textbf{Separates the two error types:} $\tau_L$ and $\tau_H$ can be chosen independently, allowing separate optimization against the two error types.
+
+    \item \textbf{Preserves precision at extremes:} The auto-zones achieve high precision on both sides; the uncertain middle zone gets expert attention.
+
+    \item \textbf{Scales error cost appropriately:} The band can be placed asymmetrically around the expected optimal threshold --- a larger margin on the costly-error side.
+\end{enumerate}
+
+\textbf{Optimal band width is determined by:}
+\begin{itemize}
+    \item Cost of human review per case ($C_H$)
+    \item Cost asymmetry ratio ($C_{FN}/C_{FP}$)
+    \item Human reviewer accuracy advantage over model in the uncertain zone
+    \item Human reviewer daily capacity
+\end{itemize}
+
+\subsubsection{Question 3: Allegheny Family Screening Tool}
+
+\textbf{Prompt:} ``Critics argue the AFST threshold should be set by social workers with lived experience, not data scientists. Evaluate.''
+
+\paragraph{Model Answer.}
+
+\textbf{The critics are largely correct, and Chapter~4 explains why.}
+
+\textbf{Why data scientists should not set the threshold alone:}
+\begin{itemize}
+    \item The threshold setting embeds a value judgment about the acceptable rate of traumatic false investigations vs.\ the acceptable rate of missed abuse
+    \item That tradeoff is not answerable by the data --- it requires knowing what kind of society we want and who bears the cost of each error type
+    \item Low-income families and families of color are disproportionately represented in the child welfare system; they bear asymmetric costs of false positives; data scientists are typically not from these communities
+\end{itemize}
+
+\textbf{Why social workers with lived experience should be involved:}
+\begin{itemize}
+    \item They understand the real cost of a false positive investigation (not just inconvenience --- potentially traumatic, with lasting consequences)
+    \item They understand the heterogeneity in what a given risk score means for different family contexts
+    \item They will implement the decisions; their calibration affects the system's real-world performance
+\end{itemize}
+
+\textbf{The appropriate process:}
+\begin{itemize}
+    \item Data scientists define the technical performance of the tool at various thresholds
+    \item Domain experts (social workers, child welfare advocates, affected community representatives) deliberate on threshold placement given those tradeoffs
+    \item The decision is made explicit, documented, and subject to review --- not embedded silently in a technical parameter
+\end{itemize}
+
+\begin{keyconcept}[Grading Note]
+The strongest answers will recognize that this is not simply ``social workers are right, data scientists are wrong.'' It is about the process of threshold-setting: who participates, how value judgments are made explicit, and how accountability is maintained. A data scientist who defers the threshold to social workers without providing clear technical information about the tradeoffs has also failed their responsibility.
+\end{keyconcept}
+
+\subsubsection{Question 4: Dynamic Thresholds and Staffing}
+
+\textbf{Prompt:} ``A fraud detection system has a HITL band calibrated to a team of 20 analysts. During holiday staffing, only 12 analysts are available. How should the band change? What are the consequences of each adjustment option?''
+
+\paragraph{Model Answer.}
+
+The band's width is a capacity decision: the review queue must not exceed what 12 analysts can clear. Three adjustment options:
+
+\begin{enumerate}
+    \item \textbf{Narrow the band symmetrically (raise $\tau_L$, lower $\tau_H$):} fewer cases routed to review; volume matches capacity. Consequence: more genuinely uncertain cases are auto-decided --- error rates rise on both sides, and the errors land in exactly the zone where the model is least reliable.
+    \item \textbf{Narrow the band asymmetrically:} shrink the band more on the low-cost-error side and keep coverage on the high-cost side. Consequence: protects against the costly error type (e.g., missed fraud) while accepting more cheap errors (e.g., false declines) --- the cost-asymmetry logic of Chapter~4 applied to capacity.
+    \item \textbf{Keep the band, let the queue grow (or triage within it):} cases wait, or reviewers spend less time per case. Consequence: delayed review of time-sensitive fraud, or shallower review --- the cost shows up as latency or as lower human accuracy instead of a routing change.
+\end{enumerate}
+
+\textbf{Key teaching point:} threshold changes are not only statistical decisions --- they are operational ones. Any band calibration that ignores staffing reality is a paper design; and a band silently narrowed for capacity is a value judgment made by circumstance rather than by decision-makers.
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Question 1: Optimal Threshold Formula Derivation}
+
+\textbf{Prompt:} ``Derive the optimal threshold formula $\tau^* = C_{FP} / (C_{FP} + C_{FN})$ from expected cost minimization, and explain why the class priors do not appear.''
+
+\paragraph{Model Answer.}
+
+Expected cost at threshold $\tau$:
+\[
+E[C(\tau)] = C_{FN} \cdot P(\hat{y}=0 \mid y=1) \cdot P(y=1) + C_{FP} \cdot P(\hat{y}=1 \mid y=0) \cdot P(y=0)
+\]
+
+For a calibrated classifier with score $s(x) = P(y=1 \mid x)$, the decision rule $\hat{y} = \mathbf{1}[s(x) \geq \tau]$ gives the boundary condition at score $\tau$:
+
+At the boundary, choosing positive costs $C_{FP} \cdot P(y=0 \mid s=\tau)$ in expected terms; choosing negative costs $C_{FN} \cdot P(y=1 \mid s=\tau)$.
+
+The optimal threshold is where these costs are equal:
+\[
+C_{FP} \cdot P(y=0 \mid s=\tau^*) = C_{FN} \cdot P(y=1 \mid s=\tau^*)
+\]
+
+Using the calibration assumption $P(y=1 \mid s=\tau) = \tau$ and Bayes theorem:
+\[
+C_{FP} \cdot (1 - \tau^*) = C_{FN} \cdot \tau^*
+\]
+
+Solving for $\tau^*$:
+\[
+\tau^* = \frac{C_{FP}}{C_{FP} + C_{FN}}
+\]
+
+Note that the class priors do not appear. This is not a balanced-classes assumption: for a calibrated score $s(x) = P(y=1 \mid x)$, the posterior already incorporates the priors, so $\tau^* = C_{FP}/(C_{FP} + C_{FN})$ holds at \emph{any} class balance (see Appendix~4A, Section on optimal threshold selection). Do not ``correct'' the formula by multiplying in the priors again --- that double-counts them. The prior-weighted expression
+\[
+\frac{s(x)}{1 - s(x)} \geq \frac{C_{FP} \cdot P(y=0)}{C_{FN} \cdot P(y=1)}
+\]
+is the \emph{likelihood-ratio} formulation of the same rule: it is the correct threshold when the score is a prior-free likelihood ratio rather than a calibrated posterior, not an adjustment to apply to posterior probabilities.
+
+\textbf{As $C_{FN}/C_{FP} \to \infty$:} The denominator of $\tau^* = C_{FP}/(C_{FP} + C_{FN})$ is dominated by $C_{FN}$, and $\tau^* \to 0$. This means: flag every case as positive regardless of score. When missing a positive is infinitely more costly than a false alarm, the optimal strategy is to never miss. In practice, $C_{FN}/C_{FP}$ is large but finite, pushing $\tau^*$ to a very low but nonzero value --- consistent with aggressive cancer screening approaches.
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Cost Asymmetry Classification}
+
+\begin{description}
+    \item[FP more costly than FN] Antivirus software blocking legitimate software (FP: disabled critical app; FN: malware runs but may be caught later); parole denial for a safe person (FP: injustice, wasted incarceration cost; FN: reoffense, but many alternatives exist); voice authentication where re-authentication is easy (FP: denied access; FN: attacker waits for another chance).
+
+    \item[FN more costly than FP] Cancer screening (FP: unnecessary biopsy; FN: missed cancer, potentially fatal); bridge safety inspection (FP: unnecessary inspection; FN: missed structural failure); wire transfer fraud detection (FP: delayed transfer; FN: money lost permanently).
+
+    \item[Contested cases] These reflect values, not just technical preferences. The parole recommendation is a particularly rich example --- the answer depends on values about criminal justice.
+\end{description}
+
+\subsection{Activity 2: Confusion Matrix Exercise}
+
+\paragraph{Given: 1,000 emails, 100 spam (10\% base rate). $\tau = 0.5$.}
+
+\begin{table}[htbp]
+\caption{Confusion matrix at $\tau = 0.5$}
+\label{tab:conf-matrix-solution}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Metric} & \textbf{Calculation} & \textbf{Value} \\
+\midrule
+Accuracy & $(80 + 850)/1000$ & 93.0\% \\
+Precision & $80/(80+50)$ & 61.5\% \\
+Recall (TPR) & $80/100$ & 80.0\% \\
+FPR & $50/900$ & 5.6\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{To achieve 95\% spam detection (Recall = 0.95):} Must lower $\tau$ until TPR = 0.95. This increases FPR substantially. The tradeoff: catching 15 more spam emails while blocking additional legitimate emails --- exactly how many cannot be computed from the $\tau = 0.5$ confusion matrix alone; the FPR at Recall = 0.95 depends on the full score distribution (the ROC curve), which is not given. Whether this tradeoff is acceptable is a value judgment --- and evaluating it quantitatively requires that curve.
+
+% ============================================================================
+\section{Common Wrong Answers}
+% ============================================================================
+
+\paragraph{``Just set the threshold to maximize accuracy.''}
+Wrong. Accuracy is an average that masks the tradeoff. On an imbalanced problem (0.1\% fraud rate), a model that predicts ``not fraud'' for everything achieves 99.9\% accuracy while catching 0\% of fraud. Chapter~4's lesson is that accuracy is the wrong metric whenever error costs are asymmetric.
+
+\paragraph{``The threshold doesn't matter much --- the model handles it.''}
+Wrong. The threshold translates probability into action. Two systems with identical models but different thresholds have dramatically different false positive and false negative rates. The threshold is entirely a design choice.
+
+\paragraph{``Higher threshold is always safer.''}
+Wrong. ``Safer'' depends on which error you are trying to avoid. For cancer screening, a higher threshold means more missed cancers --- that is less safe for patients. For criminal sentencing, a higher recidivism-risk threshold means more restrictive release policies --- which may be less just.
+
+\paragraph{``Setting the threshold is a purely technical decision.''}
+This is Chapter~4's central corrective. The threshold embeds a value judgment about which error costs more. Calling it ``technical'' conceals the value judgment and removes it from deliberative accountability. A threshold that appears in code is no less a policy decision than a statute that appears in law.
+
+% ============================================================================
+\section{Technical Exercise Solutions (Appendix 4A)}
+% ============================================================================
+
+\subsection{ROC Curve Interpretation}
+
+\paragraph{Key facts for instructors:}
+\begin{itemize}
+    \item AUC = 0.5: random classifier (diagonal ROC curve)
+    \item AUC = 1.0: perfect classifier
+    \item AUC = 0.95 is very good for most medical applications; real-world systems often achieve 0.75--0.90
+    \item AUC is a threshold-independent summary: it averages over all possible thresholds
+    \item AUC is insensitive to class imbalance but does not account for cost asymmetry --- a model can have AUC = 0.95 while being nearly useless at any practically achievable threshold
+\end{itemize}
+
+\subsection{HITL Band Optimization Example}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Review capacity: 20\% of cases
+    \item $C_{FN} = 10$, $C_{FP} = 2$, $C_{\text{review}} = 1$
+    \item Model AUC = 0.92
+    \item Human reviewer accuracy in uncertain zone: 85\%
+\end{itemize}
+
+\textbf{Optimal band placement:}
+\begin{enumerate}
+    \item Compute optimal threshold without HITL: $\tau^* = 2/(2+10) \approx 0.17$
+    \item At 20\% review capacity, the band should be placed around $\tau^*$ with width calibrated to capture exactly 20\% of cases
+    \item Place $\tau_L$ and $\tau_H$ symmetrically if cost structure is symmetric; asymmetrically otherwise
+    \item Given high $C_{FN}/C_{FP}$, the band should be placed lower (more conservative) --- slightly more cases go to the ``positive'' side of the auto-zone
+\end{enumerate}
+
+\textbf{Expected result:} Human review of the uncertain 20\% catches most of the false negatives while limiting false positives on the auto-positive end. Overall error cost is lower than either full automation or full human review.

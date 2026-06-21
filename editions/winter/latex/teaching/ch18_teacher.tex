@@ -1,0 +1,184 @@
+% ============================================================================
+% CHAPTER 18 TEACHER'S MANUAL: Who Owns the Loop?
+% Pedagogical guide for instructors
+% ============================================================================
+
+\section*{Chapter 18 Teacher's Manual: Who Owns the Loop?}
+\addcontentsline{toc}{section}{Chapter 18 Teacher's Manual}
+
+% ============================================================================
+\subsection*{Instructor Overview}
+% ============================================================================
+
+Chapter 18 changes the analytical altitude. For seventeen chapters the HITL system has been a design object---something to architect, calibrate, and measure. This chapter treats it as an economic object: contributed data, supplied labor, proprietary models, gated access. The central claim is that every deployed loop answers an ownership question as well as a design question, and that the field's own results (annotation quality determines model quality; rater diversity determines encoded values) carry implications about terms---wages, transparency, access---that the industry has not drawn.
+
+\textbf{Key pedagogical goals:}
+\begin{enumerate}
+    \item Distinguish the design question (``does the loop work?'') from the ownership question (``whose is it?'') and show they are answered simultaneously in every deployment
+    \item Make the ownership gap concrete: universal contribution, narrow ownership, opacity in between
+    \item Connect collection bias (Chapter 14) to its economic reading: dataset geography as a map of whose life counts as training data
+    \item Show that the book's quality arguments and the labor-conditions arguments point in the same direction, so students cannot dismiss the chapter as ideology bolted onto engineering
+\end{enumerate}
+
+\textbf{Pedagogical note:} This chapter provokes stronger political reactions than any other in the book. Keep discussion anchored to the specific, documented cases (the Nairobi contract, the geodiversity study, the \textit{Times} lawsuit, the diffusion framework) rather than abstractions. The chapter deliberately argues from the book's own technical premises, not from an imported political framework; holding students to that standard---claims must trace to documented facts or to earlier chapters---keeps the room productive across political differences.
+
+\textbf{Prerequisites:} Chapter 7 (annotation as skilled judgment), Chapter 14 (bias layers and the accountability gap), Chapter 15 (annotation failure modes), and Chapter 17 (RLHF and rater pools). The chapter is conceptual; Appendix 18A supplies the technical depth (membership inference, data valuation, unlearning) for technical courses.
+
+% ============================================================================
+\subsection*{Learning Objectives}
+% ============================================================================
+
+By the end of this chapter, students should be able to:
+
+\begin{enumerate}
+    \item State the ownership gap precisely: who contributes training data, who owns the resulting models, and what stands between them
+    \item Reinterpret a collection-bias failure (e.g., the geodiversity brides) as an ownership fact as well as a fairness fact
+    \item Explain why the book's own arguments about annotation quality imply conclusions about labor terms
+    \item Describe at least two mechanisms by which access to frontier AI is gated (export controls, service geographies) and explain why the chapter calls access ``a policy artifact''
+    \item Run the Five Dimensions through the ownership lens and articulate what each dimension looks like from that side
+    \item Distinguish the chapter's actual claim (opacity, terms, and tiers are choices) from claims it does not make (that the systems should not exist or earn no return)
+\end{enumerate}
+
+% ============================================================================
+\subsection*{Discussion Questions}
+% ============================================================================
+
+\subsubsection*{Opening Discussion (10 minutes)}
+
+\textbf{Q0:} Before the reading: who do you think ``owns'' a large AI model? After the reading: list everyone whose contribution the model embodies---writers of training text, annotators, preference raters, users whose corrections feed back in. Which of these people hold any enforceable claim on the system? What surprised you most about the gap?
+
+\textit{Instructor note:} Most students arrive with a simple answer (``the company that built it''). The goal is not to replace it with a different simple answer but to surface how many contribution relationships that answer compresses, and how few of them are visible or negotiated.
+
+\subsubsection*{On the Ownership Gap}
+
+\textbf{Q1:} The chapter observes that at training-data scale, asking contributors for permission ``could not have been done---and that impossibility has functioned, in practice, as permission.'' Is scale a legitimate defense for non-consensual collection? Are there other domains where ``too many people to ask'' authorizes use of what they produced? Where else has society decided the opposite?
+
+\textbf{Q2:} A contributor generally cannot establish whether their writing is inside a given model (Appendix 18A shows why membership inference is hard). Who benefits from this opacity? Draft the disclosure requirement you would actually impose: what exactly must a provider publish for the EU AI Act's ``sufficiently detailed summary'' to be auditable rather than ornamental?
+
+\textit{Instructor note:} As of mid-2026, OpenAI has published the documentation California's AB 2013 requires but not the Article 53(1)(d) training-content summary the EU AI Act calls for, so do not use OpenAI as the worked example here or in Activity 1---students sent to find that summary will find nothing. Pick a provider whose disclosures students can actually inspect, or have the class audit which of the two obligations each major provider has met.
+
+\textbf{Q3:} \textit{The New York Times} can sue; an individual whose forum posts trained the same model realistically cannot. What does the ownership gap look like when only institutional contributors can contest it? Does litigation by large rights-holders help or harm the uncredited individual contributor?
+
+\subsubsection*{On Geography and Labor}
+
+\textbf{Q4:} The geodiversity brides appear in Chapter 14 as collection bias and in Chapter 18 as an ownership fact. State both readings precisely. What does each reading suggest as a remedy, and why are the remedies different?
+
+\textbf{Q5:} The chapter argues that the industry's behavior already concedes that annotation is skilled judgment---``it pays for millions of hours of human judgment because nothing else works''---while pricing it as unskilled piecework. If you accept the premise, which terms follow necessarily (wages? psychological support? guideline authority?) and which require additional argument?
+
+\textbf{Q6:} Chapter 17 argued that homogeneous or hurried rater pools narrow the values a model encodes; Chapter 18 adds that rater pools are assembled wherever judgment is cheapest. Trace the causal chain from procurement decision to encoded values. Who is in a position to break the chain, and at which link?
+
+\subsubsection*{On the Gate}
+
+\textbf{Q7:} The 2025 diffusion framework tiered nearly every country's access to chips and model weights, and was rescinded four months later. The chapter calls this ``the most instructive fact about it.'' What does the rescission demonstrate that the rule itself does not? Steelman the security case for access controls, then state the asymmetry the chapter insists on even granting that case.
+
+\textbf{Q8:} ``At one end of the loop, everyone is a contributor. At the other, some are collaborators, some are customers, and some are data sources only.'' Map a specific country or community onto this sentence. What would symmetric terms look like---and is symmetry even the right demand?
+
+\subsubsection*{On Calibrated Collaboration}
+
+\textbf{Q9:} Run one Five Dimension of your choice through the ownership lens in your own words, with a concrete system as the example. Does the ownership reading change what you would build, or only how you would describe it?
+
+\textbf{Q10:} The chapter closes: ``A field that has learned to calibrate uncertainty can learn to calibrate ownership.'' Is the analogy sound? What would be the ownership equivalents of calibration curves, reliability diagrams, and audit sets---and who would run them?
+
+% ============================================================================
+\subsection*{Classroom Activities}
+% ============================================================================
+
+\subsubsection*{Activity 1: The Ownership Audit (25 minutes)}
+
+\textbf{Setup:} Students work in pairs on one AI system they actually use. This is the chapter's ``Try This'' exercise run as a structured race against opacity.
+
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Answer the four audit questions: What is publicly known about the training data? Who labeled or rated it, where, on what terms? Where is the system unavailable, and why? Could a contributor establish their own inclusion?
+    \item For each question, record the \emph{source} of the answer (official documentation, journalism, academic audit, inference) or the point at which the trail went dark.
+\end{enumerate}
+
+\textbf{Debrief:} Tally across the class which questions were answerable at all, and from what kind of source. The systematic pattern---labor and provenance questions answered by journalism and lawsuits, not by providers---is the ownership gap made visible as a data table.
+
+\subsubsection*{Activity 2: Terms of the Loop (30 minutes)}
+
+\textbf{Setup:} A role-play negotiation over a content-moderation HITL contract. Roles: the platform (model owner), the outsourcing firm, an annotator representative, a representative of the user community whose content is moderated, and a regulator.
+
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Each role drafts its three non-negotiable terms (compensation structure, psychological support, guideline authority, disclosure obligations, audit access).
+    \item Negotiate a term sheet in 15 minutes. Terms with no advocate at the table are recorded as ``defaults''---whatever the owner would choose.
+    \item Compare the negotiated sheet to the defaults list.
+\end{enumerate}
+
+\textbf{Debrief:} The defaults list is the punchline: in real deployments, most parties are not at the table, so the defaults \emph{are} the terms. Connect to Chapter 14's contestability discussion---representation at design time is the upstream version of contestability at decision time.
+
+\subsubsection*{Activity 3: Redraw the Map (15 minutes)}
+
+\textbf{Setup:} Provide the class with a provider's current service-availability list and a summary of chip export-control tiers (both public documents).
+
+\textbf{Tasks:} Students pick three countries in different positions (full access, partial, excluded) and, for each, identify: what data flows \emph{out} of that country into training corpora, and what capability flows \emph{back in}. One sentence per country stating the asymmetry, or its absence.
+
+\textbf{Debrief:} Emphasize that the exercise uses only public documents---the asymmetry is not hidden, merely unaggregated. Discuss which of the three positions students expect to have changed in five years, and on whose decision.
+
+% ============================================================================
+\subsection*{Assessment Strategies}
+% ============================================================================
+
+\subsubsection*{Formative}
+
+\begin{itemize}
+    \item Exit ticket: state the ownership gap in one sentence without using the words ``ownership'' or ``gap''
+    \item One-paragraph reinterpretation: take any failure case from Chapters 11--15 and add its ownership reading
+    \item Quick check: which of the chapter's four documented cases (Nairobi, brides, lawsuit, diffusion rule) supports which section claim?
+\end{itemize}
+
+\subsubsection*{Summative Options}
+
+\begin{itemize}
+    \item Essay: ``Opacity is a choice, not a necessity.'' Defend or attack with reference to Appendix 18A's technical mechanisms (datasheets, membership inference, SISA)---does the existence of a mechanism make its non-use a choice?
+    \item Policy memo: draft the training-content disclosure standard you would recommend to a regulator, specifying what is auditable and by whom
+    \item Technical project: implement the membership-inference audit of Exercise 18A.1 and write up what the measured advantage implies for a real contributor's ability to establish inclusion
+\end{itemize}
+
+% ============================================================================
+\subsection*{Common Misconceptions}
+% ============================================================================
+
+\textbf{Misconception 1:} ``This chapter is an argument against building AI systems.''
+
+\textit{Correction:} The chapter states the opposite explicitly: the builders ``are entitled to something'' for real capital and real risk. Its claim is narrower---opacity, labor terms, and access tiers are choices made by one side of a relationship, not technical necessities. Students should be able to locate the sentence where the chapter bounds its own argument.
+
+\textbf{Misconception 2:} ``The fix is micropayments---pay everyone whose data was used.''
+
+\textit{Correction:} Data valuation (Appendix 18A) shows per-contribution pricing is formally definable but presupposes the disclosure that the ownership gap denies; and plausible per-person amounts are tiny. The chapter's remedies target the structure---provenance that can be audited, labor priced as skilled, contestable access rules---rather than retail compensation. Micropayments without transparency would ratify the arrangement, not reform it.
+
+\textbf{Misconception 3:} ``Export controls and service restrictions are just how markets work.''
+
+\textit{Correction:} The chapter's point is precisely that these are not market outcomes: they are policy decisions (a rule issued in January, rescinded in May) and unilateral terms. Markets did not tier the world's countries; a regulator did, and another un-tiered it. Calling the gate ``a policy artifact'' is a factual description of its mechanism, not a judgment that the policy is wrong.
+
+% ============================================================================
+\subsection*{Connections to Other Chapters}
+% ============================================================================
+
+\begin{description}
+    \item[Chapter 7] Annotation as skilled judgment is the premise this chapter's labor argument runs on; Chapter 18 draws the economic conclusion Chapter 7 stopped short of.
+    \item[Chapter 14] Collection bias and the accountability gap are the fairness-side readings of what Chapter 18 reads economically; the proprietary-COMPAS thread (``cannot be reviewed in open court'') is the ownership gap in miniature.
+    \item[Chapter 15] Annotation failure taxonomy presumes annotators who can surface guideline failures---which presumes the channel this chapter argues they are owed.
+    \item[Chapter 17] The rater-pool diversity result is the technical half of this chapter's labor argument; Chapter 18 names who the raters are and how they are procured.
+    \item[Chapter 19] The closing chapter's civic-participation invitation is the constructive answer to this chapter's question: if the loop's terms are set by one side, Chapter 19 is about becoming the other side.
+\end{description}
+
+% ============================================================================
+\subsection*{Sample 50-Minute Lesson Plan}
+% ============================================================================
+
+\begin{center}
+\begin{tabular}{p{2cm}p{5cm}p{4cm}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Q0 + the Nairobi story & Chapter reading \\
+0:08--0:18 & The ownership gap: Q1--Q2 & \textit{Times} lawsuit summary \\
+0:18--0:28 & Geography and labor: Q4--Q5, geodiversity images & Shankar et al.\ / Zou--Schiebinger figures \\
+0:28--0:40 & Activity 2 (compressed): Terms of the Loop & Role cards \\
+0:40--0:47 & The gate: Q7 + Five Dimensions through the ownership lens & Export-tier summary \\
+0:47--0:50 & Exit ticket: the gap in one sentence & --- \\
+\bottomrule
+\end{tabular}
+\end{center}

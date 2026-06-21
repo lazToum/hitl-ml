@@ -1,0 +1,48 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Part I — The Idea"
+    chapters:
+      - file: chapters/01_building_hitl
+        title: "Building HITL: Why a Game?"
+      - file: chapters/02_five_dimensions
+        title: "The Five Dimensions in Play"
+
+  - caption: "Part II — The Foundation"
+    chapters:
+      - file: chapters/03_schema
+        title: "Designing for Humans: The Schema"
+      - file: chapters/04_api
+        title: "The API Layer: Rust and Axum"
+      - file: chapters/05_auth
+        title: "Identity in the Loop: OIDC and Roles"
+
+  - caption: "Part III — The Intelligence"
+    chapters:
+      - file: chapters/06_validation
+        title: "Answer Validation: The Judgment Call"
+      - file: chapters/07_hints
+        title: "The Hint Engine: When to Help"
+      - file: chapters/08_ai
+        title: "AI in the Loop: The Python Sidecar"
+
+  - caption: "Part IV — The Experience"
+    chapters:
+      - file: chapters/09_creator
+        title: "The Creator's Perspective"
+      - file: chapters/10_player
+        title: "The Player's Perspective"
+      - file: chapters/11_observer
+        title: "Watching in Real Time"
+
+  - caption: "Part V — The System"
+    chapters:
+      - file: chapters/12_physical
+        title: "QR, NFC, and Physical Anchors"
+      - file: chapters/13_testing
+        title: "Testing HITL Systems"
+      - file: chapters/14_deployment
+        title: "Deployment: Shipping the Loop"
+      - file: chapters/15_reflection
+        title: "What the Game Taught Us"

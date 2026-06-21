@@ -1,0 +1,275 @@
+% ============================================================================
+% CHAPTER 15: When Things Go Wrong (And How to Fix Them)
+% A taxonomy of HITL failures — and the diagnostic tools to find and fix them
+% ============================================================================
+% Source: /markdown/ch15/Ch15_final.md
+% ============================================================================
+
+\label{chap:ch15}
+\begin{chapterquote}{on finding failure fast}
+The organizations that handle failures best are not the ones that never have them---they're the ones that built the infrastructure to find them quickly.
+\end{chapterquote}
+
+% ============================================================================
+\section{The Day the Market Lost Its Mind}
+\label{sec:flash-crash}
+% ============================================================================
+
+At 2:32 PM on May 6, 2010, a large mutual fund's algorithm began selling 75,000 E-mini futures contracts to hedge its portfolio. Ten minutes later, with the Dow Jones Industrial Average already down more than 300 points on a nervous day, the equity market began to fall vertically---roughly 600 points in about five minutes---bottoming out nearly 1,000 points down for the day by 2:47 PM, briefly erasing almost \$1 trillion in market value. Blue-chip stocks that had been trading at \$40 that morning suddenly printed trades at a penny. Procter \& Gamble fell from \$60 to \$39. Accenture, a Fortune 500 company, traded at one cent per share.
+
+And then, just as suddenly, it reversed. By 3:07 PM, the market had recovered most of its losses.
+
+No single bomb had gone off. No company had collapsed. No foreign power had intervened. What had happened, the CFTC and SEC's joint post-event analysis would later determine, was that automated trading algorithms had entered a catastrophic feedback loop. Other algorithms, designed to detect and follow large trades, began mimicking the sell program. This accelerated the decline, which triggered more algorithms to sell, which accelerated the decline further \autocite{kirilenko2017flash}.
+
+The humans who should have been in the loop---the traders, the risk managers, the market regulators---were watching their screens, helpless to intervene. The circuit breakers that existed were insufficient: the market-wide halts never triggered, single-stock trading pauses did not yet exist, and firm-level cutoffs required manual action no one could take in time. Some trading firms simply pulled their bid prices from the market entirely rather than catch the falling knives, which made the cascade worse.
+
+The Flash Crash is the canonical example of what happens when you remove the human from the loop entirely in a complex, high-stakes, real-time system. It wasn't that there were no humans nearby. There were hundreds of them. The problem was that none of them could intervene in time, because the system had been designed---whether deliberately or by architectural accident---to operate faster than human reaction time allowed.
+
+The lesson wasn't only about trading. It was about what failure looks like when \hitl design is absent, inadequate, or overwhelmed. And it raised the questions this chapter is about: When \hitl systems fail, why do they fail? How do you find the failure? And how do you fix it without making it worse?
+
+% ============================================================================
+\section{A Taxonomy of HITL Failures}
+\label{sec:hitl-taxonomy}
+% ============================================================================
+
+Not all \hitl failures look alike. Before you can fix a system, you need to understand which part of it is broken. Across domains---credit scoring, content moderation, medical imaging, fraud detection, hiring tools---\hitl failures fall into four distinct categories.
+
+\subsection{Failure Mode 1: Model Failure}
+
+The model itself is producing incorrect predictions. This is the failure mode most people think of first, and it's actually the most straightforward to diagnose, because it leaves a statistical fingerprint. Model failures tend to be systematic: the model consistently underperforms on certain subpopulations, certain input distributions, or certain combinations of features.
+
+The classic example is gender-classification systems that perform well on light-skinned male faces and poorly on dark-skinned female faces---a finding documented by MIT researcher Joy Buolamwini in her landmark Gender Shades study \autocite{buolamwini2018gender}. This wasn't a random error. It was a systematic one, traceable directly to training data that overrepresented certain demographic groups.
+
+Model failures manifest as:
+\begin{itemize}
+    \item \textbf{Distributional shift:} The world has changed since the model was trained. A fraud detection model trained on pre-pandemic spending patterns will struggle with post-pandemic ones.
+    \item \textbf{Coverage gaps:} The model was never trained on certain cases. A medical \ai trained only on hospital data from one region will behave unpredictably on patients from another.
+    \item \textbf{Spurious correlations:} The model learned to use a feature that happened to correlate with the outcome in training but doesn't causally relate to it.
+\end{itemize}
+
+\subsection{Failure Mode 2: Annotation Failure}
+
+The training labels are wrong. This is the sneakiest failure mode, because the model has been doing exactly what it was trained to do---the problem is that it was trained on incorrect ground truth.
+
+Annotation failures are common in any domain where human judgment is subjective, difficult, or fatiguing. In content moderation, annotators asked to label thousands of pieces of content per day for ``hate speech'' or ``misinformation'' face compounding problems: annotators disagree with each other; standards drift over time as fatigue sets in; annotators bring their own biases; and the labeling guidelines themselves may be ambiguous or culturally specific.
+
+\subsection{Failure Mode 3: Design Failure}
+
+The model may be accurate, the labels may be correct, but the threshold or routing logic is wrong. The system asks for human review at the wrong times---either too often (alert fatigue) or too rarely (overconfident silence).
+
+Design failures are often invisible in standard evaluation metrics. A fraud detection system might have 99.5\% accuracy---a number that looks excellent---while still being systematically wrong on a specific category of transactions that matters enormously.
+
+\begin{cautionbox}[The Alert Fatigue Threshold]
+A systematic review of clinical decision support found that clinicians dismissed between 46\% and 96\% of the alerts they received \autocite{poly2020override}. When every signal is noise, the actual signals disappear.
+\end{cautionbox}
+
+\subsection{Failure Mode 4: Reviewer Failure}
+
+The model is right, the labels are right, the threshold is right---but the humans reviewing the flagged cases are making poor decisions. Reviewer failures happen because of:
+
+\begin{itemize}
+    \item \textbf{Reviewer burnout:} Humans reviewing hundreds of cases per day become cognitively exhausted. Decision quality degrades.
+    \item \textbf{Automation bias:} Human reviewers who see the model's score before making their own judgment tend to anchor on it---even when the model is wrong. This undermines the entire premise of the human being in the loop.
+    \item \textbf{Inconsistent standards:} Different reviewers apply different criteria, creating unreliable labels that corrupt the feedback loop.
+    \item \textbf{Perverse incentives:} Reviewers measured on throughput will process faster, review less carefully, and agree with the model more often.
+\end{itemize}
+
+\begin{keyconcept}[The Four Failure Mode Taxonomy]
+\begin{description}
+    \item[Model Failure] Predictions are systematically wrong for a subpopulation
+    \item[Annotation Failure] Training labels are incorrect, skewed, or drifted
+    \item[Design Failure] Threshold or routing logic is miscalibrated
+    \item[Reviewer Failure] Human decision quality is compromised
+\end{description}
+The four modes are not mutually exclusive---the most serious \hitl failures typically involve multiple modes simultaneously.
+\end{keyconcept}
+
+% ============================================================================
+\section{The Diagnostic Question}
+\label{sec:diagnostic-question}
+% ============================================================================
+
+When a \hitl system starts failing, the first task is diagnosis. Before you can fix anything, you need to answer four questions in sequence:
+
+\paragraph{Is the model wrong?} Look at the model's performance metrics, sliced by subpopulation, feature combination, and time period. Are there groups of cases where accuracy is systematically lower? Are there time trends suggesting distributional shift?
+
+\paragraph{Are the labels wrong?} Look at annotator agreement statistics. Is inter-annotator agreement high? Are there systematic patterns in disagreements? Do different annotation teams produce different labels for the same cases?
+
+\paragraph{Is the threshold wrong?} Look at how the system routes cases. What fraction reaches human review? What fraction is auto-decided? Of the cases reaching humans, what fraction are genuinely uncertain versus obviously one thing or the other?
+
+\paragraph{Is the human component failing?} Look at reviewer behavior. Is there evidence of automation bias? Are reviewer decisions consistent within reviewers over time? Between reviewers on the same cases?
+
+Each answer points to a different remediation. Getting the diagnosis wrong means applying the wrong fix---which can make things worse.
+
+% ============================================================================
+\section{Spot Failures and Systematic Failures}
+\label{sec:spot-vs-systematic}
+% ============================================================================
+
+There is a critical distinction in failure analysis that determines the urgency and scope of response.
+
+A \term{spot failure} is a single bad output on a single case. The model misclassified one loan application. The content moderation system incorrectly removed one post. These failures are annoying and should be fixed, but they don't necessarily indicate a broken system.
+
+A \term{systematic failure} is a pattern of bad outputs across a population of cases. The model is misclassifying all loan applications from a particular ZIP code. The content moderation system is removing a particular category of political speech at ten times the rate of equivalent speech from other perspectives.
+
+\begin{keyconcept}[Systematic Failures Hide Behind Aggregate Metrics]
+A model with 95\% accuracy is making errors on 5\% of cases---but if those errors are concentrated in a specific subpopulation, the harm may be severe while the headline metric looks acceptable. Slice-based evaluation (see the Technical Appendix) is the tool that makes systematic failures visible.
+\end{keyconcept}
+
+% ============================================================================
+\section{Case Study: The Apple Card Investigation}
+\label{sec:credit-scoring}
+% ============================================================================
+
+In 2019, Apple and Goldman Sachs launched the Apple Card. Within months, users began reporting a pattern on social media: women were receiving strikingly lower credit limits than their husbands, despite shared finances. The most visible case involved the wife of a technology entrepreneur, whose credit limit was one-twentieth of her husband's---despite the couple filing joint tax returns and her holding the higher credit score. When she contacted customer service, representatives could neither explain nor override the algorithm's output; her limit was raised only after her husband's account of the episode went viral \autocite{nyt2019applecard}.
+
+The New York Department of Financial Services (NYDFS) opened an investigation. Its report found no evidence of unlawful discrimination: a statistical analysis of underwriting data covering roughly 400,000 New York applicants did not show that gender, directly or through proxies, had driven the outcomes. The model did not use gender as an explicit input, and the population-level data did not establish a systematically gendered outcome \autocite{nydfs2021apple}.
+
+But the visible cases were real, and the suspected mechanism was exactly the one fairness researchers warn about: proxy bias. A model trained on variables correlated with gender---income, credit history, spending patterns, themselves shaped by decades of structural wage gaps and credit-market disparities---can reproduce historical inequality without ever seeing a gender field. Whether or not that happened at population scale here, the bank could not demonstrate what had or had not driven any individual decision, because no one could explain individual decisions at all \autocite{nydfs2021apple}.
+
+What the NYDFS did fault was the human layer. Goldman Sachs's customer service processes---the human side of the loop---had no adequate mechanism to explain, challenge, or appeal an algorithmic credit decision. The investigation concluded in 2021 with a finding that Goldman Sachs had not violated fair-lending law, but the NYDFS made clear that algorithmic credit decisions fall squarely within its regulatory authority and that lenders bear the burden of demonstrating their models do not discriminate \autocite{nydfs2021apple}.
+
+The story did not end there. In October 2024, the Consumer Financial Protection Bureau ordered Goldman Sachs to pay a \$45 million civil penalty and at least \$19.8 million in consumer redress over Apple Card servicing failures---uninvestigated transaction disputes, delayed refunds, and inaccurate information furnished to credit reports \autocite{cfpb2024applecard}. The underwriting model had passed its fairness audit; the human and servicing layer around it had not.
+
+The story has several \hitl lessons. First, the human customer-service representatives were in the loop but had no diagnostic tools and no effective authority to override---the limit was changed only after media pressure, outside any process. Second, the absence of a protected attribute in the feature list is not a fairness guarantee---and an aggregate statistical clean bill of health is not an answer to an individual customer asking \emph{why}. Third, the problem was discovered not by the bank's internal monitoring but by users comparing notes on social media---a pattern-detection mechanism no compliance department had planned for. The case illustrates that human oversight cannot function when humans are given outputs without evidence, and that fairness testing must look at outcomes by protected group, not merely at whether protected attributes appear in the feature list.
+
+% ============================================================================
+\section{Case Study: Annotation Bias in Content Moderation}
+\label{sec:political-speech}
+% ============================================================================
+
+Facebook's 2020 civil rights audit---conducted by independent auditors commissioned by the company---raised concerns about uneven enforcement across communities: certain communities experienced systematic over-enforcement of content policies, while policy-violating content targeting other communities went under-enforced \autocite{meta2020audit}. The underlying challenge is persistent: content moderation systems trained on annotator judgments can encode the skew of the annotator pool into automated enforcement at scale.
+
+The mechanism is now well-documented in the research literature. Sap and colleagues showed that tweets containing African American English were up to twice as likely to be labeled offensive as equivalent tweets in Mainstream American English---an effect they traced to annotators' insensitivity to dialect, which dropped sharply when annotators were told a tweet's dialect \autocite{sap2019risk}. The annotators were not acting in bad faith---they were applying the guidelines as they understood them, but their understanding was shaped by cultural distance from the dialect they were labeling. The model learned their biases.
+
+The pattern is self-reinforcing. A model trained on a demographically skewed annotator pool over-moderates content from particular communities. The platform's complaint data---appeals and user reports---reflects the AI's enforcement patterns, not the underlying distribution of violations. When that complaint data is then used to retrain or fine-tune the model, the bias compounds.
+
+\begin{examplebox}[The Annotation Feedback Loop]
+Annotation bias operates like the credit-model feedback loop described in the previous section: a biased training signal produces biased predictions, which shape the data collected next. The difference is that content moderation operates in a domain where ``ground truth'' is inherently contested---what counts as toxic, hateful, or harmful is subject to cultural and political disagreement. There is no credit-report ground truth to validate against.
+\end{examplebox}
+
+The fix requires what the audit recommended: diverse annotator pools, regular fairness audits stratified by community, clear annotation guidelines that explicitly address dialect and cultural variation, and ongoing monitoring of enforcement-rate disparities. It also requires the architecture of the loop to register disagreement as a signal rather than noise---when annotator disagreement clusters along demographic lines, it is telling you something about the task, not just about the annotators.
+
+% ============================================================================
+\section{The Audit Trail: You Can't Fix What You Can't Trace}
+\label{sec:audit-trail}
+% ============================================================================
+
+Both case studies above depended on the existence of records. The NYDFS inquiry into Apple Card could proceed because Goldman Sachs maintained logs of credit decisions; the Meta civil rights audit could measure enforcement disparities because the platform logged enforcement actions. The data existed---and that existence was the difference between an actionable finding and an unverifiable anecdote.
+
+This is not how most \hitl systems are built by default. In many organizations, the model runs in a black box. Predictions are made, decisions are executed, and no one asks for a receipt. When a failure is later identified, the team faces the worst possible diagnostic situation: trying to reconstruct what happened from incomplete records.
+
+An audit trail serves three functions:
+
+\paragraph{Detection.} Systematic monitoring of logged predictions can surface patterns that would otherwise be invisible.
+
+\paragraph{Diagnosis.} When a failure is identified, the audit trail lets you trace it to its cause. Was this a model error, an annotation error, or a threshold error?
+
+\paragraph{Remediation.} When harm has occurred, the audit trail tells you who was affected and when. This is the prerequisite for notification, restitution, and making things right.
+
+Building audit trails into \hitl systems from the start is not expensive. Storing every prediction with its context costs a fraction of what failure investigation and remediation do.
+
+% ============================================================================
+\section{Post-Mortems and the HITL Five Whys}
+\label{sec:post-mortems}
+% ============================================================================
+
+When a \hitl failure is identified and remediated, the work is not done. The most valuable thing an organization can do after fixing a failure is understand why it happened---not to assign blame, but to prevent recurrence.
+
+Google's Site Reliability Engineering handbook formalized the concept of the \term{blameless post-mortem}: the principle that the goal of failure analysis is to understand system failures, not to punish individuals \autocite{beyer2016sre}. This matters especially in \hitl systems, where annotators, reviewers, and data scientists are usually responding rationally to the incentive structures and information environments around them.
+
+The \hitl version of the \term{five whys}---the lean manufacturing technique for tracing failures to root causes---looks like this:
+
+\begin{enumerate}
+    \item Why did the model make systematically incorrect predictions? \textit{Because it was trained on biased labels.}
+    \item Why were the labels biased? \textit{Because the annotation team was working under time pressure and used available news framing as implicit context.}
+    \item Why were they working under time pressure? \textit{Because the annotation schedule was set by a product team that didn't understand annotation quality degrades under pressure.}
+    \item Why didn't the product team understand this? \textit{Because there was no standardized process for communicating annotation quality constraints to product planning.}
+    \item Why wasn't that process in place? \textit{Because the organization's \hitl processes were designed primarily around speed, not quality---and no one owned cross-functional accountability for label quality.}
+\end{enumerate}
+
+The fifth ``why'' reveals a structural or organizational root cause that no amount of technical improvement alone will fix.
+
+% ============================================================================
+\section{The Framework Applied: Five Dimensions of HITL Failure}
+\label{sec:framework-applied}
+% ============================================================================
+
+The Five Dimensions framework provides a useful lens for categorizing \hitl failures:
+
+\begin{itemize}
+    \item The Flash Crash was a \textbf{Timing} failure: the system operated on timescales faster than human intervention was possible.
+    \item The Apple Card case was a \textbf{Feedback Integration} failure layered on an \textbf{Intervention Design} failure: the model reproduced proxy bias absorbed from its training data, and the human layer of customer service had no tools or authority to interrogate the decision.
+    \item The annotation-bias case was an \textbf{Uncertainty Detection} failure at the annotation level combined with a monitoring design failure: annotator disagreement clustering along demographic lines was treated as noise, and enforcement rates were not tested by community.
+    \item The Nest thermostat (\cref{sec:nest-thermostat}) was an \textbf{Intervention Design} failure: the human wasn't meaningfully in the loop even when they nominally were.
+\end{itemize}
+
+When diagnosing a \hitl failure, a useful first step is to map it onto the Five Dimensions and ask: which dimension failed first? The answer usually points to the most leverage for remediation.
+
+% ============================================================================
+\section{Recovery: What Good Remediation Looks Like}
+\label{sec:recovery}
+% ============================================================================
+
+Once a failure is diagnosed, remediation has three phases:
+
+\paragraph{Stop the bleeding.} Reduce ongoing harm while the deeper fix is being designed. Temporarily raise human review thresholds, pause automated decisions in a specific domain, or route a category of cases entirely to human reviewers.
+
+\paragraph{Fix the root cause.} Address the actual failure mode---retrain the model on corrected labels, revise the threshold, restructure the review process, or redesign the feedback loop.
+
+\paragraph{Prevent recurrence.} Implement monitoring that would have caught this failure earlier. Create a test that encodes this specific failure pattern and will alert if it reappears.
+
+\begin{keyconcept}[The Infrastructure of Recovery]
+The organizations that handle \hitl failures best are not the ones that never have failures. They are the ones that built the diagnostic infrastructure---audit trails, slice-based monitoring, blameless post-mortems---to find failures quickly, remediate them decisively, and prevent recurrence systematically.
+\end{keyconcept}
+
+% ============================================================================
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\begin{trythis}
+Think of a \hitl system you interact with regularly---a content feed, a recommendation engine, a workplace tool, a fraud detection system. Has it ever done something that seemed \textit{systematically} wrong (the same kind of error, repeatedly, on the same kind of case) rather than randomly wrong? If so, which of the four failure modes does it most resemble? If you can't tell---what information would you need to diagnose it?
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+    \item \hitl failures fall into four categories: model failure, annotation failure, design failure, and reviewer failure. Each requires a different diagnosis and a different fix.
+    \item Spot failures (single bad outputs) are different from systematic failures (patterns across a population). Systematic failures demand systematic responses.
+    \item The audit trail---comprehensive logging of predictions, decisions, and system changes---is the prerequisite for diagnosis, remediation, and accountability.
+    \item Post-mortems should be blameless: the goal is to understand system failures, not punish individuals.
+    \item The Five Whys traces failures to structural root causes, which are usually organizational rather than technical.
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Diagnostic Questions}
+
+\begin{description}
+    \item[Is the model wrong?] Check slice-based performance metrics across subpopulations and time periods
+    \item[Are the labels wrong?] Check inter-annotator agreement and annotation history
+    \item[Is the threshold wrong?] Check routing statistics and human review rates
+    \item[Is the human component failing?] Check reviewer behavior, consistency, and automation bias indicators
+\end{description}
+
+\subsection*{Five Dimensions Check}
+
+\begin{itemize}
+    \item \textit{Timing} (Dimension~3): The Flash Crash is the pure timing failure---a system operating on timescales where no human intervention was physically possible
+    \item \textit{Intervention Design} (Dimension~2): Apple Card's customer service was a human layer with no tools and no authority---presence in the loop without power over the loop
+    \item \textit{Feedback Integration} (Dimension~5): Both case studies compounded through their own feedback loops---biased predictions shaped the next round of data, quietly amplifying the failure
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{In the next chapter, we extend \hitl analysis beyond text and images---into audio, time-series data, scientific discovery, and the physical world of robots and prosthetics.}

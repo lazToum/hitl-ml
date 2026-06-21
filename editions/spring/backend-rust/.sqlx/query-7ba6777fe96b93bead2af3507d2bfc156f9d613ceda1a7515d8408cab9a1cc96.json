@@ -1,0 +1,88 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT * FROM clues WHERE hunt_id = $1 ORDER BY sequence",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "hunt_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "sequence",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "title",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "body",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "media_url",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "answer_type",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "answer_value",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 8,
+        "name": "answer_tolerance",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 9,
+        "name": "hint_unlock_after_minutes",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 10,
+        "name": "hint_unlock_after_attempts",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 11,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "7ba6777fe96b93bead2af3507d2bfc156f9d613ceda1a7515d8408cab9a1cc96"
+}

@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Human in the Loop: Misunderstood",
+    "subtitle": "Autumn Edition — What You Think It Means vs. What It Actually Is"
+  },
+  "chapters": [
+    { "id": "autumn", "index": 0, "title": "Human in the Loop: Misunderstood", "mdPath": "chapters/autumn.md", "estimatedReadMinutes": 10 }
+  ]
+}

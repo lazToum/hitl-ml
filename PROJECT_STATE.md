@@ -1,0 +1,185 @@
+# Human in the Loop: Project State
+
+**Title:** Human in the Loop: Misunderstood  
+**Date of this document:** 2026-07-19
+
+---
+
+## Overview
+
+A full-length non-fiction book on human-in-the-loop (HITL) machine learning systems. Story-driven approach: accessible narrative prose per chapter, rigorous technical content in per-chapter appendices, complete instructor's package for academic use. Central analytical tool: the **Five-Dimension Framework** introduced in Chapter 1.
+
+Aimed at technically curious general readers, students in data science or AI ethics courses, and practitioners who work alongside ML systems. Usable as a standalone textbook.
+
+Also includes companion documents, translations, and web packaging around the four seasonal editions.
+
+---
+
+## Series Structure
+
+| Edition | Directory | Format | Description | Status |
+|---------|-----------|--------|-------------|--------|
+| **Winter (Main Textbook)** | `editions/winter/` | LaTeX PDF, 19 chapters | Full book with technical appendices and teaching materials | ✅ Complete |
+| **Summer** | `editions/summer/` | Jupyter Book HTML + PDF | Interactive HTML with 17 MyST chapters | ✅ Complete |
+| **Spring** (platform) | `editions/spring/` | FastAPI + Rust + React + Flutter | Scavenger-hunt/game platform | ✅ Complete |
+| **Autumn Pamphlet** ("Misunderstood") | `editions/autumn/` | HTML (self-contained) + PDF | Pamphlet for annotation teams; corrects 6 misconceptions | ✅ Complete |
+| **Companion Docs** | `companion/` | Markdown | Spring / Summer / Autumn / Winter supporting docs | ✅ Complete |
+| **Editions Overview** | `overview/` | LaTeX PDF | Single PDF introducing all editions | ✅ Complete |
+
+---
+
+## Five-Dimension Framework
+
+The analytical core of the book, introduced in Chapter 1 and applied throughout.
+
+| Dimension | Key Question | What It Evaluates |
+|-----------|-------------|-------------------|
+| **Uncertainty Detection** | Can the system recognize when it is unsure? | Does the model know its own limits? |
+| **Intervention Design** | How does it ask for help? | Is the ask well-formed and appropriately timed? |
+| **Timing** | When does it ask? | Too early (unnecessary), too late (useless), or just right? |
+| **Stakes Calibration** | Does it understand consequences? | Are high-stakes errors treated differently from low-stakes ones? |
+| **Feedback Integration** | Does it learn from the responses it receives? | Are corrections incorporated, or discarded? |
+
+---
+
+## Chapter Status
+
+Winter's 19 textbook chapters are complete in LaTeX with per-chapter appendices, teacher guides, and solutions. Summer's 17 workbook chapters are complete in MyST/Jupyter Book format. Spring's 15 platform-guide chapters are complete as a build/project guide. These editions use different chapter maps; use `editions/winter/latex/main.tex`, `editions/summer/_toc.yml`, and `editions/spring/_toc.yml` as the source of truth.
+
+---
+
+## File Inventory
+
+### LaTeX (`editions/winter/latex/`)
+
+**Root:**
+- `main.tex` — master document with all `\input{}` calls and edition flags
+- `preamble.tex` — Libertinus fonts, color palette, custom tcolorbox environments
+- `references.bib` — BibLaTeX bibliography
+- `copyright.tex` — copyright page
+- `indexstyle.ist` — index formatting
+
+**Frontmatter (`editions/winter/latex/frontmatter/`):** `titlepage.tex`, `preface.tex`, `acknowledgments.tex`
+
+**Chapters (`editions/winter/latex/chapters/`):** `ch01.tex` – `ch19.tex`
+
+**Appendices (`editions/winter/latex/appendices/`):** `ch01_appendix.tex` – `ch19_appendix.tex`
+
+**Teaching (`editions/winter/latex/teaching/`):** `ch01_teacher.tex` + `ch01_solutions.tex` × 19 chapters = 38 files (complete)
+
+**Backmatter (`editions/winter/latex/backmatter/`):** `glossary.tex`, `about.tex`
+
+**Editions Overview (`overview/`):** `editions_overview.tex` + compiled `editions_overview.pdf`
+
+**Build artifacts (gitignored):** `*.aux`, `*.bbl`, `*.bcf`, `*.blg`, `*.idx`, `*.ilg`, `*.ind`, `*.log`, `*.run.xml`, `*.synctex.gz`, `*.toc` (note: `main.pdf` itself is tracked as the pre-built deliverable)
+
+### Markdown authorship sources (retired)
+
+The original per-chapter markdown source tree (`editions/winter/chapters/`,
+~144 files including Greek `_el` translations) was the origin from which the
+LaTeX and reader content were first derived. It is no longer consumed by any
+build or by the reader, so as of June 2026 it has been **retired to a
+gitignored `.local/winter-chapters-md/` archive** (recoverable from git
+history). The live Winter sources are now:
+
+- **Book** — `editions/winter/latex/` (hand-maintained LaTeX → `main.pdf`)
+- **Teaching** — `editions/winter/latex/teaching/` (`ch*_teacher.tex` +
+  `ch*_solutions.tex`)
+- **Reader** — `web/reader/public/winter/chapters/ch01.md`–`ch19.md` (chapter
+  prose, globbed by the reader app; English only)
+
+The retired markdown used these per-chapter suffixes: `Ch*_final.md` (prose),
+`Ch*A_final.md` (technical appendix), `Ch*T_updated.md` (teacher guide),
+`C*AM_updated.md` (discussion solutions), `Ch*AS_updated.md` (exercise
+solutions), `Ch*_References.md` (bibliography).
+
+**Companion editions (`companion/`):**
+- `HITL_Misunderstood.md` — Autumn: six misconceptions pamphlet (companion to the Autumn edition)
+- `HITL_Misunderstood_Summer.md` — Summer: activity workbook
+- `HITL_Winter_is_Coming.md` — Winter: exam study companion
+- `HITL_Winter_is_Coming_Solutions.md` — Winter answer key
+- `HITL_Winter_is_Coming_Teachers.md` — Winter instructor notes
+
+### Autumn Pamphlet (`editions/autumn/`)
+- `editions/autumn/index.html` — Self-contained editorial HTML/CSS pamphlet ✅
+- `editions/autumn/source.md` — Markdown source
+- `editions/autumn/hitl_autumn_edition.pdf` — Compiled pamphlet PDF
+
+### Reader App (`web/reader/`)
+- React + Vite + TypeScript standalone reader
+- TTS, ambient audio, 12 games (Bowling, BubbleShooter, Chess, Crossword, DotToDot, Hangman, Minesweeper, Pacman, Pong, Pool, Snake, Solitaire)
+- Pre-built deliverable: `dist/reader_app/`
+
+---
+
+## Build Instructions
+
+### Requirements
+- LuaLaTeX or XeLaTeX
+- Biber
+- Fonts: Libertinus Serif, Libertinus Sans, Libertinus Math, JetBrains Mono
+- Python 3.10+ with Jupyter Book (`pip install -r requirements.txt`)
+- Node.js 18+ (reader app only)
+
+### Winter (LaTeX)
+```bash
+make winter
+# or manually:
+cd editions/winter/latex
+lualatex -interaction=nonstopmode main.tex
+biber main
+makeindex main.idx -s indexstyle.ist
+lualatex -interaction=nonstopmode main.tex
+lualatex -interaction=nonstopmode main.tex
+```
+
+### Edition Flags (in `editions/winter/latex/main.tex`)
+```latex
+\printeditiontrue      % 6"×9" trade paperback
+% \ebookeditiontrue    % Screen-optimized, single-sided
+% \thesiseditiontrue   % US Letter, extra binding margin
+```
+
+### Summer (Jupyter Book)
+```bash
+make install
+make summer
+make summer-serve   # serve at http://localhost:8081
+```
+
+### Autumn Pamphlet (HTML + PDF)
+```bash
+open editions/autumn/index.html
+make autumn-pdf
+```
+
+### Editions Overview PDF
+```bash
+make overview
+```
+
+---
+
+## Current State
+
+| Area | Status | Notes |
+|------|--------|-------|
+| Winter publication frontmatter | ✅ Complete | Title page, copyright page, preface, and author page are now populated |
+| Winter PDF build | ✅ Verified | `make winter` clean as of July 2026: 541 pp, 0 undefined refs, 0 duplicate destinations, 0 biber warnings; output `editions/winter/latex/main.pdf` |
+| Winter editorial pass (June) | ✅ Complete | Citation integrity (real cited sources, no fabricated examples), 2nd expert panel resolved, four TikZ/pgfplots figures, `NA.x` appendix numbering + anchor fix, cross-appendix math harmonization |
+| Winter Chapter 18 (July) | ✅ Complete | New chapter "Who Owns the Loop?" (ownership, dataset geography, annotation labor, access gating) + Appendix 18A + teaching set + reader chapter; former closing chapter renumbered to 19; 3rd expert panel (5 reviewers incl. new policy persona) — all items resolved |
+| Winter teaching + reader reconciliation | ✅ Complete | Teacher guides/solutions and the interactive reader brought in line with the corrected book (de-named vignettes, real sources); no fabricated names/studies remain in any Winter surface |
+| Winter code listings review | ☐ Pending | Audit of the Python/code examples in the technical appendices for correctness/consistency (queued) |
+| Winter "mentality" review | ☐ Pending | Holistic pass over thesis coherence, argument flow, and voice across all 19 chapters (queued) |
+| Summer core edition | ✅ Verified | `make summer` builds the main HTML edition successfully; warning volume is dominated by translation pages |
+| Autumn pamphlet | ✅ Verified | HTML is self-contained and the PDF was rebuilt from current source on 2026-04-29 |
+| Spring guide PDF | ✅ Verified | `make spring-guide` rebuilt `editions/spring/project_guide.pdf` on 2026-04-29 |
+| Spring backend code | ✅ Verified | `SQLX_OFFLINE=true cargo check` succeeds after replacing the stale cached delete-query path |
+| Spring web dashboard | ✅ Verified | `npm run build` succeeds in `editions/spring/web` |
+| Spring platform runtime | ✅ Complete | All code verified; runtime validation (OIDC credentials, LLM key, mobile app) is human-gated |
+| Translations | ⚠ Mixed | Shared assets are present; translation reviews are still incomplete and localized builds may emit language-scope warnings |
+| Companion docs | ✅ Complete | `companion/` contains the Spring, Summer, Autumn, and Winter companion material |
+| Reader app | ✅ Complete | `web/reader/` ships a standalone React reader; serves Summer and Winter chapter content (`public/winter/chapters/`) |
+| Remotes | ✅ Synced | Mirrored to GitHub (`github.com/lazToum/hitl-ml`) and GitLab (`gitlab.com/lazToum/hitl-ml`); kept in sync on every push |
+| Web: Summer / Winter study companions | Optional | The source material exists in `companion/`; further web packaging would be a new deliverable, not a Winter blocker |
+| Additional code-example expansion | Optional | Existing appendix material is sufficient for Winter completeness; further standalone code extraction is enhancement work |

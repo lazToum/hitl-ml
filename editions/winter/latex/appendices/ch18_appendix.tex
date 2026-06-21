@@ -1,0 +1,134 @@
+% ============================================================================
+% TECHNICAL APPENDIX 18A: Provenance, Attribution, and Access
+% ============================================================================
+
+\chapter*{Technical Appendix 18A: Provenance, Attribution, and Access}
+\addcontentsline{toc}{chapter}{Technical Appendix 18A: Provenance, Attribution, and Access}
+
+\begin{chapterquote}{Formal tools for the ownership questions of Chapter 18}
+Chapter~18 argues that every \hitl system is a property arrangement: contributed data, supplied judgment, proprietary models, gated access. This appendix collects the technical machinery that makes those claims measurable---membership inference, corpus documentation, data valuation, machine unlearning, and architectures that relocate data ownership.
+\end{chapterquote}
+
+% ============================================================================
+\apxnumon
+\section{Membership Inference: Testing Inclusion from the Outside}
+\label{sec:a18-membership}
+% ============================================================================
+
+Chapter~18 claims that an individual generally cannot establish whether their data was used to train a model. Membership inference is the family of techniques that attempts it, and its partial success is the precise measure of the opacity.
+
+\subsection{The Attack Model}
+
+Given a trained model $f_\theta$ and a candidate record $z = (x, y)$, a \term{membership inference attack} is a function $\mathcal{A}(f_\theta, z) \in \{0, 1\}$ that guesses whether $z$ was in the training set $D$. Its quality is measured by the \emph{membership advantage}:
+\[
+\mathrm{Adv}(\mathcal{A}) = \Pr[\mathcal{A} = 1 \mid z \in D] - \Pr[\mathcal{A} = 1 \mid z \notin D]
+\]
+An advantage of $0$ means that attack learns nothing about membership (a model leaks nothing only if \emph{no} attack achieves positive advantage); an advantage of $1$ means membership is fully recoverable.
+
+\textcite{shokri2017membership} introduced the shadow-model construction: train many ``shadow'' models on datasets the attacker controls, observe how those models behave on members versus non-members, and train an attack classifier on that behavioral difference. \textcite{yeom2018privacy} showed that a far simpler signal often suffices: training members tend to have lower loss.
+
+\subsection{The Loss-Threshold Attack}
+
+The simplest practical attack declares membership when the model's loss on the record falls below a threshold $\tau$ (we write $\ell$ for the per-example loss, reserving $\mathcal{L}$ for aggregates):
+\[
+\mathcal{A}_\tau(f_\theta, z) = \mathbb{1}\bigl[\ell(f_\theta(x), y) < \tau\bigr]
+\]
+
+\begin{lstlisting}[style=python, caption={Loss-threshold membership inference audit}]
+import numpy as np
+
+def membership_advantage(model, members_X, members_y,
+                         nonmembers_X, nonmembers_y,
+                         threshold: float) -> float:
+    """Estimate membership advantage of a loss-threshold attack."""
+    # per_example_loss: array of the model's loss on each example
+    loss_in  = per_example_loss(model, members_X, members_y)
+    loss_out = per_example_loss(model, nonmembers_X, nonmembers_y)
+
+    tpr = np.mean(loss_in  < threshold)   # members flagged as members
+    fpr = np.mean(loss_out < threshold)   # non-members wrongly flagged
+    return tpr - fpr
+
+# Sweep thresholds; the max advantage measures leakage
+def max_advantage(model, mX, my, nX, ny) -> float:
+    losses = np.concatenate([per_example_loss(model, mX, my),
+                             per_example_loss(model, nX, ny)])
+    return max(membership_advantage(model, mX, my, nX, ny, t)
+               for t in np.quantile(losses, np.linspace(0.01, 0.99, 99)))
+\end{lstlisting}
+
+One methodological caution: choosing the threshold by maximizing advantage on the same samples used to report it overstates the leakage---the threshold should be selected on a disjoint calibration split (or on shadow data, per \textcite{shokri2017membership}), with advantage reported on held-out records.
+
+Two readings of the same measurement: to a privacy engineer, high advantage is a leak to be closed; to the excluded contributor of Chapter~18, high advantage is the only audit available. The tool that measures the harm is also the only instrument of transparency the outsider has.
+
+% ============================================================================
+\section{Corpus Documentation: What Is Actually in the Data}
+\label{sec:a18-documentation}
+% ============================================================================
+
+\textcite{gebru2021datasheets} proposed \term{datasheets for datasets}: standardized documentation covering motivation, composition, collection process, preprocessing, uses, distribution, and maintenance. The proposal treats a dataset the way engineering treats a component---nothing ships without a specification sheet.
+
+Where datasheets do not exist, third-party audits partially reconstruct them. \textcite{dodge2021documenting} audited C4, a widely used web-scraped training corpus, and documented its source-domain distribution, the side effects of its cleaning filters (which disproportionately removed text associated with minority dialects and identities), and the presence of machine-generated and benchmark-contaminating text. The audit demonstrates both that post-hoc documentation is possible and that it is no substitute for provenance recorded at collection time.
+
+The EU \ai Act's requirement that general-purpose model providers publish a ``sufficiently detailed summary'' of training content \autocite{euaiact2024} is, in effect, a legally mandated partial datasheet, as is California's training-data transparency law \autocite{ab2013california}. The open technical question is what granularity makes such a summary auditable rather than ornamental: domain distributions, source lists, and license inventories can be checked; prose descriptions cannot.
+
+% ============================================================================
+\section{Data Valuation: Pricing the Contribution}
+\label{sec:a18-valuation}
+% ============================================================================
+
+If training data is a contributed input, what is any single contribution worth? \textcite{ghorbani2019data} adapt the Shapley value from cooperative game theory. Let $U(S)$ be the performance of a model trained on data subset $S \subseteq D$. The \term{Data Shapley} value of point $i$ is its average marginal contribution across all subsets:
+\[
+\phi_i = \frac{1}{|D|} \sum_{S \subseteq D \setminus \{i\}}
+  \binom{|D|-1}{|S|}^{-1} \bigl[U(S \cup \{i\}) - U(S)\bigr]
+\]
+The Shapley formulation has the fairness properties one would want from a pricing rule: contributions that never change performance are worth zero; identical contributions are worth the same; values sum to the total performance in excess of the empty-set baseline, $U(D) - U(\emptyset)$. Exact computation is exponential, but Monte Carlo estimates over sampled permutations converge well in practice.
+
+The obstacle to using data valuation for actual compensation is not primarily technical. It is that valuation presupposes the very disclosure the ownership gap denies: one can only price contributions to a corpus one is allowed to see.
+
+% ============================================================================
+\section{Machine Unlearning: Withdrawing a Contribution}
+\label{sec:a18-unlearning}
+% ============================================================================
+
+Ownership without the right of withdrawal is incomplete. \term{Machine unlearning} asks: given a trained model and a deletion request for record $z$, produce a model distributed as if $z$ had never been in the training set---without paying for full retraining.
+
+Exact unlearning demands distributional equivalence:
+\[
+\mathcal{M}(D \setminus \{z\}) \stackrel{d}{=} \mathrm{Unlearn}(\mathcal{M}(D), z)
+\]
+\textcite{bourtoule2021machine} achieve this with the SISA architecture (Sharded, Isolated, Sliced, Aggregated): partition the training data into shards, train an isolated constituent model per shard, and aggregate predictions. A deletion request retrains only the affected shard---and only from the slice checkpoint preceding the deleted record. The design trades some accuracy and storage for a deletion cost of $O(|D|/k)$ per request with $k$ shards, rather than $O(|D|)$.
+
+The architecture is instructive beyond its mechanics: unlearning is cheap only when the system was built, from the start, to remember where every contribution went. Provenance is not a compliance afterthought; it is the data structure that makes withdrawal computable.
+
+% ============================================================================
+\section{Relocating the Data: Federated Alternatives}
+\label{sec:a18-federated}
+% ============================================================================
+
+The ownership gap is widest when data must be centralized to be useful. \textcite{mcmahan2017communication} showed it need not be. In \term{federated learning}, the data never leaves its owner; what travels is the model update. In federated averaging (FedAvg), each participating client $k$ starts from the current global model $\theta_t$ and runs several epochs of local gradient descent on its own data to produce $\theta_{t+1}^{(k)}$; the server then aggregates, weighting by data volume:
+\[
+\theta_{t+1} = \sum_{k=1}^{K} \frac{n_k}{n} \, \theta_{t+1}^{(k)},
+\qquad n = \sum_{k=1}^{K} n_k
+\]
+The multiple local epochs are the point: a single local gradient step per round would reduce the scheme to distributed gradient descent (FedSGD) and forfeit the communication savings that make federation practical. Federated learning does not by itself resolve ownership---the aggregated model is still held by whoever runs the aggregation, and gradient updates can leak information about the underlying data. But it demonstrates that ``the model needs everyone's data in one warehouse'' is an architectural choice, not a law of nature, which is the technical premise behind Chapter~18's claim that opacity and centralization are choices.
+
+Training compute, meanwhile, has grown at a pace---doubling roughly every six months in the modern deep learning era \autocite{sevilla2022compute}---that concentrates frontier training in the small set of organizations able to fund it. Architectures can redistribute data custody; they cannot, by themselves, redistribute compute.
+
+% ============================================================================
+\section{Exercises}
+\label{sec:a18-exercises}
+% ============================================================================
+
+\begin{Exercise}[Membership Inference Audit]
+Train a small classifier on half of a public tabular dataset, holding out the other half. Implement the loss-threshold attack and compute the maximum membership advantage across thresholds. Then repeat with strong L2 regularization and with early stopping. How does the advantage change, and what does that imply about the relationship between overfitting and membership leakage?
+\end{Exercise}
+
+\begin{Exercise}[Data Shapley on a Toy Corpus]
+On a dataset of 200 examples, estimate Data Shapley values by Monte Carlo permutation sampling (at least 500 permutations) with model accuracy as $U$. Corrupt the labels of 20 examples and re-estimate. Verify that the corrupted examples receive systematically lower (often negative) values. What fraction of permutations is needed before the ranking stabilizes?
+\end{Exercise}
+
+\begin{Exercise}[Documenting an Undocumented Corpus]
+Take a sample of at least 10{,}000 documents from a public web-scraped corpus. Produce a one-page datasheet in the style of \textcite{gebru2021datasheets}: top source domains, language distribution, estimated fraction of boilerplate or machine-generated text, and any benchmark contamination you can detect. Note explicitly which datasheet questions you could not answer from the artifact alone---that residue is the case for provenance recorded at collection time.
+\end{Exercise}
+\apxnumoff

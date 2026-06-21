@@ -1,0 +1,21 @@
+/* ---- RTL reading direction (content-scoped; sphinx-book-theme has no native RTL) ---- */
+.bd-article-container article,
+.bd-article {
+  direction: rtl;
+  text-align: right;
+}
+.bd-article pre,
+.bd-article code,
+.bd-article kbd,
+.bd-article samp,
+.bd-article .highlight,
+.bd-article .cell_output {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+.bd-sidebar-primary nav,
+.bd-toc nav {
+  direction: rtl;
+  text-align: right;
+}

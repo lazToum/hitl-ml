@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Human in the Loop: Misunderstood",
+    "subtitle": "Spring Edition — Building the Loop"
+  },
+  "chapters": [
+    { "id": "01_building_hitl",    "index": 0,  "title": "Building HITL: Why a Game?",              "mdPath": "chapters/01_building_hitl.md",    "estimatedReadMinutes": 5  },
+    { "id": "02_five_dimensions",  "index": 1,  "title": "The Five Dimensions in Play",             "mdPath": "chapters/02_five_dimensions.md",  "estimatedReadMinutes": 8  },
+    { "id": "03_schema",           "index": 2,  "title": "Designing for Humans: The Schema",        "mdPath": "chapters/03_schema.md",           "estimatedReadMinutes": 7  },
+    { "id": "04_api",              "index": 3,  "title": "The API Layer: Rust and Axum",            "mdPath": "chapters/04_api.md",              "estimatedReadMinutes": 6  },
+    { "id": "05_auth",             "index": 4,  "title": "Identity in the Loop: OIDC and Roles",   "mdPath": "chapters/05_auth.md",             "estimatedReadMinutes": 6  },
+    { "id": "06_validation",       "index": 5,  "title": "Answer Validation: The Judgment Call",   "mdPath": "chapters/06_validation.md",       "estimatedReadMinutes": 6  },
+    { "id": "07_hints",            "index": 6,  "title": "The Hint Engine: When to Help",          "mdPath": "chapters/07_hints.md",            "estimatedReadMinutes": 5  },
+    { "id": "08_ai",               "index": 7,  "title": "AI in the Loop: The Python Sidecar",     "mdPath": "chapters/08_ai.md",               "estimatedReadMinutes": 5  },
+    { "id": "09_creator",          "index": 8,  "title": "The Creator's Perspective",              "mdPath": "chapters/09_creator.md",          "estimatedReadMinutes": 7  },
+    { "id": "10_player",           "index": 9,  "title": "The Player's Perspective",               "mdPath": "chapters/10_player.md",           "estimatedReadMinutes": 7  },
+    { "id": "11_observer",         "index": 10, "title": "Watching in Real Time",                  "mdPath": "chapters/11_observer.md",         "estimatedReadMinutes": 7  },
+    { "id": "12_physical",         "index": 11, "title": "QR, NFC, and Physical Anchors",          "mdPath": "chapters/12_physical.md",         "estimatedReadMinutes": 5  },
+    { "id": "13_testing",          "index": 12, "title": "Testing HITL Systems",                   "mdPath": "chapters/13_testing.md",          "estimatedReadMinutes": 5  },
+    { "id": "14_deployment",       "index": 13, "title": "Deployment: Shipping the Loop",          "mdPath": "chapters/14_deployment.md",       "estimatedReadMinutes": 5  },
+    { "id": "15_reflection",       "index": 14, "title": "What the Game Taught Us",                "mdPath": "chapters/15_reflection.md",       "estimatedReadMinutes": 6  }
+  ]
+}

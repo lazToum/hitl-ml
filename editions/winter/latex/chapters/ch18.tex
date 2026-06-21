@@ -1,0 +1,137 @@
+% ============================================================================
+% CHAPTER 18: Who Owns the Loop?
+% The political economy of HITL: data, labor, and access
+% ============================================================================
+% Source: /markdown/ch18/Ch18_final.md
+% ============================================================================
+
+\label{chap:ch18}
+\begin{chapterquote}{on who owns the loop}
+The loop is a design object. It is also property.
+\end{chapterquote}
+
+% ============================================================================
+\section{The People Who Taught the Machine Manners}
+\label{sec:ch18-nairobi}
+% ============================================================================
+
+In January 2023, an investigation by \textit{Time} magazine introduced readers to some of the most consequential humans in the loop of modern \ai---people almost none of those readers had ever heard of \autocite{perrigo2023kenya}.
+
+They worked in Nairobi, Kenya, employed through Sama, a San Francisco--based outsourcing firm, on a contract for OpenAI. Their job was to read and label textual descriptions of the worst things people do to each other---violence, abuse, hatred---so that a safety classifier could learn to recognize such content and keep it out of ChatGPT's outputs. The work paid, by \textit{Time}'s accounting, a take-home wage of roughly \$1.32 to \$2 per hour depending on seniority and performance. OpenAI paid Sama \$12.50 per worker-hour for the work, and Sama disputed \textit{Time}'s figures, claiming effective pay of \$1.46 to \$3.74 per hour---a dispute that itself illustrates the opacity this chapter is about. Several workers described lasting psychological effects from months of concentrated exposure to the material. The contract ended early.
+
+If the vocabulary of this book means anything, these workers were not peripheral. They were the loop. Their judgments are the human signal in the safety systems of one of the most widely used \ai products ever deployed---Dimension~5, feedback integration, performed by hand. Every reader who has watched a chatbot politely decline to produce something vile has benefited from their labor, without seeing it, at a price that did not appear on any screen.
+
+For seventeen chapters, this book has treated the human-in-the-loop system as a design object: something to be architected, calibrated, measured, and improved. That treatment is correct, and it is incomplete. A \hitl system is also an economic object. The data has sources. The labels have authors. The model has a proprietor. The access has a gatekeeper. This chapter asks the question the design perspective quietly skips: not \emph{does the loop work?} but \emph{whose is it?}
+
+% ============================================================================
+\section{The Ownership Gap}
+\label{sec:ch18-ownership-gap}
+% ============================================================================
+
+Begin with the raw material. A large language model is trained on text produced by hundreds of millions of people: forum posts, product reviews, news articles, encyclopedia entries, source code, poetry. An image model is trained on photographs that people took of their families, their cities, their weddings. Almost none of these people were asked. At the scale involved, they could not have been asked---and that impossibility has functioned, in practice, as permission. What was produced as expression was collected as resource.
+
+Now consider the product. For the closed-weight systems that lead the field, the trained model is private property: its weights are generally protected as trade secrets, and even the composition of the training corpus is undisclosed---not the documents, not the sources, not the proportions. Open-weight models, whose parameters anyone may download, are a real exception and an instructive one. Openness of weights has mostly relocated the gap rather than closed it: the corpora behind most open-weight models remain undocumented too. The handful of fully documented open corpora prove that disclosure is feasible wherever it is chosen. The people whose writing taught the model to write own neither the data assembled from their words nor the system trained on it. In most cases they cannot establish even the bare fact of their inclusion---whether their own sentences are inside the model at all is a question the proprietor is not obliged to answer, and one that is technically difficult to settle from the outside (the Technical Appendix discusses \term{membership inference}, the family of methods that attempts exactly this).
+
+The gap between these two paragraphs is the ownership gap: contribution is nearly universal, ownership is extraordinarily narrow, and between them stands a wall of opacity.
+
+The gap is no longer hypothetical or fringe. In December 2023, \textit{The New York Times} sued OpenAI and Microsoft, alleging that millions of its articles were used to train models that now compete with it as a source of information \autocite{grynbaum2023lawsuit}. Whatever the courts eventually settle, the suit put a structural question into the legal record: what, if anything, is owed to the people and institutions whose work trained the machine? Comparable questions have been raised by novelists, photographers, illustrators, and programmers. The disputes differ in their details; they share a shape. The value was aggregated from many; the asset is held by few; the terms were never negotiated because one side was never at the table.
+
+States and publics have little more visibility than individuals. In most jurisdictions there is no general obligation to disclose what a commercial model was trained on, and the first legal obligations are only now arriving: the European Union's \ai Act requires providers of general-purpose models to publish a ``sufficiently detailed summary'' of their training content \autocite{euaiact2024}, and California's training-data transparency law (AB 2013), whose first compliance deadline arrived in January 2026, requires developers to post documentation of the datasets behind their generative systems \autocite{ab2013california}. The first disclosures under these laws now exist---OpenAI, for one, has published the documentation California requires, though not, as of mid-2026, the Article 53(1)(d) training-content summary---which sharpens the point rather than settling it: disclosure is evidently feasible, what a summary must contain is already contested, and everywhere the obligations do not reach, the default remains opacity.
+
+The reader may notice that this book has spent considerable energy celebrating Dimension~5---the system that learns from the responses it receives. The ownership gap is the shadow of that celebration. Feedback integration describes how the loop learns from everyone. Ownership determines who keeps what it learns.
+
+\begin{keyconcept}[The Loop Has an Owner]
+Every human-in-the-loop system in this book is also a property arrangement. Someone owns the model. Someone supplies the judgment. Someone lives with the output. These are rarely the same people, and when their interests diverge, the system's design encodes whose interests govern. The design question and the ownership question are both answered in every deployed loop---whether or not anyone asks them out loud.
+\end{keyconcept}
+
+% ============================================================================
+\section{The Geography of the Loop}
+\label{sec:ch18-geography}
+% ============================================================================
+
+Chapter~14 told the story of the geodiversity weddings as a lesson in collection bias: classifiers trained on the field's standard datasets---collected overwhelmingly from North America and Europe---stumbling on wedding photographs from Ethiopia and Pakistan, a bride in a white Western dress labeled \emph{bride} and \emph{wedding} while a bride in Indian wedding clothing was labeled \emph{costume} and \emph{performance art} \autocite{shankar2017geodiversity,zou2018ai}. Filed under collection bias, the lesson is about sampling. Stand on the other side of the same fact and it reads differently. The map of whose life counts as training data is not random. It tracks connectivity, language, wealth---and it correlates, uncomfortably, with the map of who owns the systems. Data is gathered globally; datasets are curated, models trained, and revenue booked in a small number of places. Scholars have given this pattern a name---\term{data colonialism}: the appropriation of human life as raw material, collected from everywhere, processed and owned somewhere quite particular \autocite{couldry2019costs}. One need not adopt the full framework to notice the asymmetry it points at. Kate Crawford's tracing of the \ai supply chain extends the observation to the physical substrate: the minerals, the energy, the click-work, the territory---extraction all the way down, with the value pooling at the top \autocite{crawford2021atlas}.
+
+For \hitl design, the geography has a specific consequence that earlier chapters let us name precisely. Uncertainty concentrates where training data is thin (Chapter~4). If the data is thin exactly where the datasets' geography ends, then the people most poorly served by the model are also the people whose cases should be expected to flood the review queue---a conjecture no public audit of a deployed system has measured, which is its own indictment---to be judged, in most production systems, by reviewers hired where the owner operates, under guidelines the owner wrote. The loop is global at its input and narrow at its control points.
+
+% ============================================================================
+\section{The Labor Behind the Labels}
+\label{sec:ch18-labor}
+% ============================================================================
+
+There is a name for the workforce this book has been describing since Chapter~7. Mary Gray and Siddharth Suri call it \term{ghost work}: the globally distributed, largely invisible human labor---labeling, moderating, transcribing, verifying---that makes automated systems appear automatic \autocite{gray2019ghost}. The work is skilled. The conditions are another matter: piece rates, no continuity, no benefits, no visibility, and in the case of content moderation, sustained exposure to traumatic material as part of the job description.
+
+Here this book's own thesis turns and points at the industry. Its running claim has been that the human contribution to \hitl systems is \emph{skilled judgment}: that annotation quality determines model quality (Chapter~7), that annotators detect guideline failures before anyone else (Chapter~15), that the diversity of the rater pool sets the values a model learns (Chapter~17). The industry's own behavior now endorses that claim---unevenly. For scarce expert judgment in coding, medicine, and law, preference annotation has come to command professional rates. The laboratories concluded that the quality of the judgment sets the quality of the model. The conclusion has simply not traveled to the labor that is least visible: safety labeling and content moderation---the work of the Nairobi contract---remains priced as piecework and routed to wherever it is cheapest. The stratification tracks skill less than it tracks visibility, danger, and the bargaining power of the people doing the work---though Chapter~15's annotation-failure taxonomy applies to a moderation queue exactly as it does to a medical one. If the judgment is skilled, the terms follow. Wages that reflect skill rather than piecework arithmetic. Psychological support where the material is traumatic, as a cost of the system rather than an externality dumped on the worker. And a channel by which the people applying the guidelines can change them, because they are the first to know when the guidelines are wrong. The counterargument deserves its due: these jobs often pay above local alternatives, people queue for them, and a client's exit---as the end of the Nairobi contract showed---can hurt the very workers that scrutiny means to protect. The argument here is not abolition. It is terms.
+
+The point is not sentimental. Chapter~17 made the technical version of the argument: \rlhf models optimize for the preferences of whoever rates the outputs, and a homogeneous or hurried rater pool narrows the values the model encodes. The justice argument and the quality argument point in the same direction. A loop that treats its human judgment as a commodity input gets commodity judgment---and then ships it, at scale, as the values of the machine.
+
+% ============================================================================
+\section{The Gate}
+\label{sec:ch18-gate}
+% ============================================================================
+
+There is a final asymmetry, newer than the others. Having been built from nearly everyone's data, the systems are not available to nearly everyone.
+
+Some of the gating is commercial terms of service: frontier \ai services are simply not offered in long lists of countries, for reasons ranging from sanctions law to risk appetite. Some of it is infrastructure: since October 2022, United States export controls have restricted which countries may buy the advanced processors that train and serve frontier models---aimed first at China, then widened \autocite{bis2022controls}. And in January 2025, the U.S.\ Department of Commerce went further, issuing a framework that sorted nearly every country on earth into tiers of eligibility for advanced chips and even for trained model weights \autocite{bis2025diffusion}. That particular framework was rescinded four months later by the new administration---announced by press release in May 2025, never formally replaced---which is, in its way, the most instructive fact about it. Access to the most capable systems of the era is a policy artifact, redrawable with each political season, and the people whose eligibility is being redrawn are not parties to the drawing.
+
+Set the two flows side by side. Data was collected from everywhere; the collection recognized no tiers of eligibility. Capability is dispensed selectively, on terms set by the owners and their governments. Whatever one thinks of any particular control---and there are serious arguments about security and misuse that this chapter does not dismiss---the asymmetry itself is the structural fact. At one end of the loop, everyone is a contributor. At the other, some are collaborators, some are customers, and some are data sources only.
+
+% ============================================================================
+\section{Calibrated Collaboration, on Whose Terms?}
+\label{sec:ch18-whose-terms}
+% ============================================================================
+
+The claim of this book fits in two sentences: the future is not full automation; it is calibrated collaboration. This chapter adds the rider that the word ``collaboration'' smuggles in. Collaboration is a relationship, and relationships have terms---and in the systems of the present, the terms are set almost entirely by one side.
+
+The Five Dimensions, read one last time through the ownership lens:
+
+\begin{description}
+  \item[Uncertainty detection] Whose cases sit in the thin part of the distribution? The geodiversity failures are not randomly assigned; they fall on the people the data skipped.
+  \item[Intervention design] Who designs the question, and who only answers it? The owner designs the intervention; the annotator executes it; the affected person, most often, is its subject rather than its participant.
+  \item[Timing] Whose time is priced cheaply enough to interrupt? Review queues route to wherever judgment is least expensive, which is a statement about wages before it is a statement about design.
+  \item[Stakes calibration] Stakes for whom? The moderator's trauma and the mislabeled bride's erasure appear in no loss function. A system can be perfectly stakes-calibrated for its owner and blind to every other party's stakes.
+  \item[Feedback integration] Contributions flow in; ownership flows back only to the few institutions positioned to litigate or negotiate. The dimension this book has praised most warmly is, economically, very nearly a one-way valve.
+\end{description}
+
+None of this argues that the systems should not exist, or that building them earns no return. Training a frontier model consumes real capital and carries real risk, and the builders are entitled to something for it. The argument is narrower and harder to wave away: opacity is a choice, not a necessity; labor conditions are terms, not weather; access tiers are policy, not physics. A field that has learned---painstakingly, over two decades---to calibrate uncertainty can learn to calibrate ownership: provenance that can be audited \autocite{gebru2021datasheets}, labor that is priced as the skilled judgment the field's own results prove it to be, access rules made where the affected can contest them. The alternative is a loop that asks the world for help and keeps the answers.
+
+\begin{trythis}
+Pick one \ai system you use regularly and spend thirty minutes trying to answer four questions. What is publicly known about its training data? Who labeled or rated that data, where, and on what terms? In which countries is the system unavailable, and why? And if your own writing or photographs were in the training set, how would you find out? Score yourself on how many you could answer with confidence. The gaps you hit are not a failure of your research skills. They are the ownership gap, measured from the outside.
+\end{trythis}
+
+% ============================================================================
+\section*{Chapter Summary}
+\addcontentsline{toc}{section}{Chapter Summary}
+% ============================================================================
+
+\begin{keyconcept}[Key Concepts]
+\begin{itemize}
+  \item Every \hitl system is a property arrangement as well as a design: someone owns the model, someone supplies the judgment, someone lives with the output---rarely the same people
+  \item The ownership gap: training data is contributed by nearly everyone, models are owned by very few, and even the fact of one's inclusion is generally unknowable
+  \item Dataset geography maps whose life counts as training data; the geodiversity failures fall on the populations the data skipped, who then face the model's uncertainty without a seat at its control points
+  \item Annotation and preference labor is skilled judgment; expert domains now command professional rates while safety and moderation work stays priced as piecework---a stratification that tracks visibility and bargaining power, not skill
+  \item Access to frontier \ai is a policy artifact---export tiers, service geographies---revised season by season, while the data collection that built the systems was never tiered at all
+\end{itemize}
+\end{keyconcept}
+
+\subsection*{Key Examples}
+
+\begin{description}
+  \item[Nairobi safety annotation] The workers who trained ChatGPT's toxicity filters for under \$2 per hour---Dimension~5 as invisible, underpriced labor
+  \item[The geodiversity brides] Classifiers that recognized only Western weddings---collection bias seen from the ownership side
+  \item[\textit{The New York Times} lawsuit] The ownership gap arriving in court: what is owed to those whose work trained the model?
+  \item[The 2025 diffusion framework] Every country tiered for access to chips and weights, then untiered by press release and never formally replaced---access as policy artifact
+\end{description}
+
+\subsection*{Five Dimensions Check}
+
+\begin{itemize}
+  \item All five dimensions have an ownership reading: whose uncertainty counts, who designs versus who answers, whose time is cheap, whose stakes are in the loss function, and who keeps what the feedback teaches
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Final chapter: your role in this future---not despite \ai capability, but because of it.}

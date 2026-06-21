@@ -1,0 +1,57 @@
+name: treasure_hunt
+description: Treasure Hunt — player mobile app
+publish_to: none
+version: 0.1.0
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # HTTP
+  dio: ^5.4.0
+
+  # QR scanning
+  mobile_scanner: ^5.2.0
+
+  # NFC
+  flutter_nfc_kit: ^3.4.0
+
+  # GPS / location
+  geolocator: ^11.0.0
+
+  # Camera (photo clues)
+  image_picker: ^1.1.0
+
+  # Local persistence (offline SQLite via drift)
+  drift: ^2.18.0
+  sqlite3_flutter_libs: ^0.5.0
+  path_provider: ^2.1.0
+  path: ^1.9.0
+
+  # State management
+  flutter_riverpod: ^2.5.0
+  riverpod_annotation: ^2.3.0
+
+  # Navigation
+  go_router: ^13.2.0
+
+  # OIDC / PKCE auth
+  flutter_appauth: ^7.0.0
+  flutter_secure_storage: ^9.2.0
+
+  # UI
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.0
+  drift_dev: ^2.18.0
+  riverpod_generator: ^2.3.0
+
+flutter:
+  uses-material-design: true

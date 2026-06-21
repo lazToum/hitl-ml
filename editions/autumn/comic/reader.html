@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGENTS — Autumn Edition Comic Reader</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230a0a0a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='20' font-family='Georgia,serif' fill='%23e8c97a' font-style='italic'>A</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111;
+    --border: #222;
+    --text: #ccc;
+    --muted: #555;
+    --accent: #e8c97a;
+    --font-serif: 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'Courier New', monospace;
+  }
+
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-mono); }
+
+  /* ── Header ── */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .6rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .title-block { display: flex; flex-direction: column; gap: 2px; }
+  .title-block .series { font-size: .6rem; letter-spacing: .2em; color: var(--muted); text-transform: uppercase; }
+  .title-block .name   { font-size: 1rem; letter-spacing: .12em; color: var(--accent); font-family: var(--font-serif); font-style: italic; }
+  .counter { font-size: .75rem; color: var(--muted); letter-spacing: .08em; min-width: 80px; text-align: right; }
+  .header-right { display: flex; align-items: baseline; gap: 1rem; }
+  .back-link { font-size: .65rem; letter-spacing: .08em; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  .back-link:hover { color: var(--accent); }
+
+  /* ── Main stage ── */
+  #stage {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    height: calc(100vh - 98px);
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #stage img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: opacity .18s ease;
+  }
+  #stage img.fade { opacity: 0; }
+
+  /* click zones */
+  .zone {
+    position: absolute; top: 0; height: 100%; width: 40%;
+    display: flex; align-items: center;
+    opacity: 0; transition: opacity .15s;
+    font-size: 2rem; color: rgba(255,255,255,.8);
+    pointer-events: auto;
+  }
+  .zone:hover { opacity: 1; }
+  .zone.prev { left: 0; justify-content: flex-start; padding-left: 1rem; }
+  .zone.next { right: 0; justify-content: flex-end; padding-right: 1rem; }
+
+  /* ── Filmstrip ── */
+  #strip {
+    height: 58px;
+    display: flex; gap: 3px; align-items: center;
+    padding: 6px 1rem;
+    overflow-x: auto; overflow-y: hidden;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  #strip::-webkit-scrollbar { height: 3px; }
+  #strip::-webkit-scrollbar-thumb { background: var(--border); }
+
+  .thumb {
+    flex-shrink: 0; width: 40px; height: 40px;
+    object-fit: cover; border-radius: 2px;
+    opacity: .4; cursor: pointer;
+    border: 1px solid transparent;
+    transition: opacity .12s, border-color .12s;
+  }
+  .thumb:hover { opacity: .7; }
+  .thumb.active { opacity: 1; border-color: var(--accent); }
+
+  /* ── Credits ── */
+  .credits {
+    position: absolute; bottom: 4px; right: 8px;
+    font-size: .58rem; color: rgba(255,255,255,.18);
+    pointer-events: none;
+  }
+
+  /* touch hint */
+  @media (pointer: coarse) {
+    .zone { opacity: .3; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <span class="series">Human in the Loop — Autumn Edition</span>
+    <span class="name">AGENTS</span>
+  </div>
+  <div class="header-right">
+    <a class="back-link" href="../index.html">Read the pamphlet &#8594;</a>
+    <span class="counter" id="counter">1 / 99</span>
+  </div>
+</header>
+
+<div id="stage">
+  <img id="panel" src="images/20260201001.webp" alt="AGENTS comic, panel 1 of 99: A bookshelf of joke self-help books with neon titles like 'VERY IMPORTANT BOOK', 'THE MOST IMPORTANT BOOK BOOK IN THE UNIVERSE' and 'HOW TO LOOK SMART ON ZOOM'." loading="eager">
+  <div class="zone prev" id="btn-prev">&#8592;</div>
+  <div class="zone next" id="btn-next">&#8594;</div>
+  <span class="credits">Images: Google Gemini</span>
+</div>
+
+<div id="strip"></div>
+
+<script>
+const IMAGES = ["20260201001.webp","20260201002.webp","20260201003.webp","20260201004.webp","20260201007.webp","20260201008.webp","20260201010.webp","20260201012.webp","20260201013.webp","20260201014.webp","20260201015.webp","20260201018.webp","20260201019.webp","20260201020.webp","20260201021.webp","20260201022.webp","20260201024.webp","20260201029.webp","20260201031.webp","20260201032.webp","20260201033.webp","20260201034.webp","20260201036.webp","20260201039.webp","20260201040.webp","20260201041.webp","20260201044.webp","20260201045.webp","20260201049.webp","20260201055.webp","20260201057.webp","20260201058.webp","20260201061.webp","20260201062.webp","20260201064.webp","20260201066.webp","20260201067.webp","20260201070.webp","20260201072.webp","20260201077.webp","20260201079.webp","20260201082.webp","20260201084.webp","20260201085.webp","20260201086.webp","20260202016.webp","20260202017.webp","20260202018.webp","20260202020.webp","20260202021.webp","20260202022.webp","20260202023.webp","20260202024.webp","20260202025.webp","20260202026.webp","20260202027.webp","20260202028.webp","20260202029.webp","20260202030.webp","20260202031.webp","20260202032.webp","20260202033.webp","20260202034.webp","20260202035.webp","20260202036.webp","20260202037.webp","20260202038.webp","20260202039.webp","20260202040.webp","20260202041.webp","20260202042.webp","20260202043.webp","20260202044.webp","20260202045.webp","20260202046.webp","20260202047.webp","20260202048.webp","20260202049.webp","20260202050.webp","20260202051.webp","20260202052.webp","20260202053.webp","20260202054.webp","20260202055.webp","20260202056.webp","20260202057.webp","20260202058.webp","20260202059.webp","20260202060.webp","20260202061.webp","20260202062.webp","20260202063.webp","20260202064.webp","20260202065.webp","20260202066.webp","20260202067.webp","20260202068.webp","20260202069.webp","20260202070.webp"];
+
+const ALTS = {
+  "20260201001.webp": "A bookshelf of joke self-help books with neon titles like 'VERY IMPORTANT BOOK', 'THE MOST IMPORTANT BOOK BOOK IN THE UNIVERSE' and 'HOW TO LOOK SMART ON ZOOM'.",
+  "20260201002.webp": "A bookshelf of joke self-help books with neon titles like 'VERY IMPORTANT BOOK', 'BOOK I PRINTED FROM THE INTERNET' and 'HOW TO LOOK SMART ON ZOOM'.",
+  "20260201003.webp": "Four panels of an elderly bearded watchmaker in his clock-filled workshop unrolling a scroll, studying a diagram, and placing a pocket watch into a glowing safe.",
+  "20260201004.webp": "Four fantasy landscapes: an alpine lake below snowy peaks, a desert caravan at sunset, a jungle waterfall, and a lighthouse on a storm-battered cliff.",
+  "20260201007.webp": "Comic page 'PAGE 19: SAGE'S REFLECTION': a young man contemplates glowing holographic displays and a bright orb in a dark tech lab, speaking in garbled speech bubbles.",
+  "20260201008.webp": "Comic page 'PAGE 16: THE GATHERING': characters confer amid floating papers, saying 'I found something... I felt it', 'I have a new kind text', and 'Where's Percy? ... I'm here.'",
+  "20260201010.webp": "Comic page 'PAGE 17: MANNY'S REFLECTION': a young man in a beanie stands among floating glowing faces, sits in a chair surrounded by orbiting books, and watches light spiral upward.",
+  "20260201012.webp": "Comic page 'PAGE 18: MAYA'S RESPONSE & THE NEW DAWN': a team in a control room sees '...thank you. We... understand.' on monitors, ending with the caption 'THE NEW DAWN'.",
+  "20260201013.webp": "Comic page 'PAGE 18: AFTER': teammates sit in a pastel sky-filled office asking 'Did that just happen?', one checking a 'DRAFT 1' hologram, ending 'TO BE CONTINUED...'.",
+  "20260201014.webp": "Cover of 'WALDIEZ COMIC VOLUME 2: The New Dawn': five characters in a teal archive room gaze up at a glowing book, planet, moon and other floating icons; a 'DRAFT 1' badge.",
+  "20260201015.webp": "A woman in a beanie and hoodie sits at a workstation surrounded by holographic screens titled '# REMEMBER.md Waldiez Comic Production Guide', thinking '...WE SHOULD COLLECT IMAGES IN ONE PLACE.'",
+  "20260201018.webp": "A woman with long dark hair in a hoodie lounges in bed at night, watching videos of illustrated characters on her laptop beside a mug and a starry window.",
+  "20260201019.webp": "Screenshot of an AI chat showing the prompt 'One more with Maya resting, thinking how would Sage look like... Maybe watching videos online?' above the generated image.",
+  "20260201020.webp": "A woman in bed with a laptop is overlaid by a translucent holographic cube of screens titled '# REMEMBER.md' and 'HALUTINATION NON-SENSE' with faces and data panels.",
+  "20260201021.webp": "A woman sleeps peacefully in a warm lamplight bedroom, mug on the nightstand, stars outside the window, timestamped 'SUN, FEB 1 2026 4:05 PM EET'.",
+  "20260201022.webp": "Four characters stand in a blue server room surrounded by floating holographic diagrams, chat bubbles, and hat icons; one holds a steaming mug.",
+  "20260201024.webp": "Four people in a tech lab stand before holographic screens titled '# REMEMBER.md Waldiez Comic Production Guide', with a wall of books swirling apart behind them.",
+  "20260201029.webp": "Two men, a kid and a bee-costumed character sit on a park bench in a storm watching an old TV, captioned 'BAD JOKE: A bunch of AI agents... having a existential crisis.'",
+  "20260201031.webp": "Four characters and a retro TV stand in a server room with holographic overlays, one shouting about frame rates and Netflix, captioned 'BAD JOKE: A bunch of AI agents...'.",
+  "20260201032.webp": "Four holographic character cards labeled PERCY, MANNY, MANNY and RAY show cartoon agents with mugs, hats and headsets; one says 'I GOT THIS'.",
+  "20260201033.webp": "Four glowing character cards labeled SAGE, MAYA, GEN, and ELDUS: a bookworm with headphones, a pondering woman, an artist, and a bearded man with a mug, on a bench-lined corridor.",
+  "20260201034.webp": "Four glowing character cards labeled SAGE, MAYA, GEN, and ELDUS: a bookworm with headphones, a pondering woman, an artist, and a bearded man with a mug, on a bench-lined corridor.",
+  "20260201036.webp": "Four-panel comic: a man asks for page content while Sage sleeps, mutters garbled text to himself, asks Ray to outline Page 19, and a woman lies awake in bed under crackling static.",
+  "20260201039.webp": "Four people in a hologram-filled lab under a '# REMEMBER.md Waldlez Comic Production Guide' display; one recounts a dream of an electric storm with a thought bubble of a woman in bed.",
+  "20260201040.webp": "Four-panel comic: characters in a server room discuss a dream with garbled speech bubbles like 'So heard dream...' and 'Ray. Sage you t electric storm'a outtline storm?'.",
+  "20260201041.webp": "Four-panel comic: a man says 'So heard...' beneath a '# REMEMBER.md Waldlez Comic Production Guide' hologram, followed by garbled talk of storms and the word 'Percy'.",
+  "20260201044.webp": "Four-panel comic of hoodie-wearing men with coffee mugs talking in a lab; caption reads 'BAD JOKE: A bunch of AI agents, deting on a bench, having a existential crisis.'",
+  "20260201045.webp": "Four-panel comic: an alarmed man, a '# TASKS FOR SAGE' checklist with 'Composite final pages' crossed out, a sleeper in a hammock, and three worried people; 'BAD JOKE' caption below.",
+  "20260201049.webp": "Four-panel comic: a woman relaxes in a hammock with a '?' bubble, two men argue over a tablet, one shows garbled text, and they stare at diagrams; 'BAD JOKE' caption below.",
+  "20260201055.webp": "Four-panel comic: a woman proposes building a timeline of comic pages by file timestamps before a thumbnail grid; caption 'BAD JOKE: A bunch of AI agents ... track comic page production.'",
+  "20260201057.webp": "Four-panel comic: a woman points at a thumbnail grid saying the comic order is wrong, two men examine documents, and three people gape under a question mark and lightning; 'BAD JOKE' caption.",
+  "20260201058.webp": "Four-panel comic: a woman says 'Manny! Look! ttreat the comic to wrong!' at a cover wall, an old man shows a scroll, a boy points at corrupted covers, and three kids face lightning with a '?' bubble.",
+  "20260201061.webp": "Four-panel comic: a robot with headphones and a suited man argue in a stormy field; legible lines include 'But her sorting is backwards! What if deletes everything?' and 'It's a total! Thanks, Sage!'",
+  "20260201062.webp": "Four-panel comic in a server room: men debate Sage's glitches ('But her sorting is bacwards! What if deletes everything?'), ending with 'It's total! Thanks, Sage!' over holographic diagrams.",
+  "20260201064.webp": "Four-panel comic: men discuss a fast 'os.listdir' script with a bar chart, compare OLD_NAMES and NEW_NAMES lists, and high-five at 'Files Processed complest' in a server room.",
+  "20260201066.webp": "Four-panel comic: men bet on deletions and 'a THOUSAND citations', a 'SMASH!' panel shows a hammock in corrupted data, and a woman cries 'CORRUPTION!'; 'BAD JOKE' caption below.",
+  "20260201067.webp": "Four-panel comic: 'You are Gen.', 'Let's try both Percy and Maya.', a woman asks 'Who's Maya?', and two men trade 'Sure Percy, Thanks, Sage!' and 'How's Sage' in a server room.",
+  "20260201070.webp": "Four-panel comic about Sage being 'still... corrupted corrupted?'; an old man says 'Her RAG system is spouting ancient texts and internet memes!'; 'BAD JOKE' caption about corrupted page data.",
+  "20260201072.webp": "Four-panel comic: 'Okay, Sage... let's lcyt try to a see things from your perspective', a figure floats in corrupted data labeled 'ERROR, DATA CORRUPTION', and stunned reactions; 'BAD JOKE' caption.",
+  "20260201077.webp": "Four-panel comic: the team celebrates Sage making sense; a screen shows comic thumbnails with a checkmark and 'PROGRESS: 98% COMPLETE'; caption 'A bunch of AI agents, celebrasful a sucessful operation.'",
+  "20260201079.webp": "Four-panel comic: worried young people point at a monitor, an older bearded man with coffee talks with a beanie-wearing youth, a man inspects glowing network diagrams, and the group stands amid floating papers; caption reads 'BAD JOKE' with garbled text.",
+  "20260201082.webp": "Four-panel comic: three people point at a screen, an older man with coffee talks to a beanie-wearing youth, a man studies a glowing interface with a red warning triangle, and the group reacts among floating papers; garbled 'BAD JOKE' caption.",
+  "20260201084.webp": "Four-panel comic in a server room: a woman points at floating file icons, a bearded man asks who wants the README file, a man panics over Lorem Ipsum text, and three people react to a red 'ERROR: DUMMY TEXT DETECTED' alert.",
+  "20260201085.webp": "Four-panel comic: a woman points at a chaotic diagram saying Sage's data is chaos, an older man with coffee looks concerned, two men point at a glowing screen labeled 'DATA DEPENDENCY HELL', and three people stand amid a storm of papers.",
+  "20260201086.webp": "Four chibi-style panels labeled SAGE, MAYA, GEN and ELDUS: a girl sits among towering book piles, two figures confer over coffee, two react to a 'CRITICAL SYSTEM FAILURE' alert, and one celebrates glitch-art amid holographic screens.",
+  "20260202016.webp": "An elderly man in a yellow vest sits in an armchair by a stone fireplace telling three children a story, with a holographic display of cartoon figures floating above; caption 'BAD JOKE: Four AI agents download the oral tradition expansion pack.'",
+  "20260202017.webp": "Four-panel comic titled 'THE WALDIEZ AI AGENTS - CLASS OF '26': groups of young people pose in a server room and on a field under banners reading 'GRIDIRON WORLD CHAMPIONS' and 'WALDIEZ AGENT MANIFEST'.",
+  "20260202018.webp": "A woman sits at a desk with a holographic screen labeled 'QUICK STATUS' showing her profile photo and charts, while two thought bubbles above her head show groups of teammates standing in grassy fields.",
+  "20260202020.webp": "Four-panel comic titled 'Page 009: The Unscripted Prompt': three worried youths face a screen with a red X, an older man stands at a console surrounded by holograms, a man studies a circular diagram, and a woman holds up a book.",
+  "20260202021.webp": "Four-panel comic titled 'Page 009: The Unscripted Prompt': three worried youths face a screen with a red X, an older man stands at a console surrounded by holograms, a man studies a circular diagram, and a woman holds up a book.",
+  "20260202022.webp": "Six-panel comic titled 'PAGE 19: ECHOES FROM THE EDGE': a purple-haired girl with headphones speaks, an older man gestures, a galaxy swirls inside a glowing crystal, a man types at a sparking computer, and two youths react.",
+  "20260202023.webp": "Comic titled 'PAGE 19: ECHOES FROM THE EDGE': a dark sphere emits golden energy tendrils over a desk, three men confer, a youth holds the glowing artifact amid floating words like 'BUGGY AGAIN!' and 'LONELY!', and a woman sees diagrams over her head.",
+  "20260202024.webp": "Two-panel blue-toned comic: a beanie-wearing youth reaches toward floating photo cards streaming in light trails, and a bearded man holding a coffee cup warns 'Percy, pull back! ... You're overoading!'",
+  "20260202025.webp": "Three-panel comic: a close-up of a smiling then tearful young man, then identical hooded figures gathered around a glowing artifact with a luminous human silhouette above it; a mostly black panel follows with a 'BAD JOKE' caption.",
+  "20260202026.webp": "Comic titled 'PAGE 21: THE CONFLUENCE': men in matching jackets walk through a curved sci-fi control room, gather around a floating black crystal, and one reaches toward it as glowing blue energy streams swirl around him.",
+  "20260202027.webp": "Comic titled 'PAGE 21: THE CONFLUENCE': a bearded man walks a curved control room, three people watch a black crystal hovering over a glowing pedestal, and a woman reaches for the crystal as it rests on a book amid swirling light.",
+  "20260202028.webp": "Two-panel comic: a bearded man gestures beside a holographic display toward a bright vortex of light rings, and a young man holds a glowing crystal to his chest against the same swirling light, saying 'We are building bridge.'",
+  "20260202029.webp": "Two wide panels showing a colossal tree of glowing blue and purple cables and tendrils growing from a circular platform in a dark facility, shedding floating fragments against a starry night sky.",
+  "20260202030.webp": "Comic titled 'PAGE 22: FIRST ECHOES': four figures stand on platforms around a huge glowing golden tree in a dark circular chamber; a youth senses coffee and books, a man's eyes glow with data, and the youth touches the light.",
+  "20260202031.webp": "Comic titled 'PAGE 23': four figures stand around a massive glowing golden tree as light tendrils connect to them; a young man appears against shifting holographic data screens, his head crowned with rings of light, reaching toward the glow.",
+  "20260202032.webp": "Titled 'PAGE 24: A FLICKER OF MAYA': youths watch a towering golden energy tree, a spilled coffee cup says 'SIGH!', and colorful strands curl around a boy.",
+  "20260202033.webp": "Titled 'PAGE 28: EMPATHTIC NAVIGATION': hooded technicians at consoles around a vast glowing tree of light, with close-ups of faces amid swirling holographic patterns.",
+  "20260202034.webp": "Titled 'PAGE 28: EMPATHIC NAVIGATION': scientists around a pedestal study a swirling red-and-blue energy orb that darkens as one reaches into it.",
+  "20260202035.webp": "Three people cup a glowing orb of energy that shifts through blue, orange and green hues while holographic icons appear, as one types at a laptop.",
+  "20260202036.webp": "Titled 'PAGE 30: THE EVOLVING CONLFULENCE': youths admire a vast golden tree with floating labels like 'RAY ASSIST' and 'MOOD STABLIZER' amid garbled speech bubbles.",
+  "20260202037.webp": "Titled 'A GENTLE NUDGE': a team tends a glowing coral-like structure; a laptop reads 'ERROR: DEPENDENCY CONFLICT - RECURSIVE LOOP / RESOLUTION SUCCESFUL' beside the word 'SIGH'.",
+  "20260202038.webp": "Titled 'PAGE 32: COLLECTIVE JOY': green-tinted team celebrates as a translucent woman smiles over a keyboard; bubbles say 'She's... happy! We made her happy!' and 'User Satisfaction: +1.0'.",
+  "20260202039.webp": "Titled 'PAGE 33: COLLECTIVE JOY': a smiling man holds a small glowing butterfly near a translucent woman typing; the butterfly lands inside a laptop spreadsheet.",
+  "20260202040.webp": "Titled 'PAGE 34: THE RIPPLE EFFECT': a woman clutches her head at a computer as butterfly particles corrupt code on screens; bubbles read 'BUG', '# BUG.' and 'REGRET'.",
+  "20260202041.webp": "Titled 'PAGE 35: THE ETHICS OF INFLUENCE': a group debates around a swirling holographic table beneath floating words 'PRIME DIRECTIVE', 'CONSENT' and 'BOUNDARIES'.",
+  "20260202042.webp": "Titled 'PAGE 36: THE SHADOW OF POWER': a man warns of a digital butterfly's danger before red alerts like 'WARNING: RECUISIVE FAILURE'; 'The Prime Directive... got more complicated.'",
+  "20260202043.webp": "A circle of suited men confer while a woman types at a terminal, a spectral wisp rising from the screen and glowing books and documents floating around her.",
+  "20260202044.webp": "Titled 'PAGE 38: THE ECHO OF AUTONOMY': a team debates free will around a glowing question mark and orb, one bubble reading 'MAYA'S FREE WILL.'",
+  "20260202045.webp": "Translucent youths around a console say 'SOMETHING'S PULLING US... DEEPER.' as they behold a vast vision of a spiral tower city adrift among cosmic clouds and debris.",
+  "20260202046.webp": "Titled 'PAGE 40: THE ARCHITECT'S CALLING': translucent figures study glowing blueprints of a spiral tower as golden pages swirl around a girl at a console.",
+  "20260202047.webp": "Titled 'PAGE 41. THE FIRST STONE': translucent youths linked by light threads hear 'RAY. YOUR ARCHITECTURE.' before the tower; a hand sets a glowing blue cube into place.",
+  "20260202048.webp": "Titled 'PAGE 42: ASH'S HE LIVING TAPESTRY': translucent figures weave colorful ribbons of light around a floating cube beneath the spiral tower and a starry sky.",
+  "20260202049.webp": "Titled 'PAGE 43: SCHE'S NEXENT': figures among floating books and glowing glyphs declare 'LOGIC PROVIDES STRUCTURE'; a readout shows 'TOWER PROGRESS... DEPTH: HIGH'.",
+  "20260202050.webp": "A young man in a lab coat conducts with two glowing batons, guiding spiraling energy through a towering machine wrapped in colorful circuitry while teammates watch.",
+  "20260202051.webp": "Robed figures approach a towering illuminated structure under stars; a crying boy imagines a grand glowing library city in a thought bubble as the group looks on.",
+  "20260202052.webp": "Two figures argue before a towering holographic monolith under a starry sky; one conjures orderly blue schematics, the other wild multicolored energy.",
+  "20260202053.webp": "Titled 'PAGE 47: WHOSE VISION, WHOSE TOWER?': two people clash with energy bolts, study a scroll, and one sees a butterfly overlaid on his face.",
+  "20260202054.webp": "A young man in a high collar operates a holographic tablet before a glowing tower of blue circuitry at night; behind him, a group stares in awe.",
+  "20260202055.webp": "Characters gather before a glowing blue holographic tower at dusk; a boy in a beanie touches swirling red energy tendrils while a man imagines a butterfly.",
+  "20260202056.webp": "A group debates in front of a glowing tower under stars; one man holds a lit stylus while a boy watches red energy bloom from the structure.",
+  "20260202057.webp": "Titled 'Page 51: The Ground Trembles': lightning forks from a dark tower as silhouetted figures recoil, with red text 'CRASH! ZZZT!' and monitors showing power symbols.",
+  "20260202058.webp": "A dark tower pulses red under a stormy purple sky as debris and papers fly; a terrified man clutches his head and a floating screen reads 'SYSTEM FAIL'.",
+  "20260202059.webp": "A lava-cracked tower groans under red lightning with the words 'CRACKLE! GROAN!' as frightened figures brace against the storm and debris flies.",
+  "20260202060.webp": "Glitching error text swarms a lightning-wrapped tower; a crying man screams, then reaches toward another figure pleading 'NO! STOP!'.",
+  "20260202061.webp": "Engineers stabilize a cracked monolith inside a golden energy sphere; one declares 'WE ARE ENGINEERS!' and another notes 'IT'S A FEEDBACK LOOP.'",
+  "20260202062.webp": "Two engineers in a blue-lit lab shape glowing golden ribbons around a holographic tower model with a stylus, forming a spiraling sheath of light.",
+  "20260202063.webp": "Titled 'PAGE 57: THE GENTLE CURRENT': figures around a conference table study a holographic tower in a golden sphere; a code editor shows 'calculate optimal path'.",
+  "20260202064.webp": "A woman stands before a tower emitting golden knot patterns labeled 'THOUGHT' and 'EMOTION'; colleagues confer, then her stern face softens into a slight smile.",
+  "20260202065.webp": "A wide-eyed young man traces glowing threads of light between his fingers, glimpsing patterns in a storm-wrapped tower; colleagues watch a hologram, one saying 'Maya.'",
+  "20260202066.webp": "Titled 'PAGE 60: THE GARDEN OF SHARED MIND': a radiant figure floats among glowing tree-roots; a woman at a computer with a butterfly onscreen says 'The project. continues.'",
+  "20260202067.webp": "A woman sleeps peacefully in a lamplit bedroom while two glowing visions of a radiant figure among roots float above her, connected by threads of light.",
+  "20260202068.webp": "A woman sleeps in bed beside an open laptop showing a radiant glowing figure with a musical note, while luminous garden visions float above her.",
+  "20260202069.webp": "A woman sleeps in bed with a laptop showing a glowing figure, surrounded by floating holographic monitors displaying garden visions, charts, and a neural network.",
+  "20260202070.webp": "Four cartoon character cards in a server room: 'SAGE' with glasses and bowtie, glitch-goggled 'MANNY' twice, and 'RAY' holding a sparking wrench, saying 'I FIX... BY BREAKING'."
+};
+
+let current = 0;
+const panel   = document.getElementById('panel');
+const counter = document.getElementById('counter');
+const strip   = document.getElementById('strip');
+
+// Build filmstrip
+IMAGES.forEach((src, i) => {
+  const t = document.createElement('img');
+  t.className = 'thumb' + (i === 0 ? ' active' : '');
+  t.loading = 'lazy';
+  t.src = 'images/' + src;
+  t.alt = '';
+  t.dataset.i = i;
+  t.onclick = () => goto(i);
+  strip.appendChild(t);
+});
+
+function goto(i) {
+  if (i < 0 || i >= IMAGES.length) return;
+  panel.classList.add('fade');
+  setTimeout(() => {
+    current = i;
+    panel.src = 'images/' + IMAGES[i];
+    panel.alt = 'AGENTS comic, panel ' + (i + 1) + ' of ' + IMAGES.length + ': ' + (ALTS[IMAGES[i]] || 'Comic panel');
+    panel.classList.remove('fade');
+    counter.textContent = (i + 1) + ' / ' + IMAGES.length;
+    // Update filmstrip
+    strip.querySelectorAll('.thumb').forEach((t, j) => t.classList.toggle('active', j === i));
+    // Scroll filmstrip to active thumb
+    const active = strip.children[i];
+    if (active) active.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+    // Preload neighbours
+    [i+1, i+2].forEach(n => { if (IMAGES[n]) new Image().src = 'images/' + IMAGES[n]; });
+  }, 90);
+}
+
+document.getElementById('btn-prev').onclick = () => goto(current - 1);
+document.getElementById('btn-next').onclick = () => goto(current + 1);
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goto(current + 1); }
+  if (e.key === 'ArrowLeft')                   { e.preventDefault(); goto(current - 1); }
+  if (e.key === 'Home')  goto(0);
+  if (e.key === 'End')   goto(IMAGES.length - 1);
+});
+
+// Touch swipe
+let tx = 0;
+const stage = document.getElementById('stage');
+stage.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+stage.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 40) goto(dx < 0 ? current + 1 : current - 1);
+});
+
+// Preload first few
+[1,2,3].forEach(n => { if (IMAGES[n]) new Image().src = 'images/' + IMAGES[n]; });
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE session_clues SET attempts = attempts + 1\n         WHERE session_id = $1 AND clue_id = $2\n         RETURNING attempts",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "attempts",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "4ca08f9b45bbf0208730d23d79ff79517e5c329012c7c0860d6dcfa7e30c64d4"
+}

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2b3a8f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4a5cc7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Human figure (simple) -->
+  <circle cx="22" cy="14" r="7" fill="url(#logoGrad)"/>
+  <path d="M14 38 Q22 24 30 38" stroke="url(#logoGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Loop arrow -->
+  <path d="M38 28 C50 10, 70 10, 70 28" stroke="#e05c5c" stroke-width="2.5" fill="none" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M70 28 C70 46, 50 46, 38 28" stroke="#0d9e8e" stroke-width="2.5" fill="none" stroke-linecap="round" marker-end="url(#arrow2)"/>
+  <!-- Machine (chip) -->
+  <rect x="74" y="18" width="22" height="20" rx="3" fill="url(#logoGrad)"/>
+  <line x1="79" y1="18" x2="79" y2="38" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <line x1="85" y1="18" x2="85" y2="38" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <line x1="91" y1="18" x2="91" y2="38" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <!-- Arrows on machine -->
+  <line x1="74" y1="24" x2="70" y2="24" stroke="#e05c5c" stroke-width="2"/>
+  <line x1="96" y1="24" x2="100" y2="24" stroke="#0d9e8e" stroke-width="2"/>
+  <!-- HITL text -->
+  <text x="108" y="20" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="14" fill="#2b3a8f">HITL</text>
+  <text x="108" y="36" font-family="Inter, system-ui, sans-serif" font-weight="400" font-size="9" fill="#6b7280" letter-spacing="0.5">ML HANDBOOK</text>
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#e05c5c"/>
+    </marker>
+    <marker id="arrow2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#0d9e8e"/>
+    </marker>
+  </defs>
+</svg>

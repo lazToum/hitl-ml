@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Vorderer Teil"
+    chapters:
+      - file: front/declaration
+        title: "Eigenständigkeitserklärung"
+      - file: front/abstract
+        title: "Zusammenfassung"
+      - file: front/acknowledgments
+        title: "Danksagung"
+
+  - caption: "Teil I — Grundlagen"
+    chapters:
+      - file: chapters/01_introduction
+        title: "Was ist Human-in-the-Loop ML?"
+      - file: chapters/02_taxonomy
+        title: "Eine Taxonomie der Mensch-Maschine-Interaktion"
+
+  - caption: "Teil II — Kernmethoden"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Datenannotation und -kennzeichnung"
+      - file: chapters/04_active_learning
+        title: "Aktives Lernen"
+      - file: chapters/05_interactive_ml
+        title: "Interaktives maschinelles Lernen"
+
+  - caption: "Teil III — Lernen aus menschlichem Feedback"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Bestärkendes Lernen aus menschlichem Feedback"
+      - file: chapters/07_demonstrations
+        title: "Lernen aus Demonstrationen"
+      - file: chapters/08_preferences
+        title: "Lernen aus Vergleichen und Rankings"
+
+  - caption: "Teil IV — Anwendungen"
+    chapters:
+      - file: chapters/09_nlp
+        title: "HITL in der natürlichen Sprachverarbeitung"
+      - file: chapters/10_vision
+        title: "HITL in der Computer-Vision"
+      - file: chapters/11_healthcare
+        title: "HITL im Gesundheitswesen und in der Wissenschaft"
+
+  - caption: "Teil V — Systeme und Praxis"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Annotationsplattformen und Werkzeuge"
+      - file: chapters/13_crowdsourcing
+        title: "Crowdsourcing und Qualitätssicherung"
+      - file: chapters/14_evaluation
+        title: "Evaluierung und Metriken"
+
+  - caption: "Teil VI — Ethik und Perspektiven"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Fairness, Bias und Ethik"
+      - file: chapters/16_future
+        title: "Zukünftige Entwicklungen"
+
+  - caption: "Anhang"
+    chapters:
+      - file: bibliography
+        title: "Literaturverzeichnis"
+      - file: chapters/17_limen
+        title: "Limen: Ein Mensch im Loop von allem"
+      - file: front/on_leaving
+        title: "Über das Gehen"

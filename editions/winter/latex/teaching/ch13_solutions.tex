@@ -1,0 +1,309 @@
+% ============================================================================
+% CHAPTER 13 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch13/C13AM_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 13}
+\label{ch:solutions-ch13}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Model answers and grading guidance for the psychology of human-AI teams.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: The Automation Paradox --- Personal Examples}
+
+\textbf{Prompt:} ``Give a personal example of a technology that has eroded an underlying skill. How does this parallel Air France 447?''
+
+\paragraph{Model Answer.}
+
+Strong student answers will identify a technology where reliance has eroded an underlying skill and connect this structure explicitly to AF447.
+
+\paragraph{Strong examples and their AF447 connections.}
+
+\begin{description}
+    \item[GPS navigation] Many people can no longer navigate by landmarks in cities they visit regularly. If GPS fails in an unfamiliar area (the equivalent of sensor failure in AF447), the driver has no backup capability. \emph{Connection:} Highly reliable automation + skill atrophy = vulnerability at the moment of failure.
+
+    \item[Calculators/spreadsheets] Students who have relied on calculators since childhood often cannot estimate whether a calculated answer is plausible. When the tool produces an error (formula error, wrong input), they lack the mental arithmetic to catch it. \emph{Connection:} Automation that handles the cognitive task reliably prevents development of the skill to audit its outputs.
+
+    \item[Autocorrect] Writers who rely heavily on autocorrect have typically not maintained proofreading attention. When autocorrect makes a contextually correct but semantically wrong substitution, they miss it. \emph{Connection:} The system usually gets it right; the user stops checking; when it doesn't, the error passes through.
+\end{description}
+
+\paragraph{The AF447 connection requires.}
+\begin{enumerate}
+    \item Identifying that the skill was present before automation deployment
+    \item Understanding that the skill eroded specifically because the automation was so reliable
+    \item Recognizing that the erosion was rational (why practice what you don't need?) but created brittleness
+\end{enumerate}
+
+\paragraph{Grade Bands.}
+
+\begin{description}
+    \item[Excellent] Vivid personal example with clear mechanism (skill atrophy under high reliability), explicit structural connection to AF447, acknowledgment that the behavior was rational.
+
+    \item[Good] Relevant example, correct mechanism, basic AF447 connection. May not acknowledge the rationality of skill atrophy.
+
+    \item[Satisfactory] Example without clear mechanism, or mechanism without AF447 connection.
+
+    \item[Needs Improvement] Only lists technology without identifying skill atrophy, or example where the technology didn't actually replace a pre-existing human skill.
+\end{description}
+
+\subsubsection{Question 2: Why Instructions Don't Work}
+
+\textbf{Prompt:} ``Telling reviewers to `apply independent judgment' doesn't counteract automation bias. Why not? What would actually work?''
+
+\paragraph{Model Answer.}
+
+Instructions targeting conscious intention cannot counteract automation bias because the bias operates at the level of \textbf{attention allocation} --- a process that largely occurs before conscious deliberation.
+
+\paragraph{The sequence of events.}
+\begin{enumerate}
+    \item Case is presented to reviewer
+    \item AI recommendation is visible (or isn't)
+    \item Brain allocates attention to processing the case
+    \item Decision process runs
+    \item Response is made
+\end{enumerate}
+
+When a recommendation is present, step~3 is altered: the recommendation satisfies the brain's drive toward decision completion, so less attentional resource is directed at active processing of the case itself. The reviewer doesn't consciously decide to defer --- the cognitive work of active processing is simply initiated to a lesser degree.
+
+An instruction to ``apply independent judgment'' targets step~4 (conscious deliberation). But the damage is done at step~3. By the time the instruction would have effect, the evidence accumulation is already shallower.
+
+\paragraph{What would actually work.}
+
+\begin{itemize}
+    \item \textbf{Sequential design:} Prevent the recommendation from appearing until steps~3--4 are substantially complete (human decision first). This is the most robust approach.
+    \item \textbf{Forced generation:} Require the reviewer to generate their own assessment (written reasoning) before the recommendation is displayed.
+    \item \textbf{Reduced salience:} Make the recommendation harder to perceive initially (smaller font, require active uncovering) so it has less automatic impact on attention.
+    \item \textbf{Explicit uncertainty display:} Show the AI's uncertainty as prominently as its recommendation, changing the epistemic signal from ``certain'' to ``confident but uncertain.''
+\end{itemize}
+
+\paragraph{The experimental proof.} Skitka et al.\ (1999) gave explicit independence instructions. Automation bias persisted. This is the experimental proof that instruction alone is insufficient.
+
+\subsubsection{Question 3: Fatigue Design for Content Moderation}
+
+\textbf{Prompt:} ``A content moderation team reviews 200 cases per day per reviewer, working 8-hour shifts. Propose one design change that would reduce fatigue-related quality degradation without reducing total throughput.''
+
+\paragraph{Model Answer.}
+
+\paragraph{Strongest single intervention: mandatory structured breaks.}
+
+Require a 15-minute break every 90 minutes of active review. This does not reduce total throughput: 8 hours minus 2 breaks = 7.5 hours active review. The quality improvement from refreshed attention typically more than compensates for the 6\% reduction in available review time.
+
+\paragraph{Why it works.}
+
+The fatigue curve documented in decision-making research shows quality declining after 20--30 minutes of sustained high-stakes review. Mandatory breaks reset this curve. The Danziger et al.\ judicial study documented recovery to high-quality decision-making immediately after breaks, even at the end of long sessions.
+
+\paragraph{Additional compatible interventions (for a stronger answer).}
+\begin{itemize}
+    \item Schedule the most harmful or most difficult content in the first half of the shift
+    \item Inject easy-category cases near end-of-shift to maintain calibration while workload decreases
+    \item Use content category rotation to prevent desensitization to specific content types
+\end{itemize}
+
+\paragraph{What does not work.}
+
+Telling reviewers to ``try harder'' when tired; extending shifts to make up for breaks; rewarding throughput (creates incentive to skip breaks).
+
+\subsubsection{Question 4: Algorithm Aversion After High-Profile Error}
+
+\textbf{Prompt:} ``A radiology AI makes a high-profile misdiagnosis. Six months later, the AI's performance data shows it has not changed, but override rates have doubled. Is this rational behavior?''
+
+\paragraph{Model Answer.}
+
+\textbf{Understandable but not rationally justified.}
+
+The radiologists' behavior is psychologically understandable. They witnessed a visible, memorable, high-stakes failure. The availability heuristic causes them to overweight this failure relative to the AI's overall performance record. Seeing the algorithm err, they are more vigilant about its recommendations.
+
+\textbf{But it is not rational:} The AI's performance has not changed. The override rate should be calibrated to the AI's actual accuracy, not to the salience of a particular remembered error. If the AI was worth trusting at the previous override rate (supported by performance data), it is still worth trusting at that rate six months later.
+
+\textbf{The algorithm aversion finding (Dietvorst et al., 2015):} Seeing an algorithm err once causes systematic avoidance even when the algorithm still outperforms human judgment. In HITL contexts, reviewers regularly see model errors --- that is why the cases are in the queue. Without deliberate feedback design, algorithm aversion is a predictable outcome.
+
+\textbf{The design implication:} Reviewers need explicit, ongoing feedback about their override accuracy. When reviewers can see that their overrides were correct X\% of the time vs.\ the AI's recommendations were correct Y\% of the time, calibrated trust becomes possible. Without this feedback, emotional responses to salient errors dominate.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Automation Bias Interface Design}
+
+\textbf{Prompt:} ``Design an interface for a loan underwriting AI that minimizes automation bias while still giving reviewers the AI's recommendation and confidence score.''
+
+\paragraph{Model Answer.}
+
+\paragraph{Design principles applied.}
+
+\begin{enumerate}
+    \item \textbf{Sequential disclosure:} Reviewer sees the loan application data first and completes an initial assessment (approval/denial/needs review) before the AI recommendation is displayed. This preserves independent judgment by ensuring the reviewer has formed their own view before anchoring begins.
+
+    \item \textbf{Forced reasoning:} Before the AI recommendation is revealed, the reviewer documents their primary reason for the initial assessment in a brief free-text field (2--3 sentences). This creates cognitive commitment to their independent view and increases the probability of genuine independent evaluation.
+
+    \item \textbf{Uncertainty-prominent display:} When the AI recommendation is revealed, show confidence interval rather than point estimate. ``APPROVE (74\% confident)'' is epistemically more honest than ``APPROVE'' and triggers more deliberate evaluation.
+
+    \item \textbf{Disagreement alert:} If the reviewer's initial assessment differs from the AI recommendation, the interface flags this explicitly: ``Your assessment differs from the model's recommendation. Please review the following factors before confirming.'' This treats disagreement as potentially informative rather than automatically suspect.
+\end{enumerate}
+
+\paragraph{What not to include.}
+
+Instructions to ``apply independent judgment'' (shown not to work); AI recommendation at the top of the page (maximizes anchoring); the AI's recommendation without any uncertainty information.
+
+\subsubsection{Two-Tier Expert Review System}
+
+\textbf{Prompt:} ``You have 20 GPs and 3 specialist physicians. Design a two-tier review system for rare disease diagnosis.''
+
+\paragraph{Model Answer.}
+
+\paragraph{Tier 1 design: General Practitioners.}
+
+GPs review all cases presented by the AI for potential rare disease flags. Their task: given the patient presentation (symptoms, history, test results), do they see any features that warrant specialist attention? They do not see the AI's specific diagnosis hypothesis initially.
+
+\textbf{Why this matters for the consistency trap:} GPs have weaker prior expectations about rare disease presentations than specialists. They are less likely to dismiss unusual features as ``not fitting'' their expected pattern of the condition. They serve as a generalist filter that catches presentations the specialist might pattern-match too quickly.
+
+\paragraph{Tier 2 design: Specialist Physicians.}
+
+Specialists review:
+\begin{enumerate}
+    \item All cases flagged by GPs (their independent judgment input)
+    \item A random 10\% sample of GP-cleared cases (quality control)
+    \item Rare disease cases with confidence $< 0.80$ (AI uncertainty routing)
+\end{enumerate}
+
+Sequential design for specialists: they see the GP's assessment and the patient presentation before seeing the AI's specific diagnosis. This provides one additional anchoring-prevention layer.
+
+\paragraph{Feedback loop.}
+
+When specialist diagnosis is confirmed by outcome data, feed this back to both GP reviewers and the AI model. Track GP flag accuracy (when GPs flag a case, how often does the specialist agree it warranted review?) as a calibration measure.
+
+\subsubsection{Calibration Measurement: Overtrust vs.\ Undertrust}
+
+\textbf{Prompt:} ``A HITL system has been deployed for 6 months. How would you determine whether reviewers are overtrusting, undertrusting, or appropriately calibrated?''
+
+\paragraph{Model Answer.}
+
+\paragraph{Data required.}
+
+\begin{enumerate}
+    \item \textbf{Override rate by AI confidence decile:} For each confidence level (0--10\%, 10--20\%, \ldots, 90--100\%), what fraction of cases do reviewers override? Well-calibrated reviewers should override more when AI confidence is low and less when AI confidence is high.
+
+    \item \textbf{Override accuracy by confidence decile:} When reviewers override at each confidence level, how often are they right? (Verified against eventual ground truth.) Well-calibrated reviewers should have high accuracy when they override low-confidence AI recommendations, and lower accuracy (because the AI was usually right) when they override high-confidence ones.
+
+    \item \textbf{Agreement accuracy comparison:} On cases where reviewers agreed with the AI, and cases where they disagreed, what is the accuracy? Overtrust: high accuracy when agreeing, low accuracy when disagreeing (reviewers are being pulled toward wrong AI decisions). Undertrust: low accuracy when agreeing (reviewers are agreeing with a good AI but not deeply enough to catch adjacent errors), high accuracy when disagreeing (but at cost of wrong overrides on high-confidence correct AI decisions).
+\end{enumerate}
+
+\paragraph{Diagnostic patterns.}
+
+\begin{description}
+    \item[Overtrust signature] Override rate is lower than AI accuracy would justify; override rate does not vary with AI confidence; accuracy on cases where reviewer agreed with wrong AI is lower than expected.
+    \item[Undertrust signature] Override rate is higher than AI accuracy would justify; override accuracy is low (reviewers are overriding correct AI recommendations at high rate).
+    \item[Calibrated trust signature] Override rate negatively correlated with AI confidence; override accuracy is significantly higher than chance; overall system accuracy exceeds either AI alone or human alone.
+\end{description}
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Full HITL Hiring System Design}
+
+\paragraph{Model Answer Framework.}
+
+A strong answer addresses all four psychological vulnerabilities with specific, mechanistically motivated design choices.
+
+\paragraph{Automation bias countermeasures.}
+\begin{itemize}
+    \item Sequential disclosure: reviewer assesses the candidate application independently before seeing the AI recommendation
+    \item Forced reasoning: reviewer documents 2--3 reasons for initial assessment before AI recommendation revealed
+    \item Uncertainty-prominent AI display: show AI's confidence distribution across multiple hiring criteria, not a single score
+\end{itemize}
+
+\paragraph{Algorithm aversion countermeasures.}
+\begin{itemize}
+    \item Regular feedback reports showing reviewer override accuracy vs.\ AI accuracy
+    \item Explicit training on algorithm aversion, with data on reviewer vs.\ AI performance in this domain
+    \item Design the interface to not make individual model errors salient (e.g., don't prominently flag when the AI was overridden and was wrong --- present this as aggregate statistics instead)
+\end{itemize}
+
+\paragraph{Expertise effect countermeasures.}
+\begin{itemize}
+    \item Sequential disclosure addresses the consistency trap: forcing explicit initial assessment before AI recommendation reduces the tendency to confirm expectations
+    \item Regular calibration training: show senior reviewers cases where their consistency trap led to errors
+    \item For expert reviewers, present AI recommendations that \emph{confirm} their intuition with additional skepticism cues (uncertainty indicators), not just recommendations that contradict
+\end{itemize}
+
+\paragraph{Fatigue countermeasures.}
+\begin{itemize}
+    \item Maximum 3-hour review sessions followed by 30-minute breaks for high-stakes hiring
+    \item Case scheduling: most uncertain/borderline cases in the first half of the session
+    \item Sentinel cases (calibration checks) throughout the session, not concentrated at the start
+\end{itemize}
+
+\paragraph{Measurement plan.}
+Track weekly: override rate by confidence decile, override accuracy, reviewer agreement on shared cases, accuracy on sentinel cases by time-of-day. Alert if: sentinel accuracy drops by $>$10 percentage points from baseline in the last quarter of the session; override accuracy drops below 60\% (reviewers no longer improving on AI).
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Automation Bias Demonstration --- Instructor Notes}
+
+\paragraph{Expected findings.}
+
+If automation bias is operating, Group B (with fabricated AI recommendations) should show:
+\begin{itemize}
+    \item Lower accuracy on cases where the ``AI'' was wrong (biased toward the wrong answer)
+    \item Potentially higher accuracy on cases where the ``AI'' was right (benefiting from the recommendation)
+    \item Reduced response time (less deliberation with the recommendation present)
+\end{itemize}
+
+\paragraph{Important variations.}
+
+Individual variation is large. Some students may show the opposite of automation bias (algorithm aversion), especially if they are skeptical of AI generally. This is worth discussing --- it demonstrates that both overtrust and undertrust exist as individual tendencies.
+
+\paragraph{Debrief key points.}
+
+\begin{enumerate}
+    \item Automation bias is not a character flaw --- it appeared even in trained professionals in controlled studies
+    \item The magnitude varies with AI confidence (higher confidence $\to$ stronger bias)
+    \item The solution is interface design, not selection of people who ``don't show'' the bias
+\end{enumerate}
+
+\subsection{Activity 2: Interface Redesign --- Strong Solution Criteria}
+
+Strong redesigns will include:
+\begin{enumerate}
+    \item Transaction detail presented \emph{before} AI recommendation (at least some scrolling or tab separation)
+    \item Reviewer assessment field that must be filled before AI recommendation is revealed
+    \item AI recommendation displayed with confidence interval or uncertainty indicator
+    \item Visual distinction between reviewer-generated assessment and AI recommendation
+    \item Disagreement flagging with additional review prompt
+\end{enumerate}
+
+Weak redesigns simply change the visual styling of the current interface (e.g., making the AI recommendation slightly smaller) without addressing the attentional allocation mechanism.
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``Should we just remove humans from the loop entirely if they show automation bias?''}
+This is exactly the wrong conclusion. Automation bias reduces the \emph{quality} of human oversight; it does not show that human oversight adds no value. The evidence shows that humans with well-designed sequential interfaces maintain independent judgment and add value on top of AI accuracy. The solution is design, not removal.
+
+\paragraph{``The Danziger parole study has been challenged. Can we still use it?''}
+The Danziger study has indeed faced methodological challenges (alternative explanations for the hunger/fatigue confound). However, the general finding --- that decision quality varies over a session and recovers after breaks --- is consistent across many other studies of cognitive load and sustained attention. Use it as a motivating example of a well-documented phenomenon, not as the sole empirical basis for fatigue effects.
+
+\paragraph{``What is the right override rate?''}
+There is no universally correct override rate. The right override rate is the one that maximizes system accuracy, which depends on the AI's actual accuracy at different confidence levels. In general: override rate should be inversely correlated with AI confidence (override more when AI is less confident), and override accuracy should be significantly above chance (if reviewers are almost always wrong when they override, they are undertrusting). The diagnostic approach in Question~3 of this guide operationalizes this.
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~13 solutions consistently point toward one practical conclusion: the psychological vulnerabilities documented in this chapter are well-established, robust across domains, and resistant to instruction-only interventions. The appropriate response is not despair about human fallibility, but systematic incorporation of these vulnerabilities into interface design, scheduling, and feedback loop design. Designers who understand the human component of HITL systems as deeply as they understand the AI component produce materially better systems.}

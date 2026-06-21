@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "መቅድም"
+    chapters:
+      - file: front/declaration
+        title: "የመጀመሪያነት መግለጫ"
+      - file: front/abstract
+        title: "አጭር ማጠቃለያ"
+      - file: front/acknowledgments
+        title: "ምስጋናዎች"
+
+  - caption: "ክፍል አንድ — መሠረታዊ ፅንሰ-ሀሳቦች"
+    chapters:
+      - file: chapters/01_introduction
+        title: "በቀለበት ውስጥ ያለ ሰው ማሽን ትምህርት ምንድን ነው?"
+      - file: chapters/02_taxonomy
+        title: "የሰውና የማሽን መስተጋብር ምደባ"
+
+  - caption: "ክፍል ሁለት — ዋና ዋና ቴክኒኮች"
+    chapters:
+      - file: chapters/03_annotation
+        title: "የውሂብ ትርጓሜና መለያ ሰጪነት"
+      - file: chapters/04_active_learning
+        title: "ንቁ ትምህርት"
+      - file: chapters/05_interactive_ml
+        title: "መስተጋብራዊ ማሽን ትምህርት"
+
+  - caption: "ክፍል ሦስት — ከሰው ግብረ-መልስ መማር"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "ከሰው ግብረ-መልስ የሚገኝ ማጠናከሪያ ትምህርት"
+      - file: chapters/07_demonstrations
+        title: "ከምሳሌ ትርኢቶች መማር"
+      - file: chapters/08_preferences
+        title: "ከንጽጽርና ደረጃ አሰጣጥ መማር"
+
+  - caption: "ክፍል አራት — ተግባራዊ አጠቃቀሞች"
+    chapters:
+      - file: chapters/09_nlp
+        title: "በቀለበት ውስጥ ያለ ሰው በተፈጥሯዊ ቋንቋ ሂደት"
+      - file: chapters/10_vision
+        title: "በቀለበት ውስጥ ያለ ሰው በኮምፒውተር ራዕይ"
+      - file: chapters/11_healthcare
+        title: "በቀለበት ውስጥ ያለ ሰው በጤና አገልግሎትና ሳይንስ"
+
+  - caption: "ክፍል አምስት — ሥርዓቶችና ተግባራዊ ዘዴዎች"
+    chapters:
+      - file: chapters/12_platforms
+        title: "የትርጓሜ መድረኮችና መሳሪያዎች"
+      - file: chapters/13_crowdsourcing
+        title: "ሕዝባዊ ምንጭ አቅርቦትና የጥራት ቁጥጥር"
+      - file: chapters/14_evaluation
+        title: "ግምገማና መለኪያዎች"
+
+  - caption: "ክፍል ስድስት — ሥነ-ምግባርና ወደፊት አቅጣጫዎች"
+    chapters:
+      - file: chapters/15_ethics
+        title: "ፍትሐዊነት፣ አድልዎና ሥነ-ምግባር"
+      - file: chapters/16_future
+        title: "ወደፊት አቅጣጫዎች"
+
+  - caption: "ማጠናቀቂያ"
+    chapters:
+      - file: bibliography
+        title: "ዋቢ ጽሑፎች"
+      - file: chapters/17_limen
+        title: "ሊሜን፦ በሁሉም ነገር ቀለበት ውስጥ ያለ ሰው"
+      - file: front/on_leaving
+        title: "ስለ መሄድ"

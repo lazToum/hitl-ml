@@ -1,0 +1,384 @@
+% ============================================================================
+% CHAPTER 15 TEACHER'S MANUAL
+% Complete instructional guide for HITL failure analysis and remediation
+% ============================================================================
+% Source: /markdown/ch15/Ch15T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 15}
+\label{ch:teacher-ch15}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching HITL failure analysis and remediation using \emph{When Things Go Wrong}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Name and define the four HITL failure modes: model failure, annotation failure, design failure, and reviewer failure
+    \item Explain the difference between spot failures and systematic failures
+    \item Describe the role of the audit trail in HITL failure diagnosis
+    \item Define the purpose and structure of a blameless post-mortem
+    \item Identify the HITL Five Whys technique and explain its purpose
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply the four-failure-mode taxonomy to diagnose a described HITL system failure
+    \item Use the Five Dimensions framework to map failures to their root dimension
+    \item Analyze a case study to identify whether a failure is a spot or systematic failure
+    \item Evaluate an organization's audit trail practices against best-practice standards
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a post-mortem process for a specific HITL system failure
+    \item Propose a remediation strategy that addresses the root cause of a described failure
+    \item Critique the organizational and technical factors that allowed a described failure to persist
+    \item Evaluate the ethical implications of systematic HITL failures in high-stakes domains
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--13:} Full HITL fundamentals, Five Dimensions framework, measurement (Chapter~12), and psychology (Chapter~13)
+    \item \textbf{Basic ML metrics:} Accuracy, precision, recall, F1, AUC
+    \item \textbf{Chapter~7:} Inter-annotator agreement (relevant to annotation failure diagnosis)
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Penultimate cluster (Chapters 15--16)] This chapter synthesizes the book's diagnostic and analytical tools before the forward-looking conclusion
+    \item[Best taught after Chapter~12] Students who have internalized the measurement framework can now apply it to failure diagnosis
+    \item[Standalone] Can be taught as an ``AI Failure Analysis'' unit in any course covering AI deployment
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Four Failure Mode Taxonomy}
+
+\begin{table}[htbp]
+\caption{The four HITL failure modes}
+\label{tab:four-failure-modes}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{2.5cm}p{3cm}p{3.5cm}@{}}
+\toprule
+\textbf{Mode} & \textbf{Root Cause} & \textbf{Key Signal} & \textbf{Typical Remedy} \\
+\midrule
+Model Failure & Predictions wrong & Slice-based performance gaps & Retrain on corrected/augmented data \\
+Annotation Failure & Labels wrong & Low IAA; annotation drift & Re-annotate affected set; revise guidelines \\
+Design Failure & Threshold/routing wrong & Review rate stats; override analysis & Recalibrate thresholds; redesign routing \\
+Reviewer Failure & Human decisions poor & Automation bias indicators; consistency & Process redesign; incentive alignment \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keyconcept}[Non-Mutual Exclusivity]
+The four failure modes are not mutually exclusive. The credit scoring case involved model failure (biased predictions), annotation failure (biased historical training data), and reviewer failure (automation bias in loan officers) simultaneously. The diagnostic task is to identify which failures are present and which is primary --- because each requires a different remedy.
+\end{keyconcept}
+
+\subsection{Spot vs.\ Systematic Failures}
+
+This distinction is conceptually simple but diagnostically critical.
+
+\begin{description}
+    \item[Spot failure] A single bad output on a single case. Annoying; may not indicate a broken system.
+    \item[Systematic failure] A pattern of bad outputs across a population of cases. Requires systematic response; often hides behind acceptable aggregate metrics.
+\end{description}
+
+\begin{technote}[Teaching Heuristic]
+A spot failure says ``the system was wrong once.'' A systematic failure says ``the system is wrong about a category of things.'' Only systematic failures demand systematic responses --- and they are far harder to detect because they hide behind acceptable aggregate metrics. Slice-based evaluation is the tool that makes them visible.
+\end{technote}
+
+\subsection{The Audit Trail as Infrastructure}
+
+Emphasize that the audit trail is not primarily about blame assignment --- it is about \emph{capability}. Organizations with good audit trails can:
+\begin{itemize}
+    \item Detect systematic failures retrospectively when new analytical methods or new hypotheses emerge
+    \item Scope the harm when a failure is identified
+    \item Implement targeted remediation rather than blanket responses
+    \item Demonstrate accountability to regulators, customers, and affected parties
+\end{itemize}
+
+The credit scoring case study is the most compelling demonstration: when the systematic bias was discovered, the bank could scope the harm to exactly 4,000+ affected applicants because it had logged which applications received which model scores. Without that audit trail, the bank would not have known who to notify.
+
+\subsection{The Blameless Post-Mortem}
+
+This concept may be counterintuitive. Clarify the distinction:
+\begin{itemize}
+    \item Blameless does not mean consequence-free. Organizations can still hold individuals accountable for deliberate misconduct.
+    \item Blameless means: we assume people were acting rationally within their information environment and incentive structures. The goal is to change the environment and incentives, not to punish the person.
+    \item Blameless post-mortems produce better outcomes because people are more honest when they don't fear punishment. Google's SRE Handbook is a good reference.
+\end{itemize}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\begin{table}[htbp]
+\caption{50-minute lecture plan for Chapter~15}
+\label{tab:lecture-plan-ch15}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{3.5cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Opening: Flash Crash story & Timeline slide \\
+0:08--0:23 & Four failure modes + taxonomy table & Failure mode table \\
+0:23--0:31 & Spot vs.\ systematic + slice-based evaluation & Aggregate vs.\ slice diagram \\
+0:31--0:43 & Case studies: credit scoring or political speech & Case study slides \\
+0:43--0:50 & Audit trail + blameless post-mortem + wrap-up & Post-mortem structure \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Opening: The Flash Crash (8 minutes)}
+
+Tell the May 6, 2010 Flash Crash story with emphasis on \emph{why} humans couldn't intervene: not that they weren't there, but that the system operated faster than human reaction time. Hundreds of humans were watching their screens with the helpless confusion of watching a car accident in slow motion.
+
+\begin{trythis}
+\textbf{Key question for students:} ``If someone had wanted to stop the crash at 2:34~PM, what would they have needed to do, and what prevented them?''\\[0.5em]
+\textbf{Bridge to taxonomy:} ``The Flash Crash is primarily a Design failure: the system was designed to operate faster than human reaction time could reach. But most HITL failures are subtler. Let's build a map.''
+\end{trythis}
+
+\subsubsection{Part 1: Four Failure Modes (15 minutes)}
+
+Walk through each failure mode with examples:
+\begin{itemize}
+    \item \textbf{Model failure:} Facial recognition bias (Buolamwini's Gender Shades study). Statistical fingerprint: systematic underperformance on a subpopulation.
+    \item \textbf{Annotation failure:} Political speech content moderation. Sneakiest mode because the model is doing what it was trained to do --- the problem is the training.
+    \item \textbf{Design failure:} Alert fatigue (hospital at 120 alerts per physician per day with 96\% override rate). Invisible in standard accuracy metrics.
+    \item \textbf{Reviewer failure:} Credit scoring loan officers deferring to biased model scores. Automation bias at scale.
+\end{itemize}
+
+\textbf{Discussion prompt:} ``Which failure mode do you think is most common? Which is hardest to detect?'' (Annotation failure is typically hardest to detect; model failure is most commonly diagnosed.)
+
+\subsubsection{Part 2: Spot vs.\ Systematic (8 minutes)}
+
+Use concrete examples. The key insight: aggregate metrics can show 95\% accuracy while the system is catastrophically wrong for 5\% of users in a way that has serious consequences. The fraud detector that catches zero fraud from a specific demographic. The hiring AI that rejects qualified candidates from a specific university. Slice-based evaluation is the tool.
+
+\subsubsection{Part 3: Case Studies (12 minutes)}
+
+Walk through the credit scoring case using the Five Whys:
+\begin{enumerate}
+    \item \textbf{Why were minority borrowers receiving higher risk scores?} Because ZIP code was a feature and ZIP code is a proxy for race.
+    \item \textbf{Why was ZIP code a proxy for race?} Because of historical redlining concentrating minority populations in specific ZIP codes.
+    \item \textbf{Why did the model use ZIP code as a discriminatory proxy?} Because it was trained on historical lending data that itself reflected discriminatory patterns.
+    \item \textbf{Why wasn't this caught?} Because loan officers deferred to the model (automation bias) and aggregate accuracy looked fine.
+    \item \textbf{Why wasn't the feedback loop self-correcting?} Because approved applications from affected ZIP codes were underrepresented in training data, making the model's knowledge of those populations increasingly sparse.
+\end{enumerate}
+
+The fifth why always reveals an organizational or structural cause.
+
+\subsubsection{Part 4: Audit Trail and Post-Mortem (7 minutes)}
+
+Connect audit trail to the credit scoring case: the bank could scope harm to 4,000+ notifications because it had logged which applications received which scores.
+
+Post-mortem structure: timeline reconstruction, contributing factors, action items, blameless framing. Emphasize: you cannot post-mortem what you didn't log.
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Slice-Based Evaluation Workshop (15 min).}
+Provide students with a confusion matrix and breakdown by subpopulation (e.g., gender, age group, ZIP code). Ask them to compute slice-specific accuracy and identify which slice shows systematic underperformance.
+
+\paragraph{Add: Five Whys Group Activity (10 min).}
+Groups apply the Five Whys to a new described failure. Each group presents their root cause and proposed remediation. Debrief: how often does the fifth why reveal an organizational rather than technical cause?
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Taxonomy Application:} ``A HITL system for reviewing loan applications has been in production for 18 months. An audit reveals it is denying applications from older borrowers at 2$\times$ the rate of otherwise similar younger borrowers. Which failure mode(s) does this most likely represent? What evidence supports your diagnosis?''\\
+    \textit{Target: Model failure (learned age as a proxy for risk) and possibly annotation failure (historical training data reflecting age-based lending bias). Key evidence: systematic subpopulation gap, consistent with training data bias.}
+
+    \item \textbf{Spot vs.\ Systematic:} ``A credit card fraud detection system incorrectly blocked a purchase at a new restaurant. Is this a spot failure or a systematic failure? What additional information would you need?''\\
+    \textit{Target: Cannot determine from this description alone. Systematic if: system systematically flags new merchants; spot if: one-off data quality issue. Information needed: failure rate at new merchants vs.\ established merchants; prior failures for this customer.}
+
+    \item \textbf{Audit Trail:} ``A hospital discovers that its diagnostic AI has been systematically under-diagnosing a condition in elderly patients for two years. What information would the hospital need to scope the harm? What would need to have been logged?''\\
+    \textit{Target: Who was diagnosed by AI during affected period; what diagnosis AI produced; what clinician confirmed or overrode; what treatments followed; patient outcomes. Required logs: AI prediction, confidence, clinician decision, treatment, outcome, timestamp, patient demographics.}
+
+    \item \textbf{Post-Mortem Purpose:} ``Why does Google advocate for blameless post-mortems? Can you think of situations where a blameless approach might be inappropriate?''\\
+    \textit{Target: Blameless post-mortems produce more honest information about what went wrong; blame-oriented ones produce defensiveness. Inappropriate: deliberate misconduct, fraud, regulatory violations where individual accountability is legally required.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Flash Crash Analysis:} ``Apply the Five Dimensions framework to the Flash Crash. Which dimension primarily failed? What HITL design changes might have prevented it?''\\
+    \textit{Target: Timing failure --- the system operated faster than human reaction time could reach. Also Intervention Design (no effective kill switch). Design fixes: circuit breakers with mandatory pauses that create human intervention windows; human-in-the-loop for trade volumes above threshold.}
+
+    \item \textbf{Credit Scoring Multiple Failures:} ``The credit scoring case involved multiple failure modes simultaneously. Identify each failure mode present and explain how they interacted to amplify the harm.''\\
+    \textit{Target: Model failure (biased predictions from biased training data); annotation failure (historical labels reflecting discriminatory lending); reviewer failure (automation bias in loan officers). Interaction: model produced biased scores $\rightarrow$ loan officers deferred $\rightarrow$ feedback loop reinforced bias $\rightarrow$ model degraded further.}
+
+    \item \textbf{Reviewer Agreement Interpretation:} ``A HITL loan application system shows reviewers agree with the model 94\% of the time, even in cases the model is uncertain about. Is this effectiveness or failure?''\\
+    \textit{Target: Cannot determine from agreement rate alone. Need: override accuracy (when reviewers disagree, are they right?), accuracy on uncertain cases (does human review improve on model for uncertain cases?). 94\% agreement with a well-calibrated model on uncertain cases = possible failure (rubber-stamping); 94\% agreement with correction of the remaining 6\% at high accuracy = possible effectiveness.}
+
+    \item \textbf{Design Failure Diagnosis:} ``A hospital's clinical decision support system generates 120 alerts per physician per day. Physicians override 95\% of them. Which failure mode is this, and what are the consequences?''\\
+    \textit{Target: Design failure (threshold miscalibrated; too many alerts). Consequences: alert fatigue; physicians stop attending to alerts; real alerts missed; cognitive burden without clinical benefit; possible adverse patient outcomes from missed critical alerts.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Remediation Design:} ``Design a complete remediation plan for the credit scoring case. Include: immediate harm reduction, root cause fix, monitoring to detect recurrence, and stakeholder communication strategy.''
+
+    \item \textbf{Audit Trail Infrastructure:} ``Design the minimum viable audit trail for a HITL medical diagnosis system. Specify exactly what must be logged, at what granularity, with what retention period, and how you would access it when a systematic failure is suspected.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Five Whys Analysis (20 minutes)}
+
+\textbf{Setup:} Groups of 3--4. Each group receives a brief failure description.
+
+\textbf{Task:} Apply the Five Whys to identify the root cause. Write each ``why'' and its answer. Present the fifth ``why'' and the proposed root cause fix.
+
+\paragraph{Failure descriptions for groups.}
+
+\begin{description}
+    \item[Group A] A content recommendation algorithm has been serving extremist content to a disproportionate number of young users. The ``watch time'' metric used for recommendation optimization correlates with more engaging extremist content for users who have watched any controversial content.
+
+    \item[Group B] A hiring AI trained on resumes of successful employees systematically underscores candidates who attended historically Black colleges and universities (HBCUs), even when qualifications are otherwise equivalent.
+
+    \item[Group C] A medical AI used for triage in an emergency department is routing elderly patients to lower-priority queues at higher rates than their acuity scores warrant, resulting in longer wait times for a vulnerable population.
+\end{description}
+
+\textbf{Debrief:} Does the fifth why always lead to an organizational/structural root cause? Why might this be?
+
+\subsection{Activity 2: Failure Mode Taxonomy Application (15 minutes)}
+
+\textbf{Setup:} Individual. Provide a multi-paragraph case study describing a HITL failure.
+
+\textbf{Task:}
+\begin{enumerate}
+    \item Identify each failure mode present (mark all that apply)
+    \item Identify the \emph{primary} failure mode (the one that should be addressed first)
+    \item Propose one specific remediation for the primary failure mode
+\end{enumerate}
+
+\subsection{Activity 3: Audit Trail Design (15 minutes)}
+
+\textbf{Setup:} Small groups.
+
+\textbf{Task:} Design the audit trail for a HITL content moderation system. Specify:
+\begin{itemize}
+    \item What is logged per decision (minimum fields required)
+    \item What is logged about the model state at decision time
+    \item What is logged about the reviewer
+    \item How long logs are retained
+    \item Who has access and under what conditions
+\end{itemize}
+
+\textbf{Deliverable:} A data schema (field names and types) for the audit log.
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``The Model Is Always the Problem''}
+
+\paragraph{Student thinking:} ``If the AI made a mistake, it's a model failure.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Model failure means the model's predictions are systematically wrong for a subpopulation --- not just that an error occurred
+    \item Annotation failure means the model is doing exactly what it was trained to do --- the problem is the training
+    \item Design failure means the model might be fine but the threshold or routing logic creates the failure
+    \item Correctly diagnosing the failure mode determines the remedy
+\end{itemize}
+
+\subsection{Misconception 2: ``A Single Instance Proves a Systematic Failure''}
+
+\paragraph{Student thinking:} ``The AI was wrong about this person, so it must be biased.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item A single wrong prediction is a spot failure --- it's evidence a failure occurred, not evidence of a systematic pattern
+    \item Distinguishing spot from systematic requires statistical evidence: does the error rate differ across subpopulations?
+    \item Slice-based evaluation is the tool; it requires a data collection and analysis effort, not just one reported error
+\end{itemize}
+
+\subsection{Misconception 3: ``Blameless Means No Consequences''}
+
+\paragraph{Student thinking:} ``A blameless post-mortem means no one is held responsible.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Blameless means assuming people acted rationally within their information and incentive environment
+    \item The goal is to change the environment and incentives, not protect individuals from all consequences
+    \item Deliberate misconduct, fraud, and regulatory violations remain accountable
+    \item The practical case for blamelessness: it produces more honest information about root causes
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Failure Analysis Case Study (500--750 words)}
+
+\textbf{Prompt:} Research a documented HITL failure in a high-stakes domain (hiring AI, criminal justice risk assessment, medical diagnosis, content moderation). Analyze:
+\begin{enumerate}
+    \item Which failure mode(s) were present?
+    \item Was this a spot or systematic failure?
+    \item What audit trail evidence was used to identify and scope the failure?
+    \item What remediation was applied? Was it targeted at the root cause?
+    \item How would you have designed the system differently to prevent or detect this failure earlier?
+\end{enumerate}
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Failure mode analysis (30\%):} Correct identification with evidence
+    \item \textbf{Spot/systematic diagnosis (20\%):} Correct with statistical reasoning
+    \item \textbf{Root cause vs.\ symptom distinction (25\%):} Does the student distinguish surface failure from root cause?
+    \item \textbf{Prevention design (25\%):} Specific, mechanistically motivated design changes
+\end{itemize}
+
+\subsection{Option 2: Post-Mortem Design}
+
+\textbf{Prompt:} Design a complete blameless post-mortem process for a described HITL system failure. Include: timeline reconstruction approach, contributing factor categories to investigate, action item format, and how you would measure whether the root cause fix was effective.
+
+\subsection{Option 3: Discussion Post --- Audit Trail Ethics}
+
+\textbf{Post (200 words):} ``Building comprehensive audit trails of AI-assisted decisions creates privacy implications for both the humans reviewed (having their individual decisions logged) and the individuals affected by those decisions. How do you balance the accountability benefits of comprehensive logging against privacy concerns?''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~2:} Calibration failure is a species of model failure
+    \item \textbf{Chapter~7:} Inter-annotator agreement is the signal for annotation failure
+    \item \textbf{Chapter~12:} Measurement framework provides the tools for failure detection; Goodhart's Law is a species of design failure
+    \item \textbf{Chapter~13:} Reviewer failure is the outcome of automation bias, algorithm aversion, and fatigue operating at scale
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~16:} Non-standard domains apply the same four-failure-mode taxonomy to new contexts (audio, time-series, physical systems)
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~15 is the synthesis chapter: every concept introduced in earlier chapters --- calibration, annotation quality, threshold design, reviewer psychology, measurement --- appears here as a potential source of failure. The diagnostic orientation (which failure mode? spot or systematic? what does the audit trail reveal?) gives students a practical framework for approaching any HITL failure they will encounter in practice. The final sentence bears repeating: organizations that handle failures best are not the ones that never have them --- they are the ones that built the infrastructure to find them quickly.}

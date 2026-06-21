@@ -1,0 +1,97 @@
+name: Build & deploy site (Pages)
+
+# Builds the static multi-edition site and publishes it to GitHub Pages.
+#
+#   push to main          → build summer + spring HTML + reader, bundle the
+#                           committed edition PDFs, assemble + deploy
+#   workflow_dispatch     → same, with optional `translations` HTML build
+#
+# Edition PDFs (winter, summer, autumn, overview, spring) are built locally and
+# committed — CI runs no LaTeX. The Spring *platform* (FastAPI/Rust backend +
+# Flutter app) is a separate, non-static application, not built or deployed here.
+
+on:
+  push:
+    branches: [main]
+    paths:                 # only rebuild when something that feeds the site changes
+      - 'editions/**'
+      - 'companion/**'
+      - 'web/**'
+      - 'site/**'
+      - 'overview/**'
+      - 'build/**'
+      - 'Makefile'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+    inputs:
+      translations:
+        description: 'Also build the 14 summer translations (slow)'
+        type: boolean
+        default: false
+
+# One concurrent deploy; let an in-progress publish finish.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # No LaTeX in CI. The 5 edition PDFs (winter, summer, autumn, overview,
+      # spring) are built locally and committed; assemble_site.sh copies them.
+      # CI builds only the HTML handbooks + the React reader — fast and reliable.
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install Jupyter Book
+        # Books have `execute_notebooks: off`, so no torch/numpy/etc. needed.
+        run: pip install "jupyter-book>=0.15,<1.0" "sphinxcontrib-bibtex>=2.5"
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: web/reader/package-lock.json
+
+      - name: Install reader deps
+        run: npm ci --prefix web/reader
+
+      - name: Build HTML + reader
+        run: |
+          make summer        # summer handbook HTML (jupyter-book)
+          make spring-book   # spring handbook HTML (jupyter-book)
+          make reader        # React reader (Vite)
+
+      - name: Build translation HTML (optional)
+        if: ${{ inputs.translations == true }}
+        run: make build-all
+
+      - name: Assemble static site
+        run: bash build/scripts/assemble_site.sh
+
+      - name: Check internal links
+        run: python3 build/scripts/check_links.py dist/site
+
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

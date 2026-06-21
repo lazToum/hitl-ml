@@ -1,0 +1,392 @@
+% ============================================================================
+% CHAPTER 10 TEACHER'S MANUAL
+% Complete instructional guide for NLP, transformers, and HITL in language AI
+% ============================================================================
+% Source: /markdown/ch10/Ch10T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 10}
+\label{ch:teacher-ch10}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching NLP, transformers, and HITL in language AI using \emph{Teaching Computers to Understand Language}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Explain why natural language is intrinsically difficult for computers (ambiguity, context, irony, implication)
+    \item Describe the word embedding intuition: what it means for words to have coordinates in meaning-space
+    \item Explain conceptually how the attention mechanism works and why it matters
+    \item Define hallucination in language models and explain why it happens
+    \item Describe RLHF, DPO, and Constitutional AI and their roles in aligning language model behavior
+    \item Identify the three HITL shapes in language AI: chatbot assistance, content moderation, alignment training
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply the Five Dimensions framework to evaluate a deployed language AI system
+    \item Analyze a real or hypothetical hallucination incident to identify which HITL dimensions failed
+    \item Distinguish between ``the model knows'' and ``the model produces plausible text''
+    \item Evaluate a chatbot interaction for appropriate uncertainty communication and escalation
+    \item Compare the HITL implications of RLHF versus Constitutional AI
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a human oversight strategy for a language AI deployment in a high-stakes domain
+    \item Critique the content moderation HITL pipeline, identifying structural weaknesses
+    \item Propose improvements to a language AI system's Intervention Design dimension
+    \item Evaluate the philosophical question of whether language models ``understand'' and its practical implications
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--9:} Five Dimensions framework, three failure modes, HITL architecture
+    \item \textbf{Helpful:} Basic probability; familiarity with neural networks at the conceptual level
+    \item \textbf{Reading:} The Mata v.\ Avianca case filings are publicly available and make excellent primary sources
+    \item \textbf{Not required:} Machine learning background for the conceptual treatment
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Standalone] Works as a self-contained unit on NLP and language AI for any course with an AI component
+    \item[Sequence] Best placed after a general introduction to machine learning and before computer vision (Chapter~11)
+    \item[Advanced courses] Pair with the technical appendix for deeper mathematical treatment of transformer architecture
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Tension: Fluency vs.\ Accuracy}
+
+The most important concept in this chapter --- and the most counterintuitive for students --- is that fluency is not accuracy. Language models are trained to produce plausible, fluent text. When fluency and accuracy diverge, the model produces hallucinations: confident-sounding text that is factually wrong.
+
+\begin{technote}[Teaching Analogy]
+Compare a language model to a very intelligent person who has read everything but has an unreliable memory for specific facts. They can discuss any topic fluently and plausibly, but they might confidently misremember a date, attribute a quote incorrectly, or confabulate a detail. The fluency of their speech gives no signal about the accuracy of specific claims. This analogy resonates with students who have encountered ChatGPT before --- and almost all have.
+\end{technote}
+
+\subsection{The Three HITL Shapes --- Structural Comparison}
+
+\begin{table}[htbp]
+\caption{Three HITL shapes in language AI}
+\label{tab:three-hitl-shapes}
+\centering
+\begin{tabular}{@{}p{3cm}p{3cm}p{2.5cm}p{3cm}@{}}
+\toprule
+\textbf{Shape} & \textbf{Who is in the Loop} & \textbf{When} & \textbf{Primary Failure Mode} \\
+\midrule
+Chatbot assistance & End user (real-time) & Conversation & No escalation; overconfident on specialized queries \\
+Content moderation & Human reviewer (post-filter) & After AI pass & Reviewer burnout; adversarial evasion \\
+Alignment training & Preference labelers & During training & Rater bias; reward hacking \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This table is worth drawing on the board and discussing explicitly. The three shapes have fundamentally different failure modes, design requirements, and measurement approaches.
+
+\subsection{The ``Understanding'' Question}
+
+The chapter raises but does not fully resolve the question of whether language models understand. This is by design.
+
+\begin{keyconcept}[Pedagogical Stance on ``Understanding'']
+Avoid definitive claims in either direction --- this is an open research question with significant philosophical depth. Focus instead on the practical implication: whether or not models ``understand,'' they have no internal mechanism for distinguishing truth from plausibility. The practical consequence is the hallucination problem. Use the understanding question as a discussion prompt, not a lecture topic with a settled answer.
+\end{keyconcept}
+
+\subsection{Hallucination as a Calibration Problem}
+
+Frame hallucination explicitly as a calibration failure: the model isn't uncertain where it should be uncertain. Its expressed confidence (in the fluency and assertiveness of its prose) doesn't match its actual accuracy on specific factual claims. This connects directly to Chapter~2's calibration concepts and the book's recurring theme.
+
+\subsection{RLHF, DPO, and Constitutional AI Compared}
+
+\begin{table}[htbp]
+\caption{Alignment approaches compared}
+\label{tab:alignment-comparison}
+\centering
+\begin{tabular}{@{}p{3cm}p{3.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Method} & \textbf{Human Role} & \textbf{Scale Required} & \textbf{Key Risk} \\
+\midrule
+RLHF & Rate individual outputs & Very large & Rater bias; reward hacking \\
+DPO & Provide preference pairs & Large & Preference data quality \\
+Constitutional AI & Write principles & Small (once) & Principle design; self-critique fidelity \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\begin{table}[htbp]
+\caption{50-minute lecture plan for Chapter~10}
+\label{tab:lecture-plan-ch10}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{3.5cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Opening: Mata v.\ Avianca story + discussion & Case summary slide \\
+0:08--0:20 & Why language is hard: ambiguity examples + interactive & Sentence examples slide \\
+0:20--0:32 & Word embeddings and attention conceptual walkthrough & Meaning-space diagram \\
+0:32--0:42 & Hallucination: why it happens + three HITL shapes & Three-shape table \\
+0:42--0:50 & RLHF/DPO/CAI + Five Dimensions wrap-up & Alignment comparison table \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Opening: The Lawyer's Brief (8 minutes)}
+
+Tell the Mata v.\ Avianca story in full detail. The story has everything: a relatable professional mistake, a plausible-sounding AI output, real judicial consequences, and a striking moment where the attorney asked ChatGPT to verify the citations and the model doubled down.
+
+\begin{trythis}
+\textbf{Discussion prompt:} ``What should Attorney Schwartz have done differently? What would a well-designed system have done differently?''
+
+Let students answer both questions. Their answers will typically focus on user behavior for the first and are often incomplete for the second --- use the gap to motivate the HITL design discussion that follows.
+\end{trythis}
+
+\subsubsection{Part 1: Why Language Is Hard (12 minutes)}
+
+\begin{itemize}
+    \item Write ``I saw the man with the telescope'' on the board. Ask for both interpretations. How do you resolve the ambiguity?
+    \item Write ``The chicken is ready to eat.'' Same exercise.
+    \item Key teaching point: language's hardness is not a computational limitation --- it is intrinsic to language. Context, irony, implication, and cultural reference are features of language, not bugs.
+    \item \textbf{Transition:} ``For five decades, researchers tried to solve this with rules. Then came a different idea: let the machine learn from text volume rather than learn rules.''
+\end{itemize}
+
+\subsubsection{Part 2: Word Embeddings and Attention (12 minutes)}
+
+\paragraph{Word embeddings (5 min).}
+Draw a rough 2D sketch of ``meaning-space'' clusters: [dog, cat, puppy] near each other, [king, queen, prince] near each other, far from [apple, orange, banana]. Explain: ``The model didn't learn these groupings from a dictionary. It learned them by reading text.'' The king/queen vector arithmetic surprises students every time.
+
+\paragraph{Attention (7 min).}
+Use the mystery novel analogy: reading page~300 and needing information from pages~47 and~112. The transformer does this for every word simultaneously, weighted by relevance. The word ``it'' in ``The animal didn't cross the street because it was too tired'' is processed in relation to all other words at once.
+
+\begin{keyconcept}[What Transformers Changed]
+Before transformers, a model processed text sequentially. The transformer processes every word in relation to every other word simultaneously. This is why models grew from understanding sentences to understanding documents, and eventually to generating coherent long-form text.
+\end{keyconcept}
+
+\subsubsection{Part 3: What a Language Model ``Knows'' and Hallucination (10 minutes)}
+
+\begin{itemize}
+    \item Walk through the Avianca case as a technical lesson: the model didn't learn ``Martinez v.\ Delta Air Lines'' from any case reporter. It learned the pattern of what court citations look like.
+    \item Three reasons hallucination happens: training objective (predict next text, not verify facts); no ``I don't know'' token; confidence is stylistic, not calibrated.
+    \item Connect: this is the calibration problem from Chapter~2, manifesting in a different modality.
+\end{itemize}
+
+\subsubsection{Part 4: Three HITL Shapes + Alignment Methods (8 minutes)}
+
+Walk through the three-shape table. Spend most time on content moderation (most structurally interesting) and Constitutional AI (most conceptually novel --- human in the loop at the level of values, not individual judgments).
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Hands-On Hallucination Hunt (15 min).}
+Students query a publicly available language model (ChatGPT, Claude, etc.) with questions requiring specific factual claims: ``Name five court cases involving airline delays from 2018--2022.'' Students screenshot the response and, for each claim, either verify or fail to verify it. Debrief: What percentage of specific claims were verifiable? What signals, if any, did the system give about its uncertainty?
+
+\paragraph{Add: RLHF Role Play (10 min).}
+Pairs of students become preference labelers. Present them with five pairs of AI outputs and have them rate which is better. Then discuss: What criteria did they use? Did they agree? How would their disagreements propagate into a trained model?
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Ambiguity Recognition:} ``Give three examples of sentences that have two plausible interpretations. How would you --- as a human reader --- decide which one is meant? What information would a computer be missing?''\\
+    \textit{Target: Demonstrates understanding that context resolution requires world knowledge, pragmatics, and theory of mind unavailable from the text alone.}
+
+    \item \textbf{Hallucination Analysis:} ``Attorney Schwartz trusted ChatGPT's legal citations without verifying them. What three things did the system fail to do that a well-designed HITL system should have done?''\\
+    \textit{Target: Three failure dimensions --- Uncertainty Detection (no hedge on factual claims), Stakes Calibration (legal citations require verification), Feedback Integration (doubled down when challenged).}
+
+    \item \textbf{Stakes and Error Rates:} ``Why does it matter whether a language model hallucinates at a 5\% rate versus a 50\% rate? For which applications would even 5\% be unacceptable?''\\
+    \textit{Target: Error rate acceptability depends on stakes and the availability of error correction. 5\% is unacceptable in legal citations, medical advice, or safety-critical applications.}
+
+    \item \textbf{Fluency vs.\ Accuracy:} ``A language model can write a sonnet, explain quantum physics, and summarize a novel --- yet it cannot reliably tell you whether a specific court case exists. How is this possible?''\\
+    \textit{Target: Fluency and accuracy are trained differently. The model learned patterns of text; verification requires something the model lacks: a mechanism to distinguish between remembering something and generating something plausible-sounding.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Five Dimensions Application:} ``Apply the Five Dimensions framework to the Air Canada chatbot described in Chapter~1 and the ChatGPT used in the Avianca case. What did each system get wrong, and from which dimension?''\\
+    \textit{Guide: Air Canada --- no escalation (Intervention Design), no stakes awareness (Stakes Calibration). Avianca ChatGPT --- no uncertainty flagging on factual claims (Uncertainty Detection), doubled down on challenge (Feedback Integration).}
+
+    \item \textbf{Content Moderation Design:} ``The AI does the first pass in content moderation; humans handle escalations. Name three structural weaknesses in this design that persist even when the AI is 95\% accurate.''\\
+    \textit{Target: (1) The escalated cases are the hardest, most context-dependent ones --- harder for humans too. (2) Reviewer burnout from exposure to harmful content. (3) Adversarial users learn to camouflage content to evade the AI first pass.}
+
+    \item \textbf{RLHF vs.\ Constitutional AI:} ``Constitutional AI moves the human's role from individual output judgment to principle authorship. What does this gain? What does it give up?''\\
+    \textit{Target: Gains --- scale (fewer human-hours per model update), consistency, auditability. Gives up --- direct human judgment on specific edge cases; relies on the model's self-critique faithfully implementing the constitution.}
+
+    \item \textbf{Chatbot Escalation Design:} ``Design an escalation protocol for a healthcare information chatbot. When should it answer directly? Hedge? Refuse? Escalate to a human?''\\
+    \textit{Target: Direct --- general health information with no individual clinical application. Hedge --- specific symptoms that could have multiple causes. Refuse --- anything requiring diagnosis. Escalate --- any indication of emergency.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Reward Hacking:} ``RLHF trains a reward model on human preferences, then fine-tunes the language model to score highly on the reward model. Explain reward hacking and why it's a HITL feedback problem, not just a technical problem.''
+
+    \item \textbf{System Design:} ``Design a complete HITL deployment for an AI legal research assistant. Specify: uncertainty signaling strategy, escalation conditions, interface design for attorney review, and feedback loop back to model improvement.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Hallucination Classification (15 minutes)}
+
+\textbf{Setup:} Pairs. Each pair receives a set of five AI-generated responses to factual questions (instructor can generate these in advance using any LLM).
+
+\textbf{Task:}
+\begin{enumerate}
+    \item Attempt to verify each factual claim in the response (use a library database or Wikipedia for grounding)
+    \item Classify each claim: verified, unverifiable, or contradicted
+    \item Identify which of the three hallucination causes applies (training objective, no ``I don't know,'' stylistic confidence)
+\end{enumerate}
+
+\textbf{Debrief:} What percentage of specific factual claims were verifiable? What signals did the AI give about its uncertainty? Would any of these errors have been caught by a well-designed HITL system?
+
+\subsection{Activity 2: Chatbot Intervention Design Audit (20 minutes)}
+
+\textbf{Setup:} Small groups. Each group is assigned a chatbot deployment scenario (legal assistant, medical information, financial advice, customer service).
+
+\textbf{Task:} Design the intervention protocol for your scenario, specifying for each category of user query:
+\begin{itemize}
+    \item Auto-answer (the chatbot responds directly)
+    \item Hedge (respond with explicit uncertainty)
+    \item Refuse (decline to answer in this domain)
+    \item Escalate (connect to human expert)
+\end{itemize}
+
+\textbf{Deliverable:} A decision matrix with at least four query types and justification for each routing decision.
+
+\textbf{Debrief:} Which categories were hardest to assign? What information would you need to make these decisions empirically rather than by judgment?
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``Language Models Are Looking Things Up''}
+
+\paragraph{Student thinking:} ``When ChatGPT tells me a fact, it looked it up somewhere.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Language models without retrieval augmentation have no lookup mechanism --- they generate text based on statistical patterns from training
+    \item The Avianca case is the most vivid corrective: the model generated citations in the same process it generates everything else --- no retrieval, no verification
+    \item Note: retrieval-augmented systems (RAG) do have lookup --- but they still hallucinate, because the generation step can still confabulate
+\end{itemize}
+
+\subsection{Misconception 2: ``Confident Output Means Verified Information''}
+
+\paragraph{Student thinking:} ``The AI sounds very sure, so it must know.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Confidence in language model output is stylistic --- it's in the fluency and assertiveness of the prose, not in any internal verification
+    \item The model writes ``The case was decided on April~14, 1992'' with the same stylistic confidence as ``Paris is the capital of France''
+    \item The calibration problem from Chapter~2 applies with particular force here
+\end{itemize}
+
+\subsection{Misconception 3: ``RLHF Solves the Alignment Problem''}
+
+\paragraph{Student thinking:} ``We just train the model on what humans prefer, so it will do what humans want.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item RLHF aligns the model with the \emph{expressed preferences of the raters}, not with ``what humans want'' generally
+    \item Raters are not representative of all humans; their preferences may not generalize across cultures, demographics, or edge cases
+    \item Reward hacking: the model may find outputs that score highly on the reward model without actually being helpful
+    \item RLHF, DPO, and CAI are important partial solutions --- not complete solutions
+\end{itemize}
+
+\subsection{Misconception 4: ``Better Models Won't Hallucinate''}
+
+\paragraph{Student thinking:} ``Hallucination is a current limitation that will be fixed as models improve.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Hallucination rates do decrease with model scale and RLHF fine-tuning --- but do not reach zero
+    \item The underlying mechanism (statistical text generation without verification) persists regardless of scale
+    \item The 2024 Stanford study on legal AI hallucination rates applies to leading models, not just early ones
+    \item HITL design for uncertainty communication and escalation is not a workaround --- it is the appropriate architecture
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Hallucination Incident Analysis (500--750 words)}
+
+\textbf{Prompt:} Find or construct a case of AI language model hallucination in a real-world context (legal, medical, educational, or journalistic). Analyze:
+\begin{enumerate}
+    \item What exactly did the model produce that was wrong?
+    \item Which of the three hallucination mechanisms was most likely at work?
+    \item Which of the Five Dimensions was weakest in the system's design?
+    \item What specific design changes would have prevented or caught the error?
+\end{enumerate}
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Factual accuracy of case description (20\%):} Does the student accurately characterize what happened?
+    \item \textbf{Hallucination mechanism analysis (25\%):} Correct identification and explanation of mechanism
+    \item \textbf{Five Dimensions application (30\%):} Correct and specific application of framework to this case
+    \item \textbf{Design proposal (25\%):} Specific, feasible, and correctly motivated
+\end{itemize}
+
+\subsection{Option 2: HITL Design for a Language AI System}
+
+\textbf{Prompt:} Design a HITL deployment for a language AI system of your choice (chatbot, content moderation, or alignment training). Specify all Five Dimensions, identify the most likely failure mode, and propose how you would measure whether the system is working.
+
+\subsection{Option 3: Discussion Post --- Understanding and HITL}
+
+\textbf{Post (200 words):} ``Does it matter whether a language model genuinely understands language, or only whether it produces useful outputs? What are the HITL implications either way?''
+
+\textbf{Peer response:} Engage with a classmate's post, either building on or challenging their position.
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~2:} Calibration --- hallucination is miscalibration at the factual claim level
+    \item \textbf{Chapter~1:} Three failure modes --- ``Overconfident Silence'' appears in the Avianca chatbot
+    \item \textbf{Chapter~8/9:} RLHF annotation is an annotation workflow problem (Chapter~9 tooling applies)
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~11:} Computer vision --- parallel treatment of a different modality; same Five Dimensions analysis
+    \item \textbf{Chapter~13:} Psychology --- automation bias applies to language AI users anchoring on chatbot outputs
+    \item \textbf{Chapter~15:} Failure modes --- hallucination is one species of model failure in the taxonomy
+\end{itemize}
+
+\subsection{Cross-Curricular Connections}
+\begin{itemize}
+    \item \textbf{Linguistics:} Pragmatics; speech act theory; implicature
+    \item \textbf{Philosophy:} Chinese Room argument; philosophy of mind and understanding
+    \item \textbf{Law:} Professional responsibility; the duty to verify; admissibility of AI-generated research
+    \item \textbf{Ethics:} Content moderation and moderator harm; rater bias in RLHF
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~10 is the first modality-specific chapter of the book. Its central contribution is the hallucination analysis: not just ``language models make things up'' but a precise explanation of why, framed as a calibration failure. Students who internalize the fluency-vs.-accuracy distinction will read AI-generated text more critically for the rest of their lives --- which is itself a significant educational outcome.}

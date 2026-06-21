@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "المقدمات"
+    chapters:
+      - file: front/declaration
+        title: "إقرار بالأصالة"
+      - file: front/abstract
+        title: "ملخص"
+      - file: front/acknowledgments
+        title: "شكر وتقدير"
+
+  - caption: "الجزء الأول — الأسس والإطار النظري"
+    chapters:
+      - file: chapters/01_introduction
+        title: "ما هو التعلم الآلي بإشراف بشري؟"
+      - file: chapters/02_taxonomy
+        title: "تصنيف أنماط التفاعل بين الإنسان والآلة"
+
+  - caption: "الجزء الثاني — التقنيات الأساسية"
+    chapters:
+      - file: chapters/03_annotation
+        title: "التوصيف والتصنيف اليدوي للبيانات"
+      - file: chapters/04_active_learning
+        title: "التعلم النشط"
+      - file: chapters/05_interactive_ml
+        title: "التعلم الآلي التفاعلي"
+
+  - caption: "الجزء الثالث — التعلم من التغذية الراجعة البشرية"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "التعلم المعزز من التغذية الراجعة البشرية"
+      - file: chapters/07_demonstrations
+        title: "التعلم من الاستعراض والمحاكاة"
+      - file: chapters/08_preferences
+        title: "التعلم من المقارنات والترتيب"
+
+  - caption: "الجزء الرابع — التطبيقات"
+    chapters:
+      - file: chapters/09_nlp
+        title: "الإشراف البشري في معالجة اللغات الطبيعية"
+      - file: chapters/10_vision
+        title: "الإشراف البشري في رؤية الحاسوب"
+      - file: chapters/11_healthcare
+        title: "الإشراف البشري في الرعاية الصحية والعلوم"
+
+  - caption: "الجزء الخامس — الأنظمة والممارسة"
+    chapters:
+      - file: chapters/12_platforms
+        title: "منصات التوصيف وأدواته"
+      - file: chapters/13_crowdsourcing
+        title: "الاستعانة بالحشود وضبط الجودة"
+      - file: chapters/14_evaluation
+        title: "التقييم والمقاييس"
+
+  - caption: "الجزء السادس — الأخلاقيات والآفاق"
+    chapters:
+      - file: chapters/15_ethics
+        title: "الإنصاف والتحيز والأخلاقيات"
+      - file: chapters/16_future
+        title: "التوجهات المستقبلية"
+
+  - caption: "الملحقات الختامية"
+    chapters:
+      - file: bibliography
+        title: "المراجع والمصادر"
+      - file: chapters/17_limen
+        title: "ليمن: إنسان في حلقة كل شيء"
+      - file: front/on_leaving
+        title: "في المغادرة"

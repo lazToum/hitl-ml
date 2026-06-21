@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Sehemu ya Utangulizi"
+    chapters:
+      - file: front/declaration
+        title: "Tamko la Uhalisi"
+      - file: front/abstract
+        title: "Muhtasari"
+      - file: front/acknowledgments
+        title: "Shukrani"
+
+  - caption: "Sehemu ya I — Misingi"
+    chapters:
+      - file: chapters/01_introduction
+        title: "Ujifunzaji wa Mashine wenye Binadamu Katikati ni Nini?"
+      - file: chapters/02_taxonomy
+        title: "Uainishaji wa Mwingiliano kati ya Binadamu na Mashine"
+
+  - caption: "Sehemu ya II — Mbinu za Msingi"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Uwekaji Maelezo na Ulabelishaji wa Data"
+      - file: chapters/04_active_learning
+        title: "Ujifunzaji Tendaji"
+      - file: chapters/05_interactive_ml
+        title: "Ujifunzaji wa Mashine wa Mwingiliano"
+
+  - caption: "Sehemu ya III — Kujifunza kutoka kwa Maoni ya Binadamu"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Ujifunzaji wa Kuimarisha kutoka kwa Maoni ya Binadamu"
+      - file: chapters/07_demonstrations
+        title: "Kujifunza kutoka kwa Maonyesho"
+      - file: chapters/08_preferences
+        title: "Kujifunza kutoka kwa Ulinganisho na Upangaji wa Daraja"
+
+  - caption: "Sehemu ya IV — Matumizi"
+    chapters:
+      - file: chapters/09_nlp
+        title: "HITL katika Usindikaji wa Lugha Asilia"
+      - file: chapters/10_vision
+        title: "HITL katika Mwono wa Kompyuta"
+      - file: chapters/11_healthcare
+        title: "HITL katika Afya na Sayansi"
+
+  - caption: "Sehemu ya V — Mifumo na Mazoezi"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Majukwaa na Zana za Uwekaji Maelezo"
+      - file: chapters/13_crowdsourcing
+        title: "Ushirikiano wa Umma na Udhibiti wa Ubora"
+      - file: chapters/14_evaluation
+        title: "Tathmini na Vipimo"
+
+  - caption: "Sehemu ya VI — Maadili na Mwelekeo wa Baadaye"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Usawa, Upendeleo, na Maadili"
+      - file: chapters/16_future
+        title: "Mwelekeo wa Baadaye"
+
+  - caption: "Sehemu ya Mwisho"
+    chapters:
+      - file: bibliography
+        title: "Orodha ya Marejeo"
+      - file: chapters/17_limen
+        title: "Limen: Binadamu Katikati ya Kila Kitu"
+      - file: front/on_leaving
+        title: "Kuhusu Kuondoka"

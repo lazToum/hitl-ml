@@ -1,0 +1,397 @@
+% ============================================================================
+% CHAPTER 11 TEACHER'S MANUAL
+% Complete instructional guide for computer vision, adversarial examples,
+% and HITL in visual AI
+% ============================================================================
+% Source: /markdown/ch11/Ch11T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 11}
+\label{ch:teacher-ch11}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching computer vision, adversarial examples, and HITL in visual AI using \emph{Teaching Computers to See}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Explain how images are represented as numerical data and how convolutional neural networks process this representation
+    \item Describe what adversarial examples are and explain why they exist structurally
+    \item Explain the concept of automation bias in AI-augmented radiology
+    \item Describe the three HITL domains in computer vision: medical imaging, autonomous vehicles, content moderation
+    \item Explain the escalation timing problem in autonomous vehicles
+    \item Define perceptual hashing and describe its role and limitations in content moderation
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply the Five Dimensions framework to analyze a computer vision HITL deployment
+    \item Analyze why adversarial examples reveal something fundamental about machine vision
+    \item Compare the HITL architectures of different autonomous vehicle approaches
+    \item Evaluate a medical imaging AI workflow for automation bias risks
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a HITL deployment for a computer vision application in a high-stakes domain
+    \item Critique a content moderation system for structural vulnerabilities
+    \item Propose improvements to an autonomous vehicle oversight architecture
+    \item Evaluate the claim that machine vision and human vision are ``complementary, not interchangeable''
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapter~10:} Familiarity with how neural networks learn from data
+    \item \textbf{Basic probability and statistics}
+    \item \textbf{Helpful but not required:} Any hands-on experience with image classification tools
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Immediately after Chapter~10] The parallel between language and vision AI deepens understanding of both
+    \item[Domain sequence] This chapter is the second modality chapter; connects forward to psychology (Chapter~13) and failure modes (Chapter~15)
+    \item[Standalone] Can be taught as a unit on ``How AI Sees'' in a broader AI literacy course
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Central Demonstration: Adversarial Examples}
+
+The adversarial example --- especially the physical stop sign attack --- is this chapter's most important pedagogical moment. It should be demonstrated or described with full attention. The adversarial example accomplishes three things simultaneously:
+
+\begin{enumerate}
+    \item \textbf{Makes concrete} that machine vision is fundamentally different from human vision
+    \item \textbf{Explains structurally} why: the network learned pixel statistics, not conceptual structure
+    \item \textbf{Motivates directly} why human oversight of machine vision is a structural necessity, not a temporary workaround
+\end{enumerate}
+
+\begin{keyconcept}[The Root of the Vulnerability]
+The adversarial example vulnerability is not a bug that will be fixed in the next software version. It is an inherent feature of how these systems work, rooted in the fact that they learned from pixel statistics rather than from the conceptual structure of the visual world. A system with genuine conceptual understanding of what a stop sign \emph{is} --- what it is for, how it is designed --- would be robust to sticker attacks, just as human vision is. Current architectures do not have that understanding.
+\end{keyconcept}
+
+\subsection{The Autonomy Architecture Divergence}
+
+Tesla, Waymo, and Cruise chose fundamentally different architectures for human oversight. This is not a ``good design vs.\ bad design'' story --- each architecture reflects different assumptions about where human judgment is most valuable and where it creates the most risk.
+
+\begin{table}[htbp]
+\caption{Autonomous vehicle HITL architecture comparison}
+\label{tab:av-architectures}
+\centering
+\begin{tabular}{@{}p{2.8cm}p{2.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Feature} & \textbf{Tesla FSD} & \textbf{Waymo} & \textbf{Cruise (pre-2023)} \\
+\midrule
+Human in vehicle? & Required (attentive) & No & Conditional \\
+Remote monitoring? & No & Yes & Yes \\
+Control handoff? & Immediate (driver) & Remote guidance & Varies \\
+Automation bias risk & High (habituated supervisor) & Low (no in-vehicle human) & Medium \\
+Reaction time problem & Severe & Avoided & Partial \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{cautionbox}[The Timing Problem]
+At 60~mph, a car travels 88~feet per second. Human reaction time from recognition to physical response is approximately 1.5~seconds --- 132~feet before any input reaches the car. This is the fundamental design constraint for any HITL autonomous vehicle system with a human in the vehicle. It cannot be solved by training; it is a physical constant.
+\end{cautionbox}
+
+\subsection{Automation Bias in Radiology}
+
+The automation bias research in medical imaging deserves careful attention. The key finding is counterintuitive: seeing a confident AI assessment can make radiologists \emph{worse} at catching the AI's mistakes. This is not a criticism of radiologists --- it is a fundamental human cognitive pattern that any HITL interface design must account for.
+
+\begin{table}[htbp]
+\caption{Automation bias in radiology: mechanism and design response}
+\label{tab:rad-automation-bias}
+\centering
+\begin{tabular}{@{}p{4cm}p{4.5cm}p{4cm}@{}}
+\toprule
+\textbf{What Happens} & \textbf{Why} & \textbf{Design Response} \\
+\midrule
+Radiologist reviews AI-flagged regions more carefully & AI recommendation anchors attention & Present AI findings after initial read \\
+Less attention to unflagged regions & Certified-clean regions feel ``done'' & Display uncertainty on unflagged regions too \\
+Lower probability of catching AI's errors & Confidence is a social/epistemic signal & Present uncertainty prominently \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\begin{table}[htbp]
+\caption{50-minute lecture plan for Chapter~11}
+\label{tab:lecture-plan-ch11}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{3.5cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Opening: stop sign attack story & Stop sign image (original + attacked) \\
+0:08--0:20 & Pixels as numbers; CNN architecture intuition & Pixel grid illustration; layer diagram \\
+0:20--0:32 & Adversarial examples: mechanism + implications & Panda/gibbon adversarial example slide \\
+0:32--0:45 & Three HITL domains: medical, autonomous vehicle, content mod & Architecture comparison table \\
+0:45--0:50 & Five Dimensions applied; wrap-up & Five Dimensions worksheet \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Opening: The Stop Sign That Wasn't (8 minutes)}
+
+Present the 2017 stop sign attack study. If possible, show two side-by-side images: the stop sign before and after the sticker attack. Ask students: ``What does the sign on the right say to you?'' (Almost universally: STOP.) ``What did the autonomous vehicle system read it as?'' (Speed Limit 45.)
+
+\begin{trythis}
+\textbf{Poll:} ``Before we discuss why this happens --- what do you think caused it? Is this a bug that could be fixed, or something more fundamental?''\\[0.5em]
+Students typically split between ``fixable bug'' and ``fundamental issue.'' Don't resolve the poll yet --- it becomes the central question of the chapter.
+\end{trythis}
+
+\subsubsection{Part 1: Pixels as Numbers, CNNs as Learners (12 minutes)}
+
+\begin{itemize}
+    \item A 640$\times$480 image is $640 \times 480 \times 3 = 921{,}600$ numbers. No shapes, no objects, no meaning. Just numbers.
+    \item Early CV tried to extract meaning with hand-crafted rules: look for edges, then curves, then shapes. Worked poorly.
+    \item AlexNet (2012): convolutional neural network trained on two GPUs, crushed ImageNet by 11 percentage points. Deep learning era begins.
+    \item CNN intuition: lowest layers detect edges; next layers combine into curves and corners; higher layers detect textures and shapes; highest layers detect concept-like features.
+    \item Crucial point: \emph{the network learned all of this from examples.} The features it learns are not ones a human would specify --- they are whatever works.
+\end{itemize}
+
+\subsubsection{Part 2: What the Model Actually Sees (12 minutes)}
+
+\begin{itemize}
+    \item Adversarial examples: add carefully calculated pixel noise, invisible to humans, and the network misclassifies with high confidence (panda $\to$ gibbon example).
+    \item Physical adversarial examples (stop sign stickers): the attack works in the real world, under multiple viewing conditions and angles.
+    \item Why: the network uses high-frequency pixel-level patterns that humans don't perceive. The stickers change exactly those patterns. Human vision processes semantic content (``STOP'', red octagon, road context) that is invariant to the sticker additions.
+    \item Answer to opening poll: \textbf{it is fundamental.} Adversarial training helps but doesn't eliminate the vulnerability. The root cause is statistical pattern learning vs.\ conceptual understanding.
+\end{itemize}
+
+\subsubsection{Part 3: Three HITL Domains (13 minutes)}
+
+\paragraph{Medical imaging (5 min).}
+The augmentation paradigm: AI generates findings + confidence scores; radiologist reviews both the image and the AI's output. The automation bias finding: show the table. Design implication: present AI findings \emph{after} the radiologist's initial read.
+
+\paragraph{Autonomous vehicles (5 min).}
+Walk through the architecture comparison table. Emphasize the timing constraint (88 ft/sec at 60 mph). The Tesla problem is not driver attention --- it is that reliable automation trains out the attentive supervision the system requires.
+
+\paragraph{Content moderation (3 min).}
+Perceptual hashing: detects known content (exact or near-match), not unknown content. Like having a perfect library index --- extremely useful for known bad content, useless for novel content. Human reviewers handle novel harmful content and disputed cases.
+
+\subsection{75-Minute Extended Session}
+
+\paragraph{Add: Live Adversarial Example Demo (15 min).}
+Walk through a pre-prepared adversarial example using a public model (many are available on HuggingFace). Show: (1) original image, (2) perturbation added (invisible at normal display size), (3) model's new classification with confidence. Discuss: could any amount of training fix this?
+
+\paragraph{Add: Five Dimensions Audit Activity (10 min).}
+Small groups apply the Five Dimensions framework to one of the three HITL domains. See Activity~2 in the Hands-On section.
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Adversarial Example Interpretation:} ``A neural network sees a panda and classifies it correctly. You add imperceptible pixel noise and it classifies the image as a gibbon with 99\% confidence. What does this tell you about how the neural network `sees'?''\\
+    \textit{Target: The network detects statistical pixel patterns, not semantic features. The adversarial noise changes the former without changing the latter.}
+
+    \item \textbf{Automation Bias in Radiology:} ``Why might seeing an AI's `all clear' make a radiologist less accurate at catching an abnormality the AI missed?''\\
+    \textit{Target: Automation bias via attentional allocation. AI confidence is an epistemic signal that reduces effortful processing of certified-normal regions. This is structural, not a failure of the radiologist.}
+
+    \item \textbf{Autonomous Vehicle Timing:} ``At 60~mph, a car travels 88~feet per second. Explain why this is a fundamental design constraint for human-in-the-loop autonomous vehicles.''\\
+    \textit{Target: Human reaction time + physical response time = 1.5--2 sec = 132--176 feet traveled before any human input reaches the car. This is a hard physical constraint that cannot be solved by better training.}
+
+    \item \textbf{Perceptual Hashing Limits:} ``Content moderation systems use perceptual hashing to detect known child sexual abuse material. Why can't they use the same approach to detect novel harmful content?''\\
+    \textit{Target: Perceptual hashing matches against a known database of content fingerprints. Novel content --- never seen before --- produces no match. You need semantic understanding to detect harmful intent in content that hasn't been flagged before.}
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Five Dimensions: Medical Imaging:} ``Apply the Five Dimensions framework to a radiology AI that pre-reads scans and highlights potential findings. Which dimensions are strong? Which are typically weak?''\\
+    \textit{Guide: Typically strong: Uncertainty Detection (confidence scores), Stakes Calibration (medical context). Typically weak: Intervention Design (presenting findings before initial read creates automation bias), Feedback Integration (radiologist corrections often not fed back into model training).}
+
+    \item \textbf{Architecture Comparison:} ``Compare the Tesla FSD and Waymo HITL architectures. Which has a higher risk of automation complacency? Which has a higher risk of no-human-in-the-loop failure? Are these risks in tension?''\\
+    \textit{Target: Tesla: higher automation complacency risk (habituated in-vehicle supervisor). Waymo: higher risk if remote monitoring fails (no backup). Yes, the risks are in tension: the approach that reduces complacency (no human in vehicle) creates higher risk in total failure scenarios.}
+
+    \item \textbf{Content Moderation Design:} ``A social media platform uses an image classifier to detect violent content with 97\% accuracy. The classifier flags 10,000 images per day for human review. What is the minimum reviewer capacity needed, and what are the quality risks at that capacity?''\\
+    \textit{Target: At 5 min/review, 10,000 images/day requires ~833 reviewer-hours/day. Quality risks: fatigue from sustained exposure to violent content; inconsistent standards as reviewers habituate to content.}
+
+    \item \textbf{Adversarial Robustness and HITL:} ``If adversarial training makes a vision model 10$\times$ more robust to adversarial examples but also reduces its accuracy on clean images by 5\%, is the trade-off worth it? How does HITL design affect the answer?''\\
+    \textit{Target: Answer depends on deployment context. For safety-critical (autonomous vehicles, security), robustness is worth accuracy cost. With good HITL: uncertain or adversarial cases route to human review regardless, reducing the stakes of the trade-off.}
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Complete System Design:} ``Design a HITL system for AI-assisted dermatology screening (skin lesion classification). Specify all Five Dimensions, workforce design, quality controls, and how you would measure system performance over time.''
+
+    \item \textbf{Structural Analysis:} ``The chapter argues that the complementarity of human and machine vision is structural, not contingent --- rooted in the fact that they process different features. Design an empirical test to verify whether human and machine errors in a specific domain are actually uncorrelated.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities}
+% ============================================================================
+
+\subsection{Activity 1: Stop Sign Analysis (10 minutes)}
+
+\textbf{Setup:} Show students three images:
+\begin{enumerate}
+    \item A normal stop sign
+    \item The same sign with adversarial stickers (from the Eykholt et al.\ 2018 paper, publicly available)
+    \item A stop sign that has been spray-painted or defaced by vandals
+\end{enumerate}
+
+\textbf{Task:} For each image, predict: (a) what a human driver would see, (b) what an autonomous vehicle vision system would likely see, and (c) whether this is a safety concern in practice.
+
+\textbf{Debrief:} Why does defacement (3) not cause the same classification problem as adversarial stickers (2)? What does this reveal about the difference between human and machine recognition?
+
+\subsection{Activity 2: Five Dimensions Framework Audit (20 minutes)}
+
+\textbf{Setup:} Small groups, each assigned one domain: medical imaging, autonomous vehicles, or content moderation.
+
+\textbf{Task:} Complete the five-dimension audit for your assigned domain.
+
+\begin{table}[htbp]
+\caption{Five-dimension framework worksheet (computer vision domains)}
+\label{tab:cv-five-dim}
+\centering
+\begin{tabular}{@{}p{3cm}p{1.5cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating 1--5} & \textbf{Evidence} & \textbf{Improvement Opportunity} \\
+\midrule
+Uncertainty Detection & & & \\[8pt]
+Intervention Design & & & \\[8pt]
+Timing & & & \\[8pt]
+Stakes Calibration & & & \\[8pt]
+Feedback Integration & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Deliverable:} Report out your two weakest dimensions and one concrete improvement proposal for each.
+
+\subsection{Activity 3: Reaction Time Calculation (10 minutes)}
+
+\textbf{Task:} Students calculate stopping distances and reaction distances for autonomous vehicle scenarios.
+
+\begin{table}[htbp]
+\caption{Reaction and stopping distance calculations}
+\label{tab:reaction-distances}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Speed} & \textbf{Feet/sec} & \textbf{Reaction dist.\ (1.5s)} & \textbf{Braking dist.} \\
+\midrule
+30~mph & 44~ft/s & 66~ft & ~45~ft \\
+60~mph & 88~ft/s & 132~ft & ~180~ft \\
+75~mph & 110~ft/s & 165~ft & ~280~ft \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Discussion:} At what speeds does the reaction time problem make human-in-the-loop oversight physically impossible for real-time intervention? What does this suggest about the appropriate role of HITL in fast-moving physical systems?
+
+% ============================================================================
+\section{Common Student Misconceptions}
+% ============================================================================
+
+\subsection{Misconception 1: ``Adversarial Examples Are Exotic Attacks''}
+
+\paragraph{Student thinking:} ``This only matters in unusual circumstances where someone deliberately attacks the system.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item The stop sign attack worked with nothing more than a color printer and stickers
+    \item The deeper lesson is that machine vision is sensitive to input changes humans don't notice --- whether those changes are deliberate attacks or natural variation (lighting, angle, image quality)
+    \item The vulnerability that adversarial attacks exploit is the same vulnerability that produces distribution shift failures in deployment
+\end{itemize}
+
+\subsection{Misconception 2: ``Better Radiology AI Reduces the Need for HITL''}
+
+\paragraph{Student thinking:} ``If the AI gets more accurate, eventually you won't need a radiologist to check its work.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Radiology AI is trained on specific tasks (lung nodule detection, diabetic retinopathy screening) --- not on holistic interpretation of imaging data
+    \item A radiologist looking at a chest CT is integrating the scan with clinical history, doing incidental finding surveillance, and using contextual judgment the AI was not trained for
+    \item Automation bias shows that removing the radiologist entirely doesn't just remove a quality check --- it removes the contextual interpretation layer
+\end{itemize}
+
+\subsection{Misconception 3: ``Tesla's Approach Is Simply Dangerous''}
+
+\paragraph{Student thinking:} ``Waymo's approach (no human in the vehicle) is obviously safer than Tesla's (attentive human required).''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Tesla's approach has the reliability problem: automation complacency makes the ``attentive human'' assumption empirically false
+    \item Waymo's approach has the fragility problem: if the automated system fails completely, there is no backup
+    \item Each architecture makes different safety trade-offs; neither is universally superior
+    \item The right comparison is empirical: accidents per million miles, severity distribution, and failure mode distribution --- not architecture aesthetics
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Options}
+% ============================================================================
+
+\subsection{Option 1: Domain Analysis Paper (500--750 words)}
+
+\textbf{Prompt:} Choose a computer vision application not covered in Chapter~11 (examples: security camera monitoring, agricultural crop disease detection, wildlife population counting). Analyze:
+\begin{enumerate}
+    \item What type of HITL architecture is appropriate?
+    \item What are the most important Five Dimensions for this domain?
+    \item What is the most likely failure mode?
+    \item How would you measure whether the system is working?
+\end{enumerate}
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Domain understanding (20\%):} Accurate characterization of the application's requirements
+    \item \textbf{Architecture appropriateness (30\%):} Correct and well-reasoned HITL architecture choice
+    \item \textbf{Five Dimensions application (30\%):} Specific application of framework to this domain
+    \item \textbf{Failure mode and measurement (20\%):} Realistic failure mode identification; measurable success criteria
+\end{itemize}
+
+\subsection{Option 2: Adversarial Example Technical Report}
+
+Research and write a technical summary of one published adversarial attack on a computer vision system (physical or digital). Explain the attack mechanism, why it works, and what it reveals about the difference between human and machine perception.
+
+\subsection{Option 3: Discussion Post --- Complementarity Claim}
+
+\textbf{Post (200 words):} ``The chapter argues that human and machine vision are complementary, not interchangeable. Do you agree? Provide one example where their errors are likely to be correlated (diminishing the complementarity) and one where they are likely to be uncorrelated (maximizing it).''
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter~2:} Calibration --- AI confidence scores in radiology must be calibrated for routing decisions to work
+    \item \textbf{Chapter~10:} Language AI parallel --- same Five Dimensions analysis, different modality
+    \item \textbf{Chapter~9:} Annotation tooling --- CVAT and Label Studio are the tools for computer vision training data collection
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter~13:} Psychology --- automation bias mechanism appears here in the radiology context; Chapter~13 provides the full psychological treatment
+    \item \textbf{Chapter~15:} Failure modes --- adversarial robustness failures are a species of model failure
+    \item \textbf{Chapter~16:} Beyond text and images --- extends the modality analysis to audio, time-series, and physical systems
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~11's central contribution is making the difference between machine and human perception \emph{concrete}. The adversarial example is not just a curiosity --- it is evidence about the fundamental nature of what convolutional networks have learned. Students who internalize this will approach any computer vision deployment with appropriate skepticism about what the model is actually detecting, as opposed to what we project onto its outputs.}

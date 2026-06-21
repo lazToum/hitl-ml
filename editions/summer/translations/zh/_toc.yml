@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "前言部分"
+    chapters:
+      - file: front/declaration
+        title: "原创性声明"
+      - file: front/abstract
+        title: "摘要"
+      - file: front/acknowledgments
+        title: "致谢"
+
+  - caption: "第一部分 — 基础理论"
+    chapters:
+      - file: chapters/01_introduction
+        title: "何谓人机协同机器学习？"
+      - file: chapters/02_taxonomy
+        title: "人机交互的分类体系"
+
+  - caption: "第二部分 — 核心技术"
+    chapters:
+      - file: chapters/03_annotation
+        title: "数据标注与标记"
+      - file: chapters/04_active_learning
+        title: "主动学习"
+      - file: chapters/05_interactive_ml
+        title: "交互式机器学习"
+
+  - caption: "第三部分 — 从人类反馈中学习"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "基于人类反馈的强化学习"
+      - file: chapters/07_demonstrations
+        title: "从示范中学习"
+      - file: chapters/08_preferences
+        title: "从比较与排序中学习"
+
+  - caption: "第四部分 — 应用实践"
+    chapters:
+      - file: chapters/09_nlp
+        title: "人机协同在自然语言处理中的应用"
+      - file: chapters/10_vision
+        title: "人机协同在计算机视觉中的应用"
+      - file: chapters/11_healthcare
+        title: "人机协同在医疗与科学中的应用"
+
+  - caption: "第五部分 — 系统与工程实践"
+    chapters:
+      - file: chapters/12_platforms
+        title: "标注平台与工具链"
+      - file: chapters/13_crowdsourcing
+        title: "众包与质量控制"
+      - file: chapters/14_evaluation
+        title: "评估方法与度量指标"
+
+  - caption: "第六部分 — 伦理与前沿展望"
+    chapters:
+      - file: chapters/15_ethics
+        title: "公平性、偏见与伦理"
+      - file: chapters/16_future
+        title: "未来展望"
+
+  - caption: "附录部分"
+    chapters:
+      - file: bibliography
+        title: "参考文献"
+      - file: chapters/17_limen
+        title: "临界：万物循环中的人类"
+      - file: front/on_leaving
+        title: "论离开"

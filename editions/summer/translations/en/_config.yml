@@ -1,0 +1,149 @@
+# Book settings
+title: "Human in the Loop Machine Learning: Misunderstood"
+author: "Lazaros Toumanidis"
+copyright: "2026"
+logo: _static/logo.svg
+
+# Execution
+execute:
+  execute_notebooks: auto
+  timeout: 300
+  exclude_patterns:
+    - "*.ipynb_checkpoints"
+
+# LaTeX / PDF
+latex:
+  latex_documents:
+    targetname: hitl_ml_handbook.tex
+  latex_engine: xelatex
+  use_jupyterbook_latex: true
+
+# HTML output
+html:
+  use_issues_button: false
+  use_repository_button: false
+  use_download_button: true
+  home_page_in_navbar: true
+  extra_navbar: >
+    <div style="font-size:0.8em;margin-top:0.5em;">
+    🌐 <strong>Other editions:</strong>
+    <a href="../../book-el/_build/html/intro.html">Ελληνικά</a> ·
+    <a href="../../book-ru/_build/html/intro.html">Русский</a> ·
+    <a href="../../book-fr/_build/html/intro.html">Français</a> ·
+    <a href="../../book-de/_build/html/intro.html">Deutsch</a> ·
+    <a href="../../book-zh/_build/html/intro.html">中文</a> ·
+    <a href="../../book-hi/_build/html/intro.html">हिन्दी</a> ·
+    <a href="../../book-es/_build/html/intro.html">Español</a> ·
+    <a href="../../book-fa/_build/html/intro.html">فارسی</a> ·
+    <a href="../../book-ar/_build/html/intro.html">العربية</a> ·
+    <a href="../../book-tr/_build/html/intro.html">Türkçe</a> ·
+    <a href="../../book-sw/_build/html/intro.html">Kiswahili</a> ·
+    <a href="../../book-am/_build/html/intro.html">አማርኛ</a> ·
+    <a href="../../book-ha/_build/html/intro.html">Hausa</a>
+    </div>
+  announcement: ""
+
+# MyST parsing
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
+    - tasklist
+  myst_url_schemes: [mailto, http, https]
+  myst_dmath_double_inline: true
+
+sphinx:
+  extra_extensions:
+    - sphinxcontrib.bibtex
+  config:
+    bibtex_bibfiles:
+      - references.bib
+    bibtex_reference_style: author_year
+    html_css_files:
+      - custom.css
+    html_theme_options:
+      repository_url: ""
+      use_issues_button: false
+      use_repository_button: false
+      use_download_button: true
+      show_navbar_depth: 2
+      navigation_depth: 4
+    language: en_GB
+    latex_elements:
+      papersize: a4paper
+      pointsize: 11pt
+      fontpkg: |
+        \usepackage{fontspec}
+        \setmainfont{Palatino}[Ligatures=TeX, Numbers=OldStyle]
+        \setsansfont{Helvetica Neue}[Scale=0.92, Ligatures=TeX]
+        \setmonofont{Menlo}[Scale=0.80, Ligatures=NoCommon]
+      geometry: |
+        \usepackage[
+          a4paper,
+          inner=32mm, outer=26mm,
+          top=32mm,   bottom=28mm,
+          headsep=12mm
+        ]{geometry}
+      preamble: |
+        \usepackage{microtype}
+        \usepackage{setspace}
+        \setstretch{1.07}
+        \usepackage{emptypage}
+        \usepackage{titlesec}
+        \usepackage{fancyhdr}
+
+        % ── Palette ───────────────────────────────────────────────────────
+        \definecolor{hitlblue}{HTML}{2b3a8f}
+        \definecolor{hitlcoral}{HTML}{e05c5c}
+        \definecolor{hitlteal}{HTML}{0d9e8e}
+        \definecolor{hitlgray}{HTML}{4a4a5a}
+
+        % ── Chapter headings ─────────────────────────────────────────────
+        \titleformat{\chapter}[display]
+          {\normalfont\sffamily}
+          {\raggedleft\color{hitlcoral}\fontsize{72}{72}\selectfont\thechapter}
+          {-30pt}
+          {\color{hitlblue}\huge\bfseries\rmfamily}
+          [\vspace{8pt}{\color{hitlteal}\rule{\textwidth}{2pt}}\vspace{2pt}]
+        \titlespacing*{\chapter}{0pt}{-10pt}{28pt}
+
+        % ── Section headings ─────────────────────────────────────────────
+        \titleformat{\section}
+          {\normalfont\large\bfseries\color{hitlblue}}
+          {\color{hitlcoral}\thesection}{0.9em}{}
+          [\vspace{1pt}{\color{hitlteal!50}\titlerule[0.4pt]}]
+        \titleformat{\subsection}
+          {\normalfont\normalsize\bfseries\color{hitlteal}}
+          {\thesubsection}{0.8em}{}
+        \titleformat{\subsubsection}
+          {\normalfont\normalsize\itshape\color{hitlgray}}
+          {}{0em}{}
+
+        % ── Running headers / footers ─────────────────────────────────────
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[LE]{\small\color{hitlgray}\itshape\nouppercase{\leftmark}}
+        \fancyhead[RO]{\small\color{hitlgray}\itshape\nouppercase{\rightmark}}
+        \fancyfoot[LE,RO]{\small\color{hitlgray}\thepage}
+        \fancyfoot[CE]{\scriptsize\color{hitlgray!50}\textit{HITL ML: Misunderstood}}
+        \renewcommand{\headrulewidth}{0.4pt}
+        \renewcommand{\headrule}{%
+          \hbox to\headwidth{\color{hitlteal!50}\leaders\hrule height\headrulewidth\hfill}}
+        \fancypagestyle{plain}{%
+          \fancyhf{}
+          \fancyfoot[C]{\small\color{hitlgray}\thepage}
+          \renewcommand{\headrulewidth}{0pt}}
+
+        % ── Spacing ───────────────────────────────────────────────────────
+        \setlength{\parskip}{5pt plus 1pt}
+        \setlength{\parindent}{18pt}
+        \widowpenalty=9999
+        \clubpenalty=9999

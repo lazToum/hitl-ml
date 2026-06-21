@@ -1,0 +1,740 @@
+% ============================================================================
+% CHAPTER 1 TEACHER'S MANUAL
+% Complete instructional guide for teaching human-in-the-loop concepts
+% ============================================================================
+% Source: /markdown/ch1/Ch1T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 1}
+\label{ch:teacher-ch01}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching human-in-the-loop concepts using \emph{The Computers That Ask for Help}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Define human-in-the-loop (HITL) systems and uncertainty quantification
+    \item Identify examples of HITL systems in everyday technology
+    \item Explain the difference between aleatoric and epistemic uncertainty
+    \item Describe why intelligent systems benefit from human oversight
+    \item List the five dimensions of the HITL analysis framework
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Analyze real-world systems to identify HITL intervention points
+    \item Apply the five-dimension framework to evaluate HITL systems
+    \item Evaluate the effectiveness of different uncertainty communication strategies
+    \item Compare automated vs.\ human-in-the-loop approaches for specific scenarios
+    \item Assess the trade-offs between system autonomy and human control
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design basic HITL intervention strategies for new applications
+    \item Critique existing HITL implementations using the five-dimension framework
+    \item Propose improvements to human-AI collaboration interfaces
+    \item Evaluate ethical implications of uncertainty-based decision systems
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Basic Computer Science}: Introductory programming, basic algorithms
+    \item \textbf{Statistics}: Understanding of probability, confidence intervals, basic hypothesis testing
+    \item \textbf{Optional but Helpful}: Machine learning fundamentals, human-computer interaction basics
+\end{itemize}
+
+\subsection{Course Positioning}
+
+\begin{description}
+    \item[Early Course (Week 2--3)] Foundation for understanding human-AI collaboration
+    \item[Mid-Course] Concrete examples before diving into technical implementation
+    \item[Advanced Course] Quick review before focusing on implementation details
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Five-Dimension Framework}
+
+This framework is central to Chapter~1 and should be emphasized throughout:
+
+\begin{table}[htbp]
+\caption{The Five-Dimension HITL Framework}
+\label{tab:five-dimension-framework}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Key Question} & \textbf{Example} \\
+\midrule
+Uncertainty Detection & Can the system recognize when it's unsure? & Netflix monitors engagement probability \\
+Intervention Design & How does it ask for help? & ``Are you still watching?'' (Yes/No) \\
+Timing & When does it ask? & After 3 episodes or 90 minutes \\
+Stakes Calibration & Does it understand consequences? & Low stakes = can afford to interrupt \\
+Feedback Integration & Does it learn from responses? & Adjusts thresholds based on user patterns \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{technote}[Teaching Tip]
+Have students apply this framework to every example. It provides a consistent analytical lens.
+\end{technote}
+
+\subsection{Contrast Pair: Netflix vs.\ Nest Thermostat}
+
+Chapter~1 uses Netflix (good design) and Nest thermostat (problematic design) as a contrast pair:
+
+\begin{table}[htbp]
+\caption{Netflix vs.\ Nest Thermostat: Key contrast}
+\label{tab:netflix-nest-contrast}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Aspect} & \textbf{Netflix} & \textbf{Nest Thermostat} \\
+\midrule
+Asks for help? & Yes (``Still watching?'') & No (acts autonomously) \\
+Expresses uncertainty? & Implicitly, by asking & No \\
+User complaints & Minor annoyance & ``I woke up freezing'' \\
+Failure mode & Interrupts unnecessarily & Confident but wrong \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{technote}[Teaching Tip]
+This contrast is powerful for showing that ``smart'' does not mean ``autonomous.''
+\end{technote}
+
+\subsection{Two Failure Modes}
+
+Emphasize that systems can fail in two opposite ways:
+\begin{enumerate}
+    \item \textbf{Asking too often} $\rightarrow$ Alert fatigue (users ignore important warnings)
+    \item \textbf{Never asking} $\rightarrow$ Dangerous overconfidence (GPS into lake, chatbot hallucinations)
+\end{enumerate}
+
+The Goldilocks problem: finding the ``just right'' balance.
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening Hook (5 minutes)}
+
+\paragraph{Activity: Netflix Demo.}
+\begin{itemize}
+    \item Show actual Netflix ``Are you still watching?'' screen
+    \item Poll class: ``How many of you have seen this? How many find it annoying?''
+    \item Reveal: ``This isn't a bug---it's one of the smartest things Netflix does''
+\end{itemize}
+
+\subsubsection{Part 1: Pattern Recognition (12 minutes)}
+
+\paragraph{Interactive Examples.}
+\begin{itemize}
+    \item \textbf{Autocorrect fails} (show funny ``ducking'' examples, discuss why they happen)
+    \item \textbf{Voice assistant confusion} (play audio of Siri/Alexa saying ``I don't understand'')
+    \item \textbf{Nest thermostat complaints} (show real forum posts about freezing houses)
+\end{itemize}
+
+\begin{keyconcept}[Key Teaching Point]
+Some systems ask for help (Netflix, voice assistants), others don't (Nest Home/Away). What's the difference?
+\end{keyconcept}
+
+\subsubsection{Part 2: The Framework (10 minutes)}
+
+\paragraph{Introduce the Five Dimensions.}
+\begin{enumerate}
+    \item Uncertainty Detection
+    \item Intervention Design
+    \item Timing
+    \item Stakes Calibration
+    \item Feedback Integration
+\end{enumerate}
+
+\textbf{Activity:} Apply framework to Netflix example on the board together.
+
+\subsubsection{Part 3: High-Stakes Examples (15 minutes)}
+
+\paragraph{Case Studies.}
+\begin{itemize}
+    \item \textbf{GPS into water} (systems that never express uncertainty)
+    \item \textbf{Air Canada chatbot} (confidently wrong with legal consequences)
+    \item \textbf{Medical AI} flagging uncertain diagnoses (stakes calibration done right)
+    \item \textbf{Tesla Autopilot} handovers (show dashboard warnings)
+\end{itemize}
+
+\begin{trythis}
+Discussion Question: ``Using the framework, what dimension failed in the Air Canada chatbot?''
+\end{trythis}
+
+\subsubsection{Part 4: Wrap-up \& Preview (8 minutes)}
+
+\paragraph{The Two Failure Modes.}
+\begin{itemize}
+    \item Too much asking $\rightarrow$ Alert fatigue
+    \item Too little asking $\rightarrow$ Overconfidence
+\end{itemize}
+
+\textbf{Summary:} Intelligence isn't about never being wrong---it's about knowing when you might be wrong.
+
+\textbf{Assign:} ``Try This'' exercise (count HITL moments in next 24 hours).
+
+\textbf{Preview:} Next class will explore how systems detect uncertainty.
+
+\subsection{75-Minute Extended Session}
+
+\subsubsection{Technical Deep Dive (15 minutes)}
+\begin{itemize}
+    \item Show actual uncertainty estimation code (from Technical Appendix)
+    \item Demonstrate confidence thresholds in action
+    \item Discuss calibration challenges
+    \item Show the improved Nest thermostat pseudocode from the appendix
+\end{itemize}
+
+\subsubsection{Hands-On Activity (10 minutes)}
+\begin{itemize}
+    \item Students identify HITL moments in apps on their phones
+    \item Apply the five-dimension framework to at least two examples
+    \item Share findings with class
+\end{itemize}
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Recognition:} ``Give three examples of technology asking you for help. Why do you think it asks instead of just making a decision?''
+
+    \item \textbf{Analysis:} ``Netflix could easily keep playing episodes forever. Why doesn't it? What are the costs and benefits of the `Are you still watching?' interruption?''
+
+    \item \textbf{Comparison:} ``Compare the Netflix `Are you still watching?' prompt to the Nest thermostat's Home/Away detection. One asks for help, one doesn't. What are the consequences of each approach?''
+
+    \item \textbf{Application:} ``If you were redesigning the Nest thermostat, when would you want it to ask the human for input versus making decisions automatically?''
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \item \textbf{Framework Application:} ``Apply the five-dimension framework to analyze Uber's surge pricing notifications. Rate each dimension 1--5.''
+
+    \item \textbf{Design Thinking:} ``Design the `asking for help' strategy for a new application: an AI system that helps teachers grade student essays. When should it ask for human review?''
+
+    \item \textbf{Trade-off Analysis:} ``Self-driving cars face a dilemma: ask for human help too often and people lose trust; ask too rarely and safety suffers. How would you find the right balance?''
+
+    \item \textbf{Ethical Considerations:} ``The Air Canada tribunal ruled that companies are responsible for what their chatbots say. What are the implications for how companies should design AI uncertainty?''
+
+    \item \textbf{System Evaluation:} ``How would you measure whether a human-in-the-loop system is working well? What metrics matter most?''
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \item \textbf{Technical Implementation:} ``Given the uncertainty estimation methods in the technical appendix, how would you implement an optimal intervention threshold for a medical diagnosis system?''
+
+    \item \textbf{Research Critique:} ``Read the Kendall \& Gal (2017) paper on uncertainty types. How do their findings apply to the Netflix example? What type of uncertainty is Netflix primarily addressing?''
+
+    \item \textbf{Framework Extension:} ``The five-dimension framework covers individual interactions. How would you extend it to analyze system-level learning over time?''
+
+    \item \textbf{Novel Applications:} ``Propose a new domain where human-in-the-loop systems could be valuable. Design the uncertainty detection and human intervention strategy using all five dimensions.''
+
+    \item \textbf{Future Implications:} ``As AI systems become more capable, will they need human oversight more or less? Defend your position with specific examples.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities \& Exercises}
+% ============================================================================
+
+\subsection{Activity 1: HITL Detection Hunt (15 minutes)}
+
+\textbf{Setup:} Students work in pairs with their smartphones/laptops.
+
+\textbf{Task:} Find and document 5 examples of systems asking for human input.
+
+\paragraph{Examples to look for.}
+\begin{itemize}
+    \item ``Are you still there?'' prompts
+    \item App permission requests
+    \item ``Did you mean\ldots?'' suggestions
+    \item ``Are you a robot?'' CAPTCHAs
+    \item ``Is this your location?'' confirmations
+    \item Two-factor authentication prompts
+    \item Fraud alerts from banks
+\end{itemize}
+
+\paragraph{Analysis.} For each example, identify which of the five dimensions are visible:
+\begin{description}
+    \item[U] Can you tell the system is uncertain?
+    \item[I] How does it ask?
+    \item[T] When does it ask?
+    \item[S] What are the stakes?
+    \item[F] Does your response seem to affect future behavior?
+\end{description}
+
+\textbf{Debrief:} Which dimension is most often invisible to users?
+
+\subsection{Activity 2: Framework Application Workshop (20 minutes)}
+
+\textbf{Setup:} Small groups of 3--4 students.
+
+\textbf{Task:} Apply the five-dimension framework to analyze one of these systems:
+\begin{itemize}
+    \item Google Photos face tagging
+    \item Spotify music recommendations
+    \item Amazon product recommendations
+    \item Smart home device (Alexa, Google Home)
+    \item Banking fraud detection
+\end{itemize}
+
+\textbf{Deliverable:} Completed framework analysis table + 1 recommended improvement.
+
+\begin{table}[htbp]
+\caption{Five-dimension framework analysis worksheet}
+\label{tab:framework-worksheet}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{2.5cm}p{3cm}p{3cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating (1--5)} & \textbf{Evidence} & \textbf{Improvement} \\
+\midrule
+Uncertainty Detection & & & \\[8pt]
+Intervention Design & & & \\[8pt]
+Timing & & & \\[8pt]
+Stakes Calibration & & & \\[8pt]
+Feedback Integration & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Activity 3: Redesign Challenge (25 minutes)}
+
+\textbf{Setup:} Individual or pairs.
+
+\textbf{Task:} Redesign the Nest thermostat's Home/Away detection using the five-dimension framework.
+
+\paragraph{Requirements.}
+\begin{itemize}
+    \item When should it ask vs.\ act autonomously?
+    \item What should the question look like?
+    \item How should stakes affect the threshold?
+    \item How should it learn from user responses?
+\end{itemize}
+
+\textbf{Deliverable:} Interface mockup (sketch) + decision flowchart.
+
+\subsection{Activity 4: Cost-Benefit Analysis (25 minutes)}
+
+\textbf{Setup:} Individual work, then class discussion.
+
+\textbf{Task:} Analyze the trade-offs for different intervention frequencies.
+
+\paragraph{Scenario: Email spam filter.}
+\begin{description}
+    \item[Conservative] (asks about many emails): High accuracy, high annoyance
+    \item[Aggressive] (rarely asks): Low accuracy, low annoyance
+    \item[Balanced] (optimal threshold): Need to find sweet spot
+\end{description}
+
+\paragraph{Given.}
+\begin{itemize}
+    \item Cost of missed spam: \$2 (user time)
+    \item Cost of blocked legitimate email: \$50 (business impact)
+    \item Cost of asking user: \$0.10 (interruption)
+    \item Spam detection accuracy: 95\% without human help, 99\% with help
+\end{itemize}
+
+\textbf{Exercise:} Calculate optimal intervention threshold.
+
+\subsection{Activity 5: ``Try This'' Debrief (10 minutes)}
+
+\textbf{Timing:} Beginning of second class session.
+
+\textbf{Task:} Students share findings from the 24-hour HITL detection exercise assigned in Chapter~1.
+
+\paragraph{Discussion Questions.}
+\begin{itemize}
+    \item How many HITL moments did you count?
+    \item Which systems asked well? Which asked poorly?
+    \item Did any systems that \emph{should} have asked, not ask?
+    \item What patterns did you notice?
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Strategies}
+% ============================================================================
+
+\subsection{Formative Assessment (During Class)}
+
+\subsubsection{Concept Checks}
+
+\paragraph{Quick Polls.}
+\begin{itemize}
+    \item ``Which dimension of the framework does this represent?'' (show example)
+    \item ``True or False: The best AI systems never need human help''
+    \item ``Which failure mode is worse: asking too often, or never asking?''
+\end{itemize}
+
+\subsubsection{Exit Tickets}
+
+\paragraph{3-2-1 Format.}
+\begin{itemize}
+    \item 3 examples of HITL systems you've used today
+    \item 2 dimensions of the framework you can apply confidently
+    \item 1 question you still have about the topic
+\end{itemize}
+
+\paragraph{Framework Application.}
+``Apply the five-dimension framework to one system you used today'' (quick sketch).
+
+\subsubsection{Think-Pair-Share}
+
+\textbf{Prompt 1:} ``Explain to your partner why a voice assistant says `I don't understand' instead of just guessing what you meant.''
+
+\textbf{Prompt 2:} ``Using the framework, explain why the Nest thermostat's Home/Away feature frustrates users.''
+
+\subsection{Summative Assessment Options}
+
+\subsubsection{Option 1: Framework Analysis Paper (750 words)}
+
+\textbf{Prompt:} ``Choose a technology you use regularly that incorporates human-in-the-loop principles. Using the five-dimension framework, analyze how it handles uncertainty, evaluate its effectiveness, and propose one specific improvement.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Framework Application (35\%)}: Correctly applies all five dimensions
+    \item \textbf{Analysis Quality (25\%)}: Demonstrates understanding of uncertainty types and intervention strategies
+    \item \textbf{Evidence (20\%)}: Uses specific examples and observations
+    \item \textbf{Improvement Proposal (20\%)}: Proposes feasible, well-reasoned improvement
+\end{itemize}
+
+\subsubsection{Option 2: Design Challenge}
+
+\textbf{Prompt:} ``Design a human-in-the-loop system for a specific application. Include uncertainty detection, intervention triggers, and user interface mockups.''
+
+\paragraph{Deliverables.}
+\begin{itemize}
+    \item Five-dimension framework analysis
+    \item System architecture diagram
+    \item Interface mockups
+    \item Decision flow chart
+    \item 500-word design rationale
+\end{itemize}
+
+\paragraph{Assessment Focus.}
+\begin{itemize}
+    \item Understanding of HITL principles
+    \item Practical application of five-dimension framework
+    \item User-centered design thinking
+    \item Technical feasibility
+\end{itemize}
+
+\subsubsection{Option 3: Case Study Presentation (10 minutes)}
+
+\textbf{Assignment:} Research a real-world HITL system failure or success story (suggestions: Air Canada chatbot, GPS navigation failures, medical AI implementations).
+
+\paragraph{Requirements.}
+\begin{itemize}
+    \item Technical explanation of what happened
+    \item Analysis using the five-dimension framework
+    \item Lessons learned for future systems
+    \item Q\&A session with class
+\end{itemize}
+
+\subsubsection{Option 4: Technical Implementation (for advanced courses)}
+
+\textbf{Task:} Implement uncertainty estimation for a simple classifier.
+
+\paragraph{Components.}
+\begin{itemize}
+    \item Code implementing Monte Carlo Dropout or ensemble methods
+    \item Analysis of uncertainty calibration
+    \item Recommendation for human intervention thresholds
+    \item Five-dimension framework analysis of your implementation
+    \item Written reflection on challenges and insights
+\end{itemize}
+
+% ============================================================================
+\section{Common Student Misconceptions \& How to Address Them}
+% ============================================================================
+
+\subsection{Misconception 1: ``Asking for help = system failure''}
+
+\paragraph{Student thinking:} ``Good AI should never need human help.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Use medical analogy: ``Even experienced doctors get second opinions''
+    \item Show Air Canada chatbot case: overconfidence caused legal liability
+    \item Emphasize that recognition of limits is a form of intelligence
+    \item Framework connection: ``Uncertainty Detection is a feature, not a bug''
+\end{itemize}
+
+\subsection{Misconception 2: ``All uncertainty is the same''}
+
+\paragraph{Student thinking:} ``If the system isn't sure, just ask a human.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Clear examples of aleatoric vs.\ epistemic uncertainty
+    \item Show how different uncertainty types require different responses
+    \item Practice categorizing uncertainty sources using Chapter~1 examples
+\end{itemize}
+
+\subsection{Misconception 3: ``Humans are always better judges''}
+
+\paragraph{Student thinking:} ``Human input always improves decisions.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Examples of human cognitive biases
+    \item Discussion of expertise levels and context
+    \item Alert fatigue research: too many questions = humans ignore them
+    \item Framework connection: ``Stakes Calibration determines when human input is worth the cost''
+\end{itemize}
+
+\subsection{Misconception 4: ``This is just about AI systems''}
+
+\paragraph{Student thinking:} ``HITL only applies to machine learning.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Broader examples: calculators asking ``are you sure?'', spell-check, etc.
+    \item Historical perspective: Human-computer collaboration predates AI
+    \item The Nest thermostat isn't ``AI'' but still exhibits HITL design choices
+    \item Emphasize general principles of system design
+\end{itemize}
+
+\subsection{Misconception 5: ``The framework is just academic''}
+
+\paragraph{Student thinking:} ``This is theoretical, not practical.''
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Show how the framework predicts which systems frustrate users (Nest)
+    \item Use framework to diagnose real failures (Air Canada)
+    \item Have students apply framework to systems they use daily
+    \item Point to legal implications (companies liable for chatbot errors)
+\end{itemize}
+
+% ============================================================================
+\section{Extension Activities \& Research Projects}
+% ============================================================================
+
+\subsection{Individual Research Topics}
+\begin{enumerate}
+    \item \textbf{Historical Analysis:} How did early computer systems handle uncertainty? Compare to modern approaches.
+    \item \textbf{Cultural Differences:} How do uncertainty communication preferences vary across cultures?
+    \item \textbf{Accessibility:} How should HITL systems be designed for users with disabilities?
+    \item \textbf{Industry Deep Dive:} Analyze HITL implementation in a specific domain (healthcare, finance, transportation).
+    \item \textbf{Legal Implications:} Research the Air Canada case and similar AI liability rulings.
+\end{enumerate}
+
+\subsection{Group Projects}
+\begin{enumerate}
+    \item \textbf{System Comparison:} Compare how different companies handle similar uncertainty scenarios (e.g., Google vs.\ Apple voice assistants) using the five-dimension framework.
+    \item \textbf{User Study:} Design and conduct interviews about user experiences with HITL systems.
+    \item \textbf{Design Challenge:} Propose HITL solutions for emerging technologies (VR/AR, IoT, etc.).
+    \item \textbf{Failure Database:} Create a collection of HITL failures with framework analysis.
+\end{enumerate}
+
+\subsection{Advanced Technical Projects}
+\begin{enumerate}
+    \item \textbf{Implementation:} Build a working HITL system with uncertainty quantification.
+    \item \textbf{Algorithm Development:} Improve uncertainty estimation for a specific type of model.
+    \item \textbf{Evaluation Framework:} Develop new metrics for assessing HITL system effectiveness.
+    \item \textbf{Intervention Optimization:} Implement and test different intervention timing strategies.
+\end{enumerate}
+
+% ============================================================================
+\section{Technology Integration}
+% ============================================================================
+
+\subsection{Required Technology}
+\begin{itemize}
+    \item \textbf{Basic:} Computer/projector for demonstrations, internet access
+    \item \textbf{Enhanced:} Student devices for hands-on activities
+    \item \textbf{Advanced:} Access to programming environment for technical exercises
+\end{itemize}
+
+\subsection{Recommended Tools}
+
+\paragraph{Demo Platforms.}
+\begin{itemize}
+    \item Teachable Machine (for quick ML demonstrations)
+    \item Scratch for AI (visual programming examples)
+    \item Online uncertainty visualization tools
+\end{itemize}
+
+\paragraph{Collaboration.}
+\begin{itemize}
+    \item Miro/Mural for system design activities and framework diagrams
+    \item Padlet for collecting HITL examples
+    \item Poll Everywhere for real-time class feedback
+\end{itemize}
+
+\subsection{Virtual/Hybrid Considerations}
+\begin{itemize}
+    \item \textbf{Screen sharing} for demonstrations works well
+    \item \textbf{Breakout rooms} for small group activities
+    \item \textbf{Shared documents} for collaborative note-taking
+    \item \textbf{Recorded examples} can be paused and discussed
+\end{itemize}
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Prerequisites from Introduction:} Basic understanding of AI capabilities and limitations
+    \item \textbf{Foundational concepts:} What is ``intelligence'' in artificial systems?
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter 2:} How do we detect when systems are confused? (Deeper dive into Uncertainty Detection dimension)
+    \item \textbf{Chapter 3:} How do machine learning systems actually learn from uncertainty?
+    \item \textbf{Chapter 4:} Technical framework for HITL decision-making (formal treatment of the five dimensions)
+    \item \textbf{Parts II--III:} Implementation and real-world examples build on these principles
+\end{itemize}
+
+\subsection{Cross-Curricular Connections}
+\begin{itemize}
+    \item \textbf{Psychology:} Human decision-making and cognitive biases (alert fatigue)
+    \item \textbf{Philosophy:} Nature of intelligence and knowledge
+    \item \textbf{Ethics:} Responsibility and transparency in AI systems (Air Canada case)
+    \item \textbf{Business:} Cost-benefit analysis and user experience design
+    \item \textbf{Statistics:} Probability, confidence intervals, uncertainty quantification
+    \item \textbf{Law:} AI liability and corporate responsibility for chatbot errors
+\end{itemize}
+
+% ============================================================================
+\section{Accessibility \& Inclusion Notes}
+% ============================================================================
+
+\subsection{Universal Design Principles}
+\begin{itemize}
+    \item \textbf{Multiple examples} to connect with diverse experiences (streaming, banking, smart home, medical)
+    \item \textbf{Visual, auditory, and kinesthetic} learning opportunities
+    \item \textbf{Scaffolded complexity} from concrete to abstract concepts
+    \item \textbf{Cultural sensitivity} in examples and case studies
+\end{itemize}
+
+\subsection{Accommodation Strategies}
+\begin{itemize}
+    \item \textbf{Visual impairments:} Detailed verbal descriptions of screenshots and demos
+    \item \textbf{Hearing impairments:} Visual demonstrations, written summaries
+    \item \textbf{Learning differences:} Multiple explanation styles, extended time for activities
+    \item \textbf{ESL considerations:} Clear technical vocabulary definitions, cultural context for examples
+\end{itemize}
+
+\subsection{Inclusive Examples}
+\begin{itemize}
+    \item \textbf{Global perspectives:} Air Canada case (Canada), examples from different countries
+    \item \textbf{Diverse applications:} Healthcare, education, entertainment, accessibility tools
+    \item \textbf{Varied expertise levels:} Examples that don't assume technical background
+    \item \textbf{Multiple interaction styles:} Voice, touch, traditional interfaces
+\end{itemize}
+
+% ============================================================================
+\section{Assessment Rubrics}
+% ============================================================================
+
+\subsection{Participation Rubric}
+
+\begin{table}[htbp]
+\caption{Participation rubric for discussion-based classes}
+\label{tab:participation-rubric}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Criterion} & \textbf{Excellent (4)} & \textbf{Good (3)} & \textbf{Satisfactory (2)} & \textbf{Needs Improvement (1)} \\
+\midrule
+Preparation & Clearly has done readings; references specific examples & Shows familiarity with material & Basic understanding evident & Little evidence of preparation \\
+Contribution & Insightful comments that advance discussion & Relevant contributions, asks good questions & Participates when prompted & Minimal or off-topic contributions \\
+Framework Use & Applies five-dimension framework accurately and creatively & Uses framework appropriately & Basic framework application & Struggles to apply framework \\
+Analysis & Applies concepts creatively, sees connections & Uses chapter concepts appropriately & Basic application of ideas & Struggles to apply concepts \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Framework Analysis Rubric}
+
+\begin{table}[htbp]
+\caption{Framework analysis rubric}
+\label{tab:framework-rubric}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Criterion} & \textbf{Excellent (4)} & \textbf{Good (3)} & \textbf{Satisfactory (2)} & \textbf{Needs Improvement (1)} \\
+\midrule
+Completeness & All five dimensions analyzed thoroughly & All five dimensions addressed & Most dimensions addressed & Missing multiple dimensions \\
+Accuracy & Correct application of each dimension & Minor errors in application & Some misunderstandings & Fundamental misapplication \\
+Evidence & Strong, specific evidence for each rating & Good evidence for most ratings & Some evidence provided & Assertions without evidence \\
+Insight & Identifies non-obvious patterns and implications & Good analysis with some insight & Basic analysis & Superficial analysis \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Technical Exercise Rubric}
+
+\begin{table}[htbp]
+\caption{Technical exercise rubric}
+\label{tab:technical-rubric}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Criterion} & \textbf{Excellent (4)} & \textbf{Good (3)} & \textbf{Satisfactory (2)} & \textbf{Needs Improvement (1)} \\
+\midrule
+Technical Accuracy & Code works correctly; proper implementation & Minor technical issues, mostly correct & Basic functionality, some errors & Significant technical problems \\
+Conceptual Understanding & Clear grasp of uncertainty principles & Good understanding with minor gaps & Basic understanding & Fundamental misconceptions \\
+Documentation & Clear explanations, well-commented code & Good documentation, mostly clear & Adequate documentation & Poor or missing documentation \\
+Innovation & Creative solutions, goes beyond requirements & Some creative elements & Meets basic requirements & Below minimum requirements \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Sample Lesson Plan}
+% ============================================================================
+
+\begin{table}[htbp]
+\caption{Sample 50-minute lesson plan}
+\label{tab:lesson-plan}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{6cm}p{4cm}@{}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:05 & Opening: Netflix demo + poll & Slide with Netflix screenshot \\
+0:05--0:12 & Examples: Autocorrect, voice assistants, Nest & Slides with real examples \\
+0:12--0:22 & Framework introduction + Netflix analysis & Framework diagram, whiteboard \\
+0:22--0:37 & High-stakes case studies (GPS, Air Canada, Medical AI) & Case study slides \\
+0:37--0:45 & Two failure modes discussion & Whiteboard diagram \\
+0:45--0:50 & Wrap-up, assign ``Try This'' exercise & Chapter handout \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{This teacher's manual provides everything needed to successfully teach Chapter~1 across different course levels and formats. The five-dimension framework provides a consistent analytical tool that students can apply throughout the course and beyond.}
+
+\medskip
+\noindent\textit{Next: Chapter~2 explores how systems detect uncertainty---diving deeper into the ``Uncertainty Detection'' dimension of the framework.}

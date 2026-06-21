@@ -1,0 +1,195 @@
+% ============================================================================
+% CHAPTER 17 TEACHER'S MANUAL: Almost-Autonomous: When AI Learns to Ask Better Questions
+% Pedagogical guide for instructors
+% ============================================================================
+
+\section*{Chapter 17 Teacher's Manual: Almost-Autonomous}
+\addcontentsline{toc}{section}{Chapter 17 Teacher's Manual}
+
+% ============================================================================
+\subsection*{Instructor Overview}
+% ============================================================================
+
+Chapter 17 brings together several threads from earlier in the book---calibration, active learning, HITL architecture---into a synthesis about the frontier of AI development. The central claim is that the goal for AI systems is not full autonomy, but \emph{almost-autonomy}: the capacity to handle the vast majority of cases efficiently while accurately identifying the cases where human judgment makes a material difference.
+
+\textbf{Key pedagogical goals:}
+\begin{enumerate}
+    \item Concretize the abstract concept of ``learning from human feedback'' through the active learning framework
+    \item Distinguish training-time HITL (RLHF, DPO) from deployment-time HITL (routing, review)
+    \item Develop the concept of \emph{meta-uncertainty}: not just ``how uncertain am I about this case?'' but ``what categories of cases am I systematically wrong about?''
+    \item Frame ``almost-autonomous'' as a design goal rather than a limitation
+\end{enumerate}
+
+\textbf{Prerequisites:} This is among the most technically demanding chapters for general readers. For non-technical courses, focus on Sections 1, 3, and 4 (active learning concepts without the mathematics, RLHF overview at the conceptual level, and the ``almost-autonomous'' synthesis). For technical courses, Appendix 17A provides full mathematical treatment of BADGE, RLHF, and DPO.
+
+% ============================================================================
+\subsection*{Learning Objectives}
+% ============================================================================
+
+By the end of this chapter, students should be able to:
+
+\begin{enumerate}
+    \item Explain the core idea of active learning and how it reduces annotation costs
+    \item Distinguish at least three active learning strategies and explain when each is most appropriate
+    \item Explain at a conceptual level how RLHF shapes language model behavior
+    \item Articulate the concept of proactive HITL and distinguish it from reactive HITL
+    \item Define meta-uncertainty and explain why it is difficult to achieve
+    \item Defend the ``almost-autonomous'' design goal against both the fully-autonomous and fully-human-dependent alternatives
+\end{enumerate}
+
+% ============================================================================
+\subsection*{Discussion Questions}
+% ============================================================================
+
+\subsubsection*{Opening Discussion (10 minutes)}
+
+\textbf{Q0:} Think of a mentor, teacher, or advisor who was particularly effective at using their time with you well---who asked you the right questions at the right moments rather than reviewing everything you did. What made their use of your time feel efficient? How did they know what to focus on?
+
+\textit{Instructor note:} This question primes students to think about the active learning analogy before seeing the technical term. The medical student story in the chapter's opening is the formal version of this; students often have a more personal and immediate analog.
+
+\subsubsection*{On Active Learning}
+
+\textbf{Q1:} Active learning aims to achieve the same model performance with 30--70\% fewer labeled examples. From an organizational perspective, what does this mean for the economics of AI development? Who benefits most from this efficiency gain---large companies with abundant resources, or smaller organizations constrained by annotation budgets?
+
+\textbf{Q2:} The chapter distinguishes near-boundary uncertain cases (the model is uncertain because the input is near the decision boundary) from outlier uncertain cases (the model is uncertain because the input is unlike anything in training). For each type, explain: (a)~why a human label is informative, and (b)~which active learning strategy would prioritize this type of case.
+
+\textbf{Q3:} In a well-designed active learning system, the character of human review changes over time: early phase involves many cases including easy ones; late phase involves a small fraction concentrated on genuine edge cases. What does this trajectory imply for how organizations should staff and train their human review teams? What happens to reviewer expertise as the system matures?
+
+\textbf{Q4:} Query by committee maintains multiple models and routes cases where they disagree. In practice, why might the disagreements between models in an ensemble be a better signal for routing than the uncertainty of a single model? Under what conditions would ensemble disagreement fail as a routing signal?
+
+\subsubsection*{On RLHF, DPO, and Training-Time HITL}
+
+\textbf{Q5:} RLHF trains a language model using human preference signals rather than ``correct'' labels. The chapter notes that ``judging which of two responses is better is often easier than generating the correct response from scratch.'' Why is comparison easier than generation? What types of quality judgment are captured well by comparisons that would be hard to capture with direct labels?
+
+\textbf{Q6:} If the preference raters for an RLHF system are a homogeneous group (geographically, demographically, culturally), the model will optimize for that group's preferences. What would the consequences be for a language model deployed globally? What would a more diverse preference rating process require?
+
+\textbf{Q7:} Constitutional AI (CAI) defines a set of principles and trains the model to evaluate its own outputs against those principles, reducing the amount of human feedback required. What are the advantages and limitations of this approach compared to direct human feedback at scale?
+
+\subsubsection*{On Proactive HITL and Meta-Uncertainty}
+
+\textbf{Q8:} Proactive HITL means the system recognizes when it is in a category where its outputs are less reliable and flags this without being asked. What is the difference between a system that flags uncertainty because it was asked (``are you confident about this?'') and one that flags uncertainty because it recognizes a category mismatch? What additional capability does the second require?
+
+\textbf{Q9:} The ``almost-autonomous'' frontier: current AI systems know something about their uncertainty on individual inputs (confidence scores), but not about the \emph{structure} of their ignorance (which categories of questions they systematically underperform on). What information would a system need to communicate meta-level uncertainty? What would be required to generate this?
+
+\textbf{Q10:} A system with genuine meta-uncertainty communication might tell a human reviewer: ``This case has the same characteristics as a category of cases where I've historically been wrong 30\% of the time. My confidence score here doesn't fully capture this.'' How would this change the human reviewer's behavior compared to receiving only a confidence score?
+
+\subsubsection*{On the ``Almost-Autonomous'' Goal}
+
+\textbf{Q11:} The chapter argues against both extremes---fully autonomous AI (no human involvement) and fully human-dependent AI (humans review everything). For which specific types of decisions does each extreme fail most badly? Is there a middle-ground case---a type of decision where the ``almost-autonomous'' design is hardest to get right?
+
+\textbf{Q12:} The medical student analogy: ``I know A and B and C, and the specific thing I don't know is X---that's a question a teacher can answer.'' Translate this into the design specifications for an AI system. What specific capabilities does an AI system need to make this kind of targeted uncertainty communication?
+
+% ============================================================================
+\subsection*{Classroom Activities}
+% ============================================================================
+
+\subsubsection*{Activity 1: Active Learning Strategy Selection (20 minutes)}
+
+\textbf{Setup:} Present students with four labeling scenarios. For each, they must identify the best active learning strategy and justify their choice.
+
+\textbf{Scenarios:}
+\begin{enumerate}
+    \item You have a medical image classifier that performs well on CT scans from large teaching hospitals but has never seen images from rural clinics, which use older equipment.
+    \item You have a sentiment classifier for restaurant reviews that achieves 85\% accuracy overall but seems to perform poorly near the boundary between ``neutral'' and ``positive.''
+    \item You have a spam filter that works well on personal email but is being deployed for a corporate context with very different email norms.
+    \item You have 10,000 unlabeled examples and a budget for 200 labels. Your current model achieves 70\% accuracy on a held-out test set.
+\end{enumerate}
+
+\textbf{Matching:}
+\begin{description}
+    \item[Scenario 1:] Diversity sampling (coverage gap, not boundary refinement)
+    \item[Scenario 2:] Uncertainty sampling (boundary refinement)
+    \item[Scenario 3:] Diversity sampling or query by committee
+    \item[Scenario 4:] Hybrid uncertainty + diversity (maximize information per label)
+\end{description}
+
+\subsubsection*{Activity 2: RLHF Preference Pair Design (25 minutes)}
+
+\textbf{Setup:} Students work in pairs. Each pair is given a prompt (e.g., ``Explain why correlation does not imply causation'').
+
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Write two responses to the prompt: one that is technically accurate but unhelpful to a general reader; one that is helpful and accessible but might sacrifice precision.
+    \item Exchange responses with another pair and rate which response you prefer and why.
+    \item Discuss: what values does your preference rating implicitly encode? Would a different rater (different background, different expertise level) rate differently?
+\end{enumerate}
+
+\textbf{Debrief:} This activity concretizes why RLHF's preference ratings are not neutral---they encode the rater's values, expertise, and context. If all raters are similar, the model learns their shared preferences. This is the foundation for the diversity concern in Q6.
+
+\subsubsection*{Activity 3: Calibration Audit (15 minutes)}
+
+\textbf{Setup:} Students use a tool with a language AI (or provided transcript examples of AI responses). For one week (or a set of provided examples), they record:
+\begin{itemize}
+    \item When the AI expressed high confidence and was correct
+    \item When the AI expressed high confidence and was wrong
+    \item When the AI expressed uncertainty and the uncertainty was warranted
+    \item When the AI expressed uncertainty unnecessarily
+\end{itemize}
+
+\textbf{Analysis:} Compute an informal calibration score: does expressed confidence predict correctness? This is the practical version of the ``Try This'' exercise in the chapter.
+
+% ============================================================================
+\subsection*{Assessment Strategies}
+% ============================================================================
+
+\subsubsection*{Formative}
+
+\textbf{Concept map:} Ask students to draw a concept map showing how active learning, RLHF, proactive HITL, and meta-uncertainty relate to the Five Dimensions framework from Chapter 1.
+
+\textbf{Exit ticket:} ``In one sentence, explain the difference between a system that knows it is uncertain about a specific prediction and a system that knows the structure of its ignorance.''
+
+\subsubsection*{Summative Options}
+
+\textbf{Option 1: Active Learning System Design (800--1200 words)}
+
+Design an active learning system for a domain of your choice. Specify: (a)~the labeling task, (b)~the active learning strategy and why you chose it, (c)~how you would measure the efficiency gain, (d)~how the human review role changes as the system matures.
+
+\textbf{Option 2: RLHF Preference Analysis}
+
+Using 50 pairs of AI responses (can be generated or provided), conduct a structured preference analysis. Identify: which types of quality judgments are reliably captured by preference ratings? Which types are obscured? What biases might a homogeneous rater pool introduce for your sample?
+
+% ============================================================================
+\subsection*{Common Misconceptions}
+% ============================================================================
+
+\textbf{Misconception 1:} ``Active learning just means picking the most uncertain cases.''
+
+\textit{Correction:} Uncertainty sampling is one strategy. It works well for boundary refinement but fails for distribution coverage. The most effective systems combine uncertainty and diversity sampling---prioritizing cases that are both uncertain and dissimilar from existing training data.
+
+\textbf{Misconception 2:} ``RLHF trains the model to be whatever raters prefer, which could be biased.''
+
+\textit{Correction:} This concern is partly correct. RLHF does encode rater preferences. But the concern should be directed at the selection and diversity of the rater pool, not at the RLHF technique itself. A diverse, well-designed rater pool produces better-aligned models. The technique is not the problem; the practice of using homogeneous rater pools is.
+
+\textbf{Misconception 3:} ``Almost-autonomous means the AI is almost good enough to replace humans.''
+
+\textit{Correction:} ``Almost-autonomous'' refers to the AI's ability to operate independently on well-characterized cases while accurately identifying when human judgment is needed. It is not a stage on the way to full autonomy---it is the target state. The human role in almost-autonomous systems is more expert and more focused, not diminished.
+
+% ============================================================================
+\subsection*{Connections to Other Chapters}
+% ============================================================================
+
+\begin{description}
+    \item[Chapter 2] Meta-uncertainty connects to epistemic vs.\ aleatoric uncertainty: the structure of ignorance is a form of epistemic uncertainty about the model's own epistemic state---second-order uncertainty.
+    \item[Chapter 6] The ``optimal timing'' theme from Chapter 6 is the deployment-time analog of active learning's training-time routing: both ask ``when does human input add the most value?''
+    \item[Chapter 8] The HITL architecture from Chapter 8 provides the infrastructure within which active learning operates. The feedback integration layer (Layer 6 in the 7-layer model) is specifically where active learning data flows.
+    \item[Chapter 18] The ``almost-autonomous'' goal connects directly to Chapter 18's argument that the human role becomes more expert as AI systems mature---the final chapter is the human-facing side of this chapter's AI-facing argument.
+\end{description}
+
+% ============================================================================
+\subsection*{Sample 50-Minute Lesson Plan}
+% ============================================================================
+
+\begin{center}
+\begin{tabular}{p{2cm}p{5cm}p{4cm}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Materials} \\
+\midrule
+0:00--0:08 & Opening Q0 + Dr.\ Murray story & Chapter reading \\
+0:08--0:20 & Active learning concepts: four strategies + Q2 & Strategy comparison handout \\
+0:20--0:30 & Activity 1: Strategy selection for four scenarios & Scenario cards \\
+0:30--0:38 & RLHF and DPO overview: Q5 + Q6 & Timeline diagram \\
+0:38--0:45 & Proactive HITL + meta-uncertainty: Q8--Q9 & Slides \\
+0:45--0:50 & ``Almost-autonomous'' synthesis + exit ticket & --- \\
+\bottomrule
+\end{tabular}
+\end{center}

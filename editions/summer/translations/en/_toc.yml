@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Front Matter"
+    chapters:
+      - file: front/declaration
+        title: "Declaration of Originality"
+      - file: front/abstract
+        title: "Abstract"
+      - file: front/acknowledgments
+        title: "Acknowledgments"
+
+  - caption: "Part I — Foundations"
+    chapters:
+      - file: chapters/01_introduction
+        title: "What Is Human-in-the-Loop ML?"
+      - file: chapters/02_taxonomy
+        title: "A Taxonomy of Human–Machine Interaction"
+
+  - caption: "Part II — Core Techniques"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Data Annotation and Labeling"
+      - file: chapters/04_active_learning
+        title: "Active Learning"
+      - file: chapters/05_interactive_ml
+        title: "Interactive Machine Learning"
+
+  - caption: "Part III — Learning from Human Feedback"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Reinforcement Learning from Human Feedback"
+      - file: chapters/07_demonstrations
+        title: "Learning from Demonstrations"
+      - file: chapters/08_preferences
+        title: "Learning from Comparisons and Rankings"
+
+  - caption: "Part IV — Applications"
+    chapters:
+      - file: chapters/09_nlp
+        title: "HITL in Natural Language Processing"
+      - file: chapters/10_vision
+        title: "HITL in Computer Vision"
+      - file: chapters/11_healthcare
+        title: "HITL in Healthcare and Science"
+
+  - caption: "Part V — Systems and Practice"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Annotation Platforms and Tooling"
+      - file: chapters/13_crowdsourcing
+        title: "Crowdsourcing and Quality Control"
+      - file: chapters/14_evaluation
+        title: "Evaluation and Metrics"
+
+  - caption: "Part VI — Ethics and Horizons"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Fairness, Bias, and Ethics"
+      - file: chapters/16_future
+        title: "Future Directions"
+
+  - caption: "Back Matter"
+    chapters:
+      - file: bibliography
+        title: "Bibliography"
+      - file: chapters/17_limen
+        title: "Limen: A Human in the Loop of Everything"
+      - file: front/on_leaving
+        title: "On Leaving"

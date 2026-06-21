@@ -1,0 +1,395 @@
+% ============================================================================
+% CHAPTER 15 SOLUTIONS GUIDE
+% Exercise Solutions & Answer Keys
+% ============================================================================
+% Source: /markdown/ch15/C15AM_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Solutions Guide: Chapter 15}
+\label{ch:solutions-ch15}
+
+\begin{chapterquote}{Complete solutions for all exercises, activities, and discussion questions}
+Model answers and grading guidance for HITL failure analysis and remediation.
+\end{chapterquote}
+
+% ============================================================================
+\section{Discussion Question Solutions}
+% ============================================================================
+
+\subsection{Introductory Level Solutions}
+
+\subsubsection{Question 1: Taxonomy Application --- Loan Application Age Bias}
+
+\textbf{Prompt:} ``An audit reveals a loan AI is denying applications from older borrowers at 2$\times$ the rate of otherwise similar younger borrowers. Which failure mode(s) does this represent?''
+
+\paragraph{Model Answer Framework.}
+
+Instructors should evaluate student answers on three criteria:
+\begin{enumerate}
+    \item Correct identification of the primary failure mode, with evidence
+    \item Acknowledgment that multiple failure modes may be present simultaneously
+    \item Correct linkage between failure mode and appropriate remediation
+\end{enumerate}
+
+\paragraph{Sample strong answer.}
+
+\emph{The primary failure mode is model failure --- specifically, a spurious correlation artifact from training on historical data that reflects age-based lending patterns. Age itself may be encoded in the feature set, or age may correlate with other features (credit history length, employment history) that the model weights in ways that produce systematic disparate impact.}
+
+\emph{Annotation failure may also be present: the historical ``ground truth'' labels (who was approved and subsequently repaid) are themselves the product of past lending decisions that may have included age bias. A model trained to predict ``who would the old system have approved?'' inherits the old system's biases.}
+
+\emph{Reviewer failure may compound this: if loan officers see the model's high-risk score for older applicants and defer to it (automation bias), the bias propagates without human correction.}
+
+\paragraph{Grade Bands.}
+
+\begin{description}
+    \item[A] Identifies primary failure mode correctly, notes compounding factors, correctly distinguishes between model failure (learned bias) and annotation failure (training label bias), connects to remediation at each level.
+    \item[B] Identifies primary failure mode correctly with evidence, some analysis of compounding factors.
+    \item[C] Identifies a failure mode but may confuse model failure and annotation failure, or provide thin evidence.
+    \item[D] Misidentifies failure mode or provides no diagnostic reasoning.
+\end{description}
+
+\subsubsection{Question 2: Spot vs.\ Systematic --- Blocked Restaurant Purchase}
+
+\textbf{Prompt:} ``A credit card fraud detection system incorrectly blocked a purchase at a new restaurant. Spot or systematic? What additional information is needed?''
+
+\paragraph{Model Answer.}
+
+This could be either a spot failure or a systematic failure. You cannot determine which from this description alone.
+
+\textbf{If it is a spot failure:} The restaurant's merchant ID had a data quality issue; the transaction had an unusual amount; the system made a probabilistic error not expected to recur systematically.
+
+\textbf{If it is a systematic failure:} The system systematically flags purchases at newly-opened restaurants because they lack transaction history; the system over-flags certain merchant categories; the system under-represents this type of legitimate transaction in its training distribution.
+
+\paragraph{Information needed to determine which.}
+
+\begin{enumerate}
+    \item Does the system over-flag purchases at newly-opened merchants generally? (Requires slice-based analysis by merchant tenure.)
+    \item Has this customer been over-flagged before on similar transactions?
+    \item What percentage of legitimate transactions at new establishments are flagged?
+\end{enumerate}
+
+\paragraph{The diagnostic lesson.}
+
+Always treat an individual error as a hypothesis about a potential systematic failure until you have enough data to rule that out. The reporting of a single error is the beginning of the diagnostic process, not the end of it.
+
+\subsubsection{Question 3: Audit Trail Requirements}
+
+\textbf{Prompt:} ``A hospital discovers its diagnostic AI has been systematically under-diagnosing a condition in elderly patients for two years. What information is needed? What needed to be logged?''
+
+\paragraph{Model Answer.}
+
+\paragraph{Information needed to scope harm and implement remediation.}
+
+\begin{itemize}
+    \item Which patients were diagnosed by the AI during the affected period
+    \item What diagnosis the AI produced for each patient
+    \item What confidence score the AI assigned
+    \item What diagnosis the human clinician confirmed or overrode
+    \item What treatment decisions followed from the diagnosis
+    \item Patient outcomes where available (subsequent diagnoses, readmissions, adverse events)
+    \item Patient demographics (to identify whether specific subpopulations were more affected)
+\end{itemize}
+
+\paragraph{What must have been logged at decision time.}
+
+\begin{table}[htbp]
+\caption{Minimum audit trail fields for medical HITL system}
+\label{tab:medical-audit-fields}
+\centering
+\begin{tabular}{@{}p{4cm}p{3cm}p{4.5cm}@{}}
+\toprule
+\textbf{Field} & \textbf{Type} & \textbf{Why Required} \\
+\midrule
+Patient ID (anonymized) & Identifier & Scope harm per patient \\
+AI prediction & Category + score & What the system said \\
+AI confidence & Float [0,1] & Was this a known uncertain case? \\
+Clinician ID & Identifier & Who was in the loop \\
+Clinician decision & Category & Did human agree or override? \\
+Timestamp & Datetime & Temporal scope of failure \\
+Patient age at decision & Integer & Allows slice analysis by age \\
+Model version & String & Did failure correlate with model update? \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What the hospital cannot do without this audit trail.}
+
+Without complete logs: cannot identify which patients were affected; cannot determine whether any specific patient was harmed; cannot send required notifications; cannot implement targeted remediation (as opposed to blanket responses); cannot demonstrate accountability to regulators.
+
+\subsubsection{Question 4: Blameless Post-Mortems}
+
+\textbf{Prompt:} ``Why does Google advocate for blameless post-mortems? When might a blameless approach be inappropriate?''
+
+\paragraph{Model Answer.}
+
+\paragraph{Why blameless post-mortems work.}
+
+When individuals fear punishment, they withhold information, minimize their role, and construct narratives that protect them rather than reveal root causes. Blameless post-mortems assume: people were acting rationally within their information environment and incentive structures. This assumption creates the conditions for honest root cause analysis.
+
+Empirically: organizations that practice blameless post-mortems document more contributing factors per incident, implement more systemic fixes (rather than individual blame), and have lower recurrence rates for the same class of failures. Google's Site Reliability Engineering practice cites this explicitly.
+
+\paragraph{When blameless may be inappropriate.}
+
+\begin{itemize}
+    \item \textbf{Deliberate misconduct:} If an engineer deliberately disabled safety monitoring to meet a deadline, the blameless framing does not apply. Individual accountability for deliberate misconduct is appropriate.
+    \item \textbf{Regulatory or legal violations:} In regulated industries, there are legal obligations around accountability that may require individual finding of responsibility.
+    \item \textbf{Repeated identical failures by the same person:} If the same individual makes the same judgment error repeatedly despite training and process changes, that pattern may warrant individual-level accountability even in a blameless culture.
+\end{itemize}
+
+\paragraph{Important nuance.}
+
+Blameless means \emph{assume good faith} as the default starting point, not \emph{permanently exempt from consequences}. The post-mortem's purpose is systemic improvement; disciplinary decisions, if warranted, follow from a separate process.
+
+% ============================================================================
+\subsection{Intermediate Level Solutions}
+% ============================================================================
+
+\subsubsection{Flash Crash Five Dimensions Analysis}
+
+\textbf{Prompt:} ``Apply the Five Dimensions framework to the Flash Crash.''
+
+\paragraph{Model Answer.}
+
+\begin{table}[htbp]
+\caption{Five Dimensions applied to the Flash Crash}
+\label{tab:flash-crash-five-dim}
+\centering
+\begin{tabular}{@{}p{3cm}p{1.5cm}p{7cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Rating} & \textbf{Assessment} \\
+\midrule
+Uncertainty Detection & 2/5 & Individual algorithms detected market volatility but no system-level uncertainty signal to human operators \\
+Intervention Design & 1/5 & Critical failure: circuit breakers existed but were insufficient; kill switch physically unreachable at event speed \\
+Timing & 1/5 & Fatal failure: system operated at millisecond speed; human reaction time is seconds \\
+Stakes Calibration & 2/5 & Stakes were extremely high (trillions in market value); system design did not reflect this \\
+Feedback Integration & 3/5 & Post-event analysis was thorough; circuit breakers redesigned afterward \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Primary failing dimension: Timing.}
+
+The Flash Crash is above all a Timing failure. Automated algorithms executed in milliseconds; human circuit breakers required seconds to reach. The humans watching their screens could not intervene in time. This is the autonomous vehicle timing problem at financial market scale.
+
+\paragraph{HITL design changes that might have prevented it.}
+
+\begin{enumerate}
+    \item \textbf{Speed governors:} Mandatory pauses in algorithmic trading at volume thresholds that create a human intervention window (even 500 milliseconds would allow automated circuit breakers to assess the situation).
+    \item \textbf{Better circuit breakers:} The circuit breakers that existed were designed for individual securities; the Flash Crash was a system-level feedback loop. Market-wide circuit breakers at defined volatility thresholds were implemented post-event.
+    \item \textbf{Human-triggered kill switch:} A direct mechanism for human regulators to halt specific algorithmic trading strategies in real time.
+\end{enumerate}
+
+\subsubsection{Credit Scoring Multiple Failures}
+
+\paragraph{Model Answer.}
+
+\paragraph{Failure Mode 1: Model Failure.}
+
+The model incorporated ZIP code as a feature. ZIP code is a proxy for race in the US context due to historical residential segregation. The model learned to associate minority ZIP codes with higher credit risk --- not because the financial risk was genuinely higher (the problem specifically notes equivalent credit profiles) but because ZIP code carried racial information that correlated with historical lending outcomes.
+
+\paragraph{Failure Mode 2: Annotation Failure.}
+
+The training data was historical lending decisions and outcomes. Those historical outcomes reflect decades of discriminatory lending (redlining, differential credit access) that had nothing to do with individual creditworthiness. Training on this data built the discrimination into the model as a learned pattern. The labels (approved/denied/repaid) were not neutral ground truth --- they were products of the biased system the bank was trying to replace.
+
+\paragraph{Failure Mode 3: Reviewer Failure.}
+
+Loan officers saw the model's risk scores and deferred to them (automation bias). The nominal HITL --- the loan officer's review --- was functionally bypassed because reviewers treated model scores as ground truth rather than one input among several.
+
+\paragraph{How they interacted.}
+
+Model failure produced biased scores $\to$ annotation failure meant the model was trained on already-biased labels so retraining on existing data would not fix it $\to$ reviewer failure meant the human oversight layer was not catching the biased outputs $\to$ feedback loop: because high-scored borrowers in affected ZIP codes were less often approved, the bank had less repayment data from those ZIP codes, making the model's knowledge of those populations even sparser for the next training cycle.
+
+\paragraph{Remediation implications.}
+
+\begin{itemize}
+    \item Model failure: retrain excluding ZIP code; apply fairness constraints on demographic parity
+    \item Annotation failure: collect new ground truth from communities that were historically underserved; weight recent data more heavily to reduce historical bias influence
+    \item Reviewer failure: redesign interface for sequential disclosure (loan officer assesses before seeing model score); provide training on automation bias in this specific context
+\end{itemize}
+
+\subsubsection{Reviewer Agreement Interpretation --- Effectiveness or Failure?}
+
+\textbf{Prompt:} ``A HITL loan application system shows reviewers agree with the model 94\% of the time, even in cases the model is uncertain about. Is this effectiveness or failure?''
+
+\paragraph{Model Answer.}
+
+Cannot determine from the agreement rate alone. The question requires additional data.
+
+\paragraph{Evidence it is failure (rubber-stamping).}
+
+\begin{itemize}
+    \item If override accuracy is low: when reviewers do disagree (6\% of cases), they are wrong more often than they are right. This suggests reviewers have lost independent judgment.
+    \item If throughput is high: reviewers are making decisions too quickly to be providing genuine independent evaluation.
+    \item If reviewer accuracy on uncertain cases does not exceed model accuracy: human review is adding no value.
+\end{itemize}
+
+\paragraph{Evidence it is effectiveness.}
+
+\begin{itemize}
+    \item If override accuracy is high: the 6\% of cases where reviewers disagree, the reviewer is right significantly more often than the model. This would indicate reviewers are adding genuine signal.
+    \item If throughput is at expected rates: reviewers are taking reasonable time per case.
+    \item If uncertain cases from the model actually have lower override rates than confident cases: reviewers are exercising more independent judgment when the model is confident (which may reflect appropriate calibration).
+\end{itemize}
+
+\paragraph{The measurement needed.}
+
+Track override accuracy (when reviewers disagree with the model, are they right?) against ground truth. Compare reviewer accuracy on cases they agreed with vs.\ disagreed with. This analysis distinguishes genuine calibrated trust from automation bias.
+
+% ============================================================================
+\subsection{Advanced Level Solutions}
+% ============================================================================
+
+\subsubsection{Complete Remediation Plan for Credit Scoring}
+
+\paragraph{Model Answer Framework.}
+
+A complete remediation plan must address four elements:
+
+\paragraph{Immediate harm reduction.}
+
+\begin{enumerate}
+    \item Suspend the automated model's scores from loan officer decision support immediately (or flag all affected scores as under review)
+    \item Identify the affected population: all loan applications from affected ZIP codes during the model's deployment period
+    \item Issue required notifications (ECOA, Fair Housing Act compliance)
+    \item Establish a manual review process for any pending applications from affected ZIP codes
+\end{enumerate}
+
+\paragraph{Root cause fix.}
+
+\begin{enumerate}
+    \item Remove ZIP code from the feature set; also audit for any features that proxy for ZIP code or demographic characteristics
+    \item Apply fairness constraints during retraining: demographic parity or equalized odds on protected characteristics
+    \item Curate the training data to reduce weight on historical decisions from the period of known discriminatory lending
+    \item Redesign reviewer interface to reduce automation bias: sequential disclosure, explicit uncertainty display
+\end{enumerate}
+
+\paragraph{Monitoring to detect recurrence.}
+
+\begin{enumerate}
+    \item Monthly slice-based evaluation by demographic category on held-out test set
+    \item Alert if acceptance rate gap between demographic groups exceeds 5\% when controlling for financial profile
+    \item Track reviewer override rates by applicant ZIP code; alert if systematic override rate differences emerge
+    \item Quarterly audit by independent third party
+\end{enumerate}
+
+\paragraph{Stakeholder communication.}
+
+\begin{itemize}
+    \item \textbf{Affected applicants:} Required notification explaining that their application may have been influenced by a biased process, with a clear path to appeal
+    \item \textbf{Regulators:} Proactive disclosure with documented remediation plan
+    \item \textbf{Internal:} Blameless post-mortem with root cause analysis and systemic fixes; training for loan officers on automation bias
+    \item \textbf{Public:} If media inquiry: transparent acknowledgment with remediation plan, not defensive denial
+\end{itemize}
+
+% ============================================================================
+\section{Activity Solutions}
+% ============================================================================
+
+\subsection{Activity 1: Five Whys Analysis --- Answer Key}
+
+\paragraph{Group A: Content recommendation extremism.}
+
+\begin{enumerate}
+    \item Why is extremist content served to young users? The recommendation algorithm optimizes for watch time.
+    \item Why does optimizing watch time produce extremist content? Extremist content generates higher watch time for some users who have engaged with related content.
+    \item Why does engagement with related content lead to extremist content? The algorithm learns to recommend increasingly extreme content to maximize watch time for this cohort.
+    \item Why isn't this corrected? The metric (watch time) doesn't include any signal about content harm.
+    \item Why doesn't the metric include harm signals? The measurement system was designed to maximize engagement, not to measure user wellbeing or societal harm.
+\end{enumerate}
+
+\paragraph{Root cause:} The optimization objective is disconnected from the values the system is supposed to serve.
+
+\paragraph{Group B: HBCU credential bias.}
+
+\begin{enumerate}
+    \item Why are HBCU graduates underscored? HBCU appeared as a feature correlated with lower success rates in historical data.
+    \item Why do HBCUs correlate with lower success rates historically? Historically, HBCU graduates faced structural barriers to advancement that reflected employer bias, not candidate ability.
+    \item Why was this pattern used as a training signal? The model was trained on historical hiring outcomes as ground truth.
+    \item Why weren't the outcomes adjusted for structural bias? The data science team did not audit for HBCU-correlated disparities before training.
+    \item Why didn't the team audit? No process or requirement existed for pre-training equity audits.
+\end{enumerate}
+
+\paragraph{Root cause:} Absent pre-training equity audit process; training on outcomes that reflect historical discrimination.
+
+\paragraph{Group C: Elderly patient triage.}
+
+\begin{enumerate}
+    \item Why are elderly patients routed to lower-priority queues? AI triage model assigns them lower predicted urgency.
+    \item Why does the model predict lower urgency for elderly patients? Elderly patients with atypical presentations were underrepresented in training data from tertiary care centers that treated younger acute patients.
+    \item Why were they underrepresented? Training data came from a specific hospital network with younger patient demographics.
+    \item Why wasn't this evaluated before deployment? Performance was evaluated on aggregate accuracy, not stratified by age.
+    \item Why wasn't age-stratified evaluation required? No standard required demographic slice evaluation for medical AI before deployment.
+\end{enumerate}
+
+\paragraph{Root cause:} No demographic slice evaluation requirement in deployment protocol; training data distribution mismatch with deployment population.
+
+\subsection{Activity 2: Failure Mode Taxonomy --- Grading Notes}
+
+Strong answers will:
+\begin{itemize}
+    \item Correctly identify all present failure modes, not just the most obvious one
+    \item Argue for a primary failure mode based on evidence (which failure would, if fixed, most likely prevent recurrence?)
+    \item Propose a remediation that targets the root cause, not just the symptom
+    \item Note that remediating a secondary failure mode without fixing the primary will leave residual risk
+\end{itemize}
+
+Weak answers will:
+\begin{itemize}
+    \item Identify only one failure mode when multiple are present
+    \item Propose remediations that address symptoms (``retrain the model'') without diagnosing root causes (``why did the training data produce this model?'')
+    \item Conflate model failure (wrong predictions) with annotation failure (wrong training labels)
+\end{itemize}
+
+\subsection{Activity 3: Audit Trail Design --- Strong Solution Criteria}
+
+Strong audit trail designs will include:
+
+\paragraph{Per-decision fields.}
+\begin{itemize}
+    \item Content item ID or transaction ID
+    \item Model version at decision time
+    \item Model output (predicted class/score/confidence)
+    \item Routing decision (auto-processed or human-reviewed)
+    \item If human-reviewed: reviewer ID, reviewer decision, time taken, any reviewer notes
+    \item Final system decision
+    \item Timestamp
+\end{itemize}
+
+\paragraph{Context fields.}
+\begin{itemize}
+    \item Input features used by model (at the level of the features, not raw data, for privacy compliance)
+    \item Any relevant user/applicant demographic information (if legally permissible and relevant to fairness auditing)
+    \item Queue assignment (for identifying capacity issues)
+\end{itemize}
+
+\paragraph{System-level fields.}
+\begin{itemize}
+    \item Model training date and training data version
+    \item Threshold settings at decision time
+\end{itemize}
+
+\paragraph{Retention:} Minimum 5 years for any system making consequential decisions about individuals; longer for systems in regulated domains.
+
+\paragraph{Access:} Read access for compliance, legal, and senior data science teams; specific query access for regulatory audits; no general access; access logging.
+
+% ============================================================================
+\section{Quick Reference: Common Student Questions}
+% ============================================================================
+
+\paragraph{``How do you distinguish model failure from annotation failure in practice?''}
+Model failure: model predictions are wrong for identifiable input patterns, but the training labels were correct. Annotation failure: model predictions are consistent with training labels, but the training labels were wrong. Diagnostic approach: get a small set of expert-reviewed ground truth cases, compare to both model predictions and training labels. If model predictions match training labels and both differ from expert ground truth $\to$ annotation failure. If training labels match expert ground truth but model predictions don't $\to$ model failure.
+
+\paragraph{``Can you have all four failure modes at once?''}
+Yes, and this is common in mature, complex systems. The credit scoring case had three simultaneously. When multiple failure modes are present, the remediation order matters: fixing the model without fixing the annotation failure means retraining on corrupt labels. Fixing the reviewer failure without fixing the model failure means adding a human review layer to a model that is systematically wrong.
+
+\paragraph{``The Five Whys always leads to `organizational failure' at the end. Doesn't this mean nothing can be fixed?''}
+No --- it means the fix needs to address the organizational level (process, incentive, requirement) rather than the technical level alone. The political speech case was fixed by creating a monitoring requirement (canary dataset + monthly evaluation). The credit scoring case was fixed by adding equity audit requirements. These are organizational solutions that prevent the same technical failure from recurring.
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~15 solutions consistently demonstrate that failure analysis is a skill, not a lookup table. The four-failure-mode taxonomy provides a framework; applying it requires carefully distinguishing which mode is primary, what evidence supports the diagnosis, and what remediation addresses the root cause rather than the symptom. Students who master this diagnostic orientation will be better practitioners regardless of what specific domain they work in.}

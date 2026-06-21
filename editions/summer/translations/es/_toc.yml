@@ -1,0 +1,71 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Páginas Preliminares"
+    chapters:
+      - file: front/declaration
+        title: "Declaración de Originalidad"
+      - file: front/abstract
+        title: "Resumen"
+      - file: front/acknowledgments
+        title: "Agradecimientos"
+
+  - caption: "Parte I — Fundamentos"
+    chapters:
+      - file: chapters/01_introduction
+        title: "¿Qué es el Aprendizaje Automático con Humano en el Bucle?"
+      - file: chapters/02_taxonomy
+        title: "Una Taxonomía de la Interacción Humano–Máquina"
+
+  - caption: "Parte II — Técnicas Fundamentales"
+    chapters:
+      - file: chapters/03_annotation
+        title: "Anotación y Etiquetado de Datos"
+      - file: chapters/04_active_learning
+        title: "Aprendizaje Activo"
+      - file: chapters/05_interactive_ml
+        title: "Aprendizaje Automático Interactivo"
+
+  - caption: "Parte III — Aprendizaje a partir de Retroalimentación Humana"
+    chapters:
+      - file: chapters/06_rlhf
+        title: "Aprendizaje por Refuerzo a partir de Retroalimentación Humana"
+      - file: chapters/07_demonstrations
+        title: "Aprendizaje a partir de Demostraciones"
+      - file: chapters/08_preferences
+        title: "Aprendizaje a partir de Comparaciones y Rankings"
+
+  - caption: "Parte IV — Aplicaciones"
+    chapters:
+      - file: chapters/09_nlp
+        title: "HITL en Procesamiento de Lenguaje Natural"
+      - file: chapters/10_vision
+        title: "HITL en Visión por Computadora"
+      - file: chapters/11_healthcare
+        title: "HITL en Salud y Ciencia"
+
+  - caption: "Parte V — Sistemas y Práctica"
+    chapters:
+      - file: chapters/12_platforms
+        title: "Plataformas y Herramientas de Anotación"
+      - file: chapters/13_crowdsourcing
+        title: "Crowdsourcing y Control de Calidad"
+      - file: chapters/14_evaluation
+        title: "Evaluación y Métricas"
+
+  - caption: "Parte VI — Ética y Horizontes"
+    chapters:
+      - file: chapters/15_ethics
+        title: "Equidad, Sesgo y Ética"
+      - file: chapters/16_future
+        title: "Direcciones Futuras"
+
+  - caption: "Páginas Finales"
+    chapters:
+      - file: bibliography
+        title: "Bibliografía"
+      - file: chapters/17_limen
+        title: "Limen: Un Humano en el Bucle de Todo"
+      - file: front/on_leaving
+        title: "Sobre el Abandono"

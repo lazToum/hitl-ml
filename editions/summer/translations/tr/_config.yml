@@ -1,0 +1,84 @@
+# Book settings
+title: "Döngüde İnsan Makine Öğrenmesi: Yanlış Anlaşılan"
+author: "Lazaros Toumanidis"
+copyright: "2026"
+logo: _static/logo.svg
+
+execute:
+  execute_notebooks: auto
+  timeout: 300
+  exclude_patterns: ["*.ipynb_checkpoints"]
+
+latex:
+  latex_documents:
+    targetname: hitl_ml_handbook_tr.tex
+  latex_engine: xelatex
+  use_jupyterbook_latex: true
+
+html:
+  use_issues_button: false
+  use_repository_button: false
+  use_download_button: true
+  home_page_in_navbar: true
+  extra_navbar: ""
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
+    - tasklist
+  myst_url_schemes: [mailto, http, https]
+  myst_dmath_double_inline: true
+
+sphinx:
+  extra_extensions:
+    - sphinxcontrib.bibtex
+  config:
+    bibtex_bibfiles: [references.bib]
+    bibtex_reference_style: author_year
+    html_css_files: [custom.css]
+    html_theme_options:
+      use_download_button: true
+      show_navbar_depth: 2
+      navigation_depth: 4
+    language: tr
+    latex_elements:
+      papersize: a4paper
+      pointsize: 11pt
+      fontpkg: |
+        \usepackage{fontspec}
+        \usepackage{polyglossia}
+        \setmainlanguage{turkish}
+        \setotherlanguage{english}
+        \setmainfont{Palatino}[Ligatures=TeX]
+        \setsansfont{Helvetica Neue}[Scale=0.92]
+        \setmonofont{Menlo}[Scale=0.80]
+      geometry: |
+        \usepackage[a4paper, inner=32mm, outer=26mm, top=32mm, bottom=28mm, headsep=12mm]{geometry}
+      preamble: |
+        \usepackage{microtype}
+        \usepackage{setspace}
+        \setstretch{1.07}
+        \usepackage{emptypage}
+        \usepackage{titlesec}
+        \usepackage{fancyhdr}
+        \definecolor{hitlblue}{HTML}{2b3a8f}
+        \definecolor{hitlcoral}{HTML}{e05c5c}
+        \definecolor{hitlteal}{HTML}{0d9e8e}
+        \definecolor{hitlgray}{HTML}{4a4a5a}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[LE]{\small\color{hitlgray}\itshape\nouppercase{\leftmark}}
+        \fancyhead[RO]{\small\color{hitlgray}\itshape\nouppercase{\rightmark}}
+        \fancyfoot[LE,RO]{\small\color{hitlgray}\thepage}
+        \renewcommand{\headrulewidth}{0.4pt}
+        \setlength{\parskip}{5pt plus 1pt}
+        \setlength{\parindent}{18pt}

@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Human in the Loop: Misunderstood",
+    "subtitle": "Winter Edition — Complete Textbook"
+  },
+  "chapters": [
+    { "id": "ch01", "index": 0,  "title": "The Computers That Ask for Help",              "mdPath": "chapters/ch01.md", "estimatedReadMinutes": 20 },
+    { "id": "ch02", "index": 1,  "title": "When Smart Systems Get Confused",               "mdPath": "chapters/ch02.md", "estimatedReadMinutes": 14 },
+    { "id": "ch03", "index": 2,  "title": "How Computers Learn (The Simple Version)",      "mdPath": "chapters/ch03.md", "estimatedReadMinutes": 10 },
+    { "id": "ch04", "index": 3,  "title": "From Confusion to Decision",                    "mdPath": "chapters/ch04.md", "estimatedReadMinutes": 9  },
+    { "id": "ch05", "index": 4,  "title": "The Art of Asking for Help",                    "mdPath": "chapters/ch05.md", "estimatedReadMinutes": 14 },
+    { "id": "ch06", "index": 5,  "title": "Interfaces That Make Humans Smarter",           "mdPath": "chapters/ch06.md", "estimatedReadMinutes": 21 },
+    { "id": "ch07", "index": 6,  "title": "Getting Good Information from People",           "mdPath": "chapters/ch07.md", "estimatedReadMinutes": 18 },
+    { "id": "ch08", "index": 7,  "title": "The Blueprint for Smart Helper Systems",        "mdPath": "chapters/ch08.md", "estimatedReadMinutes": 9  },
+    { "id": "ch09", "index": 8,  "title": "Tools Anyone Can Use",                          "mdPath": "chapters/ch09.md", "estimatedReadMinutes": 8  },
+    { "id": "ch10", "index": 9,  "title": "Teaching Computers to Understand Language",     "mdPath": "chapters/ch10.md", "estimatedReadMinutes": 19 },
+    { "id": "ch11", "index": 10, "title": "Teaching Computers to See",                     "mdPath": "chapters/ch11.md", "estimatedReadMinutes": 16 },
+    { "id": "ch12", "index": 11, "title": "Measuring Success",                             "mdPath": "chapters/ch12.md", "estimatedReadMinutes": 12 },
+    { "id": "ch13", "index": 12, "title": "The Psychology of Human-AI Teams",              "mdPath": "chapters/ch13.md", "estimatedReadMinutes": 13 },
+    { "id": "ch14", "index": 13, "title": "Building Fair and Ethical Systems",             "mdPath": "chapters/ch14.md", "estimatedReadMinutes": 14 },
+    { "id": "ch15", "index": 14, "title": "When Things Go Wrong (And How to Fix Them)",   "mdPath": "chapters/ch15.md", "estimatedReadMinutes": 15 },
+    { "id": "ch16", "index": 15, "title": "Beyond Text and Images",                        "mdPath": "chapters/ch16.md", "estimatedReadMinutes": 18 },
+    { "id": "ch17", "index": 16, "title": "Almost-Autonomous: When AI Learns to Ask Better Questions", "mdPath": "chapters/ch17.md", "estimatedReadMinutes": 10 },
+    { "id": "ch18", "index": 17, "title": "Your Role in This Future",                     "mdPath": "chapters/ch18.md", "estimatedReadMinutes": 10 }
+  ]
+}

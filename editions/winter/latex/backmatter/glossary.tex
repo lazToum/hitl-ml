@@ -1,0 +1,135 @@
+% ============================================================================
+% GLOSSARY
+% Key terms and definitions for Human in the Loop
+% ============================================================================
+
+\begin{description}[style=nextline, leftmargin=2em]
+
+% A
+\item[Active Learning]
+A machine learning approach where the algorithm can interactively query a human (or other information source) to label new data points, focusing on examples where it is most uncertain.
+
+\item[Aleatoric Uncertainty]
+Uncertainty arising from inherent randomness or noise in the data. Cannot be reduced by collecting more training data. Also called \emph{data uncertainty} or \emph{statistical uncertainty}.
+\index{aleatoric uncertainty}
+
+\item[Alert Fatigue]
+A phenomenon where users become desensitized to frequent alerts or notifications, leading them to ignore or dismiss important warnings. A key failure mode when systems ask for help too often.
+\index{alert fatigue}
+
+% B
+\item[Bayesian Neural Network (BNN)]
+A neural network that represents uncertainty over its weights using probability distributions rather than point estimates, enabling principled uncertainty quantification.
+\index{Bayesian neural network}
+
+% C
+\item[Cohen's Kappa ($\kappa$)]
+A statistic measuring inter-rater agreement for categorical labels, corrected for chance agreement. Values of $\kappa < 0$ indicate less agreement than chance; $\kappa = 1$ is perfect agreement; $\kappa \geq 0.61$ is generally considered substantial agreement.
+\index{Cohen's kappa}
+
+\item[Calibration]
+The degree to which a model's predicted probabilities match actual observed frequencies. A well-calibrated model that predicts 70\% confidence should be correct approximately 70\% of the time.
+\index{calibration}
+
+\item[Confidence Threshold]
+A predetermined probability level above which a system acts autonomously and below which it requests human intervention.
+\index{confidence threshold}
+
+% D
+\item[Data Annotation]
+The process of labeling raw data (text, images, audio) with ground-truth labels for use in supervised machine learning. Annotation quality directly determines the quality of any model trained on the data.
+\index{data annotation}
+
+\item[Dawid-Skene Model]
+A statistical model that jointly estimates true latent labels and individual annotator error rates from multiple noisy annotations using an EM algorithm. Accounts for annotators who are systematically biased toward particular labels.
+\index{Dawid-Skene model}
+
+\item[Deep Ensemble]
+A collection of neural networks trained independently with different random initializations. Disagreement among ensemble members indicates epistemic uncertainty.
+\index{deep ensemble}
+
+% E
+\item[Epistemic Uncertainty]
+Uncertainty arising from lack of knowledge, which could theoretically be reduced with more training data or a better model. Also called \emph{model uncertainty}.
+\index{epistemic uncertainty}
+
+\item[Expected Calibration Error (ECE)]
+A metric for measuring how well-calibrated a model's probability predictions are, computed as the weighted average of the difference between accuracy and confidence across bins.
+\index{expected calibration error}
+
+% F
+\item[Framing Effect]
+A cognitive bias where the presentation of information (framing) influences judgment, independent of the underlying facts. In HITL systems, showing annotators a model's prediction before annotation can anchor their judgment and reduce inter-annotator independence.
+\index{framing effect}
+
+\item[Feedback Integration]
+The fifth dimension of the HITL framework: how a system incorporates human responses to improve future performance.
+\index{feedback integration}
+
+\item[Five-Dimension Framework]
+An analytical framework for evaluating HITL systems, comprising: (1) Uncertainty Detection, (2) Intervention Design, (3) Timing, (4) Stakes Calibration, and (5) Feedback Integration.
+\index{five-dimension framework}
+
+% G
+\item[Graceful Degradation]
+A design principle where systems fail in ways that minimize harm, such as asking for help rather than acting on uncertain predictions.
+\index{graceful degradation}
+
+% H
+\item[Hallucination (AI)]
+When an AI system generates plausible-sounding but factually incorrect information with apparent confidence. A key failure mode in large language models.
+\index{hallucination}
+
+\item[Human-in-the-Loop (HITL)]
+A design paradigm where humans are incorporated into an automated system's decision-making process, particularly for handling uncertain or high-stakes situations.
+\index{human-in-the-loop}
+
+% I
+\item[Inter-Annotator Agreement (IAA)]
+A measure of how consistently multiple human annotators label the same data. High IAA indicates the annotation task is well-defined; low IAA may signal ambiguous guidelines, genuinely contested cases, or annotator quality issues. Commonly measured with Cohen's $\kappa$ or Fleiss' $\kappa$.
+\index{inter-annotator agreement}
+
+\item[Intervention Design]
+The second dimension of the HITL framework: how a system presents its request for human input, including the clarity of the question and available response options.
+\index{intervention design}
+
+% L
+\item[Label Noise]
+Errors or inconsistencies in training labels, typically introduced by annotator mistakes, ambiguous guidelines, or inherently subjective tasks. Label noise can systematically degrade model performance, especially when it is correlated with input features.
+\index{label noise}
+
+% M
+\item[Monte Carlo Dropout]
+A technique for estimating uncertainty by running multiple forward passes with dropout enabled during inference and measuring the variance in predictions.
+\index{Monte Carlo dropout}
+
+% O
+\item[Overconfidence]
+A failure mode where systems act autonomously despite high uncertainty, often leading to errors that could have been prevented by human intervention.
+\index{overconfidence}
+
+% R
+\item[Reliability Diagram]
+A visualization tool for assessing model calibration by plotting predicted confidence against observed accuracy across confidence bins.
+\index{reliability diagram}
+
+% S
+\item[Stakes Calibration]
+The fourth dimension of the HITL framework: how well a system adjusts its behavior based on the potential consequences of being wrong.
+\index{stakes calibration}
+
+% T
+\item[Timing]
+The third dimension of the HITL framework: when a system chooses to request human input, including synchronous (immediate) vs. asynchronous (batched) interventions.
+\index{timing}
+
+% U
+\item[Uncertainty Detection]
+The first dimension of the HITL framework: a system's ability to recognize when it lacks confidence in its predictions or decisions.
+\index{uncertainty detection}
+
+\item[Uncertainty Quantification]
+The process of estimating and communicating how confident a model is in its predictions, enabling appropriate decisions about when to act autonomously vs. request human input.
+\index{uncertainty quantification}
+
+\end{description}

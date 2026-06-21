@@ -1,0 +1,456 @@
+% ============================================================================
+% CHAPTER 8 TEACHER'S MANUAL
+% Complete instructional guide for teaching HITL system architecture
+% ============================================================================
+% Source: /markdown/ch8/Ch8T_updated.md
+% Note: This file is for the Instructor's Edition, not the main book
+% ============================================================================
+
+\chapter{Teacher's Manual: Chapter 8}
+\label{ch:teacher-ch08}
+
+\begin{chapterquote}{Complete instructional guide}
+Teaching HITL system architecture using \emph{The Blueprint for Smart Helper Systems}.
+\end{chapterquote}
+
+% ============================================================================
+\section{Course Integration Guide}
+% ============================================================================
+
+\subsection{Learning Objectives}
+
+By the end of this chapter, students will be able to:
+
+\paragraph{Knowledge (Remembering \& Understanding).}
+\begin{itemize}
+    \item Identify the seven components of a complete HITL system architecture
+    \item Distinguish between HITL pipelines (no learning) and HITL loops (learning)
+    \item Describe four feedback integration approaches and their trade-offs
+    \item Name six common production failure modes and their architectural causes
+    \item Describe the HITL system lifecycle from prototype to monitoring-dominant operation
+\end{itemize}
+
+\paragraph{Application \& Analysis.}
+\begin{itemize}
+    \item Apply the seven-component framework to analyze a described system
+    \item Diagnose which component is absent or deficient in a described failure
+    \item Compare batch retraining, online learning, active learning, and RLHF for a given use case
+    \item Explain why removing any single component breaks something important
+    \item Analyze the Uber Tempe incident as an architectural failure
+\end{itemize}
+
+\paragraph{Synthesis \& Evaluation.}
+\begin{itemize}
+    \item Design a complete seven-component HITL architecture for a new domain
+    \item Propose monitoring metrics for each architectural component
+    \item Critique a described HITL system for architectural gaps
+    \item Evaluate the trade-offs between different feedback integration strategies
+\end{itemize}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item \textbf{Chapters 1--7}: Five-dimension framework, uncertainty quantification, interface design
+    \item \textbf{Chapter 4}: Threshold band design (the routing layer builds on this)
+    \item \textbf{Chapter 6}: Interface design (the interface layer references this in depth)
+    \item \textbf{Optional}: Basic software architecture concepts helpful for the component discussion
+\end{itemize}
+
+\subsection{Course Positioning}
+\begin{description}
+    \item[Systems Course (Week 8--10)] Core architectural synthesis chapter; teach after all component concepts are established
+    \item[Applied ML Course] Excellent bridge from theoretical concepts to production system design
+    \item[Advanced Course] Focus on failure mode taxonomy and monitoring strategy; use design exercise
+\end{description}
+
+% ============================================================================
+\section{Key Concepts for Instruction}
+% ============================================================================
+
+\subsection{The Pipeline vs.\ Loop Distinction}
+
+This is the chapter's foundational concept and must be established clearly before the component taxonomy.
+
+\begin{table}[htbp]
+\caption{HITL Pipeline vs.\ HITL Loop: The critical distinction}
+\label{tab:pipeline-vs-loop}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{Aspect} & \textbf{Pipeline} & \textbf{Loop} \\
+\midrule
+Human output goes\ldots & Downstream (to user/decision) & Back into model training \\
+Model improves? & Never & Over time \\
+Required extra components & None & Feedback integration, monitoring, audit \\
+Failure mode & Permanent errors & Drift, gaming, error propagation \\
+Example & Email triage (static model) & Spam filter that learns \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{technote}[Teaching Tip]
+Draw this on the board. Students consistently confuse ``a human reviews outputs'' with ``the system learns from humans.'' The diagram makes the distinction tangible. A pipeline has one arrow direction. A loop has arrows going both ways.
+\end{technote}
+
+\subsection{The Seven-Component Architecture}
+
+\begin{table}[htbp]
+\caption{The seven components of HITL architecture}
+\label{tab:seven-components}
+\centering
+\begin{tabular}{@{}p{0.5cm}p{3cm}p{4cm}p{4cm}@{}}
+\toprule
+\textbf{\#} & \textbf{Component} & \textbf{Role} & \textbf{What breaks without it} \\
+\midrule
+1 & Prediction & Model output + confidence & Nothing to route; no system \\
+2 & Uncertainty Quantification & Calibrated confidence scores & Routing sends wrong cases to humans \\
+3 & Routing & Three-zone decision logic & Humans overwhelmed or system fully automated \\
+4 & Interface & Human review UX & Human feedback is garbage in, garbage out \\
+5 & Feedback Integration & Loop closure & System never improves (pipeline not loop) \\
+6 & Monitoring & Ongoing behavior tracking & Drift is invisible; degradation uncaught \\
+7 & Audit & Decision logging & System cannot be debugged or held accountable \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The Four Feedback Integration Strategies}
+
+\begin{table}[htbp]
+\caption{Feedback integration strategies compared}
+\label{tab:feedback-strategies}
+\centering
+\begin{tabular}{@{}p{2.5cm}p{2cm}p{2cm}p{2cm}p{3cm}@{}}
+\toprule
+\textbf{Strategy} & \textbf{Latency} & \textbf{Complexity} & \textbf{Error Risk} & \textbf{Best For} \\
+\midrule
+Batch retraining & Slow (monthly) & Low & Low & Stable, well-defined tasks \\
+Online learning & Fast (real-time) & Medium & High & Rapidly evolving tasks \\
+Active learning & Varies & High & Medium & Scarce labels, evolving distribution \\
+RLHF & Training-time & Very high & Medium & LLMs, preference-based tasks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Lecture Planning Guide}
+% ============================================================================
+
+\subsection{50-Minute Lecture Structure}
+
+\subsubsection{Opening (8 minutes): The Uber Tempe Incident}
+
+\paragraph{How to present this case.}
+\begin{itemize}
+    \item Present clearly: the system detected the pedestrian; uncertainty was quantified; classification cycled through multiple wrong categories; the system eventually settled on a confident incorrect classification
+    \item The backup safety driver was present but was looking at a video stream; no uncertainty signal was communicated to her in actionable form
+    \item Key argument: calling something ``human-in-the-loop'' doesn't make it so. The loop requires a working \emph{connection} between uncertainty detection, human notification, and human capacity to act. Any broken link fails the whole loop
+\end{itemize}
+
+\begin{keyconcept}[Central Argument]
+The Uber Tempe incident is not a sensor failure or a human failure. It is an \emph{architecture} failure. Both the algorithm and the human were present. Neither was connected to the other in a way that enabled effective intervention.
+\end{keyconcept}
+
+\subsubsection{Part 1 (10 minutes): Pipeline vs.\ Loop}
+
+\paragraph{Board exercise.}
+Draw the pipeline, then draw the loop. Ask:
+\begin{itemize}
+    \item ``What happens to a pipeline that processes incorrect cases? It keeps being incorrect.''
+    \item ``What happens to a loop?'' (It gets better --- or worse, if the feedback is noisy)
+    \item ``What's required to close the loop?'' (Components 5, 6, 7)
+\end{itemize}
+
+\subsubsection{Part 2 (14 minutes): Seven Components}
+
+Walk through each component:
+\begin{enumerate}
+    \item \textbf{Prediction}: model output + confidence (covered deeply in earlier chapters)
+    \item \textbf{Uncertainty Quantification}: calibrated scores, temperature scaling
+    \item \textbf{Routing}: the three-zone system from Chapter 4, implemented here
+    \item \textbf{Interface}: Chapter 6's domain; role in the architecture is receiving and structuring human feedback
+    \item \textbf{Feedback Integration}: the loop-closing layer (will expand in next segment)
+    \item \textbf{Monitoring}: keeps the system honest over time
+    \item \textbf{Audit}: accountability, debugging, legal compliance
+\end{enumerate}
+
+\begin{trythis}
+For each component, ask: ``Which component of the Uber Tempe system was absent or deficient?'' Students should identify Component 3 (routing / escalation) as the primary failure, with Component 4 (interface) as a contributing failure.
+\end{trythis}
+
+\subsubsection{Part 3 (10 minutes): Feedback Integration Options}
+
+Use a concrete example for each strategy:
+\begin{itemize}
+    \item \textbf{Batch retraining}: spam filter updated monthly
+    \item \textbf{Online learning}: live product recommendation system
+    \item \textbf{Active learning}: medical annotation workflow with rare label categories
+    \item \textbf{RLHF}: language model fine-tuning using preference comparisons
+\end{itemize}
+
+\subsubsection{Part 4 (10 minutes): Production Failure Modes}
+
+Work through the failure taxonomy:
+\begin{description}
+    \item[Reviewer bottleneck] Queue grows faster than it is reviewed; high-stakes cases age; SLA violations
+    \item[Label quality degradation] Human reviewers tired or disengaged; noise enters training data
+    \item[Feedback lag] Model slow to incorporate corrections; human compensates for errors that model doesn't know it's making
+    \item[Distribution shift without detection] World changes; model doesn't; no monitoring catches it
+    \item[Ghost reviewer] Review role exists on paper; no one is actually doing it
+    \item[Specification gaming] Model optimizes the feedback metric, not the underlying task
+\end{description}
+
+\begin{trythis}
+For each failure mode: ``Which component of the seven would detect this? Which prevents it?'' Students should practice mapping failures to components.
+\end{trythis}
+
+\subsubsection{Close (8 minutes)}
+Summary and assign architecture design exercise.
+
+\subsection{75-Minute Extended Session}
+
+\subsubsection{Deep Dive: Monitoring (15 minutes)}
+\begin{itemize}
+    \item Prediction monitoring: track distribution of confidence scores over time
+    \item Human response monitoring: agreement rates, time-per-review, override rates
+    \item Calibration drift: are confidence scores still calibrated?
+    \item Distribution shift: MMD (Maximum Mean Discrepancy) and KL divergence approaches
+    \item When monitoring should trigger: threshold exceedance vs.\ trend analysis
+\end{itemize}
+
+\subsubsection{Design Workshop (20 minutes)}
+Students work in groups to design the seven-component architecture for one of:
+\begin{itemize}
+    \item A fraud detection system at a mid-sized bank
+    \item A content moderation system for a news comment section
+    \item A medical imaging triage system
+    \item An email routing system for a legal department
+\end{itemize}
+
+% ============================================================================
+\section{Discussion Questions by Level}
+% ============================================================================
+
+\subsection{Introductory Level}
+
+\begin{enumerate}
+    \item \textbf{Pipeline vs.\ Loop}: ``What is the key difference between a HITL pipeline and a HITL loop? Give one real-world example of each.''
+
+    \item \textbf{Architecture Failure}: ``Why does the Uber Tempe incident qualify as an architecture failure rather than a sensor failure or a driver failure? Which architectural component was missing or deficient?''
+
+    \item \textbf{Monitoring Role}: ``Describe two failure modes that Component 6 (Monitoring) would detect. Why can't the other components detect these failure modes instead?''
+\end{enumerate}
+
+\subsection{Intermediate Level}
+
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item \textbf{New Threat Scenario}: ``A content moderation system uses monthly batch retraining. A new type of harmful content emerges in week 1. Describe the system's behavior from week 1 to week 5. What architecture change would reduce this lag?''
+
+    \item \textbf{Feedback Strategy Comparison}: ``Compare active learning and batch retraining on: latency, label efficiency, implementation complexity, and error propagation risk. For what specific use case would you choose each?''
+
+    \item \textbf{Override Rate Analysis}: ``A HITL system's audit logs show human reviewers have been overriding automated decisions at 40\% over the past month. Describe three hypotheses for this. How would you diagnose which one is correct?''
+\end{enumerate}
+
+\subsection{Advanced Level}
+
+\begin{enumerate}
+    \setcounter{enumi}{6}
+    \item \textbf{Complete Architecture Design}: ``Design the complete seven-component architecture for a system detecting potentially problematic emails in a legal department inbox. Specify each component, the feedback integration strategy, monitoring metrics, and escalation protocols. Identify the three highest-risk failure modes.''
+
+    \item \textbf{Specification Gaming}: ``Specification gaming occurs when the model learns to optimize the feedback metric rather than the underlying task. Describe a concrete scenario, identify which architectural component is responsible for catching it, and propose a design intervention.''
+\end{enumerate}
+
+% ============================================================================
+\section{Hands-On Activities \& Exercises}
+% ============================================================================
+
+\subsection{Activity 1: Component Identification Hunt (15 minutes)}
+
+\textbf{Setup:} Students work individually or in pairs with descriptions of three real systems.
+
+\textbf{Task:} For each system, identify which of the seven components are present and which are absent.
+
+\paragraph{Systems to analyze.}
+\begin{itemize}
+    \item A bank's fraud alert system that notifies customers by SMS but never uses responses to update its model
+    \item An email spam filter that retrains weekly on items users manually mark as spam
+    \item A customer service chatbot that routes complex queries to human agents but doesn't record agent responses
+\end{itemize}
+
+\paragraph{Debrief questions.}
+\begin{itemize}
+    \item Which component is most commonly missing?
+    \item What failure mode does each missing component create?
+\end{itemize}
+
+\subsection{Activity 2: Feedback Strategy Selection (20 minutes)}
+
+\textbf{Setup:} Small groups receive a domain description.
+
+\textbf{Task:} Select the appropriate feedback integration strategy and justify the choice using the four comparison dimensions (latency, label efficiency, complexity, error propagation risk).
+
+\paragraph{Domain descriptions.}
+\begin{description}
+    \item[Medical imaging] Radiologists review uncertain scans; labels are expensive; distribution changes slowly; errors are high-stakes
+    \item[Social media moderation] 10,000 posts/hour; new abuse patterns emerge daily; moderators work in shifts; labels are fast but noisy
+    \item[Legal document review] Lawyers review flagged clauses; distribution is very stable; labels are authoritative; latency is acceptable
+    \item[Recommendation system] User preferences are the feedback; personalization improves with each interaction; billions of data points daily
+\end{description}
+
+\subsection{Activity 3: Architecture Design Challenge (30 minutes)}
+
+\textbf{Setup:} Groups of 3--4 students.
+
+\textbf{Task:} Design the full seven-component architecture for a fraud detection system at a mid-sized bank.
+
+\paragraph{Deliverables.}
+\begin{itemize}
+    \item Completed seven-component description (one paragraph per component)
+    \item One key metric per component
+    \item Top three predicted failure modes
+    \item Feedback integration strategy with justification
+\end{itemize}
+
+\begin{table}[htbp]
+\caption{Architecture design worksheet}
+\label{tab:architecture-worksheet}
+\centering
+\begin{tabular}{@{}p{3.5cm}p{3cm}p{3cm}p{2.5cm}@{}}
+\toprule
+\textbf{Component} & \textbf{Design Specification} & \textbf{Key Metric} & \textbf{Failure Risk} \\
+\midrule
+Prediction & & & \\[6pt]
+Uncertainty Quantification & & & \\[6pt]
+Routing & & & \\[6pt]
+Interface & & & \\[6pt]
+Feedback Integration & & & \\[6pt]
+Monitoring & & & \\[6pt]
+Audit & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Assessment Strategies}
+% ============================================================================
+
+\subsection{Formative Assessment}
+
+\paragraph{Exit Ticket.}
+``Name the seven components of a HITL architecture and identify which one is most commonly missing in systems you've encountered.''
+
+\paragraph{Quick Poll.}
+``Which component closes the loop?'' (Answer: Feedback Integration)
+
+\paragraph{Think-Pair-Share.}
+``The Uber Tempe system had a human in the seat. Why wasn't she effectively in the loop?''
+
+\subsection{Summative Assessment Options}
+
+\subsubsection{Option 1: Architecture Analysis (500--750 words)}
+
+\textbf{Prompt:} ``Examine the Uber Tempe incident post-mortem. Identify which of the seven architectural components was absent or deficient. Propose three specific architectural changes that could have prevented the incident, explaining which component each change addresses.''
+
+\paragraph{Rubric.}
+\begin{itemize}
+    \item \textbf{Component Identification (35\%)}: Correctly identifies the deficient components with evidence from the case
+    \item \textbf{Architectural Reasoning (30\%)}: Shows understanding of why the component failure caused the incident
+    \item \textbf{Improvement Proposals (35\%)}: Proposes feasible, specific changes tied to named components
+\end{itemize}
+
+\subsubsection{Option 2: Full Architecture Design}
+
+\textbf{Prompt:} ``Design the complete seven-component HITL architecture for a fraud detection system at a bank. For each component: (a) describe your design, (b) identify one key metric, and (c) identify the most likely production failure mode.''
+
+\paragraph{Grade Bands.}
+\begin{description}
+    \item[A] All seven components present and well-specified; metrics are measurable; failure modes are specific and plausible; feedback strategy is justified
+    \item[B] All seven components present; some underspecified; metrics mostly appropriate; failure modes identified
+    \item[C] Five or six components present; some significant gaps; limited failure mode analysis
+    \item[D] Fewer than five components; fundamental misunderstanding of pipeline vs.\ loop
+\end{description}
+
+% ============================================================================
+\section{Common Student Misconceptions \& How to Address Them}
+% ============================================================================
+
+\subsection{Misconception 1: ``Having a human review step means the system is a HITL loop''}
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item This is the pipeline mistake. The human review step must be connected to model improvement.
+    \item Exercise: ask students whether their bank's fraud alert system --- where they confirm or deny a flag --- actually improves the model. Most don't know. That's the point.
+    \item Framework connection: ``Feedback Integration is the component that distinguishes a loop from a pipeline.''
+\end{itemize}
+
+\subsection{Misconception 2: ``Active learning is just uncertain-case routing''}
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Active learning optimizes the \emph{learning value} of routed cases, not just their uncertainty
+    \item A system that routes only uncertain cases doesn't explore the training distribution efficiently; it may over-sample a specific failure region
+    \item Key distinction: routing by uncertainty vs.\ routing by information gain
+\end{itemize}
+
+\subsection{Misconception 3: ``Monitoring should catch errors in real time''}
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Some failure modes require real-time monitoring (reviewer bottleneck, high review rate)
+    \item Others require trend analysis over weeks or months (slow drift, specification gaming)
+    \item Different monitoring timescales are needed for different failure modes
+\end{itemize}
+
+\subsection{Misconception 4: ``Audit logs are just for compliance''}
+
+\paragraph{Correction strategy.}
+\begin{itemize}
+    \item Audit trails are the primary tool for debugging production failures
+    \item Without Component 7, you cannot determine what caused a bad decision
+    \item Show: the Q6 scenario (40\% override rate) requires audit logs to diagnose
+\end{itemize}
+
+% ============================================================================
+\section{Extension Activities \& Research Projects}
+% ============================================================================
+
+\subsection{Individual Research Topics}
+\begin{enumerate}
+    \item \textbf{Post-Mortem Analysis}: Research a publicized AI system failure (facial recognition, content moderation, medical AI). Apply the seven-component framework. Which component was deficient?
+    \item \textbf{Production Architecture}: Research how a major tech company (Google, Amazon, Meta) has described its HITL architecture for a specific product. What components are documented?
+    \item \textbf{RLHF Deep Dive}: Research the architecture of RLHF as used in ChatGPT or similar systems. Map it to the seven-component framework.
+\end{enumerate}
+
+\subsection{Group Projects}
+\begin{enumerate}
+    \item \textbf{Architecture Audit}: Select a deployed AI system, interview users or read public documentation, and assess which architectural components are present or absent.
+    \item \textbf{Failure Mode Catalog}: Create a database of documented HITL failures mapped to the six failure mode taxonomy.
+    \item \textbf{Monitoring Design}: Design a complete monitoring stack (Component 6) for a specific production system, including metrics, thresholds, alerting, and escalation procedures.
+\end{enumerate}
+
+% ============================================================================
+\section{Connections to Other Chapters}
+% ============================================================================
+
+\subsection{Backward Links}
+\begin{itemize}
+    \item \textbf{Chapter 1}: Five-dimension framework is the analytical lens for all seven components
+    \item \textbf{Chapter 4}: Threshold band design is implemented in Component 3 (Routing)
+    \item \textbf{Chapter 6}: Interface design is Component 4; this chapter situates it architecturally
+    \item \textbf{Chapter 7}: RLHF is Component 5 (one feedback integration strategy)
+\end{itemize}
+
+\subsection{Forward Links}
+\begin{itemize}
+    \item \textbf{Chapter 9}: Tools for implementing annotation (Component 4 UX) and feedback pipelines
+    \item \textbf{Chapter 12}: Measurement framework provides the metrics for Component 6 (Monitoring)
+    \item \textbf{Chapter 15}: Failure diagnosis chapter connects back to the failure mode taxonomy
+    \item \textbf{Chapter 17}: Active learning in depth (Component 5 strategy)
+\end{itemize}
+
+\bigskip
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+\bigskip
+
+\noindent\textit{Chapter~8 provides the architectural synthesis point for everything covered in Parts I--II. The seven-component framework is the scaffold students will carry into all subsequent application chapters. Invest time in the pipeline vs.\ loop distinction and the failure mode taxonomy --- these concepts recur throughout the book.}
